@@ -1,0 +1,78 @@
+﻿<UserControl x:Class="TestCaseManagerApp.Views.TestCaseDetailedView"
+            xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:mui="http://firstfloorsoftware.com/ModernU"
+             mc:Ignorable="d"  Loaded="UserControl_Loaded">
+    <Grid>
+        <ProgressBar Name="progressBar" Minimum="0" Maximum="1" Height="16" IsIndeterminate="True" Margin="0,0,0,16" Visibility="Visible" />
+        <Grid Name="mainGrid" Visibility="Hidden">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            
+            <StackPanel Orientation="Vertical">
+                <TextBlock Text="Preview" Margin="10,0,10,30" Height="25" Width="Auto" FontSize="18" FontWeight="Bold" HorizontalAlignment="Left" Grid.Row="0"/>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1.2*"/>
+                        <ColumnDefinition Width="10*"/>
+                        <ColumnDefinition Width="5*"/>
+                        <ColumnDefinition Width="5*"/>
+                        <ColumnDefinition Width="1.8*"/>
+                        <ColumnDefinition Width="2.2*"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="ID" Margin="10,0,10,0" Height="25" FontWeight="Bold" HorizontalAlignment="Left" Grid.Row="0" Grid.Column="0"/>
+                    <TextBox Text="{Binding TestCase.ITestCase.Id, Mode=OneWay}" Margin="10,0,10,0" Height="25" HorizontalAlignment="Stretch" Grid.Row="1" Grid.Column="0"/>
+                    <TextBlock Text="Title" Margin="10,0,10,0" Height="25" FontWeight="Bold" HorizontalAlignment="Left" Grid.Row="0" Grid.Column="1"/>
+                    <TextBox Text="{Binding TestCase.ITestCase.Title, Mode=OneWay}"  Margin="10,0,10,0" Height="25" HorizontalAlignment="Stretch" Grid.Row="1" Grid.Column="1"/>
+                    <TextBlock Text="Suite" Margin="10,0,10,0" Height="25" FontWeight="Bold" HorizontalAlignment="Left" Grid.Row="0" Grid.Column="2"/>
+                    <TextBox Text="{Binding TestCase.ITestSuiteBase.Title, Mode=OneWay}" Margin="10,0,10,0" Height="25" HorizontalAlignment="Stretch" Grid.Row="1" Grid.Column="2"/>
+                    <TextBlock Text="Area" Margin="10,0,10,0" Height="25" FontWeight="Bold" HorizontalAlignment="Left" Grid.Row="0" Grid.Column="3"/>
+                    <TextBox Text="{Binding TestCase.ITestCase.Area, Mode=OneWay}"  Margin="10,0,10,0" Height="25" HorizontalAlignment="Stretch" Grid.Row="1" Grid.Column="3"/>
+                    <TextBlock Text="Priority" Margin="10,0,10,0" Height="25" FontWeight="Bold" HorizontalAlignment="Left" Grid.Row="0" Grid.Column="4"/>
+                    <TextBox Text="{Binding TestCase.ITestCase.Priority, Mode=OneWay}"  Margin="10,0,10,0" Height="25" HorizontalAlignment="Stretch" Grid.Row="1" Grid.Column="4"/>
+                    <TextBlock Text="Automated" Margin="10,0,10,0" Height="25" FontWeight="Bold" HorizontalAlignment="Left" Grid.Row="0" Grid.Column="5"/>
+                    <TextBox Text="{Binding TestCase.ITestCase.IsAutomated, Mode=OneWay}" Margin="10,0,10,0" Height="25" HorizontalAlignment="Stretch" Grid.Row="1" Grid.Column="5"/>
+                </Grid>
+                <Grid Name="gAssociatedAutomationInfo" Margin="0,30,0,30">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="Automated Test Type" Margin="10,0,10,0" Height="25" FontWeight="Bold" HorizontalAlignment="Stretch" Grid.Row="0" Grid.Column="0"/>
+                    <TextBox Text="{Binding AssociatedAutomation.Type, Mode=OneWay}" Margin="10,0,10,0" Height="25" HorizontalAlignment="Left" Grid.Row="1" Grid.Column="0"/>
+                    <TextBlock Text="Automated test storage" Margin="10,0,10,0" Height="25" FontWeight="Bold" HorizontalAlignment="Stretch" Grid.Row="0" Grid.Column="1"/>
+                    <TextBox Text="{Binding AssociatedAutomation.Assembly, Mode=OneWay}" Margin="10,0,10,0" Height="25" HorizontalAlignment="Stretch" Grid.Row="1" Grid.Column="1"/>
+                    <TextBlock Text="Automated test name" Margin="10,0,10,0" Height="25" FontWeight="Bold" HorizontalAlignment="Left" Grid.Row="0" Grid.Column="2"/>
+                    <TextBox Text="{Binding AssociatedAutomation.TestName, Mode=OneWay}" Margin="10,0,10,0" Height="25" HorizontalAlignment="Stretch" Grid.Row="1" Grid.Column="2"/>
+                </Grid>
+            </StackPanel>
+
+            <DataGrid ItemsSource="{Binding Path=ObservableTestSteps}" AutoGenerateColumns="False" Name="dgTestSteps" Height="Auto" Grid.Row="1" Margin="0,0,0,30" IsReadOnly="True">
+
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Step Name" Binding="{Binding Title}" Width="200"/>
+                    <DataGridTextColumn Header="Steps" Binding="{Binding ITestStep.Title}" />
+                    <DataGridTextColumn Header="Expected Results" Binding="{Binding ITestStep.ExpectedResult}"/>
+                </DataGrid.Columns>
+            </DataGrid>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Grid.Row="2">
+                <Button Name="btnEdit" Margin="0,0,0,30" Height="30" Width="90" Content="Edit" VerticalAlignment="Center" Click="EditButton_Click"/>
+                <Button Name="btnDuplicate" Margin="40,0,10,30" Height="30" Width="90" Content="Duplicate" VerticalAlignment="Center" Click="DuplicateButton_Click"/>
+            </StackPanel>
+        </Grid>
+    </Grid>       
+</UserControl>
