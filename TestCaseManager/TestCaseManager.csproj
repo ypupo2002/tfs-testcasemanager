@@ -121,6 +121,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="BusinessLogic\Converters\TestStepPropertiesConverter.cs" />
     <Compile Include="BusinessLogic\Entities\AssociatedAutomation.cs" />
     <Compile Include="BusinessLogic\Entities\InitialViewFilters.cs" />
     <Compile Include="BusinessLogic\Entities\SharedStepIdReplacePair.cs" />

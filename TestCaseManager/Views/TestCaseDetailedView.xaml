@@ -4,8 +4,12 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:mui="http://firstfloorsoftware.com/ModernU"
+             xmlns:convert="clr-namespace:TestCaseManagerApp.BusinessLogic.Converters"
              mc:Ignorable="d"  Loaded="UserControl_Loaded">
     <Grid>
+        <Grid.Resources>
+            <convert:TestStepPropertiesConverter x:Key="TestStepPropertiesConverter" />
+        </Grid.Resources>
         <ProgressBar Name="progressBar" Minimum="0" Maximum="1" Height="16" IsIndeterminate="True" Margin="0,0,0,16" Visibility="Visible" />
         <Grid Name="mainGrid" Visibility="Hidden">
             <Grid.RowDefinitions>
@@ -65,8 +69,8 @@
 
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Step Name" Binding="{Binding Title}" Width="200"/>
-                    <DataGridTextColumn Header="Steps" Binding="{Binding ITestStep.Title}" />
-                    <DataGridTextColumn Header="Expected Results" Binding="{Binding ITestStep.ExpectedResult}"/>
+                    <DataGridTextColumn Header="Steps" Binding="{Binding ITestStep.Title, Converter={StaticResource TestStepPropertiesConverter}}" />
+                    <DataGridTextColumn Header="Expected Results" Binding="{Binding ITestStep.ExpectedResult, Converter={StaticResource TestStepPropertiesConverter}}"/>
                 </DataGrid.Columns>
             </DataGrid>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Grid.Row="2">

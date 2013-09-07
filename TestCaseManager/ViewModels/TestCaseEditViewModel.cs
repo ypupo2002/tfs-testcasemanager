@@ -78,6 +78,7 @@ namespace TestCaseManagerApp.ViewModels
             InitializeTestCaseWithExisting();
             InitializeInitialSharedStepCollection();
             this.AssociatedAutomation = TestCase.ITestCase.GetAssociatedAutomation();
+            UpdateObservableTestSteps(ObservableTestSteps.ToList());
         }
 
         private void InitializeInitialSharedStepCollection()
@@ -122,6 +123,7 @@ namespace TestCaseManagerApp.ViewModels
                     if (currentSelectedStep.ITestStep.Id.Equals(ObservableTestSteps[i].ITestStep.Id))
                     {
                         ObservableTestSteps[i] = currentSelectedStep;
+                        string title = ObservableTestSteps[i].ITestStep.Title.ToPlainText();
                     }
                 }  
             }

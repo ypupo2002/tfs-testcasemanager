@@ -5,9 +5,13 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:mui="http://firstfloorsoftware.com/ModernU"
              xmlns:helpers="clr-namespace:TestCaseManagerApp.Helpers"
-              xmlns:local="clr-namespace:TestCaseManagerApp.Views"
+             xmlns:local="clr-namespace:TestCaseManagerApp.Views"
+             xmlns:convert="clr-namespace:TestCaseManagerApp.BusinessLogic.Converters"
              mc:Ignorable="d"  Loaded="UserControl_Loaded">
     <Grid>
+        <Grid.Resources>
+            <convert:TestStepPropertiesConverter x:Key="TestStepPropertiesConverter" />
+        </Grid.Resources>
         <Grid.CommandBindings>
             <CommandBinding Command="{x:Static local:TestCaseEditView.SaveCommand}" Executed="btnSaveTestCase_Click"/>
             <CommandBinding Command="{x:Static local:TestCaseEditView.AssociateCommand}" Executed="btnAssociateToAutomation_Click"/>
@@ -122,17 +126,17 @@
                                     </Style>
                                 </DataGridTextColumn.CellStyle>
                             </DataGridTextColumn>
-                            <DataGridTextColumn Header="Steps" Binding="{Binding ITestStep.Title}" Width="2*">
+                            <DataGridTextColumn Header="Steps" Binding="{Binding ITestStep.Title, Converter={StaticResource TestStepPropertiesConverter}}" Width="2*">
                                 <DataGridTextColumn.CellStyle>
                                     <Style TargetType="DataGridCell">
-                                        <Setter Property="ToolTip" Value="{Binding ITestStep.Title}" />
+                                        <Setter Property="ToolTip" Value="{Binding ITestStep.Title, Converter={StaticResource TestStepPropertiesConverter}}" />
                                     </Style>
                                 </DataGridTextColumn.CellStyle>
                             </DataGridTextColumn>
-                            <DataGridTextColumn Header="Expected Results" Binding="{Binding ITestStep.ExpectedResult}" Width="2*">
+                            <DataGridTextColumn Header="Expected Results" Binding="{Binding ITestStep.ExpectedResult, Converter={StaticResource TestStepPropertiesConverter}}" Width="2*">
                                 <DataGridTextColumn.CellStyle>
                                     <Style TargetType="DataGridCell">
-                                        <Setter Property="ToolTip" Value="{Binding ITestStep.ExpectedResult}" />
+                                        <Setter Property="ToolTip" Value="{Binding ITestStep.ExpectedResult, Converter={StaticResource TestStepPropertiesConverter}}" />
                                     </Style>
                                 </DataGridTextColumn.CellStyle>
                             </DataGridTextColumn>
