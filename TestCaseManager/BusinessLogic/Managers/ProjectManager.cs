@@ -11,19 +11,28 @@ using TestCaseManagerApp.BusinessLogic.Entities;
 
 namespace TestCaseManagerApp.BusinessLogic.Managers
 {
+    /// <summary>
+    /// Contains helper methods for getting all methods information in specified assembly
+    /// </summary>
     public class ProjectManager
     {
+        /// <summary>
+        /// Gets the test project test methods.
+        /// </summary>
+        /// <param name="assemblyFullPath">The assembly full path.</param>
+        /// <returns>array of method info objects</returns>
         public static MethodInfo[] GetProjectTestMethods(string assemblyFullPath)
         {
-            Assembly assembly = Assembly.LoadFrom(assemblyFullPath);
-            MethodInfo[] methods = null;
-            
+            MethodInfo[] methods = null;  
             try
             {
+                Assembly assembly = Assembly.LoadFrom(assemblyFullPath);
                 methods = GetMethodsWithTestMethodAttribute(assembly, methods);
             }
             catch (ReflectionTypeLoadException ex)
             {
+                //TODO: Log the ReflectionTypeLoadException
+
                 StringBuilder sb = new StringBuilder();
                 foreach (Exception exSub in ex.LoaderExceptions)
                 {
@@ -46,6 +55,12 @@ namespace TestCaseManagerApp.BusinessLogic.Managers
             return methods;
         }
 
+        /// <summary>
+        /// Gets the methods with test method attribute.
+        /// </summary>
+        /// <param name="assembly">The assembly.</param>
+        /// <param name="methods">The methods info array</param>
+        /// <returns>filtered method infos array</returns>
         private static MethodInfo[] GetMethodsWithTestMethodAttribute(Assembly assembly, MethodInfo[] methods)
         {
             methods = assembly.GetTypes().SelectMany(t => t.GetMethods()
@@ -75,6 +90,11 @@ namespace TestCaseManagerApp.BusinessLogic.Managers
             return methods;
         }
 
+        /// <summary>
+        /// Gets the test objects from specific assemly.
+        /// </summary>
+        /// <param name="assemblyFullPath">The assembly full path.</param>
+        /// <returns>list of all test objects</returns>
         public static List<Test> GetTests(string assemblyFullPath)
         {
             MethodInfo[] currentDllMethods = GetProjectTestMethods(assemblyFullPath);
@@ -87,6 +107,11 @@ namespace TestCaseManagerApp.BusinessLogic.Managers
             return tests;
         }
 
+        /// <summary>
+        /// Generates the test method unique identifier.
+        /// </summary>
+        /// <param name="methodInfo">The method information.</param>
+        /// <returns>method unique identifier</returns>
         public static Guid GenerateTestMethodId(MethodInfo methodInfo)
         {
             string currentNameSpace = methodInfo.DeclaringType.FullName;
@@ -98,17 +123,29 @@ namespace TestCaseManagerApp.BusinessLogic.Managers
         }
     }
 
-    public class UnitTestIdGenerator
+    /// <summary>
+    /// Contains a logic for getting the special guid of specific test method
+    /// </summary>
+    internal class UnitTestIdGenerator
     {
         private static HashAlgorithm s_provider = new SHA1CryptoServiceProvider();
 
+        /// <summary>
+        /// Gets the HashAlgorithm provider.
+        /// </summary>
+        /// <value>
+        /// The HashAlgorithm provider.
+        /// </value>
         public static HashAlgorithm Provider
         {
             get { return s_provider; }
         }
 
-        /// Calculates a hash of the string and copies the first 128 bits of the hash
-        /// to a new Guid.
+        /// <summary>
+        ///  Calculates a hash of the string and copies the first 128 bits of the hash to a new Guid.
+        /// </summary>
+        /// <param name="data">The data.</param>
+        /// <returns>the test method guid</returns>        
         public static Guid GuidFromString(string data)
         {
             byte[] hash = Provider.ComputeHash(System.Text.Encoding.Unicode.GetBytes(data));

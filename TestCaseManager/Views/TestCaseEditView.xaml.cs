@@ -154,7 +154,7 @@ namespace TestCaseManagerApp.Views
             int selectedIndex = dgTestSteps.SelectedIndex;
             string stepTitle = TestCaseEditViewModel.GetStepTitle(rtbAction.GetText());
             string expectedResult = TestCaseEditViewModel.GetExpectedResult(rtbExpectedResult.GetText());
-            TestStep testStepToInsert = TestCaseEditViewModel.TestCase.CreateNewTestStep(stepTitle, expectedResult);
+            TestStep testStepToInsert = TestStepManager.CreateNewTestStep(TestCaseEditViewModel.TestCase, stepTitle, expectedResult);
             TestCaseEditViewModel.InsertTestStep(testStepToInsert, selectedIndex);
         }
 
@@ -170,14 +170,14 @@ namespace TestCaseManagerApp.Views
             {
                 List<TestStep> selectedTestSteps = new List<TestStep>();
                 GetTestStepsFromGrid(selectedTestSteps);
-                bool isThereSharedStepSelected = selectedTestSteps.IsThereSharedStepSelected();
+                bool isThereSharedStepSelected = TestStepManager.IsThereSharedStepSelected(selectedTestSteps);
                 if (isThereSharedStepSelected)
                 {
                     ModernDialog.ShowMessage("Shared steps cannon be shared again!", "Warning", MessageBoxButton.OK);
                     return;
                 }
 
-                ISharedStep iSharedStep = TestCaseEditViewModel.TestCase.CreateNewSharedTestStep(ExecutionContext.SharedStepTitle, selectedTestSteps);
+                ISharedStep iSharedStep = TestCaseEditViewModel.TestCase.CreateNewSharedStep(ExecutionContext.SharedStepTitle, selectedTestSteps);
                 TestCaseEditViewModel.ObservableSharedSteps.Add(new SharedStep(iSharedStep));
                 TestCaseEditViewModel.UpdateObservableTestSteps(selectedTestSteps);
             }
@@ -319,8 +319,8 @@ namespace TestCaseManagerApp.Views
         private void EditCurrentStep()
         {
             EnableSaveStepButton();
-            rtbAction.ClearDefaultSearchBoxContent(ref TestCaseEditViewModel.ActionFlag);
-            rtbExpectedResult.ClearDefaultSearchBoxContent(ref TestCaseEditViewModel.ExpectedResultFlag);
+            rtbAction.ClearDefaultContent(ref TestCaseEditViewModel.ActionFlag);
+            rtbExpectedResult.ClearDefaultContent(ref TestCaseEditViewModel.ExpectedResultFlag);
             TestStep currentTestStep = GetSelectedTestStep();
             CurrentEditedStepGuid = currentTestStep.StepGuid;
             rtbAction.SetText(currentTestStep.ITestStep.Title);
@@ -360,8 +360,8 @@ namespace TestCaseManagerApp.Views
             DisableSaveButton();
             TestCaseEditViewModel.ActionFlag = false;
             TestCaseEditViewModel.ExpectedResultFlag = false;
-            rtbAction.ClearDefaultSearchBoxContent(ref TestCaseEditViewModel.ActionFlag);
-            rtbExpectedResult.ClearDefaultSearchBoxContent(ref TestCaseEditViewModel.ExpectedResultFlag);
+            rtbAction.ClearDefaultContent(ref TestCaseEditViewModel.ActionFlag);
+            rtbExpectedResult.ClearDefaultContent(ref TestCaseEditViewModel.ExpectedResultFlag);
             CurrentEditedStepGuid = String.Empty;
         }  
 
@@ -398,7 +398,7 @@ namespace TestCaseManagerApp.Views
             TestCase savedTestCase;
             if ((CreateNew || Duplicate) && !TestCaseEditViewModel.IsAlreadyCreated)
             {
-                savedTestCase = TestCaseEditViewModel.TestCase.SaveTestCase(true, priority, suiteTitle, TestCaseEditViewModel.ObservableTestSteps.ToList());
+                savedTestCase = TestCaseEditViewModel.TestCase.Save(true, priority, suiteTitle, TestCaseEditViewModel.ObservableTestSteps.ToList());
                 TestCaseEditViewModel.TestCase = savedTestCase;
                 TestCaseEditViewModel.IsAlreadyCreated = true;
                 CreateNew = false;
@@ -409,7 +409,7 @@ namespace TestCaseManagerApp.Views
             }
             else
             {
-                savedTestCase = TestCaseEditViewModel.TestCase.SaveTestCase(false, priority, suiteTitle, TestCaseEditViewModel.ObservableTestSteps.ToList());
+                savedTestCase = TestCaseEditViewModel.TestCase.Save(false, priority, suiteTitle, TestCaseEditViewModel.ObservableTestSteps.ToList());
             }
             TestCaseId = savedTestCase.ITestCase.Id;
 
@@ -456,27 +456,27 @@ namespace TestCaseManagerApp.Views
 
         private void cbSuite_MouseMove(object sender, System.Windows.Input.MouseEventArgs e)
         {
-            ComboBox_DropdownBehavior.cbo_MouseMove(sender, e);
+            ComboBoxDropdownExtensions.cbo_MouseMove(sender, e);
         }
 
         private void cbArea_MouseMove(object sender, System.Windows.Input.MouseEventArgs e)
         {
-            ComboBox_DropdownBehavior.cbo_MouseMove(sender, e);
+            ComboBoxDropdownExtensions.cbo_MouseMove(sender, e);
         }
 
         private void cbPriority_MouseMove(object sender, System.Windows.Input.MouseEventArgs e)
         {
-            ComboBox_DropdownBehavior.cbo_MouseMove(sender, e);
+            ComboBoxDropdownExtensions.cbo_MouseMove(sender, e);
         }
 
         private void tbSharedStepFilter_GotFocus(object sender, RoutedEventArgs e)
         {
-            tbSharedStepFilter.ClearDefaultSearchBoxContent(ref TestCaseEditViewModel.SharedStepSearchFlag);
+            tbSharedStepFilter.ClearDefaultContent(ref TestCaseEditViewModel.SharedStepSearchFlag);
         }
 
         private void tbSharedStepFilter_LostFocus(object sender, RoutedEventArgs e)
         {
-            tbSharedStepFilter.RestoreDefaultSearchBoxText(TestCaseEditViewModel.SharedStepSearchDefaultText, ref TestCaseEditViewModel.SharedStepSearchFlag);
+            tbSharedStepFilter.RestoreDefaultText(TestCaseEditViewModel.SharedStepSearchDefaultText, ref TestCaseEditViewModel.SharedStepSearchFlag);
         }
 
         private void tbSharedStepFilter_KeyUp(object sender, System.Windows.Input.KeyEventArgs e)
@@ -491,22 +491,22 @@ namespace TestCaseManagerApp.Views
 
         private void rtbStep_GotFocus(object sender, RoutedEventArgs e)
         {
-            rtbAction.ClearDefaultSearchBoxContent(ref TestCaseEditViewModel.ActionFlag);
+            rtbAction.ClearDefaultContent(ref TestCaseEditViewModel.ActionFlag);
         }
 
         private void rtbStep_LostFocus(object sender, RoutedEventArgs e)
         {
-            rtbAction.RestoreDefaultSearchBoxText(TestCaseEditViewModel.ActionDefaultText, ref TestCaseEditViewModel.ActionFlag);
+            rtbAction.RestoreDefaultText(TestCaseEditViewModel.ActionDefaultText, ref TestCaseEditViewModel.ActionFlag);
         }
 
         private void rtbExpectedResult_GotFocus(object sender, RoutedEventArgs e)
         {
-            rtbExpectedResult.ClearDefaultSearchBoxContent(ref TestCaseEditViewModel.ExpectedResultFlag);
+            rtbExpectedResult.ClearDefaultContent(ref TestCaseEditViewModel.ExpectedResultFlag);
         }
 
         private void rtbExpectedResult_LostFocus(object sender, RoutedEventArgs e)
         {
-            rtbExpectedResult.RestoreDefaultSearchBoxText(TestCaseEditViewModel.ExpectedResultDefaultText, ref TestCaseEditViewModel.ExpectedResultFlag); 
+            rtbExpectedResult.RestoreDefaultText(TestCaseEditViewModel.ExpectedResultDefaultText, ref TestCaseEditViewModel.ExpectedResultFlag); 
         }
 
         private void dgSharedSteps_MouseDoubleClick(object sender, MouseButtonEventArgs e)

@@ -21,7 +21,7 @@ namespace TestCaseManagerApp.ViewModels
         {
             ExecutionContext.Preferences.TestPlan.Refresh();
             ExecutionContext.Preferences.TestPlan.RootSuite.Refresh();
-            List<TestCase> testCasesList = ExecutionContext.Preferences.TestPlan.RootSuite.SubSuites.GetSuiteEntries();
+            List<TestCase> testCasesList = TestCaseManager.GetAllTestCasesInTestPlan();
             ObservableTestCases = new ObservableCollection<TestCase>();            
             testCasesList.ForEach(t => ObservableTestCases.Add(t));
             InitialViewFilters = new InitialViewFilters();
@@ -29,21 +29,13 @@ namespace TestCaseManagerApp.ViewModels
             TestCasesCount = ObservableTestCases.Count.ToString();
         }
 
-        public TestCasesInitialViewModel(TestCasesInitialViewModel viewModel)
+        public TestCasesInitialViewModel(TestCasesInitialViewModel viewModel) : this()
         {
-            ExecutionContext.Preferences.TestPlan.Refresh();
-            ExecutionContext.Preferences.TestPlan.RootSuite.Refresh();
-            List<TestCase> testCasesList = ExecutionContext.Preferences.TestPlan.RootSuite.SubSuites.GetSuiteEntries();
-            //ObservableTestCases = viewModel.ObservableTestCases;
-            ObservableTestCases = new ObservableCollection<TestCase>();    
-            testCasesList.ForEach(t => ObservableTestCases.Add(t));
             InitialViewFilters = viewModel.InitialViewFilters;
-            InitializeInitialTestCaseCollection();
             IdFlag = viewModel.IdFlag;
             TitleFlag = viewModel.TitleFlag;
             SuiteFlag = viewModel.SuiteFlag;
             HideAutomated = viewModel.HideAutomated;
-            TestCasesCount = ObservableTestCases.Count.ToString();   
         }
 
         public ObservableCollection<TestCase> ObservableTestCases { get; set; }
@@ -90,15 +82,14 @@ namespace TestCaseManagerApp.ViewModels
             filteredList.ForEach(x => ObservableTestCases.Add(x));
 
             TestCasesCount = filteredList.Count.ToString();
-        }      
-
+        }  
 
         public void RefreshTestCases()
         {
             ObservableTestCases.Clear();
             ExecutionContext.Preferences.TestPlan.Refresh();
             ExecutionContext.Preferences.TestPlan.RootSuite.Refresh();
-            List<TestCase> testCasesList = ExecutionContext.Preferences.TestPlan.RootSuite.SubSuites.GetSuiteEntries();
+            List<TestCase> testCasesList = TestCaseManager.GetAllTestCasesInTestPlan();
             testCasesList.ForEach(t => ObservableTestCases.Add(t));
         }
 

@@ -144,32 +144,32 @@ namespace TestCaseManagerApp.Views
 
         private void tbIdFilter_GotFocus(object sender, RoutedEventArgs e)
         {
-            tbIdFilter.ClearDefaultSearchBoxContent(ref TestCasesInitialViewModel.IdFlag);
+            tbIdFilter.ClearDefaultContent(ref TestCasesInitialViewModel.IdFlag);
         }
 
         private void tbTitleFilter_GotFocus(object sender, RoutedEventArgs e)
         {
-            tbTitleFilter.ClearDefaultSearchBoxContent(ref TestCasesInitialViewModel.TitleFlag);
+            tbTitleFilter.ClearDefaultContent(ref TestCasesInitialViewModel.TitleFlag);
         }
 
         private void tbTextSuiteFilter_GotFocus(object sender, RoutedEventArgs e)
         {
-            tbSuiteFilter.ClearDefaultSearchBoxContent(ref TestCasesInitialViewModel.SuiteFlag);
+            tbSuiteFilter.ClearDefaultContent(ref TestCasesInitialViewModel.SuiteFlag);
         }
 
         private void tbIdFilter_LostFocus(object sender, RoutedEventArgs e)
         {
-            tbIdFilter.RestoreDefaultSearchBoxText("ID", ref TestCasesInitialViewModel.IdFlag);
+            tbIdFilter.RestoreDefaultText("ID", ref TestCasesInitialViewModel.IdFlag);
         }
 
         private void tbTitleFilter_LostFocus(object sender, RoutedEventArgs e)
         {
-            tbTitleFilter.RestoreDefaultSearchBoxText("Title", ref TestCasesInitialViewModel.TitleFlag);
+            tbTitleFilter.RestoreDefaultText("Title", ref TestCasesInitialViewModel.TitleFlag);
         }
 
         private void tbSuiteFilter_LostFocus(object sender, RoutedEventArgs e)
         {
-            tbSuiteFilter.RestoreDefaultSearchBoxText("Suite", ref TestCasesInitialViewModel.SuiteFlag);
+            tbSuiteFilter.RestoreDefaultText("Suite", ref TestCasesInitialViewModel.SuiteFlag);
         }
 
         private void tbIdFilter_KeyUp(object sender, System.Windows.Input.KeyEventArgs e)

@@ -6,24 +6,25 @@ using FirstFloor.ModernUI.Presentation;
 
 namespace TestCaseManagerApp.ViewModels
 {
-    public class SettingsViewModel
-              : NotifyPropertyChanged
+    public class SettingsViewModel: NotifyPropertyChanged
     {
-        // 9 accent colors from metro design principles
-        //private Color[] accentColors = new Color[]{
-        //    Color.FromRgb(0x33, 0x99, 0xff),   // blue
-        //    Color.FromRgb(0x00, 0xab, 0xa9),   // teal
-        //    Color.FromRgb(0x33, 0x99, 0x33),   // green
-        //    Color.FromRgb(0x8c, 0xbf, 0x26),   // lime
-        //    Color.FromRgb(0xf0, 0x96, 0x09),   // orange
-        //    Color.FromRgb(0xff, 0x45, 0x00),   // orange red
-        //    Color.FromRgb(0xe5, 0x14, 0x00),   // red
-        //    Color.FromRgb(0xff, 0x00, 0x97),   // magenta
-        //    Color.FromRgb(0xa2, 0x00, 0xff),   // purple            
-        //};
+        private Color selectedAccentColor;
+        private LinkCollection themes = new LinkCollection();
+        private Link selectedTheme;
 
-        // 20 accent colors from Windows Phone 8
         private Color[] accentColors = new Color[]{
+            // 9 accent colors from metro design principles
+            Color.FromRgb(0x33, 0x99, 0xff),   // blue
+            Color.FromRgb(0x00, 0xab, 0xa9),   // teal
+            Color.FromRgb(0x33, 0x99, 0x33),   // green
+            Color.FromRgb(0x8c, 0xbf, 0x26),   // lime
+            Color.FromRgb(0xf0, 0x96, 0x09),   // orange
+            Color.FromRgb(0xff, 0x45, 0x00),   // orange red
+            Color.FromRgb(0xe5, 0x14, 0x00),   // red
+            Color.FromRgb(0xff, 0x00, 0x97),   // magenta
+            Color.FromRgb(0xa2, 0x00, 0xff),   // purple      
+
+            // 20 accent colors from Windows Phone 8
             Color.FromRgb(0xa4, 0xc4, 0x00),   // lime
             Color.FromRgb(0x60, 0xa9, 0x17),   // green
             Color.FromRgb(0x00, 0x8a, 0x00),   // emerald
@@ -46,10 +47,6 @@ namespace TestCaseManagerApp.ViewModels
             Color.FromRgb(0x87, 0x79, 0x4e),   // taupe
         };
 
-        private Color selectedAccentColor;
-        private LinkCollection themes = new LinkCollection();
-        private Link selectedTheme;
-
         public SettingsViewModel()
         {
             // add the default themes
@@ -64,46 +61,6 @@ namespace TestCaseManagerApp.ViewModels
 
             AppearanceManager.Current.PropertyChanged += OnAppearanceManagerPropertyChanged;
             SetPrevious();
-        }
-
-        private void SetPrevious()
-        {
-            string previouslySelectedTheme = RegistryManager.GetTheme();
-            string[] colors = RegistryManager.GetColors();
-            if (colors != null && colors.Length == 3 && previouslySelectedTheme != string.Empty)
-            {
-                Color currentColor = default(Color);
-                currentColor = Color.FromRgb(byte.Parse(colors[0]), byte.Parse(colors[1]), byte.Parse(colors[2]));
-                SyncThemeAndColor(previouslySelectedTheme, currentColor);
-            }
-            else
-                SyncThemeAndColor();      
-        }
-
-        private void SyncThemeAndColor()
-        {
-            // synchronizes the selected viewmodel theme with the actual theme used by the appearance manager.
-            this.SelectedTheme = this.themes.FirstOrDefault(l => l.Source.Equals(AppearanceManager.Current.ThemeSource));
-
-            // and make sure accent color is up-to-date
-            this.SelectedAccentColor = AppearanceManager.Current.AccentColor;
-        }
-
-        private void SyncThemeAndColor(string themeName, Color currentColor)
-        {
-            // synchronizes the selected viewmodel theme with the actual theme used by the appearance manager.
-            this.SelectedTheme = this.themes.FirstOrDefault(l => l.DisplayName.Equals(themeName));
-
-            // and make sure accent color is up-to-date
-            this.SelectedAccentColor = currentColor;
-        }
-
-        private void OnAppearanceManagerPropertyChanged(object sender, PropertyChangedEventArgs e)
-        {
-            if (e.PropertyName == "ThemeSource" || e.PropertyName == "AccentColor")
-            {
-                SyncThemeAndColor();
-            }
         }
 
         public LinkCollection Themes
@@ -147,6 +104,46 @@ namespace TestCaseManagerApp.ViewModels
                 }
             }
         }
+
+        private void SetPrevious()
+        {
+            string previouslySelectedTheme = RegistryManager.GetTheme();
+            string[] colors = RegistryManager.GetColors();
+            if (colors != null && colors.Length == 3 && previouslySelectedTheme != string.Empty)
+            {
+                Color currentColor = default(Color);
+                currentColor = Color.FromRgb(byte.Parse(colors[0]), byte.Parse(colors[1]), byte.Parse(colors[2]));
+                SyncThemeAndColor(previouslySelectedTheme, currentColor);
+            }
+            else
+                SyncThemeAndColor();      
+        }
+
+        private void SyncThemeAndColor()
+        {
+            // synchronizes the selected viewmodel theme with the actual theme used by the appearance manager.
+            this.SelectedTheme = this.themes.FirstOrDefault(l => l.Source.Equals(AppearanceManager.Current.ThemeSource));
+
+            // and make sure accent color is up-to-date
+            this.SelectedAccentColor = AppearanceManager.Current.AccentColor;
+        }
+
+        private void SyncThemeAndColor(string themeName, Color currentColor)
+        {
+            // synchronizes the selected viewmodel theme with the actual theme used by the appearance manager.
+            this.SelectedTheme = this.themes.FirstOrDefault(l => l.DisplayName.Equals(themeName));
+
+            // and make sure accent color is up-to-date
+            this.SelectedAccentColor = currentColor;
+        }
+
+        private void OnAppearanceManagerPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == "ThemeSource" || e.PropertyName == "AccentColor")
+            {
+                SyncThemeAndColor();
+            }
+        }      
     }
 }
 

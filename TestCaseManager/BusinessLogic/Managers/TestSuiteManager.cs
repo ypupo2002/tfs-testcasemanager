@@ -4,40 +4,57 @@ using Microsoft.TeamFoundation.TestManagement.Client;
 
 namespace TestCaseManagerApp
 {
+    /// <summary>
+    /// Contains helper methods for working with TestSuite entities
+    /// </summary>
     public static class TestSuiteManager
-    {
-        public static List<ITestSuiteBase> GetSuites(this ITestSuiteCollection suites)
+    {   
+        /// <summary>
+        /// Gets all test suites from the current test plan.
+        /// </summary>
+        /// <returns>list of all test suites</returns>
+        public static List<ITestSuiteBase> GetAllTestSuitesInTestPlan()
         {
-            List<ITestSuiteBase> testSuites = new List<ITestSuiteBase>();
-            foreach (ITestSuiteBase currentSuite in suites)
-            {
-                if (currentSuite != null)
-                {
-                    currentSuite.Refresh();
-                    if (!testSuites.Contains(currentSuite))
-                    {
-                        testSuites.Add(currentSuite);
-                    }
-                    if (currentSuite is IStaticTestSuite)
-                    {
-                        IStaticTestSuite suite1 = currentSuite as IStaticTestSuite;
-                        if (suite1 != null && (suite1.SubSuites.Count > 0))
-                        {
-                            testSuites.AddRange(suite1.SubSuites.GetSuites());
-                        }
-                    }
-                }
-            }
+            List<ITestSuiteBase> testSuites = GetAllTestSuites(ExecutionContext.Preferences.TestPlan.RootSuite.SubSuites);
             return testSuites;
         }
 
-        public static ITestSuiteBase GetSuiteByName(string title)
+        /// <summary>
+        /// Gets the test suite core object by name.
+        /// </summary>
+        /// <param name="suiteName">The suite name.</param>
+        /// <returns>test suite core object</returns>
+        public static ITestSuiteBase GetTestSuiteByName(string suiteName)
         {
-            var firstMatchingSuite = ExecutionContext.TeamProject.TestSuites.Query("SELECT * FROM TestSuite where Title = '" + title + "'").First();
+            var firstMatchingSuite = ExecutionContext.TestManagementTeamProject.TestSuites.Query(string.Concat("SELECT * FROM TestSuite where Title = '", suiteName, "'")).First();
 
             return firstMatchingSuite;
         }
 
+        /// <summary>
+        /// Gets the test suite core object by id.
+        /// </summary>
+        /// <param name="suiteId">The suite unique identifier.</param>
+        /// <returns>test suite core object</returns>
+        public static ITestSuiteBase GetTestSuiteById(int suiteId)
+        {
+            ITestSuiteBase iTestSuiteBase = null;
+            if (suiteId != 0)
+            {
+                iTestSuiteBase = ExecutionContext.TestManagementTeamProject.TestSuites.Find(suiteId);
+            }
+            else
+            {
+                iTestSuiteBase = TestSuiteManager.GetAllTestSuitesInTestPlan().FirstOrDefault();
+            }
+            return iTestSuiteBase;
+        }
+
+        /// <summary>
+        /// Adds a test case to the suite.
+        /// </summary>
+        /// <param name="currentSuite">The current suite.</param>
+        /// <param name="testCaseToAdd">The test case to be added.</param>
         public static void AddTestCase(this ITestSuiteBase currentSuite, ITestCase testCaseToAdd)
         {
             if (currentSuite is IRequirementTestSuite)
@@ -58,45 +75,73 @@ namespace TestCaseManagerApp
             }  
         }
 
-        public static ITestSuiteBase GetSuiteById(int suiteId)
-        {
-            ITestSuiteBase iTestSuiteBase = null;
-            if (suiteId != 0)
-            {
-                iTestSuiteBase = ExecutionContext.TeamProject.TestSuites.Find(suiteId);
-            }
-            else
-            {
-                iTestSuiteBase = ExecutionContext.Preferences.TestPlan.RootSuite.SubSuites.GetSuites().FirstOrDefault();
-            }
-            return iTestSuiteBase;
-        }
-
+        /// <summary>
+        /// Removes the specified test case from the test suite.
+        /// </summary>
+        /// <param name="testCaseToRemove">The test case to be removed.</param>
         public static void RemoveTestCase(ITestCase testCaseToRemove)
         {
             RemoveTestCaseInternal(testCaseToRemove, ExecutionContext.Preferences.TestPlan.RootSuite.SubSuites);
         }
 
-        public static void RemoveTestCaseInternal(ITestCase testCaseToRemove, ITestSuiteCollection suites)
+        /// <summary>
+        /// Removes the test case internal.
+        /// </summary>
+        /// <param name="testCaseToRemove">The test case to be removed.</param>
+        /// <param name="suitesToSearch">The suites which will be searched.</param>
+        private static void RemoveTestCaseInternal(ITestCase testCaseToRemove, ITestSuiteCollection suitesToSearch)
         {
-            foreach (ITestSuiteBase currentSuite in suites)
+            foreach (ITestSuiteBase currentSuite in suitesToSearch)
             {
                 if (currentSuite != null)
                 {
                     foreach (var currentTestCase in currentSuite.TestCases)
                     {
                         if (currentTestCase.Id.Equals(testCaseToRemove.Id))
+                        {
                             ((IStaticTestSuite)currentSuite).Entries.Remove(testCaseToRemove);
+                        }
                     }
                     if (currentSuite.TestSuiteType == TestSuiteType.StaticTestSuite)
                     {
                         IStaticTestSuite suite1 = currentSuite as IStaticTestSuite;
                         if (suite1 != null && (suite1.SubSuites.Count > 0))
+                        {
                             RemoveTestCaseInternal(testCaseToRemove, suite1.SubSuites);
+                        }
+                    }
+                }
+            }         
+        }
+
+        /// <summary>
+        /// Returns all suites in current suite collection
+        /// </summary>
+        /// <param name="suites">The suites.</param>
+        /// <returns>list of all suites</returns>
+        private static List<ITestSuiteBase> GetAllTestSuites(ITestSuiteCollection suites)
+        {
+            List<ITestSuiteBase> testSuites = new List<ITestSuiteBase>();
+            foreach (ITestSuiteBase currentSuite in suites)
+            {
+                if (currentSuite != null)
+                {
+                    currentSuite.Refresh();
+                    if (!testSuites.Contains(currentSuite))
+                    {
+                        testSuites.Add(currentSuite);
+                    }
+                    if (currentSuite is IStaticTestSuite)
+                    {
+                        IStaticTestSuite suite1 = currentSuite as IStaticTestSuite;
+                        if (suite1 != null && (suite1.SubSuites.Count > 0))
+                        {
+                            testSuites.AddRange(GetAllTestSuites(suite1.SubSuites));
+                        }
                     }
                 }
             }
-         
+            return testSuites;
         }
     }
 }

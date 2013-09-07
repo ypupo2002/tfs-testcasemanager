@@ -6,16 +6,29 @@ using System.Threading.Tasks;
 
 namespace TestCaseManagerApp
 {
+    /// <summary>
+    /// Contains helper methods for working with WPF URL Parameters
+    /// </summary>
     public class FragmentManager
-    {
-        public Dictionary<string, string> Fragments { get; set; }
-
+    {    
         public FragmentManager(string fragment)
         {
             Fragments = new Dictionary<string, string>();
             InitializeFragmentsDictionary(fragment);
         }
 
+        /// <summary>
+        /// Gets or sets the fragments dictionary containing name/object pairs.
+        /// </summary>
+        /// <value>
+        /// The fragments dictionary.
+        /// </value>
+        public Dictionary<string, string> Fragments { get; set; }
+
+        /// <summary>
+        /// Initializes the fragments dictionary by parsing current fragment.
+        /// </summary>
+        /// <param name="fragment">current fragment.</param>
         private void InitializeFragmentsDictionary(string fragment)
         {
             string[] fragmentParts = fragment.Split('&');
@@ -26,15 +39,21 @@ namespace TestCaseManagerApp
             }
         }
 
-        public string Get(string key)
+        /// <summary>
+        /// Gets the specified query parameter by name from the fragment dictionary.
+        /// </summary>
+        /// <param name="queryParameterName">Query parameter name</param>
+        /// <returns>the corresponding value for the specified query parameter</returns>
+        public string Get(string queryParameterName)
         {
             string value = String.Empty;
             try
             {
-                value = Fragments[key];
+                value = Fragments[queryParameterName];
             }
-            catch (KeyNotFoundException ex)
+            catch (KeyNotFoundException)
             {
+                //TODO: Log the KeyNotFoundException
             }
 
             return value;

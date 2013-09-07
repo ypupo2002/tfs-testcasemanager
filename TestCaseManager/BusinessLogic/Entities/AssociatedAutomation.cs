@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace TestCaseManagerApp
 {
+    /// <summary>
+    /// Contains Associated Automation information properties
+    /// </summary>
     public class AssociatedAutomation
     {
-        public const string NONE = "None";
-        public string Type { get; set; }
-        public string Assembly { get; set; }
-        public string TestName { get; set; }
+        public const string NONE = "None";     
 
         public AssociatedAutomation()
         {
@@ -27,5 +27,27 @@ namespace TestCaseManagerApp
             Assembly = infos[2];
             Type = infos[3];
         }
+
+        /// <summary>
+        /// Gets or sets the type of the test.
+        /// </summary>
+        /// <value>
+        /// The test type.
+        /// </value>
+        public string Type { get; set; }
+        /// <summary>
+        /// Gets or sets the assembly of the associated test.
+        /// </summary>
+        /// <value>
+        /// the assembly of the associated test.
+        /// </value>
+        public string Assembly { get; set; }
+        /// <summary>
+        /// Gets or sets the name of the test.
+        /// </summary>
+        /// <value>
+        /// The name of the test.
+        /// </value>
+        public string TestName { get; set; }
     }
 }

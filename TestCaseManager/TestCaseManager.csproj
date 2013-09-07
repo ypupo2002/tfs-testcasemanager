@@ -17,10 +17,10 @@
     <RestorePackages>true</RestorePackages>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
+    <PlatformTarget>x86</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
+    <Optimize>true</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
@@ -130,7 +130,7 @@
     <Compile Include="BusinessLogic\Managers\ProjectManager.cs" />
     <Compile Include="BusinessLogic\Managers\ReplaceTextManager.cs" />
     <Compile Include="BusinessLogic\Managers\TestPlanManager.cs" />
-    <Compile Include="BusinessLogic\UiControlExtensions\ComboBox_DropdownBehavior.cs" />
+    <Compile Include="BusinessLogic\UiControlExtensions\ComboBoxDropdownExtensions.cs" />
     <Compile Include="BusinessLogic\UiControlExtensions\RichTextBoxExtensions.cs" />
     <Compile Include="BusinessLogic\Entities\SharedStep.cs" />
     <Compile Include="BusinessLogic\Managers\TestSuiteManager.cs" />
@@ -144,6 +144,7 @@
     <Compile Include="BusinessLogic\Entities\TestStep.cs" />
     <Compile Include="BusinessLogic\Managers\TestStepManager.cs" />
     <Compile Include="BusinessLogic\UiControlExtensions\TextBoxExtensions.cs" />
+    <Compile Include="ViewModels\ProjectSelectionViewModel.cs" />
     <Compile Include="ViewModels\SettingsViewModel.cs" />
     <Compile Include="ViewModels\AssociateTestViewModel.cs" />
     <Compile Include="ViewModels\TestCasesBatchDuplicateViewModel.cs" />
@@ -169,7 +170,6 @@
     <Compile Include="Views\TestCaseEditView.xaml.cs">
       <DependentUpon>TestCaseEditView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\IObservableCollection.cs" />
     <Compile Include="Views\ProjectSelectionView.xaml.cs">
       <DependentUpon>ProjectSelectionView.xaml</DependentUpon>
     </Compile>
@@ -179,66 +179,6 @@
     <Compile Include="Views\TestCasesInitialView.xaml.cs">
       <DependentUpon>TestCasesInitialView.xaml</DependentUpon>
     </Compile>
-    <Page Include="Assets\appbar.add.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Assets\appbar.adobe.bridge.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Assets\appbar.arrow.collapsed.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Assets\appbar.arrow.corner.up.right.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Assets\appbar.arrow.down.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Assets\appbar.arrow.expand.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Assets\appbar.box.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Assets\appbar.camera.flash.off.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Assets\appbar.camera.flash.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Assets\appbar.camera.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Assets\appbar.cards.club.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Assets\appbar.cards.diamond.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Assets\appbar.cards.heart.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Assets\appbar.cards.spade.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Assets\appbar.check.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="Assets\ModernUI.HelloKitty.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

@@ -15,7 +15,48 @@ namespace TestCaseManagerApp.ViewModels
         public const string ExpectedResultDefaultText = "Expected Result";
         public bool ActionFlag;
         public bool ExpectedResultFlag;
-        public bool SharedStepSearchFlag;
+        public bool SharedStepSearchFlag;   
+
+        public TestCaseEditViewModel(int testCaseId, int suiteId, bool createNew, bool duplicate)
+        {
+            Areas = GetProjectAreas();
+            ExecutionContext.Preferences.TestPlan.Refresh();
+            ExecutionContext.Preferences.TestPlan.RootSuite.Refresh();
+            TestSuiteList = TestSuiteManager.GetAllTestSuitesInTestPlan();
+            
+            CreateNew = createNew;
+            Duplicate = duplicate;
+            TestActions = new List<ITestAction>();
+            ObservableTestSteps = new ObservableCollection<TestStep>();
+            ObservableSharedSteps = new ObservableCollection<SharedStep>();
+           
+            Priorities = new List<int>() { 1, 2, 3, 4 };
+            AlreadyAddedSharedSteps = new Dictionary<int, string>();
+            ITestSuiteBase iTestSuiteBase = TestSuiteManager.GetTestSuiteById(suiteId);
+            
+            if (CreateNew && !Duplicate)
+            {
+                ITestCase newTestCase = ExecutionContext.TestManagementTeamProject.TestCases.Create();
+                if (Duplicate)
+                {
+                    InitializeTestCaseWithExisting();
+                }
+                else
+                {
+                    TestCase = new TestCase(newTestCase, null);
+                }
+            }
+            else
+            {
+                ITestCase iTestCase = ExecutionContext.TestManagementTeamProject.TestCases.Find(testCaseId);
+                TestCase = new TestCase(iTestCase, iTestSuiteBase);               
+            }
+            InitializeTestCaseWithExisting();
+            InitializeInitialSharedStepCollection();
+            this.AssociatedAutomation = TestCase.ITestCase.GetAssociatedAutomation();
+            UpdateObservableTestSteps(ObservableTestSteps.ToList());
+        }
+
         public Dictionary<int, string> AlreadyAddedSharedSteps { get; set; }
         public TestCase TestCase { get; set; }
         public List<ITestAction> TestActions { get; set; }
@@ -31,57 +72,6 @@ namespace TestCaseManagerApp.ViewModels
         public bool IsAlreadyCreated { get; set; }
         public bool ComesFromAssociatedAutomation { get; set; }
 
-        public TestCaseEditViewModel(int testCaseId, int suiteId, bool createNew, bool duplicate)
-        {
-            Areas = GetProjectAreas();
-            ExecutionContext.Preferences.TestPlan.Refresh();
-            ExecutionContext.Preferences.TestPlan.RootSuite.Refresh();
-            TestSuiteList = ExecutionContext.Preferences.TestPlan.RootSuite.SubSuites.GetSuites();
-            
-            CreateNew = createNew;
-            Duplicate = duplicate;
-            TestActions = new List<ITestAction>();
-            ObservableTestSteps = new ObservableCollection<TestStep>();
-            ObservableSharedSteps = new ObservableCollection<SharedStep>();
-           
-            Priorities = new List<int>() { 1, 2, 3, 4 };
-            AlreadyAddedSharedSteps = new Dictionary<int, string>();
-            ITestSuiteBase iTestSuiteBase = TestSuiteManager.GetSuiteById(suiteId);
-            
-            if (CreateNew && !Duplicate)
-            {
-                ITestCase newTestCase = ExecutionContext.TeamProject.TestCases.Create();
-                if (Duplicate)
-                {
-                    InitializeTestCaseWithExisting();
-                }
-                else
-                {
-                    TestCase = new TestCase(newTestCase, null);
-                }
-            }
-            else
-            {
-                ITestCase iTestCase = ExecutionContext.TeamProject.TestCases.Find(testCaseId);
-                TestCase = new TestCase(iTestCase, iTestSuiteBase);               
-            }
-            InitializeTestCaseWithExisting();
-            InitializeInitialSharedStepCollection();
-            this.AssociatedAutomation = TestCase.ITestCase.GetAssociatedAutomation();
-            UpdateObservableTestSteps(ObservableTestSteps.ToList());
-        }
-
-      
-
-        private void InitializeInitialSharedStepCollection()
-        {
-            InitialSharedStepCollection = new ObservableCollection<SharedStep>();
-            foreach (var cSharedStep in ObservableSharedSteps)
-            {
-                InitialSharedStepCollection.Add(cSharedStep);
-            }
-        }
-
         public void ReinitializeSharedStepCollection()
         {
             ObservableSharedSteps.Clear();
@@ -94,7 +84,7 @@ namespace TestCaseManagerApp.ViewModels
         public List<string> GetProjectAreas()
         {
             List<string> areas = new List<string>();
-            ICommonStructureService css = (ICommonStructureService)ExecutionContext.Tfs.GetService(typeof(ICommonStructureService));
+            ICommonStructureService css = (ICommonStructureService)ExecutionContext.TfsTeamProjectCollection.GetService(typeof(ICommonStructureService));
             //Gets Area/Iteration base Project
             ProjectInfo projectInfo = css.GetProjectFromName(ExecutionContext.Preferences.TestProjectName);
             NodeInfo[] nodes = css.ListStructures(projectInfo.Uri);
@@ -143,49 +133,6 @@ namespace TestCaseManagerApp.ViewModels
             return finalExpectedResult;
         }
 
-        private void MakeList(XmlNode xmlNode, List<string> areas)
-        {
-            GetAreasSingleNode(xmlNode, areas);
-            GetAreasNodes(xmlNode.ChildNodes, areas);
-        }     
-
-        private void GetAreasNodes(XmlNodeList nodeList, List<string> areas)
-        {
-            foreach (XmlNode currentNode in nodeList)
-            {
-                GetAreasSingleNode(currentNode, areas);
-            }
-        }
-
-        private void GetAreasSingleNode(XmlNode currentNode, List<string> areas)
-        {
-            if (currentNode.Attributes.Count > 0)
-            {
-                string path = currentNode.Attributes["Path"].Value.TrimStart('\\').Replace("\\Area", "");
-                if (!areas.Contains(path))
-                {
-                    areas.Add(path);
-                }
-            }
-            if (currentNode.ChildNodes.Count != 0)
-            {
-                GetAreasNodes(currentNode.ChildNodes, areas);
-            }
-        }
-
-        private void InitializeTestCaseWithExisting()
-        {
-            TestCase.ITestCase.Actions.ToList().ForEach(x => TestActions.Add(x));
-            List<ISharedStep> sharedStepList = TestStepManager.GetSharedTestSteps();
-
-            sharedStepList.ForEach(s =>
-            {
-                ObservableSharedSteps.Add(new SharedStep(s));
-            });
-            List<SharedStep> testCaseSharedStepsList = new List<SharedStep>();
-            TestActions.GetTestSteps(AlreadyAddedSharedSteps, testCaseSharedStepsList).ForEach(x => ObservableTestSteps.Add(x));
-        }
-
         public void DeleteAllMarkedStepsForRemoval(List<TestStep> testStepsToBeRemoved)
         {
             foreach (TestStep currentTestStepToBeRemoved in testStepsToBeRemoved)
@@ -225,10 +172,9 @@ namespace TestCaseManagerApp.ViewModels
 
         public void InsertInSharedStep(SharedStep selectedSharedStep, string stepText, string expectedResult)
         {
-            //int actionsInSharedStep = selectedSharedStep.ISharedStep.Actions.Count;
             string sharedStepGuid = ObservableTestSteps.Where(x => x.Title.Equals(selectedSharedStep.ISharedStep.Title)).FirstOrDefault().StepGuid;
 
-            TestStep testStepToInsert = TestCase.CreateNewTestStep(stepText, expectedResult);
+            TestStep testStepToInsert = TestStepManager.CreateNewTestStep(TestCase, stepText, expectedResult);
             testStepToInsert.IsShared = true;
             testStepToInsert.StepGuid = sharedStepGuid;
             bool shouldInsert = true;
@@ -316,7 +262,7 @@ namespace TestCaseManagerApp.ViewModels
         public void InsertSharedStep(SharedStep currentSharedStep, int selectedIndex)
         {
             string guid =  TestStepManager.GetSharedStepGuid(AlreadyAddedSharedSteps, currentSharedStep.ISharedStep);
-            List<TestStep> innerTestSteps = currentSharedStep.ISharedStep.GetInnerTestSteps(guid);
+            List<TestStep> innerTestSteps = TestStepManager.GetAllTestStepsInSharedStep(currentSharedStep.ISharedStep, guid);
           
             int j = 0;
             for (int i = selectedIndex; i < innerTestSteps.Count + selectedIndex; i++)
@@ -336,7 +282,7 @@ namespace TestCaseManagerApp.ViewModels
                 }
                 else
                 {
-                    ISharedStep currentSharedStep = ExecutionContext.TeamProject.SharedSteps.Find(currentStepToBeRemoved.SharedStepId);
+                    ISharedStep currentSharedStep = ExecutionContext.TestManagementTeamProject.SharedSteps.Find(currentStepToBeRemoved.SharedStepId);
                     //TestCaseEditViewModel.TestCase.ITestCase.Actions.Remove(currentSharedStep as ITestAction);
                     foreach (ITestStep currentInnerTestStep in currentSharedStep.Actions)
                     {
@@ -347,6 +293,58 @@ namespace TestCaseManagerApp.ViewModels
                     }
                 }
             }
+        }
+
+        private void InitializeInitialSharedStepCollection()
+        {
+            InitialSharedStepCollection = new ObservableCollection<SharedStep>();
+            foreach (var cSharedStep in ObservableSharedSteps)
+            {
+                InitialSharedStepCollection.Add(cSharedStep);
+            }
+        }
+
+        private void MakeList(XmlNode xmlNode, List<string> areas)
+        {
+            GetAreasSingleNode(xmlNode, areas);
+            GetAreasNodes(xmlNode.ChildNodes, areas);
+        }
+
+        private void GetAreasNodes(XmlNodeList nodeList, List<string> areas)
+        {
+            foreach (XmlNode currentNode in nodeList)
+            {
+                GetAreasSingleNode(currentNode, areas);
+            }
+        }
+
+        private void GetAreasSingleNode(XmlNode currentNode, List<string> areas)
+        {
+            if (currentNode.Attributes.Count > 0)
+            {
+                string path = currentNode.Attributes["Path"].Value.TrimStart('\\').Replace("\\Area", "");
+                if (!areas.Contains(path))
+                {
+                    areas.Add(path);
+                }
+            }
+            if (currentNode.ChildNodes.Count != 0)
+            {
+                GetAreasNodes(currentNode.ChildNodes, areas);
+            }
+        }
+
+        private void InitializeTestCaseWithExisting()
+        {
+            TestCase.ITestCase.Actions.ToList().ForEach(x => TestActions.Add(x));
+            List<ISharedStep> sharedStepList = TestStepManager.GetAllSharedSteps();
+
+            sharedStepList.ForEach(s =>
+            {
+                ObservableSharedSteps.Add(new SharedStep(s));
+            });
+            List<SharedStep> testCaseSharedStepsList = new List<SharedStep>();
+            TestStepManager.GetTestStepsFromTestActions(TestActions, AlreadyAddedSharedSteps, testCaseSharedStepsList).ForEach(x => ObservableTestSteps.Add(x));
         }
     }
 }

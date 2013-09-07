@@ -64,11 +64,11 @@
                 <TextBlock Text="Title" Margin="10,0,10,0" Height="25" FontWeight="Bold" HorizontalAlignment="Left" Grid.Row="0" Grid.Column="1"/>
                 <TextBox Text="{Binding TestCase.ITestCase.Title}" HorizontalAlignment="Stretch" Margin="10,0,10,0" Height="25" Grid.Row="1" Grid.Column="1"/>
                 <TextBlock Text="Suite" Margin="10,0,10,0" Height="25" FontWeight="Bold" HorizontalAlignment="Left" Grid.Row="0" Grid.Column="2"/>
-                <ComboBox Height="25" Margin="10,0,10,0" Name="cbSuite" ItemsSource="{Binding TestSuiteList}" DisplayMemberPath="Title" IsTextSearchEnabled="True" helpers:ComboBox_DropdownBehavior.OpenDropDownAutomatically="True" Grid.Row="1" Grid.Column="2" IsEditable ="True" MouseEnter="cbSuite_MouseEnter" MouseMove="cbSuite_MouseMove"/>
+                <ComboBox Height="25" Margin="10,0,10,0" Name="cbSuite" ItemsSource="{Binding TestSuiteList}" DisplayMemberPath="Title" IsTextSearchEnabled="True" helpers:ComboBoxDropdownExtensions.OpenDropDownAutomatically="True" Grid.Row="1" Grid.Column="2" IsEditable ="True" MouseEnter="cbSuite_MouseEnter" MouseMove="cbSuite_MouseMove"/>
                 <TextBlock Text="Area" Margin="10,0,10,0" Height="25" FontWeight="Bold" HorizontalAlignment="Left" Grid.Row="0" Grid.Column="3"/>
-                <ComboBox Height="25" Margin="10,0,10,0" ItemsSource="{Binding Areas}" Name="cbArea" IsTextSearchEnabled="True" IsEditable ="True" helpers:ComboBox_DropdownBehavior.OpenDropDownAutomatically="True" Grid.Row="1" Grid.Column="3"  MouseEnter="cbArea_MouseEnter" MouseMove="cbArea_MouseMove"/>
+                <ComboBox Height="25" Margin="10,0,10,0" ItemsSource="{Binding Areas}" Name="cbArea" IsTextSearchEnabled="True" IsEditable ="True" helpers:ComboBoxDropdownExtensions.OpenDropDownAutomatically="True" Grid.Row="1" Grid.Column="3"  MouseEnter="cbArea_MouseEnter" MouseMove="cbArea_MouseMove"/>
                 <TextBlock Text="Priority" Margin="10,0,10,0" Height="25" FontWeight="Bold" HorizontalAlignment="Left" Grid.Row="0" Grid.Column="4"/>
-                <ComboBox Height="25" Margin="10,0,10,0" ItemsSource="{Binding Priorities}" Name="cbPriority" Grid.Row="1" Grid.Column="4" helpers:ComboBox_DropdownBehavior.OpenDropDownAutomatically="True" MouseEnter="cbPriority_MouseEnter" MouseMove="cbPriority_MouseMove"/>
+                <ComboBox Height="25" Margin="10,0,10,0" ItemsSource="{Binding Priorities}" Name="cbPriority" Grid.Row="1" Grid.Column="4" helpers:ComboBoxDropdownExtensions.OpenDropDownAutomatically="True" MouseEnter="cbPriority_MouseEnter" MouseMove="cbPriority_MouseMove"/>
                 <TextBlock Text="Automated" Margin="10,0,10,0" Height="25" FontWeight="Bold" HorizontalAlignment="Left" Grid.Row="0" Grid.Column="5"/>
                 <TextBox Text="{Binding TestCase.ITestCase.IsAutomated, Mode=OneWay}" Grid.Row="1" Grid.Column="5"/>
             </Grid>

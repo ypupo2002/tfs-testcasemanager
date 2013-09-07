@@ -340,6 +340,8 @@
 		<col def="S0">ISDotNetInstallerArgsCommit</col>
 		<col def="S0">ISDotNetInstallerArgsUninstall</col>
 		<col def="S0">ISDotNetInstallerArgsRollback</col>
+		<row><td>ISO19770_LocalTag</td><td>{1C18252F-D76E-4790-B18C-CEA5C904DC0D}</td><td>INSTALLDIR</td><td>2</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>ISO19770_SystemTag</td><td>{3DFAC033-3338-4274-8894-2ECC26FF15C3}</td><td>CommonAppDataFolder</td><td>2</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 		<row><td>TestCaseManager.Primary_output</td><td>{B97B7623-DB50-4F7D-930F-4CE7ED6D1532}</td><td>INSTALLDIR</td><td>2</td><td/><td>testcasemanager.primary_outp</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 	</table>
 
@@ -938,10 +940,10 @@
 		<row><td>InstallWelcome</td><td>Back</td><td>NewDialog</td><td>SplashBitmap</td><td>Display_IsBitmapDlg</td><td>0</td></row>
 		<row><td>InstallWelcome</td><td>Cancel</td><td>SpawnDialog</td><td>CancelSetup</td><td>1</td><td>0</td></row>
 		<row><td>InstallWelcome</td><td>Next</td><td>NewDialog</td><td>DestinationFolder</td><td>1</td><td>0</td></row>
-		<row><td>LicenseAgreement</td><td>Back</td><td>NewDialog</td><td>InstallWelcome</td><td>1</td><td>0</td></row>
+		<row><td>LicenseAgreement</td><td>Back</td><td>NewDialog</td><td>InstallWelcome</td><td>NOT Installed</td><td>0</td></row>
 		<row><td>LicenseAgreement</td><td>Cancel</td><td>SpawnDialog</td><td>CancelSetup</td><td>1</td><td>0</td></row>
 		<row><td>LicenseAgreement</td><td>ISPrintButton</td><td>DoAction</td><td>ISPrint</td><td>1</td><td>0</td></row>
-		<row><td>LicenseAgreement</td><td>Next</td><td>NewDialog</td><td>CustomerInformation</td><td>AgreeToLicense = "Yes"</td><td>0</td></row>
+		<row><td>LicenseAgreement</td><td>Next</td><td>NewDialog</td><td>DestinationFolder</td><td>AgreeToLicense = "Yes"</td><td>0</td></row>
 		<row><td>MaintenanceType</td><td>Back</td><td>NewDialog</td><td>MaintenanceWelcome</td><td>1</td><td>0</td></row>
 		<row><td>MaintenanceType</td><td>Cancel</td><td>SpawnDialog</td><td>CancelSetup</td><td>1</td><td>0</td></row>
 		<row><td>MaintenanceType</td><td>Next</td><td>NewDialog</td><td>CustomSetup</td><td>_IsMaintenance = "Change"</td><td>12</td></row>
@@ -1049,6 +1051,8 @@
 	<table name="CreateFolder">
 		<col key="yes" def="s72">Directory_</col>
 		<col key="yes" def="s72">Component_</col>
+		<row><td>CommonAppDataFolder</td><td>ISO19770_SystemTag</td></row>
+		<row><td>INSTALLDIR</td><td>ISO19770_LocalTag</td></row>
 	</table>
 
 	<table name="CustomAction">
@@ -2130,6 +2134,8 @@
 		<col def="S0">FTPLocation</col>
 		<col def="S0">HTTPLocation</col>
 		<col def="S0">Miscellaneous</col>
+		<row><td>ISO19770_LocalTag</td><td/><td/><td>_1F7AB9DB_AF21_41F1_9E7C_34F70A07EC4D_FILTER</td><td/><td/><td/><td/></row>
+		<row><td>ISO19770_SystemTag</td><td/><td/><td>_C70DFF2F_C3CC_4EEF_B668_E2A8765716FE_FILTER</td><td/><td/><td/><td/></row>
 		<row><td>TestCaseManager.Primary_output</td><td/><td/><td>_2DA1D427_5D6E_48F9_9BEA_D88FC3B8D924_FILTER</td><td/><td/><td/><td/></row>
 	</table>
 
@@ -2759,7 +2765,7 @@
 		<col def="I2">Encoded</col>
 		<col def="S0">Comment</col>
 		<col def="I4">TimeStamp</col>
-		<row><td>COMPANY_NAME</td><td>1033</td><td>Telerik</td><td>0</td><td/><td>2082562857</td></row>
+		<row><td>COMPANY_NAME</td><td>1033</td><td>Anton Angelov</td><td>0</td><td/><td>1017244054</td></row>
 		<row><td>DN_AlwaysInstall</td><td>1033</td><td>Always Install</td><td>0</td><td/><td>2082544425</td></row>
 		<row><td>IDPROP_EXPRESS_LAUNCH_CONDITION_COLOR</td><td>1033</td><td>The color settings of your system are not adequate for running [ProductName].</td><td>0</td><td/><td>2082544425</td></row>
 		<row><td>IDPROP_EXPRESS_LAUNCH_CONDITION_DOTNETVERSION45FULL</td><td>1033</td><td>Microsoft .NET Framework 4.5 Full package or greater needs to be installed for this installation to continue.</td><td>0</td><td/><td>2082591529</td></row>
@@ -3862,16 +3868,25 @@
 		<row><td>IDS__TargetReq_DESC_RAM</td><td>1033</td><td>The amount of RAM is not adequate for running [ProductName].</td><td>0</td><td/><td>2082544425</td></row>
 		<row><td>IDS__TargetReq_DESC_RESOLUTION</td><td>1033</td><td>The screen resolution is not adequate for running [ProductName].</td><td>0</td><td/><td>2082544425</td></row>
 		<row><td>ID_STRING1</td><td>1033</td><td/><td>0</td><td/><td>2082546473</td></row>
-		<row><td>ID_STRING2</td><td>1033</td><td>http://www.telerik.com</td><td>0</td><td/><td>2082585577</td></row>
-		<row><td>ID_STRING3</td><td>1033</td><td>Telerik</td><td>0</td><td/><td>2082562857</td></row>
+		<row><td>ID_STRING2</td><td>1033</td><td>https://testcasemanager.codeplex.com/</td><td>0</td><td/><td>1017225622</td></row>
+		<row><td>ID_STRING3</td><td>1033</td><td>Telerik</td><td>0</td><td/><td>1017192662</td></row>
 		<row><td>ID_STRING4</td><td>1033</td><td>Launch |Built</td><td>0</td><td/><td>2082577257</td></row>
 		<row><td>ID_STRING5</td><td>1033</td><td>Launch |Built</td><td>0</td><td/><td>2082596137</td></row>
+		<row><td>ID_STRING6</td><td>1033</td><td>angelov.st.anton@gmail.com</td><td>0</td><td/><td>1017196950</td></row>
+		<row><td>ID_STRING7</td><td>1033</td><td>https://testcasemanager.codeplex.com/workitem/list/basic</td><td>0</td><td/><td>1017221526</td></row>
+		<row><td>ID_STRING8</td><td>1033</td><td>https://testcasemanager.codeplex.com/releases</td><td>0</td><td/><td>1017207222</td></row>
 		<row><td>IIDS_UITEXT_FeatureUninstalled</td><td>1033</td><td>This feature will remain uninstalled.</td><td>0</td><td/><td>2082544425</td></row>
 	</table>
 
 	<table name="ISSwidtagProperty">
 		<col key="yes" def="s72">Name</col>
 		<col def="s0">Value</col>
+		<row><td>SfwCreatorName</td><td>Anton Angelov</td></row>
+		<row><td>SfwCreatorRegid</td><td>regid.2013-09.com.telerik.www</td></row>
+		<row><td>SfwLicensorName</td><td>Anton Angelov</td></row>
+		<row><td>SfwLicensorRegid</td><td>regid.2013-09.com.telerik.www</td></row>
+		<row><td>TagCreatorName</td><td>Anton Angelov</td></row>
+		<row><td>TagCreatorRegid</td><td>regid.2013-09.com.telerik.www</td></row>
 		<row><td>UniqueId</td><td>0E9085DB-D2D5-4BAB-8A4C-1B589791E706</td></row>
 	</table>
 
@@ -4106,7 +4121,7 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<row><td>ISTheme</td><td>InstallShield Blue.theme</td></row>
 		<row><td>ISUSLock</td><td>{F0416266-1612-453E-BD1E-F4BBE22A2E7F}</td></row>
 		<row><td>ISUSSignature</td><td>{A8FBE3CD-3C8E-4EBC-8C5C-8CE09D2F7945}</td></row>
-		<row><td>ISVisitedViews</td><td>viewAssistant,viewISToday,viewAppV,viewRealSetupDesign,viewSetupDesign,viewAppFiles,viewFeatureFiles,viewDependencies,viewCE,viewProject,viewSetupTypes,viewUpdateService,viewUI,viewBillboards,viewTextMessages,viewSystemSearch,viewInstallScriptStd,viewCustomActions,viewSupportFiles,viewRelease,viewDesignPatches,viewFileExtensions</td></row>
+		<row><td>ISVisitedViews</td><td>viewAssistant,viewISToday,viewAppV,viewRealSetupDesign,viewSetupDesign,viewAppFiles,viewFeatureFiles,viewDependencies,viewCE,viewProject,viewSetupTypes,viewUpdateService,viewUI,viewBillboards,viewTextMessages,viewSystemSearch,viewInstallScriptStd,viewCustomActions,viewSupportFiles,viewRelease,viewDesignPatches,viewFileExtensions,viewUpgradePaths,viewObjects</td></row>
 		<row><td>Limited</td><td>1</td></row>
 		<row><td>LockPermissionMode</td><td>1</td></row>
 		<row><td>MsiExecCmdLineOptions</td><td/></row>
@@ -4119,6 +4134,8 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<row><td>SccEnabled</td><td>0</td></row>
 		<row><td>SccPath</td><td/></row>
 		<row><td>SchemaVersion</td><td>773</td></row>
+		<row><td>SwidtagLocalComponent</td><td>ISO19770_LocalTag</td></row>
+		<row><td>SwidtagSystemComponent</td><td>ISO19770_SystemTag</td></row>
 		<row><td>Type</td><td>MSIE</td></row>
 	</table>
 
@@ -4413,10 +4430,16 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<col def="L0">Value</col>
 		<col def="S255">ISComments</col>
 		<row><td>ALLUSERS</td><td>1</td><td/></row>
+		<row><td>ARPCONTACT</td><td>##ID_STRING6##</td><td/></row>
+		<row><td>ARPHELPLINK</td><td>##ID_STRING7##</td><td/></row>
 		<row><td>ARPINSTALLLOCATION</td><td/><td/></row>
+		<row><td>ARPNOMODIFY</td><td>1</td><td/></row>
+		<row><td>ARPNOREMOVE</td><td>1</td><td/></row>
+		<row><td>ARPNOREPAIR</td><td>1</td><td/></row>
 		<row><td>ARPPRODUCTICON</td><td>ARPPRODUCTICON.exe</td><td/></row>
 		<row><td>ARPSIZE</td><td/><td/></row>
 		<row><td>ARPURLINFOABOUT</td><td>##ID_STRING2##</td><td/></row>
+		<row><td>ARPURLUPDATEINFO</td><td>##ID_STRING8##</td><td/></row>
 		<row><td>AgreeToLicense</td><td>No</td><td/></row>
 		<row><td>ApplicationUsers</td><td>AllUsers</td><td/></row>
 		<row><td>DWUSINTERVAL</td><td>30</td><td/></row>

@@ -12,105 +12,48 @@ using FirstFloor.ModernUI.Windows.Controls;
 using Microsoft.TeamFoundation.Client;
 using Microsoft.TeamFoundation.TestManagement.Client;
 using TestCaseManagerApp.Helpers;
+using TestCaseManagerApp.ViewModels;
 
 namespace TestCaseManagerApp.Views
 {
     public partial class ProjectSelectionView : System.Windows.Controls.UserControl
     {
-        public ITestManagementService TestService { get; set; }
+        public ProjectSelectionViewModel ProjectSelectionViewModel { get; set; }
 
         public ProjectSelectionView()
         {
+            this.ProjectSelectionViewModel = new ProjectSelectionViewModel();
             InitializeComponent();
-            
-            string teamProjectUri = RegistryManager.GetTeamProjectUri();
-            string teamProjectName = RegistryManager.GetTeamProjectName();
-            string projectDllPath = RegistryManager.GetProjectDllPath();
-            InitializeFromRegistry(teamProjectUri, teamProjectName, projectDllPath);
+            ShowProgressBar();
+            Task t = Task.Factory.StartNew(() =>
+            {
+                this.ProjectSelectionViewModel.InitializeFromRegistry();
+                InitializeTestPlans(ExecutionContext.TestManagementTeamProject);
+                tbTfsProject.Text = this.ProjectSelectionViewModel.FullTeamProjectName;
+            });
+            t.ContinueWith(antecedent =>
+            {              
+                HideProgressBar();
+            }, TaskScheduler.FromCurrentSynchronizationContext());            
+        }       
 
+        private void HideProgressBar()
+        {
+            progressBar.Visibility = System.Windows.Visibility.Hidden;
+            mainGrid.Visibility = System.Windows.Visibility.Visible;
         }
 
-        private void InitializeFromRegistry(string teamProjectUri, string teamProjectName, string projectPathDll)
+        private void ShowProgressBar()
         {
-            if (!String.IsNullOrEmpty(teamProjectUri) && !String.IsNullOrEmpty(teamProjectName))
-            {
-                ExecutionContext.Preferences.TfsUri = new Uri(teamProjectUri);
-                ExecutionContext.Preferences.TestProjectName = teamProjectName;
-                ExecutionContext.Tfs = new TfsTeamProjectCollection(ExecutionContext.Preferences.TfsUri);
-                ExecutionContext.ProjectDllPath = projectPathDll;
-                TestService = (ITestManagementService)ExecutionContext.Tfs.GetService(typeof(ITestManagementService));
-                InitializeTestProjectByName(TestService, ExecutionContext.Preferences.TestProjectName);
-                try
-                {
-                    InitializeTestPlans(ExecutionContext.TeamProject);
-                    string fullTeamProjectName = GenerateFullTeamProjectName();
-                    tbTfsProject.Text = fullTeamProjectName;                    
-                }
-                catch (SocketException)
-                {
-                    return;
-                }
-                catch(WebException)
-                {
-                    return;
-                }
-            }
+            progressBar.Visibility = System.Windows.Visibility.Visible;
+            mainGrid.Visibility = System.Windows.Visibility.Hidden;
         }
 
         private void BrowseButton_Click(object sender, RoutedEventArgs e)
         {
-            LoadProjectSelectionFromUser();
-        }
-
-        private void LoadProjectSelectionFromUser()
-        {
-            ExecutionContext.Preferences.TfsUri = null;
-            ExecutionContext.Preferences.TestProjectName = null;
-
-            try
-            {
-                using (var projectPicker = new TeamProjectPicker(TeamProjectPickerMode.SingleProject, false))
-                {
-                    var userSelected = projectPicker.ShowDialog();
-
-                    if (userSelected == DialogResult.Cancel)
-                        return;
-
-                    if (projectPicker.SelectedTeamProjectCollection != null)
-                    {
-                        ExecutionContext.Preferences.TfsUri = projectPicker.SelectedTeamProjectCollection.Uri;
-                        ExecutionContext.Preferences.TestProjectName = projectPicker.SelectedProjects[0].Name;
-                        ExecutionContext.Tfs = projectPicker.SelectedTeamProjectCollection;
-                        TestService = (ITestManagementService)ExecutionContext.Tfs.GetService(typeof(ITestManagementService));
-                        InitializeTestProjectByName(TestService, ExecutionContext.Preferences.TestProjectName);
-                        Task.Factory.StartNew(() =>
-                        {
-                            InitializeTestPlans(ExecutionContext.TeamProject);
-                        }, CancellationToken.None, TaskCreationOptions.None, TaskScheduler.FromCurrentSynchronizationContext());
-                    }
-                    string fullTeamProjectName = GenerateFullTeamProjectName();
-                    tbTfsProject.Text = fullTeamProjectName;
-                    RegistryManager.WriteCurrentTeamProjectName(ExecutionContext.Preferences.TestProjectName);
-                    RegistryManager.WriteCurrentTeamProjectUri(ExecutionContext.Preferences.TfsUri.ToString());
-                }
-            }
-            catch (Exception ex)
-            {
-                System.Windows.Forms.MessageBox.Show("Error selecting team project: " + ex.Message, "Error");
-            }
-
-            //_preferenceCollection.SaveToRegistry();
-        }
-
-        private static string GenerateFullTeamProjectName()
-        {
-            string fullTeamProjectName = String.Concat(ExecutionContext.Preferences.TfsUri, "/", ExecutionContext.Preferences.TestProjectName);
-            return fullTeamProjectName;
-        }
-
-        private static void InitializeTestProjectByName(ITestManagementService test_service, string testProjectName)
-        {
-            ExecutionContext.TeamProject = test_service.GetTeamProject(testProjectName);
+            var projectPicker = new TeamProjectPicker(TeamProjectPickerMode.SingleProject, false);
+            this.ProjectSelectionViewModel.LoadProjectSelectionFromUser(projectPicker);
+            InitializeTestPlans(ExecutionContext.TestManagementTeamProject);
         }
 
         private void InitializeTestPlans(ITestManagementTeamProject _testproject)
@@ -124,7 +67,7 @@ namespace TestCaseManagerApp.Views
             }
             cbTestPlans.ItemsSource = testPlanNames;
             cbTestPlans.SelectedIndex = 0;
-        }
+        }       
 
         private void DisplayButton_Click(object sender, RoutedEventArgs e)
         {
@@ -134,12 +77,12 @@ namespace TestCaseManagerApp.Views
                 ModernDialog.ShowMessage("No test plan selected.", "Warning", MessageBoxButton.OK);
                 return;
             }
-            if (ExecutionContext.TeamProject == null)
+            if (ExecutionContext.TestManagementTeamProject == null)
             {
                 ModernDialog.ShowMessage("No test project selected.", "Warning", MessageBoxButton.OK);
                 return;
             }
-            ExecutionContext.Preferences.TestPlan = TestPlanManager.GetAllTestPlans(ExecutionContext.TeamProject).Where(p => p.Name.Equals(selectedTestPlan)).FirstOrDefault();
+            ExecutionContext.Preferences.TestPlan = TestPlanManager.GetTestPlanByName(ExecutionContext.TestManagementTeamProject, selectedTestPlan);
             AddNewLinksToWindow();
         }
 
@@ -149,14 +92,14 @@ namespace TestCaseManagerApp.Views
             mw.MenuLinkGroups.Clear();
             LinkGroup lg = new LinkGroup();
             Link l1 = new Link();
-            l1.DisplayName = "Initial View";
+            l1.DisplayName = "All Test Cases";
             Uri u1 = new Uri("/Views/TestCasesInitialView.xaml", UriKind.Relative);
             l1.Source = u1;
             mw.ContentSource = u1;
             lg.Links.Add(l1);
             Uri u2 = new Uri("/Views/TestCaseBatchDuplicateView.xaml", UriKind.Relative);
             Link l2 = new Link();
-            l2.DisplayName = "Batch Replace/Duplicate";
+            l2.DisplayName = "Find/Replace/Duplicate";
             l2.Source = u2;
             lg.Links.Add(l2);
             mw.MenuLinkGroups.Add(lg);
@@ -164,7 +107,7 @@ namespace TestCaseManagerApp.Views
 
         private void cbTestPlans_MouseMove(object sender, System.Windows.Input.MouseEventArgs e)
         {
-            ComboBox_DropdownBehavior.cbo_MouseMove(sender, e);
+            ComboBoxDropdownExtensions.cbo_MouseMove(sender, e);
         }
     }
 }

@@ -4,36 +4,60 @@ using System.Windows.Documents;
 
 namespace TestCaseManagerApp
 {
+    /// <summary>
+    /// Contains helper methods which add custom watermark functionality to WPF richtextbox
+    /// </summary>
     public static class RichTextBoxExtensions
     {
-        public static void RestoreDefaultSearchBoxText(this RichTextBox rtb, string defaultText, ref bool flag)
+        /// <summary>
+        /// Restores the default search box watermark text.
+        /// </summary>
+        /// <param name="richTextBox">The rich text box.</param>
+        /// <param name="defaultText">The default text.</param>
+        /// <param name="isRealTextSet">if set to <c>true</c> real text is set.</param>
+        public static void RestoreDefaultText(this RichTextBox richTextBox, string defaultText, ref bool isRealTextSet)
         {
-            if (String.IsNullOrEmpty(rtb.GetText()))
+            if (String.IsNullOrEmpty(richTextBox.GetText()))
             {
-                rtb.AppendText(defaultText);
-                flag = false;
+                richTextBox.AppendText(defaultText);
+                isRealTextSet = false;
             }
         }
 
-        public static void ClearDefaultSearchBoxContent(this RichTextBox rtb, ref bool flag)
+        /// <summary>
+        /// Clears the default content of the search box.
+        /// </summary>
+        /// <param name="richTextBox">The rich text box.</param>
+        /// <param name="isRealTextSet">if set to <c>true</c> [the real text is set].</param>
+        public static void ClearDefaultContent(this RichTextBox richTextBox, ref bool isRealTextSet)
         {
-            if (!flag)
+            if (!isRealTextSet)
             {
-                rtb.Document.Blocks.Clear();
-                flag = true;
+                richTextBox.Document.Blocks.Clear();
+                isRealTextSet = true;
             }
         }
 
-        public static string GetText(this RichTextBox rtb)
+        /// <summary>
+        /// Gets the text.
+        /// </summary>
+        /// <param name="richTextBox">The rich text box.</param>
+        /// <returns>the text from the rich text box</returns>
+        public static string GetText(this RichTextBox richTextBox)
         {
-            string expectedResult = new TextRange(rtb.Document.ContentStart, rtb.Document.ContentEnd).Text.TrimEnd();
-            return expectedResult;
+            string currentText = new TextRange(richTextBox.Document.ContentStart, richTextBox.Document.ContentEnd).Text.TrimEnd();
+            return currentText;
         }
 
-        public static void SetText(this RichTextBox rtb, string textToAdd)
+        /// <summary>
+        /// Sets the text.
+        /// </summary>
+        /// <param name="richTextBox">The rich text box.</param>
+        /// <param name="textToAdd">The text automatic add.</param>
+        public static void SetText(this RichTextBox richTextBox, string textToAdd)
         {
-            rtb.Document.Blocks.Clear();
-            rtb.AppendText(textToAdd);
+            richTextBox.Document.Blocks.Clear();
+            richTextBox.AppendText(textToAdd);
         }
     }
 }

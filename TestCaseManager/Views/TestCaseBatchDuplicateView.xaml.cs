@@ -59,22 +59,22 @@ namespace TestCaseManagerApp.Views
 
         private void tbTitleFilter_GotFocus(object sender, RoutedEventArgs e)
         {
-            tbTitleFilter.ClearDefaultSearchBoxContent(ref TestCasesBatchDuplicateViewModel.TitleFlag);
+            tbTitleFilter.ClearDefaultContent(ref TestCasesBatchDuplicateViewModel.TitleFlag);
         }
 
         private void tbTextSuiteFilter_GotFocus(object sender, RoutedEventArgs e)
         {
-            tbSuiteFilter.ClearDefaultSearchBoxContent(ref TestCasesBatchDuplicateViewModel.SuiteFlag);
+            tbSuiteFilter.ClearDefaultContent(ref TestCasesBatchDuplicateViewModel.SuiteFlag);
         }
 
         private void tbTitleFilter_LostFocus(object sender, RoutedEventArgs e)
         {
-            tbTitleFilter.RestoreDefaultSearchBoxText("Title", ref TestCasesBatchDuplicateViewModel.TitleFlag);
+            tbTitleFilter.RestoreDefaultText("Title", ref TestCasesBatchDuplicateViewModel.TitleFlag);
         }
 
         private void tbSuiteFilter_LostFocus(object sender, RoutedEventArgs e)
         {
-            tbSuiteFilter.RestoreDefaultSearchBoxText("Suite", ref TestCasesBatchDuplicateViewModel.SuiteFlag);
+            tbSuiteFilter.RestoreDefaultText("Suite", ref TestCasesBatchDuplicateViewModel.SuiteFlag);
         }
 
         private void tbIdFilter_KeyUp(object sender, KeyEventArgs e)
@@ -100,7 +100,7 @@ namespace TestCaseManagerApp.Views
 
         private void cbSuite_MouseMove(object sender, MouseEventArgs e)
         {
-            ComboBox_DropdownBehavior.cbo_MouseMove(sender, e);
+            ComboBoxDropdownExtensions.cbo_MouseMove(sender, e);
         }
 
         private void btnBatchDuplicate_Click(object sender, RoutedEventArgs e)

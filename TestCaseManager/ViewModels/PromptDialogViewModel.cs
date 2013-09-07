@@ -11,9 +11,17 @@ using Microsoft.TeamFoundation.TestManagement.Client;
 
 namespace TestCaseManagerApp.ViewModels
 {
-    public class PromptDialogViewModel
-              : NotifyPropertyChanged
+    /// <summary>
+    /// Holds PromptDialogView Properties
+    /// </summary>
+    public class PromptDialogViewModel: NotifyPropertyChanged
     {
+        /// <summary>
+        /// Gets or sets the response text.
+        /// </summary>
+        /// <value>
+        /// The response text.
+        /// </value>
         public string ResponseText { get; set; }
     }
 }

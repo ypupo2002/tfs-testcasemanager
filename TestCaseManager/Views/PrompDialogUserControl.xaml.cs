@@ -50,10 +50,5 @@ namespace TestCaseManagerApp.Views
                 btnOk.IsEnabled = false;
             }
         }
-
-        private void UserControl_Initialized(object sender, EventArgs e)
-        {
-            //ResponseTextBox.Focus();
-        }
     }
 }

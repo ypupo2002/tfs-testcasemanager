@@ -9,7 +9,10 @@ using System.Windows.Controls.Primitives;
 
 namespace TestCaseManagerApp.Helpers
 {
-    public static class ComboBox_DropdownBehavior
+    /// <summary>
+    /// Contains helper methods which add hover functionality to WPF combobox
+    /// </summary>
+    public static class ComboBoxDropdownExtensions
     {
         /// <summary>
         /// Gets/sets whether or not the ComboBox this behavior is applied to opens its items-popup
@@ -19,15 +22,25 @@ namespace TestCaseManagerApp.Helpers
                  DependencyProperty.RegisterAttached(
                  "OpenDropDownAutomatically",
                  typeof(bool),
-                 typeof(ComboBox_DropdownBehavior),
+                 typeof(ComboBoxDropdownExtensions),
                  new UIPropertyMetadata(false, OnOpenDropDownAutomatically_Changed)
              );
 
-        //DP-getter and -setter
+        /// <summary>
+        /// Gets the open drop down automatically.
+        /// </summary>
+        /// <param name="cbo">The combobox.</param>
+        /// <returns></returns>
         public static bool GetOpenDropDownAutomatically(ComboBox cbo)
         {
             return (bool)cbo.GetValue(OpenDropDownAutomaticallyProperty);
         }
+
+        /// <summary>
+        /// Sets the open drop down automatically.
+        /// </summary>
+        /// <param name="cbo">The cbo.</param>
+        /// <param name="value">if set to <c>true</c> [value].</param>
         public static void SetOpenDropDownAutomatically(ComboBox cbo, bool value)
         {
             cbo.SetValue(OpenDropDownAutomaticallyProperty, value);
@@ -36,19 +49,22 @@ namespace TestCaseManagerApp.Helpers
         /// <summary>
         /// Fired when the assignment of the behavior changes (IOW, is being turned on or off).
         /// </summary>
-        static void OnOpenDropDownAutomatically_Changed(
-                DependencyObject doSource,
-                DependencyPropertyChangedEventArgs e
-            )
+        /// <param name="doSource">The document source.</param>
+        /// <param name="e">The <see cref="DependencyPropertyChangedEventArgs"/> instance containing the event data.</param>
+        private static void OnOpenDropDownAutomatically_Changed(DependencyObject doSource, DependencyPropertyChangedEventArgs e)
         {
             //The ComboBox that is the target of the assignment
             ComboBox cbo = doSource as ComboBox;
             if (cbo == null)
+            {
                 return;
+            }
 
             //Just to be safe ...
             if (e.NewValue is bool == false)
+            {
                 return;
+            }
 
             if ((bool)e.NewValue)
             {
@@ -64,6 +80,11 @@ namespace TestCaseManagerApp.Helpers
             }
         }
 
+        /// <summary>
+        /// Handles the MouseMove event of the cbo control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.Windows.Input.MouseEventArgs"/> instance containing the event data.</param>
         public static void cbo_MouseMove(object sender, System.Windows.Input.MouseEventArgs e)
         {
             //Get a ref to the ComboBox
@@ -80,9 +101,13 @@ namespace TestCaseManagerApp.Helpers
                 cbo.IsDropDownOpen = false;
         }
 
-        static void cbo_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
+        /// <summary>
+        /// Open the DropDown/popup as soon as the mouse hovers over the control
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.Windows.Input.MouseEventArgs"/> instance containing the event data.</param>
+        private static void cbo_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
         {
-            //Open the DropDown/popup as soon as the mouse hovers over the control
             ((ComboBox)sender).IsDropDownOpen = true;
         }
     }

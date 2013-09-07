@@ -12,13 +12,13 @@ namespace TestCaseManagerApp.ViewModels
     {
         public TestCaseDetailedViewModel(int testCaseId, int suiteId)
         {            
-            ITestCase iTestCase = ExecutionContext.TeamProject.TestCases.Find(testCaseId);
-            ITestSuiteBase iTestSuiteBase = ExecutionContext.TeamProject.TestSuites.Find(suiteId);
+            ITestCase iTestCase = ExecutionContext.TestManagementTeamProject.TestCases.Find(testCaseId);
+            ITestSuiteBase iTestSuiteBase = ExecutionContext.TestManagementTeamProject.TestSuites.Find(suiteId);
             TestCase = new TestCase(iTestCase, iTestSuiteBase);
             TestActions = new List<ITestAction>();
             TestCase.ITestCase.Actions.ToList().ForEach(x => TestActions.Add(x));
             ObservableTestSteps = new ObservableCollection<TestStep>();
-            TestActions.GetTestSteps().ForEach(x => ObservableTestSteps.Add(x));
+            TestStepManager.GetTestStepsFromTestActions(TestActions).ForEach(x => ObservableTestSteps.Add(x));
             this.AssociatedAutomation = TestCase.ITestCase.GetAssociatedAutomation();
         }        
 

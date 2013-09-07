@@ -14,8 +14,6 @@ namespace TestCaseManagerApp.ViewModels
     { 
         public bool TitleFlag;
         public bool SuiteFlag;
-
-        private readonly Dispatcher dispatcher;
         private bool replaceInTitle;
         private bool replaceSharedSteps;
         private bool replaceInSteps;
@@ -26,28 +24,24 @@ namespace TestCaseManagerApp.ViewModels
             InitializeInnerCollections();
             ExecutionContext.Preferences.TestPlan.Refresh();
             ExecutionContext.Preferences.TestPlan.RootSuite.Refresh();
-            List<TestCase> testCasesList = ExecutionContext.Preferences.TestPlan.RootSuite.SubSuites.GetSuiteEntries();
+            List<TestCase> testCasesList = TestCaseManager.GetAllTestCasesInTestPlan();
             testCasesList.ForEach(t => ObservableTestCases.Add(t));
             InitializeInitialTestCaseCollection();
             InitializeTestSuiteList();
+            TestCasesCount = ObservableTestCases.Count.ToString();
             ReplaceInTitles = true;
             ReplaceInSteps = true;
             ReplaceSharedSteps = true;
         }
 
-        public TestCasesBatchDuplicateViewModel(TestCasesBatchDuplicateViewModel viewModel)
-        {
-            InitializeInnerCollections();
-            ExecutionContext.Preferences.TestPlan.Refresh();
-            ExecutionContext.Preferences.TestPlan.RootSuite.Refresh();
-            List<TestCase> testCasesList = ExecutionContext.Preferences.TestPlan.RootSuite.SubSuites.GetSuiteEntries();
-            testCasesList.ForEach(t => ObservableTestCases.Add(t));
-            InitializeInitialTestCaseCollection();
-            InitializeTestSuiteList();
-            TestCasesCount = ObservableTestCases.Count.ToString();
+        public TestCasesBatchDuplicateViewModel(TestCasesBatchDuplicateViewModel viewModel) : this()
+        {            
             InitialViewFilters = viewModel.InitialViewFilters;
             TitleFlag = viewModel.TitleFlag;
             SuiteFlag = viewModel.SuiteFlag;
+            ReplaceInTitles = viewModel.ReplaceInTitles;
+            ReplaceInSteps = viewModel.ReplaceInSteps;
+            ReplaceSharedSteps = viewModel.ReplaceSharedSteps;
         }
 
         public ObservableCollection<TestCase> ObservableTestCases { get; set; }
@@ -110,11 +104,31 @@ namespace TestCaseManagerApp.ViewModels
             }
         }
 
+        public void ReinitializeTestCases()
+        {
+            ObservableTestCases.Clear();
+            foreach (var item in InitialTestCaseCollection)
+            {
+                ObservableTestCases.Add(item);
+            }
+        }
+
+        public void FilterTestCases()
+        {
+            ReinitializeTestCases();
+            var filteredList = ObservableTestCases
+                .Where(t => ((TitleFlag && !String.IsNullOrEmpty(InitialViewFilters.TitleFilter)) ? t.ITestCase.Title.ToLower().Contains(InitialViewFilters.TitleFilter.ToLower()) : true)
+                    && ((SuiteFlag && !String.IsNullOrEmpty(InitialViewFilters.SuiteFilter)) ? t.ITestSuiteBase.Title.ToLower().Contains(InitialViewFilters.SuiteFilter.ToLower()) : true)).ToList();
+            ObservableTestCases.Clear();
+            filteredList.ForEach(x => ObservableTestCases.Add(x));
+            TestCasesCount = filteredList.Count.ToString();
+        }
+
         private void InitializeTestSuiteList()
         {
-            List<ITestSuiteBase> testSuiteList = ExecutionContext.Preferences.TestPlan.RootSuite.SubSuites.GetSuites();
+            List<ITestSuiteBase> testSuiteList = TestSuiteManager.GetAllTestSuitesInTestPlan();
             testSuiteList.ForEach(s => ObservableTestSuites.Add(s));
-        }       
+        }
 
         private void InitializeInitialTestCaseCollection()
         {
@@ -135,33 +149,6 @@ namespace TestCaseManagerApp.ViewModels
             SelectedTestCases = new List<TestCase>();
             ObservableTestCases = new ObservableCollection<TestCase>();
             InitialViewFilters = new InitialViewFilters();
-        }
-
-        //public void ReinitializeTestCases()
-        //{
-        //    List<TestCase> newTestCases = TestCaseManager.GetAllTestCases();
-        //    ObservableTestCases.Clear();
-        //    newTestCases.ForEach(x => ObservableTestCases.Add(x));
-        //}
-
-        public void ReinitializeTestCases()
-        {
-            ObservableTestCases.Clear();
-            foreach (var item in InitialTestCaseCollection)
-            {
-                ObservableTestCases.Add(item);
-            }
-        }
-
-        public void FilterTestCases()
-        {
-            ReinitializeTestCases();
-            var filteredList = ObservableTestCases
-                .Where(t => ((TitleFlag && !String.IsNullOrEmpty(InitialViewFilters.TitleFilter)) ? t.ITestCase.Title.ToLower().Contains(InitialViewFilters.TitleFilter.ToLower()) : true)
-                    && ((SuiteFlag && !String.IsNullOrEmpty(InitialViewFilters.SuiteFilter)) ? t.ITestSuiteBase.Title.ToLower().Contains(InitialViewFilters.SuiteFilter.ToLower()) : true)).ToList();
-            ObservableTestCases.Clear();
-            filteredList.ForEach(x => ObservableTestCases.Add(x));
-            TestCasesCount = filteredList.Count.ToString();
         }
     }
 }
