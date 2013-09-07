@@ -198,3 +198,4 @@ D:\Projects\TestCaseManager\TestCaseManager\obj\Debug\TestCaseManagerApp.Propert
 D:\Projects\TestCaseManager\TestCaseManager\obj\Debug\TestCaseManager.csproj.GenerateResource.Cache
 D:\Projects\TestCaseManager\TestCaseManager\obj\Debug\TestCaseManager.exe
 D:\Projects\TestCaseManager\TestCaseManager\obj\Debug\TestCaseManager.pdb
+D:\Projects\TestCaseManager\TestCaseManager\obj\Debug\TestCaseManager.csprojResolveAssemblyReference.cache

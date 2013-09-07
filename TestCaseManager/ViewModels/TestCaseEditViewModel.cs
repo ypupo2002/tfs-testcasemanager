@@ -25,7 +25,6 @@ namespace TestCaseManagerApp.ViewModels
         public List<ITestSuiteBase> TestSuiteList { get; set; }
         public AssociatedAutomation AssociatedAutomation { get; set; }
         public List<int> Priorities { get; set; }
-        public List<bool> IsAutomatedValues { get; set; }
         public List<string> Areas { get; set; }
         public bool CreateNew { get; set; }
         public bool Duplicate { get; set; }
@@ -35,7 +34,6 @@ namespace TestCaseManagerApp.ViewModels
         public TestCaseEditViewModel(int testCaseId, int suiteId, bool createNew, bool duplicate)
         {
             Areas = GetProjectAreas();
-            IsAutomatedValues = new List<bool>() { true, false };
             ExecutionContext.Preferences.TestPlan.Refresh();
             ExecutionContext.Preferences.TestPlan.RootSuite.Refresh();
             TestSuiteList = ExecutionContext.Preferences.TestPlan.RootSuite.SubSuites.GetSuites();
@@ -48,15 +46,7 @@ namespace TestCaseManagerApp.ViewModels
            
             Priorities = new List<int>() { 1, 2, 3, 4 };
             AlreadyAddedSharedSteps = new Dictionary<int, string>();
-            ITestSuiteBase iTestSuiteBase = null;
-            if (suiteId != 0)
-            {
-                iTestSuiteBase = ExecutionContext.TeamProject.TestSuites.Find(suiteId);
-            }
-            else
-            {
-                iTestSuiteBase = ExecutionContext.Preferences.TestPlan.RootSuite.SubSuites.GetSuites().FirstOrDefault();
-            }
+            ITestSuiteBase iTestSuiteBase = TestSuiteManager.GetSuiteById(suiteId);
             
             if (CreateNew && !Duplicate)
             {
@@ -80,6 +70,8 @@ namespace TestCaseManagerApp.ViewModels
             this.AssociatedAutomation = TestCase.ITestCase.GetAssociatedAutomation();
             UpdateObservableTestSteps(ObservableTestSteps.ToList());
         }
+
+      
 
         private void InitializeInitialSharedStepCollection()
         {

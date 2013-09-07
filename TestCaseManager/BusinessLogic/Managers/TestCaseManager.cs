@@ -104,6 +104,7 @@ namespace TestCaseManagerApp
 
             var newSuite = TestSuiteManager.GetSuiteByName(newSuiteTitle);
             newSuite.AddTestCase(currentTestCase.ITestCase);
+            currentTestCase.ITestSuiteBase = newSuite;
 
             return currentTestCase;
         }

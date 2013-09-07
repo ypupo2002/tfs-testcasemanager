@@ -7,7 +7,7 @@
              xmlns:helpers="clr-namespace:TestCaseManagerApp.Helpers"
              xmlns:local="clr-namespace:TestCaseManagerApp.Views"
              xmlns:convert="clr-namespace:TestCaseManagerApp.BusinessLogic.Converters"
-             mc:Ignorable="d"  Loaded="UserControl_Loaded">
+             mc:Ignorable="d">
     <Grid>
         <Grid.Resources>
             <convert:TestStepPropertiesConverter x:Key="TestStepPropertiesConverter" />
@@ -70,7 +70,7 @@
                 <TextBlock Text="Priority" Margin="10,0,10,0" Height="25" FontWeight="Bold" HorizontalAlignment="Left" Grid.Row="0" Grid.Column="4"/>
                 <ComboBox Height="25" Margin="10,0,10,0" ItemsSource="{Binding Priorities}" Name="cbPriority" Grid.Row="1" Grid.Column="4" helpers:ComboBox_DropdownBehavior.OpenDropDownAutomatically="True" MouseEnter="cbPriority_MouseEnter" MouseMove="cbPriority_MouseMove"/>
                 <TextBlock Text="Automated" Margin="10,0,10,0" Height="25" FontWeight="Bold" HorizontalAlignment="Left" Grid.Row="0" Grid.Column="5"/>
-                <ComboBox Height="25" Margin="10,0,10,0" ItemsSource="{Binding IsAutomatedValues}" Name="cbIsAutomated" Grid.Row="1" Grid.Column="5"  helpers:ComboBox_DropdownBehavior.OpenDropDownAutomatically="True" MouseEnter="cbIsAutomated_MouseEnter" MouseMove="cbIsAutomated_MouseMove"/>
+                <TextBox Text="{Binding TestCase.ITestCase.IsAutomated, Mode=OneWay}" Grid.Row="1" Grid.Column="5"/>
             </Grid>
 
             <Grid  Grid.Row="2">

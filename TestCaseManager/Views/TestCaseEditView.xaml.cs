@@ -40,6 +40,84 @@ namespace TestCaseManagerApp.Views
 
         public void OnFragmentNavigation(FragmentNavigationEventArgs e)
         {
+            InitializeUrlParameters(e);
+            ShowProgressBar();
+            InitializeFastKeys();
+
+            Task t = Task.Factory.StartNew(() =>
+            {
+                TestCaseEditViewModel = new TestCaseEditViewModel(TestCaseId, TestSuiteId, CreateNew, Duplicate);
+            });
+            t.ContinueWith(antecedent =>
+            {
+                InitializeUiRelatedViewSettings();
+                HideProgressBar();
+            }, TaskScheduler.FromCurrentSynchronizationContext());
+        }
+
+        public void OnNavigatedFrom(NavigationEventArgs e)
+        {
+        }
+
+        public void OnNavigatedTo(NavigationEventArgs e)
+        {
+        }
+
+        public void OnNavigatingFrom(NavigatingCancelEventArgs e)
+        {
+        }  
+
+        private void InitializeUiRelatedViewSettings()
+        {
+            this.DataContext = TestCaseEditViewModel;
+
+            rtbAction.SetText(TestCaseEditViewModel.ActionDefaultText);
+            rtbExpectedResult.SetText(TestCaseEditViewModel.ExpectedResultDefaultText);
+            tbSharedStepFilter.Text = TestCaseEditViewModel.SharedStepSearchDefaultText;
+
+            if (Duplicate || !CreateNew)
+            {
+                SetTestCasePropertiesFromPrevious();
+            }
+            else if (!Duplicate && CreateNew)
+            {
+                SetTestCasePropertiesToDefault();
+                btnDuplicate.IsEnabled = false;
+            }
+            else
+            {
+                btnDuplicate.IsEnabled = false;
+            }
+        }
+
+        private void SetTestCasePropertiesFromPrevious()
+        {
+            cbArea.SelectedIndex = TestCaseEditViewModel.Areas.FindIndex(0, (x => x.Equals(TestCaseEditViewModel.TestCase.ITestCase.Area)));
+            cbPriority.SelectedIndex = TestCaseEditViewModel.Priorities.FindIndex(0, (x => x.Equals(TestCaseEditViewModel.TestCase.ITestCase.Priority)));
+            cbSuite.SelectedIndex = TestCaseEditViewModel.TestSuiteList.FindIndex(0, (x => x.Title.Equals(TestCaseEditViewModel.TestCase.ITestSuiteBase.Title)));
+        }
+
+        private void SetTestCasePropertiesToDefault()
+        {
+            cbArea.SelectedIndex = 0;
+            cbPriority.SelectedIndex = 0;
+            cbSuite.SelectedIndex = 0;
+        }
+
+        private void HideProgressBar()
+        {
+            progressBar.Visibility = System.Windows.Visibility.Hidden;
+            mainGrid.Visibility = System.Windows.Visibility.Visible;
+        }
+
+        private void ShowProgressBar()
+        {
+            progressBar.Visibility = System.Windows.Visibility.Visible;
+            mainGrid.Visibility = System.Windows.Visibility.Hidden;
+        }
+
+        private void InitializeUrlParameters(FragmentNavigationEventArgs e)
+        {
             CreateNew = false;
             Duplicate = false;
             FragmentManager fm = new FragmentManager(e.Fragment);
@@ -57,26 +135,11 @@ namespace TestCaseManagerApp.Views
                 Duplicate = bool.Parse(duplicate);
             string comesFromAssociatedAutomation = fm.Get("comesFromAssociatedAutomation");
             if (!String.IsNullOrEmpty(comesFromAssociatedAutomation))
-                ComesFromAssociatedAutomation = bool.Parse(comesFromAssociatedAutomation);   
+                ComesFromAssociatedAutomation = bool.Parse(comesFromAssociatedAutomation);
         }
 
-        public void OnNavigatedFrom(NavigationEventArgs e)
+        private static void InitializeFastKeys()
         {
-        }
-
-        public void OnNavigatedTo(NavigationEventArgs e)
-        {
-        }
-
-        public void OnNavigatingFrom(NavigatingCancelEventArgs e)
-        {
-        }
-
-        private void UserControl_Loaded(object sender, RoutedEventArgs e)
-        {
-            progressBar.Visibility = System.Windows.Visibility.Visible;
-            mainGrid.Visibility = System.Windows.Visibility.Hidden;
-
             SaveCommand.InputGestures.Add(new KeyGesture(Key.S, ModifierKeys.Control));
             AssociateCommand.InputGestures.Add(new KeyGesture(Key.A, ModifierKeys.Control));
             DeleteCommand.InputGestures.Add(new KeyGesture(Key.Delete, ModifierKeys.Alt));
@@ -84,34 +147,7 @@ namespace TestCaseManagerApp.Views
             MoveDownCommand.InputGestures.Add(new KeyGesture(Key.Down, ModifierKeys.Alt));
             AddSharedStepCommand.InputGestures.Add(new KeyGesture(Key.A, ModifierKeys.Alt));
             ShareStepCommand.InputGestures.Add(new KeyGesture(Key.S, ModifierKeys.Alt));
-
-            Task t = Task.Factory.StartNew(() =>
-            {
-                TestCaseEditViewModel = new TestCaseEditViewModel(TestCaseId, TestSuiteId, CreateNew, Duplicate);
-            });
-            t.ContinueWith(antecedent =>
-            {
-                this.DataContext = TestCaseEditViewModel;
-           
-                rtbAction.SetText(TestCaseEditViewModel.ActionDefaultText);
-                rtbExpectedResult.SetText(TestCaseEditViewModel.ExpectedResultDefaultText);
-                tbSharedStepFilter.Text = TestCaseEditViewModel.SharedStepSearchDefaultText;
-
-                if (Duplicate || !CreateNew)
-                {
-                    cbArea.SelectedIndex = TestCaseEditViewModel.Areas.FindIndex(0, (x => x.Equals(TestCaseEditViewModel.TestCase.ITestCase.Area)));
-                    cbPriority.SelectedIndex = TestCaseEditViewModel.Priorities.FindIndex(0, (x => x.Equals(TestCaseEditViewModel.TestCase.ITestCase.Priority)));
-                    cbIsAutomated.SelectedIndex = TestCaseEditViewModel.IsAutomatedValues.FindIndex(0, (x => x.Equals(TestCaseEditViewModel.TestCase.ITestCase.IsAutomated)));
-                    cbSuite.SelectedIndex = TestCaseEditViewModel.TestSuiteList.FindIndex(0, (x => x.Title.Equals(TestCaseEditViewModel.TestCase.ITestSuiteBase.Title)));
-                }
-                if (!Duplicate && !CreateNew)
-                {
-                    btnDuplicate.IsEnabled = false;
-                }
-                progressBar.Visibility = System.Windows.Visibility.Hidden;
-                mainGrid.Visibility = System.Windows.Visibility.Visible;
-            }, TaskScheduler.FromCurrentSynchronizationContext());
-        }    
+        }     
 
         private void btnInsertStep_Click(object sender, RoutedEventArgs e)
         {
@@ -246,14 +282,18 @@ namespace TestCaseManagerApp.Views
         {
             dgTestSteps.SelectedItems.Clear();
             for (int i = startIndex - 1; i < startIndex + count - 1; i++)
+            {
                 dgTestSteps.SelectedItems.Add(dgTestSteps.Items[i]);
+            }
         }
 
         private void SelectNextItemsAfterMoveDown(int startIndex, int count)
         {
             dgTestSteps.SelectedItems.Clear();
             for (int i = startIndex + 1; i < startIndex + count + 1; i++)
+            {
                 dgTestSteps.SelectedItems.Add(dgTestSteps.Items[i]);
+            }
         }
 
         private void btnAdd_Click(object sender, RoutedEventArgs e)
@@ -355,22 +395,25 @@ namespace TestCaseManagerApp.Views
         {
             int priority = int.Parse(cbPriority.Text);
             string suiteTitle = cbSuite.Text;
-            TestCase result;
+            TestCase savedTestCase;
             if ((CreateNew || Duplicate) && !TestCaseEditViewModel.IsAlreadyCreated)
             {
-                result = TestCaseEditViewModel.TestCase.SaveTestCase(true, priority, suiteTitle, TestCaseEditViewModel.ObservableTestSteps.ToList());
-                TestCaseEditViewModel.TestCase = result;
+                savedTestCase = TestCaseEditViewModel.TestCase.SaveTestCase(true, priority, suiteTitle, TestCaseEditViewModel.ObservableTestSteps.ToList());
+                TestCaseEditViewModel.TestCase = savedTestCase;
                 TestCaseEditViewModel.IsAlreadyCreated = true;
                 CreateNew = false;
                 Duplicate = false;
+                btnDuplicate.IsEnabled = true;
                 TestCaseEditViewModel.CreateNew = false;
                 TestCaseEditViewModel.Duplicate = false;
             }
             else
             {
-                result = TestCaseEditViewModel.TestCase.SaveTestCase(false, priority, suiteTitle, TestCaseEditViewModel.ObservableTestSteps.ToList());
+                savedTestCase = TestCaseEditViewModel.TestCase.SaveTestCase(false, priority, suiteTitle, TestCaseEditViewModel.ObservableTestSteps.ToList());
             }
-            return result;
+            TestCaseId = savedTestCase.ITestCase.Id;
+
+            return savedTestCase;
         }
 
         private void btnUndo_Click(object sender, RoutedEventArgs e)
@@ -405,12 +448,6 @@ namespace TestCaseManagerApp.Views
             cbArea.Focus();
         }
 
-        private void cbIsAutomated_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
-        {
-            cbIsAutomated.IsDropDownOpen = true;
-            cbIsAutomated.Focus();
-        }
-
         private void cbPriority_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
         {
             cbPriority.IsDropDownOpen = true;
@@ -428,11 +465,6 @@ namespace TestCaseManagerApp.Views
         }
 
         private void cbPriority_MouseMove(object sender, System.Windows.Input.MouseEventArgs e)
-        {
-            ComboBox_DropdownBehavior.cbo_MouseMove(sender, e);
-        }
-
-        private void cbIsAutomated_MouseMove(object sender, System.Windows.Input.MouseEventArgs e)
         {
             ComboBox_DropdownBehavior.cbo_MouseMove(sender, e);
         }

@@ -9,19 +9,22 @@ namespace TestCaseManagerApp
         public static List<ITestSuiteBase> GetSuites(this ITestSuiteCollection suites)
         {
             List<ITestSuiteBase> testSuites = new List<ITestSuiteBase>();
-            foreach (ITestSuiteBase suite in suites)
+            foreach (ITestSuiteBase currentSuite in suites)
             {
-                if (suite != null)
+                if (currentSuite != null)
                 {
-                    suite.Refresh();
-                    if (!testSuites.Contains(suite))
-                        testSuites.Add(suite);
-                    if (suite.TestSuiteType == TestSuiteType.StaticTestSuite)
+                    currentSuite.Refresh();
+                    if (!testSuites.Contains(currentSuite))
                     {
-                        IStaticTestSuite suite1 = suite as IStaticTestSuite;
-                        //suite1.Refresh();
+                        testSuites.Add(currentSuite);
+                    }
+                    if (currentSuite is IStaticTestSuite)
+                    {
+                        IStaticTestSuite suite1 = currentSuite as IStaticTestSuite;
                         if (suite1 != null && (suite1.SubSuites.Count > 0))
+                        {
                             testSuites.AddRange(suite1.SubSuites.GetSuites());
+                        }
                     }
                 }
             }
@@ -37,8 +40,36 @@ namespace TestCaseManagerApp
 
         public static void AddTestCase(this ITestSuiteBase currentSuite, ITestCase testCaseToAdd)
         {
-            if (((IStaticTestSuite)currentSuite).Entries.Where(x => x.Id.Equals(testCaseToAdd.Id)).ToList().Count == 0)
-                ((IStaticTestSuite)currentSuite).Entries.Add(testCaseToAdd);
+            if (currentSuite is IRequirementTestSuite)
+            {
+                IRequirementTestSuite suite = currentSuite as IRequirementTestSuite;
+                if (suite.TestCases.Where(x => x.Id.Equals(testCaseToAdd.Id)).ToList().Count == 0)
+                {
+                    suite.TestCases.AddCases(new List<ITestCase>() { testCaseToAdd });
+                }
+            }
+            else if (currentSuite is IStaticTestSuite)
+            {
+                IStaticTestSuite suite = currentSuite as IStaticTestSuite;
+                if (suite.Entries.Where(x => x.Id.Equals(testCaseToAdd.Id)).ToList().Count == 0)
+                {
+                    suite.Entries.Add(testCaseToAdd);
+                }
+            }  
+        }
+
+        public static ITestSuiteBase GetSuiteById(int suiteId)
+        {
+            ITestSuiteBase iTestSuiteBase = null;
+            if (suiteId != 0)
+            {
+                iTestSuiteBase = ExecutionContext.TeamProject.TestSuites.Find(suiteId);
+            }
+            else
+            {
+                iTestSuiteBase = ExecutionContext.Preferences.TestPlan.RootSuite.SubSuites.GetSuites().FirstOrDefault();
+            }
+            return iTestSuiteBase;
         }
 
         public static void RemoveTestCase(ITestCase testCaseToRemove)

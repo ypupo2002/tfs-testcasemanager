@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Net.Sockets;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
@@ -38,9 +40,20 @@ namespace TestCaseManagerApp.Views
                 ExecutionContext.ProjectDllPath = projectPathDll;
                 TestService = (ITestManagementService)ExecutionContext.Tfs.GetService(typeof(ITestManagementService));
                 InitializeTestProjectByName(TestService, ExecutionContext.Preferences.TestProjectName);
-                InitializeTestPlans(ExecutionContext.TeamProject);
-                string fullTeamProjectName = GenerateFullTeamProjectName();
-                tbTfsProject.Text = fullTeamProjectName;
+                try
+                {
+                    InitializeTestPlans(ExecutionContext.TeamProject);
+                    string fullTeamProjectName = GenerateFullTeamProjectName();
+                    tbTfsProject.Text = fullTeamProjectName;                    
+                }
+                catch (SocketException)
+                {
+                    return;
+                }
+                catch(WebException)
+                {
+                    return;
+                }
             }
         }
 
