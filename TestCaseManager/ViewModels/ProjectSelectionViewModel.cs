@@ -16,6 +16,9 @@ namespace TestCaseManagerApp.ViewModels
 {
     public class ProjectSelectionViewModel
     {
+        public ITestManagementService TestService { get; set; }
+        public string FullTeamProjectName { get; set; }
+
         public void LoadProjectSelectionFromUser(TeamProjectPicker projectPicker)
         {
             ExecutionContext.Preferences.TfsUri = null;
@@ -28,7 +31,9 @@ namespace TestCaseManagerApp.ViewModels
                     var userSelected = projectPicker.ShowDialog();
 
                     if (userSelected == DialogResult.Cancel)
+                    {
                         return;
+                    }
 
                     if (projectPicker.SelectedTeamProjectCollection != null)
                     {
@@ -51,9 +56,6 @@ namespace TestCaseManagerApp.ViewModels
             }
         }
 
-        public ITestManagementService TestService { get; set; }
-        public string FullTeamProjectName { get; set; }
-
         public void InitializeFromRegistry()
         {
             string teamProjectUri = RegistryManager.GetTeamProjectUri();
@@ -73,10 +75,12 @@ namespace TestCaseManagerApp.ViewModels
                 }
                 catch (SocketException)
                 {
+                    //TODO: Add exception logging
                     return;
                 }
                 catch (WebException)
                 {
+                    //TODO: Add exception logging
                     return;
                 }
             }

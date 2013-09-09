@@ -25,8 +25,8 @@
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
-                <TextBox Name="tbFullName" Margin="10,0,10,10" Height="25" GotFocus="tbFullName_GotFocus" LostFocus="tbFullName_LostFocus" KeyUp="tbFullName_KeyUp" Grid.Column="0" HorizontalAlignment="Stretch"/>
-                <TextBox Name="tbClassName" Margin="10,0,10,10" Height="25"  GotFocus="tbClassName_GotFocus" LostFocus="tbClassName_LostFocus" KeyUp="tbClassName_KeyUp" Grid.Column="1" HorizontalAlignment="Stretch"/>
+                <TextBox Name="tbFullName" Text="{Binding AssociateTestViewFilters.FullNameFilter, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="10,0,10,10" Height="25" GotFocus="tbFullName_GotFocus" LostFocus="tbFullName_LostFocus" KeyUp="tbFullName_KeyUp" Grid.Column="0" HorizontalAlignment="Stretch"/>
+                <TextBox Name="tbClassName" Text="{Binding AssociateTestViewFilters.ClassNameFilter, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="10,0,10,10" Height="25"  GotFocus="tbClassName_GotFocus" LostFocus="tbClassName_LostFocus" KeyUp="tbClassName_KeyUp" Grid.Column="1" HorizontalAlignment="Stretch"/>
                 <ComboBox Height="25" Margin="10,0,10,10" ItemsSource="{Binding TestTypes}" Name="cbTestType" helpers:ComboBoxDropdownExtensions.OpenDropDownAutomatically="True" MouseEnter="cbTestType_MouseEnter" MouseMove="cbTestType_MouseMove" Grid.Column="2" HorizontalAlignment="Stretch"/>
             </Grid>
 

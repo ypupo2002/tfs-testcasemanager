@@ -123,6 +123,7 @@
     </ApplicationDefinition>
     <Compile Include="BusinessLogic\Converters\TestStepPropertiesConverter.cs" />
     <Compile Include="BusinessLogic\Entities\AssociatedAutomation.cs" />
+    <Compile Include="BusinessLogic\Entities\AssociateTestViewFilters.cs" />
     <Compile Include="BusinessLogic\Entities\InitialViewFilters.cs" />
     <Compile Include="BusinessLogic\Entities\SharedStepIdReplacePair.cs" />
     <Compile Include="BusinessLogic\Entities\Test.cs" />

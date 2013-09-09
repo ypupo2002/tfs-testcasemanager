@@ -1,12 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Controls;
+﻿// <copyright file="TextBoxExtensions.cs" company="Telerik">
+// http://www.telerik.com All rights reserved.
+// </copyright>
+// <author>Anton Angelov</author>
 
 namespace TestCaseManagerApp
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
+    using System.Threading.Tasks;
+    using System.Windows.Controls;
+
     /// <summary>
     /// Contains helper methods which add custom watermark functionality to WPF textbox
     /// </summary>
@@ -20,7 +25,7 @@ namespace TestCaseManagerApp
         /// <param name="isRealTextSet">if set to <c>true</c> [is real text set].</param>
         public static void RestoreDefaultText(this TextBox textBox, string defaultText, ref bool isRealTextSet)
         {
-            if (String.IsNullOrEmpty(textBox.Text))
+            if (string.IsNullOrEmpty(textBox.Text))
             {
                 textBox.Text = defaultText;
                 isRealTextSet = false;
@@ -36,7 +41,7 @@ namespace TestCaseManagerApp
         {
             if (!isRealTextSet)
             {
-                textBox.Text = String.Empty;
+                textBox.Text = string.Empty;
                 isRealTextSet = true;
             }
         }

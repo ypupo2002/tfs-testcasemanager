@@ -10,9 +10,9 @@ namespace TestCaseManagerApp.ViewModels
 {
     public class TestCasesInitialViewModel: NotifyPropertyChanged
     {
-        public bool IdFlag;
-        public bool TitleFlag;
-        public bool SuiteFlag;
+        public bool isIdFilterSet;
+        public bool isTitleFilterSet;
+        public bool isSuiteFilterSet;
 
         private bool hideAutomated;
         private string testCasesCount;
@@ -32,9 +32,9 @@ namespace TestCaseManagerApp.ViewModels
         public TestCasesInitialViewModel(TestCasesInitialViewModel viewModel) : this()
         {
             InitialViewFilters = viewModel.InitialViewFilters;
-            IdFlag = viewModel.IdFlag;
-            TitleFlag = viewModel.TitleFlag;
-            SuiteFlag = viewModel.SuiteFlag;
+            isIdFilterSet = viewModel.isIdFilterSet;
+            isTitleFilterSet = viewModel.isTitleFilterSet;
+            isSuiteFilterSet = viewModel.isSuiteFilterSet;
             HideAutomated = viewModel.HideAutomated;
         }
 
@@ -74,9 +74,9 @@ namespace TestCaseManagerApp.ViewModels
 
             var filteredList = ObservableTestCases
                 .Where(t => (t.ITestCase != null)
-                    && ((TitleFlag && !String.IsNullOrEmpty(InitialViewFilters.TitleFilter)) ? t.ITestCase.Title.ToLower().Contains(InitialViewFilters.TitleFilter.ToLower()) : true)
-                    && ((SuiteFlag && !String.IsNullOrEmpty(InitialViewFilters.SuiteFilter)) ? t.ITestSuiteBase.Title.ToLower().Contains(InitialViewFilters.SuiteFilter.ToLower()) : true)
-                    && ((IdFlag && !String.IsNullOrEmpty(InitialViewFilters.IdFilter)) ? t.ITestCase.Id.ToString().Contains(InitialViewFilters.IdFilter) : true)
+                    && ((isTitleFilterSet && !String.IsNullOrEmpty(InitialViewFilters.TitleFilter)) ? t.ITestCase.Title.ToLower().Contains(InitialViewFilters.TitleFilter.ToLower()) : true)
+                    && ((isSuiteFilterSet && !String.IsNullOrEmpty(InitialViewFilters.SuiteFilter)) ? t.ITestSuiteBase.Title.ToLower().Contains(InitialViewFilters.SuiteFilter.ToLower()) : true)
+                    && ((isIdFilterSet && !String.IsNullOrEmpty(InitialViewFilters.IdFilter)) ? t.ITestCase.Id.ToString().Contains(InitialViewFilters.IdFilter) : true)
                     && (!HideAutomated.Equals(t.ITestCase.IsAutomated) || !HideAutomated)).ToList();
             ObservableTestCases.Clear();
             filteredList.ForEach(x => ObservableTestCases.Add(x));
@@ -112,4 +112,3 @@ namespace TestCaseManagerApp.ViewModels
         }
     }
 }
-

@@ -1,9 +1,13 @@
-﻿using System;
-using System.Windows.Controls;
-using System.Windows.Documents;
-
+﻿// <copyright file="RichTextBoxExtensions.cs" company="Telerik">
+// http://www.telerik.com All rights reserved.
+// </copyright>
+// <author>Anton Angelov</author>
 namespace TestCaseManagerApp
 {
+    using System;
+    using System.Windows.Controls;
+    using System.Windows.Documents;
+
     /// <summary>
     /// Contains helper methods which add custom watermark functionality to WPF richtextbox
     /// </summary>
@@ -17,7 +21,7 @@ namespace TestCaseManagerApp
         /// <param name="isRealTextSet">if set to <c>true</c> real text is set.</param>
         public static void RestoreDefaultText(this RichTextBox richTextBox, string defaultText, ref bool isRealTextSet)
         {
-            if (String.IsNullOrEmpty(richTextBox.GetText()))
+            if (string.IsNullOrEmpty(richTextBox.GetText()))
             {
                 richTextBox.AppendText(defaultText);
                 isRealTextSet = false;

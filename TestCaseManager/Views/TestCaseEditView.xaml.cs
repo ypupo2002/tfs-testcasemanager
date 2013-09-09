@@ -456,17 +456,17 @@ namespace TestCaseManagerApp.Views
 
         private void cbSuite_MouseMove(object sender, System.Windows.Input.MouseEventArgs e)
         {
-            ComboBoxDropdownExtensions.cbo_MouseMove(sender, e);
+            ComboBoxDropdownExtensions.cboMouseMove(sender, e);
         }
 
         private void cbArea_MouseMove(object sender, System.Windows.Input.MouseEventArgs e)
         {
-            ComboBoxDropdownExtensions.cbo_MouseMove(sender, e);
+            ComboBoxDropdownExtensions.cboMouseMove(sender, e);
         }
 
         private void cbPriority_MouseMove(object sender, System.Windows.Input.MouseEventArgs e)
         {
-            ComboBoxDropdownExtensions.cbo_MouseMove(sender, e);
+            ComboBoxDropdownExtensions.cboMouseMove(sender, e);
         }
 
         private void tbSharedStepFilter_GotFocus(object sender, RoutedEventArgs e)

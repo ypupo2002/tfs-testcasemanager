@@ -18,7 +18,6 @@ namespace TestCaseManagerApp.Views
         public AssociateTestView()
         {
             InitializeComponent();
-            InitializeSearchBoxes();
         }
 
         public void OnFragmentNavigation(FragmentNavigationEventArgs e)
@@ -63,27 +62,6 @@ namespace TestCaseManagerApp.Views
         {
         }
 
-        private void InitializeSearchBoxes()
-        {
-            tbFullName.Text = "Full Name";
-            tbClassName.Text = "Class Name";
-        }
-
-        private void tbFullName_GotFocus(object sender, RoutedEventArgs e)
-        {
-            tbFullName.ClearDefaultContent(ref AssociateTestViewModel.fullNameFlag);
-        }
-
-        private void tbFullName_LostFocus(object sender, RoutedEventArgs e)
-        {
-            tbFullName.RestoreDefaultText("Full Name", ref AssociateTestViewModel.fullNameFlag);
-        }
-
-        private void tbFullName_KeyUp(object sender, System.Windows.Input.KeyEventArgs e)
-        {
-            FilterTests();
-        }
-
         private void FilterTests()
         {
             if (AssociateTestViewModel == null)
@@ -95,8 +73,8 @@ namespace TestCaseManagerApp.Views
             string classNameFilter = tbClassName.Text.Equals("Class Name") ? String.Empty : tbClassName.Text;
 
             var filteredList = AssociateTestViewModel.ObservableTests
-                .Where(t => ((AssociateTestViewModel.fullNameFlag && !String.IsNullOrEmpty(fullNameFilter)) ? t.FullName.ToLower().Contains(fullNameFilter.ToLower()) : true)
-                    && ((AssociateTestViewModel.classNameFlag && !String.IsNullOrEmpty(classNameFilter)) ? t.ClassName.ToLower().Contains(classNameFilter.ToLower()) : true)).ToList();
+                .Where(t => ((AssociateTestViewModel.AssociateTestViewFilters.isFullNameFilterSet && !String.IsNullOrEmpty(fullNameFilter)) ? t.FullName.ToLower().Contains(fullNameFilter.ToLower()) : true)
+                    && ((AssociateTestViewModel.AssociateTestViewFilters.isClassNameFilterSet && !String.IsNullOrEmpty(classNameFilter)) ? t.ClassName.ToLower().Contains(classNameFilter.ToLower()) : true)).ToList();
             AssociateTestViewModel.ObservableTests.Clear();
             filteredList.ForEach(x => AssociateTestViewModel.ObservableTests.Add(x));
         }
@@ -110,14 +88,29 @@ namespace TestCaseManagerApp.Views
             }
         }
 
+        private void tbFullName_GotFocus(object sender, RoutedEventArgs e)
+        {
+            tbFullName.ClearDefaultContent(ref AssociateTestViewModel.AssociateTestViewFilters.isFullNameFilterSet);
+        }
+
+        private void tbFullName_LostFocus(object sender, RoutedEventArgs e)
+        {
+            tbFullName.RestoreDefaultText("Full Name", ref AssociateTestViewModel.AssociateTestViewFilters.isFullNameFilterSet);
+        }
+
+        private void tbFullName_KeyUp(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            FilterTests();
+        }
+
         private void tbClassName_GotFocus(object sender, RoutedEventArgs e)
         {
-            tbClassName.ClearDefaultContent(ref AssociateTestViewModel.classNameFlag);
+            tbClassName.ClearDefaultContent(ref AssociateTestViewModel.AssociateTestViewFilters.isClassNameFilterSet);
         }
 
         private void tbClassName_LostFocus(object sender, RoutedEventArgs e)
         {
-            tbClassName.RestoreDefaultText("Class Name", ref AssociateTestViewModel.classNameFlag);
+            tbClassName.RestoreDefaultText("Class Name", ref AssociateTestViewModel.AssociateTestViewFilters.isClassNameFilterSet);
         }
 
         private void tbClassName_KeyUp(object sender, System.Windows.Input.KeyEventArgs e)
@@ -133,7 +126,7 @@ namespace TestCaseManagerApp.Views
 
         private void cbTestType_MouseMove(object sender, System.Windows.Input.MouseEventArgs e)
         {
-            ComboBoxDropdownExtensions.cbo_MouseMove(sender, e);
+            ComboBoxDropdownExtensions.cboMouseMove(sender, e);
         }        
 
         private void btnAssociate_Click(object sender, RoutedEventArgs e)

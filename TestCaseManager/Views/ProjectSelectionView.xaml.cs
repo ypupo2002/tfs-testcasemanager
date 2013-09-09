@@ -107,7 +107,7 @@ namespace TestCaseManagerApp.Views
 
         private void cbTestPlans_MouseMove(object sender, System.Windows.Input.MouseEventArgs e)
         {
-            ComboBoxDropdownExtensions.cbo_MouseMove(sender, e);
+            ComboBoxDropdownExtensions.cboMouseMove(sender, e);
         }
     }
 }

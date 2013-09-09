@@ -100,7 +100,7 @@ namespace TestCaseManagerApp.Views
 
         private void cbSuite_MouseMove(object sender, MouseEventArgs e)
         {
-            ComboBoxDropdownExtensions.cbo_MouseMove(sender, e);
+            ComboBoxDropdownExtensions.cboMouseMove(sender, e);
         }
 
         private void btnBatchDuplicate_Click(object sender, RoutedEventArgs e)
