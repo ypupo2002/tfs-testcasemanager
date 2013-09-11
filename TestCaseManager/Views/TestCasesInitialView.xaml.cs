@@ -8,6 +8,7 @@ using System.Windows.Input;
 using System.Windows.Threading;
 using FirstFloor.ModernUI.Windows;
 using FirstFloor.ModernUI.Windows.Controls;
+using FirstFloor.ModernUI.Windows.Navigation;
 using TestCaseManagerApp.ViewModels;
 
 namespace TestCaseManagerApp.Views
@@ -20,57 +21,76 @@ namespace TestCaseManagerApp.Views
         public static RoutedCommand PreviewCommand = new RoutedCommand();
         public static RoutedCommand NewCommand = new RoutedCommand();
         public static RoutedCommand RefreshCommand = new RoutedCommand();
-
+        
         public TestCasesInitialView()
         {
             InitializeComponent();
         }
 
-        private void UserControl_Loaded(object sender, RoutedEventArgs e)
+        private void TestCaseInitialView_Initialized_1(object sender, EventArgs e)
         {
-            EditCommand.InputGestures.Add(new KeyGesture(Key.E, ModifierKeys.Control));
-            DuplicateCommand.InputGestures.Add(new KeyGesture(Key.D, ModifierKeys.Control));
-            PreviewCommand.InputGestures.Add(new KeyGesture(Key.P, ModifierKeys.Control));
-            NewCommand.InputGestures.Add(new KeyGesture(Key.N, ModifierKeys.Control));
-            RefreshCommand.InputGestures.Add(new KeyGesture(Key.R, ModifierKeys.Control));
+           if (TestCasesInitialViewModel == null)
+           {
+               TestCasesInitialViewModel = new ViewModels.TestCasesInitialViewModel();
+               this.DataContext = TestCasesInitialViewModel;
+           }
+        }
 
-            progressBar.Visibility = System.Windows.Visibility.Visible;
-            mainGrid.Visibility = System.Windows.Visibility.Hidden;
+        public void OnFragmentNavigation(FragmentNavigationEventArgs e)
+        {
+        }
 
+        public void OnNavigatedFrom(NavigationEventArgs e)
+        {
+        }
+
+        public void OnNavigatedTo(NavigationEventArgs e)
+        {
+            ShowProgressBar();
+            //InitializeFastKeys();
             Task t = Task.Factory.StartNew(() =>
-            {
-                MaximizeWindow();
-            }, CancellationToken.None, TaskCreationOptions.None, TaskScheduler.FromCurrentSynchronizationContext());     
-          
-            Task t2 = t.ContinueWith(antecedent =>
             {
                 if (TestCasesInitialViewModel != null)
                 {
                     TestCasesInitialViewModel = new ViewModels.TestCasesInitialViewModel(TestCasesInitialViewModel);
                     TestCasesInitialViewModel.FilterTestCases();
                 }
-                else
-                {
-                    TestCasesInitialViewModel = new ViewModels.TestCasesInitialViewModel();
-                }               
+                //else
+                //{
+                //    TestCasesInitialViewModel = new ViewModels.TestCasesInitialViewModel();
+                //}
             });
-            t2.ContinueWith(antecedent =>
-            {                
-                this.DataContext = TestCasesInitialViewModel;
-                progressBar.Visibility = System.Windows.Visibility.Hidden;
-                mainGrid.Visibility = System.Windows.Visibility.Visible;
+            t.ContinueWith(antecedent =>
+            {
+                //this.DataContext = TestCasesInitialViewModel;
+                HideProgressBar();
                 this.tbTitleFilter.Focus();
             }, TaskScheduler.FromCurrentSynchronizationContext());
         }
 
-        private void MaximizeWindow()
+        public void OnNavigatingFrom(NavigatingCancelEventArgs e)
         {
-            try
-            {
-                Window w = Window.GetWindow(this);
-                w.WindowState = WindowState.Maximized;
-            }
-            catch { }
+        }
+
+        private static void InitializeFastKeys()
+        {
+            EditCommand.InputGestures.Add(new KeyGesture(Key.E, ModifierKeys.Control));
+            DuplicateCommand.InputGestures.Add(new KeyGesture(Key.D, ModifierKeys.Control));
+            PreviewCommand.InputGestures.Add(new KeyGesture(Key.P, ModifierKeys.Control));
+            NewCommand.InputGestures.Add(new KeyGesture(Key.N, ModifierKeys.Control));
+            RefreshCommand.InputGestures.Add(new KeyGesture(Key.R, ModifierKeys.Control));
+        }
+
+        private void HideProgressBar()
+        {
+            progressBar.Visibility = System.Windows.Visibility.Hidden;
+            mainGrid.Visibility = System.Windows.Visibility.Visible;
+        }
+
+        private void ShowProgressBar()
+        {
+            progressBar.Visibility = System.Windows.Visibility.Visible;
+            mainGrid.Visibility = System.Windows.Visibility.Hidden;
         }
 
         private void PreviewButton_Click(object sender, RoutedEventArgs e)
@@ -124,23 +144,7 @@ namespace TestCaseManagerApp.Views
         private void btnNew_Click(object sender, RoutedEventArgs e)
         {
             this.NavigateToTestCasesEditView(true, false);
-        }
-
-        public void OnFragmentNavigation(FirstFloor.ModernUI.Windows.Navigation.FragmentNavigationEventArgs e)
-        {
-        }
-
-        public void OnNavigatedFrom(FirstFloor.ModernUI.Windows.Navigation.NavigationEventArgs e)
-        {
-        }
-
-        public void OnNavigatedTo(FirstFloor.ModernUI.Windows.Navigation.NavigationEventArgs e)
-        {
-        }
-
-        public void OnNavigatingFrom(FirstFloor.ModernUI.Windows.Navigation.NavigatingCancelEventArgs e)
-        {
-        }
+        }     
 
         private void tbIdFilter_GotFocus(object sender, RoutedEventArgs e)
         {

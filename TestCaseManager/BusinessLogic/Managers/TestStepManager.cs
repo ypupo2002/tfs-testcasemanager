@@ -1,14 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.TeamFoundation.TestManagement.Client;
-using TestCaseManagerApp.BusinessLogic.Entities;
-
+﻿// <copyright file="TestStepManager.cs" company="Telerik">
+// http://www.telerik.com All rights reserved.
+// </copyright>
+// <author>Anton Angelov</author>
 namespace TestCaseManagerApp
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Collections.ObjectModel;
+    using System.Linq;
+    using System.Text;
+    using System.Threading.Tasks;
+    using Microsoft.TeamFoundation.TestManagement.Client;
+    using TestCaseManagerApp.BusinessLogic.Entities;
+
     /// <summary>
     /// Contains helper methods for working with TestStep entities
     /// </summary>
@@ -27,6 +31,7 @@ namespace TestCaseManagerApp
             {
                 alreadyAddedSharedSteps = new Dictionary<int, string>();
             }
+
             List<TestStep> testSteps = new List<TestStep>();           
 
             foreach (var currentAction in testActions)
@@ -34,7 +39,7 @@ namespace TestCaseManagerApp
                 if (currentAction is ITestStep)
                 {
                     string stepGuid = Guid.NewGuid().ToString();
-                    testSteps.Add(new TestStep(false, (currentAction as ITestStep), String.Empty, stepGuid));
+                    testSteps.Add(new TestStep(false, currentAction as ITestStep, string.Empty, stepGuid));
                 }
                 else if (currentAction is ISharedStepReference)
                 {
@@ -46,9 +51,11 @@ namespace TestCaseManagerApp
                     {
                         sharedSteps.Add(new SharedStep(currentSharedStep));
                     }
+
                     testSteps.AddRange(TestStepManager.GetAllTestStepsInSharedStep(currentSharedStep, sharedStepGuid));
                 }
             }
+
             return testSteps;
         }
 
@@ -95,8 +102,7 @@ namespace TestCaseManagerApp
         {
             List<TestStep> testSteps = new List<TestStep>();
             if (currentSharedStep != null && currentSharedStep.Actions != null)
-            {
-                
+            {                
                 foreach (var currentSharedStepAction in currentSharedStep.Actions)
                 {
                     testSteps.Add(new TestStep(true, currentSharedStepAction as ITestStep, currentSharedStep.Title, currentSharedStep.Id, sharedStepUniqueGuid));
@@ -116,8 +122,8 @@ namespace TestCaseManagerApp
             StringBuilder sb = new StringBuilder();
             foreach (TestStep currentTestStep in testSteps)
             {
-                sb.AppendLine(String.Format("{0}   {1}", currentTestStep.ITestStep.Title.ToPlainText(), currentTestStep.ITestStep.ExpectedResult.ToPlainText()));
-                sb.AppendLine(new String('*', 20));
+                sb.AppendLine(string.Format("{0}   {1}", currentTestStep.ITestStep.Title.ToPlainText(), currentTestStep.ITestStep.ExpectedResult.ToPlainText()));
+                sb.AppendLine(new string('*', 20));
             }
 
             string result = sb.ToString();
@@ -134,14 +140,15 @@ namespace TestCaseManagerApp
         /// <returns>the test step object</returns>
         public static TestStep CreateNewTestStep(TestCase testCase, string stepTitle, string expectedResult, string guid = "")
         {
-            ITestStep iTestStep = testCase.ITestCase.CreateTestStep();
-            iTestStep.ExpectedResult = expectedResult;
-            iTestStep.Title = stepTitle;
-            if (String.IsNullOrEmpty(guid))
+            ITestStep testStepCore = testCase.ITestCase.CreateTestStep();
+            testStepCore.ExpectedResult = expectedResult;
+            testStepCore.Title = stepTitle;
+            if (string.IsNullOrEmpty(guid))
             {
                 guid = Guid.NewGuid().ToString();
             }
-            TestStep testStepToInsert = new TestStep(false, iTestStep, String.Empty, guid);
+
+            TestStep testStepToInsert = new TestStep(false, testStepCore, string.Empty, guid);
 
             return testStepToInsert;
         }
@@ -156,16 +163,16 @@ namespace TestCaseManagerApp
         /// <returns>the shared step core object</returns>
         public static ISharedStep CreateNewSharedStep(TestCase testCase, string sharedStepTitle, string stepTitle, string expectedResult)
         {
-            ISharedStepReference iSharedStepReference = testCase.ITestCase.CreateSharedStepReference();
-            ISharedStep iSharedStep = ExecutionContext.TestManagementTeamProject.SharedSteps.Create();
-            iSharedStepReference.SharedStepId = iSharedStep.Id;
-            iSharedStep.Title = sharedStepTitle;
-            ITestStep iTestStep = iSharedStep.CreateTestStep();
-            iTestStep.ExpectedResult = expectedResult;
-            iTestStep.Title = stepTitle;
-            iSharedStep.Actions.Add(iTestStep);
+            ISharedStepReference sharedStepReferenceCore = testCase.ITestCase.CreateSharedStepReference();
+            ISharedStep sharedStepCore = ExecutionContext.TestManagementTeamProject.SharedSteps.Create();
+            sharedStepReferenceCore.SharedStepId = sharedStepCore.Id;
+            sharedStepCore.Title = sharedStepTitle;
+            ITestStep testStepCore = sharedStepCore.CreateTestStep();
+            testStepCore.ExpectedResult = expectedResult;
+            testStepCore.Title = stepTitle;
+            sharedStepCore.Actions.Add(testStepCore);
 
-            return iSharedStep;
+            return sharedStepCore;
         }
 
         /// <summary>
@@ -177,36 +184,15 @@ namespace TestCaseManagerApp
         /// <returns>the shared step core object</returns>
         public static ISharedStep CreateNewSharedStep(this TestCase testCase, string sharedStepTitle, List<TestStep> selectedTestSteps)
         {
-            ISharedStep iSharedStep = ExecutionContext.TestManagementTeamProject.SharedSteps.Create();
-            iSharedStep.Title = sharedStepTitle;
+            ISharedStep sharedStepCore = ExecutionContext.TestManagementTeamProject.SharedSteps.Create();
+            sharedStepCore.Title = sharedStepTitle;
             string sharedStepGuid = Guid.NewGuid().ToString();
-            //iSharedStep.Save();
-            AddTestStepsToSharedStep(iSharedStep, sharedStepGuid, selectedTestSteps, sharedStepTitle);
-            iSharedStep.Save();
 
-            return iSharedStep;
-        }
+            // iSharedStep.Save();
+            AddTestStepsToSharedStep(sharedStepCore, sharedStepGuid, selectedTestSteps, sharedStepTitle);
+            sharedStepCore.Save();
 
-        /// <summary>
-        /// Adds the test steps to shared steps actions.
-        /// </summary>
-        /// <param name="iSharedStep">The core shared step object.</param>
-        /// <param name="sharedStepGuid">The shared step unique identifier.</param>
-        /// <param name="selectedTestSteps">The test steps to add.</param>
-        /// <param name="sharedStepTitle">The shared step title.</param>
-        private static void AddTestStepsToSharedStep(ISharedStep iSharedStep, string sharedStepGuid, List<TestStep> selectedTestSteps, string sharedStepTitle)
-        {
-            foreach (TestStep currentTestStep in selectedTestSteps)
-            {
-                ITestStep iTestStep = iSharedStep.CreateTestStep();
-                iTestStep.ExpectedResult = currentTestStep.ITestStep.ExpectedResult;
-                iTestStep.Title = currentTestStep.ITestStep.Title;
-                iSharedStep.Actions.Add(iTestStep);
-                currentTestStep.StepGuid = sharedStepGuid;
-                currentTestStep.Title = sharedStepTitle;
-                currentTestStep.IsShared = true;
-                currentTestStep.SharedStepId = iSharedStep.Id;
-            }
+            return sharedStepCore;
         }
 
         /// <summary>
@@ -216,6 +202,28 @@ namespace TestCaseManagerApp
         public static List<ISharedStep> GetAllSharedSteps()
         {
             return ExecutionContext.TestManagementTeamProject.SharedSteps.Query("select * from WorkItems where [System.TeamProject] = @project and [System.WorkItemType] = 'Shared Steps'").ToList();
+        }
+
+        /// <summary>
+        /// Adds the test steps to shared steps actions.
+        /// </summary>
+        /// <param name="sharedStepCore">The core shared step object.</param>
+        /// <param name="sharedStepGuid">The shared step unique identifier.</param>
+        /// <param name="selectedTestSteps">The test steps to add.</param>
+        /// <param name="sharedStepTitle">The shared step title.</param>
+        private static void AddTestStepsToSharedStep(ISharedStep sharedStepCore, string sharedStepGuid, List<TestStep> selectedTestSteps, string sharedStepTitle)
+        {
+            foreach (TestStep currentTestStep in selectedTestSteps)
+            {
+                ITestStep testStepCore = sharedStepCore.CreateTestStep();
+                testStepCore.ExpectedResult = currentTestStep.ITestStep.ExpectedResult;
+                testStepCore.Title = currentTestStep.ITestStep.Title;
+                sharedStepCore.Actions.Add(testStepCore);
+                currentTestStep.StepGuid = sharedStepGuid;
+                currentTestStep.Title = sharedStepTitle;
+                currentTestStep.IsShared = true;
+                currentTestStep.SharedStepId = sharedStepCore.Id;
+            }
         }
     }
 }

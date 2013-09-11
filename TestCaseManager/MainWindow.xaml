@@ -3,8 +3,9 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:local="clr-namespace:TestCaseManagerApp.Views"
         xmlns:mui="http://firstfloorsoftware.com/ModernUI"
-        Title="Select Project"  ContentSource="/Views/ProjectSelectionView.xaml">
+        Title="Select Project"  ContentSource="/Views/ProjectSelectionView.xaml" WindowState="Maximized">
     <mui:ModernWindow.TitleLinks>
         <mui:Link DisplayName="Settings" Source="/Views/SettingsView.xaml" />
+        <mui:Link DisplayName="Change Project" Source="/Views/ProjectSelectionView.xaml" />
     </mui:ModernWindow.TitleLinks>
 </mui:ModernWindow>

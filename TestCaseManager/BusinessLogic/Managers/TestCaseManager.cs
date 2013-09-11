@@ -1,11 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Microsoft.TeamFoundation.TestManagement.Client;
-using TestCaseManagerApp.BusinessLogic.Entities;
-
+﻿// <copyright file="TestCaseManager.cs" company="Telerik">
+// http://www.telerik.com All rights reserved.
+// </copyright>
+// <author>Anton Angelov</author>
 namespace TestCaseManagerApp
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using Microsoft.TeamFoundation.TestManagement.Client;
+    using TestCaseManagerApp.BusinessLogic.Entities;
+
     /// <summary>
     /// Contains helper methods for working with TestCase entities
     /// </summary>
@@ -22,12 +26,13 @@ namespace TestCaseManagerApp
             foreach (ITestSuiteBase currentSuite in suiteEntries)
             {
                 if (currentSuite != null)
-                {
+                {                    
                     currentSuite.Refresh();
                     foreach (var tc in currentSuite.TestCases)
                     {
                         testCases.Add(new TestCase(tc.TestCase, currentSuite));
                     }
+
                     if (currentSuite.TestSuiteType == TestSuiteType.StaticTestSuite)
                     {
                         IStaticTestSuite staticTestSuite = currentSuite as IStaticTestSuite;
@@ -74,9 +79,9 @@ namespace TestCaseManagerApp
                 ITmiTestImplementation imp = ExecutionContext.TestManagementTeamProject.CreateTmiTestImplementation(testForAssociation.FullName, testType, testForAssociation.ClassName, testForAssociation.MethodId);
                 testCase.Implementation = imp;
             }
-            catch(NullReferenceException)
+            catch (NullReferenceException)
             {
-                //TODO add exception handling
+                // TODO: add exception handling
             }
         }
 
@@ -106,8 +111,8 @@ namespace TestCaseManagerApp
             TestCase currentTestCase = testCase;
             if (createNew)
             {
-                ITestCase iTestCase = ExecutionContext.TestManagementTeamProject.TestCases.Create();
-                currentTestCase = new TestCase(iTestCase, testCase.ITestSuiteBase);
+                ITestCase testCaseCore = ExecutionContext.TestManagementTeamProject.TestCases.Create();
+                currentTestCase = new TestCase(testCaseCore, testCase.ITestSuiteBase);
             }
             currentTestCase.ITestCase.Area = testCase.ITestCase.Area;
             currentTestCase.ITestCase.Title = testCase.ITestCase.Title;
@@ -118,19 +123,20 @@ namespace TestCaseManagerApp
             {
                 if (currentStep.IsShared && !addedSharedStepGuids.Contains(currentStep.StepGuid))
                 {
-                    ISharedStep sharedStep = ExecutionContext.TestManagementTeamProject.SharedSteps.Find(currentStep.SharedStepId);
-                    //currentTestCase.ITestCase.Actions.Add(sharedStep as ITestAction);
-                    ISharedStepReference iSharedStepReference = currentTestCase.ITestCase.CreateSharedStepReference();
-                    iSharedStepReference.SharedStepId = sharedStep.Id;
-                    currentTestCase.ITestCase.Actions.Add(iSharedStepReference);
+                    ISharedStep sharedStepCore = ExecutionContext.TestManagementTeamProject.SharedSteps.Find(currentStep.SharedStepId);
+
+                    // currentTestCase.ITestCase.Actions.Add(sharedStep as ITestAction);
+                    ISharedStepReference sharedStepReferenceCore = currentTestCase.ITestCase.CreateSharedStepReference();
+                    sharedStepReferenceCore.SharedStepId = sharedStepCore.Id;
+                    currentTestCase.ITestCase.Actions.Add(sharedStepReferenceCore);
                     addedSharedStepGuids.Add(currentStep.StepGuid);
                 }
                 else if (!currentStep.IsShared)
                 {
-                    ITestStep iTestStep = currentTestCase.ITestCase.CreateTestStep();
-                    iTestStep.Title = currentStep.ITestStep.Title;
-                    iTestStep.ExpectedResult = currentStep.ITestStep.ExpectedResult;
-                    currentTestCase.ITestCase.Actions.Add(iTestStep);
+                    ITestStep testStepCore = currentTestCase.ITestCase.CreateTestStep();
+                    testStepCore.Title = currentStep.ITestStep.Title;
+                    testStepCore.ExpectedResult = currentStep.ITestStep.ExpectedResult;
+                    currentTestCase.ITestCase.Actions.Add(testStepCore);
                 }
             }
             currentTestCase.ITestCase.Flush();
@@ -140,18 +146,6 @@ namespace TestCaseManagerApp
             SetTestCaseSuite(newSuiteTitle, currentTestCase);
 
             return currentTestCase;
-        }
-
-        /// <summary>
-        /// Sets the test case suite.
-        /// </summary>
-        /// <param name="newSuiteTitle">The new suite title.</param>
-        /// <param name="testCase">The test case.</param>
-        private static void SetTestCaseSuite(string newSuiteTitle, TestCase testCase)
-        {
-            var newSuite = TestSuiteManager.GetTestSuiteByName(newSuiteTitle);
-            newSuite.AddTestCase(testCase.ITestCase);
-            testCase.ITestSuiteBase = newSuite;
         }
 
         /// <summary>
@@ -167,8 +161,8 @@ namespace TestCaseManagerApp
         public static void DuplicateTestCase(this TestCase testCase, List<TextReplacePair> textReplacePairs, List<SharedStepIdReplacePair> sharedStepIdReplacePairs, string newSuiteTitle, bool replaceInTitles, bool replaceSharedSteps, bool replaceInSteps)
         {
             List<TestStep> testSteps = TestStepManager.GetTestStepsFromTestActions(testCase.ITestCase.Actions.ToList());
-            ITestCase iTestCase = ExecutionContext.TestManagementTeamProject.TestCases.Create();
-            TestCase currentTestCase = new TestCase(iTestCase, testCase.ITestSuiteBase);
+            ITestCase testCaseCore = ExecutionContext.TestManagementTeamProject.TestCases.Create();
+            TestCase currentTestCase = new TestCase(testCaseCore, testCase.ITestSuiteBase);
 
             currentTestCase.ITestCase.Area = testCase.ITestCase.Area;
             if (replaceInTitles)
@@ -239,28 +233,40 @@ namespace TestCaseManagerApp
                             newSharedStepId = currentStep.SharedStepId;
                         }
                         ISharedStep sharedStep = ExecutionContext.TestManagementTeamProject.SharedSteps.Find(newSharedStepId);
-                        ISharedStepReference iSharedStepReference = testCase.ITestCase.CreateSharedStepReference();
-                        iSharedStepReference.SharedStepId = sharedStep.Id;
-                        testCase.ITestCase.Actions.Add(iSharedStepReference);
+                        ISharedStepReference sharedStepReferenceCore = testCase.ITestCase.CreateSharedStepReference();
+                        sharedStepReferenceCore.SharedStepId = sharedStep.Id;
+                        testCase.ITestCase.Actions.Add(sharedStepReferenceCore);
                         addedSharedStepGuids.Add(currentStep.StepGuid);
                     }
                     else if (!currentStep.IsShared)
                     {
-                        ITestStep iTestStep = testCase.ITestCase.CreateTestStep();
+                        ITestStep testStepCore = testCase.ITestCase.CreateTestStep();
                         if (replaceInSteps)
                         {
-                            iTestStep.Title = currentStep.ITestStep.Title.ToString().ReplaceAll(textReplacePairs);
-                            iTestStep.ExpectedResult = currentStep.ITestStep.ExpectedResult.ToString().ReplaceAll(textReplacePairs);
+                            testStepCore.Title = currentStep.ITestStep.Title.ToString().ReplaceAll(textReplacePairs);
+                            testStepCore.ExpectedResult = currentStep.ITestStep.ExpectedResult.ToString().ReplaceAll(textReplacePairs);
                         }
                         else
                         {
-                            iTestStep.Title = currentStep.ITestStep.Title;
-                            iTestStep.ExpectedResult = currentStep.ITestStep.ExpectedResult;
+                            testStepCore.Title = currentStep.ITestStep.Title;
+                            testStepCore.ExpectedResult = currentStep.ITestStep.ExpectedResult;
                         }
-                        testCase.ITestCase.Actions.Add(iTestStep);
+                        testCase.ITestCase.Actions.Add(testStepCore);
                     }
                 }
             }
+        }
+
+        /// <summary>
+        /// Sets the test case suite.
+        /// </summary>
+        /// <param name="newSuiteTitle">The new suite title.</param>
+        /// <param name="testCase">The test case.</param>
+        private static void SetTestCaseSuite(string newSuiteTitle, TestCase testCase)
+        {
+            var newSuite = TestSuiteManager.GetTestSuiteByName(newSuiteTitle);
+            newSuite.AddTestCase(testCase.ITestCase);
+            testCase.ITestSuiteBase = newSuite;
         }
 
         /// <summary>

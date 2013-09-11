@@ -22,19 +22,7 @@ namespace TestCaseManagerApp.Views
 
         public ProjectSelectionView()
         {
-            this.ProjectSelectionViewModel = new ProjectSelectionViewModel();
             InitializeComponent();
-            ShowProgressBar();
-            Task t = Task.Factory.StartNew(() =>
-            {
-                this.ProjectSelectionViewModel.InitializeFromRegistry();
-                InitializeTestPlans(ExecutionContext.TestManagementTeamProject);
-                tbTfsProject.Text = this.ProjectSelectionViewModel.FullTeamProjectName;
-            });
-            t.ContinueWith(antecedent =>
-            {              
-                HideProgressBar();
-            }, TaskScheduler.FromCurrentSynchronizationContext());            
         }       
 
         private void HideProgressBar()
@@ -58,15 +46,12 @@ namespace TestCaseManagerApp.Views
 
         private void InitializeTestPlans(ITestManagementTeamProject _testproject)
         {
-            cbTestPlans.Items.Clear();
+            ProjectSelectionViewModel.ObservableTestPlans.Clear();
             ITestPlanCollection testPlans = TestPlanManager.GetAllTestPlans(_testproject);
-            List<string> testPlanNames = new List<string>();
             foreach (ITestPlan tp in testPlans)
             {
-                testPlanNames.Add(tp.Name);
+               ProjectSelectionViewModel.ObservableTestPlans.Add(tp.Name);
             }
-            cbTestPlans.ItemsSource = testPlanNames;
-            cbTestPlans.SelectedIndex = 0;
         }       
 
         private void DisplayButton_Click(object sender, RoutedEventArgs e)
@@ -108,6 +93,22 @@ namespace TestCaseManagerApp.Views
         private void cbTestPlans_MouseMove(object sender, System.Windows.Input.MouseEventArgs e)
         {
             ComboBoxDropdownExtensions.cboMouseMove(sender, e);
+        }
+
+        private void UserControl_Initialized_1(object sender, EventArgs e)
+        {
+            ShowProgressBar();
+            this.ProjectSelectionViewModel = new ProjectSelectionViewModel();
+            Task t = Task.Factory.StartNew(() =>
+            {
+                this.ProjectSelectionViewModel.InitializeFromRegistry();
+                InitializeTestPlans(ExecutionContext.TestManagementTeamProject);
+            });
+            t.ContinueWith(antecedent =>
+            {
+                this.DataContext = this.ProjectSelectionViewModel;
+                HideProgressBar();
+            }, TaskScheduler.FromCurrentSynchronizationContext());       
         }
     }
 }

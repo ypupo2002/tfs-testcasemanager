@@ -6,6 +6,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Input;
+using FirstFloor.ModernUI.Windows;
 using FirstFloor.ModernUI.Windows.Controls;
 using TestCaseManagerApp.BusinessLogic.Entities;
 using TestCaseManagerApp.Helpers;
@@ -13,7 +14,7 @@ using TestCaseManagerApp.ViewModels;
 
 namespace TestCaseManagerApp.Views
 {
-    public partial class TestCaseBatchDuplicateView : UserControl
+    public partial class TestCaseBatchDuplicateView : UserControl, IContent
     {
         public TestCasesBatchDuplicateViewModel TestCasesBatchDuplicateViewModel { get; set; }
 
@@ -29,11 +30,26 @@ namespace TestCaseManagerApp.Views
             tbSuiteFilter.Text = "Suite";
         }
 
-        private void UserControl_Loaded(object sender, RoutedEventArgs e)
+        private void UserControl_Initialized_1(object sender, EventArgs e)
         {
-            progressBar.Visibility = System.Windows.Visibility.Visible;
-            mainGrid.Visibility = System.Windows.Visibility.Hidden;
-          
+            if (TestCasesBatchDuplicateViewModel == null)
+            {
+                TestCasesBatchDuplicateViewModel = new ViewModels.TestCasesBatchDuplicateViewModel();
+                this.DataContext = TestCasesBatchDuplicateViewModel;
+            }
+        }
+
+        public void OnFragmentNavigation(FirstFloor.ModernUI.Windows.Navigation.FragmentNavigationEventArgs e)
+        {
+        }
+
+        public void OnNavigatedFrom(FirstFloor.ModernUI.Windows.Navigation.NavigationEventArgs e)
+        {
+        }
+
+        public void OnNavigatedTo(FirstFloor.ModernUI.Windows.Navigation.NavigationEventArgs e)
+        {
+            ShowProgressBar();
             Task t = Task.Factory.StartNew(() =>
             {
                 if (TestCasesBatchDuplicateViewModel != null)
@@ -43,19 +59,33 @@ namespace TestCaseManagerApp.Views
                 }
                 else
                 {
-                    TestCasesBatchDuplicateViewModel = new ViewModels.TestCasesBatchDuplicateViewModel();
-                }                 
+                    //TestCasesBatchDuplicateViewModel = new ViewModels.TestCasesBatchDuplicateViewModel();
+                }
             });
             t.ContinueWith(antecedent =>
             {
-                this.DataContext = TestCasesBatchDuplicateViewModel;     
-                progressBar.Visibility = System.Windows.Visibility.Hidden;
-                mainGrid.Visibility = System.Windows.Visibility.Visible;
-                cbSuite.SelectedIndex = 0;
+                //this.DataContext = TestCasesBatchDuplicateViewModel;
+                HideProgressBar();
+                //cbSuite.SelectedIndex = 0;
                 this.tbTitleFilter.Focus();
-                
             }, TaskScheduler.FromCurrentSynchronizationContext());
-        }   
+        }
+
+        public void OnNavigatingFrom(FirstFloor.ModernUI.Windows.Navigation.NavigatingCancelEventArgs e)
+        {
+        }
+
+        private void HideProgressBar()
+        {
+            progressBar.Visibility = System.Windows.Visibility.Hidden;
+            mainGrid.Visibility = System.Windows.Visibility.Visible;
+        }
+
+        private void ShowProgressBar()
+        {
+            progressBar.Visibility = System.Windows.Visibility.Visible;
+            mainGrid.Visibility = System.Windows.Visibility.Hidden;
+        }
 
         private void tbTitleFilter_GotFocus(object sender, RoutedEventArgs e)
         {
@@ -169,6 +199,6 @@ namespace TestCaseManagerApp.Views
                 mainGrid.Visibility = System.Windows.Visibility.Visible;
                 ModernDialog.ShowMessage(String.Format("{0} test cases replaced.", replacedCount), "Success!", MessageBoxButton.OK);
             }, TaskScheduler.FromCurrentSynchronizationContext());           
-        }
+        }     
     }
 }

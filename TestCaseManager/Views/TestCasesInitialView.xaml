@@ -5,8 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:mui="http://firstfloorsoftware.com/ModernU"
              xmlns:local="clr-namespace:TestCaseManagerApp.Views"
-
-             mc:Ignorable="d"  Loaded="UserControl_Loaded">
+             mc:Ignorable="d" Initialized="TestCaseInitialView_Initialized_1">
     <Grid>
         <Grid.CommandBindings>
             <CommandBinding Command="{x:Static local:TestCasesInitialView.EditCommand}" Executed="EditButton_Click"/>
@@ -37,7 +36,6 @@
             </StackPanel>
          
             <StackPanel Orientation="Vertical" Grid.Row="1">
-                
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto" />
@@ -56,7 +54,6 @@
                 </StackPanel>
             </StackPanel>
 
-
             <DataGrid ItemsSource="{Binding Path=ObservableTestCases}" AutoGenerateColumns="False" Name="dgTestCases" Grid.Row="2" MouseDoubleClick="dgTestCases_MouseDoubleClick" IsReadOnly="True" SelectionMode="Single" SelectionUnit="FullRow" TabIndex="3">
                     <DataGrid.Columns>
                     <DataGridTextColumn Header="ID"  Binding="{Binding ITestCase.Id}" Width="0.5*">
@@ -66,7 +63,7 @@
                             </Style>
                         </DataGridTextColumn.ElementStyle>
                     </DataGridTextColumn>
-                        <DataGridTextColumn Header="Title" Binding="{Binding ITestCase.Title}" Width="10*"/>
+                        <DataGridTextColumn Header="Title" Binding="{Binding ITestCase.Title}" Width="9*"/>
                     <DataGridTextColumn Header="Suite" Binding="{Binding ITestSuiteBase.Title}" Width="5*">
                         <DataGridTextColumn.ElementStyle>
                             <Style>
@@ -74,13 +71,6 @@
                             </Style>
                         </DataGridTextColumn.ElementStyle>
                     </DataGridTextColumn>
-                    <!--<DataGridTextColumn Header="Area" Binding="{Binding ITestCase.Area}" Width="2*">
-                        <DataGridTextColumn.ElementStyle>
-                            <Style>
-                                <Setter Property="FrameworkElement.HorizontalAlignment" Value="Center"/>
-                            </Style>
-                        </DataGridTextColumn.ElementStyle>
-                    </DataGridTextColumn>-->
                     <DataGridTextColumn Header="Priority" Binding="{Binding ITestCase.Priority}" Width="1*">
                         <DataGridTextColumn.ElementStyle>
                             <Style>

@@ -90,21 +90,23 @@
 
                 <RichTextBox VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="10,0,10,0" Name="rtbAction" TabIndex="1" Grid.Row="1" Grid.Column="0" GotFocus="rtbStep_GotFocus" LostFocus="rtbStep_LostFocus" />
                 <RichTextBox VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="10,0,10,0"  Name="rtbExpectedResult" TabIndex="2" Grid.Row="1" Grid.Column="1" GotFocus="rtbExpectedResult_GotFocus" LostFocus="rtbExpectedResult_LostFocus"/>
-                <StackPanel Orientation="Vertical" Grid.Column="2" Grid.Row="1">
-                    <Button IsEnabled="{Binding IsAutomated}" Name="btnAssociateToAutomation" Width="Auto" Height="30" Margin="10,0,10,10" HorizontalAlignment="Left" VerticalAlignment="Center" IsDefault="True" Click="btnAssociateToAutomation_Click">
-                        <Button.Content>
-                            <TextBlock>
+                <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" Grid.Column="2" Grid.Row="1">
+                    <StackPanel Orientation="Vertical" >
+                        <Button IsEnabled="{Binding IsAutomated}" Name="btnAssociateToAutomation" Width="Auto" Height="30" Margin="10,0,10,10" HorizontalAlignment="Left" VerticalAlignment="Center" IsDefault="True" Click="btnAssociateToAutomation_Click">
+                            <Button.Content>
+                                <TextBlock>
                                   <Underline>A</Underline>ssociate Automation
-                            </TextBlock>
-                        </Button.Content>
-                    </Button>
-                    <TextBlock Text="Automated Test Type" Margin="10,0,10,10" Height="25" FontWeight="Bold" HorizontalAlignment="Left" />
-                    <TextBox Text="{Binding AssociatedAutomation.Type, Mode=OneWay}" Margin="10,0,10,10" Height="25" HorizontalAlignment="Stretch" Grid.Row="1"/>
-                    <TextBlock Text="Automated test storage" Margin="10,0,10,10" Height="25" FontWeight="Bold" HorizontalAlignment="Left" />
-                    <TextBox Text="{Binding AssociatedAutomation.Assembly, Mode=OneWay}" Margin="10,0,10,10" Height="25" HorizontalAlignment="Stretch" Grid.Row="1" Grid.Column="1"/>
-                    <TextBlock Text="Automated test name" Margin="10,0,10,10" Height="25" FontWeight="Bold" HorizontalAlignment="Left"/>
-                    <TextBox Text="{Binding AssociatedAutomation.TestName, Mode=OneWay}" Margin="10,0,10,10" Height="25" HorizontalAlignment="Stretch"/>
+                                </TextBlock>
+                            </Button.Content>
+                        </Button>
+                        <TextBlock Text="Automated Test Type" Margin="10,0,10,10" Height="25" FontWeight="Bold" HorizontalAlignment="Left" />
+                        <TextBox Text="{Binding AssociatedAutomation.Type, Mode=OneWay}" Margin="10,0,10,10" Height="25" HorizontalAlignment="Stretch" Grid.Row="1"/>
+                        <TextBlock Text="Automated test storage" Margin="10,0,10,10" Height="25" FontWeight="Bold" HorizontalAlignment="Left" />
+                        <TextBox Text="{Binding AssociatedAutomation.Assembly, Mode=OneWay}" Margin="10,0,10,10" Height="25" HorizontalAlignment="Stretch" Grid.Row="1" Grid.Column="1"/>
+                        <TextBlock Text="Automated test name" Margin="10,0,10,10" Height="25" FontWeight="Bold" HorizontalAlignment="Left"/>
+                        <TextBox Text="{Binding AssociatedAutomation.TestName, Mode=OneWay}" Margin="10,0,10,10" Height="25" HorizontalAlignment="Stretch"/>
                 </StackPanel>
+                </ScrollViewer>
                 <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2">
                     <Button Content="Insert" Name="btnInsertStep" Width="100" Height="30" Margin="10,0,10,0" VerticalAlignment="Center" IsDefault="True" Click="btnInsertStep_Click" TabIndex="3"/>
                     <Button Content="Edit" Name="btnEdit" Width="100" Height="30" Margin="10,0,10,0" VerticalAlignment="Center"  Click="btnEdit_Click" TabIndex="4"/>
@@ -119,27 +121,27 @@
                     <DataGrid ItemsSource="{Binding ObservableTestSteps}" AutoGenerateColumns="False" Name="dgTestSteps" Height="Auto" IsReadOnly="True"
                           IsSynchronizedWithCurrentItem="True" SelectionUnit="FullRow" HorizontalAlignment="Left" Grid.Column="0" SelectionMode="Extended" MouseLeftButtonUp="dgTestSteps_MouseLeftButtonUp">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="Step Name" Binding="{Binding Title}" Width="*">
-                                <DataGridTextColumn.CellStyle>
-                                    <Style TargetType="DataGridCell">
-                                        <Setter Property="ToolTip" Value="{Binding Title}" />
-                                    </Style>
-                                </DataGridTextColumn.CellStyle>
-                            </DataGridTextColumn>
-                            <DataGridTextColumn Header="Steps" Binding="{Binding ITestStep.Title, Converter={StaticResource TestStepPropertiesConverter}}" Width="2*">
-                                <DataGridTextColumn.CellStyle>
-                                    <Style TargetType="DataGridCell">
-                                        <Setter Property="ToolTip" Value="{Binding ITestStep.Title, Converter={StaticResource TestStepPropertiesConverter}}" />
-                                    </Style>
-                                </DataGridTextColumn.CellStyle>
-                            </DataGridTextColumn>
-                            <DataGridTextColumn Header="Expected Results" Binding="{Binding ITestStep.ExpectedResult, Converter={StaticResource TestStepPropertiesConverter}}" Width="2*">
-                                <DataGridTextColumn.CellStyle>
-                                    <Style TargetType="DataGridCell">
-                                        <Setter Property="ToolTip" Value="{Binding ITestStep.ExpectedResult, Converter={StaticResource TestStepPropertiesConverter}}" />
-                                    </Style>
-                                </DataGridTextColumn.CellStyle>
-                            </DataGridTextColumn>
+                            <DataGridTemplateColumn   Header="Step Name"  Width="150" MaxWidth="200" >
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Title}" TextWrapping="Wrap" />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTemplateColumn   Header="Steps"  Width="5*" >
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding ITestStep.Title, Converter={StaticResource TestStepPropertiesConverter}}" TextWrapping="Wrap" />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTemplateColumn  Header="Expected Results" Width="5*">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding ITestStep.ExpectedResult, Converter={StaticResource TestStepPropertiesConverter}}" TextWrapping="Wrap" />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
                         </DataGrid.Columns>
                     </DataGrid>
                     <StackPanel Orientation="Horizontal" Grid.Column="1" >

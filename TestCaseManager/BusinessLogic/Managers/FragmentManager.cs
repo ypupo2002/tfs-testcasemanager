@@ -1,20 +1,28 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿// <copyright file="FragmentManager.cs" company="Telerik">
+// http://www.telerik.com All rights reserved.
+// </copyright>
+// <author>Anton Angelov</author>
 namespace TestCaseManagerApp
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
+    using System.Threading.Tasks;
+
     /// <summary>
     /// Contains helper methods for working with WPF URL Parameters
     /// </summary>
     public class FragmentManager
-    {    
+    {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="FragmentManager"/> class.
+        /// </summary>
+        /// <param name="fragment">The fragment.</param>
         public FragmentManager(string fragment)
         {
-            Fragments = new Dictionary<string, string>();
-            InitializeFragmentsDictionary(fragment);
+            this.Fragments = new Dictionary<string, string>();
+            this.InitializeFragmentsDictionary(fragment);
         }
 
         /// <summary>
@@ -26,6 +34,26 @@ namespace TestCaseManagerApp
         public Dictionary<string, string> Fragments { get; set; }
 
         /// <summary>
+        /// Gets the specified query parameter by name from the fragment dictionary.
+        /// </summary>
+        /// <param name="queryParameterName">Query parameter name</param>
+        /// <returns>the corresponding value for the specified query parameter</returns>
+        public string Get(string queryParameterName)
+        {
+            string value = string.Empty;
+            try
+            {
+                value = this.Fragments[queryParameterName];
+            }
+            catch (KeyNotFoundException)
+            {
+                // TODO: Log the KeyNotFoundException
+            }
+
+            return value;
+        }
+
+        /// <summary>
         /// Initializes the fragments dictionary by parsing current fragment.
         /// </summary>
         /// <param name="fragment">current fragment.</param>
@@ -35,28 +63,8 @@ namespace TestCaseManagerApp
             foreach (var currentFragment in fragmentParts)
             {
                 string[] parts = currentFragment.Split('=');
-                Fragments.Add(parts[0], parts[1]);
+                this.Fragments.Add(parts[0], parts[1]);
             }
-        }
-
-        /// <summary>
-        /// Gets the specified query parameter by name from the fragment dictionary.
-        /// </summary>
-        /// <param name="queryParameterName">Query parameter name</param>
-        /// <returns>the corresponding value for the specified query parameter</returns>
-        public string Get(string queryParameterName)
-        {
-            string value = String.Empty;
-            try
-            {
-                value = Fragments[queryParameterName];
-            }
-            catch (KeyNotFoundException)
-            {
-                //TODO: Log the KeyNotFoundException
-            }
-
-            return value;
         }
     }
 }

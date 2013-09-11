@@ -16,15 +16,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{185422
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Licenses", "Licenses", "{0502DA43-46CC-4D2D-A8EC-756FA8EEE3DC}"
-	ProjectSection(SolutionItems) = preProject
-		TestCaseManager.License.txt = TestCaseManager.License.txt
-	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ModernUI", "ModernUI", "{6B32A346-3846-480D-B47D-EE671AB224D6}"
 	ProjectSection(SolutionItems) = preProject
-		TestCaseManager\Licenses\ModernUI\License.icons.txt = TestCaseManager\Licenses\ModernUI\License.icons.txt
-		TestCaseManager\Licenses\ModernUI\License.RelativeAnimatingContentControl.txt = TestCaseManager\Licenses\ModernUI\License.RelativeAnimatingContentControl.txt
-		TestCaseManager\Licenses\ModernUI\License.txt = TestCaseManager\Licenses\ModernUI\License.txt
+		TestCaseManager\Licenses\ModernUI\Icons.License.txt = TestCaseManager\Licenses\ModernUI\Icons.License.txt
+		TestCaseManager\Licenses\ModernUI\ModernUI.License.txt = TestCaseManager\Licenses\ModernUI\ModernUI.License.txt
+		TestCaseManager\Licenses\ModernUI\RelativeAnimatingContentControl.License.txt = TestCaseManager\Licenses\ModernUI\RelativeAnimatingContentControl.License.txt
+		TestCaseManager\Licenses\TestCaseManager.License.rtf = TestCaseManager\Licenses\TestCaseManager.License.rtf
 	EndProjectSection
 EndProject
 Global

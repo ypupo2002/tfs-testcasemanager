@@ -1,16 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Reflection;
-using System.Security.Cryptography;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using TestCaseManagerApp.BusinessLogic.Entities;
-
+﻿// <copyright file="ProjectManager.cs" company="Telerik">
+// http://www.telerik.com All rights reserved.
+// </copyright>
+// <author>Anton Angelov</author>
 namespace TestCaseManagerApp.BusinessLogic.Managers
 {
+    using System;
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Linq;
+    using System.Reflection;
+    using System.Security.Cryptography;
+    using System.Text;
+    using System.Threading.Tasks;
+    using Microsoft.VisualStudio.TestTools.UnitTesting;
+    using TestCaseManagerApp.BusinessLogic.Entities;
+
     /// <summary>
     /// Contains helper methods for getting all methods information in specified assembly
     /// </summary>
@@ -31,28 +35,60 @@ namespace TestCaseManagerApp.BusinessLogic.Managers
             }
             catch (ReflectionTypeLoadException ex)
             {
-                //TODO: Log the ReflectionTypeLoadException
-
+                // TODO: Log the ReflectionTypeLoadException
                 StringBuilder sb = new StringBuilder();
-                foreach (Exception exSub in ex.LoaderExceptions)
+                foreach (Exception subException in ex.LoaderExceptions)
                 {
-                    sb.AppendLine(exSub.Message);
-                    if (exSub is FileNotFoundException)
+                    sb.AppendLine(subException.Message);
+                    if (subException is FileNotFoundException)
                     {
-                        FileNotFoundException exFileNotFound = exSub as FileNotFoundException;
-                        if (!string.IsNullOrEmpty(exFileNotFound.FusionLog))
+                        FileNotFoundException fileNotFoundException = subException as FileNotFoundException;
+                        if (!string.IsNullOrEmpty(fileNotFoundException.FusionLog))
                         {
                             sb.AppendLine("Fusion Log:");
-                            sb.AppendLine(exFileNotFound.FusionLog);
+                            sb.AppendLine(fileNotFoundException.FusionLog);
                         }
                     }
                     sb.AppendLine();
                 }
                 string errorMessage = sb.ToString();
-                //Display or log the error based on your application.
+
+                // Display or log the error based on your application.
             }
             
             return methods;
+        }
+
+        /// <summary>
+        /// Gets the test objects from specific assemly.
+        /// </summary>
+        /// <param name="assemblyFullPath">The assembly full path.</param>
+        /// <returns>list of all test objects</returns>
+        public static List<Test> GetTests(string assemblyFullPath)
+        {
+            MethodInfo[] currentDllMethods = GetProjectTestMethods(assemblyFullPath);
+            List<Test> tests = new List<Test>();
+            foreach (var cM in currentDllMethods)
+            {
+                tests.Add(new Test(string.Format("{0}.{1}", cM.DeclaringType.FullName, cM.Name), cM.DeclaringType.Name, GenerateTestMethodId(cM)));
+            }
+
+            return tests;
+        }
+
+        /// <summary>
+        /// Generates the test method unique identifier.
+        /// </summary>
+        /// <param name="methodInfo">The method information.</param>
+        /// <returns>method unique identifier</returns>
+        public static Guid GenerateTestMethodId(MethodInfo methodInfo)
+        {
+            string currentNameSpace = methodInfo.DeclaringType.FullName;
+            string currentTestMethodShortName = methodInfo.Name;
+            string currentTestMethodFullName = string.Concat(currentNameSpace, ".", currentTestMethodShortName);
+            Guid testId = UnitTestIdGenerator.GuidFromString(currentTestMethodFullName);
+
+            return testId;
         }
 
         /// <summary>
@@ -85,41 +121,9 @@ namespace TestCaseManagerApp.BusinessLogic.Managers
 
                         return result;
                     }
-                })
-            ).ToArray();
+                })).ToArray();
+
             return methods;
-        }
-
-        /// <summary>
-        /// Gets the test objects from specific assemly.
-        /// </summary>
-        /// <param name="assemblyFullPath">The assembly full path.</param>
-        /// <returns>list of all test objects</returns>
-        public static List<Test> GetTests(string assemblyFullPath)
-        {
-            MethodInfo[] currentDllMethods = GetProjectTestMethods(assemblyFullPath);
-            List<Test> tests = new List<Test>();
-            foreach (var cM in currentDllMethods)
-            {
-                tests.Add(new Test(String.Format("{0}.{1}", cM.DeclaringType.FullName, cM.Name), cM.DeclaringType.Name, GenerateTestMethodId(cM)));
-            }
-
-            return tests;
-        }
-
-        /// <summary>
-        /// Generates the test method unique identifier.
-        /// </summary>
-        /// <param name="methodInfo">The method information.</param>
-        /// <returns>method unique identifier</returns>
-        public static Guid GenerateTestMethodId(MethodInfo methodInfo)
-        {
-            string currentNameSpace = methodInfo.DeclaringType.FullName;
-            string currentTestMethodShortName = methodInfo.Name;
-            string currentTestMethodFullName = String.Concat(currentNameSpace, ".", currentTestMethodShortName);
-            Guid testId = UnitTestIdGenerator.GuidFromString(currentTestMethodFullName);
-
-            return testId;
         }
     }
 
@@ -128,7 +132,10 @@ namespace TestCaseManagerApp.BusinessLogic.Managers
     /// </summary>
     internal class UnitTestIdGenerator
     {
-        private static HashAlgorithm s_provider = new SHA1CryptoServiceProvider();
+        /// <summary>
+        /// The service provider for hash algorithm SHA1
+        /// </summary>
+        private static HashAlgorithm cryptoServiceProvider = new SHA1CryptoServiceProvider();
 
         /// <summary>
         /// Gets the HashAlgorithm provider.
@@ -138,7 +145,7 @@ namespace TestCaseManagerApp.BusinessLogic.Managers
         /// </value>
         public static HashAlgorithm Provider
         {
-            get { return s_provider; }
+            get { return cryptoServiceProvider; }
         }
 
         /// <summary>

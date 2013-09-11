@@ -36,14 +36,13 @@ namespace TestCaseManagerApp.Views
         public TestCaseEditView()
         {
             InitializeComponent();
+            InitializeFastKeys();
         }
 
         public void OnFragmentNavigation(FragmentNavigationEventArgs e)
         {
             InitializeUrlParameters(e);
             ShowProgressBar();
-            InitializeFastKeys();
-
             Task t = Task.Factory.StartNew(() =>
             {
                 TestCaseEditViewModel = new TestCaseEditViewModel(TestCaseId, TestSuiteId, CreateNew, Duplicate);
@@ -123,19 +122,29 @@ namespace TestCaseManagerApp.Views
             FragmentManager fm = new FragmentManager(e.Fragment);
             string testCaseId = fm.Get("id");
             if (!String.IsNullOrEmpty(testCaseId))
+            {
                 TestCaseId = int.Parse(testCaseId);
+            }
             string suiteId = fm.Get("suiteId");
             if (!String.IsNullOrEmpty(suiteId))
+            {
                 TestSuiteId = int.Parse(suiteId);
+            }
             string createNew = fm.Get("createNew");
             if (!String.IsNullOrEmpty(createNew))
+            {
                 CreateNew = bool.Parse(createNew);
+            }
             string duplicate = fm.Get("duplicate");
             if (!String.IsNullOrEmpty(duplicate))
+            {
                 Duplicate = bool.Parse(duplicate);
+            }
             string comesFromAssociatedAutomation = fm.Get("comesFromAssociatedAutomation");
             if (!String.IsNullOrEmpty(comesFromAssociatedAutomation))
+            {
                 ComesFromAssociatedAutomation = bool.Parse(comesFromAssociatedAutomation);
+            }
         }
 
         private static void InitializeFastKeys()
@@ -528,6 +537,11 @@ namespace TestCaseManagerApp.Views
                 TestCase currentTestCase = SaveTestCaseInternal();
                 this.NavigateToAssociateAutomationView(currentTestCase.ITestCase.Id, currentTestCase.ITestSuiteBase.Id, CreateNew, Duplicate);
             }
+        }
+
+        private void UserControl_Loaded_1(object sender, RoutedEventArgs e)
+        {
+
         }   
     }
 }

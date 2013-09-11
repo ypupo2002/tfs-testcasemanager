@@ -1,9 +1,13 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Microsoft.TeamFoundation.TestManagement.Client;
-
+﻿// <copyright file="TestSuiteManager.cs" company="Telerik">
+// http://www.telerik.com All rights reserved.
+// </copyright>
+// <author>Anton Angelov</author>
 namespace TestCaseManagerApp
 {
+    using System.Collections.Generic;
+    using System.Linq;
+    using Microsoft.TeamFoundation.TestManagement.Client;
+
     /// <summary>
     /// Contains helper methods for working with TestSuite entities
     /// </summary>
@@ -38,16 +42,17 @@ namespace TestCaseManagerApp
         /// <returns>test suite core object</returns>
         public static ITestSuiteBase GetTestSuiteById(int suiteId)
         {
-            ITestSuiteBase iTestSuiteBase = null;
+            ITestSuiteBase testSuiteBase = null;
             if (suiteId != 0)
             {
-                iTestSuiteBase = ExecutionContext.TestManagementTeamProject.TestSuites.Find(suiteId);
+                testSuiteBase = ExecutionContext.TestManagementTeamProject.TestSuites.Find(suiteId);
             }
             else
             {
-                iTestSuiteBase = TestSuiteManager.GetAllTestSuitesInTestPlan().FirstOrDefault();
+                testSuiteBase = TestSuiteManager.GetAllTestSuitesInTestPlan().FirstOrDefault();
             }
-            return iTestSuiteBase;
+
+            return testSuiteBase;
         }
 
         /// <summary>
@@ -102,6 +107,7 @@ namespace TestCaseManagerApp
                             ((IStaticTestSuite)currentSuite).Entries.Remove(testCaseToRemove);
                         }
                     }
+
                     if (currentSuite.TestSuiteType == TestSuiteType.StaticTestSuite)
                     {
                         IStaticTestSuite suite1 = currentSuite as IStaticTestSuite;
@@ -131,6 +137,7 @@ namespace TestCaseManagerApp
                     {
                         testSuites.Add(currentSuite);
                     }
+
                     if (currentSuite is IStaticTestSuite)
                     {
                         IStaticTestSuite suite1 = currentSuite as IStaticTestSuite;
@@ -141,6 +148,7 @@ namespace TestCaseManagerApp
                     }
                 }
             }
+
             return testSuites;
         }
     }

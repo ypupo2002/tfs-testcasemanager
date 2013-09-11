@@ -16,8 +16,14 @@ namespace TestCaseManagerApp.ViewModels
 {
     public class ProjectSelectionViewModel
     {
+        public ProjectSelectionViewModel()
+        {
+            ObservableTestPlans = new ObservableCollection<string>();
+        }
+
         public ITestManagementService TestService { get; set; }
         public string FullTeamProjectName { get; set; }
+        public ObservableCollection<string> ObservableTestPlans { get; set; }
 
         public void LoadProjectSelectionFromUser(TeamProjectPicker projectPicker)
         {
@@ -75,12 +81,12 @@ namespace TestCaseManagerApp.ViewModels
                 }
                 catch (SocketException)
                 {
-                    //TODO: Add exception logging
+                    // TODO: Add exception logging
                     return;
                 }
                 catch (WebException)
                 {
-                    //TODO: Add exception logging
+                    // TODO: Add exception logging
                     return;
                 }
             }

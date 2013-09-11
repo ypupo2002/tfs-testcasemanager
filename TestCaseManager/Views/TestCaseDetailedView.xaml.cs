@@ -26,7 +26,18 @@ namespace TestCaseManagerApp.Views
         {
             FragmentManager fm = new FragmentManager(e.Fragment);
             TestCaseId = int.Parse(fm.Fragments["id"]);
-            TestSuiteId = int.Parse(fm.Fragments["suiteId"]);        
+            TestSuiteId = int.Parse(fm.Fragments["suiteId"]);
+
+            ShowProgressBar();
+            Task t = Task.Factory.StartNew(() =>
+            {
+                TestCaseDetailedViewModel = new TestCaseDetailedViewModel(TestCaseId, TestSuiteId);
+            });
+            t.ContinueWith(antecedent =>
+            {
+                this.DataContext = TestCaseDetailedViewModel;
+                HideProgressBar();
+            }, TaskScheduler.FromCurrentSynchronizationContext());   
         }
 
         public void OnNavigatedFrom(NavigationEventArgs e)
@@ -41,21 +52,16 @@ namespace TestCaseManagerApp.Views
         {
         }
 
-        private void UserControl_Loaded(object sender, RoutedEventArgs e)
+        private void HideProgressBar()
+        {
+            progressBar.Visibility = System.Windows.Visibility.Hidden;
+            mainGrid.Visibility = System.Windows.Visibility.Visible;
+        }
+
+        private void ShowProgressBar()
         {
             progressBar.Visibility = System.Windows.Visibility.Visible;
             mainGrid.Visibility = System.Windows.Visibility.Hidden;
-            Task t = Task.Factory.StartNew(() =>
-            {
-                TestCaseDetailedViewModel = new TestCaseDetailedViewModel(TestCaseId, TestSuiteId);                
-            });
-            t.ContinueWith(antecedent =>
-            {
-                this.DataContext = TestCaseDetailedViewModel;
-                Thread.Sleep(500);
-                progressBar.Visibility = System.Windows.Visibility.Hidden;
-                mainGrid.Visibility = System.Windows.Visibility.Visible;
-            }, TaskScheduler.FromCurrentSynchronizationContext());   
         }
 
         private void EditButton_Click(object sender, RoutedEventArgs e)
