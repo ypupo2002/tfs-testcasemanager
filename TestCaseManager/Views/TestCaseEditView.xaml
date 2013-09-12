@@ -7,7 +7,7 @@
              xmlns:helpers="clr-namespace:TestCaseManagerApp.Helpers"
              xmlns:local="clr-namespace:TestCaseManagerApp.Views"
              xmlns:convert="clr-namespace:TestCaseManagerApp.BusinessLogic.Converters"
-             mc:Ignorable="d">
+             mc:Ignorable="d" Loaded="UserControl_Loaded">
     <Grid>
         <Grid.Resources>
             <convert:TestStepPropertiesConverter x:Key="TestStepPropertiesConverter" />

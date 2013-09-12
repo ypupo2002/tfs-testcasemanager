@@ -15,25 +15,47 @@ namespace TestCaseManagerApp.Views
 {
     public partial class TestCasesInitialView : System.Windows.Controls.UserControl, IContent
     {
+        private static bool isInitialized;
+
+        public TestCasesInitialView()
+        {
+            InitializeComponent();
+        }
+
         public TestCasesInitialViewModel TestCasesInitialViewModel { get; set; }
         public static RoutedCommand EditCommand = new RoutedCommand();
         public static RoutedCommand DuplicateCommand = new RoutedCommand();
         public static RoutedCommand PreviewCommand = new RoutedCommand();
         public static RoutedCommand NewCommand = new RoutedCommand();
         public static RoutedCommand RefreshCommand = new RoutedCommand();
-        
-        public TestCasesInitialView()
-        {
-            InitializeComponent();
-        }
 
-        private void TestCaseInitialView_Initialized_1(object sender, EventArgs e)
+        private void TestCaseInitialView_Loaded_1(object sender, RoutedEventArgs e)
         {
-           if (TestCasesInitialViewModel == null)
-           {
-               TestCasesInitialViewModel = new ViewModels.TestCasesInitialViewModel();
-               this.DataContext = TestCasesInitialViewModel;
-           }
+            if (isInitialized)
+            {
+                return;
+            }
+            ShowProgressBar();
+            InitializeFastKeys();
+            Task t = Task.Factory.StartNew(() =>
+            {
+                if (TestCasesInitialViewModel != null)
+                {
+                    TestCasesInitialViewModel = new ViewModels.TestCasesInitialViewModel(TestCasesInitialViewModel);
+                    TestCasesInitialViewModel.FilterTestCases();
+                }
+                else
+                {
+                    TestCasesInitialViewModel = new ViewModels.TestCasesInitialViewModel();
+                }
+            });
+            t.ContinueWith(antecedent =>
+            {
+                this.DataContext = TestCasesInitialViewModel;
+                HideProgressBar();
+                this.tbTitleFilter.Focus();
+                isInitialized = true;
+            }, TaskScheduler.FromCurrentSynchronizationContext());
         }
 
         public void OnFragmentNavigation(FragmentNavigationEventArgs e)
@@ -46,26 +68,7 @@ namespace TestCaseManagerApp.Views
 
         public void OnNavigatedTo(NavigationEventArgs e)
         {
-            ShowProgressBar();
-            //InitializeFastKeys();
-            Task t = Task.Factory.StartNew(() =>
-            {
-                if (TestCasesInitialViewModel != null)
-                {
-                    TestCasesInitialViewModel = new ViewModels.TestCasesInitialViewModel(TestCasesInitialViewModel);
-                    TestCasesInitialViewModel.FilterTestCases();
-                }
-                //else
-                //{
-                //    TestCasesInitialViewModel = new ViewModels.TestCasesInitialViewModel();
-                //}
-            });
-            t.ContinueWith(antecedent =>
-            {
-                //this.DataContext = TestCasesInitialViewModel;
-                HideProgressBar();
-                this.tbTitleFilter.Focus();
-            }, TaskScheduler.FromCurrentSynchronizationContext());
+            isInitialized = false;
         }
 
         public void OnNavigatingFrom(NavigatingCancelEventArgs e)

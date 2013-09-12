@@ -18,6 +18,14 @@ namespace TestCaseManagerApp.Views
 {
     public partial class TestCaseEditView : System.Windows.Controls.UserControl, IContent
     {
+        private static bool isInitialized;
+
+        public TestCaseEditView()
+        {
+            InitializeComponent();
+            InitializeFastKeys();
+        }
+
         public int TestCaseId { get; set; }
         public int TestSuiteId { get; set; }
         public bool CreateNew { get; set; }
@@ -33,15 +41,13 @@ namespace TestCaseManagerApp.Views
         public static RoutedCommand MoveUpCommand = new RoutedCommand();
         public static RoutedCommand MoveDownCommand = new RoutedCommand();
 
-        public TestCaseEditView()
+        private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            InitializeComponent();
-            InitializeFastKeys();
-        }
-
-        public void OnFragmentNavigation(FragmentNavigationEventArgs e)
-        {
-            InitializeUrlParameters(e);
+            if (isInitialized)
+            {
+                return;
+            }
+         
             ShowProgressBar();
             Task t = Task.Factory.StartNew(() =>
             {
@@ -51,7 +57,13 @@ namespace TestCaseManagerApp.Views
             {
                 InitializeUiRelatedViewSettings();
                 HideProgressBar();
+                isInitialized = true;
             }, TaskScheduler.FromCurrentSynchronizationContext());
+        } 
+
+        public void OnFragmentNavigation(FragmentNavigationEventArgs e)
+        {
+            InitializeUrlParameters(e);
         }
 
         public void OnNavigatedFrom(NavigationEventArgs e)
@@ -60,6 +72,7 @@ namespace TestCaseManagerApp.Views
 
         public void OnNavigatedTo(NavigationEventArgs e)
         {
+            isInitialized = false;            
         }
 
         public void OnNavigatingFrom(NavigatingCancelEventArgs e)
@@ -537,11 +550,6 @@ namespace TestCaseManagerApp.Views
                 TestCase currentTestCase = SaveTestCaseInternal();
                 this.NavigateToAssociateAutomationView(currentTestCase.ITestCase.Id, currentTestCase.ITestSuiteBase.Id, CreateNew, Duplicate);
             }
-        }
-
-        private void UserControl_Loaded_1(object sender, RoutedEventArgs e)
-        {
-
-        }   
+        }     
     }
 }

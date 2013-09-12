@@ -13,21 +13,23 @@ namespace TestCaseManagerApp.Views
 {
     public partial class TestCaseDetailedView : UserControl, IContent
     {
-        public int TestCaseId { get; set; }
-        public int TestSuiteId { get; set; }
-        public TestCaseDetailedViewModel TestCaseDetailedViewModel { get; set; }
+        private static bool isInitialized;
 
         public TestCaseDetailedView()
         {
             InitializeComponent();
         }
 
-        public void OnFragmentNavigation(FragmentNavigationEventArgs e)
-        {
-            FragmentManager fm = new FragmentManager(e.Fragment);
-            TestCaseId = int.Parse(fm.Fragments["id"]);
-            TestSuiteId = int.Parse(fm.Fragments["suiteId"]);
+        public int TestCaseId { get; set; }
+        public int TestSuiteId { get; set; }
+        public TestCaseDetailedViewModel TestCaseDetailedViewModel { get; set; }
 
+        private void UserControl_Loaded(object sender, RoutedEventArgs e)
+        {
+            if(isInitialized)
+            {
+                return;
+            }
             ShowProgressBar();
             Task t = Task.Factory.StartNew(() =>
             {
@@ -37,7 +39,17 @@ namespace TestCaseManagerApp.Views
             {
                 this.DataContext = TestCaseDetailedViewModel;
                 HideProgressBar();
+                isInitialized = true;
             }, TaskScheduler.FromCurrentSynchronizationContext());   
+        }
+
+
+        public void OnFragmentNavigation(FragmentNavigationEventArgs e)
+        {
+            isInitialized = false;
+            FragmentManager fm = new FragmentManager(e.Fragment);
+            TestCaseId = int.Parse(fm.Fragments["id"]);
+            TestSuiteId = int.Parse(fm.Fragments["suiteId"]);
         }
 
         public void OnNavigatedFrom(NavigationEventArgs e)
@@ -72,6 +84,6 @@ namespace TestCaseManagerApp.Views
         private void DuplicateButton_Click(object sender, RoutedEventArgs e)
         {
             this.NavigateToTestCasesEditView(TestCaseDetailedViewModel.TestCase.ITestCase.Id, TestCaseDetailedViewModel.TestCase.ITestSuiteBase.Id, true, true);
-        }
+        }   
     }
 }

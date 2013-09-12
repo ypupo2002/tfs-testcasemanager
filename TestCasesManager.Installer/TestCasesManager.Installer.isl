@@ -342,6 +342,7 @@
 		<col def="S0">ISDotNetInstallerArgsRollback</col>
 		<row><td>ISO19770_LocalTag</td><td>{1C18252F-D76E-4790-B18C-CEA5C904DC0D}</td><td>INSTALLDIR</td><td>2</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 		<row><td>ISO19770_SystemTag</td><td>{3DFAC033-3338-4274-8894-2ECC26FF15C3}</td><td>CommonAppDataFolder</td><td>2</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>NewComponent1</td><td>{1C123103-E13F-4100-9405-5A7F648A38EA}</td><td>INSTALLDIR</td><td>2</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 		<row><td>TestCaseManager.Primary_output</td><td>{B97B7623-DB50-4F7D-930F-4CE7ED6D1532}</td><td>INSTALLDIR</td><td>2</td><td/><td>testcasemanager.primary_outp</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 	</table>
 
@@ -553,7 +554,7 @@
 		<row><td>LicenseAgreement</td><td>DlgLine</td><td>Line</td><td>48</td><td>234</td><td>326</td><td>0</td><td>1</td><td/><td/><td/><td/><td>0</td><td/><td/><td/></row>
 		<row><td>LicenseAgreement</td><td>DlgTitle</td><td>Text</td><td>13</td><td>6</td><td>292</td><td>25</td><td>65539</td><td/><td>##IDS__IsLicenseDlg_LicenseAgreement##</td><td/><td/><td>0</td><td/><td/><td/></row>
 		<row><td>LicenseAgreement</td><td>ISPrintButton</td><td>PushButton</td><td>301</td><td>188</td><td>65</td><td>17</td><td>3</td><td/><td>##IDS_PRINT_BUTTON##</td><td>Agree</td><td/><td>0</td><td/><td/><td/></row>
-		<row><td>LicenseAgreement</td><td>Memo</td><td>ScrollableText</td><td>8</td><td>55</td><td>358</td><td>130</td><td>7</td><td/><td/><td/><td/><td>0</td><td/><td>D:\Projects\TestCaseManager\TestCaseManager\Licenses\TestCaseManager.License.rtf</td><td/></row>
+		<row><td>LicenseAgreement</td><td>Memo</td><td>ScrollableText</td><td>8</td><td>55</td><td>358</td><td>130</td><td>7</td><td/><td/><td/><td/><td>0</td><td/><td>&lt;ISProjectFolder&gt;..\TestCaseManager\Licenses\TestCaseManager.License.rtf</td><td/></row>
 		<row><td>LicenseAgreement</td><td>Next</td><td>PushButton</td><td>230</td><td>243</td><td>66</td><td>17</td><td>3</td><td/><td>##IDS_NEXT##</td><td>Cancel</td><td/><td>0</td><td/><td/><td/></row>
 		<row><td>MaintenanceType</td><td>Back</td><td>PushButton</td><td>164</td><td>243</td><td>66</td><td>17</td><td>3</td><td/><td>##IDS_BACK##</td><td>Next</td><td/><td>0</td><td/><td/><td/></row>
 		<row><td>MaintenanceType</td><td>Banner</td><td>Bitmap</td><td>0</td><td>0</td><td>374</td><td>44</td><td>1</td><td/><td/><td/><td/><td>0</td><td/><td/><td>NewBinary1</td></row>
@@ -1053,6 +1054,7 @@
 		<col key="yes" def="s72">Component_</col>
 		<row><td>CommonAppDataFolder</td><td>ISO19770_SystemTag</td></row>
 		<row><td>INSTALLDIR</td><td>ISO19770_LocalTag</td></row>
+		<row><td>INSTALLDIR</td><td>NewComponent1</td></row>
 	</table>
 
 	<table name="CustomAction">
@@ -1170,6 +1172,7 @@
 		<row><td>WindowsFolder</td><td>TARGETDIR</td><td>.:Windows</td><td/><td>0</td><td/></row>
 		<row><td>WindowsVolume</td><td>TARGETDIR</td><td>.:WinRoot</td><td/><td>0</td><td/></row>
 		<row><td>telerik</td><td>ProgramMenuFolder</td><td>Telerik</td><td/><td>1</td><td/></row>
+		<row><td>test_cases_manager_1.04</td><td>telerik</td><td>TESTCA~1.04|test cases manager 1.04</td><td/><td>1</td><td/></row>
 		<row><td>testca_1.ins_testcasesmanager.installer</td><td>telerik</td><td>TESTCA~1.INS|TestCasesManager.Installer</td><td/><td>1</td><td/></row>
 	</table>
 
@@ -1862,6 +1865,7 @@
 	<table name="FeatureComponents">
 		<col key="yes" def="s38">Feature_</col>
 		<col key="yes" def="s72">Component_</col>
+		<row><td>AlwaysInstall</td><td>NewComponent1</td></row>
 		<row><td>AlwaysInstall</td><td>TestCaseManager.Primary_output</td></row>
 	</table>
 
@@ -2136,6 +2140,7 @@
 		<col def="S0">Miscellaneous</col>
 		<row><td>ISO19770_LocalTag</td><td/><td/><td>_1F7AB9DB_AF21_41F1_9E7C_34F70A07EC4D_FILTER</td><td/><td/><td/><td/></row>
 		<row><td>ISO19770_SystemTag</td><td/><td/><td>_C70DFF2F_C3CC_4EEF_B668_E2A8765716FE_FILTER</td><td/><td/><td/><td/></row>
+		<row><td>NewComponent1</td><td/><td/><td>_A5464E60_6904_49A6_9DCE_00ED22EBB8BB_FILTER</td><td/><td/><td/><td/></row>
 		<row><td>TestCaseManager.Primary_output</td><td/><td/><td>_2DA1D427_5D6E_48F9_9BEA_D88FC3B8D924_FILTER</td><td/><td/><td/><td/></row>
 	</table>
 
@@ -2765,7 +2770,7 @@
 		<col def="I2">Encoded</col>
 		<col def="S0">Comment</col>
 		<col def="I4">TimeStamp</col>
-		<row><td>COMPANY_NAME</td><td>1033</td><td>Telerik</td><td>0</td><td/><td>1688322816</td></row>
+		<row><td>COMPANY_NAME</td><td>1033</td><td>Telerik</td><td>0</td><td/><td>1688278356</td></row>
 		<row><td>DN_AlwaysInstall</td><td>1033</td><td>Always Install</td><td>0</td><td/><td>2082544425</td></row>
 		<row><td>IDPROP_EXPRESS_LAUNCH_CONDITION_COLOR</td><td>1033</td><td>The color settings of your system are not adequate for running [ProductName].</td><td>0</td><td/><td>2082544425</td></row>
 		<row><td>IDPROP_EXPRESS_LAUNCH_CONDITION_DOTNETVERSION45FULL</td><td>1033</td><td>Microsoft .NET Framework 4.5 Full package or greater needs to be installed for this installation to continue.</td><td>0</td><td/><td>2082591529</td></row>
@@ -3868,12 +3873,12 @@
 		<row><td>IDS__TargetReq_DESC_RAM</td><td>1033</td><td>The amount of RAM is not adequate for running [ProductName].</td><td>0</td><td/><td>2082544425</td></row>
 		<row><td>IDS__TargetReq_DESC_RESOLUTION</td><td>1033</td><td>The screen resolution is not adequate for running [ProductName].</td><td>0</td><td/><td>2082544425</td></row>
 		<row><td>ID_STRING1</td><td>1033</td><td/><td>0</td><td/><td>2082546473</td></row>
-		<row><td>ID_STRING2</td><td>1033</td><td>https://testcasemanager.codeplex.com/</td><td>0</td><td/><td>1688331200</td></row>
-		<row><td>ID_STRING3</td><td>1033</td><td>Telerik</td><td>0</td><td/><td>1688322816</td></row>
+		<row><td>ID_STRING2</td><td>1033</td><td>http://www.Telerik.com</td><td>0</td><td/><td>1688278356</td></row>
+		<row><td>ID_STRING3</td><td>1033</td><td>Telerik</td><td>0</td><td/><td>1688278356</td></row>
 		<row><td>ID_STRING4</td><td>1033</td><td>Launch |Built</td><td>0</td><td/><td>2082577257</td></row>
 		<row><td>ID_STRING5</td><td>1033</td><td>Launch |Built</td><td>0</td><td/><td>2082596137</td></row>
 		<row><td>ID_STRING6</td><td>1033</td><td>angelov.st.anton@gmail.com</td><td>0</td><td/><td>1017196950</td></row>
-		<row><td>ID_STRING7</td><td>1033</td><td>https://testcasemanager.codeplex.com/workitem/list/basic</td><td>0</td><td/><td>1688331200</td></row>
+		<row><td>ID_STRING7</td><td>1033</td><td>http://www.Telerik.comworkitem/list/basic</td><td>0</td><td/><td>1688278356</td></row>
 		<row><td>ID_STRING8</td><td>1033</td><td>https://testcasemanager.codeplex.com/releases</td><td>0</td><td/><td>1017207222</td></row>
 		<row><td>IIDS_UITEXT_FeatureUninstalled</td><td>1033</td><td>This feature will remain uninstalled.</td><td>0</td><td/><td>2082544425</td></row>
 	</table>
@@ -3881,6 +3886,7 @@
 	<table name="ISSwidtagProperty">
 		<col key="yes" def="s72">Name</col>
 		<col def="s0">Value</col>
+		<row><td>EntitlementRequired</td><td>1</td></row>
 		<row><td>SfwCreatorName</td><td>Anton Angelov</td></row>
 		<row><td>SfwCreatorRegid</td><td>regid.2013-09.com.telerik.www</td></row>
 		<row><td>SfwLicensorName</td><td>Anton Angelov</td></row>
@@ -3988,7 +3994,8 @@
 		<col def="V0">Data</col>
 		<col def="S255">ISBuildSourcePath</col>
 		<col def="I2">ISIconIndex</col>
-		<row><td>ARPPRODUCTICON.exe</td><td/><td>D:\Projects\TestCaseManager\TestCaseManager\Registration.ico</td><td>0</td></row>
+		<row><td>ARPPRODUCTICON.exe</td><td/><td>&lt;ISProjectFolder&gt;..\TestCaseManager\Registration.ico</td><td>0</td></row>
+		<row><td>UNINST_Uninstall_T_8A6874553B234AF69B08F3765FBDB516.exe</td><td/><td>C:\Program Files (x86)\InstallShield\2012SpringLE\Redist\Language Independent\OS Independent\uninstall.ico</td><td>0</td></row>
 	</table>
 
 	<table name="IniFile">
@@ -4433,9 +4440,6 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<row><td>ARPCONTACT</td><td>##ID_STRING6##</td><td/></row>
 		<row><td>ARPHELPLINK</td><td>##ID_STRING7##</td><td/></row>
 		<row><td>ARPINSTALLLOCATION</td><td/><td/></row>
-		<row><td>ARPNOMODIFY</td><td>1</td><td/></row>
-		<row><td>ARPNOREMOVE</td><td>1</td><td/></row>
-		<row><td>ARPNOREPAIR</td><td>1</td><td/></row>
 		<row><td>ARPPRODUCTICON</td><td>ARPPRODUCTICON.exe</td><td/></row>
 		<row><td>ARPSIZE</td><td/><td/></row>
 		<row><td>ARPURLINFOABOUT</td><td>##ID_STRING2##</td><td/></row>
@@ -4583,6 +4587,7 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<col def="L255">FileName</col>
 		<col def="s72">DirProperty</col>
 		<col def="i2">InstallMode</col>
+		<row><td>UNINST_Uninstall_Test_Cases_Manager_1.04</td><td>NewComponent1</td><td/><td>test_cases_manager_1.04</td><td>2</td></row>
 		<row><td>_Built</td><td>TestCaseManager.Primary_output</td><td/><td>testca_1.ins_testcasesmanager.installer</td><td>2</td></row>
 	</table>
 
@@ -4669,6 +4674,7 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<col def="S255">ISComments</col>
 		<col def="S255">ISShortcutName</col>
 		<col def="I4">ISAttributes</col>
+		<row><td>UNINST_Uninstall_Test_Cases_Manager_1.04</td><td>test_cases_manager_1.04</td><td>UNINST|Uninstall Test Cases Manager 1.04</td><td>NewComponent1</td><td>[SystemFolder]msiexec.exe</td><td>/x {717296F4-160E-4CF6-82BA-0213015BFE96}</td><td/><td/><td>UNINST_Uninstall_T_8A6874553B234AF69B08F3765FBDB516.exe</td><td>0</td><td>1</td><td/><td/><td/><td/><td/><td/><td/><td/></row>
 		<row><td>_Built</td><td>testca_1.ins_testcasesmanager.installer</td><td>##IDS_SHORTCUT_DISPLAY_NAME2##</td><td>TestCaseManager.Primary_output</td><td>AlwaysInstall</td><td/><td/><td/><td/><td/><td>1</td><td/><td/><td/><td/><td/><td/><td/><td/></row>
 		<row><td>_Built1</td><td>DesktopFolder</td><td>##IDS_SHORTCUT_DISPLAY_NAME2##</td><td>TestCaseManager.Primary_output</td><td>AlwaysInstall</td><td/><td/><td/><td/><td/><td>1</td><td/><td/><td/><td/><td/><td/><td/><td/></row>
 	</table>
