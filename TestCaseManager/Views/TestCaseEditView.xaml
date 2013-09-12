@@ -118,10 +118,23 @@
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
+
                     <DataGrid ItemsSource="{Binding ObservableTestSteps}" AutoGenerateColumns="False" Name="dgTestSteps" Height="Auto" IsReadOnly="True"
-                          IsSynchronizedWithCurrentItem="True" SelectionUnit="FullRow" HorizontalAlignment="Left" Grid.Column="0" SelectionMode="Extended" MouseLeftButtonUp="dgTestSteps_MouseLeftButtonUp">
+                          IsSynchronizedWithCurrentItem="True" SelectionUnit="FullRow" HorizontalAlignment="Left" Grid.Column="0" SelectionMode="Extended" MouseLeftButtonUp="dgTestSteps_MouseLeftButtonUp" ClipboardCopyMode="ExcludeHeader">
+                        <DataGrid.ContextMenu>
+                            <ContextMenu>
+                                <MenuItem Command="Cut"/>
+                                <MenuItem Command="Copy"/>
+                                <MenuItem Command="Paste"/>
+                            </ContextMenu>
+                        </DataGrid.ContextMenu>
                         <DataGrid.Columns>
                             <DataGridTemplateColumn   Header="Step Name"  Width="150" MaxWidth="200" >
+                                <DataGridTemplateColumn.HeaderStyle>
+                                    <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource {x:Type DataGridColumnHeader}}">
+                                        <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                                    </Style>
+                                </DataGridTemplateColumn.HeaderStyle>
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <TextBlock Text="{Binding Title}" TextWrapping="Wrap" />
@@ -129,6 +142,11 @@
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
                             <DataGridTemplateColumn   Header="Steps"  Width="5*" >
+                                <DataGridTemplateColumn.HeaderStyle>
+                                    <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource {x:Type DataGridColumnHeader}}">
+                                        <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                                    </Style>
+                                </DataGridTemplateColumn.HeaderStyle>
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <TextBlock Text="{Binding ITestStep.Title, Converter={StaticResource TestStepPropertiesConverter}}" TextWrapping="Wrap" />
@@ -136,6 +154,11 @@
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
                             <DataGridTemplateColumn  Header="Expected Results" Width="5*">
+                                <DataGridTemplateColumn.HeaderStyle>
+                                    <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource {x:Type DataGridColumnHeader}}">
+                                        <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                                    </Style>
+                                </DataGridTemplateColumn.HeaderStyle>
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <TextBlock Text="{Binding ITestStep.ExpectedResult, Converter={StaticResource TestStepPropertiesConverter}}" TextWrapping="Wrap" />
@@ -158,8 +181,13 @@
                 <TextBox Height="25" Margin="10,30,10,10" Name="tbSharedStepFilter" HorizontalAlignment="Stretch" Grid.Row="2" Grid.Column="3" GotFocus="tbSharedStepFilter_GotFocus" LostFocus="tbSharedStepFilter_LostFocus" KeyUp="tbSharedStepFilter_KeyUp" />
 
                 <DataGrid ItemsSource="{Binding ObservableSharedSteps}" AutoGenerateColumns="False" Name="dgSharedSteps" HorizontalScrollBarVisibility="Disabled" IsReadOnly="True" Grid.Row="3" Grid.Column="2" MouseDoubleClick="dgSharedSteps_MouseDoubleClick">
-                    <DataGrid.Columns>
+                        <DataGrid.Columns>
                         <DataGridTextColumn Header="Title" Binding="{Binding ISharedStep.Title}" Width="400">
+                            <DataGridTextColumn.HeaderStyle>
+                                <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource {x:Type DataGridColumnHeader}}">
+                                    <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                                </Style>
+                            </DataGridTextColumn.HeaderStyle>
                             <DataGridTextColumn.CellStyle>
                                 <Style TargetType="DataGridCell">
                                     <Setter Property="ToolTip" Value="{Binding StepsToolTip}" />

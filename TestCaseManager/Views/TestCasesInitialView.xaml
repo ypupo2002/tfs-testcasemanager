@@ -54,36 +54,42 @@
                 </StackPanel>
             </StackPanel>
 
-            <DataGrid ItemsSource="{Binding Path=ObservableTestCases}" AutoGenerateColumns="False" Name="dgTestCases" Grid.Row="2" MouseDoubleClick="dgTestCases_MouseDoubleClick" IsReadOnly="True" SelectionMode="Single" SelectionUnit="FullRow" TabIndex="3">
-                    <DataGrid.Columns>
+            <DataGrid ItemsSource="{Binding Path=ObservableTestCases}" AutoGenerateColumns="False" Name="dgTestCases" Grid.Row="2" MouseDoubleClick="dgTestCases_MouseDoubleClick" IsReadOnly="True" SelectionMode="Single" SelectionUnit="FullRow" TabIndex="3" PreviewKeyDown="dgTestCases_KeyDown">
+                   <DataGrid.Columns>
                     <DataGridTextColumn Header="ID"  Binding="{Binding ITestCase.Id}" Width="0.5*">
-                        <DataGridTextColumn.ElementStyle>
-                            <Style>
-                                <Setter Property="FrameworkElement.HorizontalAlignment" Value="Center"/>
+                        <DataGridTextColumn.HeaderStyle>
+                            <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource {x:Type DataGridColumnHeader}}">
+                                <Setter Property="HorizontalContentAlignment" Value="Left"/>
                             </Style>
-                        </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn.HeaderStyle>
                     </DataGridTextColumn>
-                        <DataGridTextColumn Header="Title" Binding="{Binding ITestCase.Title}" Width="9*"/>
-                    <DataGridTextColumn Header="Suite" Binding="{Binding ITestSuiteBase.Title}" Width="5*">
-                        <DataGridTextColumn.ElementStyle>
-                            <Style>
-                                <Setter Property="FrameworkElement.HorizontalAlignment" Value="Center"/>
+                    <DataGridTextColumn Header="Title" Binding="{Binding ITestCase.Title}" Width="9*">
+                        <DataGridTextColumn.HeaderStyle>
+                            <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource {x:Type DataGridColumnHeader}}">
+                                <Setter Property="HorizontalContentAlignment" Value="Left"/>
                             </Style>
-                        </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn.HeaderStyle>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn Header="Suite" Binding="{Binding ITestSuiteBase.Title}" Width="5*">
+                        <DataGridTextColumn.HeaderStyle>
+                            <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource {x:Type DataGridColumnHeader}}">
+                                <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                            </Style>
+                        </DataGridTextColumn.HeaderStyle>
                     </DataGridTextColumn>
                     <DataGridTextColumn Header="Priority" Binding="{Binding ITestCase.Priority}" Width="1*">
-                        <DataGridTextColumn.ElementStyle>
-                            <Style>
-                                <Setter Property="FrameworkElement.HorizontalAlignment" Value="Center"/>
+                        <DataGridTextColumn.HeaderStyle>
+                            <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource {x:Type DataGridColumnHeader}}">
+                                <Setter Property="HorizontalContentAlignment" Value="Left"/>
                             </Style>
-                        </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn.HeaderStyle>
                     </DataGridTextColumn>
                     <DataGridTextColumn Header="Automated" Binding="{Binding ITestCase.IsAutomated}" Width="1.2*">
-                        <DataGridTextColumn.ElementStyle>
-                            <Style>
-                                <Setter Property="FrameworkElement.HorizontalAlignment" Value="Center"/>
+                        <DataGridTextColumn.HeaderStyle>
+                            <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource {x:Type DataGridColumnHeader}}">
+                                <Setter Property="HorizontalContentAlignment" Value="Left"/>
                             </Style>
-                        </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn.HeaderStyle>
                     </DataGridTextColumn>
                     </DataGrid.Columns>
             </DataGrid>

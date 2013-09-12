@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Forms;
 using FirstFloor.ModernUI.Presentation;
+using FirstFloor.ModernUI.Windows;
 using FirstFloor.ModernUI.Windows.Controls;
 using Microsoft.TeamFoundation.Client;
 using Microsoft.TeamFoundation.TestManagement.Client;
@@ -16,13 +17,13 @@ using TestCaseManagerApp.ViewModels;
 
 namespace TestCaseManagerApp.Views
 {
-    public partial class ProjectSelectionView : System.Windows.Controls.UserControl
+    public partial class ProjectSelectionView : System.Windows.Controls.UserControl, IContent
     {
         public ProjectSelectionViewModel ProjectSelectionViewModel { get; set; }
 
         public ProjectSelectionView()
         {
-            InitializeComponent();
+            InitializeComponent();           
         }       
 
         private void HideProgressBar()
@@ -92,7 +93,7 @@ namespace TestCaseManagerApp.Views
 
         private void cbTestPlans_MouseMove(object sender, System.Windows.Input.MouseEventArgs e)
         {
-            ComboBoxDropdownExtensions.cboMouseMove(sender, e);
+             ComboBoxDropdownExtensions.cboMouseMove(sender, e);
         }
 
         private void UserControl_Initialized_1(object sender, EventArgs e)
@@ -109,6 +110,26 @@ namespace TestCaseManagerApp.Views
                 this.DataContext = this.ProjectSelectionViewModel;
                 HideProgressBar();
             }, TaskScheduler.FromCurrentSynchronizationContext());       
+        }
+
+        public void OnFragmentNavigation(FirstFloor.ModernUI.Windows.Navigation.FragmentNavigationEventArgs e)
+        {
+            ComboBoxDropdownExtensions.SetOpenDropDownAutomatically(cbTestPlans, ExecutionContext.SettingsViewModel.HoverBehaviorDropDown);
+        }
+
+        public void OnNavigatedFrom(FirstFloor.ModernUI.Windows.Navigation.NavigationEventArgs e)
+        {
+            ComboBoxDropdownExtensions.SetOpenDropDownAutomatically(cbTestPlans, ExecutionContext.SettingsViewModel.HoverBehaviorDropDown);
+        }
+
+        public void OnNavigatedTo(FirstFloor.ModernUI.Windows.Navigation.NavigationEventArgs e)
+        {
+            ComboBoxDropdownExtensions.SetOpenDropDownAutomatically(cbTestPlans, ExecutionContext.SettingsViewModel.HoverBehaviorDropDown);
+        }
+
+        public void OnNavigatingFrom(FirstFloor.ModernUI.Windows.Navigation.NavigatingCancelEventArgs e)
+        {
+            ComboBoxDropdownExtensions.SetOpenDropDownAutomatically(cbTestPlans, ExecutionContext.SettingsViewModel.HoverBehaviorDropDown);
         }
     }
 }

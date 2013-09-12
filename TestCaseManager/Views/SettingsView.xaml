@@ -49,6 +49,10 @@
                     <TextBox Margin="10" Name="tbAssociatedProjectDllPath" MinWidth="380"/>
                     <Button Name="btnBrowse" Content="Browse" Margin="10" Width="100" Height="24" Click="btnBrowse_Click" />
                 </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Hover Behavior Drop Drown" Margin="10" Height="25" Width="Auto" HorizontalAlignment="Left"/>
+                    <CheckBox Margin="10" HorizontalAlignment="Left" IsChecked="{Binding Path=HoverBehaviorDropDown, Mode=TwoWay}"/>
+                </StackPanel>
             </StackPanel>
         </ScrollViewer>
     </Grid>

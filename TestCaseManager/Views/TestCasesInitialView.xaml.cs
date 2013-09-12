@@ -218,5 +218,13 @@ namespace TestCaseManagerApp.Views
         {
             TestCasesInitialViewModel.FilterTestCases();
         }
+
+        private void dgTestCases_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            if (Keyboard.IsKeyDown(Key.Enter))
+            {
+                PreviewSelectedTestCase();
+            }
+        }
     }
 }

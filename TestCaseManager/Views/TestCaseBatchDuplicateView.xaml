@@ -57,15 +57,39 @@
 
             <DataGrid Name="dgTextsToBeReplaced" ItemsSource="{Binding ObservableTextReplacePairs}"  CanUserAddRows="True" Grid.Row="2" Grid.Column="1" AutoGenerateColumns="False">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Old Text" Binding="{Binding OldText}"/>
-                    <DataGridTextColumn Header="New Text" Binding="{Binding NewText}"/>
+                    <DataGridTextColumn Header="Old Text" Binding="{Binding OldText}">
+                        <DataGridTextColumn.HeaderStyle>
+                            <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource {x:Type DataGridColumnHeader}}">
+                                <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                            </Style>
+                        </DataGridTextColumn.HeaderStyle>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn Header="New Text" Binding="{Binding NewText}">
+                        <DataGridTextColumn.HeaderStyle>
+                            <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource {x:Type DataGridColumnHeader}}">
+                                <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                            </Style>
+                        </DataGridTextColumn.HeaderStyle>
+                    </DataGridTextColumn>
                 </DataGrid.Columns>
             </DataGrid>
 
             <DataGrid ItemsSource="{Binding ObservableTestCases}" AutoGenerateColumns="False" Name="dgTestCases" Grid.Row="2" Grid.Column="2" IsReadOnly="True" SelectionMode="Extended" Grid.ColumnSpan="2">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Title" Binding="{Binding ITestCase.Title}" Width="10*"/>
-                    <DataGridTextColumn Header="Suite" Binding="{Binding ITestSuiteBase.Title}" Width="5*"/>
+                    <DataGridTextColumn Header="Title" Binding="{Binding ITestCase.Title}" Width="10*">
+                        <DataGridTextColumn.HeaderStyle>
+                            <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource {x:Type DataGridColumnHeader}}">
+                                <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                            </Style>
+                        </DataGridTextColumn.HeaderStyle>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn Header="Suite" Binding="{Binding ITestSuiteBase.Title}" Width="5*">
+                        <DataGridTextColumn.HeaderStyle>
+                            <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource {x:Type DataGridColumnHeader}}">
+                                <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                            </Style>
+                        </DataGridTextColumn.HeaderStyle>
+                    </DataGridTextColumn>
                 </DataGrid.Columns>
             </DataGrid>
             

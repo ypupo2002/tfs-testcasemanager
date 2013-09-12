@@ -11,7 +11,7 @@ namespace TestCaseManagerApp.ViewModels
         private Color selectedAccentColor;
         private LinkCollection themes = new LinkCollection();
         private Link selectedTheme;
-
+        private bool hoverBehaviorDropDown;
         private Color[] accentColors = new Color[]{
             // 9 accent colors from metro design principles
             Color.FromRgb(0x33, 0x99, 0xff),   // blue
@@ -58,16 +58,29 @@ namespace TestCaseManagerApp.ViewModels
             this.themes.Add(new Link { DisplayName = "love", Source = new Uri("Assets/ModernUI.Love.xaml", UriKind.Relative) });
             this.themes.Add(new Link { DisplayName = "snowflakes", Source = new Uri("Assets/ModernUI.Snowflakes.xaml", UriKind.Relative) });
             //SyncThemeAndColor();
-
+            HoverBehaviorDropDown = true;
             AppearanceManager.Current.PropertyChanged += OnAppearanceManagerPropertyChanged;
             SetPrevious();
         }
+
+        public bool HoverBehaviorDropDown
+        {
+            get { return this.hoverBehaviorDropDown; }
+            set
+            {
+                if (this.hoverBehaviorDropDown != value)
+                {
+                    this.hoverBehaviorDropDown = value;
+                    OnPropertyChanged("HoverBehaviorDropDown");
+                }
+            }
+        }
+    
 
         public LinkCollection Themes
         {
             get { return this.themes; }
         }
-
 
         public Color[] AccentColors
         {

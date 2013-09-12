@@ -23,6 +23,14 @@ namespace TestCaseManagerApp
             InitializeComponent();
             ExecutionContext.Preferences = new Preferences();
             ExecutionContext.SettingsViewModel = new ViewModels.SettingsViewModel();
+        }
+
+        private void ModernWindow_Loaded_1(object sender, RoutedEventArgs e)
+        {
+            //this.MinWidth = this.ActualWidth;
+            //this.MinHeight = this.ActualHeight;
+            //this.MaxHeight = this.ActualHeight;
+            //this.MaxWidth = this.ActualWidth;
         }        
     }
 }

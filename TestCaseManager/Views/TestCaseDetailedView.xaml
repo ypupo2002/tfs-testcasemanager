@@ -57,7 +57,7 @@
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
                     <TextBlock Text="Automated Test Type" Margin="10,0,10,0" Height="25" FontWeight="Bold" HorizontalAlignment="Stretch" Grid.Row="0" Grid.Column="0"/>
-                    <TextBox Text="{Binding AssociatedAutomation.Type, Mode=OneWay}" Margin="10,0,10,0" Height="25" HorizontalAlignment="Left" Grid.Row="1" Grid.Column="0"/>
+                    <TextBlock Text="{Binding AssociatedAutomation.Type, Mode=OneWay}" Margin="10,0,10,0" Height="25" HorizontalAlignment="Left" Grid.Row="1" Grid.Column="0"/>
                     <TextBlock Text="Automated test storage" Margin="10,0,10,0" Height="25" FontWeight="Bold" HorizontalAlignment="Stretch" Grid.Row="0" Grid.Column="1"/>
                     <TextBox Text="{Binding AssociatedAutomation.Assembly, Mode=OneWay}" Margin="10,0,10,0" Height="25" HorizontalAlignment="Stretch" Grid.Row="1" Grid.Column="1"/>
                     <TextBlock Text="Automated test name" Margin="10,0,10,0" Height="25" FontWeight="Bold" HorizontalAlignment="Left" Grid.Row="0" Grid.Column="2"/>
@@ -65,16 +65,26 @@
                 </Grid>
             </StackPanel>
 
-            <DataGrid ItemsSource="{Binding Path=ObservableTestSteps}" AutoGenerateColumns="False" Name="dgTestSteps" Height="Auto" Grid.Row="1" Margin="0,0,0,30" IsReadOnly="True">
+            <DataGrid ItemsSource="{Binding Path=ObservableTestSteps}" AutoGenerateColumns="False" Name="dgTestSteps" Height="Auto" Grid.Row="1" Margin="0,0,0,30">
                 <DataGrid.Columns>
-                    <DataGridTemplateColumn   Header="Step Name"  Width="150" MaxWidth="200" >
+                    <!--<DataGridTemplateColumn   Header="Step Name"  Width="150" MaxWidth="200" >
+                        <DataGridTemplateColumn.HeaderStyle>
+                            <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource {x:Type DataGridColumnHeader}}">
+                                <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                            </Style>
+                        </DataGridTemplateColumn.HeaderStyle>
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBlock Text="{Binding Title}" TextWrapping="Wrap" />
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
+                    </DataGridTemplateColumn>-->
                     <DataGridTemplateColumn   Header="Steps"  Width="5*" >
+                        <DataGridTemplateColumn.HeaderStyle>
+                            <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource {x:Type DataGridColumnHeader}}">
+                                <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                            </Style>
+                        </DataGridTemplateColumn.HeaderStyle>
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBlock Text="{Binding ITestStep.Title, Converter={StaticResource TestStepPropertiesConverter}}" TextWrapping="Wrap" />
@@ -82,6 +92,11 @@
                         </DataGridTemplateColumn.CellTemplate>                   
                     </DataGridTemplateColumn>
                     <DataGridTemplateColumn  Header="Expected Results" Width="5*">
+                        <DataGridTemplateColumn.HeaderStyle>
+                            <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource {x:Type DataGridColumnHeader}}">
+                                <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                            </Style>
+                        </DataGridTemplateColumn.HeaderStyle>
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBlock Text="{Binding ITestStep.ExpectedResult, Converter={StaticResource TestStepPropertiesConverter}}" TextWrapping="Wrap" />
