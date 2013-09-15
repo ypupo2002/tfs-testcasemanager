@@ -23,7 +23,7 @@ namespace TestCaseManagerApp.Helpers
         /// Gets/sets whether or not the ComboBox this behavior is applied to opens its items-popup
         /// when the mouse hovers over it and closes again when the mouse leaves.
         /// </summary>
-        public static DependencyProperty OpenDropDownAutomaticallyProperty =
+        private static DependencyProperty openDropDownAutomaticallyProperty =
                  DependencyProperty.RegisterAttached(
                  "OpenDropDownAutomatically",
                  typeof(bool),
@@ -37,7 +37,7 @@ namespace TestCaseManagerApp.Helpers
         /// <returns>should open automatically</returns>
         public static bool GetOpenDropDownAutomatically(ComboBox cbo)
         {
-            return (bool)cbo.GetValue(OpenDropDownAutomaticallyProperty);
+            return (bool)cbo.GetValue(openDropDownAutomaticallyProperty);
         }
 
         /// <summary>
@@ -47,7 +47,7 @@ namespace TestCaseManagerApp.Helpers
         /// <param name="value">if set to <c>true</c> [value].</param>
         public static void SetOpenDropDownAutomatically(ComboBox cbo, bool value)
         {
-            cbo.SetValue(OpenDropDownAutomaticallyProperty, value);
+            cbo.SetValue(openDropDownAutomaticallyProperty, value);
         }
 
         /// <summary>

@@ -1,28 +1,67 @@
-﻿using FirstFloor.ModernUI.Presentation;
-
+﻿// <copyright file="InitialViewFilters.cs" company="Telerik">
+// http://www.telerik.com All rights reserved.
+// </copyright>
+// <author>Anton Angelov</author>
 namespace TestCaseManagerApp.BusinessLogic.Entities
 {
+    using FirstFloor.ModernUI.Presentation;
+
     /// <summary>
     /// Contains search filters for the initial app view
     /// </summary>
     public class InitialViewFilters : NotifyPropertyChanged
     {
+        /// <summary>
+        /// The is title text set
+        /// </summary>
+        public bool IsTitleTextSet;
+
+        /// <summary>
+        /// The is suite text set
+        /// </summary>
+        public bool IsSuiteTextSet;
+
+        /// <summary>
+        /// The is unique identifier text set
+        /// </summary>
+        public bool IsIdTextSet;
+
+        /// <summary>
+        /// The title filter
+        /// </summary>
         private string titleFilter;
+
+        /// <summary>
+        /// The suite filter
+        /// </summary>
         private string suiteFilter;
+
+        /// <summary>
+        /// The unique identifier filter
+        /// </summary>
         private string idFilter;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="InitialViewFilters"/> class.
+        /// </summary>
+        /// <param name="title">The title.</param>
+        /// <param name="suite">The suite.</param>
+        /// <param name="id">The unique identifier.</param>
         public InitialViewFilters(string title, string suite, string id)
         {
-            TitleFilter = title;
-            SuiteFilter = suite;
-            IdFilter = id;
+            this.TitleFilter = title;
+            this.SuiteFilter = suite;
+            this.IdFilter = id;
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="InitialViewFilters"/> class.
+        /// </summary>
         public InitialViewFilters()
         {
-            IdFilter = "ID";
-            TitleFilter = "Title";
-            SuiteFilter = "Suite";
+            this.IdFilter = "ID";
+            this.TitleFilter = "Title";
+            this.SuiteFilter = "Suite";
         }
 
         /// <summary>
@@ -35,12 +74,13 @@ namespace TestCaseManagerApp.BusinessLogic.Entities
         {
             get
             {
-                return titleFilter;
+                return this.titleFilter;
             }
+
             set
             {
-                titleFilter = value;
-                OnPropertyChanged("TitleFilter");
+                this.titleFilter = value;
+                this.OnPropertyChanged("TitleFilter");
             }
         }
 
@@ -54,12 +94,13 @@ namespace TestCaseManagerApp.BusinessLogic.Entities
         {
             get
             {
-                return suiteFilter;
+                return this.suiteFilter;
             }
+
             set
             {
-                suiteFilter = value;
-                OnPropertyChanged("SuiteFilter");
+                this.suiteFilter = value;
+                this.OnPropertyChanged("SuiteFilter");
             }
         }
 
@@ -73,12 +114,13 @@ namespace TestCaseManagerApp.BusinessLogic.Entities
         {
             get
             {
-                return idFilter;
+                return this.idFilter;
             }
+
             set
             {
-                idFilter = value;
-                OnPropertyChanged("IdFilter");
+                this.idFilter = value;
+                this.OnPropertyChanged("IdFilter");
             }
         }
     }

@@ -41,7 +41,7 @@ namespace TestCaseManagerApp.Views
         private void BrowseButton_Click(object sender, RoutedEventArgs e)
         {
             var projectPicker = new TeamProjectPicker(TeamProjectPickerMode.SingleProject, false);
-            this.ProjectSelectionViewModel.LoadProjectSelectionFromUser(projectPicker);
+            this.ProjectSelectionViewModel.LoadProjectSettingsFromUserDecision(projectPicker);
             InitializeTestPlans(ExecutionContext.TestManagementTeamProject);
         }
 
@@ -58,7 +58,7 @@ namespace TestCaseManagerApp.Views
         private void DisplayButton_Click(object sender, RoutedEventArgs e)
         {
             string selectedTestPlan = cbTestPlans.Text;
-            if (String.IsNullOrEmpty(selectedTestPlan))
+            if (string.IsNullOrEmpty(selectedTestPlan))
             {
                 ModernDialog.ShowMessage("No test plan selected.", "Warning", MessageBoxButton.OK);
                 return;
@@ -102,7 +102,7 @@ namespace TestCaseManagerApp.Views
             this.ProjectSelectionViewModel = new ProjectSelectionViewModel();
             Task t = Task.Factory.StartNew(() =>
             {
-                this.ProjectSelectionViewModel.InitializeFromRegistry();
+                this.ProjectSelectionViewModel.LoadProjectSettingsFromRegistry();
                 InitializeTestPlans(ExecutionContext.TestManagementTeamProject);
             });
             t.ContinueWith(antecedent =>

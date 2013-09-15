@@ -1,31 +1,65 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Net;
-using System.Net.Sockets;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Forms;
-using FirstFloor.ModernUI.Windows.Controls;
-using Microsoft.TeamFoundation.Client;
-using Microsoft.TeamFoundation.TestManagement.Client;
-
+﻿// <copyright file="ProjectSelectionViewModel.cs" company="Telerik">
+// http://www.telerik.com All rights reserved.
+// </copyright>
+// <author>Anton Angelov</author>
 namespace TestCaseManagerApp.ViewModels
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Collections.ObjectModel;
+    using System.Linq;
+    using System.Net;
+    using System.Net.Sockets;
+    using System.Text;
+    using System.Threading.Tasks;
+    using System.Windows;
+    using System.Windows.Forms;
+    using FirstFloor.ModernUI.Windows.Controls;
+    using Microsoft.TeamFoundation.Client;
+    using Microsoft.TeamFoundation.TestManagement.Client;
+
+    /// <summary>
+    /// Provides methods and properties related to the Project Selection View
+    /// </summary>
     public class ProjectSelectionViewModel
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ProjectSelectionViewModel"/> class.
+        /// </summary>
         public ProjectSelectionViewModel()
         {
-            ObservableTestPlans = new ObservableCollection<string>();
+            this.ObservableTestPlans = new ObservableCollection<string>();
         }
 
+        /// <summary>
+        /// Gets or sets the test service.
+        /// </summary>
+        /// <value>
+        /// The test service.
+        /// </value>
         public ITestManagementService TestService { get; set; }
+
+        /// <summary>
+        /// Gets or sets the full name of the team project.
+        /// </summary>
+        /// <value>
+        /// The full name of the team project.
+        /// </value>
         public string FullTeamProjectName { get; set; }
+
+        /// <summary>
+        /// Gets or sets the observable test plans.
+        /// </summary>
+        /// <value>
+        /// The observable test plans.
+        /// </value>
         public ObservableCollection<string> ObservableTestPlans { get; set; }
 
-        public void LoadProjectSelectionFromUser(TeamProjectPicker projectPicker)
+        /// <summary>
+        /// Load project settings from TFS team project picker.
+        /// </summary>
+        /// <param name="projectPicker">The project picker.</param>
+        public void LoadProjectSettingsFromUserDecision(TeamProjectPicker projectPicker)
         {
             ExecutionContext.Preferences.TfsUri = null;
             ExecutionContext.Preferences.TestProjectName = null;
@@ -46,11 +80,12 @@ namespace TestCaseManagerApp.ViewModels
                         ExecutionContext.Preferences.TfsUri = projectPicker.SelectedTeamProjectCollection.Uri;
                         ExecutionContext.Preferences.TestProjectName = projectPicker.SelectedProjects[0].Name;
                         ExecutionContext.TfsTeamProjectCollection = projectPicker.SelectedTeamProjectCollection;
-                        TestService = (ITestManagementService)ExecutionContext.TfsTeamProjectCollection.GetService(typeof(ITestManagementService));
-                        InitializeTestProjectByName(TestService, ExecutionContext.Preferences.TestProjectName);
-                        //InitializeTestPlans(ExecutionContext.TeamProject);
+                        this.TestService = (ITestManagementService)ExecutionContext.TfsTeamProjectCollection.GetService(typeof(ITestManagementService));
+                        this.InitializeTestProjectByName(this.TestService, ExecutionContext.Preferences.TestProjectName);
+
+                        // InitializeTestPlans(ExecutionContext.TeamProject);
                     }
-                    FullTeamProjectName = GenerateFullTeamProjectName();
+                    this.FullTeamProjectName = this.GenerateFullTeamProjectName();
                    
                     RegistryManager.WriteCurrentTeamProjectName(ExecutionContext.Preferences.TestProjectName);
                     RegistryManager.WriteCurrentTeamProjectUri(ExecutionContext.Preferences.TfsUri.ToString());
@@ -62,22 +97,25 @@ namespace TestCaseManagerApp.ViewModels
             }
         }
 
-        public void InitializeFromRegistry()
+        /// <summary>
+        /// Loads project settings from registry.
+        /// </summary>
+        public void LoadProjectSettingsFromRegistry()
         {
             string teamProjectUri = RegistryManager.GetTeamProjectUri();
             string teamProjectName = RegistryManager.GetTeamProjectName();
             string projectDllPath = RegistryManager.GetProjectDllPath();
-            if (!String.IsNullOrEmpty(teamProjectUri) && !String.IsNullOrEmpty(teamProjectName))
+            if (!string.IsNullOrEmpty(teamProjectUri) && !string.IsNullOrEmpty(teamProjectName))
             {
                 ExecutionContext.Preferences.TfsUri = new Uri(teamProjectUri);
                 ExecutionContext.Preferences.TestProjectName = teamProjectName;
                 ExecutionContext.TfsTeamProjectCollection = new TfsTeamProjectCollection(ExecutionContext.Preferences.TfsUri);
                 ExecutionContext.ProjectDllPath = projectDllPath;
-                TestService = (ITestManagementService)ExecutionContext.TfsTeamProjectCollection.GetService(typeof(ITestManagementService));
-                InitializeTestProjectByName(TestService, ExecutionContext.Preferences.TestProjectName);
+                this.TestService = (ITestManagementService)ExecutionContext.TfsTeamProjectCollection.GetService(typeof(ITestManagementService));
+                this.InitializeTestProjectByName(this.TestService, ExecutionContext.Preferences.TestProjectName);
                 try
                 {
-                    FullTeamProjectName = GenerateFullTeamProjectName();                   
+                    this.FullTeamProjectName = this.GenerateFullTeamProjectName();                   
                 }
                 catch (SocketException)
                 {
@@ -92,15 +130,24 @@ namespace TestCaseManagerApp.ViewModels
             }
         }
 
+        /// <summary>
+        /// Generates the full name of the team project.
+        /// </summary>
+        /// <returns>The full name of the team project</returns>
         public string GenerateFullTeamProjectName()
         {
-            string fullTeamProjectName = String.Concat(ExecutionContext.Preferences.TfsUri, "/", ExecutionContext.Preferences.TestProjectName);
+            string fullTeamProjectName = string.Concat(ExecutionContext.Preferences.TfsUri, "/", ExecutionContext.Preferences.TestProjectName);
             return fullTeamProjectName;
         }
 
-        public void InitializeTestProjectByName(ITestManagementService test_service, string testProjectName)
+        /// <summary>
+        /// Initializes the test project by name.
+        /// </summary>
+        /// <param name="testManagementService">The test management service.</param>
+        /// <param name="testProjectName">Name of the test project.</param>
+        public void InitializeTestProjectByName(ITestManagementService testManagementService, string testProjectName)
         {
-            ExecutionContext.TestManagementTeamProject = test_service.GetTeamProject(testProjectName);
+            ExecutionContext.TestManagementTeamProject = testManagementService.GetTeamProject(testProjectName);
         }
     }
 }

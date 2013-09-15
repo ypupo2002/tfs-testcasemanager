@@ -10,7 +10,7 @@ namespace TestCaseManagerApp
         public SettingsView()
         {
             InitializeComponent();
-            this.DataContext = new SettingsViewModel();
+            this.DataContext = ExecutionContext.SettingsViewModel;
             tbAssociatedProjectDllPath.Text = ExecutionContext.ProjectDllPath;
         }
 

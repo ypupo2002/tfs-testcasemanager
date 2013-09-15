@@ -1,12 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.TeamFoundation.TestManagement.Client;
-
+﻿// <copyright file="Preferences.cs" company="Telerik">
+// http://www.telerik.com All rights reserved.
+// </copyright>
+// <author>Anton Angelov</author>
 namespace TestCaseManagerApp
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
+    using System.Threading.Tasks;
+    using Microsoft.TeamFoundation.TestManagement.Client;
+
     /// <summary>
     /// Conatains main app preferences
     /// </summary>
@@ -19,6 +23,7 @@ namespace TestCaseManagerApp
         /// The TFS URI.
         /// </value>
         public Uri TfsUri { get; set; }
+
         /// <summary>
         /// Gets or sets the name of the test project.
         /// </summary>
@@ -26,6 +31,7 @@ namespace TestCaseManagerApp
         /// The name of the test project.
         /// </value>
         public string TestProjectName { get; set; }
+
         /// <summary>
         /// Gets or sets the test plan.
         /// </summary>

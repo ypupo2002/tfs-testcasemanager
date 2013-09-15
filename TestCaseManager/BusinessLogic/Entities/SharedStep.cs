@@ -1,22 +1,30 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.TeamFoundation.TestManagement.Client;
-
+﻿// <copyright file="SharedStep.cs" company="Telerik">
+// http://www.telerik.com All rights reserved.
+// </copyright>
+// <author>Anton Angelov</author>
 namespace TestCaseManagerApp
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
+    using System.Threading.Tasks;
+    using Microsoft.TeamFoundation.TestManagement.Client;
+
     /// <summary>
     /// Contains information about Shared Step object
     /// </summary>
     public class SharedStep
-    {     
-        public SharedStep(ISharedStep iSharedStep)
+    {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SharedStep"/> class.
+        /// </summary>
+        /// <param name="sharedStepCore">The shared step core object.</param>
+        public SharedStep(ISharedStep sharedStepCore)
         {
-            ISharedStep = iSharedStep;
-            List<TestStep> allTestSteps = TestStepManager.GetAllTestStepsInSharedStep(iSharedStep);
-            StepsToolTip = TestStepManager.GenerateTestStepsText(allTestSteps);
+            this.ISharedStep = sharedStepCore;
+            List<TestStep> allTestSteps = TestStepManager.GetAllTestStepsInSharedStep(sharedStepCore);
+            this.StepsToolTip = TestStepManager.GenerateTestStepsText(allTestSteps);
         }
 
         /// <summary>

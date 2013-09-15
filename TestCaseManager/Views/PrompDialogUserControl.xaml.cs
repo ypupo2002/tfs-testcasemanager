@@ -33,7 +33,7 @@ namespace TestCaseManagerApp.Views
 
         private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
-            ExecutionContext.SharedStepTitle = String.Empty;
+            ExecutionContext.SharedStepTitle = string.Empty;
             ExecutionContext.SharedStepTitleDialogCancelled = true;
             Window window = Window.GetWindow(this);
             window.Close();
@@ -41,7 +41,7 @@ namespace TestCaseManagerApp.Views
 
         private void tbSharedStepTitle_KeyUp(object sender, KeyEventArgs e)
         {
-            if (!String.IsNullOrEmpty(tbSharedStepTitle.Text))
+            if (!string.IsNullOrEmpty(tbSharedStepTitle.Text))
             {
                 btnOk.IsEnabled = true;
             }

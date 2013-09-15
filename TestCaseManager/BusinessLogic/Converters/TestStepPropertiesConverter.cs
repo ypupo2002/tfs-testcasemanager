@@ -1,19 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Data;
-using System.Globalization;
-using Microsoft.TeamFoundation.TestManagement.Client;
-
+﻿// <copyright file="TestStepPropertiesConverter.cs" company="Telerik">
+// http://www.telerik.com All rights reserved.
+// </copyright>
+// <author>Anton Angelov</author>
 namespace TestCaseManagerApp.BusinessLogic.Converters
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Globalization;
+    using System.Linq;
+    using System.Text;
+    using System.Threading.Tasks;
+    using System.Windows.Data;
+    using Microsoft.TeamFoundation.TestManagement.Client;
+
     /// <summary>
     /// Contains test step properties converter from html to plain text
     /// </summary>
     public class TestStepPropertiesConverter : IValueConverter
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="TestStepPropertiesConverter"/> class.
+        /// </summary>
         public TestStepPropertiesConverter()
         {
         }
@@ -43,13 +50,9 @@ namespace TestCaseManagerApp.BusinessLogic.Converters
         /// <param name="targetType">The type to convert to.</param>
         /// <param name="parameter">The converter parameter to use.</param>
         /// <param name="culture">The culture to use in the converter.</param>
-        /// <returns>
-        /// A converted value. If the method returns null, the valid null value is used.
-        /// </returns>
-        /// <exception cref="System.NotImplementedException"></exception>
+        /// <returns> A converted value. If the method returns null, the valid null value is used.</returns>
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            throw new NotImplementedException();
         }
     }
 }

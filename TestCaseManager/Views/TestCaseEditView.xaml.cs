@@ -134,27 +134,27 @@ namespace TestCaseManagerApp.Views
             Duplicate = false;
             FragmentManager fm = new FragmentManager(e.Fragment);
             string testCaseId = fm.Get("id");
-            if (!String.IsNullOrEmpty(testCaseId))
+            if (!string.IsNullOrEmpty(testCaseId))
             {
                 TestCaseId = int.Parse(testCaseId);
             }
             string suiteId = fm.Get("suiteId");
-            if (!String.IsNullOrEmpty(suiteId))
+            if (!string.IsNullOrEmpty(suiteId))
             {
                 TestSuiteId = int.Parse(suiteId);
             }
             string createNew = fm.Get("createNew");
-            if (!String.IsNullOrEmpty(createNew))
+            if (!string.IsNullOrEmpty(createNew))
             {
                 CreateNew = bool.Parse(createNew);
             }
             string duplicate = fm.Get("duplicate");
-            if (!String.IsNullOrEmpty(duplicate))
+            if (!string.IsNullOrEmpty(duplicate))
             {
                 Duplicate = bool.Parse(duplicate);
             }
             string comesFromAssociatedAutomation = fm.Get("comesFromAssociatedAutomation");
-            if (!String.IsNullOrEmpty(comesFromAssociatedAutomation))
+            if (!string.IsNullOrEmpty(comesFromAssociatedAutomation))
             {
                 ComesFromAssociatedAutomation = bool.Parse(comesFromAssociatedAutomation);
             }
@@ -177,7 +177,7 @@ namespace TestCaseManagerApp.Views
             string stepTitle = TestCaseEditViewModel.GetStepTitle(rtbAction.GetText());
             string expectedResult = TestCaseEditViewModel.GetExpectedResult(rtbExpectedResult.GetText());
             TestStep testStepToInsert = TestStepManager.CreateNewTestStep(TestCaseEditViewModel.TestCase, stepTitle, expectedResult);
-            TestCaseEditViewModel.InsertTestStep(testStepToInsert, selectedIndex);
+            TestCaseEditViewModel.InsertTestStepInTestCase(testStepToInsert, selectedIndex);
         }
 
         private void btnShare_Click(object sender, RoutedEventArgs e)
@@ -185,7 +185,7 @@ namespace TestCaseManagerApp.Views
             var dialog = new PrompDialogWindow();
             dialog.ShowDialog();
 
-            Task t = Task.Factory.StartNew(() => { while (String.IsNullOrEmpty(ExecutionContext.SharedStepTitle) && !ExecutionContext.SharedStepTitleDialogCancelled) { } });
+            Task t = Task.Factory.StartNew(() => { while (string.IsNullOrEmpty(ExecutionContext.SharedStepTitle) && !ExecutionContext.SharedStepTitleDialogCancelled) { } });
             t.Wait();
 
             if (!ExecutionContext.SharedStepTitleDialogCancelled)
@@ -231,7 +231,7 @@ namespace TestCaseManagerApp.Views
             if (dgTestSteps.SelectedItems != null)
             {
                 List<TestStep> testStepsToBeRemoved = TestCaseEditViewModel.MarkInitialStepsToBeRemoved(dgTestSteps.SelectedItems.Cast<TestStep>().ToList());
-                TestCaseEditViewModel.DeleteStep(testStepsToBeRemoved);
+                TestCaseEditViewModel.RemoveTestSteps(testStepsToBeRemoved);
             }
         }
       
@@ -341,8 +341,8 @@ namespace TestCaseManagerApp.Views
         private void EditCurrentStep()
         {
             EnableSaveStepButton();
-            rtbAction.ClearDefaultContent(ref TestCaseEditViewModel.ActionFlag);
-            rtbExpectedResult.ClearDefaultContent(ref TestCaseEditViewModel.ExpectedResultFlag);
+            rtbAction.ClearDefaultContent(ref TestCaseEditViewModel.IsActionTextSet);
+            rtbExpectedResult.ClearDefaultContent(ref TestCaseEditViewModel.IsExpectedResultTextSet);
             TestStep currentTestStep = GetSelectedTestStep();
             CurrentEditedStepGuid = currentTestStep.StepGuid;
             rtbAction.SetText(currentTestStep.ITestStep.Title);
@@ -374,17 +374,17 @@ namespace TestCaseManagerApp.Views
             string expectedResult = TestCaseEditViewModel.GetExpectedResult(rtbExpectedResult.GetText());
             currentTestStep.ITestStep.Title = stepTitle;
             currentTestStep.ITestStep.ExpectedResult = expectedResult;
-            CurrentEditedStepGuid = String.Empty;
+            CurrentEditedStepGuid = string.Empty;
         }
 
         private void btnCancelEdit_Click(object sender, RoutedEventArgs e)
         {
             DisableSaveButton();
-            TestCaseEditViewModel.ActionFlag = false;
-            TestCaseEditViewModel.ExpectedResultFlag = false;
-            rtbAction.ClearDefaultContent(ref TestCaseEditViewModel.ActionFlag);
-            rtbExpectedResult.ClearDefaultContent(ref TestCaseEditViewModel.ExpectedResultFlag);
-            CurrentEditedStepGuid = String.Empty;
+            TestCaseEditViewModel.IsActionTextSet = false;
+            TestCaseEditViewModel.IsExpectedResultTextSet = false;
+            rtbAction.ClearDefaultContent(ref TestCaseEditViewModel.IsActionTextSet);
+            rtbExpectedResult.ClearDefaultContent(ref TestCaseEditViewModel.IsExpectedResultTextSet);
+            CurrentEditedStepGuid = string.Empty;
         }  
 
         private void DisableSaveButton()
@@ -493,12 +493,12 @@ namespace TestCaseManagerApp.Views
 
         private void tbSharedStepFilter_GotFocus(object sender, RoutedEventArgs e)
         {
-            tbSharedStepFilter.ClearDefaultContent(ref TestCaseEditViewModel.SharedStepSearchFlag);
+            tbSharedStepFilter.ClearDefaultContent(ref TestCaseEditViewModel.IsSharedStepSearchTextSet);
         }
 
         private void tbSharedStepFilter_LostFocus(object sender, RoutedEventArgs e)
         {
-            tbSharedStepFilter.RestoreDefaultText(TestCaseEditViewModel.SharedStepSearchDefaultText, ref TestCaseEditViewModel.SharedStepSearchFlag);
+            tbSharedStepFilter.RestoreDefaultText(TestCaseEditViewModel.SharedStepSearchDefaultText, ref TestCaseEditViewModel.IsSharedStepSearchTextSet);
         }
 
         private void tbSharedStepFilter_KeyUp(object sender, System.Windows.Input.KeyEventArgs e)
@@ -506,29 +506,29 @@ namespace TestCaseManagerApp.Views
             TestCaseEditViewModel.ReinitializeSharedStepCollection();
             string sharedStepTitleFilter = tbSharedStepFilter.Text;
             var filteredList = TestCaseEditViewModel.ObservableSharedSteps
-               .Where(t => (!String.IsNullOrEmpty(sharedStepTitleFilter) ? t.ISharedStep.Title.ToLower().Contains(sharedStepTitleFilter.ToLower()) : true)).ToList();
+               .Where(t => (!string.IsNullOrEmpty(sharedStepTitleFilter) ? t.ISharedStep.Title.ToLower().Contains(sharedStepTitleFilter.ToLower()) : true)).ToList();
             TestCaseEditViewModel.ObservableSharedSteps.Clear();
             filteredList.ForEach(x => TestCaseEditViewModel.ObservableSharedSteps.Add(x));
         }
 
         private void rtbStep_GotFocus(object sender, RoutedEventArgs e)
         {
-            rtbAction.ClearDefaultContent(ref TestCaseEditViewModel.ActionFlag);
+            rtbAction.ClearDefaultContent(ref TestCaseEditViewModel.IsActionTextSet);
         }
 
         private void rtbStep_LostFocus(object sender, RoutedEventArgs e)
         {
-            rtbAction.RestoreDefaultText(TestCaseEditViewModel.ActionDefaultText, ref TestCaseEditViewModel.ActionFlag);
+            rtbAction.RestoreDefaultText(TestCaseEditViewModel.ActionDefaultText, ref TestCaseEditViewModel.IsActionTextSet);
         }
 
         private void rtbExpectedResult_GotFocus(object sender, RoutedEventArgs e)
         {
-            rtbExpectedResult.ClearDefaultContent(ref TestCaseEditViewModel.ExpectedResultFlag);
+            rtbExpectedResult.ClearDefaultContent(ref TestCaseEditViewModel.IsExpectedResultTextSet);
         }
 
         private void rtbExpectedResult_LostFocus(object sender, RoutedEventArgs e)
         {
-            rtbExpectedResult.RestoreDefaultText(TestCaseEditViewModel.ExpectedResultDefaultText, ref TestCaseEditViewModel.ExpectedResultFlag); 
+            rtbExpectedResult.RestoreDefaultText(TestCaseEditViewModel.ExpectedResultDefaultText, ref TestCaseEditViewModel.IsExpectedResultTextSet); 
         }
 
         private void dgSharedSteps_MouseDoubleClick(object sender, MouseButtonEventArgs e)

@@ -1,18 +1,45 @@
-﻿using System;
-using System.ComponentModel;
-using System.Linq;
-using System.Windows.Media;
-using FirstFloor.ModernUI.Presentation;
-
+﻿// <copyright file="SettingsViewModel.cs" company="Telerik">
+// http://www.telerik.com All rights reserved.
+// </copyright>
+// <author>Anton Angelov</author>
 namespace TestCaseManagerApp.ViewModels
 {
-    public class SettingsViewModel: NotifyPropertyChanged
+    using System;
+    using System.ComponentModel;
+    using System.Linq;
+    using System.Windows.Media;
+    using FirstFloor.ModernUI.Presentation;
+
+    /// <summary>
+    /// Contains methods and properties related to the Settings View
+    /// </summary>
+    public class SettingsViewModel : NotifyPropertyChanged
     {
+        /// <summary>
+        /// The selected accent color
+        /// </summary>
         private Color selectedAccentColor;
+
+        /// <summary>
+        /// The themes collection
+        /// </summary>
         private LinkCollection themes = new LinkCollection();
+
+        /// <summary>
+        /// The selected theme
+        /// </summary>
         private Link selectedTheme;
+
+        /// <summary>
+        /// The hover behavior drop down- can the drop downs open on hover
+        /// </summary>
         private bool hoverBehaviorDropDown;
-        private Color[] accentColors = new Color[]{
+
+        /// <summary>
+        /// The accent colors
+        /// </summary>
+        private Color[] accentColors = new Color[]
+        {
             // 9 accent colors from metro design principles
             Color.FromRgb(0x33, 0x99, 0xff),   // blue
             Color.FromRgb(0x00, 0xab, 0xa9),   // teal
@@ -47,6 +74,9 @@ namespace TestCaseManagerApp.ViewModels
             Color.FromRgb(0x87, 0x79, 0x4e),   // taupe
         };
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SettingsViewModel"/> class.
+        /// </summary>
         public SettingsViewModel()
         {
             // add the default themes
@@ -57,68 +87,120 @@ namespace TestCaseManagerApp.ViewModels
             this.themes.Add(new Link { DisplayName = "hello kitty", Source = new Uri("Assets/ModernUI.HelloKitty.xaml", UriKind.Relative) });
             this.themes.Add(new Link { DisplayName = "love", Source = new Uri("Assets/ModernUI.Love.xaml", UriKind.Relative) });
             this.themes.Add(new Link { DisplayName = "snowflakes", Source = new Uri("Assets/ModernUI.Snowflakes.xaml", UriKind.Relative) });
-            //SyncThemeAndColor();
-            HoverBehaviorDropDown = true;
-            AppearanceManager.Current.PropertyChanged += OnAppearanceManagerPropertyChanged;
-            SetPrevious();
+
+            // SyncThemeAndColor();
+            this.HoverBehaviorDropDown = true;
+            AppearanceManager.Current.PropertyChanged += this.OnAppearanceManagerPropertyChanged;
+            this.SetPreviousAppereanceSettings();
         }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether [the drop downs should open on hover].
+        /// </summary>
+        /// <value>
+        /// <c>true</c> if [hover behavior drop down]; otherwise, <c>false</c>.
+        /// </value>
         public bool HoverBehaviorDropDown
         {
-            get { return this.hoverBehaviorDropDown; }
+            get 
+            { 
+                return this.hoverBehaviorDropDown; 
+            }
+
             set
             {
                 if (this.hoverBehaviorDropDown != value)
                 {
                     this.hoverBehaviorDropDown = value;
-                    OnPropertyChanged("HoverBehaviorDropDown");
+                    this.OnPropertyChanged("HoverBehaviorDropDown");
                 }
             }
         }
-    
 
+        /// <summary>
+        /// Gets the themes.
+        /// </summary>
+        /// <value>
+        /// The themes.
+        /// </value>
         public LinkCollection Themes
         {
-            get { return this.themes; }
+            get
+            {
+                return this.themes; 
+            }
         }
 
+        /// <summary>
+        /// Gets the accent colors.
+        /// </summary>
+        /// <value>
+        /// The accent colors.
+        /// </value>
         public Color[] AccentColors
         {
-            get { return this.accentColors; }
+            get 
+            { 
+                return this.accentColors;
+            }
         }
 
+        /// <summary>
+        /// Gets or sets the selected theme.
+        /// </summary>
+        /// <value>
+        /// The selected theme.
+        /// </value>
         public Link SelectedTheme
         {
-            get { return this.selectedTheme; }
+            get 
+            { 
+                return this.selectedTheme;
+            }
+
             set
             {
                 if (this.selectedTheme != value)
                 {
                     this.selectedTheme = value;
-                    OnPropertyChanged("SelectedTheme");
+                    this.OnPropertyChanged("SelectedTheme");
                     RegistryManager.WriteCurrentTheme(value.DisplayName);
+
                     // and update the actual theme
                     AppearanceManager.Current.ThemeSource = value.Source;
                 }
             }
         }
 
+        /// <summary>
+        /// Gets or sets the color of the selected accent.
+        /// </summary>
+        /// <value>
+        /// The color of the selected accent.
+        /// </value>
         public Color SelectedAccentColor
         {
-            get { return this.selectedAccentColor; }
+            get 
+            { 
+                return this.selectedAccentColor; 
+            }
+
             set
             {
                 if (this.selectedAccentColor != value)
                 {
                     this.selectedAccentColor = value;
-                    OnPropertyChanged("SelectedAccentColor");
+                    this.OnPropertyChanged("SelectedAccentColor");
                     RegistryManager.WriteCurrentColors(value.R, value.G, value.B);
                     AppearanceManager.Current.AccentColor = value;
                 }
             }
         }
 
-        private void SetPrevious()
+        /// <summary>
+        /// Sets the previous appereance settings.
+        /// </summary>
+        private void SetPreviousAppereanceSettings()
         {
             string previouslySelectedTheme = RegistryManager.GetTheme();
             string[] colors = RegistryManager.GetColors();
@@ -126,12 +208,17 @@ namespace TestCaseManagerApp.ViewModels
             {
                 Color currentColor = default(Color);
                 currentColor = Color.FromRgb(byte.Parse(colors[0]), byte.Parse(colors[1]), byte.Parse(colors[2]));
-                SyncThemeAndColor(previouslySelectedTheme, currentColor);
+                this.SyncThemeAndColor(previouslySelectedTheme, currentColor);
             }
             else
-                SyncThemeAndColor();      
+            {
+                this.SyncThemeAndColor();
+            }
         }
 
+        /// <summary>
+        /// Sync the color and the theme
+        /// </summary>
         private void SyncThemeAndColor()
         {
             // synchronizes the selected viewmodel theme with the actual theme used by the appearance manager.
@@ -141,6 +228,11 @@ namespace TestCaseManagerApp.ViewModels
             this.SelectedAccentColor = AppearanceManager.Current.AccentColor;
         }
 
+        /// <summary>
+        /// Sync the color and the theme
+        /// </summary>
+        /// <param name="themeName">Name of the theme.</param>
+        /// <param name="currentColor">Color of the current.</param>
         private void SyncThemeAndColor(string themeName, Color currentColor)
         {
             // synchronizes the selected viewmodel theme with the actual theme used by the appearance manager.
@@ -150,13 +242,17 @@ namespace TestCaseManagerApp.ViewModels
             this.SelectedAccentColor = currentColor;
         }
 
+        /// <summary>
+        /// Called when [appearance manager property changed].
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="PropertyChangedEventArgs"/> instance containing the event data.</param>
         private void OnAppearanceManagerPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             if (e.PropertyName == "ThemeSource" || e.PropertyName == "AccentColor")
             {
-                SyncThemeAndColor();
+                this.SyncThemeAndColor();
             }
         }      
     }
 }
-

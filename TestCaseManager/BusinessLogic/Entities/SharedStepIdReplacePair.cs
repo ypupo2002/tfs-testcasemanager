@@ -1,11 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿// <copyright file="SharedStepIdReplacePair.cs" company="Telerik">
+// http://www.telerik.com All rights reserved.
+// </copyright>
+// <author>Anton Angelov</author>
 namespace TestCaseManagerApp.BusinessLogic.Entities
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
+    using System.Threading.Tasks;
+
     /// <summary>
     /// Contains old/new id pair used to change specific test case actions
     /// </summary>
@@ -18,6 +22,7 @@ namespace TestCaseManagerApp.BusinessLogic.Entities
         /// The old shared step unique identifier.
         /// </value>
         public int OldSharedStepId { get; set; }
+
         /// <summary>
         /// Gets or sets the new shared step unique identifier.
         /// </summary>

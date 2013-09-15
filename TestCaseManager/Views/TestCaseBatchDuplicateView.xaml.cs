@@ -151,7 +151,7 @@ namespace TestCaseManagerApp.Views
                 foreach (TestCase currentSelectedTestCase in TestCasesBatchDuplicateViewModel.SelectedTestCases)
                 {
                     currentSelectedTestCase.DuplicateTestCase(textReplacePairsList, sharedStepIdReplacePairList, newSuiteTitle,
-                        TestCasesBatchDuplicateViewModel.ReplaceInTitles, TestCasesBatchDuplicateViewModel.ReplaceSharedSteps, TestCasesBatchDuplicateViewModel.ReplaceInSteps);
+                        TestCasesBatchDuplicateViewModel.ReplaceInTitles, TestCasesBatchDuplicateViewModel.ReplaceSharedSteps, TestCasesBatchDuplicateViewModel.ReplaceInTestSteps);
                     duplicatedCount++;
                 }
                 TestCasesBatchDuplicateViewModel.ReinitializeTestCases();
@@ -161,7 +161,7 @@ namespace TestCaseManagerApp.Views
             {
                 progressBar.Visibility = System.Windows.Visibility.Hidden;
                 mainGrid.Visibility = System.Windows.Visibility.Visible;
-                ModernDialog.ShowMessage(String.Format("{0} test cases duplicated.", duplicatedCount), "Success!", MessageBoxButton.OK);
+                ModernDialog.ShowMessage(string.Format("{0} test cases duplicated.", duplicatedCount), "Success!", MessageBoxButton.OK);
             }, TaskScheduler.FromCurrentSynchronizationContext());
         }
 
@@ -189,7 +189,7 @@ namespace TestCaseManagerApp.Views
                 for (int i = 0; i < TestCasesBatchDuplicateViewModel.SelectedTestCases.Count; i++)
                 {
                     TestCasesBatchDuplicateViewModel.SelectedTestCases[i].FindAndReplaceInTestCase(textReplacePairsList, sharedStepIdReplacePairList,
-                       TestCasesBatchDuplicateViewModel.ReplaceInTitles, TestCasesBatchDuplicateViewModel.ReplaceSharedSteps, TestCasesBatchDuplicateViewModel.ReplaceInSteps);
+                       TestCasesBatchDuplicateViewModel.ReplaceInTitles, TestCasesBatchDuplicateViewModel.ReplaceSharedSteps, TestCasesBatchDuplicateViewModel.ReplaceInTestSteps);
                     replacedCount++;
                 }               
             });
@@ -199,7 +199,7 @@ namespace TestCaseManagerApp.Views
                 TestCasesBatchDuplicateViewModel.FilterTestCases();
                 progressBar.Visibility = System.Windows.Visibility.Hidden;
                 mainGrid.Visibility = System.Windows.Visibility.Visible;
-                ModernDialog.ShowMessage(String.Format("{0} test cases replaced.", replacedCount), "Success!", MessageBoxButton.OK);
+                ModernDialog.ShowMessage(string.Format("{0} test cases replaced.", replacedCount), "Success!", MessageBoxButton.OK);
             }, TaskScheduler.FromCurrentSynchronizationContext());           
         }        
     }

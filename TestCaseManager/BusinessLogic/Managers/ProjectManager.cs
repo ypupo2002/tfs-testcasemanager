@@ -21,6 +21,11 @@ namespace TestCaseManagerApp.BusinessLogic.Managers
     public class ProjectManager
     {
         /// <summary>
+        /// The service provider for hash algorithm SHA1
+        /// </summary>
+        private static HashAlgorithm cryptoServiceProvider = new SHA1CryptoServiceProvider();
+
+        /// <summary>
         /// Gets the test project test methods.
         /// </summary>
         /// <param name="assemblyFullPath">The assembly full path.</param>
@@ -86,7 +91,7 @@ namespace TestCaseManagerApp.BusinessLogic.Managers
             string currentNameSpace = methodInfo.DeclaringType.FullName;
             string currentTestMethodShortName = methodInfo.Name;
             string currentTestMethodFullName = string.Concat(currentNameSpace, ".", currentTestMethodShortName);
-            Guid testId = UnitTestIdGenerator.GuidFromString(currentTestMethodFullName);
+            Guid testId = GuidFromString(currentTestMethodFullName);
 
             return testId;
         }
@@ -125,37 +130,15 @@ namespace TestCaseManagerApp.BusinessLogic.Managers
 
             return methods;
         }
-    }
-
-    /// <summary>
-    /// Contains a logic for getting the special guid of specific test method
-    /// </summary>
-    internal class UnitTestIdGenerator
-    {
-        /// <summary>
-        /// The service provider for hash algorithm SHA1
-        /// </summary>
-        private static HashAlgorithm cryptoServiceProvider = new SHA1CryptoServiceProvider();
-
-        /// <summary>
-        /// Gets the HashAlgorithm provider.
-        /// </summary>
-        /// <value>
-        /// The HashAlgorithm provider.
-        /// </value>
-        public static HashAlgorithm Provider
-        {
-            get { return cryptoServiceProvider; }
-        }
 
         /// <summary>
         ///  Calculates a hash of the string and copies the first 128 bits of the hash to a new Guid.
         /// </summary>
         /// <param name="data">The data.</param>
         /// <returns>the test method guid</returns>        
-        public static Guid GuidFromString(string data)
+        private static Guid GuidFromString(string data)
         {
-            byte[] hash = Provider.ComputeHash(System.Text.Encoding.Unicode.GetBytes(data));
+            byte[] hash = cryptoServiceProvider.ComputeHash(System.Text.Encoding.Unicode.GetBytes(data));
 
             byte[] toGuid = new byte[16];
             Array.Copy(hash, toGuid, 16);

@@ -1,14 +1,33 @@
-﻿using Microsoft.TeamFoundation.Client;
-using Microsoft.TeamFoundation.TestManagement.Client;
-using TestCaseManagerApp.ViewModels;
-
+﻿// <copyright file="ExecutionContext.cs" company="Telerik">
+// http://www.telerik.com All rights reserved.
+// </copyright>
+// <author>Anton Angelov</author>
 namespace TestCaseManagerApp
 {
+    using Microsoft.TeamFoundation.Client;
+    using Microsoft.TeamFoundation.TestManagement.Client;
+    using TestCaseManagerApp.ViewModels;
+
     /// <summary>
     /// Contains App Execution Context Properties
     /// </summary>
     public class ExecutionContext
     {
+        /// <summary>
+        /// The preferences of the current execution
+        /// </summary>
+        private static Preferences preferences;
+
+        /// <summary>
+        /// The TFS team project collection
+        /// </summary>
+        private static TfsTeamProjectCollection tfsTeamProjectCollection;
+
+        /// <summary>
+        /// The team project
+        /// </summary>
+        private static ITestManagementTeamProject teamProject; 
+
         /// <summary>
         /// Gets or sets the preferences.
         /// </summary>
@@ -21,6 +40,7 @@ namespace TestCaseManagerApp
             {
                 return preferences;
             }
+
             set
             {
                 preferences = value;
@@ -39,6 +59,7 @@ namespace TestCaseManagerApp
             {
                 return tfsTeamProjectCollection;
             }
+
             set
             {
                 tfsTeamProjectCollection = value; 
@@ -57,6 +78,7 @@ namespace TestCaseManagerApp
             {
                 return teamProject;
             }
+
             set
             {
                 teamProject = value;
@@ -78,6 +100,7 @@ namespace TestCaseManagerApp
         /// The shared step title.
         /// </value>
         public static string SharedStepTitle { get; set; }
+
         /// <summary>
         /// Gets or sets a value indicating whether [shared step title dialog cancelled].
         /// </summary>
@@ -85,6 +108,7 @@ namespace TestCaseManagerApp
         /// <c>true</c> if [shared step title dialog cancelled]; otherwise, <c>false</c>.
         /// </value>
         public static bool SharedStepTitleDialogCancelled { get; set; }
+
         /// <summary>
         /// Gets or sets the settings view model.
         /// </summary>
@@ -92,9 +116,5 @@ namespace TestCaseManagerApp
         /// The settings view model.
         /// </value>
         public static SettingsViewModel SettingsViewModel { get; set; }
-
-        private static Preferences preferences;
-        private static TfsTeamProjectCollection tfsTeamProjectCollection;
-        private static ITestManagementTeamProject teamProject; 
     }
 }

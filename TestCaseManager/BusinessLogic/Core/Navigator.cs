@@ -1,9 +1,13 @@
-﻿using System;
-using System.Windows;
-using FirstFloor.ModernUI.Windows.Navigation;
-
+﻿// <copyright file="Navigator.cs" company="Telerik">
+// http://www.telerik.com All rights reserved.
+// </copyright>
+// <author>Anton Angelov</author>
 namespace TestCaseManagerApp
 {
+    using System;
+    using System.Windows;
+    using FirstFloor.ModernUI.Windows.Navigation;
+
     /// <summary>
     /// Contains methods which navigate to different views with option to set different parameters
     /// </summary>
@@ -16,8 +20,8 @@ namespace TestCaseManagerApp
         /// <param name="url">The URL.</param>
         public static void Navigate(this FrameworkElement source, string url)
         {
-            DefaultLinkNavigator _navigator = new DefaultLinkNavigator();
-            _navigator.Navigate(new Uri(url, UriKind.Relative), source, null);
+            DefaultLinkNavigator navigator = new DefaultLinkNavigator();
+            navigator.Navigate(new Uri(url, UriKind.Relative), source, null);
         }
 
         /// <summary>
@@ -38,7 +42,7 @@ namespace TestCaseManagerApp
         /// <param name="suiteId">The suite unique identifier.</param>
         public static void NavigateToTestCasesEditView(this FrameworkElement source, int testCaseId, int suiteId)
         {
-            string url = String.Format("/Views/TestCaseEditView.xaml#id={0}&suiteId={1}", testCaseId, suiteId);
+            string url = string.Format("/Views/TestCaseEditView.xaml#id={0}&suiteId={1}", testCaseId, suiteId);
      
             source.Navigate(url);
         }
@@ -51,7 +55,7 @@ namespace TestCaseManagerApp
         /// <param name="suiteId">The suite unique identifier.</param>
         public static void NavigateToTestCasesDetailedView(this FrameworkElement source, int testCaseId, int suiteId)
         {
-            string url = String.Format("/Views/TestCaseDetailedView.xaml#id={0}&suiteId={1}", testCaseId, suiteId);
+            string url = string.Format("/Views/TestCaseDetailedView.xaml#id={0}&suiteId={1}", testCaseId, suiteId);
 
             source.Navigate(url);
         }
@@ -75,7 +79,7 @@ namespace TestCaseManagerApp
         /// <param name="duplicate">if set to <c>true</c> [duplicate].</param>
         public static void NavigateToTestCasesEditView(this FrameworkElement source, int testCaseId, int suiteId, bool createNew, bool duplicate)
         {
-            string url = String.Format("/Views/TestCaseEditView.xaml#id={0}&suiteId={1}&createNew={2}&duplicate={3}", testCaseId, suiteId, createNew, duplicate);
+            string url = string.Format("/Views/TestCaseEditView.xaml#id={0}&suiteId={1}&createNew={2}&duplicate={3}", testCaseId, suiteId, createNew, duplicate);
 
             source.Navigate(url);
         }
@@ -90,7 +94,7 @@ namespace TestCaseManagerApp
         /// <param name="duplicate">if set to <c>true</c> [duplicate].</param>
         public static void NavigateToAssociateAutomationView(this FrameworkElement source, int testCaseId, int suiteId, bool createNew, bool duplicate)
         {
-            string url = String.Format("/Views/AssociateTestView.xaml#id={0}&suiteId={1}&createNew={2}&duplicate={3}", testCaseId, suiteId, createNew, duplicate);
+            string url = string.Format("/Views/AssociateTestView.xaml#id={0}&suiteId={1}&createNew={2}&duplicate={3}", testCaseId, suiteId, createNew, duplicate);
 
             source.Navigate(url);
         }
@@ -103,7 +107,7 @@ namespace TestCaseManagerApp
         /// <param name="duplicate">if set to <c>true</c> [duplicate].</param>
         public static void NavigateToTestCasesEditView(this FrameworkElement source, bool createNew, bool duplicate)
         {
-            string url = String.Format("/Views/TestCaseEditView.xaml#createNew={0}&duplicate={1}", createNew, duplicate);
+            string url = string.Format("/Views/TestCaseEditView.xaml#createNew={0}&duplicate={1}", createNew, duplicate);
 
             source.Navigate(url);
         }

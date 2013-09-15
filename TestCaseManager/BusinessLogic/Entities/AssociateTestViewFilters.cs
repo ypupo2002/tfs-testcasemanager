@@ -1,7 +1,11 @@
-﻿using FirstFloor.ModernUI.Presentation;
-
+﻿// <copyright file="AssociateTestViewFilters.cs" company="Telerik">
+// http://www.telerik.com All rights reserved.
+// </copyright>
+// <author>Anton Angelov</author>
 namespace TestCaseManagerApp.BusinessLogic.Entities
 {
+    using FirstFloor.ModernUI.Presentation;
+
     /// <summary>
     /// Contains search filters for the associate automation view
     /// </summary>
@@ -10,30 +14,41 @@ namespace TestCaseManagerApp.BusinessLogic.Entities
         /// <summary>
         /// The is full name filter set
         /// </summary>
-        public bool isFullNameFilterSet;
+        public bool IsFullNameFilterSet;
+
         /// <summary>
         /// The is class name filter
         /// </summary>
-        public bool isClassNameFilterSet;
+        public bool IsClassNameFilterSet;
+
         /// <summary>
         /// The full name filter
         /// </summary>
         private string fullNameFilter;
+
         /// <summary>
         /// The class name filter
         /// </summary>
         private string classNameFilter;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AssociateTestViewFilters"/> class.
+        /// </summary>
+        /// <param name="fullName">The full name.</param>
+        /// <param name="className">Name of the class.</param>
         public AssociateTestViewFilters(string fullName, string className)
         {
-            FullNameFilter = fullName;
-            ClassNameFilter = className;
+            this.FullNameFilter = fullName;
+            this.ClassNameFilter = className;
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AssociateTestViewFilters"/> class.
+        /// </summary>
         public AssociateTestViewFilters()
         {
-            FullNameFilter = "Full Name";
-            ClassNameFilter = "Class Name";
+            this.FullNameFilter = "Full Name";
+            this.ClassNameFilter = "Class Name";
         }
 
         /// <summary>
@@ -46,14 +61,16 @@ namespace TestCaseManagerApp.BusinessLogic.Entities
         {
             get
             {
-                return fullNameFilter;
+                return this.fullNameFilter;
             }
+
             set
             {
-                fullNameFilter = value;
-                OnPropertyChanged("FullNameFilter");
+                this.fullNameFilter = value;
+                this.OnPropertyChanged("FullNameFilter");
             }
         }
+
         /// <summary>
         /// Gets or sets the class name filter.
         /// </summary>
@@ -64,12 +81,13 @@ namespace TestCaseManagerApp.BusinessLogic.Entities
         {
             get
             {
-                return classNameFilter;
+                return this.classNameFilter;
             }
+
             set
             {
-                classNameFilter = value;
-                OnPropertyChanged("ClassNameFilter");
+                this.classNameFilter = value;
+                this.OnPropertyChanged("ClassNameFilter");
             }
         }
     }

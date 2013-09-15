@@ -138,7 +138,7 @@
     <Compile Include="BusinessLogic\Core\ExecutionContext.cs" />
     <Compile Include="BusinessLogic\Managers\FragmentManager.cs" />
     <Compile Include="BusinessLogic\Core\Navigator.cs" />
-    <Compile Include="BusinessLogic\Core\Preference.cs" />
+    <Compile Include="BusinessLogic\Core\Preferences.cs" />
     <Compile Include="BusinessLogic\Managers\RegistryManager.cs" />
     <Compile Include="BusinessLogic\Entities\TestCase.cs" />
     <Compile Include="BusinessLogic\Managers\TestCaseManager.cs" />

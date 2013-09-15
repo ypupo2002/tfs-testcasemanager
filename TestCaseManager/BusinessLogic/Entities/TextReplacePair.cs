@@ -1,11 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿// <copyright file="TextReplacePair.cs" company="Telerik">
+// http://www.telerik.com All rights reserved.
+// </copyright>
+// <author>Anton Angelov</author>
 namespace TestCaseManagerApp.BusinessLogic.Entities
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
+    using System.Threading.Tasks;
+
     /// <summary>
     /// Contains old/new text pair used to change specific text
     /// </summary>
@@ -18,6 +22,7 @@ namespace TestCaseManagerApp.BusinessLogic.Entities
         /// The old text.
         /// </value>
         public string OldText { get; set; }
+
         /// <summary>
         /// Gets or sets the new text.
         /// </summary>

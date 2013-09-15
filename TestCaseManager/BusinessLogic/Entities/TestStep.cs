@@ -1,29 +1,48 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.TeamFoundation.TestManagement.Client;
-
+﻿// <copyright file="TestStep.cs" company="Telerik">
+// http://www.telerik.com All rights reserved.
+// </copyright>
+// <author>Anton Angelov</author>
 namespace TestCaseManagerApp
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
+    using System.Threading.Tasks;
+    using Microsoft.TeamFoundation.TestManagement.Client;
+
     /// <summary>
     /// Contains Test Step object information properties
     /// </summary>
     public class TestStep
     {
-        public TestStep(bool isShared, ITestStep iTestStep, string title, string guid)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="TestStep" /> class.
+        /// </summary>
+        /// <param name="isShared">if set to <c>true</c> [is shared].</param>
+        /// <param name="testStepCore">The attribute test step.</param>
+        /// <param name="title">The title.</param>
+        /// <param name="guid">The unique identifier.</param>
+        public TestStep(bool isShared, ITestStep testStepCore, string title, string guid)
         {
-            IsShared = isShared;
-            ITestStep = iTestStep;
-            Title = title;
-            StepGuid = guid;
+            this.IsShared = isShared;
+            this.ITestStep = testStepCore;
+            this.Title = title;
+            this.StepGuid = guid;
         }
-        
-        public TestStep(bool isShared, ITestStep iTestStep, string title, int sharedStepId, string guid)
-            : this(isShared, iTestStep, title, guid)
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="TestStep"/> class.
+        /// </summary>
+        /// <param name="isShared">if set to <c>true</c> [is shared].</param>
+        /// <param name="testStepCore">The test step core.</param>
+        /// <param name="title">The title.</param>
+        /// <param name="sharedStepId">The shared step unique identifier.</param>
+        /// <param name="guid">The unique identifier.</param>
+        public TestStep(bool isShared, ITestStep testStepCore, string title, int sharedStepId, string guid)
+            : this(isShared, testStepCore, title, guid)
         {
-            SharedStepId = sharedStepId;
+            this.SharedStepId = sharedStepId;
         }
 
         /// <summary>
@@ -33,6 +52,7 @@ namespace TestCaseManagerApp
         ///   <c>true</c> if [is shared]; otherwise, <c>false</c>.
         /// </value>
         public bool IsShared { get; set; }
+
         /// <summary>
         /// Gets or sets the core test step object.
         /// </summary>
@@ -40,6 +60,7 @@ namespace TestCaseManagerApp
         /// The core test step object.
         /// </value>
         public ITestStep ITestStep { get; set; }
+
         /// <summary>
         /// Gets or sets the test step title.
         /// </summary>
@@ -47,6 +68,7 @@ namespace TestCaseManagerApp
         /// The test step title.
         /// </value>
         public string Title { get; set; }
+
         /// <summary>
         /// Gets or sets the shared step unique identifier.
         /// </summary>
@@ -54,6 +76,7 @@ namespace TestCaseManagerApp
         /// The shared step unique identifier.
         /// </value>
         public int SharedStepId { get; set; }
+
         /// <summary>
         /// Gets or sets the step unique identifier.
         /// </summary>
