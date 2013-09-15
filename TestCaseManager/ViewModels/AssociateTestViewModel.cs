@@ -134,6 +134,34 @@ namespace TestCaseManagerApp.ViewModels
         }
 
         /// <summary>
+        /// Reinitializes the tests.
+        /// </summary>
+        public void ReinitializeTests()
+        {
+            this.ObservableTests.Clear();
+            foreach (var currentTest in this.InitialTestsCollection)
+            {
+                this.ObservableTests.Add(currentTest);
+            }
+        }
+
+        /// <summary>
+        /// Filters the tests.
+        /// </summary>
+        /// <param name="fullNameFilter">The full name filter.</param>
+        /// <param name="classNameFilter">The class name filter.</param>
+        public void FilterTests(string fullNameFilter, string classNameFilter)
+        {
+            this.ReinitializeTests();
+
+            var filteredList = this.ObservableTests.Where(
+                t => ((this.AssociateTestViewFilters.IsFullNameFilterSet && !string.IsNullOrEmpty(fullNameFilter)) ? t.FullName.ToLower().Contains(fullNameFilter.ToLower()) : true)
+                    && ((this.AssociateTestViewFilters.IsClassNameFilterSet && !string.IsNullOrEmpty(classNameFilter)) ? t.ClassName.ToLower().Contains(classNameFilter.ToLower()) : true)).ToList();
+            this.ObservableTests.Clear();
+            filteredList.ForEach(x => this.ObservableTests.Add(x));
+        }
+
+        /// <summary>
         /// Initializes the initial tests collection.
         /// </summary>
         private void InitializeInitialTestsCollection()

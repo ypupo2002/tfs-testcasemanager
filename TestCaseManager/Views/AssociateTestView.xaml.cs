@@ -1,25 +1,44 @@
-﻿using System;
-using System.Linq;
-using System.Windows;
-using FirstFloor.ModernUI.Windows;
-using FirstFloor.ModernUI.Windows.Controls;
-using FirstFloor.ModernUI.Windows.Navigation;
-using TestCaseManagerApp.BusinessLogic.Entities;
-using TestCaseManagerApp.Helpers;
-using TestCaseManagerApp.ViewModels;
-
+﻿// <copyright file="AssociateTestView.xaml.cs" company="Telerik">
+// http://www.telerik.com All rights reserved.
+// </copyright>
+// <author>Anton Angelov</author>
 namespace TestCaseManagerApp.Views
 {
+    using System;
+    using System.Linq;
+    using System.Windows;
+    using FirstFloor.ModernUI.Windows;
+    using FirstFloor.ModernUI.Windows.Controls;
+    using FirstFloor.ModernUI.Windows.Navigation;
+    using TestCaseManagerApp.BusinessLogic.Entities;
+    using TestCaseManagerApp.Helpers;
+    using TestCaseManagerApp.ViewModels;
+
+    /// <summary>
+    /// Contains logic related to the associate test case to test page
+    /// </summary>
     public partial class AssociateTestView : System.Windows.Controls.UserControl, IContent
     {
-        
-        public AssociateTestViewModel AssociateTestViewModel { get; set; }
-
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AssociateTestView"/> class.
+        /// </summary>
         public AssociateTestView()
         {
-            InitializeComponent();
+            this.InitializeComponent();
         }
 
+        /// <summary>
+        /// Gets or sets the associate test view model.
+        /// </summary>
+        /// <value>
+        /// The associate test view model.
+        /// </value>
+        public AssociateTestViewModel AssociateTestViewModel { get; set; }
+
+        /// <summary>
+        /// Called when navigation to a content fragment begins.
+        /// </summary>
+        /// <param name="e">An object that contains the navigation data.</param>
         public void OnFragmentNavigation(FragmentNavigationEventArgs e)
         {
             FragmentManager fm = new FragmentManager(e.Fragment);
@@ -27,117 +46,168 @@ namespace TestCaseManagerApp.Views
             if (!string.IsNullOrEmpty(testCaseIdStr))
             {
                 int testCaseId = int.Parse(testCaseIdStr);
-                AssociateTestViewModel = new AssociateTestViewModel(testCaseId);
+                this.AssociateTestViewModel = new AssociateTestViewModel(testCaseId);
             }
            
             string suiteId = fm.Get("suiteId");
             if (!string.IsNullOrEmpty(suiteId))
             {
-                AssociateTestViewModel.TestSuiteId = int.Parse(suiteId);
+                this.AssociateTestViewModel.TestSuiteId = int.Parse(suiteId);
             }
             string createNew = fm.Get("createNew");
             if (!string.IsNullOrEmpty(createNew))
             {
-                AssociateTestViewModel.CreateNew = bool.Parse(createNew);
+                this.AssociateTestViewModel.CreateNew = bool.Parse(createNew);
             }
             string duplicate = fm.Get("duplicate");
             if (!string.IsNullOrEmpty(duplicate))
             {
-                AssociateTestViewModel.Duplicate = bool.Parse(duplicate);
+                this.AssociateTestViewModel.Duplicate = bool.Parse(duplicate);
             }
-           
-            this.DataContext = AssociateTestViewModel;
-            cbTestType.SelectedIndex = 0;
+
+            this.DataContext = this.AssociateTestViewModel;
+            this.cbTestType.SelectedIndex = 0;
         }
 
+        /// <summary>
+        /// Called when this instance is no longer the active content in a frame.
+        /// </summary>
+        /// <param name="e">An object that contains the navigation data.</param>
         public void OnNavigatedFrom(NavigationEventArgs e)
         {
         }
 
+        /// <summary>
+        /// Called when a this instance becomes the active content in a frame.
+        /// </summary>
+        /// <param name="e">An object that contains the navigation data.</param>
         public void OnNavigatedTo(NavigationEventArgs e)
         {
         }
 
+        /// <summary>
+        /// Called just before this instance is no longer the active content in a frame.
+        /// </summary>
+        /// <param name="e">An object that contains the navigation data.</param>
+        /// <remarks>
+        /// The method is also invoked when parent frames are about to navigate.
+        /// </remarks>
         public void OnNavigatingFrom(NavigatingCancelEventArgs e)
         {
         }
 
-        private void FilterTests()
+        /// <summary>
+        /// Filters the tests.
+        /// </summary>
+        private void FilterTestsInternal()
         {
-            if (AssociateTestViewModel == null)
+            if (this.AssociateTestViewModel == null)
             {
                 return;
             }
-            ReinitializeTests();
-            string fullNameFilter = tbFullName.Text.Equals("Full Name") ? string.Empty : tbFullName.Text;
-            string classNameFilter = tbClassName.Text.Equals("Class Name") ? string.Empty : tbClassName.Text;
 
-            var filteredList = AssociateTestViewModel.ObservableTests
-                .Where(t => ((AssociateTestViewModel.AssociateTestViewFilters.IsFullNameFilterSet && !string.IsNullOrEmpty(fullNameFilter)) ? t.FullName.ToLower().Contains(fullNameFilter.ToLower()) : true)
-                    && ((AssociateTestViewModel.AssociateTestViewFilters.IsClassNameFilterSet && !string.IsNullOrEmpty(classNameFilter)) ? t.ClassName.ToLower().Contains(classNameFilter.ToLower()) : true)).ToList();
-            AssociateTestViewModel.ObservableTests.Clear();
-            filteredList.ForEach(x => AssociateTestViewModel.ObservableTests.Add(x));
+            string fullNameFilter = tbFullName.Text.Equals(AssociateTestViewFilters.FullNameDefaultText) ? string.Empty : tbFullName.Text;
+            string classNameFilter = tbClassName.Text.Equals(AssociateTestViewFilters.ClassNameDefaultText) ? string.Empty : tbClassName.Text;
+
+            this.AssociateTestViewModel.FilterTests(fullNameFilter, classNameFilter);
         }
 
-        private void ReinitializeTests()
-        {
-            AssociateTestViewModel.ObservableTests.Clear();
-            foreach (var item in AssociateTestViewModel.InitialTestsCollection)
-            {
-                AssociateTestViewModel.ObservableTests.Add(item);
-            }
-        }
-
+        /// <summary>
+        /// Handles the GotFocus event of the tbFullName control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void tbFullName_GotFocus(object sender, RoutedEventArgs e)
         {
             tbFullName.ClearDefaultContent(ref AssociateTestViewModel.AssociateTestViewFilters.IsFullNameFilterSet);
         }
 
+        /// <summary>
+        /// Handles the LostFocus event of the tbFullName control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void tbFullName_LostFocus(object sender, RoutedEventArgs e)
         {
-            tbFullName.RestoreDefaultText("Full Name", ref AssociateTestViewModel.AssociateTestViewFilters.IsFullNameFilterSet);
+            tbFullName.RestoreDefaultText(AssociateTestViewFilters.FullNameDefaultText, ref AssociateTestViewModel.AssociateTestViewFilters.IsFullNameFilterSet);
         }
 
+        /// <summary>
+        /// Handles the KeyUp event of the tbFullName control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.Windows.Input.KeyEventArgs"/> instance containing the event data.</param>
         private void tbFullName_KeyUp(object sender, System.Windows.Input.KeyEventArgs e)
         {
-            FilterTests();
+            this.FilterTestsInternal();
         }
 
+        /// <summary>
+        /// Handles the GotFocus event of the tbClassName control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void tbClassName_GotFocus(object sender, RoutedEventArgs e)
         {
             tbClassName.ClearDefaultContent(ref AssociateTestViewModel.AssociateTestViewFilters.IsClassNameFilterSet);
         }
 
+        /// <summary>
+        /// Handles the LostFocus event of the tbClassName control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void tbClassName_LostFocus(object sender, RoutedEventArgs e)
         {
-            tbClassName.RestoreDefaultText("Class Name", ref AssociateTestViewModel.AssociateTestViewFilters.IsClassNameFilterSet);
+            tbClassName.RestoreDefaultText(AssociateTestViewFilters.ClassNameDefaultText, ref AssociateTestViewModel.AssociateTestViewFilters.IsClassNameFilterSet);
         }
 
+        /// <summary>
+        /// Handles the KeyUp event of the tbClassName control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.Windows.Input.KeyEventArgs"/> instance containing the event data.</param>
         private void tbClassName_KeyUp(object sender, System.Windows.Input.KeyEventArgs e)
         {
-            FilterTests();
+            this.FilterTestsInternal();
         }
 
+        /// <summary>
+        /// Handles the MouseEnter event of the cbTestType control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.Windows.Input.MouseEventArgs"/> instance containing the event data.</param>
         private void cbTestType_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
         {
             cbTestType.IsDropDownOpen = true;
             cbTestType.Focus();
         }
 
+        /// <summary>
+        /// Handles the MouseMove event of the cbTestType control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.Windows.Input.MouseEventArgs"/> instance containing the event data.</param>
         private void cbTestType_MouseMove(object sender, System.Windows.Input.MouseEventArgs e)
         {
             ComboBoxDropdownExtensions.cboMouseMove(sender, e);
-        }        
+        }
 
+        /// <summary>
+        /// Handles the Click event of the btnAssociate control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void btnAssociate_Click(object sender, RoutedEventArgs e)
         {
             Test currentSelectedTest = dgTests.SelectedItem as Test;
             string testType = cbTestType.Text;
             AssociateTestViewModel.AssociateTestCaseToTest(currentSelectedTest, testType);
-            //ModernDialog.ShowMessage("Test Associated.", "Success", MessageBoxButton.OK);
-            this.NavigateToTestCasesEditView(AssociateTestViewModel.TestCaseId, AssociateTestViewModel.TestSuiteId, AssociateTestViewModel.CreateNew, AssociateTestViewModel.Duplicate);
-            //this.NavigateToTestCasesEditViewFromAssociatedAutomation();
 
+            // ModernDialog.ShowMessage("Test Associated.", "Success", MessageBoxButton.OK);
+            this.NavigateToTestCasesEditView(AssociateTestViewModel.TestCaseId, AssociateTestViewModel.TestSuiteId, AssociateTestViewModel.CreateNew, AssociateTestViewModel.Duplicate);
+            
+            // this.NavigateToTestCasesEditViewFromAssociatedAutomation();
         }        
     }
 }

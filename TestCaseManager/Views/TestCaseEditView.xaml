@@ -14,10 +14,10 @@
         </Grid.Resources>
         <Grid.CommandBindings>
             <CommandBinding Command="{x:Static local:TestCaseEditView.SaveCommand}" Executed="btnSaveTestCase_Click"/>
-            <CommandBinding Command="{x:Static local:TestCaseEditView.AssociateCommand}" Executed="btnAssociateToAutomation_Click"/>
-            <CommandBinding Command="{x:Static local:TestCaseEditView.DeleteCommand}" Executed="deleteStep_Command"/>
-            <CommandBinding Command="{x:Static local:TestCaseEditView.MoveUpCommand}" Executed="moveUp_Command"/>
-            <CommandBinding Command="{x:Static local:TestCaseEditView.MoveDownCommand}" Executed="btnMoveDown_Click"/>
+            <CommandBinding Command="{x:Static local:TestCaseEditView.AssociateTestCommand}" Executed="btnAssociateToAutomation_Click"/>
+            <CommandBinding Command="{x:Static local:TestCaseEditView.DeleteTestStepCommand}" Executed="deleteStep_Command"/>
+            <CommandBinding Command="{x:Static local:TestCaseEditView.MoveUpTestStepsCommand}" Executed="moveUp_Command"/>
+            <CommandBinding Command="{x:Static local:TestCaseEditView.MoveDownTestStepsCommand}" Executed="btnMoveDown_Click"/>
             <CommandBinding Command="{x:Static local:TestCaseEditView.AddSharedStepCommand}" Executed="btnAdd_Click"/>
             <CommandBinding Command="{x:Static local:TestCaseEditView.ShareStepCommand}" Executed="btnShare_Click"/>
         </Grid.CommandBindings>

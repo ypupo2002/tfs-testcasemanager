@@ -12,6 +12,16 @@ namespace TestCaseManagerApp.BusinessLogic.Entities
     public class AssociateTestViewFilters : NotifyPropertyChanged
     {
         /// <summary>
+        /// The full name default text
+        /// </summary>
+        public const string FullNameDefaultText = "Full Name";
+
+        /// <summary>
+        /// The class name default text
+        /// </summary>
+        public const string ClassNameDefaultText = "Class Name";
+
+        /// <summary>
         /// The is full name filter set
         /// </summary>
         public bool IsFullNameFilterSet;
@@ -47,8 +57,8 @@ namespace TestCaseManagerApp.BusinessLogic.Entities
         /// </summary>
         public AssociateTestViewFilters()
         {
-            this.FullNameFilter = "Full Name";
-            this.ClassNameFilter = "Class Name";
+            this.FullNameFilter = FullNameDefaultText;
+            this.ClassNameFilter = ClassNameDefaultText; 
         }
 
         /// <summary>

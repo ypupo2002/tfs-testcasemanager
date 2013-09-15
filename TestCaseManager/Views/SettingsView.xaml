@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:mui="http://firstfloorsoftware.com/ModernUI"
+             xmlns:local="clr-namespace:TestCaseManagerApp.Helpers"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
@@ -41,7 +42,7 @@
                     </Grid.RowDefinitions>
 
                     <TextBlock Text="Theme:" VerticalAlignment="Center" Margin="0,0,16,4" />
-                    <ComboBox Grid.Column="1" ItemsSource="{Binding Themes}" SelectedItem="{Binding SelectedTheme, Mode=TwoWay}" DisplayMemberPath="DisplayName" VerticalAlignment="Center" Margin="0,0,0,4" />
+                    <ComboBox Grid.Column="1" Name="cbThemes" ItemsSource="{Binding Themes}" SelectedItem="{Binding SelectedTheme, Mode=TwoWay}" DisplayMemberPath="DisplayName" VerticalAlignment="Center" local:ComboBoxDropdownExtensions.OpenDropDownAutomatically="True" MouseMove="cbThemes_MouseMove" Margin="0,0,0,4" />
                     
                 </Grid>
                 <StackPanel Orientation="Horizontal">
@@ -51,7 +52,7 @@
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Text="Hover Behavior Drop Drown" Margin="10" Height="25" Width="Auto" HorizontalAlignment="Left"/>
-                    <CheckBox Margin="10" HorizontalAlignment="Left" IsChecked="{Binding Path=HoverBehaviorDropDown, Mode=TwoWay}"/>
+                    <CheckBox Margin="10" HorizontalAlignment="Left" IsChecked="{Binding Path=HoverBehaviorDropDown, Mode=TwoWay}" Checked="CheckBox_Checked"/>
                 </StackPanel>
             </StackPanel>
         </ScrollViewer>

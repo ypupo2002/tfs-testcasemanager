@@ -131,6 +131,20 @@ namespace TestCaseManagerApp.ViewModels
         }
 
         /// <summary>
+        /// Initializes the test plans.
+        /// </summary>
+        /// <param name="testManagementTeamProject">The _testproject.</param>
+        public void InitializeTestPlans(ITestManagementTeamProject testManagementTeamProject)
+        {
+            this.ObservableTestPlans.Clear();
+            ITestPlanCollection testPlans = TestPlanManager.GetAllTestPlans(testManagementTeamProject);
+            foreach (ITestPlan tp in testPlans)
+            {
+                this.ObservableTestPlans.Add(tp.Name);
+            }
+        }       
+
+        /// <summary>
         /// Generates the full name of the team project.
         /// </summary>
         /// <returns>The full name of the team project</returns>

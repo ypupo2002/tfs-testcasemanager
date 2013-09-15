@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:mui="http://firstfloorsoftware.com/ModernU"
              xmlns:local="clr-namespace:TestCaseManagerApp.Views"
-             mc:Ignorable="d" Loaded="TestCaseInitialView_Loaded_1">
+             mc:Ignorable="d" Loaded="TestCaseInitialView_Loaded">
     <Grid>
         <Grid.CommandBindings>
             <CommandBinding Command="{x:Static local:TestCasesInitialView.EditCommand}" Executed="EditButton_Click"/>
