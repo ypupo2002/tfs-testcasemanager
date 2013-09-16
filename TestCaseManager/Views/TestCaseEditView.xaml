@@ -64,7 +64,8 @@
                 <TextBlock Text="Title" Margin="10,0,10,0" Height="25" FontWeight="Bold" HorizontalAlignment="Left" Grid.Row="0" Grid.Column="1"/>
                 <TextBox Text="{Binding TestCase.ITestCase.Title}" HorizontalAlignment="Stretch" Margin="10,0,10,0" Height="25" Grid.Row="1" Grid.Column="1"/>
                 <TextBlock Text="Suite" Margin="10,0,10,0" Height="25" FontWeight="Bold" HorizontalAlignment="Left" Grid.Row="0" Grid.Column="2"/>
-                <ComboBox Height="25" Margin="10,0,10,0" Name="cbSuite" ItemsSource="{Binding TestSuiteList}" DisplayMemberPath="Title" IsTextSearchEnabled="True" helpers:ComboBoxDropdownExtensions.OpenDropDownAutomatically="True" Grid.Row="1" Grid.Column="2" IsEditable ="True" MouseEnter="cbSuite_MouseEnter" MouseMove="cbSuite_MouseMove"/>
+                <TextBox Text="{Binding TestCase.ITestSuiteBase.Title, Mode=OneWay}" Name="tbSuite" Margin="10,0,10,0" Height="25" HorizontalAlignment="Stretch" Grid.Row="1" Grid.Column="2" IsReadOnly="True"/>
+                <!--<ComboBox Height="25" Margin="10,0,10,0" Name="cbSuite" ItemsSource="{Binding TestSuiteList}" DisplayMemberPath="Title" IsTextSearchEnabled="True" helpers:ComboBoxDropdownExtensions.OpenDropDownAutomatically="True" Grid.Row="1" Grid.Column="2" IsEditable ="True" MouseEnter="cbSuite_MouseEnter" MouseMove="cbSuite_MouseMove"/>-->
                 <TextBlock Text="Area" Margin="10,0,10,0" Height="25" FontWeight="Bold" HorizontalAlignment="Left" Grid.Row="0" Grid.Column="3"/>
                 <ComboBox Height="25" Margin="10,0,10,0" ItemsSource="{Binding Areas}" Name="cbArea" IsTextSearchEnabled="True" IsEditable ="True" helpers:ComboBoxDropdownExtensions.OpenDropDownAutomatically="True" Grid.Row="1" Grid.Column="3"  MouseEnter="cbArea_MouseEnter" MouseMove="cbArea_MouseMove"/>
                 <TextBlock Text="Priority" Margin="10,0,10,0" Height="25" FontWeight="Bold" HorizontalAlignment="Left" Grid.Row="0" Grid.Column="4"/>
@@ -126,6 +127,8 @@
                                 <MenuItem Command="Cut"/>
                                 <MenuItem Command="Copy"/>
                                 <MenuItem Command="Paste"/>
+                                <MenuItem Command="{x:Static local:TestCaseEditView.ShareStepCommand}" Header="Share"/>
+                                <MenuItem Command="{x:Static local:TestCaseEditView.DeleteTestStepCommand}" Header="Delete"/>
                             </ContextMenu>
                         </DataGrid.ContextMenu>
                         <DataGrid.Columns>
@@ -174,6 +177,7 @@
                             <Button Content="Add" Width="80" Height="30" Margin="5" VerticalAlignment="Center" Name="btnAdd"  Click="btnAdd_Click"/>
                             <Button Content="Share"  Name="btnShare" Width="80" Height="30" Margin="5" VerticalAlignment="Center" Click="btnShare_Click" TabIndex="6"/>
                             <Button Content="Delete"  Name="btnDeleteStep" Width="80" Height="30" Margin="5" VerticalAlignment="Center" Click="btnDeleteStep_Click" TabIndex="7"/>
+                            <Button Content="Change"  Name="btnChange" Width="80" Height="30" Margin="5" VerticalAlignment="Center" Click="btnChange_Click" TabIndex="8"/>
                         </StackPanel>
                     </StackPanel>
                 </Grid>

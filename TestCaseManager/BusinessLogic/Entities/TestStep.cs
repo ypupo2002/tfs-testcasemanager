@@ -9,13 +9,19 @@ namespace TestCaseManagerApp
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
+    using FirstFloor.ModernUI.Presentation;
     using Microsoft.TeamFoundation.TestManagement.Client;
 
     /// <summary>
     /// Contains Test Step object information properties
     /// </summary>
-    public class TestStep
+    public class TestStep : NotifyPropertyChanged
     {
+        /// <summary>
+        /// The title
+        /// </summary>
+        private string title;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="TestStep" /> class.
         /// </summary>
@@ -62,12 +68,24 @@ namespace TestCaseManagerApp
         public ITestStep ITestStep { get; set; }
 
         /// <summary>
-        /// Gets or sets the test step title.
+        /// Gets or sets the title.
         /// </summary>
         /// <value>
-        /// The test step title.
+        /// The title.
         /// </value>
-        public string Title { get; set; }
+        public string Title
+        {
+            get
+            {
+                return this.title;
+            }
+
+            set
+            {
+                this.title = value;
+                this.OnPropertyChanged("Title");
+            }
+        }
 
         /// <summary>
         /// Gets or sets the shared step unique identifier.

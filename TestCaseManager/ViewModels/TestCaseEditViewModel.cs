@@ -65,9 +65,9 @@ namespace TestCaseManagerApp.ViewModels
         public TestCaseEditViewModel(int testCaseId, int suiteId, bool createNew, bool duplicate)
         {
             this.Areas = this.GetProjectAreas();
-            ExecutionContext.Preferences.TestPlan.Refresh();
-            ExecutionContext.Preferences.TestPlan.RootSuite.Refresh();
-            this.TestSuiteList = TestSuiteManager.GetAllTestSuitesInTestPlan();
+            //ExecutionContext.Preferences.TestPlan.Refresh();
+            //ExecutionContext.Preferences.TestPlan.RootSuite.Refresh();
+            //this.TestSuiteList = TestSuiteManager.GetAllTestSuitesInTestPlan();
 
             this.CreateNew = createNew;
             this.Duplicate = duplicate;
@@ -99,7 +99,7 @@ namespace TestCaseManagerApp.ViewModels
             this.InitializeTestCaseWithExisting();
             this.InitializeInitialSharedStepCollection();
             this.AssociatedAutomation = this.TestCase.ITestCase.GetAssociatedAutomation();
-            this.UpdateObservableTestSteps(this.ObservableTestSteps.ToList());
+            //this.UpdateObservableTestSteps(this.ObservableTestSteps.ToList());
         }
 
         /// <summary>
@@ -208,44 +208,7 @@ namespace TestCaseManagerApp.ViewModels
             {
                 this.ObservableSharedSteps.Add(item);
             }
-        }
-
-        /// <summary>
-        /// Gets the project areas.
-        /// </summary>
-        /// <returns>list of areas names as string list</returns>
-        public List<string> GetProjectAreas()
-        {
-            List<string> areas = new List<string>();
-            ICommonStructureService css = (ICommonStructureService)ExecutionContext.TfsTeamProjectCollection.GetService(typeof(ICommonStructureService));          
-            ProjectInfo projectInfo = css.GetProjectFromName(ExecutionContext.Preferences.TestProjectName);
-            NodeInfo[] nodes = css.ListStructures(projectInfo.Uri);
-            XmlElement areaTree = css.GetNodesXml(new string[] { nodes[0].Uri }, true);
-            areas.Clear();
-            XmlNode areaNodes = areaTree.ChildNodes[0];
-            this.CreateAreasList(areaNodes, areas);
-
-            return areas;
-        }
-
-        /// <summary>
-        /// Updates the observable test steps.
-        /// </summary>
-        /// <param name="selectedTestSteps">The selected test steps.</param>
-        public void UpdateObservableTestSteps(List<TestStep> selectedTestSteps)
-        {
-            foreach (TestStep currentSelectedStep in selectedTestSteps)
-            {
-                for (int i = 0; i < this.ObservableTestSteps.Count; i++)
-                {
-                    if (currentSelectedStep.ITestStep.Id.Equals(this.ObservableTestSteps[i].ITestStep.Id))
-                    {
-                        this.ObservableTestSteps[i] = currentSelectedStep;
-                        string title = this.ObservableTestSteps[i].ITestStep.Title.ToPlainText();
-                    }
-                }  
-            }
-        }
+        }      
 
         /// <summary>
         /// Gets the step title.
@@ -493,6 +456,24 @@ namespace TestCaseManagerApp.ViewModels
             {
                 this.initialSharedStepCollection.Add(currentSharedStep);
             }
+        }
+
+        /// <summary>
+        /// Gets the project areas.
+        /// </summary>
+        /// <returns>list of areas names as string list</returns>
+        public List<string> GetProjectAreas()
+        {
+            List<string> areas = new List<string>();
+            ICommonStructureService css = (ICommonStructureService)ExecutionContext.TfsTeamProjectCollection.GetService(typeof(ICommonStructureService));
+            ProjectInfo projectInfo = css.GetProjectFromName(ExecutionContext.Preferences.TestProjectName);
+            NodeInfo[] nodes = css.ListStructures(projectInfo.Uri);
+            XmlElement areaTree = css.GetNodesXml(new string[] { nodes[0].Uri }, true);
+            areas.Clear();
+            XmlNode areaNodes = areaTree.ChildNodes[0];
+            this.CreateAreasList(areaNodes, areas);
+
+            return areas;
         }
 
         /// <summary>

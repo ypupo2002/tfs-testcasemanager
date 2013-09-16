@@ -188,7 +188,7 @@ namespace TestCaseManagerApp
             sharedStepCore.Title = sharedStepTitle;
             string sharedStepGuid = Guid.NewGuid().ToString();
 
-            // iSharedStep.Save();
+            sharedStepCore.Save();
             AddTestStepsToSharedStep(sharedStepCore, sharedStepGuid, selectedTestSteps, sharedStepTitle);
             sharedStepCore.Save();
 

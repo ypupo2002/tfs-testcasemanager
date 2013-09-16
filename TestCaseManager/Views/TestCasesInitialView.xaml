@@ -55,8 +55,15 @@
             </StackPanel>
 
             <DataGrid ItemsSource="{Binding Path=ObservableTestCases}" AutoGenerateColumns="False" Name="dgTestCases" Grid.Row="2" MouseDoubleClick="dgTestCases_MouseDoubleClick" IsReadOnly="True" SelectionMode="Single" SelectionUnit="FullRow" TabIndex="3" PreviewKeyDown="dgTestCases_KeyDown">
-                   <DataGrid.Columns>
-                    <DataGridTextColumn Header="ID"  Binding="{Binding ITestCase.Id}" Width="0.5*">
+                <DataGrid.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Command="{x:Static local:TestCasesInitialView.EditCommand}" Header="Edit"/>
+                        <MenuItem Command="{x:Static local:TestCasesInitialView.DuplicateCommand}" Header="Duplicate"/>
+                        <MenuItem Command="{x:Static local:TestCasesInitialView.PreviewCommand}" Header="Preview"/>
+                    </ContextMenu>
+                </DataGrid.ContextMenu>
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="ID"  Binding="{Binding ITestCase.Id}" Width="0.6*">
                         <DataGridTextColumn.HeaderStyle>
                             <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource {x:Type DataGridColumnHeader}}">
                                 <Setter Property="HorizontalContentAlignment" Value="Left"/>

@@ -156,7 +156,7 @@ namespace TestCaseManagerApp.Views
             isInitialized = false;
             ComboBoxDropdownExtensions.SetOpenDropDownAutomatically(this.cbArea, ExecutionContext.SettingsViewModel.HoverBehaviorDropDown);
             ComboBoxDropdownExtensions.SetOpenDropDownAutomatically(this.cbPriority, ExecutionContext.SettingsViewModel.HoverBehaviorDropDown);
-            ComboBoxDropdownExtensions.SetOpenDropDownAutomatically(this.cbSuite, ExecutionContext.SettingsViewModel.HoverBehaviorDropDown);
+            //ComboBoxDropdownExtensions.SetOpenDropDownAutomatically(this.cbSuite, ExecutionContext.SettingsViewModel.HoverBehaviorDropDown);
         }
 
         /// <summary>
@@ -228,7 +228,7 @@ namespace TestCaseManagerApp.Views
         {
             cbArea.SelectedIndex = this.TestCaseEditViewModel.Areas.FindIndex(0, x => x.Equals(this.TestCaseEditViewModel.TestCase.ITestCase.Area));
             cbPriority.SelectedIndex = this.TestCaseEditViewModel.Priorities.FindIndex(0, x => x.Equals(this.TestCaseEditViewModel.TestCase.ITestCase.Priority));
-            cbSuite.SelectedIndex = this.TestCaseEditViewModel.TestSuiteList.FindIndex(0, x => x.Title.Equals(this.TestCaseEditViewModel.TestCase.ITestSuiteBase.Title));
+            //cbSuite.SelectedIndex = this.TestCaseEditViewModel.TestSuiteList.FindIndex(0, x => x.Title.Equals(this.TestCaseEditViewModel.TestCase.ITestSuiteBase.Title));
         }
 
         /// <summary>
@@ -238,7 +238,7 @@ namespace TestCaseManagerApp.Views
         {
             cbArea.SelectedIndex = 0;
             cbPriority.SelectedIndex = 0;
-            cbSuite.SelectedIndex = 0;
+            //cbSuite.SelectedIndex = 0;
         }
 
         /// <summary>
@@ -353,11 +353,10 @@ namespace TestCaseManagerApp.Views
                 }
 
                 ISharedStep sharedStepCore = this.TestCaseEditViewModel.TestCase.CreateNewSharedStep(ExecutionContext.SharedStepTitle, selectedTestSteps);
+                sharedStepCore.Refresh();
                 this.TestCaseEditViewModel.ObservableSharedSteps.Add(new SharedStep(sharedStepCore));
-                this.TestCaseEditViewModel.UpdateObservableTestSteps(selectedTestSteps);
             }
 
-            // dgTestSteps.DataContext = TestCaseEditViewModel.ObservableTestSteps;
             ExecutionContext.SharedStepTitleDialogCancelled = false;
         }
 
@@ -691,7 +690,7 @@ namespace TestCaseManagerApp.Views
         private TestCase SaveTestCaseInternal()
         {
             int priority = int.Parse(cbPriority.Text);
-            string suiteTitle = cbSuite.Text;
+            string suiteTitle = tbSuite.Text;
             TestCase savedTestCase;
             if ((this.CreateNew || this.Duplicate) && !this.TestCaseEditViewModel.IsAlreadyCreated)
             {
@@ -752,17 +751,32 @@ namespace TestCaseManagerApp.Views
         }
 
         /// <summary>
+        /// Handles the Click event of the btnChange control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs" /> instance containing the event data.</param>
+        private void btnChange_Click(object sender, RoutedEventArgs e)
+        {
+            this.DisableSaveButton();
+            rtbAction.ClearDefaultContent(ref this.TestCaseEditViewModel.IsActionTextSet);
+            rtbExpectedResult.ClearDefaultContent(ref this.TestCaseEditViewModel.IsExpectedResultTextSet);
+            TestStep currentTestStep = this.GetSelectedTestStep();
+            rtbAction.SetText(currentTestStep.ITestStep.Title);
+            rtbExpectedResult.SetText(currentTestStep.ITestStep.ExpectedResult);
+        }   
+
+        /// <summary>
         /// Handles the MouseEnter event of the cbSuite control.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="System.Windows.Input.MouseEventArgs"/> instance containing the event data.</param>
         private void cbSuite_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
         {
-            if (ExecutionContext.SettingsViewModel.HoverBehaviorDropDown)
-            {
-                cbSuite.IsDropDownOpen = true;
-                cbSuite.Focus();
-            }         
+            //if (ExecutionContext.SettingsViewModel.HoverBehaviorDropDown)
+            //{
+            //    cbSuite.IsDropDownOpen = true;
+            //    cbSuite.Focus();
+            //}         
         }
 
         /// <summary>
@@ -927,6 +941,6 @@ namespace TestCaseManagerApp.Views
                 TestCase currentTestCase = this.SaveTestCaseInternal();
                 this.NavigateToAssociateAutomationView(currentTestCase.ITestCase.Id, currentTestCase.ITestSuiteBase.Id, this.CreateNew, this.Duplicate);
             }
-        }     
+        }         
     }
 }
