@@ -88,11 +88,10 @@ namespace TestCaseManagerApp.ViewModels
             this.themes.Add(new Link { DisplayName = "love", Source = new Uri("Assets/ModernUI.Love.xaml", UriKind.Relative) });
             this.themes.Add(new Link { DisplayName = "snowflakes", Source = new Uri("Assets/ModernUI.Snowflakes.xaml", UriKind.Relative) });
 
-            // SyncThemeAndColor();
-            this.HoverBehaviorDropDown = true;
+            this.SetPreviousHoverBehaviorDropDown();
             AppearanceManager.Current.PropertyChanged += this.OnAppearanceManagerPropertyChanged;
-            this.SetPreviousAppereanceSettings();
-        }
+            this.SetPreviousAppereanceSettings();            
+        }      
 
         /// <summary>
         /// Gets or sets a value indicating whether [the drop downs should open on hover].
@@ -112,6 +111,7 @@ namespace TestCaseManagerApp.ViewModels
                 if (this.hoverBehaviorDropDown != value)
                 {
                     this.hoverBehaviorDropDown = value;
+                    RegistryManager.WriteDropDownBehavior(value);
                     this.OnPropertyChanged("HoverBehaviorDropDown");
                 }
             }
@@ -195,6 +195,14 @@ namespace TestCaseManagerApp.ViewModels
                     AppearanceManager.Current.AccentColor = value;
                 }
             }
+        }
+
+        /// <summary>
+        /// Sets the previous hover behavior drop down.
+        /// </summary>
+        private void SetPreviousHoverBehaviorDropDown()
+        {
+            this.HoverBehaviorDropDown = RegistryManager.GetDropDownBehavior();
         }
 
         /// <summary>

@@ -40,11 +40,31 @@ namespace TestCaseManagerApp
         /// The color registry sub key name
         /// </summary>
         private static string colorRegistrySubKeyName = "color";
+
+        /// <summary>
+        /// The shouldOpenDropDownOnHover registry sub key name- shows if the drop downs will be opened on hover
+        /// </summary>
+        private static string shouldOpenDropDownOnHoverRegistrySubKeyName = "shouldOpenDropDrownOnHover";
       
         /// <summary>
         /// The TFS settings registry sub key name- main sub key for team project URI and team project name
         /// </summary>
         private static string tfsSettingsRegistrySubKeyName = "TfsSettings";
+
+        /// <summary>
+        /// The filters registry sub key name
+        /// </summary>
+        private static string filtersRegistrySubKeyName = "Filters";
+
+        /// <summary>
+        /// The initial filters registry sub key name
+        /// </summary>
+        private static string initialFiltersRegistrySubKeyName = "InitialFilters";
+
+        /// <summary>
+        /// The suite filter registry sub key name
+        /// </summary>
+        private static string suiteFilterRegistrySubKeyName = "suiteFilter";
 
         /// <summary>
         /// The automation association registry sub key name
@@ -82,6 +102,38 @@ namespace TestCaseManagerApp
             RegistryKey appereanceR = dataR.CreateSubKey(appereanceRegistrySubKeyName);
             appereanceR.SetValue(themeRegistrySubKeyName, theme);
             appereanceR.Close();
+            dataR.Close();
+            ata.Close();
+        }
+
+        /// <summary>
+        /// Writes the drop down behavior to registry.
+        /// </summary>
+        /// <param name="shouldOpenDropDownOnHover">if set to <c>true</c> [should open drop down configuration hover].</param>
+        public static void WriteDropDownBehavior(bool shouldOpenDropDownOnHover)
+        {
+            RegistryKey ata = Registry.CurrentUser.CreateSubKey(mainRegistrySubKeyName);
+            RegistryKey dataR = ata.CreateSubKey(dataRegistrySubKeyName);
+            RegistryKey appereanceR = dataR.CreateSubKey(appereanceRegistrySubKeyName);
+            appereanceR.SetValue(shouldOpenDropDownOnHoverRegistrySubKeyName, shouldOpenDropDownOnHover);
+            appereanceR.Close();
+            dataR.Close();
+            ata.Close();
+        }
+
+        /// <summary>
+        /// Writes the suite filter.
+        /// </summary>
+        /// <param name="suiteFilter">The suite filter.</param>
+        public static void WriteSuiteFilter(string suiteFilter)
+        {
+            RegistryKey ata = Registry.CurrentUser.CreateSubKey(mainRegistrySubKeyName);
+            RegistryKey dataR = ata.CreateSubKey(dataRegistrySubKeyName);
+            RegistryKey filtersR = dataR.CreateSubKey(filtersRegistrySubKeyName);
+            RegistryKey initialFiltersR = filtersR.CreateSubKey(initialFiltersRegistrySubKeyName);
+            initialFiltersR.SetValue(suiteFilterRegistrySubKeyName, suiteFilter);
+            initialFiltersR.Close();
+            filtersR.Close();
             dataR.Close();
             ata.Close();
         }
@@ -339,6 +391,66 @@ namespace TestCaseManagerApp
             }
 
             return theme;
+        }
+
+        /// <summary>
+        /// Gets the drop down behavior from registry.
+        /// </summary>
+        /// <returns>drop down behavior</returns>
+        public static bool GetDropDownBehavior()
+        {
+            bool shouldOpenDropDownOnHover = false;
+            try
+            {
+                RegistryKey ata = Registry.CurrentUser.OpenSubKey(mainRegistrySubKeyName);
+                RegistryKey dataR = ata.OpenSubKey(dataRegistrySubKeyName);
+                RegistryKey appereanceR = dataR.OpenSubKey(appereanceRegistrySubKeyName);
+
+                if (appereanceR != null && dataR != null && ata != null)
+                {
+                    shouldOpenDropDownOnHover = bool.Parse((string)appereanceR.GetValue(shouldOpenDropDownOnHoverRegistrySubKeyName));
+                    appereanceR.Close();
+                    dataR.Close();
+                    ata.Close();
+                }
+            }
+            catch
+            {
+                // TODO: Add Exception Logging
+            }
+
+            return shouldOpenDropDownOnHover;
+        }
+
+        /// <summary>
+        /// Gets the suite filter.
+        /// </summary>
+        /// <returns>the suite filter</returns>
+        public static string GetSuiteFilter()
+        {
+            string suiteFilter = string.Empty;
+            try
+            {
+                RegistryKey ata = Registry.CurrentUser.OpenSubKey(mainRegistrySubKeyName);
+                RegistryKey dataR = ata.OpenSubKey(dataRegistrySubKeyName);
+                RegistryKey filtersR = dataR.OpenSubKey(filtersRegistrySubKeyName);
+                RegistryKey initialFiltersR = filtersR.OpenSubKey(initialFiltersRegistrySubKeyName);
+
+                if (filtersR != null && dataR != null && ata != null && initialFiltersR != null)
+                {
+                    suiteFilter = (string)initialFiltersR.GetValue(suiteFilterRegistrySubKeyName);
+                    filtersR.Close();
+                    initialFiltersR.Close();
+                    dataR.Close();
+                    ata.Close();
+                }
+            }
+            catch
+            {
+                // TODO: Add Exception Logging
+            }
+
+            return suiteFilter;
         }
     }
 }

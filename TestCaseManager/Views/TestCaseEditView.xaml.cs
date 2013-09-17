@@ -205,7 +205,7 @@ namespace TestCaseManagerApp.Views
             this.ShowProgressBar();
             Task t = Task.Factory.StartNew(() =>
             {
-                TestCaseEditViewModel = new TestCaseEditViewModel(TestCaseId, TestSuiteId, CreateNew, Duplicate);
+                TestCaseEditViewModel = new TestCaseEditViewModel(this.TestCaseId, this.TestSuiteId, this.CreateNew, this.Duplicate);
             });
             t.ContinueWith(antecedent =>
             {
@@ -221,11 +221,11 @@ namespace TestCaseManagerApp.Views
         /// </summary>
         private void InitializePageTitle()
         {
-            if (CreateNew && !Duplicate)
+            if (this.CreateNew && !this.Duplicate)
             {
                 tbPageTitle.Text = "Create New";
             }
-            else if (CreateNew && Duplicate)
+            else if (this.CreateNew && this.Duplicate)
             {
                 tbPageTitle.Text = "Duplicate";
             }

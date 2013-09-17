@@ -113,6 +113,7 @@ namespace TestCaseManagerApp.Views
         {
             if (isInitialized)
             {
+                RegistryManager.WriteSuiteFilter(this.TestCasesInitialViewModel.InitialViewFilters.SuiteFilter);
                 return;
             }
             this.ShowProgressBar();

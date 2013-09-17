@@ -37,10 +37,11 @@ namespace TestCaseManagerApp.ViewModels
             List<TestCase> testCasesList = TestCaseManager.GetAllTestCasesInTestPlan();
             this.ObservableTestCases = new ObservableCollection<TestCase>();
             testCasesList.ForEach(t => this.ObservableTestCases.Add(t));
-            this.InitialViewFilters = new InitialViewFilters();
+            InitializeFilters();
             this.InitializeInitialTestCaseCollection();
-            this.TestCasesCount = this.ObservableTestCases.Count.ToString();
-        }
+            this.FilterTestCases();
+            this.TestCasesCount = this.ObservableTestCases.Count.ToString();            
+        }      
 
         /// <summary>
         /// Initializes a new instance of the <see cref="TestCasesInitialViewModel"/> class.
@@ -156,6 +157,19 @@ namespace TestCaseManagerApp.ViewModels
             foreach (var item in this.InitialTestCaseCollection)
             {
                 this.ObservableTestCases.Add(item);
+            }
+        }
+
+        /// <summary>
+        /// Initializes the filters.
+        /// </summary>
+        private void InitializeFilters()
+        {
+            this.InitialViewFilters = new InitialViewFilters();
+            this.InitialViewFilters.SuiteFilter = RegistryManager.GetSuiteFilter();
+            if (this.InitialViewFilters.SuiteFilter != String.Empty)
+            {
+                this.InitialViewFilters.IsSuiteTextSet = true;
             }
         }
 

@@ -46,6 +46,6 @@ namespace TestCaseManagerApp
             // this.MinHeight = this.ActualHeight;
             // this.MaxHeight = this.ActualHeight;
             // this.MaxWidth = this.ActualWidth;
-        }        
+        }  
     }
 }
