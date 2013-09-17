@@ -42,7 +42,7 @@
 
                     <CheckBox Margin="10,0,10,10" HorizontalAlignment="Left" IsChecked="{Binding Path=ReplaceInTitles, Mode=TwoWay}" Grid.Column="1" Grid.Row="0"/>
                     <CheckBox Margin="10,0,10,10" HorizontalAlignment="Left" IsChecked="{Binding Path=ReplaceSharedSteps, Mode=TwoWay}" Grid.Column="1" Grid.Row="1"/>
-                    <CheckBox Margin="10,0,10,30" HorizontalAlignment="Left" IsChecked="{Binding Path=ReplaceInSteps, Mode=TwoWay}" Grid.Column="1" Grid.Row="2"/>
+                    <CheckBox Margin="10,0,10,30" HorizontalAlignment="Left" IsChecked="{Binding Path=ReplaceInTestSteps, Mode=TwoWay}" Grid.Column="1" Grid.Row="2"/>
                 </Grid>
             </StackPanel>
             <TextBox Name="tbTitleFilter" Margin="10,0,10,30" Height="25" Text="{Binding InitialViewFilters.TitleFilter, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" GotFocus="tbTitleFilter_GotFocus" LostFocus="tbTitleFilter_LostFocus" KeyUp="tbTitleFilter_KeyUp" Grid.Column="2" Grid.Row="1"/>

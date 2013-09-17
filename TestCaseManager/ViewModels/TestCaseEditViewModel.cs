@@ -99,7 +99,6 @@ namespace TestCaseManagerApp.ViewModels
             this.InitializeTestCaseWithExisting();
             this.InitializeInitialSharedStepCollection();
             this.AssociatedAutomation = this.TestCase.ITestCase.GetAssociatedAutomation();
-            //this.UpdateObservableTestSteps(this.ObservableTestSteps.ToList());
         }
 
         /// <summary>

@@ -31,9 +31,29 @@ namespace TestCaseManagerApp.Views
         public static RoutedCommand SaveCommand = new RoutedCommand();
 
         /// <summary>
+        /// The save and close command
+        /// </summary>
+        public static RoutedCommand SaveAndCloseCommand = new RoutedCommand();
+
+        /// <summary>
         /// The share step command
         /// </summary>
         public static RoutedCommand ShareStepCommand = new RoutedCommand();
+
+        /// <summary>
+        /// The change step command
+        /// </summary>
+        public static RoutedCommand ChangeStepCommand = new RoutedCommand();
+
+        /// <summary>
+        /// The insert step command
+        /// </summary>
+        public static RoutedCommand InsertStepCommand = new RoutedCommand();
+
+        /// <summary>
+        /// The edit step command
+        /// </summary>
+        public static RoutedCommand EditStepCommand = new RoutedCommand();
 
         /// <summary>
         /// The associate test command
@@ -190,9 +210,29 @@ namespace TestCaseManagerApp.Views
             t.ContinueWith(antecedent =>
             {
                 this.InitializeUiRelatedViewSettings();
+                InitializePageTitle();
                 this.HideProgressBar();
                 isInitialized = true;
             }, TaskScheduler.FromCurrentSynchronizationContext());
+        }
+
+        /// <summary>
+        /// Initializes the page title.
+        /// </summary>
+        private void InitializePageTitle()
+        {
+            if (CreateNew && !Duplicate)
+            {
+                tbPageTitle.Text = "Create New";
+            }
+            else if (CreateNew && Duplicate)
+            {
+                tbPageTitle.Text = "Duplicate";
+            }
+            else
+            {
+                tbPageTitle.Text = "Edit";
+            }
         }
 
         /// <summary>
@@ -301,12 +341,16 @@ namespace TestCaseManagerApp.Views
         private void InitializeFastKeys()
         {
             SaveCommand.InputGestures.Add(new KeyGesture(Key.S, ModifierKeys.Control));
+            SaveAndCloseCommand.InputGestures.Add(new KeyGesture(Key.S, ModifierKeys.Shift | ModifierKeys.Control));
             AssociateTestCommand.InputGestures.Add(new KeyGesture(Key.A, ModifierKeys.Control));
             DeleteTestStepCommand.InputGestures.Add(new KeyGesture(Key.Delete, ModifierKeys.Alt));
             MoveUpTestStepsCommand.InputGestures.Add(new KeyGesture(Key.Up, ModifierKeys.Alt));
             MoveDownTestStepsCommand.InputGestures.Add(new KeyGesture(Key.Down, ModifierKeys.Alt));
             AddSharedStepCommand.InputGestures.Add(new KeyGesture(Key.A, ModifierKeys.Alt));
             ShareStepCommand.InputGestures.Add(new KeyGesture(Key.S, ModifierKeys.Alt));
+            EditStepCommand.InputGestures.Add(new KeyGesture(Key.E, ModifierKeys.Alt));
+            ChangeStepCommand.InputGestures.Add(new KeyGesture(Key.C, ModifierKeys.Alt));
+            InsertStepCommand.InputGestures.Add(new KeyGesture(Key.I, ModifierKeys.Alt));
         }
 
         /// <summary>
@@ -321,6 +365,8 @@ namespace TestCaseManagerApp.Views
             string expectedResult = TestCaseEditViewModel.GetExpectedResult(rtbExpectedResult.GetText());
             TestStep testStepToInsert = TestStepManager.CreateNewTestStep(TestCaseEditViewModel.TestCase, stepTitle, expectedResult);
             TestCaseEditViewModel.InsertTestStepInTestCase(testStepToInsert, selectedIndex);
+            dgTestSteps.SelectedIndex = dgTestSteps.SelectedIndex + 1;
+            dgTestSteps.Focus();
         }
 
         /// <summary>
@@ -554,7 +600,9 @@ namespace TestCaseManagerApp.Views
                 return;
             }
             int currentSelectedIndex = dgTestSteps.SelectedIndex;
-            this.TestCaseEditViewModel.InsertSharedStep(currentSharedStep, currentSelectedIndex + 1);            
+            this.TestCaseEditViewModel.InsertSharedStep(currentSharedStep, currentSelectedIndex + 1);
+            dgTestSteps.SelectedIndex = dgTestSteps.SelectedIndex + currentSharedStep.ISharedStep.Actions.Count;
+            dgTestSteps.Focus();
         }
 
         /// <summary>

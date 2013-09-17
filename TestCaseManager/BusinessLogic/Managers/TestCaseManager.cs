@@ -6,6 +6,7 @@ namespace TestCaseManagerApp
 {
     using System;
     using System.Collections.Generic;
+    using System.Collections.ObjectModel;
     using System.Linq;
     using Microsoft.TeamFoundation.TestManagement.Client;
     using TestCaseManagerApp.BusinessLogic.Entities;
@@ -16,7 +17,7 @@ namespace TestCaseManagerApp
     public static class TestCaseManager
     {
         /// <summary>
-        /// Gets all test cases from all test suites.
+        /// Gets all test cases from all test suites.d
         /// </summary>
         /// <param name="suiteEntries">The test suite collection.</param>
         /// <returns>list with all test cases</returns>
@@ -26,7 +27,7 @@ namespace TestCaseManagerApp
             foreach (ITestSuiteBase currentSuite in suiteEntries)
             {
                 if (currentSuite != null)
-                {                    
+                {
                     currentSuite.Refresh();
                     foreach (var tc in currentSuite.TestCases)
                     {
@@ -174,7 +175,7 @@ namespace TestCaseManagerApp
                 currentTestCase.ITestCase.Title = testCase.ITestCase.Title;
             }
             currentTestCase.ITestCase.Priority = testCase.ITestCase.Priority;
-            ReplaceStepsInTestCase(testCase, textReplacePairs, sharedStepIdReplacePairs, testSteps, replaceSharedSteps, replaceInSteps);
+            ReplaceStepsInTestCase(currentTestCase, textReplacePairs, sharedStepIdReplacePairs, testSteps, replaceSharedSteps, replaceInSteps);
             currentTestCase.ITestCase.Flush();
             currentTestCase.ITestCase.Save();
 
@@ -288,6 +289,6 @@ namespace TestCaseManagerApp
             }
 
             return newSharedStepId;
-        } 
+        }
     }
 }

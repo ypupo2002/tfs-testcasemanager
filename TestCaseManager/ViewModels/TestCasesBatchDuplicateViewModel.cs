@@ -45,16 +45,25 @@ namespace TestCaseManagerApp.ViewModels
         public TestCasesBatchDuplicateViewModel()
         {
             this.InitializeInnerCollections();
-            ExecutionContext.Preferences.TestPlan.Refresh();
-            ExecutionContext.Preferences.TestPlan.RootSuite.Refresh();
-            List<TestCase> testCasesList = TestCaseManager.GetAllTestCasesInTestPlan();
-            testCasesList.ForEach(t => this.ObservableTestCases.Add(t));
+            InitializeTestCases();
             this.InitializeInitialTestCaseCollection();
             this.InitializeTestSuiteList();
             this.TestCasesCount = this.ObservableTestCases.Count.ToString();
             this.ReplaceInTitles = true;
             this.ReplaceInTestSteps = true;
             this.ReplaceSharedSteps = true;
+        }
+
+        /// <summary>
+        /// Initializes the test cases.
+        /// </summary>
+        public void InitializeTestCases()
+        {
+            this.ObservableTestCases = new ObservableCollection<TestCase>();
+            ExecutionContext.Preferences.TestPlan.Refresh();
+            ExecutionContext.Preferences.TestPlan.RootSuite.Refresh();
+            List<TestCase> testCasesList = TestCaseManager.GetAllTestCasesInTestPlan();
+            testCasesList.ForEach(t => this.ObservableTestCases.Add(t));
         }
 
         /// <summary>
@@ -181,7 +190,7 @@ namespace TestCaseManagerApp.ViewModels
             set
             {
                 this.replaceInTestSteps = value;
-                this.OnPropertyChanged("ReplaceInSteps");
+                this.OnPropertyChanged("ReplaceInTestSteps");
             }
         }
 
@@ -210,7 +219,7 @@ namespace TestCaseManagerApp.ViewModels
         /// </summary>
         public void ReinitializeTestCases()
         {
-            this.ObservableTestCases.Clear();
+            this.ObservableTestCases = new ObservableCollection<TestCase>();
             foreach (var currentTestCase in this.InitialTestCaseCollection)
             {
                 this.ObservableTestCases.Add(currentTestCase);
@@ -263,7 +272,6 @@ namespace TestCaseManagerApp.ViewModels
             this.ObservableSharedStepIdReplacePairs = new ObservableCollection<SharedStepIdReplacePair>();
             this.ObservableSharedStepIdReplacePairs.Add(new SharedStepIdReplacePair());
             this.SelectedTestCases = new List<TestCase>();
-            this.ObservableTestCases = new ObservableCollection<TestCase>();
             this.InitialViewFilters = new InitialViewFilters();
         }
     }

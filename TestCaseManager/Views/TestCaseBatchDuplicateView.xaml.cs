@@ -238,10 +238,7 @@ namespace TestCaseManagerApp.Views
             List<TextReplacePair> textReplacePairsList = this.TestCasesBatchDuplicateViewModel.ObservableTextReplacePairs.ToList();
             List<SharedStepIdReplacePair> sharedStepIdReplacePairList = this.TestCasesBatchDuplicateViewModel.ObservableSharedStepIdReplacePairs.ToList();
             int duplicatedCount = 0;
-
-            this.progressBar.Visibility = System.Windows.Visibility.Visible;
-            this.mainGrid.Visibility = System.Windows.Visibility.Hidden;
-
+            ShowProgressBar();
             Task t = Task.Factory.StartNew(() =>
             {
                 foreach (TestCase currentSelectedTestCase in TestCasesBatchDuplicateViewModel.SelectedTestCases)
@@ -249,27 +246,14 @@ namespace TestCaseManagerApp.Views
                     currentSelectedTestCase.DuplicateTestCase(textReplacePairsList, sharedStepIdReplacePairList, newSuiteTitle, this.TestCasesBatchDuplicateViewModel.ReplaceInTitles, this.TestCasesBatchDuplicateViewModel.ReplaceSharedSteps, this.TestCasesBatchDuplicateViewModel.ReplaceInTestSteps);
                     duplicatedCount++;
                 }
-                this.TestCasesBatchDuplicateViewModel.ReinitializeTestCases();
                 this.TestCasesBatchDuplicateViewModel.FilterTestCases();
             });
             t.ContinueWith(antecedent =>
             {
-                this.progressBar.Visibility = System.Windows.Visibility.Hidden;
-                this.mainGrid.Visibility = System.Windows.Visibility.Visible;
+                TestCasesBatchDuplicateViewModel.InitializeTestCases();
+                HideProgressBar();
                 ModernDialog.ShowMessage(string.Format("{0} test cases duplicated.", duplicatedCount), "Success!", MessageBoxButton.OK);
             }, TaskScheduler.FromCurrentSynchronizationContext());
-        }
-
-        /// <summary>
-        /// Initializes the current selected test cases.
-        /// </summary>
-        private void InitializeCurrentSelectedTestCases()
-        {
-            TestCasesBatchDuplicateViewModel.SelectedTestCases.Clear();
-            foreach (TestCase currentSelectedItem in dgTestCases.SelectedItems)
-            {
-                TestCasesBatchDuplicateViewModel.SelectedTestCases.Add(currentSelectedItem);
-            }
         }
 
         /// <summary>
@@ -283,10 +267,7 @@ namespace TestCaseManagerApp.Views
             List<TextReplacePair> textReplacePairsList = TestCasesBatchDuplicateViewModel.ObservableTextReplacePairs.ToList();
             List<SharedStepIdReplacePair> sharedStepIdReplacePairList = TestCasesBatchDuplicateViewModel.ObservableSharedStepIdReplacePairs.ToList();
             int replacedCount = 0;
-
-            progressBar.Visibility = System.Windows.Visibility.Visible;
-            mainGrid.Visibility = System.Windows.Visibility.Hidden;
-
+            ShowProgressBar();
             Task t = Task.Factory.StartNew(() =>
             {
                 for (int i = 0; i < TestCasesBatchDuplicateViewModel.SelectedTestCases.Count; i++)
@@ -297,12 +278,23 @@ namespace TestCaseManagerApp.Views
             });
             t.ContinueWith(antecedent =>
             {
-                TestCasesBatchDuplicateViewModel.ReinitializeTestCases();
+                TestCasesBatchDuplicateViewModel.InitializeTestCases();
                 TestCasesBatchDuplicateViewModel.FilterTestCases();
-                progressBar.Visibility = System.Windows.Visibility.Hidden;
-                mainGrid.Visibility = System.Windows.Visibility.Visible;
+                HideProgressBar();
                 ModernDialog.ShowMessage(string.Format("{0} test cases replaced.", replacedCount), "Success!", MessageBoxButton.OK);
             }, TaskScheduler.FromCurrentSynchronizationContext());           
-        }        
+        }
+
+        /// <summary>
+        /// Initializes the current selected test cases.
+        /// </summary>
+        private void InitializeCurrentSelectedTestCases()
+        {
+            TestCasesBatchDuplicateViewModel.SelectedTestCases.Clear();
+            foreach (TestCase currentSelectedItem in dgTestCases.SelectedItems)
+            {
+                TestCasesBatchDuplicateViewModel.SelectedTestCases.Add(currentSelectedItem);
+            }
+        }
     }
 }
