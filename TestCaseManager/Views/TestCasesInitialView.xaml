@@ -14,6 +14,8 @@
             <CommandBinding Command="{x:Static local:TestCasesInitialView.PreviewCommand}" Executed="PreviewButton_Click"/>
             <CommandBinding Command="{x:Static local:TestCasesInitialView.NewCommand}" Executed="btnNew_Click"/>
             <CommandBinding Command="{x:Static local:TestCasesInitialView.RefreshCommand}" Executed="btnRefresh_Click"/>
+            <CommandBinding Command="{x:Static local:TestCasesInitialView.RemoveTestCaseFromSuiteCommand}" Executed="removeTestCaseFromSuite_Command"/>
+            <CommandBinding Command="{x:Static local:TestCasesInitialView.RenameSuiteCommand}" Executed="renameSuite_Command"/>
         </Grid.CommandBindings>
         <ProgressBar Name="progressBar" Minimum="0" Maximum="1" Height="16" IsIndeterminate="True" Margin="0,0,0,16" />
         
@@ -66,11 +68,12 @@
                         <Setter Property="IsExpanded" Value="{Binding Path=IsNodeExpanded, Mode=TwoWay}" />
                         <Setter Property="IsSelected" Value="{Binding Path=IsSelected, Mode=TwoWay}" />
                         <EventSetter Event="TreeViewItem.PreviewMouseRightButtonDown" Handler="TreeViewItem_PreviewMouseRightButtonDown"/>
+                        <EventSetter Event="TreeViewItem.MouseDoubleClick" Handler="TreeViewItem_MouseDoubleClick"/>
                         <EventSetter Event="TreeViewItem.Selected" Handler="treeViewItem_Selected"/>
                         <Setter Property="ContextMenu">
                             <Setter.Value>
                                 <ContextMenu>
-                                    <MenuItem Header="Rename" Command="{Binding RenameCommand}"/>
+                                    <MenuItem Name="tvSuitesContextItemEdit" Command="{x:Static local:TestCasesInitialView.RenameSuiteCommand}" Header="Rename"/>
                                 </ContextMenu>
                             </Setter.Value>
                         </Setter>
@@ -86,12 +89,13 @@
             <GridSplitter Width="5" ResizeDirection="Auto" HorizontalAlignment="Right" VerticalAlignment="Stretch" Grid.Row="1" Grid.RowSpan="2" Grid.Column="1"/>
 
             <ProgressBar Name="progressBarTestCases" Minimum="0" Maximum="1" Height="16" IsIndeterminate="True" Margin="0,0,0,16" Grid.Row="2" Grid.Column="2" Visibility="Hidden"/>
-            <DataGrid ItemsSource="{Binding Path=ObservableTestCases}" AutoGenerateColumns="False" Name="dgTestCases" Grid.Row="2" Grid.Column="2" MouseDoubleClick="dgTestCases_MouseDoubleClick" IsReadOnly="True" SelectionMode="Single" SelectionUnit="FullRow" TabIndex="3" PreviewKeyDown="dgTestCases_KeyDown">
+            <DataGrid ItemsSource="{Binding Path=ObservableTestCases}" AutoGenerateColumns="False" Name="dgTestCases" Grid.Row="2" Grid.Column="2" MouseDoubleClick="dgTestCases_MouseDoubleClick" IsReadOnly="True" SelectionMode="Extended"  SelectionUnit="FullRow" TabIndex="3" PreviewKeyDown="dgTestCases_KeyDown" SelectedCellsChanged="dgTestCases_SelectedCellsChanged">
                 <DataGrid.ContextMenu>
                     <ContextMenu>
-                        <MenuItem Command="{x:Static local:TestCasesInitialView.EditCommand}" Header="Edit"/>
-                        <MenuItem Command="{x:Static local:TestCasesInitialView.DuplicateCommand}" Header="Duplicate"/>
-                        <MenuItem Command="{x:Static local:TestCasesInitialView.PreviewCommand}" Header="Preview"/>
+                        <MenuItem Name="dgTestCaseContextItemEdit" Command="{x:Static local:TestCasesInitialView.EditCommand}" Header="Edit"/>
+                        <MenuItem Name="dgTestCaseContextItemDuplicate" Command="{x:Static local:TestCasesInitialView.DuplicateCommand}" Header="Duplicate"/>
+                        <MenuItem Name="dgTestCaseContextItemPreview" Command="{x:Static local:TestCasesInitialView.PreviewCommand}" Header="Preview"/>
+                        <MenuItem Name="dgTestCaseContextItemRemove" Command="{x:Static local:TestCasesInitialView.RemoveTestCaseFromSuiteCommand}" Header="Remove"/>
                     </ContextMenu>
                 </DataGrid.ContextMenu>
                 <DataGrid.Columns>
@@ -135,14 +139,14 @@
             
             <StackPanel Orientation="Vertical" Grid.Row="3" Grid.ColumnSpan="3" Margin="0,30,0,30">
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
-                    <Button Name="btn_Preview" Margin="0,0,10,0" Height="30" Width="90" VerticalAlignment="Center" Click="PreviewButton_Click">
+                    <Button Name="btnPreview" Margin="0,0,10,0" Height="30" Width="90" VerticalAlignment="Center" Click="PreviewButton_Click">
                         <Button.Content>
                             <TextBlock>
                                   <Underline>P</Underline>review
                             </TextBlock>
                         </Button.Content>
                     </Button>
-                    <Button Name="btEdit" Margin="30,0,10,0" Height="30" Width="90" VerticalAlignment="Center" Click="EditButton_Click">
+                    <Button Name="btnEdit" Margin="30,0,10,0" Height="30" Width="90" VerticalAlignment="Center" Click="EditButton_Click">
                         <Button.Content>
                             <TextBlock>
                                   <Underline>E</Underline>dit
@@ -163,6 +167,7 @@
                             </TextBlock>
                         </Button.Content>
                     </Button>
+                    <Button Name="btnRemoveTestCase" Content="Remove" Margin="30,0,10,0" Height="30" Width="90" VerticalAlignment="Center" Click="btnRemoveTestCase_Click"/>
                 </StackPanel>
             </StackPanel>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Grid.Row="4">

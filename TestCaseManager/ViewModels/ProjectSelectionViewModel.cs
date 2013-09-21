@@ -110,7 +110,6 @@ namespace TestCaseManagerApp.ViewModels
                 ExecutionContext.Preferences.TfsUri = new Uri(teamProjectUri);
                 ExecutionContext.Preferences.TestProjectName = teamProjectName;
                 ExecutionContext.TfsTeamProjectCollection = new TfsTeamProjectCollection(ExecutionContext.Preferences.TfsUri);
-                ExecutionContext.ProjectDllPath = projectDllPath;
                 this.TestService = (ITestManagementService)ExecutionContext.TfsTeamProjectCollection.GetService(typeof(ITestManagementService));
                 this.InitializeTestProjectByName(this.TestService, ExecutionContext.Preferences.TestProjectName);
                 try

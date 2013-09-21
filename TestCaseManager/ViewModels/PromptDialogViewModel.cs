@@ -21,11 +21,61 @@ namespace TestCaseManagerApp.ViewModels
     public class PromptDialogViewModel : NotifyPropertyChanged
     {
         /// <summary>
-        /// Gets or sets the response text.
+        /// The title
+        /// </summary>
+        private string title;
+
+        /// <summary>
+        /// The is canceled
+        /// </summary>
+        private bool isCanceled;
+
+        /// <summary>
+        /// Gets or sets the title.
         /// </summary>
         /// <value>
-        /// The response text.
+        /// The title.
         /// </value>
-        public string ResponseText { get; set; }
+        public string Title
+        {
+            get
+            {
+                if (this.title == null)
+                {
+                    this.title = RegistryManager.GetTitleTitlePromtDialog();
+                }
+
+                return this.title;
+            }
+
+            set
+            {
+               
+                this.title = value;
+                RegistryManager.WriteTitleTitlePromtDialog(this.title);
+                this.OnPropertyChanged("Title");
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether [is canceled].
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if [is canceled]; otherwise, <c>false</c>.
+        /// </value>
+        public bool IsCanceled
+        {
+            get
+            {
+                return this.isCanceled;
+            }
+
+            set
+            {
+                this.isCanceled = value;
+                RegistryManager.WriteIsCanceledTitlePromtDialog(this.isCanceled);
+                this.OnPropertyChanged("IsCanceled");
+            }
+        }
     }
 }

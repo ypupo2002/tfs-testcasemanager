@@ -52,6 +52,16 @@ namespace TestCaseManagerApp.Views
         public static RoutedCommand RefreshCommand = new RoutedCommand();
 
         /// <summary>
+        /// The remove test case from suite command
+        /// </summary>
+        public static RoutedCommand RemoveTestCaseFromSuiteCommand = new RoutedCommand();
+
+        /// <summary>
+        /// The rename suite command
+        /// </summary>
+        public static RoutedCommand RenameSuiteCommand = new RoutedCommand();
+
+        /// <summary>
         /// Indicates if the view model is already initialized
         /// </summary>
         private static bool isInitialized;
@@ -377,7 +387,7 @@ namespace TestCaseManagerApp.Views
 
             // Remove the initial view filters because we are currently filtering by suite and the old filters are not valid any more
             this.TestCasesInitialViewModel.InitialViewFilters = new InitialViewFilters();
-            RegistryManager.WriteSelectedSuiteIdFilter(suiteId);
+            RegistryManager.WriteSelectedSuiteId(suiteId);
             progressBarTestCases.Visibility = System.Windows.Visibility.Visible;
             dgTestCases.Visibility = System.Windows.Visibility.Hidden;
             List<TestCase> suiteTestCaseCollection = new List<TestCase>();
@@ -402,6 +412,63 @@ namespace TestCaseManagerApp.Views
         }
 
         /// <summary>
+        /// Handles the Command event of the removeTestCaseFromSuite control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="ExecutedRoutedEventArgs"/> instance containing the event data.</param>
+        private void removeTestCaseFromSuite_Command(object sender, ExecutedRoutedEventArgs e)
+        {
+            this.RemoveTestCaseFromSuiteInternal();
+        }
+
+        /// <summary>
+        /// Handles the Command event of the renameSuite control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="ExecutedRoutedEventArgs"/> instance containing the event data.</param>
+        private void renameSuite_Command(object sender, ExecutedRoutedEventArgs e)
+        {
+            this.RenameSuiteInternal();
+            e.Handled = true;
+        }
+
+        /// <summary>
+        /// Renames the suite internal.
+        /// </summary>
+        private void RenameSuiteInternal()
+        {
+            Suite selectedSuite = tvSuites.SelectedItem as Suite;
+            RegistryManager.WriteTitleTitlePromtDialog(selectedSuite.Title);
+
+            var dialog = new PrompDialogWindow();
+            dialog.ShowDialog();
+            bool isCanceled;
+            string newTitle;
+            Task t = Task.Factory.StartNew(() =>
+            {
+                isCanceled = RegistryManager.GetIsCanceledTitlePromtDialog();
+                newTitle = RegistryManager.GetTitleTitlePromtDialog();
+                while (string.IsNullOrEmpty(newTitle) && !isCanceled)
+                {
+                }
+            });
+            t.Wait();
+            isCanceled = RegistryManager.GetIsCanceledTitlePromtDialog();
+            newTitle = RegistryManager.GetTitleTitlePromtDialog();
+            if (!isCanceled)
+            {
+                int selectedSuiteId = RegistryManager.GetSelectedSuiteId();
+                TestSuiteManager.RenameSuite(selectedSuiteId, newTitle);
+                this.TestCasesInitialViewModel.RenameSuiteInObservableCollection(this.TestCasesInitialViewModel.Suites, selectedSuiteId, newTitle);
+            }
+
+            //RegistryManager.WriteIsCanceledTitlePromtDialog(false);
+            //ExecutionContext.TitleDialogCancelled = false;
+            //ExecutionContext.TitleDialogTitle = String.Empty;
+        }       
+
+
+        /// <summary>
         /// Handles the PreviewMouseRightButtonDown event of the TreeViewItem control.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
@@ -415,6 +482,21 @@ namespace TestCaseManagerApp.Views
                 treeViewItem.Focus();
                 e.Handled = true;
             }
+        }
+
+        /// <summary>
+        /// Handles the MouseDoubleClick event of the TreeViewItem control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.Windows.Input.MouseEventArgs"/> instance containing the event data.</param>
+        private void TreeViewItem_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            TreeViewItem treeViewItem = sender as TreeViewItem;
+            if (treeViewItem != null && treeViewItem.IsSelected)
+            {
+                this.RenameSuiteInternal();
+                e.Handled = true;
+            }            
         }
 
         /// <summary>
@@ -472,6 +554,53 @@ namespace TestCaseManagerApp.Views
             if (Keyboard.IsKeyDown(Key.Enter))
             {
                 this.PreviewSelectedTestCase();
+            }
+        }
+
+        /// <summary>
+        /// Handles the Click event of the btnRemoveTestCase control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
+        private void btnRemoveTestCase_Click(object sender, RoutedEventArgs e)
+        {
+            this.RemoveTestCaseFromSuiteInternal();
+        }
+
+        /// <summary>
+        /// Removes the test case from suite internal.
+        /// </summary>
+        private void RemoveTestCaseFromSuiteInternal()
+        {
+            var selectedItems = dgTestCases.SelectedItems;
+            for (int i = 0; i < selectedItems.Count; i++)
+            {
+                TestCase currentTestCase = selectedItems[i] as TestCase;
+                this.TestCasesInitialViewModel.RemoveTestCaseFromSuite(currentTestCase);
+            }          
+        }
+
+        /// <summary>
+        /// Handles the SelectedCellsChanged event of the dgTestCases control. Disable Preview and Duplicate buttons if more than one row is selected.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="SelectedCellsChangedEventArgs"/> instance containing the event data.</param>
+        private void dgTestCases_SelectedCellsChanged(object sender, SelectedCellsChangedEventArgs e)
+        {
+            btnPreview.IsEnabled = true;
+            btnDuplicate.IsEnabled = true;
+            btnEdit.IsEnabled = true;
+            dgTestCaseContextItemEdit.IsEnabled = true;
+            dgTestCaseContextItemPreview.IsEnabled = true;
+            dgTestCaseContextItemDuplicate.IsEnabled = true;
+            if(dgTestCases.SelectedItems.Count > 1)
+            {
+                btnPreview.IsEnabled = false;
+                btnDuplicate.IsEnabled = false;
+                btnEdit.IsEnabled = false;
+                dgTestCaseContextItemEdit.IsEnabled = false;
+                dgTestCaseContextItemPreview.IsEnabled = false;
+                dgTestCaseContextItemDuplicate.IsEnabled = false;
             }
         }
     }

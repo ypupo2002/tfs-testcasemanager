@@ -31,14 +31,15 @@ namespace TestCaseManagerApp.ViewModels
             ITestCase testCaseCore = ExecutionContext.TestManagementTeamProject.TestCases.Find(testCaseId);
             this.TestCase = new TestCase(testCaseCore, null);
             this.TestCaseId = testCaseId;
-            List<Test> testsList = ProjectManager.GetTests(ExecutionContext.ProjectDllPath);
+            string projectDllPath = RegistryManager.GetProjectDllPath();
+            List<Test> testsList = ProjectManager.GetTests(projectDllPath);
             this.ObservableTests = new ObservableCollection<Test>();
             this.AssociateTestViewFilters = new AssociateTestViewFilters();
             testsList.ForEach(t => this.ObservableTests.Add(t));
             this.InitializeInitialTestsCollection();
             this.TestTypes = new List<string>()
             {
-                "Small Integration Test", "Unit Test", "Large Integration Test"
+                "Small Integration Test", "Unit Test", "Large Integration Test", "UI Test"
             };
         }
 

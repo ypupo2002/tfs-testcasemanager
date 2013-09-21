@@ -23,7 +23,8 @@ namespace TestCaseManagerApp
         {
             this.InitializeComponent();
             this.DataContext = ExecutionContext.SettingsViewModel;
-            tbAssociatedProjectDllPath.Text = ExecutionContext.ProjectDllPath;
+            string projectDllPath = RegistryManager.GetProjectDllPath();
+            tbAssociatedProjectDllPath.Text = projectDllPath;
         }
 
         /// <summary>
@@ -85,7 +86,6 @@ namespace TestCaseManagerApp
                 string filename = dlg.FileName;
                 tbAssociatedProjectDllPath.Text = filename;
                 RegistryManager.WriteCurrentProjectDllPath(filename);
-                ExecutionContext.ProjectDllPath = filename;
             }
         }
 

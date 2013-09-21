@@ -162,7 +162,8 @@ namespace TestCaseManagerApp
             }
             currentTestCase.ITestCase.Flush();
             currentTestCase.ITestCase.Save();
-            TestSuiteManager.RemoveTestCase(currentTestCase.ITestCase);
+
+            // TestSuiteManager.RemoveTestCase(currentTestCase.ITestCase);
 
             SetTestCaseSuite(newSuiteTitle, currentTestCase);
 

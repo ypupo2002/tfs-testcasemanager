@@ -57,6 +57,18 @@ namespace TestCaseManagerApp
         }
 
         /// <summary>
+        /// Renames the suite.
+        /// </summary>
+        /// <param name="suiteId">The suite unique identifier.</param>
+        /// <param name="newName">The new name.</param>
+        public static void RenameSuite(int suiteId, string newName)
+        {
+            ITestSuiteBase currentSuite = ExecutionContext.TestManagementTeamProject.TestSuites.Find(suiteId);
+            currentSuite.Title = newName;
+            ExecutionContext.Preferences.TestPlan.Save();
+        }
+
+        /// <summary>
         /// Gets the test suite core object by name.
         /// </summary>
         /// <param name="suiteName">The suite name.</param>
@@ -123,6 +135,15 @@ namespace TestCaseManagerApp
         }
 
         /// <summary>
+        /// Removes the specified test case from the test suite.
+        /// </summary>
+        /// <param name="testCaseToRemove">The test case to be removed.</param>
+        public static void RemoveTestCase(TestCase testCaseToRemove)
+        {
+            RemoveTestCaseInternal(testCaseToRemove.ITestCase, testCaseToRemove.ITestSuiteBase);
+        }
+
+        /// <summary>
         /// Sets the parent to all children suites.
         /// </summary>
         /// <param name="childred">The childred.</param>
@@ -149,24 +170,54 @@ namespace TestCaseManagerApp
             {
                 if (currentSuite != null)
                 {
-                    foreach (var currentTestCase in currentSuite.TestCases)
+                    if (currentSuite is IRequirementTestSuite)
                     {
-                        if (currentTestCase.Id.Equals(testCaseToRemove.Id))
+                        IRequirementTestSuite suite = currentSuite as IRequirementTestSuite;
+                        if (suite.TestCases.Where(x => x.Id.Equals(testCaseToRemove.Id)).ToList().Count == 0)
                         {
-                            ((IStaticTestSuite)currentSuite).Entries.Remove(testCaseToRemove);
+                            suite.TestCases.RemoveEntries(new List<ITestSuiteEntry>() { testCaseToRemove.TestSuiteEntry });
                         }
                     }
-
-                    if (currentSuite.TestSuiteType == TestSuiteType.StaticTestSuite)
+                    else if (currentSuite is IStaticTestSuite)
                     {
+                        foreach (var currentTestCase in currentSuite.TestCases)
+                        {
+                            if (currentTestCase.Id.Equals(testCaseToRemove.Id))
+                            {
+                                ((IStaticTestSuite)currentSuite).Entries.Remove(testCaseToRemove);
+                            }
+                        }
                         IStaticTestSuite suite1 = currentSuite as IStaticTestSuite;
                         if (suite1 != null && (suite1.SubSuites.Count > 0))
                         {
                             RemoveTestCaseInternal(testCaseToRemove, suite1.SubSuites);
                         }
-                    }
+                    }  
                 }
             }         
+        }
+
+        /// <summary>
+        /// Removes the test case internal.
+        /// </summary>
+        /// <param name="testCaseToRemove">The test case automatic remove.</param>
+        /// <param name="currentSuite">The current suite.</param>
+        private static void RemoveTestCaseInternal(ITestCase testCaseToRemove, ITestSuiteBase currentSuite)
+        {
+            if (currentSuite != null)
+            {
+                if (currentSuite is IRequirementTestSuite)
+                {
+                    IRequirementTestSuite suite = currentSuite as IRequirementTestSuite;
+                    suite.AllTestCases.Remove(testCaseToRemove);
+                    suite.TestCases.RemoveCases(new List<ITestCase>() { testCaseToRemove });
+                }
+                else if (currentSuite is IStaticTestSuite)
+                {
+                    IStaticTestSuite suite = currentSuite as IStaticTestSuite;
+                    suite.Entries.Remove(testCaseToRemove);
+                }
+            }
         }
 
         /// <summary>

@@ -97,6 +97,21 @@ namespace TestCaseManagerApp
         private static string testPlanRegistrySubKeyName = "testPlan";
 
         /// <summary>
+        /// The title prompt dialog registry sub key name
+        /// </summary>
+        private static string titlePromptDialogRegistrySubKeyName = "titlePromptDialog";
+
+        /// <summary>
+        /// The title prompt dialog is canceled registry sub key name
+        /// </summary>
+        private static string isCanceledtitlePromptDialogRegistrySubKeyName = "titlePromptDialogIsCanceled";
+
+        /// <summary>
+        /// The title title prompt dialog is canceled registry sub key name
+        /// </summary>
+        private static string titleTitlePromptDialogIsCanceledRegistrySubKeyName = "titleTitlePromptDialog";
+
+        /// <summary>
         /// Writes the current theme to registry.
         /// </summary>
         /// <param name="theme">The theme name.</param>
@@ -144,10 +159,10 @@ namespace TestCaseManagerApp
         }
 
         /// <summary>
-        /// Writes the selected suite unique identifier filter.
+        /// Writes the selected suite unique identifier.
         /// </summary>
         /// <param name="suiteId">The suite unique identifier.</param>
-        public static void WriteSelectedSuiteIdFilter(int suiteId)
+        public static void WriteSelectedSuiteId(int suiteId)
         {
             RegistryKey ata = Registry.CurrentUser.CreateSubKey(mainRegistrySubKeyName);
             RegistryKey dataR = ata.CreateSubKey(dataRegistrySubKeyName);
@@ -216,6 +231,36 @@ namespace TestCaseManagerApp
             RegistryKey associatedAutomation = dataR.CreateSubKey(automationAssociationRegistrySubKeyName);
             associatedAutomation.SetValue(projectDllPathRegistrySubKeyName, projectDllPath);
             associatedAutomation.Close();
+            dataR.Close();
+            ata.Close();
+        }
+
+        /// <summary>
+        /// Writes the if the title promt dialog is canceled .
+        /// </summary>
+        /// <param name="isCanceled">if set to <c>true</c> [is canceled].</param>
+        public static void WriteIsCanceledTitlePromtDialog(bool isCanceled)
+        {
+            RegistryKey ata = Registry.CurrentUser.CreateSubKey(mainRegistrySubKeyName);
+            RegistryKey dataR = ata.CreateSubKey(dataRegistrySubKeyName);
+            RegistryKey titlePromtDialog = dataR.CreateSubKey(titlePromptDialogRegistrySubKeyName);
+            titlePromtDialog.SetValue(isCanceledtitlePromptDialogRegistrySubKeyName, isCanceled.ToString());
+            titlePromtDialog.Close();
+            dataR.Close();
+            ata.Close();
+        }
+
+        /// <summary>
+        /// Writes the title in title promt dialog.
+        /// </summary>
+        /// <param name="title">The title.</param>
+        public static void WriteTitleTitlePromtDialog(string title)
+        {
+            RegistryKey ata = Registry.CurrentUser.CreateSubKey(mainRegistrySubKeyName);
+            RegistryKey dataR = ata.CreateSubKey(dataRegistrySubKeyName);
+            RegistryKey titlePromtDialog = dataR.CreateSubKey(titlePromptDialogRegistrySubKeyName);
+            titlePromtDialog.SetValue(titleTitlePromptDialogIsCanceledRegistrySubKeyName, title);
+            titlePromtDialog.Close();
             dataR.Close();
             ata.Close();
         }
@@ -353,6 +398,65 @@ namespace TestCaseManagerApp
         }
 
         /// <summary>
+        /// Gets the title in title promt dialog.
+        /// </summary>
+        /// <returns>the title</returns>
+        public static string GetTitleTitlePromtDialog()
+        {
+            string title = string.Empty;
+            try
+            {
+                RegistryKey ata = Registry.CurrentUser.OpenSubKey(mainRegistrySubKeyName);
+                RegistryKey dataR = ata.OpenSubKey(dataRegistrySubKeyName);
+                RegistryKey titlePromtDialog = dataR.OpenSubKey(titlePromptDialogRegistrySubKeyName);
+
+                if (titlePromtDialog != null && dataR != null && ata != null)
+                {
+                    title = (string)titlePromtDialog.GetValue(titleTitlePromptDialogIsCanceledRegistrySubKeyName);
+                    titlePromtDialog.Close();
+                    dataR.Close();
+                    ata.Close();
+                }
+            }
+            catch
+            {
+                // TODO: Add Exception Logging
+            }
+
+            return title;
+        }
+
+        /// <summary>
+        /// Gets if the title promt dialog is canceled.
+        /// </summary>
+        /// <returns> if the title promt dialog was canceled</returns>
+        public static bool GetIsCanceledTitlePromtDialog()
+        {
+            bool isCanceled = true;
+            try
+            {
+                RegistryKey ata = Registry.CurrentUser.OpenSubKey(mainRegistrySubKeyName);
+                RegistryKey dataR = ata.OpenSubKey(dataRegistrySubKeyName);
+                RegistryKey titlePromtDialog = dataR.OpenSubKey(titlePromptDialogRegistrySubKeyName);
+
+                if (titlePromtDialog != null && dataR != null && ata != null)
+                {
+                    string isCanceledStr = (string)titlePromtDialog.GetValue(isCanceledtitlePromptDialogRegistrySubKeyName);
+                    isCanceled = bool.Parse(isCanceledStr);
+                    titlePromtDialog.Close();
+                    dataR.Close();
+                    ata.Close();
+                }
+            }
+            catch
+            {
+                // TODO: Add Exception Logging
+            }
+
+            return isCanceled;
+        }
+
+        /// <summary>
         /// Gets the colors from registry.
         /// </summary>
         /// <returns>the colors</returns>
@@ -476,10 +580,10 @@ namespace TestCaseManagerApp
         }
 
         /// <summary>
-        /// Gets the selected suite unique identifier filter from registry;
+        /// Gets the selected suite unique identifier from registry;
         /// </summary>
         /// <returns>selected suite id</returns>
-        public static int GetSelectedSuiteIdFilter()
+        public static int GetSelectedSuiteId()
         {
             int selectedSuiteId = -1;
             try

@@ -376,18 +376,25 @@ namespace TestCaseManagerApp.Views
         /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void btnShare_Click(object sender, RoutedEventArgs e)
         {
+            RegistryManager.WriteTitleTitlePromtDialog(String.Empty);
             var dialog = new PrompDialogWindow();
             dialog.ShowDialog();
 
-            Task t = Task.Factory.StartNew(() => 
+            bool isCanceled;
+            string newTitle;
+            Task t = Task.Factory.StartNew(() =>
             {
-                while (string.IsNullOrEmpty(ExecutionContext.SharedStepTitle) && !ExecutionContext.SharedStepTitleDialogCancelled) 
-                { 
-                } 
+                isCanceled = RegistryManager.GetIsCanceledTitlePromtDialog();
+                newTitle = RegistryManager.GetTitleTitlePromtDialog();
+                while (string.IsNullOrEmpty(newTitle) && !isCanceled)
+                {
+                }
             });
             t.Wait();
+            isCanceled = RegistryManager.GetIsCanceledTitlePromtDialog();
+            newTitle = RegistryManager.GetTitleTitlePromtDialog();
 
-            if (!ExecutionContext.SharedStepTitleDialogCancelled)
+            if (!isCanceled)
             {
                 List<TestStep> selectedTestSteps = new List<TestStep>();
                 this.GetTestStepsFromGrid(selectedTestSteps);
@@ -398,12 +405,13 @@ namespace TestCaseManagerApp.Views
                     return;
                 }
 
-                ISharedStep sharedStepCore = this.TestCaseEditViewModel.TestCase.CreateNewSharedStep(ExecutionContext.SharedStepTitle, selectedTestSteps);
+                ISharedStep sharedStepCore = this.TestCaseEditViewModel.TestCase.CreateNewSharedStep(newTitle, selectedTestSteps);
                 sharedStepCore.Refresh();
                 this.TestCaseEditViewModel.ObservableSharedSteps.Add(new SharedStep(sharedStepCore));
             }
 
-            ExecutionContext.SharedStepTitleDialogCancelled = false;
+            //ExecutionContext.TitleDialogCancelled = false;
+            //ExecutionContext.TitleDialogTitle = String.Empty;
         }
 
         /// <summary>
@@ -979,7 +987,8 @@ namespace TestCaseManagerApp.Views
         /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void btnAssociateToAutomation_Click(object sender, RoutedEventArgs e)
         {
-            if (!File.Exists(ExecutionContext.ProjectDllPath))
+            string projectDllPath = RegistryManager.GetProjectDllPath();
+            if (!File.Exists(projectDllPath))
             {
                 ModernDialog.ShowMessage("Provide Existing Project Path Dll.", "Warning", MessageBoxButton.OK);
                 this.NavigateToAppearanceSettingsView();

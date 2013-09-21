@@ -35,13 +35,27 @@ namespace TestCaseManagerApp.Views
         }
 
         /// <summary>
+        /// Gets or sets the prompt dialog view model.
+        /// </summary>
+        /// <value>
+        /// The prompt dialog view model.
+        /// </value>
+        public PromptDialogViewModel PromptDialogViewModel { get; set; }
+
+        private void UserControl_Loaded(object sender, RoutedEventArgs e)
+        {
+            PromptDialogViewModel = new PromptDialogViewModel();
+            this.DataContext = this.PromptDialogViewModel;
+        }
+
+        /// <summary>
         /// Handles the Click event of the ButtonOk control.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void ButtonOk_Click(object sender, RoutedEventArgs e)
         {
-            ExecutionContext.SharedStepTitle = tbSharedStepTitle.Text;
+            PromptDialogViewModel.IsCanceled = false;
             Window window = Window.GetWindow(this);
             window.Close();
         }
@@ -53,8 +67,8 @@ namespace TestCaseManagerApp.Views
         /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
-            ExecutionContext.SharedStepTitle = string.Empty;
-            ExecutionContext.SharedStepTitleDialogCancelled = true;
+            PromptDialogViewModel.IsCanceled = true;
+            PromptDialogViewModel.Title = String.Empty;
             Window window = Window.GetWindow(this);
             window.Close();
         }
@@ -64,9 +78,9 @@ namespace TestCaseManagerApp.Views
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="KeyEventArgs"/> instance containing the event data.</param>
-        private void tbSharedStepTitle_KeyUp(object sender, KeyEventArgs e)
+        private void tbTitle_KeyUp(object sender, KeyEventArgs e)
         {
-            if (!string.IsNullOrEmpty(tbSharedStepTitle.Text))
+            if (!string.IsNullOrEmpty(tbTitle.Text))
             {
                 btnOk.IsEnabled = true;
             }
@@ -74,6 +88,6 @@ namespace TestCaseManagerApp.Views
             {
                 btnOk.IsEnabled = false;
             }
-        }
+        }      
     }
 }

@@ -5,11 +5,11 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:mui="http://firstfloorsoftware.com/ModernU"
              mc:Ignorable="d" 
-             d:DesignHeight="125" d:DesignWidth="300">
+             d:DesignHeight="125" d:DesignWidth="300" Loaded="UserControl_Loaded">
     <Grid>
         <StackPanel >
-            <TextBlock Text="Enter Shared Step Title:"  Margin="10,20,10,0" FontWeight="Bold"/>
-            <TextBox x:Name="tbSharedStepTitle" Text="{Binding Path=.}" Margin="10,0,10,10" KeyUp="tbSharedStepTitle_KeyUp"/>
+            <TextBlock Text="Enter Title:"  Margin="10,20,10,0" FontWeight="Bold"/>
+            <TextBox x:Name="tbTitle" Text="{Binding Path=Title, Mode=TwoWay}" Margin="10,0,10,10" KeyUp="tbTitle_KeyUp"/>
             <StackPanel Orientation="Horizontal">
                 <Button Content="OK" Name="btnOk" Width="100" Margin="10" HorizontalAlignment="Left" Click="ButtonOk_Click" IsEnabled="False" IsDefault="True"/>
                 <Button Content="Cancel" Name="btnCancel" Width="100" Margin="10" HorizontalAlignment="Left" Click="btnCancel_Click" IsCancel="True"/>

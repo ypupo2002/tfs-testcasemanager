@@ -41,7 +41,7 @@ namespace TestCaseManagerApp.ViewModels
             this.InitializeFilters();
 
             // Load last selected suite in the treeview in order to selected it again
-            this.selectedSuiteId = RegistryManager.GetSelectedSuiteIdFilter();
+            this.selectedSuiteId = RegistryManager.GetSelectedSuiteId();
             List<TestCase> suiteTestCaseCollection = new List<TestCase>();
             if (this.selectedSuiteId != -1)
             {
@@ -237,6 +237,39 @@ namespace TestCaseManagerApp.ViewModels
         }
 
         /// <summary>
+        /// Removes the test case from suite.
+        /// </summary>
+        /// <param name="testCaseToBeRemoved">The test case to be removed.</param>
+        public void RemoveTestCaseFromSuite(TestCase testCaseToBeRemoved)
+        {
+            TestSuiteManager.RemoveTestCase(testCaseToBeRemoved);            
+            this.ObservableTestCases.Remove(testCaseToBeRemoved);
+            this.InitialTestCaseCollection.Remove(testCaseToBeRemoved);
+        }
+
+        /// <summary>
+        /// Renames the suite information observable collection.
+        /// </summary>
+        /// <param name="suites">The suites.</param>
+        /// <param name="selectedSuiteId">The selected suite unique identifier.</param>
+        /// <param name="newTitle">The new title.</param>
+        public void RenameSuiteInObservableCollection(ObservableCollection<Suite> suites, int selectedSuiteId, string newTitle)
+        {
+            foreach (Suite currentSuite in suites)
+            {
+                if (currentSuite.Id.Equals(selectedSuiteId))
+                {
+                    currentSuite.Title = newTitle;
+                    return;
+                }
+                if (currentSuite.SubSuites != null && currentSuite.SubSuites.Count > 0)
+                {
+                    this.RenameSuiteInObservableCollection(currentSuite.SubSuites, selectedSuiteId, newTitle);
+                }
+            }
+        }
+
+        /// <summary>
         /// Initializes the filters.
         /// </summary>
         private void InitializeFilters()
@@ -293,7 +326,7 @@ namespace TestCaseManagerApp.ViewModels
                     this.SelectPreviouslySelectedSuite(currentSuite.SubSuites, selectedSuiteId);
                 }
             }
-        }
+        }       
 
         /// <summary>
         /// Expands the parent.
