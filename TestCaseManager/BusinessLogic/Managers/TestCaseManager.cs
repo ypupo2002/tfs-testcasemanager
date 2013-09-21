@@ -24,6 +24,7 @@ namespace TestCaseManagerApp
         public static List<TestCase> GetAllTestCasesFromSuiteCollection(ITestSuiteCollection suiteEntries)
         {
             List<TestCase> testCases = new List<TestCase>();
+           
             foreach (ITestSuiteBase currentSuite in suiteEntries)
             {
                 if (currentSuite != null)
@@ -44,6 +45,25 @@ namespace TestCaseManagerApp
                     }
                 }
             }
+            return testCases;
+        }
+
+        /// <summary>
+        /// Gets all test case from suite.
+        /// </summary>
+        /// <param name="suiteId">The suite unique identifier.</param>
+        /// <returns>list of all test cases in the list</returns>
+        public static List<TestCase> GetAllTestCaseFromSuite(int suiteId)
+        {
+            List<TestCase> testCases = new List<TestCase>();
+            ExecutionContext.Preferences.TestPlan.Refresh();
+            ITestSuiteBase currentSuite = ExecutionContext.Preferences.TestPlan.Project.TestSuites.Find(suiteId);
+            currentSuite.Refresh();
+            foreach (var currentTestCase in currentSuite.TestCases)
+            {
+                testCases.Add(new TestCase(currentTestCase.TestCase, currentSuite));
+            }
+
             return testCases;
         }
 

@@ -59,10 +59,10 @@ namespace TestCaseManagerApp.ViewModels
         /// </summary>
         public void InitializeTestCases()
         {
-            this.ObservableTestCases = new ObservableCollection<TestCase>();
             ExecutionContext.Preferences.TestPlan.Refresh();
             ExecutionContext.Preferences.TestPlan.RootSuite.Refresh();
             List<TestCase> testCasesList = TestCaseManager.GetAllTestCasesInTestPlan();
+            this.ObservableTestCases = new ObservableCollection<TestCase>();
             testCasesList.ForEach(t => this.ObservableTestCases.Add(t));
         }
 

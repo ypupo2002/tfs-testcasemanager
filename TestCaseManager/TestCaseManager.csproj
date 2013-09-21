@@ -126,6 +126,7 @@
     <Compile Include="BusinessLogic\Entities\AssociateTestViewFilters.cs" />
     <Compile Include="BusinessLogic\Entities\InitialViewFilters.cs" />
     <Compile Include="BusinessLogic\Entities\SharedStepIdReplacePair.cs" />
+    <Compile Include="BusinessLogic\Entities\Suite.cs" />
     <Compile Include="BusinessLogic\Entities\Test.cs" />
     <Compile Include="BusinessLogic\Entities\TextReplacePair.cs" />
     <Compile Include="BusinessLogic\Managers\ProjectManager.cs" />

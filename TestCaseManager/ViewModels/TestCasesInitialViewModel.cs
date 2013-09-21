@@ -10,6 +10,7 @@ namespace TestCaseManagerApp.ViewModels
     using System.Linq;
     using System.Windows.Threading;
     using FirstFloor.ModernUI.Presentation;
+    using Microsoft.TeamFoundation.TestManagement.Client;
     using TestCaseManagerApp.BusinessLogic.Entities;
 
     /// <summary>
@@ -17,6 +18,11 @@ namespace TestCaseManagerApp.ViewModels
     /// </summary>
     public class TestCasesInitialViewModel : NotifyPropertyChanged
     {
+        /// <summary>
+        /// The selected suite unique identifier
+        /// </summary>
+        private int selectedSuiteId;
+
         /// <summary>
         /// Indicating wheter the automated test cases should be displayed in the test cases grid
         /// </summary>
@@ -32,15 +38,35 @@ namespace TestCaseManagerApp.ViewModels
         /// </summary>
         public TestCasesInitialViewModel()
         {
-            ExecutionContext.Preferences.TestPlan.Refresh();
-            ExecutionContext.Preferences.TestPlan.RootSuite.Refresh();
-            List<TestCase> testCasesList = TestCaseManager.GetAllTestCasesInTestPlan();
+            this.InitializeFilters();
+
+            // Load last selected suite in the treeview in order to selected it again
+            this.selectedSuiteId = RegistryManager.GetSelectedSuiteIdFilter();
+            List<TestCase> suiteTestCaseCollection = new List<TestCase>();
+            if (this.selectedSuiteId != -1)
+            {
+                suiteTestCaseCollection = TestCaseManager.GetAllTestCaseFromSuite(this.selectedSuiteId);
+            }
+            else
+            {
+                suiteTestCaseCollection = TestCaseManager.GetAllTestCasesInTestPlan();
+            }      
+            
             this.ObservableTestCases = new ObservableCollection<TestCase>();
-            testCasesList.ForEach(t => this.ObservableTestCases.Add(t));
-            InitializeFilters();
-            this.InitializeInitialTestCaseCollection();
-            this.FilterTestCases();
-            this.TestCasesCount = this.ObservableTestCases.Count.ToString();            
+            this.InitialTestCaseCollection = new ObservableCollection<TestCase>();
+            suiteTestCaseCollection.ForEach(t => this.ObservableTestCases.Add(t));
+            this.InitializeInitialTestCaseCollection(this.ObservableTestCases);
+            this.FilterTestCases();         
+            this.TestCasesCount = this.ObservableTestCases.Count.ToString();
+            ObservableCollection<Suite> subSuites = TestSuiteManager.GetAllSuites(ExecutionContext.Preferences.TestPlan.RootSuite.SubSuites);
+            this.Suites = new ObservableCollection<Suite>();
+
+            // Add a master node which will represnt all test cases in the plan. If selected all test cases will be displayed.
+            Suite masterSuite = new Suite("ALL", -1, subSuites);
+            masterSuite.IsNodeExpanded = true;
+            masterSuite.IsSelected = false;
+            this.Suites.Add(masterSuite);
+            this.SelectPreviouslySelectedSuite(this.Suites, this.selectedSuiteId);
         }      
 
         /// <summary>
@@ -51,7 +77,16 @@ namespace TestCaseManagerApp.ViewModels
         {
             this.InitialViewFilters = viewModel.InitialViewFilters;
             this.HideAutomated = viewModel.HideAutomated;
+            this.UpdateSuites(viewModel.Suites, this.Suites);            
         }
+
+        /// <summary>
+        /// Gets or sets the suites.
+        /// </summary>
+        /// <value>
+        /// The suites.
+        /// </value>
+        public ObservableCollection<Suite> Suites { get; set; }
 
         /// <summary>
         /// Gets or sets the observable test cases.
@@ -161,27 +196,115 @@ namespace TestCaseManagerApp.ViewModels
         }
 
         /// <summary>
+        /// Initializes the initial test case collection.
+        /// </summary>
+        /// <param name="testCases">The test cases.</param>
+        public void InitializeInitialTestCaseCollection(ICollection<TestCase> testCases)
+        {
+            this.InitialTestCaseCollection.Clear();
+            foreach (var currentTestCase in testCases)
+            {
+                this.InitialTestCaseCollection.Add(currentTestCase);
+            }
+        }
+
+        /// <summary>
+        /// Determines whether [is there subnode selected] [the specified suites].
+        /// </summary>
+        /// <param name="suites">The suites.</param>
+        /// <returns>is there subnode selected</returns>
+        public bool IsThereSubnodeSelected(ObservableCollection<Suite> suites)
+        {
+            bool result = false;
+            foreach (Suite currentSuite in suites)
+            {                
+                if (currentSuite.IsSelected && currentSuite.Id != -1)
+                {
+                    result = true;
+                    break;
+                }
+                if (currentSuite.SubSuites != null && currentSuite.SubSuites.Count > 0)
+                {
+                    result = this.IsThereSubnodeSelected(currentSuite.SubSuites);
+                    if (result)
+                    {
+                        break;
+                    }
+                }
+            }
+
+            return result;
+        }
+
+        /// <summary>
         /// Initializes the filters.
         /// </summary>
         private void InitializeFilters()
         {
             this.InitialViewFilters = new InitialViewFilters();
             this.InitialViewFilters.SuiteFilter = RegistryManager.GetSuiteFilter();
-            if (this.InitialViewFilters.SuiteFilter != String.Empty)
+            if (this.InitialViewFilters.SuiteFilter != string.Empty)
             {
                 this.InitialViewFilters.IsSuiteTextSet = true;
             }
         }
 
         /// <summary>
-        /// Initializes the initial test case collection.
+        /// Updates the suites.
         /// </summary>
-        private void InitializeInitialTestCaseCollection()
+        /// <param name="oldSuites">The old suites.</param>
+        /// <param name="newSuites">The new suites.</param>
+        private void UpdateSuites(ObservableCollection<Suite> oldSuites, ObservableCollection<Suite> newSuites)
         {
-            this.InitialTestCaseCollection = new ObservableCollection<TestCase>();
-            foreach (var currentTestCase in this.ObservableTestCases)
+            foreach (Suite currentOldSuite in oldSuites)
             {
-                this.InitialTestCaseCollection.Add(currentTestCase);
+                foreach (Suite currentSuite in newSuites)
+                {
+                    if (currentOldSuite.Id.Equals(currentSuite.Id))
+                    {
+                        currentSuite.IsNodeExpanded = currentOldSuite.IsNodeExpanded;
+                        currentSuite.IsSelected = currentOldSuite.IsSelected;       
+                    }
+                    if (currentSuite.SubSuites != null && currentSuite.SubSuites.Count > 0 && currentOldSuite.SubSuites != null && currentOldSuite.SubSuites.Count > 0)
+                    {
+                        this.UpdateSuites(currentOldSuite.SubSuites, currentSuite.SubSuites);
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// Selects the previously selected suite.
+        /// </summary>
+        /// <param name="suites">The suites.</param>
+        /// <param name="selectedSuiteId">The selected suite unique identifier.</param>
+        private void SelectPreviouslySelectedSuite(ObservableCollection<Suite> suites, int selectedSuiteId)
+        {
+            foreach (Suite currentSuite in suites)
+            {
+                if (currentSuite.Id.Equals(selectedSuiteId))
+                {
+                    currentSuite.IsSelected = true;
+                    this.ExpandParent(currentSuite);
+                    return;
+                }
+                if (currentSuite.SubSuites != null && currentSuite.SubSuites.Count > 0)
+                {
+                    this.SelectPreviouslySelectedSuite(currentSuite.SubSuites, selectedSuiteId);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Expands the parent.
+        /// </summary>
+        /// <param name="currentSuite">The current suite.</param>
+        private void ExpandParent(Suite currentSuite)
+        {
+            if (currentSuite.Parent != null)
+            {
+                currentSuite.Parent.IsNodeExpanded = true;
+                this.ExpandParent(currentSuite.Parent);
             }
         }
     }

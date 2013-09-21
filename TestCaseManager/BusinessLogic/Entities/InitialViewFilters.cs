@@ -12,6 +12,21 @@ namespace TestCaseManagerApp.BusinessLogic.Entities
     public class InitialViewFilters : NotifyPropertyChanged
     {
         /// <summary>
+        /// The detault unique identifier
+        /// </summary>
+        public string DetaultId = "ID";
+
+        /// <summary>
+        /// The detault title
+        /// </summary>
+        public string DetaultTitle = "Title";
+
+        /// <summary>
+        /// The detault suite
+        /// </summary>
+        public string DetaultSuite = "Suite";
+
+        /// <summary>
         /// The is title text set
         /// </summary>
         public bool IsTitleTextSet;
@@ -59,9 +74,9 @@ namespace TestCaseManagerApp.BusinessLogic.Entities
         /// </summary>
         public InitialViewFilters()
         {
-            this.IdFilter = "ID";
-            this.TitleFilter = "Title";
-            this.SuiteFilter = "Suite";
+            this.IdFilter = this.DetaultId;
+            this.TitleFilter = this.DetaultTitle;
+            this.SuiteFilter = this.DetaultSuite;
         }
 
         /// <summary>

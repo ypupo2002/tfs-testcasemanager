@@ -5,14 +5,47 @@
 namespace TestCaseManagerApp
 {
     using System.Collections.Generic;
+    using System.Collections.ObjectModel;
     using System.Linq;
     using Microsoft.TeamFoundation.TestManagement.Client;
+    using TestCaseManagerApp.BusinessLogic.Entities;
 
     /// <summary>
     /// Contains helper methods for working with TestSuite entities
     /// </summary>
     public static class TestSuiteManager
-    {   
+    {
+        /// <summary>
+        /// Gets all suites.
+        /// </summary>
+        /// <param name="subSuitesCore">The sub suites core.</param>
+        /// <returns>list of all suites</returns>
+        public static ObservableCollection<Suite> GetAllSuites(ITestSuiteCollection subSuitesCore)
+        {
+            ObservableCollection<Suite> subSuites = new ObservableCollection<Suite>();
+            foreach (ITestSuiteBase currentSuite in subSuitesCore)
+            {
+                if (currentSuite != null)
+                {
+                    ObservableCollection<Suite> childred = null;
+                    if (currentSuite is IStaticTestSuite)
+                    {
+                        IStaticTestSuite suite = currentSuite as IStaticTestSuite;
+                        if (suite.SubSuites != null && suite.SubSuites.Count > 0)
+                        {
+                            childred = GetAllSuites(suite.SubSuites);
+                        }
+                    }
+                    Suite newSuite = new Suite(currentSuite.Title, currentSuite.Id, childred);
+                    SetParentToAllChildrenSuites(childred, newSuite);
+                 
+                    subSuites.Add(newSuite);
+                }             
+            } 
+
+            return subSuites;
+        }    
+
         /// <summary>
         /// Gets all test suites from the current test plan.
         /// </summary>
@@ -87,6 +120,22 @@ namespace TestCaseManagerApp
         public static void RemoveTestCase(ITestCase testCaseToRemove)
         {
             RemoveTestCaseInternal(testCaseToRemove, ExecutionContext.Preferences.TestPlan.RootSuite.SubSuites);
+        }
+
+        /// <summary>
+        /// Sets the parent to all children suites.
+        /// </summary>
+        /// <param name="childred">The childred.</param>
+        /// <param name="newSuite">The new suite.</param>
+        private static void SetParentToAllChildrenSuites(ObservableCollection<Suite> childred, Suite newSuite)
+        {
+            if (childred != null)
+            {
+                foreach (Suite currentChild in childred)
+                {
+                    currentChild.Parent = newSuite;
+                }
+            }
         }
 
         /// <summary>

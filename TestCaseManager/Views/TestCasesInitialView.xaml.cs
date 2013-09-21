@@ -4,15 +4,19 @@
 // <author>Anton Angelov</author>
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Forms;
 using System.Windows.Input;
+using System.Windows.Media;
 using System.Windows.Threading;
 using FirstFloor.ModernUI.Windows;
 using FirstFloor.ModernUI.Windows.Controls;
 using FirstFloor.ModernUI.Windows.Navigation;
+using TestCaseManagerApp.BusinessLogic.Entities;
 using TestCaseManagerApp.ViewModels;
 
 namespace TestCaseManagerApp.Views
@@ -113,7 +117,6 @@ namespace TestCaseManagerApp.Views
         {
             if (isInitialized)
             {
-                RegistryManager.WriteSuiteFilter(this.TestCasesInitialViewModel.InitialViewFilters.SuiteFilter);
                 return;
             }
             this.ShowProgressBar();
@@ -356,6 +359,77 @@ namespace TestCaseManagerApp.Views
                 TestCase currentTestCase = dgTestCases.SelectedItem as TestCase;
                 this.NavigateToTestCasesEditView(currentTestCase.ITestCase.Id, currentTestCase.ITestSuiteBase.Id);
             }
+        }
+
+        /// <summary>
+        /// Handles the Selected event of the treeViewItem control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
+        private void treeViewItem_Selected(object sender, RoutedEventArgs e)
+        {
+            e.Handled = true;
+            int suiteId = (int)tvSuites.SelectedValue;
+            if (suiteId.Equals(-1) && this.TestCasesInitialViewModel.IsThereSubnodeSelected(this.TestCasesInitialViewModel.Suites))
+            {
+                return;
+            }
+
+            // Remove the initial view filters because we are currently filtering by suite and the old filters are not valid any more
+            this.TestCasesInitialViewModel.InitialViewFilters = new InitialViewFilters();
+            RegistryManager.WriteSelectedSuiteIdFilter(suiteId);
+            progressBarTestCases.Visibility = System.Windows.Visibility.Visible;
+            dgTestCases.Visibility = System.Windows.Visibility.Hidden;
+            List<TestCase> suiteTestCaseCollection = new List<TestCase>();
+            Task t = Task.Factory.StartNew(() =>
+            {              
+                if (suiteId != -1)
+                {
+                    suiteTestCaseCollection = TestCaseManager.GetAllTestCaseFromSuite(suiteId);
+                }
+                else if (isInitialized)
+                {
+                    suiteTestCaseCollection = TestCaseManager.GetAllTestCasesInTestPlan();
+                }           
+            });
+            t.ContinueWith(antecedent =>
+            {
+                this.TestCasesInitialViewModel.InitializeInitialTestCaseCollection(suiteTestCaseCollection);
+                this.TestCasesInitialViewModel.FilterTestCases();
+                progressBarTestCases.Visibility = System.Windows.Visibility.Hidden;
+                dgTestCases.Visibility = System.Windows.Visibility.Visible;
+            }, TaskScheduler.FromCurrentSynchronizationContext());       
+        }
+
+        /// <summary>
+        /// Handles the PreviewMouseRightButtonDown event of the TreeViewItem control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.Windows.Input.MouseEventArgs"/> instance containing the event data.</param>
+        private void TreeViewItem_PreviewMouseRightButtonDown(object sender, System.Windows.Input.MouseEventArgs e)
+        {
+            TreeViewItem treeViewItem = this.VisualUpwardSearch(e.OriginalSource as DependencyObject);
+
+            if (treeViewItem != null)
+            {
+                treeViewItem.Focus();
+                e.Handled = true;
+            }
+        }
+
+        /// <summary>
+        /// Visuals the upward search.
+        /// </summary>
+        /// <param name="source">The source.</param>
+        /// <returns>parent tree view item</returns>
+        private TreeViewItem VisualUpwardSearch(DependencyObject source)
+        {
+            while (source != null && !(source is TreeViewItem))
+            {
+                source = VisualTreeHelper.GetParent(source);
+            }
+
+            return source as TreeViewItem;
         }
 
         /// <summary>

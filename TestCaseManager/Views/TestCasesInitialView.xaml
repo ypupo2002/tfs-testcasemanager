@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:mui="http://firstfloorsoftware.com/ModernU"
              xmlns:local="clr-namespace:TestCaseManagerApp.Views"
+             xmlns:entities="clr-namespace:TestCaseManagerApp.BusinessLogic.Entities"
              mc:Ignorable="d" Loaded="TestCaseInitialView_Loaded">
     <Grid>
         <Grid.CommandBindings>
@@ -24,7 +25,12 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
-            <StackPanel Orientation="Horizontal">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition MinWidth="250" Width="Auto"/>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition MinWidth="500" Width="*"/>
+            </Grid.ColumnDefinitions>
+            <StackPanel Orientation="Horizontal" Grid.ColumnSpan="2">
                 <TextBlock Text="Search" Margin="10,0,10,30" Height="25" Width="150" FontWeight="Bold" FontSize="18" HorizontalAlignment="Left" Grid.Row="0"/>
                 <Button Name="btnRefresh" Margin="10,0,10,30" Height="30" Width="90" VerticalAlignment="Center" Click="btnRefresh_Click">
                     <Button.Content>
@@ -34,8 +40,8 @@
                     </Button.Content>
                 </Button>
             </StackPanel>
-         
-            <StackPanel Orientation="Vertical" Grid.Row="1">
+
+            <StackPanel Orientation="Vertical" Grid.Row="1" Grid.Column="2">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto" />
@@ -54,7 +60,33 @@
                 </StackPanel>
             </StackPanel>
 
-            <DataGrid ItemsSource="{Binding Path=ObservableTestCases}" AutoGenerateColumns="False" Name="dgTestCases" Grid.Row="2" MouseDoubleClick="dgTestCases_MouseDoubleClick" IsReadOnly="True" SelectionMode="Single" SelectionUnit="FullRow" TabIndex="3" PreviewKeyDown="dgTestCases_KeyDown">
+            <TreeView  Name="tvSuites" Grid.Row="1" Grid.Column="0" Grid.RowSpan="2"  SelectedValuePath="Id" ItemsSource="{Binding Suites}" >
+                <TreeView.ItemContainerStyle>
+                    <Style TargetType="{x:Type TreeViewItem}">
+                        <Setter Property="IsExpanded" Value="{Binding Path=IsNodeExpanded, Mode=TwoWay}" />
+                        <Setter Property="IsSelected" Value="{Binding Path=IsSelected, Mode=TwoWay}" />
+                        <EventSetter Event="TreeViewItem.PreviewMouseRightButtonDown" Handler="TreeViewItem_PreviewMouseRightButtonDown"/>
+                        <EventSetter Event="TreeViewItem.Selected" Handler="treeViewItem_Selected"/>
+                        <Setter Property="ContextMenu">
+                            <Setter.Value>
+                                <ContextMenu>
+                                    <MenuItem Header="Rename" Command="{Binding RenameCommand}"/>
+                                </ContextMenu>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </TreeView.ItemContainerStyle>
+                <TreeView.Resources>                 
+                    <HierarchicalDataTemplate DataType="{x:Type entities:Suite}" ItemsSource="{Binding SubSuites}" >                     
+                        <TextBlock Text="{Binding Path=Title}" FontSize="14"/>
+                        </HierarchicalDataTemplate>
+                    </TreeView.Resources>
+                </TreeView>
+
+            <GridSplitter Width="5" ResizeDirection="Auto" HorizontalAlignment="Right" VerticalAlignment="Stretch" Grid.Row="1" Grid.RowSpan="2" Grid.Column="1"/>
+
+            <ProgressBar Name="progressBarTestCases" Minimum="0" Maximum="1" Height="16" IsIndeterminate="True" Margin="0,0,0,16" Grid.Row="2" Grid.Column="2" Visibility="Hidden"/>
+            <DataGrid ItemsSource="{Binding Path=ObservableTestCases}" AutoGenerateColumns="False" Name="dgTestCases" Grid.Row="2" Grid.Column="2" MouseDoubleClick="dgTestCases_MouseDoubleClick" IsReadOnly="True" SelectionMode="Single" SelectionUnit="FullRow" TabIndex="3" PreviewKeyDown="dgTestCases_KeyDown">
                 <DataGrid.ContextMenu>
                     <ContextMenu>
                         <MenuItem Command="{x:Static local:TestCasesInitialView.EditCommand}" Header="Edit"/>
@@ -63,7 +95,7 @@
                     </ContextMenu>
                 </DataGrid.ContextMenu>
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="ID"  Binding="{Binding ITestCase.Id}" Width="0.6*">
+                    <DataGridTextColumn Header="ID"  Binding="{Binding ITestCase.Id}" Width="1*">
                         <DataGridTextColumn.HeaderStyle>
                             <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource {x:Type DataGridColumnHeader}}">
                                 <Setter Property="HorizontalContentAlignment" Value="Left"/>
@@ -84,14 +116,14 @@
                             </Style>
                         </DataGridTextColumn.HeaderStyle>
                     </DataGridTextColumn>
-                    <DataGridTextColumn Header="Priority" Binding="{Binding ITestCase.Priority}" Width="1*">
+                    <DataGridTextColumn Header="Priority" Binding="{Binding ITestCase.Priority}" Width="1.5*">
                         <DataGridTextColumn.HeaderStyle>
                             <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource {x:Type DataGridColumnHeader}}">
                                 <Setter Property="HorizontalContentAlignment" Value="Left"/>
                             </Style>
                         </DataGridTextColumn.HeaderStyle>
                     </DataGridTextColumn>
-                    <DataGridTextColumn Header="Automated" Binding="{Binding ITestCase.IsAutomated}" Width="1.2*">
+                    <DataGridTextColumn Header="Automated" Binding="{Binding ITestCase.IsAutomated}" Width="2*">
                         <DataGridTextColumn.HeaderStyle>
                             <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource {x:Type DataGridColumnHeader}}">
                                 <Setter Property="HorizontalContentAlignment" Value="Left"/>
@@ -101,7 +133,7 @@
                     </DataGrid.Columns>
             </DataGrid>
             
-            <StackPanel Orientation="Vertical" Grid.Row="3" Margin="0,30,0,30">
+            <StackPanel Orientation="Vertical" Grid.Row="3" Grid.ColumnSpan="3" Margin="0,30,0,30">
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
                     <Button Name="btn_Preview" Margin="0,0,10,0" Height="30" Width="90" VerticalAlignment="Center" Click="PreviewButton_Click">
                         <Button.Content>

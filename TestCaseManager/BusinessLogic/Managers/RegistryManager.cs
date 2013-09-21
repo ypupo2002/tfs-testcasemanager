@@ -67,6 +67,11 @@ namespace TestCaseManagerApp
         private static string suiteFilterRegistrySubKeyName = "suiteFilter";
 
         /// <summary>
+        /// The suite filter registry sub key name
+        /// </summary>
+        private static string selectedSuiteIdFilterRegistrySubKeyName = "selectedSuiteId";
+
+        /// <summary>
         /// The automation association registry sub key name
         /// </summary>
         private static string automationAssociationRegistrySubKeyName = "AutomationAssociation";
@@ -132,6 +137,23 @@ namespace TestCaseManagerApp
             RegistryKey filtersR = dataR.CreateSubKey(filtersRegistrySubKeyName);
             RegistryKey initialFiltersR = filtersR.CreateSubKey(initialFiltersRegistrySubKeyName);
             initialFiltersR.SetValue(suiteFilterRegistrySubKeyName, suiteFilter);
+            initialFiltersR.Close();
+            filtersR.Close();
+            dataR.Close();
+            ata.Close();
+        }
+
+        /// <summary>
+        /// Writes the selected suite unique identifier filter.
+        /// </summary>
+        /// <param name="suiteId">The suite unique identifier.</param>
+        public static void WriteSelectedSuiteIdFilter(int suiteId)
+        {
+            RegistryKey ata = Registry.CurrentUser.CreateSubKey(mainRegistrySubKeyName);
+            RegistryKey dataR = ata.CreateSubKey(dataRegistrySubKeyName);
+            RegistryKey filtersR = dataR.CreateSubKey(filtersRegistrySubKeyName);
+            RegistryKey initialFiltersR = filtersR.CreateSubKey(initialFiltersRegistrySubKeyName);
+            initialFiltersR.SetValue(selectedSuiteIdFilterRegistrySubKeyName, suiteId.ToString());
             initialFiltersR.Close();
             filtersR.Close();
             dataR.Close();
@@ -451,6 +473,38 @@ namespace TestCaseManagerApp
             }
 
             return suiteFilter;
+        }
+
+        /// <summary>
+        /// Gets the selected suite unique identifier filter from registry;
+        /// </summary>
+        /// <returns>selected suite id</returns>
+        public static int GetSelectedSuiteIdFilter()
+        {
+            int selectedSuiteId = -1;
+            try
+            {
+                RegistryKey ata = Registry.CurrentUser.OpenSubKey(mainRegistrySubKeyName);
+                RegistryKey dataR = ata.OpenSubKey(dataRegistrySubKeyName);
+                RegistryKey filtersR = dataR.OpenSubKey(filtersRegistrySubKeyName);
+                RegistryKey initialFiltersR = filtersR.OpenSubKey(initialFiltersRegistrySubKeyName);
+
+                if (filtersR != null && dataR != null && ata != null && initialFiltersR != null)
+                {
+                    string selectedSuiteIdStr = (string)initialFiltersR.GetValue(selectedSuiteIdFilterRegistrySubKeyName);
+                    selectedSuiteId = int.Parse(selectedSuiteIdStr);
+                    filtersR.Close();
+                    initialFiltersR.Close();
+                    dataR.Close();
+                    ata.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                // TODO: Add Exception Logging
+            }
+
+            return selectedSuiteId;
         }
     }
 }
