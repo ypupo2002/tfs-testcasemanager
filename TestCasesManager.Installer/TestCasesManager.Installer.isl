@@ -52,7 +52,7 @@
 	<summary>
 		<codepage>1252</codepage>
 		<title>Installation Database</title>
-		<subject>Test Cases Manager 1.03</subject>
+		<subject>Test Cases Manager 1.0.5.1</subject>
 		<author>##ID_STRING3##</author>
 		<keywords>Installer,MSI,Database</keywords>
 		<comments>Contact:  Your local administrator</comments>
@@ -1052,8 +1052,6 @@
 	<table name="CreateFolder">
 		<col key="yes" def="s72">Directory_</col>
 		<col key="yes" def="s72">Component_</col>
-		<row><td>CommonAppDataFolder</td><td>ISO19770_SystemTag</td></row>
-		<row><td>INSTALLDIR</td><td>ISO19770_LocalTag</td></row>
 		<row><td>INSTALLDIR</td><td>NewComponent1</td></row>
 	</table>
 
@@ -1143,7 +1141,7 @@
 		<row><td>FavoritesFolder</td><td>TARGETDIR</td><td>.:FAVORI~1|Favorites</td><td/><td>0</td><td/></row>
 		<row><td>FontsFolder</td><td>TARGETDIR</td><td>.:Fonts</td><td/><td>0</td><td/></row>
 		<row><td>GlobalAssemblyCache</td><td>TARGETDIR</td><td>.:Global~1|GlobalAssemblyCache</td><td/><td>0</td><td/></row>
-		<row><td>INSTALLDIR</td><td>TESTCASEMANAGER</td><td>.</td><td/><td>0</td><td/></row>
+		<row><td>INSTALLDIR</td><td>TESTCASEMANAGER1</td><td>.</td><td/><td>0</td><td/></row>
 		<row><td>ISCommonFilesFolder</td><td>CommonFilesFolder</td><td>Instal~1|InstallShield</td><td/><td>0</td><td/></row>
 		<row><td>ISMyCompanyDir</td><td>ProgramFilesFolder</td><td>MYCOMP~1|My Company Name</td><td/><td>0</td><td/></row>
 		<row><td>ISMyProductDir</td><td>ISMyCompanyDir</td><td>MYPROD~1|My Product Name</td><td/><td>0</td><td/></row>
@@ -1166,6 +1164,8 @@
 		<row><td>TARGETDIR</td><td/><td>SourceDir</td><td/><td>0</td><td/></row>
 		<row><td>TELERIK</td><td>ProgramFilesFolder</td><td>Telerik</td><td/><td>0</td><td/></row>
 		<row><td>TESTCASEMANAGER</td><td>TELERIK</td><td>TESTCA~1|TestCaseManager</td><td/><td>0</td><td/></row>
+		<row><td>TESTCASEMANAGER1</td><td>ProgramFilesFolder</td><td>TESTCA~1|TestCaseManager</td><td/><td>0</td><td/></row>
+		<row><td>TESTCASEMANAGER2</td><td>TESTCASEMANAGER1</td><td>TESTCA~1|TestCaseManager</td><td/><td>0</td><td/></row>
 		<row><td>TempFolder</td><td>TARGETDIR</td><td>.:Temp</td><td/><td>0</td><td/></row>
 		<row><td>TemplateFolder</td><td>TARGETDIR</td><td>.:ShellNew</td><td/><td>0</td><td/></row>
 		<row><td>USERPROFILE</td><td>TARGETDIR</td><td>.:USERPR~1|UserProfile</td><td/><td>0</td><td/></row>
@@ -1881,6 +1881,8 @@
 		<col def="S255">ISBuildSourcePath</col>
 		<col def="I4">ISAttributes</col>
 		<col def="S72">ISComponentSubFolder_</col>
+		<row><td>regid.2013_09.com.telerik.ww</td><td>ISO19770_SystemTag</td><td>REGID2~1.SWI|regid.2013-09.com.telerik.www_0E9085DB-D2D5-4BAB-8A4C-1B589791E706.swidtag</td><td>0</td><td/><td/><td/><td>1</td><td>D:\Projects\TestCaseManager\TestCasesManager.Installer\TestCasesManager.Installer\Express\Interm\regid.2013-09.com.telerik.www_0E9085DB-D2D5-4BAB-8A4C-1B589791E706.swidtag</td><td>1</td><td/></row>
+		<row><td>regid.2013_09.com.telerik.ww1</td><td>ISO19770_LocalTag</td><td>REGID2~1.SWI|regid.2013-09.com.telerik.www_0E9085DB-D2D5-4BAB-8A4C-1B589791E706.swidtag</td><td>0</td><td/><td/><td/><td>1</td><td>D:\Projects\TestCaseManager\TestCasesManager.Installer\TestCasesManager.Installer\Express\Interm\regid.2013-09.com.telerik.www_0E9085DB-D2D5-4BAB-8A4C-1B589791E706.swidtag</td><td>1</td><td/></row>
 		<row><td>testcasemanager.primary_outp</td><td>TestCaseManager.Primary_output</td><td>TestCaseManager.Primary output</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;TestCaseManager&gt;|Built</td><td>3</td><td/></row>
 	</table>
 
@@ -2770,7 +2772,7 @@
 		<col def="I2">Encoded</col>
 		<col def="S0">Comment</col>
 		<col def="I4">TimeStamp</col>
-		<row><td>COMPANY_NAME</td><td>1033</td><td>Telerik</td><td>0</td><td/><td>1688278356</td></row>
+		<row><td>COMPANY_NAME</td><td>1033</td><td>Telerik</td><td>0</td><td/><td>-1130242975</td></row>
 		<row><td>DN_AlwaysInstall</td><td>1033</td><td>Always Install</td><td>0</td><td/><td>2082544425</td></row>
 		<row><td>IDPROP_EXPRESS_LAUNCH_CONDITION_COLOR</td><td>1033</td><td>The color settings of your system are not adequate for running [ProductName].</td><td>0</td><td/><td>2082544425</td></row>
 		<row><td>IDPROP_EXPRESS_LAUNCH_CONDITION_DOTNETVERSION45FULL</td><td>1033</td><td>Microsoft .NET Framework 4.5 Full package or greater needs to be installed for this installation to continue.</td><td>0</td><td/><td>2082591529</td></row>
@@ -3873,12 +3875,12 @@
 		<row><td>IDS__TargetReq_DESC_RAM</td><td>1033</td><td>The amount of RAM is not adequate for running [ProductName].</td><td>0</td><td/><td>2082544425</td></row>
 		<row><td>IDS__TargetReq_DESC_RESOLUTION</td><td>1033</td><td>The screen resolution is not adequate for running [ProductName].</td><td>0</td><td/><td>2082544425</td></row>
 		<row><td>ID_STRING1</td><td>1033</td><td/><td>0</td><td/><td>2082546473</td></row>
-		<row><td>ID_STRING2</td><td>1033</td><td>http://www.Telerik.com</td><td>0</td><td/><td>1688278356</td></row>
-		<row><td>ID_STRING3</td><td>1033</td><td>Telerik</td><td>0</td><td/><td>1688278356</td></row>
+		<row><td>ID_STRING2</td><td>1033</td><td>http://www.Telerik.com</td><td>0</td><td/><td>-1130242975</td></row>
+		<row><td>ID_STRING3</td><td>1033</td><td>Telerik</td><td>0</td><td/><td>-1130242975</td></row>
 		<row><td>ID_STRING4</td><td>1033</td><td>Launch |Built</td><td>0</td><td/><td>2082577257</td></row>
 		<row><td>ID_STRING5</td><td>1033</td><td>Launch |Built</td><td>0</td><td/><td>2082596137</td></row>
 		<row><td>ID_STRING6</td><td>1033</td><td>angelov.st.anton@gmail.com</td><td>0</td><td/><td>1017196950</td></row>
-		<row><td>ID_STRING7</td><td>1033</td><td>http://www.Telerik.comworkitem/list/basic</td><td>0</td><td/><td>1688278356</td></row>
+		<row><td>ID_STRING7</td><td>1033</td><td>http://www.Telerik.comworkitem/list/basic</td><td>0</td><td/><td>-1130242975</td></row>
 		<row><td>ID_STRING8</td><td>1033</td><td>https://testcasemanager.codeplex.com/releases</td><td>0</td><td/><td>1017207222</td></row>
 		<row><td>IIDS_UITEXT_FeatureUninstalled</td><td>1033</td><td>This feature will remain uninstalled.</td><td>0</td><td/><td>2082544425</td></row>
 	</table>
@@ -4509,8 +4511,8 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<row><td>PROGMSG_IIS_ROLLBACKVROOTS</td><td>##IDS_PROGMSG_IIS_ROLLBACKVROOTS##</td><td/></row>
 		<row><td>PROGMSG_IIS_ROLLBACKWEBSERVICEEXTENSIONS</td><td>##IDS_PROGMSG_IIS_ROLLBACKWEBSERVICEEXTENSIONS##</td><td/></row>
 		<row><td>ProductCode</td><td>{717296F4-160E-4CF6-82BA-0213015BFE96}</td><td/></row>
-		<row><td>ProductName</td><td>Test Cases Manager 1.04</td><td/></row>
-		<row><td>ProductVersion</td><td>1.04.0000</td><td/></row>
+		<row><td>ProductName</td><td>Test Cases Manager 1.0.5.1</td><td/></row>
+		<row><td>ProductVersion</td><td>1.0.5.1</td><td/></row>
 		<row><td>ProgressType0</td><td>install</td><td/></row>
 		<row><td>ProgressType1</td><td>Installing</td><td/></row>
 		<row><td>ProgressType2</td><td>installed</td><td/></row>
