@@ -9,7 +9,7 @@ namespace TestCaseManagerApp.BusinessLogic.Entities
     /// <summary>
     /// Contains search filters for the initial app view
     /// </summary>
-    public class InitialViewFilters : NotifyPropertyChanged
+    public class InitialViewFilters : BaseNotifyPropertyChanged
     {
         /// <summary>
         /// The detault unique identifier
@@ -95,7 +95,7 @@ namespace TestCaseManagerApp.BusinessLogic.Entities
             set
             {
                 this.titleFilter = value;
-                this.OnPropertyChanged("TitleFilter");
+                this.NotifyPropertyChanged();
             }
         }
 
@@ -115,7 +115,7 @@ namespace TestCaseManagerApp.BusinessLogic.Entities
             set
             {
                 this.suiteFilter = value;
-                this.OnPropertyChanged("SuiteFilter");
+                this.NotifyPropertyChanged();
             }
         }
 
@@ -135,7 +135,7 @@ namespace TestCaseManagerApp.BusinessLogic.Entities
             set
             {
                 this.idFilter = value;
-                this.OnPropertyChanged("IdFilter");
+                this.NotifyPropertyChanged();
             }
         }
     }

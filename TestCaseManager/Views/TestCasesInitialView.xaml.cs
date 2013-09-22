@@ -17,6 +17,7 @@ using FirstFloor.ModernUI.Windows;
 using FirstFloor.ModernUI.Windows.Controls;
 using FirstFloor.ModernUI.Windows.Navigation;
 using TestCaseManagerApp.BusinessLogic.Entities;
+using TestCaseManagerApp.BusinessLogic.Enums;
 using TestCaseManagerApp.ViewModels;
 
 namespace TestCaseManagerApp.Views
@@ -65,6 +66,41 @@ namespace TestCaseManagerApp.Views
         /// The add suite command
         /// </summary>
         public static RoutedCommand AddSuiteCommand = new RoutedCommand();
+
+        /// <summary>
+        /// The remove suite command
+        /// </summary>
+        public static RoutedCommand RemoveSuiteCommand = new RoutedCommand();
+
+        /// <summary>
+        /// The copy suite command
+        /// </summary>
+        public static RoutedCommand CopySuiteCommand = new RoutedCommand();
+
+        /// <summary>
+        /// The cut suite command
+        /// </summary>
+        public static RoutedCommand CutSuiteCommand = new RoutedCommand();
+
+        /// <summary>
+        /// The paste suite command
+        /// </summary>
+        public static RoutedCommand PasteSuiteCommand = new RoutedCommand();
+
+        /// <summary>
+        /// The copy test cases command
+        /// </summary>
+        public static RoutedCommand CopyTestCasesCommand = new RoutedCommand();
+
+        /// <summary>
+        /// The cut test cases command
+        /// </summary>
+        public static RoutedCommand CutTestCasesCommand = new RoutedCommand();
+
+        /// <summary>
+        /// The paste test cases command
+        /// </summary>
+        public static RoutedCommand PasteTestCasesCommand = new RoutedCommand();
 
         /// <summary>
         /// Indicates if the view model is already initialized
@@ -206,7 +242,7 @@ namespace TestCaseManagerApp.Views
             {
                 TestCase currentTestCase = dgTestCases.SelectedItem as TestCase;
                 this.NavigateToTestCasesDetailedView(currentTestCase.ITestCase.Id, currentTestCase.ITestSuiteBase.Id);
-            });     
+            });
         }
 
         /// <summary>
@@ -217,7 +253,7 @@ namespace TestCaseManagerApp.Views
         {
             if (dgTestCases.SelectedIndex != -1)
             {
-                action.Invoke();               
+                action.Invoke();
             }
             else
             {
@@ -244,7 +280,7 @@ namespace TestCaseManagerApp.Views
             {
                 TestCase currentTestCase = dgTestCases.SelectedItem as TestCase;
                 this.NavigateToTestCasesEditView(currentTestCase.ITestCase.Id, currentTestCase.ITestSuiteBase.Id);
-            });           
+            });
         }
 
         /// <summary>
@@ -258,7 +294,7 @@ namespace TestCaseManagerApp.Views
             {
                 TestCase currentTestCase = dgTestCases.SelectedItem as TestCase;
                 this.NavigateToTestCasesEditView(currentTestCase.ITestCase.Id, currentTestCase.ITestSuiteBase.Id, true, true);
-            });           
+            });
         }
 
         /// <summary>
@@ -338,7 +374,7 @@ namespace TestCaseManagerApp.Views
         /// <param name="e">The <see cref="System.Windows.Input.KeyEventArgs"/> instance containing the event data.</param>
         private void tbIdFilter_KeyUp(object sender, System.Windows.Input.KeyEventArgs e)
         {
-            this.TestCasesInitialViewModel.FilterTestCases();     
+            this.TestCasesInitialViewModel.FilterTestCases();
         }
 
         /// <summary>
@@ -393,11 +429,10 @@ namespace TestCaseManagerApp.Views
             // Remove the initial view filters because we are currently filtering by suite and the old filters are not valid any more
             this.TestCasesInitialViewModel.InitialViewFilters = new InitialViewFilters();
             RegistryManager.WriteSelectedSuiteId(suiteId);
-            progressBarTestCases.Visibility = System.Windows.Visibility.Visible;
-            dgTestCases.Visibility = System.Windows.Visibility.Hidden;
+            this.ShowTestCasesProgressbar();
             List<TestCase> suiteTestCaseCollection = new List<TestCase>();
             Task t = Task.Factory.StartNew(() =>
-            {              
+            {
                 if (suiteId != -1)
                 {
                     suiteTestCaseCollection = TestCaseManager.GetAllTestCaseFromSuite(suiteId);
@@ -405,15 +440,14 @@ namespace TestCaseManagerApp.Views
                 else if (isInitialized)
                 {
                     suiteTestCaseCollection = TestCaseManager.GetAllTestCasesInTestPlan();
-                }           
+                }
             });
             t.ContinueWith(antecedent =>
             {
                 this.TestCasesInitialViewModel.InitializeInitialTestCaseCollection(suiteTestCaseCollection);
                 this.TestCasesInitialViewModel.FilterTestCases();
-                progressBarTestCases.Visibility = System.Windows.Visibility.Hidden;
-                dgTestCases.Visibility = System.Windows.Visibility.Visible;
-            }, TaskScheduler.FromCurrentSynchronizationContext());       
+                this.HideTestCasesProgressbar();
+            }, TaskScheduler.FromCurrentSynchronizationContext());
         }
 
         /// <summary>
@@ -435,6 +469,209 @@ namespace TestCaseManagerApp.Views
         {
             this.RenameSuiteInternal();
             e.Handled = true;
+        }
+
+        /// <summary>
+        /// Handles the Command event of the copySuite control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="ExecutedRoutedEventArgs"/> instance containing the event data.</param>
+        private void copySuite_Command(object sender, ExecutedRoutedEventArgs e)
+        {
+            e.Handled = true;
+            int selectedSuiteId = RegistryManager.GetSelectedSuiteId();
+            Suite suite = this.TestCasesInitialViewModel.GetSuiteById(this.TestCasesInitialViewModel.Suites, selectedSuiteId);
+            suite.CopyToClipboard(true);
+        }
+
+        /// <summary>
+        /// Handles the Command event of the copyTestCases control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="ExecutedRoutedEventArgs"/> instance containing the event data.</param>
+        private void copyTestCases_Command(object sender, ExecutedRoutedEventArgs e)
+        {
+            e.Handled = true;
+            List<TestCase> testCases = this.GetSelectedTestCasesInternal();
+            List<LightTestCase> lightTetCases = TestCaseManager.GetLightTestCases(testCases);
+            TestCaseManager.CopyToClipboardTestCases(true, lightTetCases);
+        }
+
+        /// <summary>
+        /// Handles the Command event of the cutTestCases control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="ExecutedRoutedEventArgs"/> instance containing the event data.</param>
+        private void cutTestCases_Command(object sender, ExecutedRoutedEventArgs e)
+        {
+            e.Handled = true;
+            List<TestCase> testCases = this.GetSelectedTestCasesInternal();
+            List<LightTestCase> lightTetCases = TestCaseManager.GetLightTestCases(testCases);
+            TestCaseManager.CopyToClipboardTestCases(false, lightTetCases);
+        }
+
+        /// <summary>
+        /// Handles the Command event of the pasteTestCases control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="ExecutedRoutedEventArgs"/> instance containing the event data.</param>
+        private void pasteTestCases_Command(object sender, ExecutedRoutedEventArgs e)
+        {
+            e.Handled = true;
+            int selectedSuiteId = RegistryManager.GetSelectedSuiteId();
+            Suite suite = this.TestCasesInitialViewModel.GetSuiteById(this.TestCasesInitialViewModel.Suites, selectedSuiteId);
+            suite.CopyToClipboard(true);
+        }
+
+        /// <summary>
+        /// Gets the selected test cases internal.
+        /// </summary>
+        /// <returns>selected test cases list collection</returns>
+        private List<TestCase> GetSelectedTestCasesInternal()
+        {
+            List<TestCase> testCases = new List<TestCase>();
+            foreach (TestCase currentTestCase in dgTestCases.SelectedItems)
+            {
+                testCases.Add(currentTestCase);
+            }
+            return testCases;
+        }
+
+        /// <summary>
+        /// Handles the Command event of the cutSuite control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="ExecutedRoutedEventArgs"/> instance containing the event data.</param>
+        private void cutSuite_Command(object sender, ExecutedRoutedEventArgs e)
+        {
+            e.Handled = true;
+            int selectedSuiteId = RegistryManager.GetSelectedSuiteId();
+            Suite suite = this.TestCasesInitialViewModel.GetSuiteById(this.TestCasesInitialViewModel.Suites, selectedSuiteId);
+            suite.CopyToClipboard(false);
+        }
+
+        /// <summary>
+        /// Handles the Command event of the pasteSuite control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="ExecutedRoutedEventArgs"/> instance containing the event data.</param>
+        private void pasteSuite_Command(object sender, ExecutedRoutedEventArgs e)
+        {
+            e.Handled = true;
+            int selectedSuiteId = RegistryManager.GetSelectedSuiteId();
+            Suite parentSuite = this.TestCasesInitialViewModel.GetSuiteById(this.TestCasesInitialViewModel.Suites, selectedSuiteId);
+            Suite clipboardSuite = Suite.GetFromClipboard();
+            ClipBoardTestCase clipBoardTestCase = TestCaseManager.GetFromClipboardTestCases();
+
+            if (clipboardSuite != null && parentSuite.Id.Equals(clipboardSuite.Id))
+            {
+                ModernDialog.ShowMessage("Cannot paste suite under itself!", "Warrning!", MessageBoxButton.OK);
+                return;
+            }
+
+            if (clipboardSuite != null)
+            {
+                this.PasteSuiteToSelectedSuiteInternal(parentSuite, clipboardSuite);
+            }
+            else if (clipBoardTestCase != null)
+            {
+                this.PasteTestCasesToSuiteInternal(parentSuite, clipBoardTestCase);
+            }
+        }
+
+        /// <summary>
+        /// Pastes the suite automatic selected suite internal.
+        /// </summary>
+        /// <param name="parentSuite">The parent suite.</param>
+        /// <param name="clipboardSuite">The clipboard suite.</param>
+        private void PasteSuiteToSelectedSuiteInternal(Suite parentSuite, Suite clipboardSuite)
+        {
+            if (clipboardSuite.ClipBoardCommand.Equals(ClipBoardCommand.Copy))
+            {
+                this.TestCasesInitialViewModel.CopyPasteSuiteToParentSuite(parentSuite, clipboardSuite);
+            }
+            else
+            {
+                this.TestCasesInitialViewModel.CutPasteSuiteToParentSuite(parentSuite, clipboardSuite);
+            }
+        }
+
+        /// <summary>
+        /// Pastes the test cases automatic suite internal.
+        /// </summary>
+        /// <param name="parentSuite">The parent suite.</param>
+        /// <param name="clipBoardTestCase">The clip board test case.</param>
+        private void PasteTestCasesToSuiteInternal(Suite parentSuite, ClipBoardTestCase clipBoardTestCase)
+        {
+            Task t = Task.Factory.StartNew(() =>
+            {
+                this.ShowTestCasesProgressbar();
+                if (clipBoardTestCase.ClipBoardCommand.Equals(ClipBoardCommand.Copy))
+                {
+                    TestSuiteManager.PasteTestCasesToSuite(parentSuite.Id, clipBoardTestCase.TestCases, clipBoardTestCase.ClipBoardCommand);
+
+                    // this.TestCasesInitialViewModel.AddTestCasesToObservableCollection(clipBoardTestCase.TestCases);
+                }
+                else
+                {
+                    TestSuiteManager.PasteTestCasesToSuite(parentSuite.Id, clipBoardTestCase.TestCases, clipBoardTestCase.ClipBoardCommand);
+                    System.Windows.Forms.Clipboard.Clear();
+                }
+            });
+            t.ContinueWith(antecedent =>
+            {
+                this.TestCasesInitialViewModel.AddTestCasesToObservableCollection(clipBoardTestCase.TestCases);
+                this.HideTestCasesProgressbar();
+            }, TaskScheduler.FromCurrentSynchronizationContext());
+        }
+
+        /// <summary>
+        /// Shows the test cases progressbar.
+        /// </summary>
+        private void ShowTestCasesProgressbar()
+        {
+            progressBarTestCases.Visibility = System.Windows.Visibility.Visible;
+            dgTestCases.Visibility = System.Windows.Visibility.Hidden;
+        }
+
+        /// <summary>
+        /// Hides the test cases progressbar.
+        /// </summary>
+        private void HideTestCasesProgressbar()
+        {
+            progressBarTestCases.Visibility = System.Windows.Visibility.Hidden;
+            dgTestCases.Visibility = System.Windows.Visibility.Visible;
+        }
+
+        /// <summary>
+        /// Handles the Command event of the removeSuite control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="ExecutedRoutedEventArgs"/> instance containing the event data.</param>
+        private void removeSuite_Command(object sender, ExecutedRoutedEventArgs e)
+        {
+            this.RemoveSuiteInternal();
+            e.Handled = true;
+        }
+
+        /// <summary>
+        /// Removes the suite internal.
+        /// </summary>
+        private void RemoveSuiteInternal()
+        {
+            int selectedSuiteId = RegistryManager.GetSelectedSuiteId();
+            try
+            {
+                if (ModernDialog.ShowMessage("If you delete this test suite, you will also delete all test suites that are children of this test suite!", "Delete this test suite?", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+                {
+                    TestSuiteManager.DeleteSuite(selectedSuiteId);
+                    this.TestCasesInitialViewModel.DeleteSuiteObservableCollection(this.TestCasesInitialViewModel.Suites, selectedSuiteId);
+                }
+            }
+            catch (ArgumentException)
+            {
+                ModernDialog.ShowMessage("The root suite cannot be deleted!", "Warrning!", MessageBoxButton.OK);
+            }
         }
 
         /// <summary>
@@ -484,7 +721,7 @@ namespace TestCaseManagerApp.Views
         /// </summary>
         private void AddSuiteInternal()
         {
-            RegistryManager.WriteTitleTitlePromtDialog(String.Empty);
+            RegistryManager.WriteTitleTitlePromtDialog(string.Empty);
 
             var dialog = new PrompDialogWindow();
             dialog.ShowDialog();
@@ -513,9 +750,9 @@ namespace TestCaseManagerApp.Views
                 else
                 {
                     ModernDialog.ShowMessage("Cannot add new suite to Requirments Suite!", "Warrning!", MessageBoxButton.OK);
-                }                
+                }
             }
-        }   
+        }
 
         /// <summary>
         /// Handles the PreviewMouseRightButtonDown event of the TreeViewItem control.
@@ -531,6 +768,58 @@ namespace TestCaseManagerApp.Views
                 treeViewItem.Focus();
                 e.Handled = true;
             }
+
+            this.UpdateSuiteContextMenuItemsStatus();
+        }
+
+        /// <summary>
+        /// Updates the suite context menu items status.
+        /// </summary>
+        private void UpdateSuiteContextMenuItemsStatus()
+        {
+            int selectedSuiteId = RegistryManager.GetSelectedSuiteId();
+            Suite suite = this.TestCasesInitialViewModel.GetSuiteById(this.TestCasesInitialViewModel.Suites, selectedSuiteId);
+
+            // Quit if its requirment based suite because no child suites are allowed
+            if (suite.IsPasteAllowed)
+            {
+                suite.IsPasteEnabled = true;
+                return;
+            }
+
+            Suite clipBoardItem = Suite.GetFromClipboard();
+            if (clipBoardItem == null)
+            {
+                suite.IsPasteEnabled = false;
+            }
+        }
+
+        /// <summary>
+        /// Handles the PreviewMouseRightButtonDown event of the dgTestCases control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="MouseButtonEventArgs"/> instance containing the event data.</param>
+        private void dgTestCases_PreviewMouseRightButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            this.UpdateTestCasesContextMenuItemsStatus();
+        }
+
+        /// <summary>
+        /// Updates the test cases context menu items status.
+        /// </summary>
+        private void UpdateTestCasesContextMenuItemsStatus()
+        {
+            int selectedSuiteId = RegistryManager.GetSelectedSuiteId();
+            Suite suite = this.TestCasesInitialViewModel.GetSuiteById(this.TestCasesInitialViewModel.Suites, selectedSuiteId);
+
+            // If the selected suite is requirement based the paste command is not enabled or if the clipboard object is not list of testcases
+            dgTestCaseContextItemPaste.IsEnabled = true;
+            ClipBoardTestCase clipBoardTestCase = TestCaseManager.GetFromClipboardTestCases();
+            if (clipBoardTestCase == null || !suite.IsPasteAllowed)
+            {
+                dgTestCaseContextItemPaste.IsEnabled = false;
+                suite.IsPasteEnabled = false;
+            }
         }
 
         /// <summary>
@@ -545,7 +834,7 @@ namespace TestCaseManagerApp.Views
             {
                 this.RenameSuiteInternal();
                 e.Handled = true;
-            }            
+            }
         }
 
         /// <summary>

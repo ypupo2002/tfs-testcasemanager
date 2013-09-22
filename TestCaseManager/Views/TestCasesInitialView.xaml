@@ -13,10 +13,17 @@
             <CommandBinding Command="{x:Static local:TestCasesInitialView.DuplicateCommand}" Executed="DuplicateButton_Click"/>
             <CommandBinding Command="{x:Static local:TestCasesInitialView.PreviewCommand}" Executed="PreviewButton_Click"/>
             <CommandBinding Command="{x:Static local:TestCasesInitialView.NewCommand}" Executed="btnNew_Click"/>
+            <CommandBinding Command="{x:Static local:TestCasesInitialView.CopyTestCasesCommand}" Executed="copyTestCases_Command"/>
+            <CommandBinding Command="{x:Static local:TestCasesInitialView.CutTestCasesCommand}" Executed="cutTestCases_Command"/>
+            <CommandBinding Command="{x:Static local:TestCasesInitialView.PasteTestCasesCommand}" Executed="pasteTestCases_Command"/>            
             <CommandBinding Command="{x:Static local:TestCasesInitialView.RefreshCommand}" Executed="btnRefresh_Click"/>
             <CommandBinding Command="{x:Static local:TestCasesInitialView.RemoveTestCaseFromSuiteCommand}" Executed="removeTestCaseFromSuite_Command"/>
             <CommandBinding Command="{x:Static local:TestCasesInitialView.RenameSuiteCommand}" Executed="renameSuite_Command"/>
             <CommandBinding Command="{x:Static local:TestCasesInitialView.AddSuiteCommand}" Executed="addSuite_Command"/>
+            <CommandBinding Command="{x:Static local:TestCasesInitialView.RemoveSuiteCommand}" Executed="removeSuite_Command"/>
+            <CommandBinding Command="{x:Static local:TestCasesInitialView.CopySuiteCommand}" Executed="copySuite_Command"/>
+            <CommandBinding Command="{x:Static local:TestCasesInitialView.CutSuiteCommand}" Executed="cutSuite_Command"/>
+            <CommandBinding Command="{x:Static local:TestCasesInitialView.PasteSuiteCommand}" Executed="pasteSuite_Command"/>
         </Grid.CommandBindings>
         <ProgressBar Name="progressBar" Minimum="0" Maximum="1" Height="16" IsIndeterminate="True" Margin="0,0,0,16" />
         
@@ -73,9 +80,15 @@
                         <EventSetter Event="TreeViewItem.Selected" Handler="treeViewItem_Selected"/>
                         <Setter Property="ContextMenu">
                             <Setter.Value>
-                                <ContextMenu>
-                                    <MenuItem Name="tvSuitesContextItemEdit" Command="{x:Static local:TestCasesInitialView.RenameSuiteCommand}" Header="Rename"/>
-                                    <MenuItem Name="tvSuitesContextItemAdd" Command="{x:Static local:TestCasesInitialView.AddSuiteCommand}" Header="Add"/>
+                                <ContextMenu>                                    
+                                    <MenuItem Command="{x:Static local:TestCasesInitialView.AddSuiteCommand}" Header="Add" IsEnabled="{Binding Path=IsAddEnabled}"/>                                    
+                                    <Separator />
+                                    <MenuItem Command="{x:Static local:TestCasesInitialView.CutSuiteCommand}" Header="Cut" IsEnabled="{Binding Path=IsCutEnabled}"/>
+                                    <MenuItem Command="{x:Static local:TestCasesInitialView.CopySuiteCommand}" Header="Copy" IsEnabled="{Binding Path=IsCopyEnabled}"/>                                   
+                                    <MenuItem Command="{x:Static local:TestCasesInitialView.PasteSuiteCommand}" Header="Paste" IsEnabled="{Binding Path=IsPasteEnabled}"/>
+                                    <MenuItem Command="{x:Static local:TestCasesInitialView.RemoveSuiteCommand}" Header="Remove" IsEnabled="{Binding Path=IsRemoveEnabled}"/>
+                                    <Separator />
+                                    <MenuItem Command="{x:Static local:TestCasesInitialView.RenameSuiteCommand}" Header="Rename" IsEnabled="{Binding Path=IsRenameEnabled}"/>
                                 </ContextMenu>
                             </Setter.Value>
                         </Setter>
@@ -91,12 +104,18 @@
             <GridSplitter Width="5" ResizeDirection="Auto" HorizontalAlignment="Right" VerticalAlignment="Stretch" Grid.Row="1" Grid.RowSpan="2" Grid.Column="1"/>
 
             <ProgressBar Name="progressBarTestCases" Minimum="0" Maximum="1" Height="16" IsIndeterminate="True" Margin="0,0,0,16" Grid.Row="2" Grid.Column="2" Visibility="Hidden"/>
-            <DataGrid ItemsSource="{Binding Path=ObservableTestCases}" AutoGenerateColumns="False" Name="dgTestCases" Grid.Row="2" Grid.Column="2" MouseDoubleClick="dgTestCases_MouseDoubleClick" IsReadOnly="True" SelectionMode="Extended"  SelectionUnit="FullRow" TabIndex="3" PreviewKeyDown="dgTestCases_KeyDown" SelectedCellsChanged="dgTestCases_SelectedCellsChanged">
+            <DataGrid ItemsSource="{Binding Path=ObservableTestCases}" AutoGenerateColumns="False" Name="dgTestCases" Grid.Row="2" Grid.Column="2" MouseDoubleClick="dgTestCases_MouseDoubleClick" 
+                      IsReadOnly="True" SelectionMode="Extended"  SelectionUnit="FullRow" TabIndex="3" PreviewKeyDown="dgTestCases_KeyDown"
+                      SelectedCellsChanged="dgTestCases_SelectedCellsChanged" PreviewMouseRightButtonDown="dgTestCases_PreviewMouseRightButtonDown">
                 <DataGrid.ContextMenu>
                     <ContextMenu>
-                        <MenuItem Name="dgTestCaseContextItemEdit" Command="{x:Static local:TestCasesInitialView.EditCommand}" Header="Edit"/>
-                        <MenuItem Name="dgTestCaseContextItemDuplicate" Command="{x:Static local:TestCasesInitialView.DuplicateCommand}" Header="Duplicate"/>
                         <MenuItem Name="dgTestCaseContextItemPreview" Command="{x:Static local:TestCasesInitialView.PreviewCommand}" Header="Preview"/>
+                        <MenuItem Name="dgTestCaseContextItemEdit" Command="{x:Static local:TestCasesInitialView.EditCommand}" Header="Edit"/>
+                        <MenuItem Name="dgTestCaseContextItemDuplicate" Command="{x:Static local:TestCasesInitialView.DuplicateCommand}" Header="Duplicate"/>                                          
+                        <Separator />
+                        <MenuItem Name="dgTestCaseContextItemCut" Command="{x:Static local:TestCasesInitialView.CutTestCasesCommand}" Header="Cut"/>
+                        <MenuItem Name="dgTestCaseContextItemCopy" Command="{x:Static local:TestCasesInitialView.CopyTestCasesCommand}" Header="Copy"/>                     
+                        <MenuItem Name="dgTestCaseContextItemPaste" Command="{x:Static local:TestCasesInitialView.PasteTestCasesCommand}" Header="Paste"/>
                         <MenuItem Name="dgTestCaseContextItemRemove" Command="{x:Static local:TestCasesInitialView.RemoveTestCaseFromSuiteCommand}" Header="Remove"/>
                     </ContextMenu>
                 </DataGrid.ContextMenu>

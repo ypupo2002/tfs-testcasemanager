@@ -4,11 +4,13 @@
 // <author>Anton Angelov</author>
 namespace TestCaseManagerApp
 {
+    using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.Linq;
     using Microsoft.TeamFoundation.TestManagement.Client;
     using TestCaseManagerApp.BusinessLogic.Entities;
+using TestCaseManagerApp.BusinessLogic.Enums;
 
     /// <summary>
     /// Contains helper methods for working with TestSuite entities
@@ -35,8 +37,17 @@ namespace TestCaseManagerApp
                         {
                             childred = GetAllSuites(suite.SubSuites);
                         }
-                    }
+                    }                    
                     Suite newSuite = new Suite(currentSuite.Title, currentSuite.Id, childred);
+
+                    // Cannot add suites to requirements based suite
+                    if (currentSuite is IRequirementTestSuite)
+                    {
+                        newSuite.IsPasteEnabled = false;
+                        newSuite.IsSuiteAddEnabled = false;
+                        newSuite.IsAddSuiteAllowed = false;
+                        newSuite.IsPasteAllowed = false;
+                    }
                     SetParentToAllChildrenSuites(childred, newSuite);
                  
                     subSuites.Add(newSuite);
@@ -110,6 +121,147 @@ namespace TestCaseManagerApp
         }
 
         /// <summary>
+        /// Pastes the suite to parent.
+        /// </summary>
+        /// <param name="parentSuiteId">The parent suite unique identifier.</param>
+        /// <param name="suiteToAddId">The suite automatic add unique identifier.</param>
+        /// <param name="clipBoardCommand">The clip board command.</param>
+        /// <exception cref="System.ArgumentException">The requirments based suites cannot have child suites!</exception>
+        public static void PasteSuiteToParent(int parentSuiteId, int suiteToAddId, ClipBoardCommand clipBoardCommand)
+        {
+            ITestSuiteBase parentSuite = ExecutionContext.TestManagementTeamProject.TestSuites.Find(parentSuiteId);
+            ITestSuiteBase suiteToAdd = ExecutionContext.TestManagementTeamProject.TestSuites.Find(suiteToAddId);
+            IStaticTestSuite oldParent = suiteToAdd.Parent;
+            if (parentSuite != null && parentSuite is IRequirementTestSuite)
+            {
+                throw new ArgumentException("The requirments based suites cannot have child suites!");
+            }
+
+            if (parentSuite != null && parentSuite is IStaticTestSuite && parentSuiteId != -1)
+            {
+                IStaticTestSuite parentSuiteStatic = parentSuite as IStaticTestSuite;
+                parentSuiteStatic.Entries.Add(suiteToAdd);
+            }
+            else
+            {
+                ExecutionContext.Preferences.TestPlan.RootSuite.Entries.Add(suiteToAdd);
+            }
+            if (clipBoardCommand.Equals(ClipBoardCommand.Cut))
+            {
+                DeleteSuite(suiteToAddId, oldParent);
+            }
+
+            ExecutionContext.Preferences.TestPlan.Save();
+        }
+
+        /// <summary>
+        /// Pastes the test cases to suite.
+        /// </summary>
+        /// <param name="suiteToAddInId">The suite automatic add information unique identifier.</param>
+        /// <param name="lightTestCases">The light test cases.</param>
+        /// <param name="clipBoardCommand">The clip board command.</param>
+        /// <exception cref="System.ArgumentException">New test cases cannot be added to requirement based suites!</exception>
+        public static void PasteTestCasesToSuite(int suiteToAddInId, List<LightTestCase> lightTestCases, ClipBoardCommand clipBoardCommand)
+        {
+            ITestSuiteBase suiteToAddIn = ExecutionContext.TestManagementTeamProject.TestSuites.Find(suiteToAddInId);
+            if (suiteToAddIn is IRequirementTestSuite)
+            {
+                throw new ArgumentException("New test cases cannot be added to requirement based suites!");
+            }
+            IStaticTestSuite suiteToAddInStatic = suiteToAddIn as IStaticTestSuite;
+            ITestSuiteBase oldSuite = ExecutionContext.TestManagementTeamProject.TestSuites.Find(lightTestCases[0].ParentSuiteId);
+          
+            foreach (LightTestCase currentLightTestCase in lightTestCases)
+            {
+                ITestCase currentTestCase = null;
+                if (oldSuite is IRequirementTestSuite)
+                {
+                    IRequirementTestSuite suite = oldSuite as IRequirementTestSuite;
+                    currentTestCase = suite.TestCases.Where(x => x.TestCase != null && x.TestCase.Id.Equals(currentLightTestCase.TestCaseId)).FirstOrDefault().TestCase;
+                }
+                else if (oldSuite is IStaticTestSuite)
+                {
+                    IStaticTestSuite suite = oldSuite as IStaticTestSuite;
+                    currentTestCase = suite.Entries.Where(x => x.TestCase != null && x.TestCase.Id.Equals(currentLightTestCase.TestCaseId)).FirstOrDefault().TestCase;                   
+                }
+                if (!suiteToAddInStatic.Entries.Contains(currentTestCase))
+                {
+                    suiteToAddInStatic.Entries.Add(currentTestCase);
+                }
+                if (clipBoardCommand.Equals(ClipBoardCommand.Cut))
+                {
+                    if (oldSuite is IStaticTestSuite)
+                    {
+                        IStaticTestSuite suite = oldSuite as IStaticTestSuite;
+                        suite.Entries.Remove(currentTestCase);
+                    }                   
+                }              
+            }           
+
+            ExecutionContext.Preferences.TestPlan.Save();
+        }
+
+        /// <summary>
+        /// Deletes the suite.
+        /// </summary>
+        /// <param name="suiteToBeRemovedId">The suite to be removed unique identifier.</param>
+        /// <param name="parent">The parent.</param>
+        /// <exception cref="System.ArgumentException">The root suite cannot be deleted!</exception>
+        public static void DeleteSuite(int suiteToBeRemovedId, IStaticTestSuite parent = null)
+        {
+            // If it's root suite throw exception
+            if (suiteToBeRemovedId == -1)
+            {
+                throw new ArgumentException("The root suite cannot be deleted!");
+            }
+            ITestSuiteBase currentSuite = ExecutionContext.TestManagementTeamProject.TestSuites.Find(suiteToBeRemovedId);
+
+            // Don't remove test cases becuase the suite can be child of another active suite
+            // Remove all test cases in the suite
+            // RemoveAllTestCasesInSuite(currentSuite);
+
+            // Performs recursive delete for each child suite which is static. Requirements suites don't have childs.
+            ////if (currentSuite is IStaticTestSuite)
+            ////{
+            ////    IStaticTestSuite staticSuite = currentSuite as IStaticTestSuite;
+            ////    foreach (var currentChild in staticSuite.SubSuites)
+            ////    {
+            ////        DeleteSuite(currentChild.Id);
+            ////    }
+            ////}   
+       
+            // Remove the parent child relation. This is the only way to delete the suite.
+            if (parent != null)
+            {
+                parent.Entries.Remove(currentSuite);
+            }
+            else if (currentSuite.Parent != null)
+            {
+                currentSuite.Parent.Entries.Remove(currentSuite);
+            }
+            else
+            {
+                // If it's initial suite, remove it from the test plan.
+                ExecutionContext.Preferences.TestPlan.RootSuite.Entries.Remove(currentSuite);
+            }
+
+            // Apply changes to the suites
+            ExecutionContext.Preferences.TestPlan.Save();
+        }
+
+        /// <summary>
+        /// Removes all test cases information suite.
+        /// </summary>
+        /// <param name="currentSuite">The current suite.</param>
+        public static void RemoveAllTestCasesInSuite(ITestSuiteBase currentSuite)
+        {
+            foreach (ITestCase currentTestCase in currentSuite.TestCases)
+            {
+                RemoveTestCaseInternal(currentTestCase, currentSuite);
+            }
+        }
+
+        /// <summary>
         /// Gets the test suite core object by name.
         /// </summary>
         /// <param name="suiteName">The suite name.</param>
@@ -129,13 +281,15 @@ namespace TestCaseManagerApp
         public static ITestSuiteBase GetTestSuiteById(int suiteId)
         {
             ITestSuiteBase testSuiteBase = null;
-            if (suiteId != 0)
+            if (suiteId > 0)
             {
+                // If it's old test case
                 testSuiteBase = ExecutionContext.TestManagementTeamProject.TestSuites.Find(suiteId);
             }
             else
             {
-                testSuiteBase = TestSuiteManager.GetAllTestSuitesInTestPlan().FirstOrDefault();
+                // If the test case is new it will be added to root suite of the test plan
+                testSuiteBase = ExecutionContext.Preferences.TestPlan.RootSuite;
             }
 
             return testSuiteBase;

@@ -14,6 +14,7 @@ namespace TestCaseManagerApp
     /// <summary>
     /// Contains Test Case object information properties
     /// </summary>
+    [Serializable]
     public class TestCase
     {
         /// <summary>

@@ -4,12 +4,10 @@
 // <author>Anton Angelov</author>
 namespace TestCaseManagerApp.BusinessLogic.Entities
 {
-    using FirstFloor.ModernUI.Presentation;
-
     /// <summary>
     /// Contains search filters for the associate automation view
     /// </summary>
-    public class AssociateTestViewFilters : NotifyPropertyChanged
+    public class AssociateTestViewFilters : BaseNotifyPropertyChanged
     {
         /// <summary>
         /// The full name default text
@@ -77,7 +75,7 @@ namespace TestCaseManagerApp.BusinessLogic.Entities
             set
             {
                 this.fullNameFilter = value;
-                this.OnPropertyChanged("FullNameFilter");
+                this.NotifyPropertyChanged();
             }
         }
 
@@ -97,7 +95,7 @@ namespace TestCaseManagerApp.BusinessLogic.Entities
             set
             {
                 this.classNameFilter = value;
-                this.OnPropertyChanged("ClassNameFilter");
+                this.NotifyPropertyChanged();
             }
         }
     }

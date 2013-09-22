@@ -4,18 +4,13 @@
 // <author>Anton Angelov</author>
 namespace TestCaseManagerApp
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
-    using FirstFloor.ModernUI.Presentation;
     using Microsoft.TeamFoundation.TestManagement.Client;
+    using TestCaseManagerApp.BusinessLogic.Entities;
 
     /// <summary>
     /// Contains Test Step object information properties
     /// </summary>
-    public class TestStep : NotifyPropertyChanged
+    public class TestStep : BaseNotifyPropertyChanged
     {
         /// <summary>
         /// The title
@@ -68,6 +63,22 @@ namespace TestCaseManagerApp
         public ITestStep ITestStep { get; set; }
 
         /// <summary>
+        /// Gets or sets the shared step unique identifier.
+        /// </summary>
+        /// <value>
+        /// The shared step unique identifier.
+        /// </value>
+        public int SharedStepId { get; set; }
+
+        /// <summary>
+        /// Gets or sets the step unique identifier.
+        /// </summary>
+        /// <value>
+        /// The step unique identifier.
+        /// </value>
+        public string StepGuid { get; set; }
+
+        /// <summary>
         /// Gets or sets the title.
         /// </summary>
         /// <value>
@@ -83,24 +94,8 @@ namespace TestCaseManagerApp
             set
             {
                 this.title = value;
-                this.OnPropertyChanged("Title");
+                this.NotifyPropertyChanged();
             }
         }
-
-        /// <summary>
-        /// Gets or sets the shared step unique identifier.
-        /// </summary>
-        /// <value>
-        /// The shared step unique identifier.
-        /// </value>
-        public int SharedStepId { get; set; }
-
-        /// <summary>
-        /// Gets or sets the step unique identifier.
-        /// </summary>
-        /// <value>
-        /// The step unique identifier.
-        /// </value>
-        public string StepGuid { get; set; }
     }
 }

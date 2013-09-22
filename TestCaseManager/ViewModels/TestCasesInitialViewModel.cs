@@ -8,10 +8,12 @@ namespace TestCaseManagerApp.ViewModels
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.Linq;
+    using System.Windows.Forms;
     using System.Windows.Threading;
     using FirstFloor.ModernUI.Presentation;
     using Microsoft.TeamFoundation.TestManagement.Client;
     using TestCaseManagerApp.BusinessLogic.Entities;
+    using TestCaseManagerApp.BusinessLogic.Enums;
 
     /// <summary>
     /// Contains methods and properties related to the TestCasesInitial View
@@ -65,6 +67,10 @@ namespace TestCaseManagerApp.ViewModels
             Suite masterSuite = new Suite("ALL", -1, subSuites);
             masterSuite.IsNodeExpanded = true;
             masterSuite.IsSelected = false;
+            masterSuite.IsCopyEnabled = false;
+            masterSuite.IsRenameEnabled = false;
+            masterSuite.IsCutEnabled = false;
+            masterSuite.IsRemoveEnabled = false;
             this.Suites.Add(masterSuite);
             this.SelectPreviouslySelectedSuite(this.Suites, this.selectedSuiteId);
         }      
@@ -270,6 +276,35 @@ namespace TestCaseManagerApp.ViewModels
         }
 
         /// <summary>
+        /// Gets the suite by unique identifier.
+        /// </summary>
+        /// <param name="suites">The suites.</param>
+        /// <param name="selectedSuiteId">The selected suite unique identifier.</param>
+        /// <returns>the suite</returns>
+        public Suite GetSuiteById(ObservableCollection<Suite> suites, int selectedSuiteId)
+        {
+            Suite result = null;
+            foreach (Suite currentSuite in suites)
+            {
+                if (currentSuite.Id.Equals(selectedSuiteId))
+                {
+                    result = currentSuite;
+                    break;
+                }
+                if (currentSuite.SubSuites != null && currentSuite.SubSuites.Count > 0)
+                {
+                    result = this.GetSuiteById(currentSuite.SubSuites, selectedSuiteId);
+                    if (result != null)
+                    {
+                        break;
+                    }
+                }
+            }
+
+            return result;
+        }
+
+        /// <summary>
         /// Adds the child suite to observable collection.
         /// </summary>
         /// <param name="suites">The suites.</param>
@@ -284,6 +319,10 @@ namespace TestCaseManagerApp.ViewModels
                     ITestSuiteBase newSuiteCore = ExecutionContext.TestManagementTeamProject.TestSuites.Find(newSuiteId);
                     Suite newSuite = new Suite(newSuiteCore.Title, newSuiteCore.Id, null, currentSuite);
                     newSuite.IsSelected = true;
+                    if (currentSuite.SubSuites == null)
+                    {
+                        currentSuite.SubSuites = new ObservableCollection<Suite>();
+                    }
                     currentSuite.SubSuites.Add(newSuite);
                     currentSuite.IsSelected = false;
                     currentSuite.IsNodeExpanded = true;
@@ -297,12 +336,78 @@ namespace TestCaseManagerApp.ViewModels
         }
 
         /// <summary>
+        /// Pastes the suite to parent suite.
+        /// </summary>
+        /// <param name="parentSuite">The parent suite.</param>
+        /// <param name="clipboardSuite">The clipboard suite.</param>
+        public void CopyPasteSuiteToParentSuite(Suite parentSuite, Suite clipboardSuite)
+        {
+            TestSuiteManager.PasteSuiteToParent(parentSuite.Id, clipboardSuite.Id, ClipBoardCommand.Copy);
+            Suite suiteToBePasted = (Suite)clipboardSuite.Clone();
+            suiteToBePasted.Parent = parentSuite;
+            parentSuite.SubSuites.Add(suiteToBePasted);
+            parentSuite.IsSelected = true;
+            parentSuite.IsNodeExpanded = true;
+        }
+
+        /// <summary>
+        /// Cuts the paste suite to parent suite.
+        /// </summary>
+        /// <param name="parentSuite">The parent suite.</param>
+        /// <param name="clipboardSuite">The clipboard suite.</param>
+        public void CutPasteSuiteToParentSuite(Suite parentSuite, Suite clipboardSuite)
+        {
+            TestSuiteManager.PasteSuiteToParent(parentSuite.Id, clipboardSuite.Id, ClipBoardCommand.Cut);
+            this.DeleteSuiteObservableCollection(this.Suites, clipboardSuite.Parent.Id);
+            Suite suiteToBePasted = (Suite)clipboardSuite.Clone();
+            suiteToBePasted.Parent = parentSuite;
+            parentSuite.SubSuites.Add(suiteToBePasted);
+            parentSuite.IsSelected = true;
+            parentSuite.IsNodeExpanded = true;
+            Clipboard.Clear();
+        }
+
+        /// <summary>
+        /// Deletes the suite from the suite observable collection.
+        /// </summary>
+        /// <param name="suites">The suites.</param>
+        /// <param name="selectedSuiteId">The selected suite unique identifier.</param>
+        public void DeleteSuiteObservableCollection(ObservableCollection<Suite> suites, int selectedSuiteId)
+        {
+            Suite[] suitesCopy = new Suite[suites.Count];
+            suites.CopyTo(suitesCopy, 0);
+
+            for (int i = 0; i < suitesCopy.Length; i++)
+            {
+                if (suitesCopy[i].Id.Equals(selectedSuiteId) && suitesCopy[i].Parent != null)
+                {
+                    suitesCopy[i].Parent.SubSuites.Remove(suitesCopy[i]);
+                }
+                if (suitesCopy[i].SubSuites != null && suitesCopy[i].SubSuites.Count > 0)
+                {
+                    this.DeleteSuiteObservableCollection(suitesCopy[i].SubSuites, selectedSuiteId);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Adds the test cases automatic observable collection.
+        /// </summary>
+        /// <param name="list">The list.</param>
+        public void AddTestCasesToObservableCollection(List<LightTestCase> list)
+        {
+            List<TestCase> testCasesList = TestCaseManager.GetAllTestCaseFromSuite(list[0].ParentSuiteId);
+            this.ObservableTestCases.Clear();
+            testCasesList.ForEach(t => this.ObservableTestCases.Add(t));
+            this.InitializeInitialTestCaseCollection(this.ObservableTestCases);
+        }
+
+        /// <summary>
         /// Initializes the filters.
         /// </summary>
         private void InitializeFilters()
         {
             this.InitialViewFilters = new InitialViewFilters();
-            this.InitialViewFilters.SuiteFilter = RegistryManager.GetSuiteFilter();
             if (this.InitialViewFilters.SuiteFilter != string.Empty)
             {
                 this.InitialViewFilters.IsSuiteTextSet = true;
@@ -366,6 +471,6 @@ namespace TestCaseManagerApp.ViewModels
                 currentSuite.Parent.IsNodeExpanded = true;
                 this.ExpandParent(currentSuite.Parent);
             }
-        }
+        }       
     }
 }

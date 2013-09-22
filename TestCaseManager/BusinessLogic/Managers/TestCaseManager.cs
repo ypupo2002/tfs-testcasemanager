@@ -6,10 +6,11 @@ namespace TestCaseManagerApp
 {
     using System;
     using System.Collections.Generic;
-    using System.Collections.ObjectModel;
     using System.Linq;
     using Microsoft.TeamFoundation.TestManagement.Client;
     using TestCaseManagerApp.BusinessLogic.Entities;
+    using TestCaseManagerApp.BusinessLogic.Enums;
+    using TestCaseManagerApp.BusinessLogic.Managers;
 
     /// <summary>
     /// Contains helper methods for working with TestCase entities
@@ -164,7 +165,6 @@ namespace TestCaseManagerApp
             currentTestCase.ITestCase.Save();
 
             // TestSuiteManager.RemoveTestCase(currentTestCase.ITestCase);
-
             SetTestCaseSuite(newSuiteTitle, currentTestCase);
 
             return currentTestCase;
@@ -227,6 +227,52 @@ namespace TestCaseManagerApp
 
             currentTestCase.ITestCase.Flush();
             currentTestCase.ITestCase.Save();
+        }
+
+        /// <summary>
+        /// Gets the light test cases.
+        /// </summary>
+        /// <param name="testCases">The test cases.</param>
+        /// <returns>the light test cases</returns>
+        public static List<LightTestCase> GetLightTestCases(List<TestCase> testCases)
+        {
+            List<LightTestCase> lightTestCases = new List<LightTestCase>();
+            foreach (TestCase currentTestCase in testCases)
+            {
+                lightTestCases.Add(new LightTestCase(currentTestCase.ITestCase.Id, currentTestCase.ITestSuiteBase.Id));
+            }
+
+            return lightTestCases;
+        }
+
+        /// <summary>
+        /// Copies the automatic clipboard.
+        /// </summary>
+        /// <param name="isCopy">if set to <c>true</c> [copy].</param>
+        /// <param name="testCases">The test cases.</param>
+        public static void CopyToClipboardTestCases(bool isCopy, List<LightTestCase> testCases)
+        {
+            ClipBoardCommand clipBoardCommand = isCopy ? ClipBoardCommand.Copy : ClipBoardCommand.Cut;
+            ClipBoardTestCase clipBoardTestCase = new ClipBoardTestCase(testCases, clipBoardCommand);
+            ClipBoardManager<ClipBoardTestCase>.CopyToClipboard(clipBoardTestCase);
+        }
+
+        /// <summary>
+        /// Gets from clipboard the test cases
+        /// </summary>
+        /// <returns>the retrieved test cases</returns>
+        public static ClipBoardTestCase GetFromClipboardTestCases()
+        {
+            ClipBoardTestCase clipBoardTestCase = ClipBoardManager<ClipBoardTestCase>.GetFromClipboard();
+
+            if (clipBoardTestCase != null)
+            {
+                return clipBoardTestCase;
+            }
+            else
+            {
+                return null;
+            }            
         }
 
         /// <summary>
