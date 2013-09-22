@@ -270,6 +270,33 @@ namespace TestCaseManagerApp.ViewModels
         }
 
         /// <summary>
+        /// Adds the child suite to observable collection.
+        /// </summary>
+        /// <param name="suites">The suites.</param>
+        /// <param name="selectedSuiteId">The selected suite unique identifier.</param>
+        /// <param name="newSuiteId">The new suite unique identifier.</param>
+        public void AddChildSuiteObservableCollection(ObservableCollection<Suite> suites, int selectedSuiteId, int newSuiteId)
+        {
+            foreach (Suite currentSuite in suites)
+            {
+                if (currentSuite.Id.Equals(selectedSuiteId))
+                {
+                    ITestSuiteBase newSuiteCore = ExecutionContext.TestManagementTeamProject.TestSuites.Find(newSuiteId);
+                    Suite newSuite = new Suite(newSuiteCore.Title, newSuiteCore.Id, null, currentSuite);
+                    newSuite.IsSelected = true;
+                    currentSuite.SubSuites.Add(newSuite);
+                    currentSuite.IsSelected = false;
+                    currentSuite.IsNodeExpanded = true;
+                    return;
+                }
+                if (currentSuite.SubSuites != null && currentSuite.SubSuites.Count > 0)
+                {
+                    this.AddChildSuiteObservableCollection(currentSuite.SubSuites, selectedSuiteId, newSuiteId);
+                }
+            }
+        }
+
+        /// <summary>
         /// Initializes the filters.
         /// </summary>
         private void InitializeFilters()

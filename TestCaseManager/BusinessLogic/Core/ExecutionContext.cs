@@ -86,30 +86,6 @@ namespace TestCaseManagerApp
         }
 
         /// <summary>
-        /// Gets or sets the project DLL path.
-        /// </summary>
-        /// <value>
-        /// The project DLL path.
-        /// </value>
-        //public static string ProjectDllPath { get; set; }
-
-        /// <summary>
-        /// Gets or sets the shared step title.
-        /// </summary>
-        /// <value>
-        /// The shared step title.
-        /// </value>
-        //public static string TitleDialogTitle { get; set; }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether [shared step title dialog cancelled].
-        /// </summary>
-        /// <value>
-        /// <c>true</c> if [shared step title dialog cancelled]; otherwise, <c>false</c>.
-        /// </value>
-        //public static bool TitleDialogCancelled { get; set; }
-
-        /// <summary>
         /// Gets or sets the settings view model.
         /// </summary>
         /// <value>

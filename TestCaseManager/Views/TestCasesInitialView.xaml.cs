@@ -62,6 +62,11 @@ namespace TestCaseManagerApp.Views
         public static RoutedCommand RenameSuiteCommand = new RoutedCommand();
 
         /// <summary>
+        /// The add suite command
+        /// </summary>
+        public static RoutedCommand AddSuiteCommand = new RoutedCommand();
+
+        /// <summary>
         /// Indicates if the view model is already initialized
         /// </summary>
         private static bool isInitialized;
@@ -433,6 +438,17 @@ namespace TestCaseManagerApp.Views
         }
 
         /// <summary>
+        /// Handles the Command event of the addSuite control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="ExecutedRoutedEventArgs"/> instance containing the event data.</param>
+        private void addSuite_Command(object sender, ExecutedRoutedEventArgs e)
+        {
+            this.AddSuiteInternal();
+            e.Handled = true;
+        }
+
+        /// <summary>
         /// Renames the suite internal.
         /// </summary>
         private void RenameSuiteInternal()
@@ -461,12 +477,45 @@ namespace TestCaseManagerApp.Views
                 TestSuiteManager.RenameSuite(selectedSuiteId, newTitle);
                 this.TestCasesInitialViewModel.RenameSuiteInObservableCollection(this.TestCasesInitialViewModel.Suites, selectedSuiteId, newTitle);
             }
+        }
 
-            //RegistryManager.WriteIsCanceledTitlePromtDialog(false);
-            //ExecutionContext.TitleDialogCancelled = false;
-            //ExecutionContext.TitleDialogTitle = String.Empty;
-        }       
+        /// <summary>
+        /// Adds the suite internal.
+        /// </summary>
+        private void AddSuiteInternal()
+        {
+            RegistryManager.WriteTitleTitlePromtDialog(String.Empty);
 
+            var dialog = new PrompDialogWindow();
+            dialog.ShowDialog();
+            bool isCanceled;
+            string newTitle;
+            Task t = Task.Factory.StartNew(() =>
+            {
+                isCanceled = RegistryManager.GetIsCanceledTitlePromtDialog();
+                newTitle = RegistryManager.GetTitleTitlePromtDialog();
+                while (string.IsNullOrEmpty(newTitle) && !isCanceled)
+                {
+                }
+            });
+            t.Wait();
+            isCanceled = RegistryManager.GetIsCanceledTitlePromtDialog();
+            newTitle = RegistryManager.GetTitleTitlePromtDialog();
+            if (!isCanceled)
+            {
+                int selectedSuiteId = RegistryManager.GetSelectedSuiteId();
+                bool canBeAddedNewSuite = false;
+                int? newSuiteId = TestSuiteManager.AddChildSuite(selectedSuiteId, newTitle, out canBeAddedNewSuite);
+                if (canBeAddedNewSuite)
+                {
+                    this.TestCasesInitialViewModel.AddChildSuiteObservableCollection(this.TestCasesInitialViewModel.Suites, selectedSuiteId, (int)newSuiteId);
+                }
+                else
+                {
+                    ModernDialog.ShowMessage("Cannot add new suite to Requirments Suite!", "Warrning!", MessageBoxButton.OK);
+                }                
+            }
+        }   
 
         /// <summary>
         /// Handles the PreviewMouseRightButtonDown event of the TreeViewItem control.
@@ -572,12 +621,22 @@ namespace TestCaseManagerApp.Views
         /// </summary>
         private void RemoveTestCaseFromSuiteInternal()
         {
-            var selectedItems = dgTestCases.SelectedItems;
-            for (int i = 0; i < selectedItems.Count; i++)
+            int selectedIndex = dgTestCases.SelectedIndex;
+            do
             {
-                TestCase currentTestCase = selectedItems[i] as TestCase;
+                TestCase currentTestCase = dgTestCases.SelectedItems[0] as TestCase;
                 this.TestCasesInitialViewModel.RemoveTestCaseFromSuite(currentTestCase);
-            }          
+            }
+            while (dgTestCases.SelectedItems.Count != 0);
+            if (selectedIndex == dgTestCases.Items.Count)
+            {
+                dgTestCases.SelectedIndex = selectedIndex - 1;
+            }
+            else
+            {
+                dgTestCases.SelectedIndex = selectedIndex;
+            }
+            dgTestCases.Focus();
         }
 
         /// <summary>
@@ -593,7 +652,7 @@ namespace TestCaseManagerApp.Views
             dgTestCaseContextItemEdit.IsEnabled = true;
             dgTestCaseContextItemPreview.IsEnabled = true;
             dgTestCaseContextItemDuplicate.IsEnabled = true;
-            if(dgTestCases.SelectedItems.Count > 1)
+            if (dgTestCases.SelectedItems.Count > 1)
             {
                 btnPreview.IsEnabled = false;
                 btnDuplicate.IsEnabled = false;

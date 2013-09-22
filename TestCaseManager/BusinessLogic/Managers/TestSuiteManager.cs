@@ -69,6 +69,47 @@ namespace TestCaseManagerApp
         }
 
         /// <summary>
+        /// Adds the child suite.
+        /// </summary>
+        /// <param name="parentSuiteId">The parent suite unique identifier.</param>
+        /// <param name="title">The title.</param>
+        /// <param name="canBeAdded">if set to <c>true</c> [can be added].</param>
+        /// <returns>
+        /// new suite unique identifier.
+        /// </returns>
+        public static int AddChildSuite(int parentSuiteId, string title, out bool canBeAdded)
+        {
+            ITestSuiteBase parentSuite = null;
+            if (parentSuiteId != -1)
+            {
+                parentSuite = ExecutionContext.TestManagementTeamProject.TestSuites.Find(parentSuiteId);
+            }
+
+            if (parentSuite is IRequirementTestSuite)
+            {
+                canBeAdded = false;
+                return 0;
+            }
+            IStaticTestSuite staticSuite = ExecutionContext.TestManagementTeamProject.TestSuites.CreateStatic();
+            canBeAdded = true;
+            staticSuite.Title = title;
+            
+            if (parentSuite != null && parentSuite is IStaticTestSuite && parentSuiteId != -1)
+            {
+                IStaticTestSuite parentSuiteStatic = parentSuite as IStaticTestSuite;
+                parentSuiteStatic.Entries.Add(staticSuite);
+            }
+            else
+            {
+                ExecutionContext.Preferences.TestPlan.RootSuite.Entries.Add(staticSuite);
+            }
+
+            ExecutionContext.Preferences.TestPlan.Save();
+
+            return staticSuite.Id;
+        }
+
+        /// <summary>
         /// Gets the test suite core object by name.
         /// </summary>
         /// <param name="suiteName">The suite name.</param>

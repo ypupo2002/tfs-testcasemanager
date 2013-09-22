@@ -409,9 +409,6 @@ namespace TestCaseManagerApp.Views
                 sharedStepCore.Refresh();
                 this.TestCaseEditViewModel.ObservableSharedSteps.Add(new SharedStep(sharedStepCore));
             }
-
-            //ExecutionContext.TitleDialogCancelled = false;
-            //ExecutionContext.TitleDialogTitle = String.Empty;
         }
 
         /// <summary>
@@ -820,20 +817,6 @@ namespace TestCaseManagerApp.Views
             rtbAction.SetText(currentTestStep.ITestStep.Title);
             rtbExpectedResult.SetText(currentTestStep.ITestStep.ExpectedResult);
         }   
-
-        /// <summary>
-        /// Handles the MouseEnter event of the cbSuite control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="System.Windows.Input.MouseEventArgs"/> instance containing the event data.</param>
-        private void cbSuite_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
-        {
-            //if (ExecutionContext.SettingsViewModel.HoverBehaviorDropDown)
-            //{
-            //    cbSuite.IsDropDownOpen = true;
-            //    cbSuite.Focus();
-            //}         
-        }
 
         /// <summary>
         /// Handles the MouseEnter event of the cbArea control.
