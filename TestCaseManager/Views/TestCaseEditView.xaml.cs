@@ -176,7 +176,6 @@ namespace TestCaseManagerApp.Views
             isInitialized = false;
             ComboBoxDropdownExtensions.SetOpenDropDownAutomatically(this.cbArea, ExecutionContext.SettingsViewModel.HoverBehaviorDropDown);
             ComboBoxDropdownExtensions.SetOpenDropDownAutomatically(this.cbPriority, ExecutionContext.SettingsViewModel.HoverBehaviorDropDown);
-            //ComboBoxDropdownExtensions.SetOpenDropDownAutomatically(this.cbSuite, ExecutionContext.SettingsViewModel.HoverBehaviorDropDown);
         }
 
         /// <summary>
@@ -268,7 +267,6 @@ namespace TestCaseManagerApp.Views
         {
             cbArea.SelectedIndex = this.TestCaseEditViewModel.Areas.FindIndex(0, x => x.Equals(this.TestCaseEditViewModel.TestCase.ITestCase.Area));
             cbPriority.SelectedIndex = this.TestCaseEditViewModel.Priorities.FindIndex(0, x => x.Equals(this.TestCaseEditViewModel.TestCase.ITestCase.Priority));
-            //cbSuite.SelectedIndex = this.TestCaseEditViewModel.TestSuiteList.FindIndex(0, x => x.Title.Equals(this.TestCaseEditViewModel.TestCase.ITestSuiteBase.Title));
         }
 
         /// <summary>
@@ -278,7 +276,6 @@ namespace TestCaseManagerApp.Views
         {
             cbArea.SelectedIndex = 0;
             cbPriority.SelectedIndex = 0;
-            //cbSuite.SelectedIndex = 0;
         }
 
         /// <summary>

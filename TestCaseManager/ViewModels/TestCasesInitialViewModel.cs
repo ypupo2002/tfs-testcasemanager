@@ -40,7 +40,7 @@ namespace TestCaseManagerApp.ViewModels
         /// </summary>
         public TestCasesInitialViewModel()
         {
-            this.InitializeFilters();
+            this.InitialViewFilters = new InitialViewFilters();
 
             // Load last selected suite in the treeview in order to selected it again
             this.selectedSuiteId = RegistryManager.GetSelectedSuiteId();
@@ -58,7 +58,6 @@ namespace TestCaseManagerApp.ViewModels
             this.InitialTestCaseCollection = new ObservableCollection<TestCase>();
             suiteTestCaseCollection.ForEach(t => this.ObservableTestCases.Add(t));
             this.InitializeInitialTestCaseCollection(this.ObservableTestCases);
-            this.FilterTestCases();         
             this.TestCasesCount = this.ObservableTestCases.Count.ToString();
             ObservableCollection<Suite> subSuites = TestSuiteManager.GetAllSuites(ExecutionContext.Preferences.TestPlan.RootSuite.SubSuites);
             this.Suites = new ObservableCollection<Suite>();
@@ -73,6 +72,7 @@ namespace TestCaseManagerApp.ViewModels
             masterSuite.IsRemoveEnabled = false;
             this.Suites.Add(masterSuite);
             this.SelectPreviouslySelectedSuite(this.Suites, this.selectedSuiteId);
+            this.IsAfterInitialize = true;
         }      
 
         /// <summary>
@@ -93,6 +93,14 @@ namespace TestCaseManagerApp.ViewModels
         /// The suites.
         /// </value>
         public ObservableCollection<Suite> Suites { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether [is after initialize]. It will be true only right after the contructor is called. Is used to determine if the Initial filter Reset should be called.
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if [is after initialize]; otherwise, <c>false</c>.
+        /// </value>
+        public bool IsAfterInitialize { get; set; }
 
         /// <summary>
         /// Gets or sets the observable test cases.
@@ -159,17 +167,32 @@ namespace TestCaseManagerApp.ViewModels
         }
 
         /// <summary>
+        /// Resets the initial filters. If its comming from another page the filter is saved but on next suite selected it will be reset.
+        /// </summary>
+        public void ResetInitialFilters()
+        {
+            if (this.IsAfterInitialize)
+            {
+                this.IsAfterInitialize = false;
+            }
+            else
+            {
+                this.InitialViewFilters.Reset();
+            }
+        }
+
+        /// <summary>
         /// Filters the test cases.
         /// </summary>
         public void FilterTestCases()
         {
-            this.ReinitializeTestCases();
+            //this.ReinitializeTestCases();
 
-            var filteredList = this.ObservableTestCases.Where(
+            var filteredList = this.InitialTestCaseCollection.Where(
                 t => (t.ITestCase != null)
-                    && ((this.InitialViewFilters.IsTitleTextSet && !string.IsNullOrEmpty(this.InitialViewFilters.TitleFilter)) ? t.ITestCase.Title.ToLower().Contains(this.InitialViewFilters.TitleFilter.ToLower()) : true)
-                    && ((this.InitialViewFilters.IsSuiteTextSet && !string.IsNullOrEmpty(this.InitialViewFilters.SuiteFilter)) ? t.ITestSuiteBase.Title.ToLower().Contains(this.InitialViewFilters.SuiteFilter.ToLower()) : true)
-                    && ((this.InitialViewFilters.IsIdTextSet && !string.IsNullOrEmpty(this.InitialViewFilters.IdFilter)) ? t.ITestCase.Id.ToString().Contains(this.InitialViewFilters.IdFilter) : true)
+                    && ((this.InitialViewFilters.IsTitleTextSet && !string.IsNullOrEmpty(this.InitialViewFilters.TitleFilter) && this.InitialViewFilters.TitleFilter != this.InitialViewFilters.DetaultTitle) ? t.ITestCase.Title.ToLower().Contains(this.InitialViewFilters.TitleFilter.ToLower()) : true)
+                    && ((this.InitialViewFilters.IsSuiteTextSet && !string.IsNullOrEmpty(this.InitialViewFilters.SuiteFilter) && this.InitialViewFilters.SuiteFilter != this.InitialViewFilters.DetaultSuite) ? t.ITestSuiteBase.Title.ToLower().Contains(this.InitialViewFilters.SuiteFilter.ToLower()) : true)
+                    && ((this.InitialViewFilters.IsIdTextSet && !string.IsNullOrEmpty(this.InitialViewFilters.IdFilter) && this.InitialViewFilters.IdFilter != this.InitialViewFilters.DetaultId) ? t.ITestCase.Id.ToString().Contains(this.InitialViewFilters.IdFilter) : true)
                     && (!this.HideAutomated.Equals(t.ITestCase.IsAutomated) || !this.HideAutomated)).ToList();
             this.ObservableTestCases.Clear();
             filteredList.ForEach(x => this.ObservableTestCases.Add(x));
@@ -187,18 +210,6 @@ namespace TestCaseManagerApp.ViewModels
             ExecutionContext.Preferences.TestPlan.RootSuite.Refresh();
             List<TestCase> testCasesList = TestCaseManager.GetAllTestCasesInTestPlan();
             testCasesList.ForEach(t => this.ObservableTestCases.Add(t));
-        }
-
-        /// <summary>
-        /// Reinitializes the test cases.
-        /// </summary>
-        public void ReinitializeTestCases()
-        {
-            this.ObservableTestCases.Clear();
-            foreach (var item in this.InitialTestCaseCollection)
-            {
-                this.ObservableTestCases.Add(item);
-            }
         }
 
         /// <summary>
@@ -394,24 +405,15 @@ namespace TestCaseManagerApp.ViewModels
         /// Adds the test cases automatic observable collection.
         /// </summary>
         /// <param name="list">The list.</param>
-        public void AddTestCasesToObservableCollection(List<LightTestCase> list)
+        public void AddTestCasesToObservableCollection(Suite suiteToPasteIn, int parentSuiteId)
         {
-            List<TestCase> testCasesList = TestCaseManager.GetAllTestCaseFromSuite(list[0].ParentSuiteId);
+            suiteToPasteIn.IsSelected = true;
+            Suite parentSuite = this.GetSuiteById(this.Suites, parentSuiteId);
+            parentSuite.IsSelected = false;
+            List<TestCase> testCasesList = TestCaseManager.GetAllTestCaseFromSuite(suiteToPasteIn.Id);
             this.ObservableTestCases.Clear();
             testCasesList.ForEach(t => this.ObservableTestCases.Add(t));
             this.InitializeInitialTestCaseCollection(this.ObservableTestCases);
-        }
-
-        /// <summary>
-        /// Initializes the filters.
-        /// </summary>
-        private void InitializeFilters()
-        {
-            this.InitialViewFilters = new InitialViewFilters();
-            if (this.InitialViewFilters.SuiteFilter != string.Empty)
-            {
-                this.InitialViewFilters.IsSuiteTextSet = true;
-            }
         }
 
         /// <summary>

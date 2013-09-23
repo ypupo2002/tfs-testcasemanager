@@ -177,7 +177,6 @@ namespace TestCaseManagerApp.Views
                 if (this.TestCasesInitialViewModel != null)
                 {
                     this.TestCasesInitialViewModel = new ViewModels.TestCasesInitialViewModel(this.TestCasesInitialViewModel);
-                    this.TestCasesInitialViewModel.FilterTestCases();
                 }
                 else
                 {
@@ -304,7 +303,8 @@ namespace TestCaseManagerApp.Views
         /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void btnNew_Click(object sender, RoutedEventArgs e)
         {
-            this.NavigateToTestCasesEditView(true, false);
+            int selectedSuiteId = RegistryManager.GetSelectedSuiteId();
+            this.NavigateToTestCasesEditView(selectedSuiteId, true, false);
         }
 
         /// <summary>
@@ -344,7 +344,7 @@ namespace TestCaseManagerApp.Views
         /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void tbIdFilter_LostFocus(object sender, RoutedEventArgs e)
         {
-            tbIdFilter.RestoreDefaultText("ID", ref TestCasesInitialViewModel.InitialViewFilters.IsIdTextSet);
+            tbIdFilter.RestoreDefaultText(this.TestCasesInitialViewModel.InitialViewFilters.DetaultId, ref this.TestCasesInitialViewModel.InitialViewFilters.IsIdTextSet);
         }
 
         /// <summary>
@@ -354,7 +354,7 @@ namespace TestCaseManagerApp.Views
         /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void tbTitleFilter_LostFocus(object sender, RoutedEventArgs e)
         {
-            tbTitleFilter.RestoreDefaultText("Title", ref TestCasesInitialViewModel.InitialViewFilters.IsTitleTextSet);
+            tbTitleFilter.RestoreDefaultText(this.TestCasesInitialViewModel.InitialViewFilters.DetaultTitle, ref this.TestCasesInitialViewModel.InitialViewFilters.IsTitleTextSet);
         }
 
         /// <summary>
@@ -364,7 +364,7 @@ namespace TestCaseManagerApp.Views
         /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void tbSuiteFilter_LostFocus(object sender, RoutedEventArgs e)
         {
-            tbSuiteFilter.RestoreDefaultText("Suite", ref TestCasesInitialViewModel.InitialViewFilters.IsSuiteTextSet);
+            tbSuiteFilter.RestoreDefaultText(this.TestCasesInitialViewModel.InitialViewFilters.DetaultSuite, ref this.TestCasesInitialViewModel.InitialViewFilters.IsSuiteTextSet);
         }
 
         /// <summary>
@@ -420,22 +420,23 @@ namespace TestCaseManagerApp.Views
         private void treeViewItem_Selected(object sender, RoutedEventArgs e)
         {
             e.Handled = true;
-            int suiteId = (int)tvSuites.SelectedValue;
-            if (suiteId.Equals(-1) && this.TestCasesInitialViewModel.IsThereSubnodeSelected(this.TestCasesInitialViewModel.Suites))
+            int selectedSuiteId = (int)tvSuites.SelectedValue;
+                
+            if (selectedSuiteId.Equals(-1) && this.TestCasesInitialViewModel.IsThereSubnodeSelected(this.TestCasesInitialViewModel.Suites))
             {
                 return;
             }
 
             // Remove the initial view filters because we are currently filtering by suite and the old filters are not valid any more
-            this.TestCasesInitialViewModel.InitialViewFilters = new InitialViewFilters();
-            RegistryManager.WriteSelectedSuiteId(suiteId);
+            this.TestCasesInitialViewModel.ResetInitialFilters();
+            RegistryManager.WriteSelectedSuiteId(selectedSuiteId);
             this.ShowTestCasesProgressbar();
             List<TestCase> suiteTestCaseCollection = new List<TestCase>();
             Task t = Task.Factory.StartNew(() =>
             {
-                if (suiteId != -1)
+                if (selectedSuiteId != -1)
                 {
-                    suiteTestCaseCollection = TestCaseManager.GetAllTestCaseFromSuite(suiteId);
+                    suiteTestCaseCollection = TestCaseManager.GetAllTestCaseFromSuite(selectedSuiteId);
                 }
                 else if (isInitialized)
                 {
@@ -519,8 +520,12 @@ namespace TestCaseManagerApp.Views
         {
             e.Handled = true;
             int selectedSuiteId = RegistryManager.GetSelectedSuiteId();
-            Suite suite = this.TestCasesInitialViewModel.GetSuiteById(this.TestCasesInitialViewModel.Suites, selectedSuiteId);
-            suite.CopyToClipboard(true);
+            Suite parentSuite = this.TestCasesInitialViewModel.GetSuiteById(this.TestCasesInitialViewModel.Suites, selectedSuiteId);
+            ClipBoardTestCase clipBoardTestCase = TestCaseManager.GetFromClipboardTestCases();
+            if (clipBoardTestCase != null)
+            {
+                this.PasteTestCasesToSuiteInternal(parentSuite, clipBoardTestCase);
+            }
         }
 
         /// <summary>
@@ -559,11 +564,11 @@ namespace TestCaseManagerApp.Views
         {
             e.Handled = true;
             int selectedSuiteId = RegistryManager.GetSelectedSuiteId();
-            Suite parentSuite = this.TestCasesInitialViewModel.GetSuiteById(this.TestCasesInitialViewModel.Suites, selectedSuiteId);
+            Suite suiteToPasteIn = this.TestCasesInitialViewModel.GetSuiteById(this.TestCasesInitialViewModel.Suites, selectedSuiteId);
             Suite clipboardSuite = Suite.GetFromClipboard();
             ClipBoardTestCase clipBoardTestCase = TestCaseManager.GetFromClipboardTestCases();
 
-            if (clipboardSuite != null && parentSuite.Id.Equals(clipboardSuite.Id))
+            if (clipboardSuite != null && suiteToPasteIn.Id.Equals(clipboardSuite.Id))
             {
                 ModernDialog.ShowMessage("Cannot paste suite under itself!", "Warrning!", MessageBoxButton.OK);
                 return;
@@ -571,56 +576,57 @@ namespace TestCaseManagerApp.Views
 
             if (clipboardSuite != null)
             {
-                this.PasteSuiteToSelectedSuiteInternal(parentSuite, clipboardSuite);
+                this.PasteSuiteToSelectedSuiteInternal(suiteToPasteIn, clipboardSuite);
             }
             else if (clipBoardTestCase != null)
             {
-                this.PasteTestCasesToSuiteInternal(parentSuite, clipBoardTestCase);
+                this.PasteTestCasesToSuiteInternal(suiteToPasteIn, clipBoardTestCase);
             }
         }
 
         /// <summary>
         /// Pastes the suite automatic selected suite internal.
         /// </summary>
-        /// <param name="parentSuite">The parent suite.</param>
+        /// <param name="suiteToPasteIn">The suite to paste in.</param>
         /// <param name="clipboardSuite">The clipboard suite.</param>
-        private void PasteSuiteToSelectedSuiteInternal(Suite parentSuite, Suite clipboardSuite)
+        private void PasteSuiteToSelectedSuiteInternal(Suite suiteToPasteIn, Suite clipboardSuite)
         {
             if (clipboardSuite.ClipBoardCommand.Equals(ClipBoardCommand.Copy))
             {
-                this.TestCasesInitialViewModel.CopyPasteSuiteToParentSuite(parentSuite, clipboardSuite);
+                this.TestCasesInitialViewModel.CopyPasteSuiteToParentSuite(suiteToPasteIn, clipboardSuite);
             }
             else
             {
-                this.TestCasesInitialViewModel.CutPasteSuiteToParentSuite(parentSuite, clipboardSuite);
+                this.TestCasesInitialViewModel.CutPasteSuiteToParentSuite(suiteToPasteIn, clipboardSuite);
             }
         }
 
         /// <summary>
         /// Pastes the test cases automatic suite internal.
         /// </summary>
-        /// <param name="parentSuite">The parent suite.</param>
+        /// <param name="suiteToPasteIn">The suite to paste in.</param>
         /// <param name="clipBoardTestCase">The clip board test case.</param>
-        private void PasteTestCasesToSuiteInternal(Suite parentSuite, ClipBoardTestCase clipBoardTestCase)
+        private void PasteTestCasesToSuiteInternal(Suite suiteToPasteIn, ClipBoardTestCase clipBoardTestCase)
         {
+            this.ShowTestCasesProgressbar();
             Task t = Task.Factory.StartNew(() =>
             {
-                this.ShowTestCasesProgressbar();
                 if (clipBoardTestCase.ClipBoardCommand.Equals(ClipBoardCommand.Copy))
                 {
-                    TestSuiteManager.PasteTestCasesToSuite(parentSuite.Id, clipBoardTestCase.TestCases, clipBoardTestCase.ClipBoardCommand);
-
-                    // this.TestCasesInitialViewModel.AddTestCasesToObservableCollection(clipBoardTestCase.TestCases);
+                    TestSuiteManager.PasteTestCasesToSuite(suiteToPasteIn.Id, clipBoardTestCase.TestCases, clipBoardTestCase.ClipBoardCommand);
                 }
                 else
                 {
-                    TestSuiteManager.PasteTestCasesToSuite(parentSuite.Id, clipBoardTestCase.TestCases, clipBoardTestCase.ClipBoardCommand);
-                    System.Windows.Forms.Clipboard.Clear();
+                    TestSuiteManager.PasteTestCasesToSuite(suiteToPasteIn.Id, clipBoardTestCase.TestCases, clipBoardTestCase.ClipBoardCommand);
                 }
             });
             t.ContinueWith(antecedent =>
             {
-                this.TestCasesInitialViewModel.AddTestCasesToObservableCollection(clipBoardTestCase.TestCases);
+                if (clipBoardTestCase.ClipBoardCommand.Equals(ClipBoardCommand.Cut))
+                {
+                    System.Windows.Forms.Clipboard.Clear();
+                }
+                this.TestCasesInitialViewModel.AddTestCasesToObservableCollection(suiteToPasteIn, clipBoardTestCase.TestCases[0].ParentSuiteId);
                 this.HideTestCasesProgressbar();
             }, TaskScheduler.FromCurrentSynchronizationContext());
         }

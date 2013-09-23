@@ -74,10 +74,8 @@ namespace TestCaseManagerApp.BusinessLogic.Entities
         /// </summary>
         public InitialViewFilters()
         {
-            this.IdFilter = this.DetaultId;
-            this.TitleFilter = this.DetaultTitle;
-            this.SuiteFilter = this.DetaultSuite;
-        }
+            this.Reset();
+        }      
 
         /// <summary>
         /// Gets or sets the title filter.
@@ -137,6 +135,19 @@ namespace TestCaseManagerApp.BusinessLogic.Entities
                 this.idFilter = value;
                 this.NotifyPropertyChanged();
             }
+        }
+
+        /// <summary>
+        /// Resets this instance.
+        /// </summary>
+        public void Reset()
+        {
+            this.IdFilter = this.DetaultId;
+            this.TitleFilter = this.DetaultTitle;
+            this.SuiteFilter = this.DetaultSuite;
+            this.IsIdTextSet = false;
+            this.IsSuiteTextSet = false;
+            this.IsTitleTextSet = false;
         }
     }
 }

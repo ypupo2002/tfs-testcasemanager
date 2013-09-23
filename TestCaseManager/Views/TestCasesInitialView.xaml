@@ -36,13 +36,15 @@
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition MinWidth="250" Width="Auto"/>
+                <ColumnDefinition Width="*" MinWidth="65"/>
                 <ColumnDefinition Width="Auto" />
-                <ColumnDefinition MinWidth="500" Width="*"/>
+                <ColumnDefinition Width="6*" MinWidth="800"/>
             </Grid.ColumnDefinitions>
             <StackPanel Orientation="Horizontal" Grid.ColumnSpan="2">
-                <TextBlock Text="Search" Margin="10,0,10,30" Height="25" Width="150" FontWeight="Bold" FontSize="18" HorizontalAlignment="Left" Grid.Row="0"/>
-                <Button Name="btnRefresh" Margin="10,0,10,30" Height="30" Width="90" VerticalAlignment="Center" Click="btnRefresh_Click">
+                <TextBlock Text="Search" Margin="10,0,10,30" Height="25" Width="Auto" FontWeight="Bold" FontSize="18" HorizontalAlignment="Left" Grid.Row="0"/>
+                
+                <!--TODO: fix the logic of the refresh-->
+                <Button Name="btnRefresh" Margin="10,0,10,30" Height="30" Width="90" VerticalAlignment="Center" Click="btnRefresh_Click" Visibility="Hidden">
                     <Button.Content>
                         <TextBlock>
                                   <Underline>R</Underline>efresh
@@ -70,7 +72,7 @@
                 </StackPanel>
             </StackPanel>
 
-            <TreeView  Name="tvSuites" Grid.Row="1" Grid.Column="0" Grid.RowSpan="2"  SelectedValuePath="Id" ItemsSource="{Binding Suites}" >
+            <TreeView  Name="tvSuites" Grid.Row="1" Grid.Column="0" Grid.RowSpan="2"  SelectedValuePath="Id" ItemsSource="{Binding Suites}" Margin="{StaticResource SplitLeft}">
                 <TreeView.ItemContainerStyle>
                     <Style TargetType="{x:Type TreeViewItem}">
                         <Setter Property="IsExpanded" Value="{Binding Path=IsNodeExpanded, Mode=TwoWay}" />
@@ -101,12 +103,13 @@
                     </TreeView.Resources>
                 </TreeView>
 
-            <GridSplitter Width="5" ResizeDirection="Auto" HorizontalAlignment="Right" VerticalAlignment="Stretch" Grid.Row="1" Grid.RowSpan="2" Grid.Column="1"/>
+            <GridSplitter Width="5" ResizeDirection="Auto" HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" Grid.Row="1" Grid.RowSpan="2" Grid.Column="1"/>
 
             <ProgressBar Name="progressBarTestCases" Minimum="0" Maximum="1" Height="16" IsIndeterminate="True" Margin="0,0,0,16" Grid.Row="2" Grid.Column="2" Visibility="Hidden"/>
+           
             <DataGrid ItemsSource="{Binding Path=ObservableTestCases}" AutoGenerateColumns="False" Name="dgTestCases" Grid.Row="2" Grid.Column="2" MouseDoubleClick="dgTestCases_MouseDoubleClick" 
                       IsReadOnly="True" SelectionMode="Extended"  SelectionUnit="FullRow" TabIndex="3" PreviewKeyDown="dgTestCases_KeyDown"
-                      SelectedCellsChanged="dgTestCases_SelectedCellsChanged" PreviewMouseRightButtonDown="dgTestCases_PreviewMouseRightButtonDown">
+                      SelectedCellsChanged="dgTestCases_SelectedCellsChanged" PreviewMouseRightButtonDown="dgTestCases_PreviewMouseRightButtonDown" Margin="{StaticResource SplitRight}">
                 <DataGrid.ContextMenu>
                     <ContextMenu>
                         <MenuItem Name="dgTestCaseContextItemPreview" Command="{x:Static local:TestCasesInitialView.PreviewCommand}" Header="Preview"/>

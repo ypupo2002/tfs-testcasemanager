@@ -17,7 +17,7 @@ namespace TestCaseManagerApp.ViewModels
     /// <summary>
     /// Contains methods and properties related to the TestCasesBatchDuplicate View
     /// </summary>
-    public class TestCasesBatchDuplicateViewModel : NotifyPropertyChanged
+    public class TestCasesBatchDuplicateViewModel : BaseNotifyPropertyChanged
     { 
         /// <summary>
         /// Defines if the text in titles should be replaced
@@ -45,7 +45,7 @@ namespace TestCaseManagerApp.ViewModels
         public TestCasesBatchDuplicateViewModel()
         {
             this.InitializeInnerCollections();
-            InitializeTestCases();
+            this.InitializeTestCases();
             this.InitializeInitialTestCaseCollection();
             this.InitializeTestSuiteList();
             this.TestCasesCount = this.ObservableTestCases.Count.ToString();
@@ -150,7 +150,7 @@ namespace TestCaseManagerApp.ViewModels
             set
             {
                 this.replaceInTitle = value;
-                this.OnPropertyChanged("ReplaceInTitles");
+                this.NotifyPropertyChanged();
             }
         }
 
@@ -170,7 +170,7 @@ namespace TestCaseManagerApp.ViewModels
             set
             {
                 this.replaceSharedSteps = value;
-                this.OnPropertyChanged("ReplaceSharedSteps");
+                this.NotifyPropertyChanged();
             }
         }
 
@@ -190,7 +190,7 @@ namespace TestCaseManagerApp.ViewModels
             set
             {
                 this.replaceInTestSteps = value;
-                this.OnPropertyChanged("ReplaceInTestSteps");
+                this.NotifyPropertyChanged();
             }
         }
 
@@ -210,19 +210,7 @@ namespace TestCaseManagerApp.ViewModels
             set
             {
                 this.testCasesCount = value;
-                this.OnPropertyChanged("TestCasesCount");
-            }
-        }
-
-        /// <summary>
-        /// Reinitializes the test cases.
-        /// </summary>
-        public void ReinitializeTestCases()
-        {
-            this.ObservableTestCases = new ObservableCollection<TestCase>();
-            foreach (var currentTestCase in this.InitialTestCaseCollection)
-            {
-                this.ObservableTestCases.Add(currentTestCase);
+                this.NotifyPropertyChanged();
             }
         }
 
@@ -231,8 +219,7 @@ namespace TestCaseManagerApp.ViewModels
         /// </summary>
         public void FilterTestCases()
         {
-            this.ReinitializeTestCases();
-            var filteredList = this.ObservableTestCases.Where(
+            var filteredList = this.InitialTestCaseCollection.Where(
                 t => ((InitialViewFilters.IsTitleTextSet && !string.IsNullOrEmpty(this.InitialViewFilters.TitleFilter)) ? t.ITestCase.Title.ToLower().Contains(this.InitialViewFilters.TitleFilter.ToLower()) : true)
                     && ((InitialViewFilters.IsSuiteTextSet && !string.IsNullOrEmpty(this.InitialViewFilters.SuiteFilter)) ? t.ITestSuiteBase.Title.ToLower().Contains(this.InitialViewFilters.SuiteFilter.ToLower()) : true)).ToList();
             this.ObservableTestCases.Clear();

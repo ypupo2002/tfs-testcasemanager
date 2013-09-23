@@ -180,3 +180,4 @@ D:\Projects\TestCaseManager\TestCaseManager\obj\Debug\Views\TestCasesInitialView
 D:\Projects\TestCaseManager\TestCaseManager\obj\Debug\TestCaseManager.g.resources
 D:\Projects\TestCaseManager\TestCaseManager\obj\Debug\TestCaseManagerApp.Properties.Resources.resources
 D:\Projects\TestCaseManager\TestCaseManager\obj\Debug\TestCaseManager.csproj.GenerateResource.Cache
+D:\Projects\TestCaseManager\TestCaseManager\obj\Debug\TestCaseManager.csprojResolveAssemblyReference.cache

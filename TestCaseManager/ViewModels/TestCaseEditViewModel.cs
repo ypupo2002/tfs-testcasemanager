@@ -65,9 +65,6 @@ namespace TestCaseManagerApp.ViewModels
         public TestCaseEditViewModel(int testCaseId, int suiteId, bool createNew, bool duplicate)
         {
             this.Areas = this.GetProjectAreas();
-            //ExecutionContext.Preferences.TestPlan.Refresh();
-            //ExecutionContext.Preferences.TestPlan.RootSuite.Refresh();
-            //this.TestSuiteList = TestSuiteManager.GetAllTestSuitesInTestPlan();
 
             this.CreateNew = createNew;
             this.Duplicate = duplicate;
@@ -88,7 +85,7 @@ namespace TestCaseManagerApp.ViewModels
                 }
                 else
                 {
-                    this.TestCase = new TestCase(newTestCase, null);
+                    this.TestCase = new TestCase(newTestCase, testSuiteBaseCore);
                 }
             }
             else

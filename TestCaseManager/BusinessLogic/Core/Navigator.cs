@@ -105,9 +105,9 @@ namespace TestCaseManagerApp
         /// <param name="source">The source.</param>
         /// <param name="createNew">if set to <c>true</c> [create new].</param>
         /// <param name="duplicate">if set to <c>true</c> [duplicate].</param>
-        public static void NavigateToTestCasesEditView(this FrameworkElement source, bool createNew, bool duplicate)
+        public static void NavigateToTestCasesEditView(this FrameworkElement source, int suiteId, bool createNew, bool duplicate)
         {
-            string url = string.Format("/Views/TestCaseEditView.xaml#createNew={0}&duplicate={1}", createNew, duplicate);
+            string url = string.Format("/Views/TestCaseEditView.xaml#suiteId={0}&createNew={1}&duplicate={2}", suiteId, createNew, duplicate);
 
             source.Navigate(url);
         }
