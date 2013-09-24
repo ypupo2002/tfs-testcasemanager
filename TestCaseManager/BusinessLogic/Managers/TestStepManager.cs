@@ -12,6 +12,8 @@ namespace TestCaseManagerApp
     using System.Threading.Tasks;
     using Microsoft.TeamFoundation.TestManagement.Client;
     using TestCaseManagerApp.BusinessLogic.Entities;
+    using TestCaseManagerApp.BusinessLogic.Enums;
+    using TestCaseManagerApp.BusinessLogic.Managers;
 
     /// <summary>
     /// Contains helper methods for working with TestStep entities
@@ -47,16 +49,46 @@ namespace TestCaseManagerApp
                     ISharedStep currentSharedStep = ExecutionContext.TestManagementTeamProject.SharedSteps.Find(currentSharedStepReference.SharedStepId);
                     string sharedStepGuid = GetSharedStepGuid(alreadyAddedSharedSteps, currentSharedStep);
 
-                    if (sharedSteps != null)
-                    {
-                        sharedSteps.Add(new SharedStep(currentSharedStep));
-                    }
+                    //if (sharedSteps != null)
+                    //{
+                    //    sharedSteps.Add(new SharedStep(currentSharedStep));
+                    //}
 
                     testSteps.AddRange(TestStepManager.GetAllTestStepsInSharedStep(currentSharedStep, sharedStepGuid));
                 }
             }
 
             return testSteps;
+        }
+
+        /// <summary>
+        /// Copies the automatic clipboard.
+        /// </summary>
+        /// <param name="isCopy">if set to <c>true</c> [copy].</param>
+        /// <param name="testSteps">The test steps.</param>
+        public static void CopyToClipboardTestSteps(bool isCopy, List<TestStep> testSteps)
+        {
+            ClipBoardCommand clipBoardCommand = isCopy ? ClipBoardCommand.Copy : ClipBoardCommand.Cut;
+            ClipBoardTestStep clipBoardTestStep = new ClipBoardTestStep(testSteps, clipBoardCommand);
+            ClipBoardManager<ClipBoardTestStep>.CopyToClipboard(clipBoardTestStep);
+        }
+
+        /// <summary>
+        /// Gets from clipboard the test steps
+        /// </summary>
+        /// <returns>the retrieved test steps</returns>
+        public static ClipBoardTestStep GetFromClipboardTestSteps()
+        {
+            ClipBoardTestStep clipBoardTestStep = ClipBoardManager<ClipBoardTestStep>.GetFromClipboard();
+
+            if (clipBoardTestStep != null)
+            {
+                return clipBoardTestStep;
+            }
+            else
+            {
+                return null;
+            }
         }
 
         /// <summary>

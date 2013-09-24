@@ -11,6 +11,7 @@ namespace TestCaseManagerApp.ViewModels
     using System.Xml;
     using Microsoft.TeamFoundation.Server;
     using Microsoft.TeamFoundation.TestManagement.Client;
+    using TestCaseManagerApp.BusinessLogic.Entities;
 
     /// <summary>
     /// Contains methods and properties related to the TestCaseEdit View
@@ -65,10 +66,6 @@ namespace TestCaseManagerApp.ViewModels
         public TestCaseEditViewModel(int testCaseId, int suiteId, bool createNew, bool duplicate)
         {
             this.Areas = this.GetProjectAreas();
-
-            this.CreateNew = createNew;
-            this.Duplicate = duplicate;
-            this.TestActions = new List<ITestAction>();
             this.ObservableTestSteps = new ObservableCollection<TestStep>();
             this.ObservableSharedSteps = new ObservableCollection<SharedStep>();
 
@@ -76,27 +73,23 @@ namespace TestCaseManagerApp.ViewModels
             this.AlreadyAddedSharedSteps = new Dictionary<int, string>();
             ITestSuiteBase testSuiteBaseCore = TestSuiteManager.GetTestSuiteById(suiteId);
 
-            if (this.CreateNew && !this.Duplicate)
+            if (createNew && !duplicate)
             {
-                ITestCase newTestCase = ExecutionContext.TestManagementTeamProject.TestCases.Create();
-                if (this.Duplicate)
-                {
-                    this.InitializeTestCaseWithExisting();
-                }
-                else
-                {
-                    this.TestCase = new TestCase(newTestCase, testSuiteBaseCore);
-                }
+                ITestCase newTestCase = ExecutionContext.TestManagementTeamProject.TestCases.Create();               
+                this.TestCase = new TestCase(newTestCase, testSuiteBaseCore);
             }
             else
             {
                 ITestCase testCaseCore = ExecutionContext.TestManagementTeamProject.TestCases.Find(testCaseId);
                 this.TestCase = new TestCase(testCaseCore, testSuiteBaseCore);               
             }
-            this.InitializeTestCaseWithExisting();
+
+            this.InitializeIdLabel(createNew, duplicate);
+            this.InitializeObservableSharedSteps();
+            this.InitializeTestCaseTestStepsFromITestCaseActions();
             this.InitializeInitialSharedStepCollection();
             this.AssociatedAutomation = this.TestCase.ITestCase.GetAssociatedAutomation();
-        }
+        }      
 
         /// <summary>
         /// Gets or sets the already added shared steps.
@@ -115,12 +108,12 @@ namespace TestCaseManagerApp.ViewModels
         public TestCase TestCase { get; set; }
 
         /// <summary>
-        /// Gets or sets the test actions.
+        /// Gets or sets the test case unique identifier label.
         /// </summary>
         /// <value>
-        /// The test actions.
+        /// The test case unique identifier label.
         /// </value>
-        public List<ITestAction> TestActions { get; set; }
+        public string TestCaseIdLabel { get; set; }
 
         /// <summary>
         /// Gets or sets the observable test steps.
@@ -171,30 +164,6 @@ namespace TestCaseManagerApp.ViewModels
         public List<string> Areas { get; set; }
 
         /// <summary>
-        /// Gets or sets a value indicating whether [create new].
-        /// </summary>
-        /// <value>
-        ///   <c>true</c> if [create new]; otherwise, <c>false</c>.
-        /// </value>
-        public bool CreateNew { get; set; }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether [duplicate].
-        /// </summary>
-        /// <value>
-        ///   <c>true</c> if [duplicate]; otherwise, <c>false</c>.
-        /// </value>
-        public bool Duplicate { get; set; }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether [is already created].
-        /// </summary>
-        /// <value>
-        ///   <c>true</c> if [is already created]; otherwise, <c>false</c>.
-        /// </value>
-        public bool IsAlreadyCreated { get; set; }
-
-        /// <summary>
         /// Reinitializes the shared step collection.
         /// </summary>
         public void ReinitializeSharedStepCollection()
@@ -236,6 +205,20 @@ namespace TestCaseManagerApp.ViewModels
             }
 
             return finalExpectedResult;
+        }
+
+        /// <summary>
+        /// Updates the test step context menu items status.
+        /// </summary>
+        public void UpdateTestStepContextMenuItemsStatus()
+        {          
+            ClipBoardTestStep clipBoardItem = TestStepManager.GetFromClipboardTestSteps();
+            bool isPasteEnabled = clipBoardItem == null ? false : true;
+
+            foreach (TestStep currentTestStep in this.ObservableTestSteps)
+            {
+                currentTestStep.IsPasteEnabled = isPasteEnabled;
+            }
         }
 
         /// <summary>
@@ -443,6 +426,23 @@ namespace TestCaseManagerApp.ViewModels
         }
 
         /// <summary>
+        /// Initializes the unique identifier label.
+        /// </summary>
+        /// <param name="createNew">if set to <c>true</c> [create new].</param>
+        /// <param name="duplicate">if set to <c>true</c> [duplicate].</param>
+        private void InitializeIdLabel(bool createNew, bool duplicate)
+        {
+            if (duplicate || createNew)
+            {
+                this.TestCaseIdLabel = "*";
+            }
+            else
+            {
+                this.TestCaseIdLabel = TestCase.ITestCase.Id.ToString();
+            }
+        }
+
+        /// <summary>
         /// Initializes the initial shared step collection.
         /// </summary>
         private void InitializeInitialSharedStepCollection()
@@ -458,7 +458,7 @@ namespace TestCaseManagerApp.ViewModels
         /// Gets the project areas.
         /// </summary>
         /// <returns>list of areas names as string list</returns>
-        public List<string> GetProjectAreas()
+        private List<string> GetProjectAreas()
         {
             List<string> areas = new List<string>();
             ICommonStructureService css = (ICommonStructureService)ExecutionContext.TfsTeamProjectCollection.GetService(typeof(ICommonStructureService));
@@ -470,6 +470,31 @@ namespace TestCaseManagerApp.ViewModels
             this.CreateAreasList(areaNodes, areas);
 
             return areas;
+        }
+
+        /// <summary>
+        /// Initializes the test case test steps from attribute test case actions.
+        /// </summary>
+        private void InitializeTestCaseTestStepsFromITestCaseActions()
+        {
+            List<TestStep> testSteps = TestStepManager.GetTestStepsFromTestActions(this.TestCase.ITestCase.Actions.ToList(), this.AlreadyAddedSharedSteps);
+            foreach (var currentTestStep in testSteps)
+            {
+                this.ObservableTestSteps.Add(currentTestStep);
+            }
+        }
+
+        /// <summary>
+        /// Initializes the observable shared steps.
+        /// </summary>
+        private void InitializeObservableSharedSteps()
+        {
+            List<ISharedStep> sharedStepList = TestStepManager.GetAllSharedSteps();
+
+            sharedStepList.ForEach(s =>
+            {
+                this.ObservableSharedSteps.Add(new SharedStep(s));
+            });
         }
 
         /// <summary>
@@ -515,22 +540,6 @@ namespace TestCaseManagerApp.ViewModels
             {
                 this.GetAreasNodes(currentNode.ChildNodes, areas);
             }
-        }
-
-        /// <summary>
-        /// Initializes the test case with existing one.
-        /// </summary>
-        private void InitializeTestCaseWithExisting()
-        {
-            this.TestCase.ITestCase.Actions.ToList().ForEach(x => this.TestActions.Add(x));
-            List<ISharedStep> sharedStepList = TestStepManager.GetAllSharedSteps();
-
-            sharedStepList.ForEach(s =>
-            {
-                this.ObservableSharedSteps.Add(new SharedStep(s));
-            });
-            List<SharedStep> testCaseSharedStepsList = new List<SharedStep>();
-            TestStepManager.GetTestStepsFromTestActions(this.TestActions, this.AlreadyAddedSharedSteps, testCaseSharedStepsList).ForEach(x => this.ObservableTestSteps.Add(x));
-        }
+        }     
     }
 }

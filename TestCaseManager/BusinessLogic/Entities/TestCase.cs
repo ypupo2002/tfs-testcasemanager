@@ -18,6 +18,18 @@ namespace TestCaseManagerApp
     public class TestCase
     {
         /// <summary>
+        /// The test case core object
+        /// </summary>
+        [NonSerialized]
+        private ITestCase testCaseCore;
+
+        /// <summary>
+        /// The test suite base core object
+        /// </summary>
+        [NonSerialized]
+        private ITestSuiteBase testSuiteBaseCore;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="TestCase"/> class.
         /// </summary>
         /// <param name="testCaseCore">The test case core object.</param>
@@ -26,7 +38,25 @@ namespace TestCaseManagerApp
         {
             this.ITestCase = testCaseCore;
             this.ITestSuiteBase = testSuiteBaseCore;
+            this.TestCaseId = testCaseCore.Id;
+            this.TestSuiteId = testSuiteBaseCore.Id;
         }
+
+        /// <summary>
+        /// Gets or sets the test case unique identifier.
+        /// </summary>
+        /// <value>
+        /// The test case unique identifier.
+        /// </value>
+        public int TestCaseId { get; set; }
+
+        /// <summary>
+        /// Gets or sets the test suite unique identifier.
+        /// </summary>
+        /// <value>
+        /// The test suite unique identifier.
+        /// </value>
+        public int TestSuiteId { get; set; }
 
         /// <summary>
         /// Gets or sets the core test case object.
@@ -34,7 +64,18 @@ namespace TestCaseManagerApp
         /// <value>
         /// The core test case object.
         /// </value>
-        public ITestCase ITestCase { get; set; }
+        public ITestCase ITestCase
+        {
+            get
+            {
+                return this.testCaseCore;
+            }
+
+            set
+            {
+                this.testCaseCore = value;
+            }
+        }
 
         /// <summary>
         /// Gets or sets the core test suite object.
@@ -42,6 +83,17 @@ namespace TestCaseManagerApp
         /// <value>
         /// The core test suite object.
         /// </value>
-        public ITestSuiteBase ITestSuiteBase { get; set; }
+        public ITestSuiteBase ITestSuiteBase
+        {
+            get
+            {
+                return this.testSuiteBaseCore;
+            }
+
+            set
+            {
+                this.testSuiteBaseCore = value;
+            }
+        }      
     }
 }

@@ -494,8 +494,8 @@ namespace TestCaseManagerApp.Views
         {
             e.Handled = true;
             List<TestCase> testCases = this.GetSelectedTestCasesInternal();
-            List<LightTestCase> lightTetCases = TestCaseManager.GetLightTestCases(testCases);
-            TestCaseManager.CopyToClipboardTestCases(true, lightTetCases);
+            //List<LightTestCase> lightTetCases = TestCaseManager.GetLightTestCases(testCases);
+            TestCaseManager.CopyToClipboardTestCases(true, testCases);
         }
 
         /// <summary>
@@ -507,8 +507,8 @@ namespace TestCaseManagerApp.Views
         {
             e.Handled = true;
             List<TestCase> testCases = this.GetSelectedTestCasesInternal();
-            List<LightTestCase> lightTetCases = TestCaseManager.GetLightTestCases(testCases);
-            TestCaseManager.CopyToClipboardTestCases(false, lightTetCases);
+            //List<LightTestCase> lightTetCases = TestCaseManager.GetLightTestCases(testCases);
+            TestCaseManager.CopyToClipboardTestCases(false, testCases);
         }
 
         /// <summary>
@@ -613,11 +613,11 @@ namespace TestCaseManagerApp.Views
             {
                 if (clipBoardTestCase.ClipBoardCommand.Equals(ClipBoardCommand.Copy))
                 {
-                    TestSuiteManager.PasteTestCasesToSuite(suiteToPasteIn.Id, clipBoardTestCase.TestCases, clipBoardTestCase.ClipBoardCommand);
+                    TestSuiteManager.PasteTestCasesToSuite(suiteToPasteIn.Id, clipBoardTestCase);
                 }
                 else
                 {
-                    TestSuiteManager.PasteTestCasesToSuite(suiteToPasteIn.Id, clipBoardTestCase.TestCases, clipBoardTestCase.ClipBoardCommand);
+                    TestSuiteManager.PasteTestCasesToSuite(suiteToPasteIn.Id, clipBoardTestCase);
                 }
             });
             t.ContinueWith(antecedent =>
@@ -626,7 +626,7 @@ namespace TestCaseManagerApp.Views
                 {
                     System.Windows.Forms.Clipboard.Clear();
                 }
-                this.TestCasesInitialViewModel.AddTestCasesToObservableCollection(suiteToPasteIn, clipBoardTestCase.TestCases[0].ParentSuiteId);
+                this.TestCasesInitialViewModel.AddTestCasesToObservableCollection(suiteToPasteIn, clipBoardTestCase.TestCases[0].TestSuiteId);
                 this.HideTestCasesProgressbar();
             }, TaskScheduler.FromCurrentSynchronizationContext());
         }

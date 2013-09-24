@@ -158,10 +158,9 @@ using TestCaseManagerApp.BusinessLogic.Enums;
         /// Pastes the test cases to suite.
         /// </summary>
         /// <param name="suiteToAddInId">The suite automatic add information unique identifier.</param>
-        /// <param name="lightTestCases">The light test cases.</param>
-        /// <param name="clipBoardCommand">The clip board command.</param>
+        /// <param name="clipBoardCommand">The clip board test case object.</param>
         /// <exception cref="System.ArgumentException">New test cases cannot be added to requirement based suites!</exception>
-        public static void PasteTestCasesToSuite(int suiteToAddInId, List<LightTestCase> lightTestCases, ClipBoardCommand clipBoardCommand)
+        public static void PasteTestCasesToSuite(int suiteToAddInId, ClipBoardTestCase clipBoardTestCase)
         {
             ITestSuiteBase suiteToAddIn = ExecutionContext.TestManagementTeamProject.TestSuites.Find(suiteToAddInId);
             if (suiteToAddIn is IRequirementTestSuite)
@@ -169,31 +168,31 @@ using TestCaseManagerApp.BusinessLogic.Enums;
                 throw new ArgumentException("New test cases cannot be added to requirement based suites!");
             }
             IStaticTestSuite suiteToAddInStatic = suiteToAddIn as IStaticTestSuite;
-            ITestSuiteBase oldSuite = ExecutionContext.TestManagementTeamProject.TestSuites.Find(lightTestCases[0].ParentSuiteId);
-          
-            foreach (LightTestCase currentLightTestCase in lightTestCases)
+            ITestSuiteBase oldSuite = ExecutionContext.TestManagementTeamProject.TestSuites.Find(clipBoardTestCase.TestCases[0].TestSuiteId);
+
+            foreach (TestCase currentTestCase in clipBoardTestCase.TestCases)
             {
-                ITestCase currentTestCase = null;
+                ITestCase testCaseCore = null;
                 if (oldSuite is IRequirementTestSuite)
                 {
                     IRequirementTestSuite suite = oldSuite as IRequirementTestSuite;
-                    currentTestCase = suite.TestCases.Where(x => x.TestCase != null && x.TestCase.Id.Equals(currentLightTestCase.TestCaseId)).FirstOrDefault().TestCase;
+                    testCaseCore = suite.TestCases.Where(x => x.TestCase != null && x.TestCase.Id.Equals(currentTestCase.TestCaseId)).FirstOrDefault().TestCase;
                 }
                 else if (oldSuite is IStaticTestSuite)
                 {
                     IStaticTestSuite suite = oldSuite as IStaticTestSuite;
-                    currentTestCase = suite.Entries.Where(x => x.TestCase != null && x.TestCase.Id.Equals(currentLightTestCase.TestCaseId)).FirstOrDefault().TestCase;                   
+                    testCaseCore = suite.Entries.Where(x => x.TestCase != null && x.TestCase.Id.Equals(currentTestCase.TestCaseId)).FirstOrDefault().TestCase;                   
                 }
-                if (!suiteToAddInStatic.Entries.Contains(currentTestCase))
+                if (!suiteToAddInStatic.Entries.Contains(testCaseCore))
                 {
-                    suiteToAddInStatic.Entries.Add(currentTestCase);
+                    suiteToAddInStatic.Entries.Add(testCaseCore);
                 }
-                if (clipBoardCommand.Equals(ClipBoardCommand.Cut))
+                if (clipBoardTestCase.ClipBoardCommand.Equals(ClipBoardCommand.Cut))
                 {
                     if (oldSuite is IStaticTestSuite)
                     {
                         IStaticTestSuite suite = oldSuite as IStaticTestSuite;
-                        suite.Entries.Remove(currentTestCase);
+                        suite.Entries.Remove(testCaseCore);
                     }                   
                 }              
             }           

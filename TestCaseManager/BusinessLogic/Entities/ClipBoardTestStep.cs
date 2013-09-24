@@ -1,4 +1,4 @@
-﻿// <copyright file="ClipBoardTestCase.cs" company="Telerik">
+﻿// <copyright file="ClipBoardTestStep.cs" company="Telerik">
 // http://www.telerik.com All rights reserved.
 // </copyright>
 // <author>Anton Angelov</author>
@@ -9,19 +9,19 @@ namespace TestCaseManagerApp.BusinessLogic.Entities
     using TestCaseManagerApp.BusinessLogic.Enums;
 
     /// <summary>
-    /// Helper class which contains test cases which will be moved to clipboard + clipboard mode: copy or cut
+    /// Helper class which contains test steps which will be moved to clipboard + clipboard mode: copy or cut
     /// </summary>
     [Serializable]
-    public class ClipBoardTestCase
+    public class ClipBoardTestStep
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="ClipBoardTestCase"/> class.
+        /// Initializes a new instance of the <see cref="ClipBoardTestStep"/> class.
         /// </summary>
-        /// <param name="testCases">The test cases.</param>
+        /// <param name="testCases">The test steps.</param>
         /// <param name="clipBoardCommand">The clip board command.</param>
-        public ClipBoardTestCase(List<TestCase> testCases, ClipBoardCommand clipBoardCommand)
+        public ClipBoardTestStep(List<TestStep> testSteps, ClipBoardCommand clipBoardCommand)
         {
-            this.TestCases = testCases;
+            this.TestSteps = testSteps;
             this.ClipBoardCommand = clipBoardCommand;
         }
 
@@ -31,7 +31,7 @@ namespace TestCaseManagerApp.BusinessLogic.Entities
         /// <value>
         /// The test cases.
         /// </value>
-        public List<TestCase> TestCases { get; set; }
+        public List<TestStep> TestSteps { get; set; }
 
         /// <summary>
         /// Gets or sets the clip board command.

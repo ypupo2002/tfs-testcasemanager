@@ -230,27 +230,11 @@ namespace TestCaseManagerApp
         }
 
         /// <summary>
-        /// Gets the light test cases.
-        /// </summary>
-        /// <param name="testCases">The test cases.</param>
-        /// <returns>the light test cases</returns>
-        public static List<LightTestCase> GetLightTestCases(List<TestCase> testCases)
-        {
-            List<LightTestCase> lightTestCases = new List<LightTestCase>();
-            foreach (TestCase currentTestCase in testCases)
-            {
-                lightTestCases.Add(new LightTestCase(currentTestCase.ITestCase.Id, currentTestCase.ITestSuiteBase.Id));
-            }
-
-            return lightTestCases;
-        }
-
-        /// <summary>
         /// Copies the automatic clipboard.
         /// </summary>
         /// <param name="isCopy">if set to <c>true</c> [copy].</param>
         /// <param name="testCases">The test cases.</param>
-        public static void CopyToClipboardTestCases(bool isCopy, List<LightTestCase> testCases)
+        public static void CopyToClipboardTestCases(bool isCopy, List<TestCase> testCases)
         {
             ClipBoardCommand clipBoardCommand = isCopy ? ClipBoardCommand.Copy : ClipBoardCommand.Cut;
             ClipBoardTestCase clipBoardTestCase = new ClipBoardTestCase(testCases, clipBoardCommand);

@@ -15,6 +15,7 @@ using FirstFloor.ModernUI.Windows;
 using FirstFloor.ModernUI.Windows.Controls;
 using FirstFloor.ModernUI.Windows.Navigation;
 using Microsoft.TeamFoundation.TestManagement.Client;
+using TestCaseManagerApp.BusinessLogic.Entities;
 using TestCaseManagerApp.Helpers;
 using TestCaseManagerApp.ViewModels;
 
@@ -81,9 +82,54 @@ namespace TestCaseManagerApp.Views
         public static RoutedCommand MoveDownTestStepsCommand = new RoutedCommand();
 
         /// <summary>
+        /// The copy test steps command
+        /// </summary>
+        public static RoutedCommand CopyTestStepsCommand = new RoutedCommand();
+
+        /// <summary>
+        /// The cut test steps command
+        /// </summary>
+        public static RoutedCommand CutTestStepsCommand = new RoutedCommand();
+
+        /// <summary>
+        /// The paste test steps command
+        /// </summary>
+        public static RoutedCommand PasteTestStepsCommand = new RoutedCommand();
+
+        /// <summary>
         /// Indicates if the view model is already initialized
         /// </summary>
         private static bool isInitialized;
+
+        /// <summary>
+        /// The test case unique identifier
+        /// </summary>
+        private int testCaseId;
+
+        /// <summary>
+        /// The test suite unique identifier
+        /// </summary>
+        private int testSuiteId;
+
+        /// <summary>
+        /// The create new test case
+        /// </summary>
+        private bool createNew;
+
+        /// <summary>
+        /// The duplicate the test case
+        /// </summary>
+        private bool duplicate;
+
+        /// <summary>
+        /// The is already saved
+        /// </summary>
+        private bool isAlreadyCreated;
+
+        /// <summary>
+        /// The current edited step unique identifier
+        /// </summary>
+        private string currentEditedStepGuid;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="TestCaseEditView"/> class.
@@ -92,55 +138,7 @@ namespace TestCaseManagerApp.Views
         {
             this.InitializeComponent();
             this.InitializeFastKeys();
-        }
-
-        /// <summary>
-        /// Gets or sets the test case unique identifier.
-        /// </summary>
-        /// <value>
-        /// The test case unique identifier.
-        /// </value>
-        public int TestCaseId { get; set; }
-
-        /// <summary>
-        /// Gets or sets the test suite unique identifier.
-        /// </summary>
-        /// <value>
-        /// The test suite unique identifier.
-        /// </value>
-        public int TestSuiteId { get; set; }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether [create new].
-        /// </summary>
-        /// <value>
-        ///   <c>true</c> if [create new]; otherwise, <c>false</c>.
-        /// </value>
-        public bool CreateNew { get; set; }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether [duplicate].
-        /// </summary>
-        /// <value>
-        ///   <c>true</c> if [duplicate]; otherwise, <c>false</c>.
-        /// </value>
-        public bool Duplicate { get; set; }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether [comes from associated automation].
-        /// </summary>
-        /// <value>
-        /// <c>true</c> if [comes from associated automation]; otherwise, <c>false</c>.
-        /// </value>
-        public bool ComesFromAssociatedAutomation { get; set; }
-
-        /// <summary>
-        /// Gets or sets the current edited step unique identifier.
-        /// </summary>
-        /// <value>
-        /// The current edited step unique identifier.
-        /// </value>
-        public string CurrentEditedStepGuid { get; set; }
+        }  
 
         /// <summary>
         /// Gets or sets the test case edit view model.
@@ -204,12 +202,12 @@ namespace TestCaseManagerApp.Views
             this.ShowProgressBar();
             Task t = Task.Factory.StartNew(() =>
             {
-                TestCaseEditViewModel = new TestCaseEditViewModel(this.TestCaseId, this.TestSuiteId, this.CreateNew, this.Duplicate);
+                TestCaseEditViewModel = new TestCaseEditViewModel(this.testCaseId, this.testSuiteId, this.createNew, this.duplicate);
             });
             t.ContinueWith(antecedent =>
             {
                 this.InitializeUiRelatedViewSettings();
-                InitializePageTitle();
+                this.InitializePageTitle();
                 this.HideProgressBar();
                 isInitialized = true;
             }, TaskScheduler.FromCurrentSynchronizationContext());
@@ -220,11 +218,11 @@ namespace TestCaseManagerApp.Views
         /// </summary>
         private void InitializePageTitle()
         {
-            if (this.CreateNew && !this.Duplicate)
+            if (this.createNew && !this.duplicate)
             {
                 tbPageTitle.Text = "Create New";
             }
-            else if (this.CreateNew && this.Duplicate)
+            else if (this.createNew && this.duplicate)
             {
                 tbPageTitle.Text = "Duplicate";
             }
@@ -245,11 +243,11 @@ namespace TestCaseManagerApp.Views
             rtbExpectedResult.SetText(TestCaseEditViewModel.ExpectedResultDefaultText);
             tbSharedStepFilter.Text = TestCaseEditViewModel.SharedStepSearchDefaultText;
 
-            if (this.Duplicate || !this.CreateNew)
+            if (this.duplicate || !this.createNew)
             {
                 this.SetTestCasePropertiesFromDuplicateTestCase();
             }
-            else if (!this.Duplicate && this.CreateNew)
+            else if (!this.duplicate && this.createNew)
             {
                 this.SetTestCasePropertiesToDefault();
                 btnDuplicate.IsEnabled = false;
@@ -302,33 +300,28 @@ namespace TestCaseManagerApp.Views
         /// <param name="e">The <see cref="FragmentNavigationEventArgs"/> instance containing the event data.</param>
         private void InitializeUrlParameters(FragmentNavigationEventArgs e)
         {
-            this.CreateNew = false;
-            this.Duplicate = false;
+            this.createNew = false;
+            this.duplicate = false;
             FragmentManager fm = new FragmentManager(e.Fragment);
             string testCaseId = fm.Get("id");
             if (!string.IsNullOrEmpty(testCaseId))
             {
-                this.TestCaseId = int.Parse(testCaseId);
+                this.testCaseId = int.Parse(testCaseId);
             }
             string suiteId = fm.Get("suiteId");
             if (!string.IsNullOrEmpty(suiteId))
             {
-                this.TestSuiteId = int.Parse(suiteId);
+                this.testSuiteId = int.Parse(suiteId);
             }
             string createNew = fm.Get("createNew");
             if (!string.IsNullOrEmpty(createNew))
             {
-                this.CreateNew = bool.Parse(createNew);
+                this.createNew = bool.Parse(createNew);
             }
             string duplicate = fm.Get("duplicate");
             if (!string.IsNullOrEmpty(duplicate))
             {
-                this.Duplicate = bool.Parse(duplicate);
-            }
-            string comesFromAssociatedAutomation = fm.Get("comesFromAssociatedAutomation");
-            if (!string.IsNullOrEmpty(comesFromAssociatedAutomation))
-            {
-                this.ComesFromAssociatedAutomation = bool.Parse(comesFromAssociatedAutomation);
+                this.duplicate = bool.Parse(duplicate);
             }
         }
 
@@ -373,7 +366,7 @@ namespace TestCaseManagerApp.Views
         /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void btnShare_Click(object sender, RoutedEventArgs e)
         {
-            RegistryManager.WriteTitleTitlePromtDialog(String.Empty);
+            RegistryManager.WriteTitleTitlePromtDialog(string.Empty);
             var dialog = new PrompDialogWindow();
             dialog.ShowDialog();
 
@@ -629,7 +622,7 @@ namespace TestCaseManagerApp.Views
             rtbAction.ClearDefaultContent(ref this.TestCaseEditViewModel.IsActionTextSet);
             rtbExpectedResult.ClearDefaultContent(ref this.TestCaseEditViewModel.IsExpectedResultTextSet);
             TestStep currentTestStep = this.GetSelectedTestStep();
-            this.CurrentEditedStepGuid = currentTestStep.StepGuid;
+            this.currentEditedStepGuid = currentTestStep.StepGuid;
             rtbAction.SetText(currentTestStep.ITestStep.Title);
             rtbExpectedResult.SetText(currentTestStep.ITestStep.ExpectedResult);
         }
@@ -666,12 +659,12 @@ namespace TestCaseManagerApp.Views
         private void btnSaveTestStep_Click(object sender, RoutedEventArgs e)
         {
             this.DisableSaveButton();
-            TestStep currentTestStep = this.TestCaseEditViewModel.ObservableTestSteps.Where(x => x.StepGuid.Equals(this.CurrentEditedStepGuid)).FirstOrDefault();
+            TestStep currentTestStep = this.TestCaseEditViewModel.ObservableTestSteps.Where(x => x.StepGuid.Equals(this.currentEditedStepGuid)).FirstOrDefault();
             string stepTitle = this.TestCaseEditViewModel.GetStepTitle(rtbAction.GetText());
             string expectedResult = this.TestCaseEditViewModel.GetExpectedResult(rtbExpectedResult.GetText());
             currentTestStep.ITestStep.Title = stepTitle;
             currentTestStep.ITestStep.ExpectedResult = expectedResult;
-            this.CurrentEditedStepGuid = string.Empty;
+            this.currentEditedStepGuid = string.Empty;
         }
 
         /// <summary>
@@ -686,7 +679,7 @@ namespace TestCaseManagerApp.Views
             this.TestCaseEditViewModel.IsExpectedResultTextSet = false;
             rtbAction.ClearDefaultContent(ref this.TestCaseEditViewModel.IsActionTextSet);
             rtbExpectedResult.ClearDefaultContent(ref this.TestCaseEditViewModel.IsExpectedResultTextSet);
-            this.CurrentEditedStepGuid = string.Empty;
+            this.currentEditedStepGuid = string.Empty;
         }
 
         /// <summary>
@@ -710,6 +703,7 @@ namespace TestCaseManagerApp.Views
         private void btnDuplicate_Click(object sender, RoutedEventArgs e)
         {
             this.NavigateToTestCasesEditView(this.TestCaseEditViewModel.TestCase.ITestCase.Id, this.TestCaseEditViewModel.TestCase.ITestSuiteBase.Id, true, true);
+            this.InitializePageTitle();
         }
 
         /// <summary>
@@ -742,22 +736,21 @@ namespace TestCaseManagerApp.Views
             int priority = int.Parse(cbPriority.Text);
             string suiteTitle = tbSuite.Text;
             TestCase savedTestCase;
-            if ((this.CreateNew || this.Duplicate) && !this.TestCaseEditViewModel.IsAlreadyCreated)
+            if ((this.createNew || this.duplicate) && !this.isAlreadyCreated)
             {
                 savedTestCase = this.TestCaseEditViewModel.TestCase.Save(true, priority, suiteTitle, this.TestCaseEditViewModel.ObservableTestSteps.ToList());
                 this.TestCaseEditViewModel.TestCase = savedTestCase;
-                this.TestCaseEditViewModel.IsAlreadyCreated = true;
-                this.CreateNew = false;
-                this.Duplicate = false;
+                this.isAlreadyCreated = true;
+                this.createNew = false;
+                this.duplicate = false;
                 btnDuplicate.IsEnabled = true;
-                this.TestCaseEditViewModel.CreateNew = false;
-                this.TestCaseEditViewModel.Duplicate = false;
             }
             else
             {
                 savedTestCase = this.TestCaseEditViewModel.TestCase.Save(false, priority, suiteTitle, this.TestCaseEditViewModel.ObservableTestSteps.ToList());
             }
-            this.TestCaseId = savedTestCase.ITestCase.Id;
+            this.testCaseId = savedTestCase.ITestCase.Id;
+            this.TestCaseEditViewModel.TestCaseIdLabel = savedTestCase.ITestCase.Id.ToString();
 
             return savedTestCase;
         }
@@ -789,6 +782,49 @@ namespace TestCaseManagerApp.Views
         {
             this.NavigateToTestCasesInitialView();
         }
+
+        /// <summary>
+        /// Handles the Command event of the copyTestSteps control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="ExecutedRoutedEventArgs"/> instance containing the event data.</param>
+        private void copyTestSteps_Command(object sender, ExecutedRoutedEventArgs e)
+        {
+            e.Handled = true;
+            //List<TestCase> testCases = this.GetSelectedTestCasesInternal();
+            //List<LightTestCase> lightTetCases = TestCaseManager.GetLightTestCases(testCases);
+            //TestCaseManager.CopyToClipboardTestCases(true, testCases);
+        }
+
+        /// <summary>
+        /// Handles the Command event of the cutTestSteps control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="ExecutedRoutedEventArgs"/> instance containing the event data.</param>
+        private void cutTestSteps_Command(object sender, ExecutedRoutedEventArgs e)
+        {
+            e.Handled = true;
+            //List<TestCase> testCases = this.GetSelectedTestCasesInternal();
+            //List<LightTestCase> lightTetCases = TestCaseManager.GetLightTestCases(testCases);
+            //TestCaseManager.CopyToClipboardTestCases(false, testCases);
+        }
+
+        /// <summary>
+        /// Handles the Command event of the pasteTestSteps control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="ExecutedRoutedEventArgs"/> instance containing the event data.</param>
+        private void pasteTestSteps_Command(object sender, ExecutedRoutedEventArgs e)
+        {
+            e.Handled = true;
+            //int selectedSuiteId = RegistryManager.GetSelectedSuiteId();
+            //Suite parentSuite = this.TestCasesInitialViewModel.GetSuiteById(this.TestCasesInitialViewModel.Suites, selectedSuiteId);
+            //ClipBoardTestCase clipBoardTestCase = TestCaseManager.GetFromClipboardTestCases();
+            //if (clipBoardTestCase != null)
+            //{
+            //    this.PasteTestCasesToSuiteInternal(parentSuite, clipBoardTestCase);
+            //}
+        }    
 
         /// <summary>
         /// Handles the Click event of the btnEdit control.
@@ -976,8 +1012,18 @@ namespace TestCaseManagerApp.Views
             else
             {
                 TestCase currentTestCase = this.SaveTestCaseInternal();
-                this.NavigateToAssociateAutomationView(currentTestCase.ITestCase.Id, currentTestCase.ITestSuiteBase.Id, this.CreateNew, this.Duplicate);
+                this.NavigateToAssociateAutomationView(currentTestCase.ITestCase.Id, currentTestCase.ITestSuiteBase.Id, this.createNew, this.duplicate);
             }
+        }
+
+        /// <summary>
+        /// Handles the PreviewMouseRightButtonDown event of the dgTestSteps control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="MouseButtonEventArgs"/> instance containing the event data.</param>
+        private void dgTestSteps_PreviewMouseRightButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            this.TestCaseEditViewModel.UpdateTestStepContextMenuItemsStatus();
         }         
     }
 }

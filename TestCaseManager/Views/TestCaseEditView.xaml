@@ -24,6 +24,10 @@
             <CommandBinding Command="{x:Static local:TestCaseEditView.MoveDownTestStepsCommand}" Executed="moveDown_Command"/>
             <CommandBinding Command="{x:Static local:TestCaseEditView.AddSharedStepCommand}" Executed="btnAdd_Click"/>
             <CommandBinding Command="{x:Static local:TestCaseEditView.ShareStepCommand}" Executed="btnShare_Click"/>
+
+            <CommandBinding Command="{x:Static local:TestCaseEditView.CopyTestStepsCommand}" Executed="copyTestSteps_Command"/>
+            <CommandBinding Command="{x:Static local:TestCaseEditView.CutTestStepsCommand}" Executed="cutTestSteps_Command"/>
+            <CommandBinding Command="{x:Static local:TestCaseEditView.PasteTestStepsCommand}" Executed="pasteTestSteps_Command"/>
         </Grid.CommandBindings>
         <ProgressBar Name="progressBar" Minimum="0" Maximum="1" Height="16" IsIndeterminate="True" Margin="0,0,0,16" />
         
@@ -64,12 +68,11 @@
                 </Grid.ColumnDefinitions>                
                 
                 <TextBlock Text="ID" Margin="10,0,10,0" Height="25" FontWeight="Bold" HorizontalAlignment="Stretch" Grid.Row="0" Grid.Column="0"/>
-                <TextBox Text="{Binding TestCase.ITestCase.Id}" Margin="10,0,10,0" Height="25" HorizontalAlignment="Left" Grid.Row="1" Grid.Column="0" IsReadOnly="True"/>
+                <TextBox Text="{Binding TestCaseIdLabel}" Margin="10,0,10,0" Height="25" HorizontalAlignment="Left" Grid.Row="1" Grid.Column="0" IsReadOnly="True"/>
                 <TextBlock Text="Title" Margin="10,0,10,0" Height="25" FontWeight="Bold" HorizontalAlignment="Left" Grid.Row="0" Grid.Column="1"/>
                 <TextBox Text="{Binding TestCase.ITestCase.Title}" HorizontalAlignment="Stretch" Margin="10,0,10,0" Height="25" Grid.Row="1" Grid.Column="1"/>
                 <TextBlock Text="Suite" Margin="10,0,10,0" Height="25" FontWeight="Bold" HorizontalAlignment="Left" Grid.Row="0" Grid.Column="2"/>
                 <TextBox Text="{Binding TestCase.ITestSuiteBase.Title, Mode=OneWay}" Name="tbSuite" Margin="10,0,10,0" Height="25" HorizontalAlignment="Stretch" Grid.Row="1" Grid.Column="2" IsReadOnly="True" />
-                <!--<ComboBox Height="25" Margin="10,0,10,0" Name="cbSuite" ItemsSource="{Binding TestSuiteList}" DisplayMemberPath="Title" IsTextSearchEnabled="True" helpers:ComboBoxDropdownExtensions.OpenDropDownAutomatically="True" Grid.Row="1" Grid.Column="2" IsEditable ="True" MouseEnter="cbSuite_MouseEnter" MouseMove="cbSuite_MouseMove"/>-->
                 <TextBlock Text="Area" Margin="10,0,10,0" Height="25" FontWeight="Bold" HorizontalAlignment="Left" Grid.Row="0" Grid.Column="3"/>
                 <ComboBox Height="25" Margin="10,0,10,0" ItemsSource="{Binding Areas}" Name="cbArea" IsTextSearchEnabled="True" IsEditable ="True" helpers:ComboBoxDropdownExtensions.OpenDropDownAutomatically="True" Grid.Row="1" Grid.Column="3"  MouseEnter="cbArea_MouseEnter" MouseMove="cbArea_MouseMove"/>
                 <TextBlock Text="Priority" Margin="10,0,10,0" Height="25" FontWeight="Bold" HorizontalAlignment="Left" Grid.Row="0" Grid.Column="4"/>
@@ -125,12 +128,14 @@
                     </Grid.ColumnDefinitions>
 
                     <DataGrid ItemsSource="{Binding ObservableTestSteps}" AutoGenerateColumns="False" Name="dgTestSteps" Height="Auto" IsReadOnly="True"
-                          IsSynchronizedWithCurrentItem="True" SelectionUnit="FullRow" HorizontalAlignment="Left" Grid.Column="0" SelectionMode="Extended" MouseLeftButtonUp="dgTestSteps_MouseLeftButtonUp" ClipboardCopyMode="ExcludeHeader">
+                          IsSynchronizedWithCurrentItem="True" SelectionUnit="FullRow" HorizontalAlignment="Left" Grid.Column="0" SelectionMode="Extended" 
+                              MouseLeftButtonUp="dgTestSteps_MouseLeftButtonUp" PreviewMouseRightButtonDown="dgTestSteps_PreviewMouseRightButtonDown">
                         <DataGrid.ContextMenu>
                             <ContextMenu>
-                                <MenuItem Command="Cut"/>
-                                <MenuItem Command="Copy"/>
-                                <MenuItem Command="Paste"/>
+                                <MenuItem Command="{x:Static local:TestCaseEditView.CutTestStepsCommand}" Header="Cut" />
+                                <MenuItem Command="{x:Static local:TestCaseEditView.CopyTestStepsCommand}" Header="Copy" />
+                                <MenuItem Command="{x:Static local:TestCaseEditView.PasteTestStepsCommand}" Header="Paste" IsEnabled="{Binding IsPasteEnabled}"/>
+                                <Separator />
                                 <MenuItem Command="{x:Static local:TestCaseEditView.ShareStepCommand}" Header="Share"/>
                                 <MenuItem Command="{x:Static local:TestCaseEditView.DeleteTestStepCommand}" Header="Delete"/>
                             </ContextMenu>
