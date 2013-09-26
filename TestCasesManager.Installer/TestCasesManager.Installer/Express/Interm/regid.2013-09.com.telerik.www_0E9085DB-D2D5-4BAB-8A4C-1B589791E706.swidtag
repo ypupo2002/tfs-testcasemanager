@@ -2,14 +2,14 @@
 <swid:software_identification_tag xsi:schemaLocation="http://standards.iso.org/iso/19770/-2/2009/schema.xsd" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:swid="http://standards.iso.org/iso/19770/-2/2009/schema.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:fs="http://www.flexerasoftware.com/swid/2011/arp">
 	<!-- Mandatory elements -->
 	<swid:entitlement_required_indicator id="entitlement_required_indicator">true</swid:entitlement_required_indicator>
-	<swid:product_title id="product_title">Test Cases Manager 1.0.5.1</swid:product_title>
+	<swid:product_title id="product_title">Test Cases Manager 1.0.5.3</swid:product_title>
 	<swid:product_version>
-		<swid:name id="version_name">1.0.5.1</swid:name>
+		<swid:name id="version_name">1.0.5.3</swid:name>
 		<swid:numeric>
 			<swid:major id="version_major">1</swid:major>
 			<swid:minor id="version_minor">0</swid:minor>
 			<swid:build id="version_build">5</swid:build>
-			<swid:review id="version_review">1</swid:review>
+			<swid:review id="version_review">3</swid:review>
 		</swid:numeric>
 	</swid:product_version>
 	<swid:software_creator>
@@ -32,8 +32,8 @@
 	<swid:extended_information>
 		<fs:original_arp_guid id="original_arp_guid">{717296F4-160E-4CF6-82BA-0213015BFE96}</fs:original_arp_guid>
 		<fs:original_arp_publisher id="original_arp_publisher">Telerik</fs:original_arp_publisher>
-		<fs:original_arp_display_name id="original_arp_display_name">Test Cases Manager 1.0.5.1</fs:original_arp_display_name>
-		<fs:original_arp_display_version id="original_arp_display_version">1.0.5.1</fs:original_arp_display_version>
+		<fs:original_arp_display_name id="original_arp_display_name">Test Cases Manager 1.0.5.3</fs:original_arp_display_name>
+		<fs:original_arp_display_version id="original_arp_display_version">1.0.5.3</fs:original_arp_display_version>
 		<fs:current_arp_guid/>
 		<fs:current_arp_publisher/>
 		<fs:current_arp_display_name/>

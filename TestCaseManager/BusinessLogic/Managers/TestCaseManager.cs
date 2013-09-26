@@ -140,10 +140,10 @@ namespace TestCaseManagerApp
             currentTestCase.ITestCase.Title = testCase.ITestCase.Title;
             currentTestCase.ITestCase.Priority = priority;
             currentTestCase.ITestCase.Actions.Clear();
-            List<string> addedSharedStepGuids = new List<string>();
+            List<Guid> addedSharedStepGuids = new List<Guid>();
             foreach (TestStep currentStep in testSteps)
             {
-                if (currentStep.IsShared && !addedSharedStepGuids.Contains(currentStep.StepGuid))
+                if (currentStep.IsShared && !addedSharedStepGuids.Contains(currentStep.TestStepGuid))
                 {
                     ISharedStep sharedStepCore = ExecutionContext.TestManagementTeamProject.SharedSteps.Find(currentStep.SharedStepId);
 
@@ -151,13 +151,13 @@ namespace TestCaseManagerApp
                     ISharedStepReference sharedStepReferenceCore = currentTestCase.ITestCase.CreateSharedStepReference();
                     sharedStepReferenceCore.SharedStepId = sharedStepCore.Id;
                     currentTestCase.ITestCase.Actions.Add(sharedStepReferenceCore);
-                    addedSharedStepGuids.Add(currentStep.StepGuid);
+                    addedSharedStepGuids.Add(currentStep.TestStepGuid);
                 }
                 else if (!currentStep.IsShared)
                 {
                     ITestStep testStepCore = currentTestCase.ITestCase.CreateTestStep();
-                    testStepCore.Title = currentStep.ITestStep.Title;
-                    testStepCore.ExpectedResult = currentStep.ITestStep.ExpectedResult;
+                    testStepCore.Title = currentStep.ActionTitle;
+                    testStepCore.ExpectedResult = currentStep.ActionExpectedResult;
                     currentTestCase.ITestCase.Actions.Add(testStepCore);
                 }
             }
@@ -260,6 +260,25 @@ namespace TestCaseManagerApp
         }
 
         /// <summary>
+        /// Gets the test case core object by unique identifier.
+        /// </summary>
+        /// <param name="testCaseId">The test case unique identifier.</param>
+        /// <returns></returns>
+        public static ITestCase GetTestCaseCoreObjectById(int testCaseId)
+        {
+            ITestCase testCaseCore = null;
+            try
+            {
+                testCaseCore = ExecutionContext.TestManagementTeamProject.TestCases.Find(testCaseId);
+            }
+            catch
+            {
+            }
+
+            return testCaseCore;
+        }
+
+        /// <summary>
         /// Replaces the test steps information in specific test case.
         /// </summary>
         /// <param name="testCase">The test case.</param>
@@ -273,11 +292,11 @@ namespace TestCaseManagerApp
             if (replaceSharedSteps || replaceInSteps)
             {
                 testCase.ITestCase.Actions.Clear();
-                List<string> addedSharedStepGuids = new List<string>();
+                List<Guid> addedSharedStepGuids = new List<Guid>();
 
                 foreach (TestStep currentStep in testSteps)
                 {
-                    if (currentStep.IsShared && !addedSharedStepGuids.Contains(currentStep.StepGuid) && replaceSharedSteps)
+                    if (currentStep.IsShared && !addedSharedStepGuids.Contains(currentStep.TestStepGuid) && replaceSharedSteps)
                     {
                         int newSharedStepId = GetNewSharedStepId(currentStep.SharedStepId, sharedStepReplacePairs);
                         if (!replaceSharedSteps)
@@ -288,20 +307,20 @@ namespace TestCaseManagerApp
                         ISharedStepReference sharedStepReferenceCore = testCase.ITestCase.CreateSharedStepReference();
                         sharedStepReferenceCore.SharedStepId = sharedStep.Id;
                         testCase.ITestCase.Actions.Add(sharedStepReferenceCore);
-                        addedSharedStepGuids.Add(currentStep.StepGuid);
+                        addedSharedStepGuids.Add(currentStep.TestStepGuid);
                     }
                     else if (!currentStep.IsShared)
                     {
                         ITestStep testStepCore = testCase.ITestCase.CreateTestStep();
                         if (replaceInSteps)
                         {
-                            testStepCore.Title = currentStep.ITestStep.Title.ToString().ReplaceAll(textReplacePairs);
-                            testStepCore.ExpectedResult = currentStep.ITestStep.ExpectedResult.ToString().ReplaceAll(textReplacePairs);
+                            testStepCore.Title = currentStep.ActionTitle.ToString().ReplaceAll(textReplacePairs);
+                            testStepCore.ExpectedResult = currentStep.ActionExpectedResult.ToString().ReplaceAll(textReplacePairs);
                         }
                         else
                         {
-                            testStepCore.Title = currentStep.ITestStep.Title;
-                            testStepCore.ExpectedResult = currentStep.ITestStep.ExpectedResult;
+                            testStepCore.Title = currentStep.ActionTitle;
+                            testStepCore.ExpectedResult = currentStep.ActionExpectedResult;
                         }
                         testCase.ITestCase.Actions.Add(testStepCore);
                     }

@@ -87,7 +87,8 @@
                         </DataGridTemplateColumn.HeaderStyle>
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock Text="{Binding ITestStep.Title, Converter={StaticResource TestStepPropertiesConverter}}" TextWrapping="Wrap" />
+                                <TextBlock Text="{Binding ActionTitle}" TextWrapping="Wrap" />
+                                <!--<TextBlock Text="{Binding ITestStep.Title, Converter={StaticResource TestStepPropertiesConverter}}" TextWrapping="Wrap" />-->
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>                   
                     </DataGridTemplateColumn>
@@ -99,7 +100,8 @@
                         </DataGridTemplateColumn.HeaderStyle>
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock Text="{Binding ITestStep.ExpectedResult, Converter={StaticResource TestStepPropertiesConverter}}" TextWrapping="Wrap" />
+                                <TextBlock Text="{Binding ActionExpectedResult}" TextWrapping="Wrap" />
+                                <!--<TextBlock Text="{Binding ITestStep.ExpectedResult, Converter={StaticResource TestStepPropertiesConverter}}" TextWrapping="Wrap" />-->
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>

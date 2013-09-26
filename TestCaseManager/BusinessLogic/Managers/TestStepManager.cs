@@ -40,21 +40,14 @@ namespace TestCaseManagerApp
             {
                 if (currentAction is ITestStep)
                 {
-                    string stepGuid = Guid.NewGuid().ToString();
-                    testSteps.Add(new TestStep(false, currentAction as ITestStep, string.Empty, stepGuid));
+                    Guid testStepGuid = Guid.NewGuid();
+                    testSteps.Add(new TestStep(false, string.Empty, testStepGuid, currentAction as ITestStep));
                 }
                 else if (currentAction is ISharedStepReference)
                 {
                     ISharedStepReference currentSharedStepReference = currentAction as ISharedStepReference;
                     ISharedStep currentSharedStep = ExecutionContext.TestManagementTeamProject.SharedSteps.Find(currentSharedStepReference.SharedStepId);
-                    string sharedStepGuid = GetSharedStepGuid(alreadyAddedSharedSteps, currentSharedStep);
-
-                    //if (sharedSteps != null)
-                    //{
-                    //    sharedSteps.Add(new SharedStep(currentSharedStep));
-                    //}
-
-                    testSteps.AddRange(TestStepManager.GetAllTestStepsInSharedStep(currentSharedStep, sharedStepGuid));
+                    testSteps.AddRange(TestStepManager.GetAllTestStepsInSharedStep(currentSharedStep));
                 }
             }
 
@@ -92,19 +85,6 @@ namespace TestCaseManagerApp
         }
 
         /// <summary>
-        /// Gets the shared step unique identifier.
-        /// </summary>
-        /// <param name="alreadyAddedSharedSteps">The already added shared steps.</param>
-        /// <param name="currentSharedStep">The current shared step.</param>
-        /// <returns>the shared step unique identifier</returns>
-        public static string GetSharedStepGuid(Dictionary<int, string> alreadyAddedSharedSteps, ISharedStep currentSharedStep)
-        {
-            string sharedStepUniqueGuid = Guid.NewGuid().ToString();
-
-            return sharedStepUniqueGuid;
-        }
-
-        /// <summary>
         /// Determines whether [is there shared step selected] from [the specified selected test steps].
         /// </summary>
         /// <param name="selectedTestSteps">The selected test steps.</param>
@@ -128,16 +108,16 @@ namespace TestCaseManagerApp
         /// Gets the test steps from shared step.
         /// </summary>
         /// <param name="currentSharedStep">The current shared step.</param>
-        /// <param name="sharedStepUniqueGuid">The shared step unique unique identifier.</param>
         /// <returns>list of all test steps in the specified shared step</returns>
-        public static List<TestStep> GetAllTestStepsInSharedStep(ISharedStep currentSharedStep, string sharedStepUniqueGuid = "")
+        public static List<TestStep> GetAllTestStepsInSharedStep(ISharedStep currentSharedStep)
         {
             List<TestStep> testSteps = new List<TestStep>();
+            Guid sharedStepUniqueGuid = Guid.NewGuid();
             if (currentSharedStep != null && currentSharedStep.Actions != null)
             {                
                 foreach (var currentSharedStepAction in currentSharedStep.Actions)
                 {
-                    testSteps.Add(new TestStep(true, currentSharedStepAction as ITestStep, currentSharedStep.Title, currentSharedStep.Id, sharedStepUniqueGuid));
+                    testSteps.Add(new TestStep(true, currentSharedStep.Title, sharedStepUniqueGuid, currentSharedStepAction as ITestStep, currentSharedStep.Id));
                 }
             }
 
@@ -154,7 +134,7 @@ namespace TestCaseManagerApp
             StringBuilder sb = new StringBuilder();
             foreach (TestStep currentTestStep in testSteps)
             {
-                sb.AppendLine(string.Format("{0}   {1}", currentTestStep.ITestStep.Title.ToPlainText(), currentTestStep.ITestStep.ExpectedResult.ToPlainText()));
+                sb.AppendLine(string.Format("{0}   {1}", currentTestStep.ActionTitle, currentTestStep.ActionExpectedResult));
                 sb.AppendLine(new string('*', 20));
             }
 
@@ -168,19 +148,19 @@ namespace TestCaseManagerApp
         /// <param name="testCase">The test case.</param>
         /// <param name="stepTitle">The step title.</param>
         /// <param name="expectedResult">The expected result.</param>
-        /// <param name="guid">The unique identifier.</param>
+        /// <param name="testStepGuid">The unique identifier.</param>
         /// <returns>the test step object</returns>
-        public static TestStep CreateNewTestStep(TestCase testCase, string stepTitle, string expectedResult, string guid = "")
+        public static TestStep CreateNewTestStep(TestCase testCase, string stepTitle, string expectedResult, Guid testStepGuid)
         {
             ITestStep testStepCore = testCase.ITestCase.CreateTestStep();
             testStepCore.ExpectedResult = expectedResult;
             testStepCore.Title = stepTitle;
-            if (string.IsNullOrEmpty(guid))
+            if (testStepGuid == default(Guid))
             {
-                guid = Guid.NewGuid().ToString();
+                testStepGuid = Guid.NewGuid();
             }
 
-            TestStep testStepToInsert = new TestStep(false, testStepCore, string.Empty, guid);
+            TestStep testStepToInsert = new TestStep(false, string.Empty, testStepGuid, testStepCore);
 
             return testStepToInsert;
         }
@@ -218,10 +198,9 @@ namespace TestCaseManagerApp
         {
             ISharedStep sharedStepCore = ExecutionContext.TestManagementTeamProject.SharedSteps.Create();
             sharedStepCore.Title = sharedStepTitle;
-            string sharedStepGuid = Guid.NewGuid().ToString();
 
             sharedStepCore.Save();
-            AddTestStepsToSharedStep(sharedStepCore, sharedStepGuid, selectedTestSteps, sharedStepTitle);
+            AddTestStepsToSharedStep(sharedStepCore, Guid.NewGuid(), selectedTestSteps, sharedStepTitle);
             sharedStepCore.Save();
 
             return sharedStepCore;
@@ -243,15 +222,15 @@ namespace TestCaseManagerApp
         /// <param name="sharedStepGuid">The shared step unique identifier.</param>
         /// <param name="selectedTestSteps">The test steps to add.</param>
         /// <param name="sharedStepTitle">The shared step title.</param>
-        private static void AddTestStepsToSharedStep(ISharedStep sharedStepCore, string sharedStepGuid, List<TestStep> selectedTestSteps, string sharedStepTitle)
+        private static void AddTestStepsToSharedStep(ISharedStep sharedStepCore, Guid sharedStepGuid, List<TestStep> selectedTestSteps, string sharedStepTitle)
         {
             foreach (TestStep currentTestStep in selectedTestSteps)
             {
                 ITestStep testStepCore = sharedStepCore.CreateTestStep();
-                testStepCore.ExpectedResult = currentTestStep.ITestStep.ExpectedResult;
-                testStepCore.Title = currentTestStep.ITestStep.Title;
+                testStepCore.ExpectedResult = currentTestStep.ActionExpectedResult;
+                testStepCore.Title = currentTestStep.ActionTitle;
                 sharedStepCore.Actions.Add(testStepCore);
-                currentTestStep.StepGuid = sharedStepGuid;
+                currentTestStep.TestStepGuid = sharedStepGuid;
                 currentTestStep.Title = sharedStepTitle;
                 currentTestStep.IsShared = true;
                 currentTestStep.SharedStepId = sharedStepCore.Id;

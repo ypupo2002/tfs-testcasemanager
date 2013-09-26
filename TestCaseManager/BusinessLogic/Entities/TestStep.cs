@@ -12,7 +12,7 @@ namespace TestCaseManagerApp
     /// Contains Test Step object information properties
     /// </summary>
     [Serializable]
-    public class TestStep : BaseNotifyPropertyChanged
+    public class TestStep : BaseNotifyPropertyChanged, ICloneable, IEquatable<TestStep>
     {
         /// <summary>
         /// The title
@@ -25,40 +25,89 @@ namespace TestCaseManagerApp
         private bool isPasteEnabled;
 
         /// <summary>
-        /// The test step core
+        /// The action title
         /// </summary>
-        [NonSerialized]
-        private ITestStep testStepCore;
+        private string actionTitle;
+
+        /// <summary>
+        /// The action expected result
+        /// </summary>
+        private string actionExpectedResult;
+
+        /// <summary>
+        /// The test step unique identifier
+        /// </summary>
+        private Guid testStepGuid;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="TestStep" /> class.
         /// </summary>
         /// <param name="isShared">if set to <c>true</c> [is shared].</param>
-        /// <param name="testStepCore">The attribute test step.</param>
         /// <param name="title">The title.</param>
-        /// <param name="guid">The unique identifier.</param>
-        public TestStep(bool isShared, ITestStep testStepCore, string title, string guid)
+        /// <param name="testStepGuid">The test step unique identifier.</param>
+        public TestStep(bool isShared, string title, Guid testStepGuid)
         {
             this.IsShared = isShared;
-            this.ITestStep = testStepCore;
             this.Title = title;
-            this.StepGuid = guid;
-            this.TestStepId = testStepCore.Id;
+            this.TestStepGuid = testStepGuid;
             this.IsPasteEnabled = false;
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="TestStep" /> class.
+        /// </summary>
+        /// <param name="isShared">if set to <c>true</c> [is shared].</param>
+        /// <param name="title">The title.</param>
+        /// <param name="testStepGuid">The test step unique identifier.</param>
+        /// <param name="testStepId">The test step unique identifier.</param>
+        /// <param name="actionTitle">The action title.</param>
+        /// <param name="actionExpectedResult">The action expected result.</param>
+        public TestStep(bool isShared, string title, Guid testStepGuid, int testStepId, string actionTitle, string actionExpectedResult)
+            : this(isShared, title, testStepGuid)
+        {
+            this.TestStepId = testStepId;
+            this.ActionTitle = actionTitle;
+            this.ActionExpectedResult = actionExpectedResult;
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="TestStep" /> class.
+        /// </summary>
+        /// <param name="isShared">if set to <c>true</c> [is shared].</param>
+        /// <param name="title">The title.</param>
+        /// <param name="testStepGuid">The test step unique identifier.</param>
+        /// <param name="testStepCore">The test step core.</param>
+        public TestStep(bool isShared, string title, Guid testStepGuid, ITestStep testStepCore)
+            : this(isShared, title, testStepGuid)
+        {
+            this.TestStepId = testStepCore.Id;
+            this.ActionTitle = testStepCore.Title.ToPlainText();
+            this.ActionExpectedResult = testStepCore.ExpectedResult.ToPlainText();
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="TestStep" /> class.
+        /// </summary>
+        /// <param name="isShared">if set to <c>true</c> [is shared].</param>
+        /// <param name="title">The title.</param>
+        /// <param name="testStepGuid">The test step unique identifier.</param>
+        /// <param name="testStepCore">The test step core.</param>
+        /// <param name="sharedStepId">The shared step unique identifier.</param>
+        public TestStep(bool isShared, string title, Guid testStepGuid, ITestStep testStepCore, int sharedStepId)
+            : this(isShared, title, testStepGuid, testStepCore)
+        {
+            this.SharedStepId = sharedStepId;
         }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="TestStep"/> class.
         /// </summary>
-        /// <param name="isShared">if set to <c>true</c> [is shared].</param>
-        /// <param name="testStepCore">The test step core.</param>
-        /// <param name="title">The title.</param>
-        /// <param name="sharedStepId">The shared step unique identifier.</param>
-        /// <param name="guid">The unique identifier.</param>
-        public TestStep(bool isShared, ITestStep testStepCore, string title, int sharedStepId, string guid)
-            : this(isShared, testStepCore, title, guid)
+        /// <param name="otherTestStep">The other test step.</param>
+        public TestStep(TestStep otherTestStep)
+            : this(otherTestStep.IsShared, otherTestStep.Title, otherTestStep.TestStepGuid, otherTestStep.TestStepId,
+                   otherTestStep.ActionTitle, otherTestStep.ActionExpectedResult)
         {
-            this.SharedStepId = sharedStepId;
+            this.SharedStepId = otherTestStep.SharedStepId;
         }
 
         /// <summary>
@@ -91,7 +140,25 @@ namespace TestCaseManagerApp
         /// <value>
         /// The step unique identifier.
         /// </value>
-        public string StepGuid { get; set; }
+        public Guid TestStepGuid 
+        {
+            get
+            {
+                return this.testStepGuid;
+            }
+
+            set
+            {
+                if (value == default(Guid))
+                {
+                    this.testStepGuid = Guid.NewGuid();
+                }
+                else
+                {
+                    this.testStepGuid = value;
+                }
+            }
+        }
 
         /// <summary>
         /// Gets or sets a value indicating whether [is pate enabled].
@@ -113,26 +180,6 @@ namespace TestCaseManagerApp
             }
         }
 
-
-        /// <summary>
-        /// Gets or sets the core test step object.
-        /// </summary>
-        /// <value>
-        /// The core test step object.
-        /// </value>
-        public ITestStep ITestStep
-        {
-            get
-            {
-                return this.testStepCore;
-            }
-
-            set
-            {
-                this.testStepCore = value;
-            }
-        }
-
         /// <summary>
         /// Gets or sets the title.
         /// </summary>
@@ -151,6 +198,78 @@ namespace TestCaseManagerApp
                 this.title = value;
                 this.NotifyPropertyChanged();
             }
+        }
+
+        /// <summary>
+        /// Gets or sets the action title.
+        /// </summary>
+        /// <value>
+        /// The action title.
+        /// </value>
+        public string ActionTitle
+        {
+            get
+            {
+                return this.actionTitle;
+            }
+
+            set
+            {
+                this.actionTitle = value;
+                this.NotifyPropertyChanged();
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the action expected result.
+        /// </summary>
+        /// <value>
+        /// The action expected result.
+        /// </value>
+        public string ActionExpectedResult
+        {
+            get
+            {
+                return this.actionExpectedResult;
+            }
+
+            set
+            {
+                this.actionExpectedResult = value;
+                this.NotifyPropertyChanged();
+            }
+        }
+
+        /// <summary>
+        /// Creates a new object that is a copy of the current instance.
+        /// </summary>
+        /// <returns>
+        /// A new object that is a copy of this instance.
+        /// </returns>
+        public object Clone()
+        {
+            TestStep clonedTestStep = new TestStep(this);
+            clonedTestStep.TestStepGuid = Guid.NewGuid();
+
+            return clonedTestStep;
+        }
+
+        /// <summary>
+        /// Indicates whether the current object is equal to another object of the same type.
+        /// </summary>
+        /// <param name="other">An object to compare with this object.</param>
+        /// <returns>
+        /// true if the current object is equal to the <paramref name="other" /> parameter; otherwise, false.
+        /// </returns>
+        public bool Equals(TestStep other)
+        {
+            bool result = this.TestStepGuid.Equals(other.TestStepGuid) && 
+                this.ActionTitle.Equals(other.ActionTitle) &&
+                this.ActionExpectedResult.Equals(other.ActionExpectedResult) &&
+                this.IsShared.Equals(other.IsShared) &&
+                this.SharedStepId.Equals(other.SharedStepId);
+
+            return result;
         }
     }
 }

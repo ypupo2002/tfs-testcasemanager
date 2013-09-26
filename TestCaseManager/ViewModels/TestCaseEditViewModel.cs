@@ -210,16 +210,16 @@ namespace TestCaseManagerApp.ViewModels
         /// <summary>
         /// Updates the test step context menu items status.
         /// </summary>
-        public void UpdateTestStepContextMenuItemsStatus()
-        {          
-            ClipBoardTestStep clipBoardItem = TestStepManager.GetFromClipboardTestSteps();
-            bool isPasteEnabled = clipBoardItem == null ? false : true;
+        //public void UpdateTestStepContextMenuItemsStatus()
+        //{          
+        //    ClipBoardTestStep clipBoardItem = TestStepManager.GetFromClipboardTestSteps();
+        //    bool isPasteEnabled = clipBoardItem == null ? false : true;
 
-            foreach (TestStep currentTestStep in this.ObservableTestSteps)
-            {
-                currentTestStep.IsPasteEnabled = isPasteEnabled;
-            }
-        }
+        //    foreach (TestStep currentTestStep in this.ObservableTestSteps)
+        //    {
+        //        currentTestStep.IsPasteEnabled = isPasteEnabled;
+        //    }
+        //}
 
         /// <summary>
         /// Deletes all marked steps for removal.
@@ -230,6 +230,25 @@ namespace TestCaseManagerApp.ViewModels
             foreach (TestStep currentTestStepToBeRemoved in testStepsToBeRemoved)
             {
                 this.ObservableTestSteps.Remove(currentTestStepToBeRemoved);
+            }
+        }
+
+        /// <summary>
+        /// Deletes the cut test steps.
+        /// </summary>
+        /// <param name="cutTestSteps">The cut test steps.</param>
+        public void DeleteCutTestSteps(List<TestStep> cutTestSteps)
+        {          
+            foreach (TestStep currentTestStepToBeRemoved in cutTestSteps)
+            {
+                for (int i = 0; i < this.ObservableTestSteps.Count; i++)
+                {
+                    if (this.ObservableTestSteps[i].TestStepGuid.Equals(currentTestStepToBeRemoved.TestStepGuid))
+                    {
+                        this.ObservableTestSteps.RemoveAt(i);
+                        break;
+                    }
+                }
             }
         }
 
@@ -247,7 +266,7 @@ namespace TestCaseManagerApp.ViewModels
             {
                 foreach (TestStep currentTestStep in this.ObservableTestSteps)
                 {
-                    if (currentTestStep.ITestStep.Id.Equals(currentStepToBeRemoved.ITestStep.Id))
+                    if (currentTestStep.TestStepId.Equals(currentStepToBeRemoved.TestStepId))
                     {
                         allStepsToBeRemoved.Add(currentTestStep);
                     }
@@ -266,34 +285,40 @@ namespace TestCaseManagerApp.ViewModels
             List<TestStep> testStepsToBeRemoved = new List<TestStep>();
             foreach (TestStep currentStepToBeRemoved in selectedTestSteps)
             {
-                testStepsToBeRemoved.Add(currentStepToBeRemoved);
+                foreach (TestStep currentObservableTestStep in this.ObservableTestSteps)
+                {
+                    if (currentStepToBeRemoved.TestStepGuid.Equals(currentObservableTestStep.TestStepGuid))
+                    {
+                        testStepsToBeRemoved.Add(currentObservableTestStep);
+                    }
+                }                
             }
 
             return testStepsToBeRemoved;
         }
 
         /// <summary>
-        /// Inserts the test step(title + expected result) information in shared step.
+        /// Inserts the test step(title + expected result) information in shared step. Currently Not Using!
         /// </summary>
         /// <param name="selectedSharedStep">The selected shared step.</param>
         /// <param name="stepText">The step text.</param>
         /// <param name="expectedResult">The expected result.</param>
         public void InsertTestStepInSharedStep(SharedStep selectedSharedStep, string stepText, string expectedResult)
         {
-            string sharedStepGuid = this.ObservableTestSteps.Where(x => x.Title.Equals(selectedSharedStep.ISharedStep.Title)).FirstOrDefault().StepGuid;
+            Guid sharedStepGuid = this.ObservableTestSteps.Where(x => x.Title.Equals(selectedSharedStep.ISharedStep.Title)).FirstOrDefault().TestStepGuid;
 
-            TestStep testStepToInsert = TestStepManager.CreateNewTestStep(TestCase, stepText, expectedResult);
+            TestStep testStepToInsert = TestStepManager.CreateNewTestStep(TestCase, stepText, expectedResult, Guid.NewGuid());
             testStepToInsert.IsShared = true;
-            testStepToInsert.StepGuid = sharedStepGuid;
+            testStepToInsert.TestStepGuid = sharedStepGuid;
             bool shouldInsert = true;
             for (int i = this.ObservableTestSteps.Count - 1; i >= 0; i--)
             {
-                if (this.ObservableTestSteps[i].StepGuid.Equals(sharedStepGuid) && shouldInsert)
+                if (this.ObservableTestSteps[i].TestStepGuid.Equals(sharedStepGuid) && shouldInsert)
                 {
                     this.ObservableTestSteps.Insert(i + 1, testStepToInsert);
                     shouldInsert = false;
                 }
-                else if (this.ObservableTestSteps[i].StepGuid.Equals(sharedStepGuid) && !shouldInsert)
+                else if (this.ObservableTestSteps[i].TestStepGuid.Equals(sharedStepGuid) && !shouldInsert)
                 {
                     continue;
                 }
@@ -386,8 +411,7 @@ namespace TestCaseManagerApp.ViewModels
         /// <param name="selectedIndex">Index of the selected test step.</param>
         public void InsertSharedStep(SharedStep currentSharedStep, int selectedIndex)
         {
-            string guid = TestStepManager.GetSharedStepGuid(this.AlreadyAddedSharedSteps, currentSharedStep.ISharedStep);
-            List<TestStep> innerTestSteps = TestStepManager.GetAllTestStepsInSharedStep(currentSharedStep.ISharedStep, guid);
+            List<TestStep> innerTestSteps = TestStepManager.GetAllTestStepsInSharedStep(currentSharedStep.ISharedStep);
           
             int j = 0;
             for (int i = selectedIndex; i < innerTestSteps.Count + selectedIndex; i++)
@@ -405,23 +429,6 @@ namespace TestCaseManagerApp.ViewModels
             foreach (TestStep currentStepToBeRemoved in testStepsToBeRemoved)
             {
                 this.ObservableTestSteps.Remove(currentStepToBeRemoved);
-                if (!currentStepToBeRemoved.IsShared)
-                {
-                    // TestCaseEditViewModel.TestCase.ITestCase.Actions.Remove(currentStepToBeRemoved as ITestAction);
-                }
-                else
-                {
-                    ISharedStep currentSharedStep = ExecutionContext.TestManagementTeamProject.SharedSteps.Find(currentStepToBeRemoved.SharedStepId);
-
-                    // TestCaseEditViewModel.TestCase.ITestCase.Actions.Remove(currentSharedStep as ITestAction);
-                    foreach (ITestStep currentInnerTestStep in currentSharedStep.Actions)
-                    {
-                        if (this.ObservableTestSteps.Where(x => x.ITestStep.Title.Equals(currentInnerTestStep.Title)).ToList().Count > 0)
-                        {
-                            this.ObservableTestSteps.Remove(this.ObservableTestSteps.First(x => x.ITestStep.Title.Equals(currentInnerTestStep.Title)));
-                        }
-                    }
-                }
             }
         }
 

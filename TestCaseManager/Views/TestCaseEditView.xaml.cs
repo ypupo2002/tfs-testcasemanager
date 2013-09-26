@@ -16,6 +16,7 @@ using FirstFloor.ModernUI.Windows.Controls;
 using FirstFloor.ModernUI.Windows.Navigation;
 using Microsoft.TeamFoundation.TestManagement.Client;
 using TestCaseManagerApp.BusinessLogic.Entities;
+using TestCaseManagerApp.BusinessLogic.Enums;
 using TestCaseManagerApp.Helpers;
 using TestCaseManagerApp.ViewModels;
 
@@ -127,9 +128,14 @@ namespace TestCaseManagerApp.Views
         private bool isAlreadyCreated;
 
         /// <summary>
+        /// The is fake item inserted
+        /// </summary>
+        private bool isFakeItemInserted;
+
+        /// <summary>
         /// The current edited step unique identifier
         /// </summary>
-        private string currentEditedStepGuid;
+        private Guid currentEditedStepGuid;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="TestCaseEditView"/> class.
@@ -353,7 +359,7 @@ namespace TestCaseManagerApp.Views
             int selectedIndex = dgTestSteps.SelectedIndex;
             string stepTitle = TestCaseEditViewModel.GetStepTitle(rtbAction.GetText());
             string expectedResult = TestCaseEditViewModel.GetExpectedResult(rtbExpectedResult.GetText());
-            TestStep testStepToInsert = TestStepManager.CreateNewTestStep(TestCaseEditViewModel.TestCase, stepTitle, expectedResult);
+            TestStep testStepToInsert = TestStepManager.CreateNewTestStep(TestCaseEditViewModel.TestCase, stepTitle, expectedResult, default(Guid));
             TestCaseEditViewModel.InsertTestStepInTestCase(testStepToInsert, selectedIndex);
             dgTestSteps.SelectedIndex = dgTestSteps.SelectedIndex + 1;
             dgTestSteps.Focus();
@@ -611,6 +617,43 @@ namespace TestCaseManagerApp.Views
             {
                 this.EditCurrentTestStepInternal();
             }
+            List<TestStep> selectedTestSteps = this.AddMissedSelectedSharedSteps();
+            this.UpdateSelectedTestSteps(selectedTestSteps);
+        }
+
+        /// <summary>
+        /// Updates the selected test steps. Add updated selected test steps.
+        /// </summary>
+        /// <param name="selectedTestSteps">The selected test steps.</param>
+        private void UpdateSelectedTestSteps(List<TestStep> selectedTestSteps)
+        {
+            dgTestSteps.SelectedItems.Clear();
+            foreach (TestStep currentTestStep in selectedTestSteps)
+            {
+                dgTestSteps.SelectedItems.Add(currentTestStep);
+            }
+        }
+
+        /// <summary>
+        /// Adds the missed selected shared steps. Select non-selected shared steps because part of the shared step was already selected.
+        /// </summary>
+        /// <returns>updated selected test steps list</returns>
+        private List<TestStep> AddMissedSelectedSharedSteps()
+        {
+            List<TestStep> selectedTestSteps = this.GetAllSelectedTestSteps();
+            foreach (TestStep currentSelectedTestStep in this.TestCaseEditViewModel.ObservableTestSteps)
+            {
+                for (int i = 0; i < selectedTestSteps.Count; i++)
+                {
+                    if (currentSelectedTestStep.TestStepGuid.Equals(selectedTestSteps[i].TestStepGuid) &&
+                        !currentSelectedTestStep.TestStepId.Equals(selectedTestSteps[i].TestStepId))
+                    {
+                        selectedTestSteps.Add(currentSelectedTestStep);
+                        break;
+                    }
+                }
+            }
+            return selectedTestSteps;
         }
 
         /// <summary>
@@ -622,9 +665,9 @@ namespace TestCaseManagerApp.Views
             rtbAction.ClearDefaultContent(ref this.TestCaseEditViewModel.IsActionTextSet);
             rtbExpectedResult.ClearDefaultContent(ref this.TestCaseEditViewModel.IsExpectedResultTextSet);
             TestStep currentTestStep = this.GetSelectedTestStep();
-            this.currentEditedStepGuid = currentTestStep.StepGuid;
-            rtbAction.SetText(currentTestStep.ITestStep.Title);
-            rtbExpectedResult.SetText(currentTestStep.ITestStep.ExpectedResult);
+            this.currentEditedStepGuid = currentTestStep.TestStepGuid;
+            rtbAction.SetText(currentTestStep.ActionTitle);
+            rtbExpectedResult.SetText(currentTestStep.ActionExpectedResult);
         }
 
         /// <summary>
@@ -659,12 +702,12 @@ namespace TestCaseManagerApp.Views
         private void btnSaveTestStep_Click(object sender, RoutedEventArgs e)
         {
             this.DisableSaveButton();
-            TestStep currentTestStep = this.TestCaseEditViewModel.ObservableTestSteps.Where(x => x.StepGuid.Equals(this.currentEditedStepGuid)).FirstOrDefault();
+            TestStep currentTestStep = this.TestCaseEditViewModel.ObservableTestSteps.Where(x => x.TestStepGuid.Equals(this.currentEditedStepGuid)).FirstOrDefault();
             string stepTitle = this.TestCaseEditViewModel.GetStepTitle(rtbAction.GetText());
             string expectedResult = this.TestCaseEditViewModel.GetExpectedResult(rtbExpectedResult.GetText());
-            currentTestStep.ITestStep.Title = stepTitle;
-            currentTestStep.ITestStep.ExpectedResult = expectedResult;
-            this.currentEditedStepGuid = string.Empty;
+            currentTestStep.ActionTitle = stepTitle;
+            currentTestStep.ActionExpectedResult = expectedResult;
+            this.currentEditedStepGuid = default(Guid);
         }
 
         /// <summary>
@@ -679,7 +722,7 @@ namespace TestCaseManagerApp.Views
             this.TestCaseEditViewModel.IsExpectedResultTextSet = false;
             rtbAction.ClearDefaultContent(ref this.TestCaseEditViewModel.IsActionTextSet);
             rtbExpectedResult.ClearDefaultContent(ref this.TestCaseEditViewModel.IsExpectedResultTextSet);
-            this.currentEditedStepGuid = string.Empty;
+            this.currentEditedStepGuid = default(Guid);
         }
 
         /// <summary>
@@ -791,9 +834,34 @@ namespace TestCaseManagerApp.Views
         private void copyTestSteps_Command(object sender, ExecutedRoutedEventArgs e)
         {
             e.Handled = true;
-            //List<TestCase> testCases = this.GetSelectedTestCasesInternal();
-            //List<LightTestCase> lightTetCases = TestCaseManager.GetLightTestCases(testCases);
-            //TestCaseManager.CopyToClipboardTestCases(true, testCases);
+            List<TestStep> selectedTestSteps = this.GetAllSelectedTestSteps();
+            this.UpdateParentTestCaseIdOfTestSteps(selectedTestSteps);
+            TestStepManager.CopyToClipboardTestSteps(true, selectedTestSteps);
+        }
+
+        /// <summary>
+        /// Gets all selected test steps.
+        /// </summary>
+        /// <returns></returns>
+        private List<TestStep> GetAllSelectedTestSteps()
+        {
+            List<TestStep> selectedTestStepsSorted = new List<TestStep>();
+            List<TestStep> selectedTestSteps = dgTestSteps.SelectedItems.Cast<TestStep>().ToList();
+
+            foreach (TestStep currentTestStep in this.TestCaseEditViewModel.ObservableTestSteps)
+            {
+                for (int i = 0; i < selectedTestSteps.Count; i++)
+                {
+                    if (currentTestStep.Equals(selectedTestSteps[i]))
+                    {
+                        selectedTestStepsSorted.Add(selectedTestSteps[i]);
+                        selectedTestSteps.RemoveAt(i);
+                        break;
+                    } 
+                }
+            }
+
+            return selectedTestStepsSorted;
         }
 
         /// <summary>
@@ -804,9 +872,10 @@ namespace TestCaseManagerApp.Views
         private void cutTestSteps_Command(object sender, ExecutedRoutedEventArgs e)
         {
             e.Handled = true;
-            //List<TestCase> testCases = this.GetSelectedTestCasesInternal();
-            //List<LightTestCase> lightTetCases = TestCaseManager.GetLightTestCases(testCases);
-            //TestCaseManager.CopyToClipboardTestCases(false, testCases);
+            List<TestStep> selectedTestSteps = this.GetAllSelectedTestSteps();
+            TestStepManager.CopyToClipboardTestSteps(false, selectedTestSteps);
+            ClipBoardTestStep clipBoardTestStep = TestStepManager.GetFromClipboardTestSteps();
+            this.TestCaseEditViewModel.DeleteCutTestSteps(clipBoardTestStep.TestSteps);
         }
 
         /// <summary>
@@ -817,13 +886,34 @@ namespace TestCaseManagerApp.Views
         private void pasteTestSteps_Command(object sender, ExecutedRoutedEventArgs e)
         {
             e.Handled = true;
-            //int selectedSuiteId = RegistryManager.GetSelectedSuiteId();
-            //Suite parentSuite = this.TestCasesInitialViewModel.GetSuiteById(this.TestCasesInitialViewModel.Suites, selectedSuiteId);
-            //ClipBoardTestCase clipBoardTestCase = TestCaseManager.GetFromClipboardTestCases();
-            //if (clipBoardTestCase != null)
-            //{
-            //    this.PasteTestCasesToSuiteInternal(parentSuite, clipBoardTestCase);
-            //}
+            ClipBoardTestStep clipBoardTestStep = TestStepManager.GetFromClipboardTestSteps();
+            int selectedIndex = dgTestSteps.SelectedIndex;
+            Guid previousOldGuid = default(Guid);
+            Guid previousNewGuid = default(Guid);
+            foreach (TestStep copiedTestStep in clipBoardTestStep.TestSteps)
+            {
+                TestStep testStepToBeInserted = (TestStep)copiedTestStep.Clone();
+                if(copiedTestStep.TestStepGuid.Equals(previousOldGuid))
+                {
+                    testStepToBeInserted.TestStepGuid = previousNewGuid;
+                }
+                TestCaseEditViewModel.InsertTestStepInTestCase(testStepToBeInserted, selectedIndex++);
+                previousNewGuid = testStepToBeInserted.TestStepGuid;
+                previousOldGuid = copiedTestStep.TestStepGuid;
+            }
+            if (clipBoardTestStep.ClipBoardCommand == ClipBoardCommand.Cut)
+            {
+                this.TestCaseEditViewModel.DeleteCutTestSteps(clipBoardTestStep.TestSteps);
+                System.Windows.Forms.Clipboard.Clear();
+            }
+            dgTestSteps.Focus();
+
+            // If fake item was inserted in order the paste to be enabled, we delete it from the test steps and select the next item in the grid
+            if (isFakeItemInserted)
+            {
+                this.TestCaseEditViewModel.ObservableTestSteps.RemoveAt(0);
+                isFakeItemInserted = false;
+            }            
         }    
 
         /// <summary>
@@ -847,8 +937,8 @@ namespace TestCaseManagerApp.Views
             rtbAction.ClearDefaultContent(ref this.TestCaseEditViewModel.IsActionTextSet);
             rtbExpectedResult.ClearDefaultContent(ref this.TestCaseEditViewModel.IsExpectedResultTextSet);
             TestStep currentTestStep = this.GetSelectedTestStep();
-            rtbAction.SetText(currentTestStep.ITestStep.Title);
-            rtbExpectedResult.SetText(currentTestStep.ITestStep.ExpectedResult);
+            rtbAction.SetText(currentTestStep.ActionTitle);
+            rtbExpectedResult.SetText(currentTestStep.ActionExpectedResult);
         }   
 
         /// <summary>
@@ -1023,7 +1113,92 @@ namespace TestCaseManagerApp.Views
         /// <param name="e">The <see cref="MouseButtonEventArgs"/> instance containing the event data.</param>
         private void dgTestSteps_PreviewMouseRightButtonDown(object sender, MouseButtonEventArgs e)
         {
-            this.TestCaseEditViewModel.UpdateTestStepContextMenuItemsStatus();
+            ClipBoardTestStep clipBoardItem = TestStepManager.GetFromClipboardTestSteps();
+            bool isPasteEnabled = clipBoardItem == null ? false : true;
+            dgTestStepsPasteMenuItem.IsEnabled = isPasteEnabled;
+
+            // If there isnt't items in the grid, we add a fake one in order the paste operation to be enabled
+            this.AddFakeInitialTestStepForPaste(isPasteEnabled);
+            this.dgTestSteps.Focus();
+        }
+
+        /// <summary>
+        /// Adds the fake initial test step for paste.
+        /// </summary>
+        /// <param name="isPasteEnabled">if set to <c>true</c> [is paste enabled].</param>
+        private void AddFakeInitialTestStepForPaste(bool isPasteEnabled)
+        {
+            // If there isnt't items in the grid, we add a fake one in order the paste operation to be enabled
+
+            if (this.TestCaseEditViewModel.ObservableTestSteps.Count == 0 && isPasteEnabled)
+            {
+                this.TestCaseEditViewModel.ObservableTestSteps.Add(new TestStep(false, String.Empty, default(Guid)));
+                this.dgTestSteps.SelectedIndex = 0;
+                this.isFakeItemInserted = true;
+            }
+        }
+
+        /// <summary>
+        /// Handles the event of the dgTestSteps_SelectedCellsChanged control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.Windows.Controls.SelectedCellsChangedEventArgs"/> instance containing the event data.</param>
+        private void dgTestSteps_SelectedCellsChanged(object sender, System.Windows.Controls.SelectedCellsChangedEventArgs e)
+        {
+            this.UpdateButtonMenuAvailabilityInternal();        
+        }
+
+        /// <summary>
+        /// Updates the button menu availability internal.
+        /// </summary>
+        private void UpdateButtonMenuAvailabilityInternal()
+        {
+            btnEdit.IsEnabled = true;
+            btnMoveUp.IsEnabled = true;
+            btnMoveDown.IsEnabled = true;
+            btnDeleteStep.IsEnabled = true;
+            btnChange.IsEnabled = true;
+            btnShare.IsEnabled = true;
+
+            dgTestStepsCopyMenuItem.IsEnabled = true;
+            dgTestStepsCutMenuItem.IsEnabled = true;
+            dgTestStepsShareMenuItem.IsEnabled = true;
+            dgTestStepsDeleteMenuItem.IsEnabled = true;
+
+            if (dgTestSteps.SelectedItems.Count == 0)
+            {
+                btnEdit.IsEnabled = false;
+                btnMoveUp.IsEnabled = false;
+                btnMoveDown.IsEnabled = false;
+                btnDeleteStep.IsEnabled = false;
+                btnChange.IsEnabled = false;
+                btnShare.IsEnabled = false;
+
+                dgTestStepsCopyMenuItem.IsEnabled = false;
+                dgTestStepsCutMenuItem.IsEnabled = false;
+                dgTestStepsShareMenuItem.IsEnabled = false;
+                dgTestStepsDeleteMenuItem.IsEnabled = false;
+            }
+
+            btnAdd.IsEnabled = true;
+            if (dgSharedSteps.SelectedItems.Count == 0)
+            {
+                btnAdd.IsEnabled = false;
+            }
+        }
+
+        /// <summary>
+        /// Handles the SelectedCellsChanged event of the dgSharedSteps control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.Windows.Controls.SelectedCellsChangedEventArgs"/> instance containing the event data.</param>
+        private void dgSharedSteps_SelectedCellsChanged(object sender, System.Windows.Controls.SelectedCellsChangedEventArgs e)
+        {
+            btnAdd.IsEnabled = true;
+            if (dgSharedSteps.SelectedItems.Count == 0)
+            {
+                btnAdd.IsEnabled = false;
+            }
         }         
     }
 }
