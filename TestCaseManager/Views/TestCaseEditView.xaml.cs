@@ -1,5 +1,5 @@
-﻿// <copyright file="TestCaseEditView.xaml.cs" company="Telerik">
-// http://www.telerik.com All rights reserved.
+﻿// <copyright file="TestCaseEditView.xaml.cs" company="CodePlex">
+// https://testcasemanager.codeplex.com/ All rights reserved.
 // </copyright>
 // <author>Anton Angelov</author>
 using System;
@@ -99,6 +99,16 @@ namespace TestCaseManagerApp.Views
         /// The paste test steps command
         /// </summary>
         public static RoutedCommand PasteTestStepsCommand = new RoutedCommand();
+
+        /// <summary>
+        /// The undo command
+        /// </summary>
+        public static RoutedCommand UndoCommand = new RoutedCommand();
+
+        /// <summary>
+        /// The redo command
+        /// </summary>
+        public static RoutedCommand RedoCommand = new RoutedCommand();
 
         /// <summary>
         /// Indicates if the view model is already initialized
@@ -217,9 +227,29 @@ namespace TestCaseManagerApp.Views
             {
                 this.InitializeUiRelatedViewSettings();
                 this.InitializePageTitle();
+                UndoRedoManager.Instance().RedoStackStatusChanged += new UndoRedoManager.OnStackStatusChanged(RedoStackStatusChanged);
+                UndoRedoManager.Instance().UndoStackStatusChanged += new UndoRedoManager.OnStackStatusChanged(UndoStackStatusChanged);
                 this.HideProgressBar();
                 isInitialized = true;
-            }, TaskScheduler.FromCurrentSynchronizationContext());
+            }, TaskScheduler.FromCurrentSynchronizationContext());         
+        }
+
+        /// <summary>
+        /// Undoes the stack status changed.
+        /// </summary>
+        /// <param name="hasItems">if set to <c>true</c> [has items].</param>
+        private void UndoStackStatusChanged(bool hasItems)
+        {
+            btnUndo.IsEnabled = hasItems;
+        }
+
+        /// <summary>
+        /// Redoes the stack status changed.
+        /// </summary>
+        /// <param name="hasItems">if set to <c>true</c> [has items].</param>
+        private void RedoStackStatusChanged(bool hasItems)
+        {
+            btnRedo.IsEnabled = hasItems;
         }
 
         /// <summary>
@@ -252,11 +282,12 @@ namespace TestCaseManagerApp.Views
             rtbExpectedResult.SetText(TestCaseEditViewModel.ExpectedResultDefaultText);
             tbSharedStepFilter.Text = TestCaseEditViewModel.SharedStepSearchDefaultText;
 
-            if (this.duplicate || !this.createNew)
-            {
-                this.SetTestCasePropertiesFromDuplicateTestCase();
-            }
-            else if (!this.duplicate && this.createNew)
+            //if (this.duplicate || !this.createNew)
+            //{
+            //    this.SetTestCasePropertiesFromDuplicateTestCase();
+            //}
+            //else if (!this.duplicate && this.createNew)
+            if (!this.duplicate && this.createNew)
             {
                 this.SetTestCasePropertiesToDefault();
                 btnDuplicate.IsEnabled = false;
@@ -265,15 +296,6 @@ namespace TestCaseManagerApp.Views
             {
                 btnDuplicate.IsEnabled = false;
             }
-        }
-
-        /// <summary>
-        /// Sets the test case properties from the test case from which we duplicate.
-        /// </summary>
-        private void SetTestCasePropertiesFromDuplicateTestCase()
-        {
-            cbArea.SelectedIndex = this.TestCaseEditViewModel.Areas.FindIndex(0, x => x.Equals(this.TestCaseEditViewModel.TestCase.ITestCase.Area));
-            cbPriority.SelectedIndex = this.TestCaseEditViewModel.Priorities.FindIndex(0, x => x.Equals(this.TestCaseEditViewModel.TestCase.ITestCase.Priority));
         }
 
         /// <summary>
@@ -350,6 +372,8 @@ namespace TestCaseManagerApp.Views
             EditStepCommand.InputGestures.Add(new KeyGesture(Key.E, ModifierKeys.Alt));
             ChangeStepCommand.InputGestures.Add(new KeyGesture(Key.C, ModifierKeys.Alt));
             InsertStepCommand.InputGestures.Add(new KeyGesture(Key.I, ModifierKeys.Alt));
+            UndoCommand.InputGestures.Add(new KeyGesture(Key.Z, ModifierKeys.Control));
+            RedoCommand.InputGestures.Add(new KeyGesture(Key.Y, ModifierKeys.Control));
         }
 
         /// <summary>
@@ -798,7 +822,7 @@ namespace TestCaseManagerApp.Views
             TestCase savedTestCase;
             if ((this.createNew || this.duplicate) && !this.isAlreadyCreated)
             {
-                savedTestCase = this.TestCaseEditViewModel.TestCase.Save(true, priority, suiteTitle, this.TestCaseEditViewModel.ObservableTestSteps.ToList());
+                savedTestCase = this.TestCaseEditViewModel.TestCase.Save(true, suiteTitle, this.TestCaseEditViewModel.ObservableTestSteps.ToList());
                 this.TestCaseEditViewModel.TestCase = savedTestCase;
                 this.isAlreadyCreated = true;
                 this.createNew = false;
@@ -807,7 +831,7 @@ namespace TestCaseManagerApp.Views
             }
             else
             {
-                savedTestCase = this.TestCaseEditViewModel.TestCase.Save(false, priority, suiteTitle, this.TestCaseEditViewModel.ObservableTestSteps.ToList());
+                savedTestCase = this.TestCaseEditViewModel.TestCase.Save(false, suiteTitle, this.TestCaseEditViewModel.ObservableTestSteps.ToList());
             }
             this.testCaseId = savedTestCase.ITestCase.Id;
             this.TestCaseEditViewModel.TestCaseIdLabel = savedTestCase.ITestCase.Id.ToString();
@@ -825,7 +849,7 @@ namespace TestCaseManagerApp.Views
             if (UndoRedoManager.Instance().HasUndoOperations)
             {
                 UndoRedoManager.Instance().Undo();
-            }           
+            }
         }
 
         /// <summary>
@@ -835,10 +859,10 @@ namespace TestCaseManagerApp.Views
         /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void btnRedo_Click(object sender, RoutedEventArgs e)
         {
-            //if (UndoRedoManager.Instance().HasRedoOperations)
-            //{
+            if (UndoRedoManager.Instance().HasRedoOperations)
+            {
                 UndoRedoManager.Instance().Redo();
-            //}  
+            }
         }
 
         /// <summary>
@@ -899,7 +923,13 @@ namespace TestCaseManagerApp.Views
             List<TestStep> selectedTestSteps = this.GetAllSelectedTestSteps();
             TestStepManager.CopyToClipboardTestSteps(false, selectedTestSteps);
             ClipBoardTestStep clipBoardTestStep = TestStepManager.GetFromClipboardTestSteps();
-            this.TestCaseEditViewModel.DeleteCutTestSteps(clipBoardTestStep.TestSteps);
+            if (clipBoardTestStep != null && clipBoardTestStep.TestSteps != null)
+            {
+                using (new UndoTransaction("Delete cut steps"))
+                {
+                    this.TestCaseEditViewModel.DeleteCutTestSteps(clipBoardTestStep.TestSteps);
+                }
+            }          
         }
 
         /// <summary>
@@ -914,22 +944,26 @@ namespace TestCaseManagerApp.Views
             int selectedIndex = dgTestSteps.SelectedIndex;
             Guid previousOldGuid = default(Guid);
             Guid previousNewGuid = default(Guid);
-            foreach (TestStep copiedTestStep in clipBoardTestStep.TestSteps)
+            using (new UndoTransaction("Copies previously selected test steps"))
             {
-                TestStep testStepToBeInserted = (TestStep)copiedTestStep.Clone();
-                if(copiedTestStep.TestStepGuid.Equals(previousOldGuid))
+                foreach (TestStep copiedTestStep in clipBoardTestStep.TestSteps)
                 {
-                    testStepToBeInserted.TestStepGuid = previousNewGuid;
+                    TestStep testStepToBeInserted = (TestStep)copiedTestStep.Clone();
+                    if (copiedTestStep.TestStepGuid.Equals(previousOldGuid))
+                    {
+                        testStepToBeInserted.TestStepGuid = previousNewGuid;
+                    }
+                    TestCaseEditViewModel.InsertTestStepInTestCase(testStepToBeInserted, selectedIndex++);
+                    previousNewGuid = testStepToBeInserted.TestStepGuid;
+                    previousOldGuid = copiedTestStep.TestStepGuid;
                 }
-                TestCaseEditViewModel.InsertTestStepInTestCase(testStepToBeInserted, selectedIndex++);
-                previousNewGuid = testStepToBeInserted.TestStepGuid;
-                previousOldGuid = copiedTestStep.TestStepGuid;
             }
             if (clipBoardTestStep.ClipBoardCommand == ClipBoardCommand.Cut)
             {
-                this.TestCaseEditViewModel.DeleteCutTestSteps(clipBoardTestStep.TestSteps);
+                //this.TestCaseEditViewModel.DeleteCutTestSteps(clipBoardTestStep.TestSteps);
                 System.Windows.Forms.Clipboard.Clear();
             }
+          
             dgTestSteps.Focus();
 
             // If fake item was inserted in order the paste to be enabled, we delete it from the test steps and select the next item in the grid

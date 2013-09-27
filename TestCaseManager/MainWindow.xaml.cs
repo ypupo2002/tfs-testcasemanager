@@ -1,5 +1,5 @@
-﻿// <copyright file="MainWindow.xaml.cs" company="Telerik">
-// http://www.telerik.com All rights reserved.
+﻿// <copyright file="MainWindow.xaml.cs" company="CodePlex">
+// https://testcasemanager.codeplex.com/ All rights reserved.
 // </copyright>
 // <author>Anton Angelov</author>
 using System;

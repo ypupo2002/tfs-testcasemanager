@@ -1,5 +1,5 @@
-﻿// <copyright file="TestCaseDetailedViewModel.cs" company="Telerik">
-// http://www.telerik.com All rights reserved.
+﻿// <copyright file="TestCaseDetailedViewModel.cs" company="CodePlex">
+// https://testcasemanager.codeplex.com/ All rights reserved.
 // </copyright>
 // <author>Anton Angelov</author>
 namespace TestCaseManagerApp.ViewModels

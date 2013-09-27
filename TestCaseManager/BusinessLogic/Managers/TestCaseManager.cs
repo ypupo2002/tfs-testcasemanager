@@ -1,5 +1,5 @@
-﻿// <copyright file="TestCaseManager.cs" company="Telerik">
-// http://www.telerik.com All rights reserved.
+﻿// <copyright file="TestCaseManager.cs" company="CodePlex">
+// https://testcasemanager.codeplex.com/ All rights reserved.
 // </copyright>
 // <author>Anton Angelov</author>
 namespace TestCaseManagerApp
@@ -124,11 +124,10 @@ namespace TestCaseManagerApp
         /// </summary>
         /// <param name="testCase">The test case.</param>
         /// <param name="createNew">should be saved as new test case.</param>
-        /// <param name="priority">The priority.</param>
         /// <param name="newSuiteTitle">The new suite title.</param>
         /// <param name="testSteps">The test steps.</param>
         /// <returns>the saved test case</returns>
-        public static TestCase Save(this TestCase testCase, bool createNew, int priority, string newSuiteTitle, List<TestStep> testSteps)
+        public static TestCase Save(this TestCase testCase, bool createNew, string newSuiteTitle, List<TestStep> testSteps)
         {
             TestCase currentTestCase = testCase;
             if (createNew)
@@ -136,9 +135,9 @@ namespace TestCaseManagerApp
                 ITestCase testCaseCore = ExecutionContext.TestManagementTeamProject.TestCases.Create();
                 currentTestCase = new TestCase(testCaseCore, testCase.ITestSuiteBase);
             }
-            currentTestCase.ITestCase.Area = testCase.ITestCase.Area;
-            currentTestCase.ITestCase.Title = testCase.ITestCase.Title;
-            currentTestCase.ITestCase.Priority = priority;
+            currentTestCase.ITestCase.Area = testCase.Area;
+            currentTestCase.ITestCase.Title = testCase.Title;
+            currentTestCase.ITestCase.Priority = testCase.Priority;
             currentTestCase.ITestCase.Actions.Clear();
             List<Guid> addedSharedStepGuids = new List<Guid>();
             foreach (TestStep currentStep in testSteps)

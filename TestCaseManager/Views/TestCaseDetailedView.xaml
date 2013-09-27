@@ -36,13 +36,13 @@
                     <TextBlock Text="ID" Margin="10,0,10,0" Height="25" FontWeight="Bold" HorizontalAlignment="Left" Grid.Row="0" Grid.Column="0"/>
                     <TextBox Text="{Binding TestCase.ITestCase.Id, Mode=OneWay}" Margin="10,0,10,0" Height="25" HorizontalAlignment="Stretch" Grid.Row="1" Grid.Column="0" IsReadOnly="True"/>
                     <TextBlock Text="Title" Margin="10,0,10,0" Height="25" FontWeight="Bold" HorizontalAlignment="Left" Grid.Row="0" Grid.Column="1"/>
-                    <TextBox Text="{Binding TestCase.ITestCase.Title, Mode=OneWay}"  Margin="10,0,10,0" Height="25" HorizontalAlignment="Stretch" Grid.Row="1" Grid.Column="1" IsReadOnly="True"/>
+                    <TextBox Text="{Binding TestCase.Title, Mode=OneWay}"  Margin="10,0,10,0" Height="25" HorizontalAlignment="Stretch" Grid.Row="1" Grid.Column="1" IsReadOnly="True"/>
                     <TextBlock Text="Suite" Margin="10,0,10,0" Height="25" FontWeight="Bold" HorizontalAlignment="Left" Grid.Row="0" Grid.Column="2"/>
                     <TextBox Text="{Binding TestCase.ITestSuiteBase.Title, Mode=OneWay}" Margin="10,0,10,0" Height="25" HorizontalAlignment="Stretch" Grid.Row="1" Grid.Column="2" IsReadOnly="True"/>
                     <TextBlock Text="Area" Margin="10,0,10,0" Height="25" FontWeight="Bold" HorizontalAlignment="Left" Grid.Row="0" Grid.Column="3"/>
-                    <TextBox Text="{Binding TestCase.ITestCase.Area, Mode=OneWay}"  Margin="10,0,10,0" Height="25" HorizontalAlignment="Stretch" Grid.Row="1" Grid.Column="3" IsReadOnly="True"/>
+                    <TextBox Text="{Binding TestCase.Area, Mode=OneWay}"  Margin="10,0,10,0" Height="25" HorizontalAlignment="Stretch" Grid.Row="1" Grid.Column="3" IsReadOnly="True"/>
                     <TextBlock Text="Priority" Margin="10,0,10,0" Height="25" FontWeight="Bold" HorizontalAlignment="Left" Grid.Row="0" Grid.Column="4"/>
-                    <TextBox Text="{Binding TestCase.ITestCase.Priority, Mode=OneWay}"  Margin="10,0,10,0" Height="25" HorizontalAlignment="Stretch" Grid.Row="1" Grid.Column="4" IsReadOnly="True"/>
+                    <TextBox Text="{Binding TestCase.Priority, Mode=OneWay}"  Margin="10,0,10,0" Height="25" HorizontalAlignment="Stretch" Grid.Row="1" Grid.Column="4" IsReadOnly="True"/>
                     <TextBlock Text="Automated" Margin="10,0,10,0" Height="25" FontWeight="Bold" HorizontalAlignment="Left" Grid.Row="0" Grid.Column="5"/>
                     <TextBox Text="{Binding TestCase.ITestCase.IsAutomated, Mode=OneWay}" Margin="10,0,10,0" Height="25" HorizontalAlignment="Stretch" Grid.Row="1" Grid.Column="5" IsReadOnly="True"/>
                 </Grid>

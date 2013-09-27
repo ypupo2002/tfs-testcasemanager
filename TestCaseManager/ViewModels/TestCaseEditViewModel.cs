@@ -1,5 +1,5 @@
-﻿// <copyright file="TestCaseEditViewModel.cs" company="Telerik">
-// http://www.telerik.com All rights reserved.
+﻿// <copyright file="TestCaseEditViewModel.cs" company="CodePlex">
+// https://testcasemanager.codeplex.com/ All rights reserved.
 // </copyright>
 // <author>Anton Angelov</author>
 namespace TestCaseManagerApp.ViewModels
@@ -209,21 +209,6 @@ namespace TestCaseManagerApp.ViewModels
         }
 
         /// <summary>
-        /// Deletes all marked steps for removal.
-        /// </summary>
-        /// <param name="testStepsToBeRemoved">The test steps automatic be removed.</param>
-        //public void DeleteAllMarkedStepsForRemoval(List<TestStepFull> testStepsToBeRemoved)
-        //{
-        //    using (new UndoTransaction("Delete all selected test steps"))
-        //    {
-        //        foreach (TestStepFull currentTestStepToBeRemoved in testStepsToBeRemoved)
-        //        {
-        //            this.RemoveTestStepFromObservableCollection(currentTestStepToBeRemoved, currentTestStepToBeRemoved.Index);
-        //        }
-        //    }           
-        //}
-
-        /// <summary>
         /// Deletes the cut test steps.
         /// </summary>
         /// <param name="cutTestSteps">The cut test steps.</param>
@@ -233,9 +218,17 @@ namespace TestCaseManagerApp.ViewModels
             {
                 for (int i = 0; i < this.ObservableTestSteps.Count; i++)
                 {
+                    int index = i - 1;
+
+                    // If the step to be removed is initial we set -2 for index in order the Insert Operation to be completed successfully. 
+                    // If index == -2 the insert function will insert the test step to the beginning of the collection
+                    if (index == -1)
+                    {
+                        index--;
+                    }
                     if (this.ObservableTestSteps[i].TestStepGuid.Equals(currentTestStepToBeRemoved.TestStepGuid))
                     {
-                        this.ObservableTestSteps.RemoveAt(i);
+                        this.RemoveTestStepFromObservableCollection(ObservableTestSteps[i], index);
                         break;
                     }
                 }

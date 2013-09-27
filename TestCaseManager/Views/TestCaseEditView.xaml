@@ -24,10 +24,11 @@
             <CommandBinding Command="{x:Static local:TestCaseEditView.MoveDownTestStepsCommand}" Executed="moveDown_Command"/>
             <CommandBinding Command="{x:Static local:TestCaseEditView.AddSharedStepCommand}" Executed="btnAdd_Click"/>
             <CommandBinding Command="{x:Static local:TestCaseEditView.ShareStepCommand}" Executed="btnShare_Click"/>
-
             <CommandBinding Command="{x:Static local:TestCaseEditView.CopyTestStepsCommand}" Executed="copyTestSteps_Command"/>
             <CommandBinding Command="{x:Static local:TestCaseEditView.CutTestStepsCommand}" Executed="cutTestSteps_Command"/>
             <CommandBinding Command="{x:Static local:TestCaseEditView.PasteTestStepsCommand}" Executed="pasteTestSteps_Command"/>
+            <CommandBinding Command="{x:Static local:TestCaseEditView.UndoCommand}" Executed="btnUndo_Click"/>
+            <CommandBinding Command="{x:Static local:TestCaseEditView.RedoCommand}" Executed="btnRedo_Click"/>
         </Grid.CommandBindings>
         <ProgressBar Name="progressBar" Minimum="0" Maximum="1" Height="16" IsIndeterminate="True" Margin="0,0,0,16" />
         
@@ -48,8 +49,8 @@
                </Grid.ColumnDefinitions>
                 
                 <TextBlock Text="Edit" Name="tbPageTitle"  Margin="10,0,10,20" Height="25" Width="Auto" FontSize="18" FontWeight="Bold" HorizontalAlignment="Left" Grid.Column="0"/>
-                <Button IsEnabled="True" Content="Undo" Margin="0,0,0,20" Name="btnUndo" Width="100" Height="25" VerticalAlignment="Center" IsDefault="True" Click="btnUndo_Click" Grid.Column="1"/>
-                <Button IsEnabled="True" Content="Redo" Margin="20,0,10,20" Name="btnRedo" Width="100" Height="25" VerticalAlignment="Center" IsDefault="True" Click="btnRedo_Click" Grid.Column="2"/>
+                <Button IsEnabled="False" Content="Undo" Margin="0,0,0,20" Name="btnUndo" Width="100" Height="25" VerticalAlignment="Center" IsDefault="True" Click="btnUndo_Click" Grid.Column="1"/>
+                <Button IsEnabled="False" Content="Redo" Margin="20,0,10,20" Name="btnRedo" Width="100" Height="25" VerticalAlignment="Center" IsDefault="True" Click="btnRedo_Click" Grid.Column="2"/>
             </Grid>
             
             <Grid Grid.Row="1">
@@ -70,13 +71,13 @@
                 <TextBlock Text="ID" Margin="10,0,10,0" Height="25" FontWeight="Bold" HorizontalAlignment="Stretch" Grid.Row="0" Grid.Column="0"/>
                 <TextBox Text="{Binding TestCaseIdLabel}" Margin="10,0,10,0" Height="25" HorizontalAlignment="Left" Grid.Row="1" Grid.Column="0" IsReadOnly="True"/>
                 <TextBlock Text="Title" Margin="10,0,10,0" Height="25" FontWeight="Bold" HorizontalAlignment="Left" Grid.Row="0" Grid.Column="1"/>
-                <TextBox Text="{Binding TestCase.ITestCase.Title}" HorizontalAlignment="Stretch" Margin="10,0,10,0" Height="25" Grid.Row="1" Grid.Column="1"/>
+                <TextBox Text="{Binding TestCase.Title}" HorizontalAlignment="Stretch" Margin="10,0,10,0" Height="25" Grid.Row="1" Grid.Column="1"/>
                 <TextBlock Text="Suite" Margin="10,0,10,0" Height="25" FontWeight="Bold" HorizontalAlignment="Left" Grid.Row="0" Grid.Column="2"/>
                 <TextBox Text="{Binding TestCase.ITestSuiteBase.Title, Mode=OneWay}" Name="tbSuite" Margin="10,0,10,0" Height="25" HorizontalAlignment="Stretch" Grid.Row="1" Grid.Column="2" IsReadOnly="True" />
                 <TextBlock Text="Area" Margin="10,0,10,0" Height="25" FontWeight="Bold" HorizontalAlignment="Left" Grid.Row="0" Grid.Column="3"/>
-                <ComboBox Height="25" Margin="10,0,10,0" ItemsSource="{Binding Areas}" Name="cbArea" IsTextSearchEnabled="True" IsEditable ="True" helpers:ComboBoxDropdownExtensions.OpenDropDownAutomatically="True" Grid.Row="1" Grid.Column="3"  MouseEnter="cbArea_MouseEnter" MouseMove="cbArea_MouseMove"/>
+                <ComboBox Height="25" Margin="10,0,10,0" ItemsSource="{Binding Areas}" SelectedValue="{Binding Path=TestCase.Area, Mode=TwoWay}" Name="cbArea" IsTextSearchEnabled="True" IsEditable ="True" helpers:ComboBoxDropdownExtensions.OpenDropDownAutomatically="True" Grid.Row="1" Grid.Column="3"  MouseEnter="cbArea_MouseEnter" MouseMove="cbArea_MouseMove"/>
                 <TextBlock Text="Priority" Margin="10,0,10,0" Height="25" FontWeight="Bold" HorizontalAlignment="Left" Grid.Row="0" Grid.Column="4"/>
-                <ComboBox Height="25" Margin="10,0,10,0" ItemsSource="{Binding Priorities}" Name="cbPriority" Grid.Row="1" Grid.Column="4" helpers:ComboBoxDropdownExtensions.OpenDropDownAutomatically="True" MouseEnter="cbPriority_MouseEnter" MouseMove="cbPriority_MouseMove"/>
+                <ComboBox Height="25" Margin="10,0,10,0" ItemsSource="{Binding Priorities}" SelectedValue="{Binding Path=TestCase.Priority, Mode=TwoWay}" Name="cbPriority" Grid.Row="1" Grid.Column="4" helpers:ComboBoxDropdownExtensions.OpenDropDownAutomatically="True" MouseEnter="cbPriority_MouseEnter" MouseMove="cbPriority_MouseMove"/>
                 <TextBlock Text="Automated" Margin="10,0,10,0" Height="25" FontWeight="Bold" HorizontalAlignment="Left" Grid.Row="0" Grid.Column="5"/>
                 <TextBox Text="{Binding TestCase.ITestCase.IsAutomated, Mode=OneWay}" Grid.Row="1" Grid.Column="5" IsReadOnly="True"/>
             </Grid>

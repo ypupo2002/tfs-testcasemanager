@@ -1,5 +1,5 @@
-﻿// <copyright file="TestStep.cs" company="Telerik">
-// http://www.telerik.com All rights reserved.
+﻿// <copyright file="TestStep.cs" company="CodePlex">
+// https://testcasemanager.codeplex.com/ All rights reserved.
 // </copyright>
 // <author>Anton Angelov</author>
 namespace TestCaseManagerApp
@@ -55,11 +55,11 @@ namespace TestCaseManagerApp
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="TestStep" /> class.
+        /// Initializes a new instance of the <see cref="TestStep"/> class.
         /// </summary>
         /// <param name="isShared">if set to <c>true</c> [is shared].</param>
         /// <param name="title">The title.</param>
-        /// <param name="testStepGuid">The test step unique identifier.</param>
+        /// <param name="testStepGuid">The test step unique guid.</param>
         /// <param name="testStepId">The test step unique identifier.</param>
         /// <param name="actionTitle">The action title.</param>
         /// <param name="actionExpectedResult">The action expected result.</param>
@@ -105,8 +105,7 @@ namespace TestCaseManagerApp
         /// </summary>
         /// <param name="otherTestStep">The other test step.</param>
         public TestStep(TestStep otherTestStep)
-            : this(otherTestStep.IsShared, otherTestStep.Title, otherTestStep.TestStepGuid, otherTestStep.TestStepId,
-                   otherTestStep.ActionTitle, otherTestStep.ActionExpectedResult)
+            : this(otherTestStep.IsShared, otherTestStep.Title, otherTestStep.TestStepGuid, otherTestStep.TestStepId, otherTestStep.ActionTitle, otherTestStep.ActionExpectedResult)
         {
             this.SharedStepId = otherTestStep.SharedStepId;
         }

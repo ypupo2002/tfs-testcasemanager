@@ -1,5 +1,5 @@
-﻿// <copyright file="BaseNotifyPropertyChanged.cs" company="Telerik">
-// http://www.telerik.com All rights reserved.
+﻿// <copyright file="BaseNotifyPropertyChanged.cs" company="CodePlex">
+// https://testcasemanager.codeplex.com/ All rights reserved.
 // </copyright>
 // <author>Anton Angelov</author>
 namespace TestCaseManagerApp.BusinessLogic.Entities
