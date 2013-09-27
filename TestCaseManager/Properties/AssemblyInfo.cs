@@ -1,4 +1,5 @@
-﻿// <copyright file="AssemblyInfo.cs" company="Telerik">
+﻿
+// <copyright file="AssemblyInfo.cs" company="Telerik">
 // http://www.telerik.com All rights reserved.
 // </copyright>
 // <author>Anton Angelov</author>
@@ -52,5 +53,5 @@ using System.Windows;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("1.0.5.4")]
-[assembly: AssemblyFileVersion("1.0.5.4")]
+[assembly: AssemblyVersion("1.0.5.5")]
+[assembly: AssemblyFileVersion("1.0.5.5")]

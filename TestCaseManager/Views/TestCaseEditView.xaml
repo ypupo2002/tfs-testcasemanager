@@ -48,8 +48,8 @@
                </Grid.ColumnDefinitions>
                 
                 <TextBlock Text="Edit" Name="tbPageTitle"  Margin="10,0,10,20" Height="25" Width="Auto" FontSize="18" FontWeight="Bold" HorizontalAlignment="Left" Grid.Column="0"/>
-                <Button IsEnabled="False" Content="Undo" Margin="0,0,0,20" Name="btnUndo" Width="100" Height="25" VerticalAlignment="Center" IsDefault="True" Click="btnUndo_Click" Grid.Column="1"/>
-                <Button IsEnabled="False" Content="Redo" Margin="20,0,10,20" Name="btnRedo" Width="100" Height="25" VerticalAlignment="Center" IsDefault="True" Click="btnRedo_Click" Grid.Column="2"/>
+                <Button IsEnabled="True" Content="Undo" Margin="0,0,0,20" Name="btnUndo" Width="100" Height="25" VerticalAlignment="Center" IsDefault="True" Click="btnUndo_Click" Grid.Column="1"/>
+                <Button IsEnabled="True" Content="Redo" Margin="20,0,10,20" Name="btnRedo" Width="100" Height="25" VerticalAlignment="Center" IsDefault="True" Click="btnRedo_Click" Grid.Column="2"/>
             </Grid>
             
             <Grid Grid.Row="1">

@@ -9,8 +9,10 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Forms;
 using System.Windows.Input;
+using System.Windows.Media;
 using FirstFloor.ModernUI.Windows;
 using FirstFloor.ModernUI.Windows.Controls;
 using FirstFloor.ModernUI.Windows.Navigation;
@@ -19,6 +21,7 @@ using TestCaseManagerApp.BusinessLogic.Entities;
 using TestCaseManagerApp.BusinessLogic.Enums;
 using TestCaseManagerApp.Helpers;
 using TestCaseManagerApp.ViewModels;
+using UndoMethods;
 
 namespace TestCaseManagerApp.Views
 {
@@ -447,22 +450,8 @@ namespace TestCaseManagerApp.Views
         {
             if (dgTestSteps.SelectedItems != null)
             {
-                List<TestStep> testStepsToBeRemoved = TestCaseEditViewModel.MarkInitialStepsToBeRemoved(dgTestSteps.SelectedItems.Cast<TestStep>().ToList());
+                List<TestStepFull> testStepsToBeRemoved = TestCaseEditViewModel.MarkInitialStepsToBeRemoved(dgTestSteps.SelectedItems.Cast<TestStep>().ToList());
                 this.TestCaseEditViewModel.RemoveTestSteps(testStepsToBeRemoved);
-            }
-        }
-
-        /// <summary>
-        /// Handles the Click event of the btnDeleteSharedStep control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
-        private void btnDeleteSharedStep_Click(object sender, RoutedEventArgs e)
-        {
-            if (dgTestSteps.SelectedItems != null)
-            {
-                List<TestStep> testStepsToBeRemoved = this.TestCaseEditViewModel.MarkStepsToBeRemoved(dgTestSteps.SelectedItems.Cast<TestStep>().ToList());
-                this.TestCaseEditViewModel.DeleteAllMarkedStepsForRemoval(testStepsToBeRemoved);              
             }
         }
 
@@ -514,13 +503,15 @@ namespace TestCaseManagerApp.Views
                 return;
             }
             int count = dgTestSteps.SelectedItems.Count;
-            TestCaseEditViewModel.CreateNewTestStepCollectionAfterMoveUp(startIndex, count);
-
-            this.SelectNextItemsAfterMoveUp(startIndex, count);
             if (dgTestSteps.SelectedItems.Count == 0)
             {
                 return;
             }
+            using (new UndoTransaction("Move up selected steps", true))
+            {
+                TestCaseEditViewModel.CreateNewTestStepCollectionAfterMoveUp(startIndex, count);
+                this.SelectNextItemsAfterMoveUp(startIndex, count);
+            }       
         }
 
         /// <summary>
@@ -553,10 +544,11 @@ namespace TestCaseManagerApp.Views
             {
                 return;
             }
-
-            TestCaseEditViewModel.CreateNewTestStepCollectionAfterMoveDown(startIndex, count);
-
-            this.SelectNextItemsAfterMoveDown(startIndex, count);
+            using (new UndoTransaction("Move down selected steps", true))
+            {
+                TestCaseEditViewModel.CreateNewTestStepCollectionAfterMoveDown(startIndex, count);
+                this.SelectNextItemsAfterMoveDown(startIndex, count);
+            }       
         }
 
         /// <summary>
@@ -571,20 +563,22 @@ namespace TestCaseManagerApp.Views
             {
                 dgTestSteps.SelectedItems.Add(dgTestSteps.Items[i]);
             }
+            UndoRedoManager.Instance().Push((si, c) => this.SelectNextItemsAfterMoveDown(si, c), startIndex - 1, selectedTestStepsCount, "Select next items after move up");
         }
 
         /// <summary>
         /// Selects the next test steps after move down.
         /// </summary>
         /// <param name="startIndex">The start index.</param>
-        /// <param name="selectedStepsCount">The selected test steps count.</param>
-        private void SelectNextItemsAfterMoveDown(int startIndex, int selectedStepsCount)
+        /// <param name="selectedTestStepsCount">The selected test steps count.</param>
+        private void SelectNextItemsAfterMoveDown(int startIndex, int selectedTestStepsCount)
         {
             dgTestSteps.SelectedItems.Clear();
-            for (int i = startIndex + 1; i < startIndex + selectedStepsCount + 1; i++)
+            for (int i = startIndex + 1; i < startIndex + selectedTestStepsCount + 1; i++)
             {
                 dgTestSteps.SelectedItems.Add(dgTestSteps.Items[i]);
             }
+            UndoRedoManager.Instance().Push((si, c) => this.SelectNextItemsAfterMoveUp(si, c), startIndex + 1, selectedTestStepsCount, "Select next items after move up");
         }
 
         /// <summary>
@@ -594,15 +588,38 @@ namespace TestCaseManagerApp.Views
         /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void btnAdd_Click(object sender, RoutedEventArgs e)
         {
+            this.InsertSharedStepInternal();
+        }
+
+        /// <summary>
+        /// Inserts the shared step internal.
+        /// </summary>
+        private void InsertSharedStepInternal()
+        {
             SharedStep currentSharedStep = dgSharedSteps.SelectedItem as SharedStep;
             if (currentSharedStep == null)
             {
                 ModernDialog.ShowMessage("Please select a shared step to add first!", "Warning", MessageBoxButton.OK);
                 return;
             }
-            int currentSelectedIndex = dgTestSteps.SelectedIndex;
-            this.TestCaseEditViewModel.InsertSharedStep(currentSharedStep, currentSelectedIndex + 1);
-            dgTestSteps.SelectedIndex = dgTestSteps.SelectedIndex + currentSharedStep.ISharedStep.Actions.Count;
+            using (new UndoTransaction("Insert Shared step's inner test steps to the test case test steps Observable collection"))
+            {
+                int currentSelectedIndex = dgTestSteps.SelectedIndex;
+                this.TestCaseEditViewModel.InsertSharedStep(currentSharedStep, currentSelectedIndex);
+                int index = dgTestSteps.SelectedIndex + currentSharedStep.ISharedStep.Actions.Count;
+                UndoRedoManager.Instance().Push((i) => this.ChangeSelectedIndexTestStepsDataGrid(i), dgTestSteps.SelectedIndex);
+                this.ChangeSelectedIndexTestStepsDataGrid(index);
+            }
+        }
+
+        /// <summary>
+        /// Changes the selected index test steps data grid.
+        /// </summary>
+        /// <param name="newIndex">The new index.</param>
+        private void ChangeSelectedIndexTestStepsDataGrid(int newIndex)
+        {
+            UndoRedoManager.Instance().Push((i) => this.ChangeSelectedIndexTestStepsDataGrid(i), dgTestSteps.SelectedIndex);
+            dgTestSteps.SelectedIndex = newIndex;
             dgTestSteps.Focus();
         }
 
@@ -805,6 +822,10 @@ namespace TestCaseManagerApp.Views
         /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void btnUndo_Click(object sender, RoutedEventArgs e)
         {
+            if (UndoRedoManager.Instance().HasUndoOperations)
+            {
+                UndoRedoManager.Instance().Undo();
+            }           
         }
 
         /// <summary>
@@ -814,6 +835,10 @@ namespace TestCaseManagerApp.Views
         /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void btnRedo_Click(object sender, RoutedEventArgs e)
         {
+            //if (UndoRedoManager.Instance().HasRedoOperations)
+            //{
+                UndoRedoManager.Instance().Redo();
+            //}  
         }
 
         /// <summary>
@@ -835,7 +860,6 @@ namespace TestCaseManagerApp.Views
         {
             e.Handled = true;
             List<TestStep> selectedTestSteps = this.GetAllSelectedTestSteps();
-            this.UpdateParentTestCaseIdOfTestSteps(selectedTestSteps);
             TestStepManager.CopyToClipboardTestSteps(true, selectedTestSteps);
         }
 
@@ -1081,9 +1105,7 @@ namespace TestCaseManagerApp.Views
         /// <param name="e">The <see cref="MouseButtonEventArgs"/> instance containing the event data.</param>
         private void dgSharedSteps_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            SharedStep currentSharedStep = dgSharedSteps.SelectedItem as SharedStep;
-            int currentSelectedIndex = dgTestSteps.SelectedIndex;
-            this.TestCaseEditViewModel.InsertSharedStep(currentSharedStep, currentSelectedIndex + 1);            
+            this.InsertSharedStepInternal();
         }
 
         /// <summary>
@@ -1199,6 +1221,6 @@ namespace TestCaseManagerApp.Views
             {
                 btnAdd.IsEnabled = false;
             }
-        }         
+        }     
     }
 }

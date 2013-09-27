@@ -12,6 +12,7 @@ namespace TestCaseManagerApp.ViewModels
     using Microsoft.TeamFoundation.Server;
     using Microsoft.TeamFoundation.TestManagement.Client;
     using TestCaseManagerApp.BusinessLogic.Entities;
+    using UndoMethods;
 
     /// <summary>
     /// Contains methods and properties related to the TestCaseEdit View
@@ -208,30 +209,19 @@ namespace TestCaseManagerApp.ViewModels
         }
 
         /// <summary>
-        /// Updates the test step context menu items status.
-        /// </summary>
-        //public void UpdateTestStepContextMenuItemsStatus()
-        //{          
-        //    ClipBoardTestStep clipBoardItem = TestStepManager.GetFromClipboardTestSteps();
-        //    bool isPasteEnabled = clipBoardItem == null ? false : true;
-
-        //    foreach (TestStep currentTestStep in this.ObservableTestSteps)
-        //    {
-        //        currentTestStep.IsPasteEnabled = isPasteEnabled;
-        //    }
-        //}
-
-        /// <summary>
         /// Deletes all marked steps for removal.
         /// </summary>
         /// <param name="testStepsToBeRemoved">The test steps automatic be removed.</param>
-        public void DeleteAllMarkedStepsForRemoval(List<TestStep> testStepsToBeRemoved)
-        {
-            foreach (TestStep currentTestStepToBeRemoved in testStepsToBeRemoved)
-            {
-                this.ObservableTestSteps.Remove(currentTestStepToBeRemoved);
-            }
-        }
+        //public void DeleteAllMarkedStepsForRemoval(List<TestStepFull> testStepsToBeRemoved)
+        //{
+        //    using (new UndoTransaction("Delete all selected test steps"))
+        //    {
+        //        foreach (TestStepFull currentTestStepToBeRemoved in testStepsToBeRemoved)
+        //        {
+        //            this.RemoveTestStepFromObservableCollection(currentTestStepToBeRemoved, currentTestStepToBeRemoved.Index);
+        //        }
+        //    }           
+        //}
 
         /// <summary>
         /// Deletes the cut test steps.
@@ -253,80 +243,37 @@ namespace TestCaseManagerApp.ViewModels
         }
 
         /// <summary>
-        /// Marks the steps to be removed.
-        /// </summary>
-        /// <param name="selectedTestSteps">The selected test steps.</param>
-        /// <returns>the list of test steps to be removed</returns>
-        public List<TestStep> MarkStepsToBeRemoved(IList<TestStep> selectedTestSteps)
-        {
-            // All initial steps are marked for deletion (Login To Telerik) after that we trace them in all shared steps across the test case actions
-            List<TestStep> testStepsToBeRemoved = this.MarkInitialStepsToBeRemoved(selectedTestSteps);
-            List<TestStep> allStepsToBeRemoved = new List<TestStep>();
-            foreach (TestStep currentStepToBeRemoved in testStepsToBeRemoved)
-            {
-                foreach (TestStep currentTestStep in this.ObservableTestSteps)
-                {
-                    if (currentTestStep.TestStepId.Equals(currentStepToBeRemoved.TestStepId))
-                    {
-                        allStepsToBeRemoved.Add(currentTestStep);
-                    }
-                }
-            }
-            return allStepsToBeRemoved;
-        }
-
-        /// <summary>
         /// Marks the initial steps to be removed.
         /// </summary>
         /// <param name="selectedTestSteps">The selected test steps.</param>
         /// <returns>the list of test steps to be removed</returns>
-        public List<TestStep> MarkInitialStepsToBeRemoved(IList<TestStep> selectedTestSteps)
+        public List<TestStepFull> MarkInitialStepsToBeRemoved(IList<TestStep> selectedTestSteps)
         {
-            List<TestStep> testStepsToBeRemoved = new List<TestStep>();
+            List<TestStepFull> testStepsToBeRemoved = new List<TestStepFull>();
             foreach (TestStep currentStepToBeRemoved in selectedTestSteps)
             {
-                foreach (TestStep currentObservableTestStep in this.ObservableTestSteps)
+                for (int i = 0; i < this.ObservableTestSteps.Count; i++)
                 {
-                    if (currentStepToBeRemoved.TestStepGuid.Equals(currentObservableTestStep.TestStepGuid))
+                    if (this.ObservableTestSteps[i].TestStepGuid.Equals(currentStepToBeRemoved.TestStepGuid))
                     {
-                        testStepsToBeRemoved.Add(currentObservableTestStep);
+                        int index = i - 1;
+
+                        // If the step to be removed is initial we set -2 for index in order the Insert Operation to be completed successfully. 
+                        // If index == -2 the insert function will insert the test step to the beginning of the collection
+                        if (index == -1)
+                        {
+                            index--;
+                        }
+                        TestStepFull currentTestStep = new TestStepFull(this.ObservableTestSteps[i], index);
+                        if (!testStepsToBeRemoved.Contains(currentTestStep))
+                        {
+                            testStepsToBeRemoved.Add(currentTestStep);
+                        }                       
                     }
-                }                
+                }               
             }
 
             return testStepsToBeRemoved;
-        }
-
-        /// <summary>
-        /// Inserts the test step(title + expected result) information in shared step. Currently Not Using!
-        /// </summary>
-        /// <param name="selectedSharedStep">The selected shared step.</param>
-        /// <param name="stepText">The step text.</param>
-        /// <param name="expectedResult">The expected result.</param>
-        public void InsertTestStepInSharedStep(SharedStep selectedSharedStep, string stepText, string expectedResult)
-        {
-            Guid sharedStepGuid = this.ObservableTestSteps.Where(x => x.Title.Equals(selectedSharedStep.ISharedStep.Title)).FirstOrDefault().TestStepGuid;
-
-            TestStep testStepToInsert = TestStepManager.CreateNewTestStep(TestCase, stepText, expectedResult, Guid.NewGuid());
-            testStepToInsert.IsShared = true;
-            testStepToInsert.TestStepGuid = sharedStepGuid;
-            bool shouldInsert = true;
-            for (int i = this.ObservableTestSteps.Count - 1; i >= 0; i--)
-            {
-                if (this.ObservableTestSteps[i].TestStepGuid.Equals(sharedStepGuid) && shouldInsert)
-                {
-                    this.ObservableTestSteps.Insert(i + 1, testStepToInsert);
-                    shouldInsert = false;
-                }
-                else if (this.ObservableTestSteps[i].TestStepGuid.Equals(sharedStepGuid) && !shouldInsert)
-                {
-                    continue;
-                }
-                else
-                {
-                    shouldInsert = true;
-                }
-            }
         }
 
         /// <summary>
@@ -336,14 +283,31 @@ namespace TestCaseManagerApp.ViewModels
         /// <param name="selectedIndex">Index of the selected test step.</param>
         public void InsertTestStepInTestCase(TestStep testStepToInsert, int selectedIndex)
         {
-            if (selectedIndex != -1)
+            // If you delete first step and call redo operation, the step should be inserted at the beginning
+            if (selectedIndex == -2)
+            {
+                this.ObservableTestSteps.Insert(0, testStepToInsert);
+            }
+            else if (selectedIndex != -1)
             {
                 this.ObservableTestSteps.Insert(selectedIndex + 1, testStepToInsert);
             }
             else
             {
-                this.ObservableTestSteps.Add(testStepToInsert);
+                this.ObservableTestSteps.Add(testStepToInsert);                 
             }
+            UndoRedoManager.Instance().Push((r, i) => this.RemoveTestStepFromObservableCollection(r, i), testStepToInsert, selectedIndex);
+        }
+
+        /// <summary>
+        /// Removes the test step from test steps observable collection.
+        /// </summary>
+        /// <param name="testStepToBeRemoved">The test step to be removed.</param>
+        /// <param name="selectedIndex">Index of the selected.</param>
+        public void RemoveTestStepFromObservableCollection(TestStep testStepToBeRemoved, int selectedIndex)
+        {
+            this.ObservableTestSteps.Remove(testStepToBeRemoved);
+            UndoRedoManager.Instance().Push((r, i) => this.InsertTestStepInTestCase(r, i), testStepToBeRemoved, selectedIndex, "remove Test Step");
         }
 
         /// <summary>
@@ -374,7 +338,8 @@ namespace TestCaseManagerApp.ViewModels
             }
 
             this.ObservableTestSteps.Clear();
-            newCollection.ForEach(x => this.ObservableTestSteps.Add(x));   
+            newCollection.ForEach(x => this.ObservableTestSteps.Add(x));
+            UndoRedoManager.Instance().Push((si, c) => this.CreateNewTestStepCollectionAfterMoveDown(si, c), startIndex - 1, selectedCount, "Move up selected test steps");
         }
 
         /// <summary>
@@ -402,6 +367,7 @@ namespace TestCaseManagerApp.ViewModels
 
             this.ObservableTestSteps.Clear();
             newCollection.ForEach(x => this.ObservableTestSteps.Add(x));
+            UndoRedoManager.Instance().Push((si, c) => this.CreateNewTestStepCollectionAfterMoveUp(si, c), startIndex + 1, selectedCount, "Move down selected test steps");
         }
 
         /// <summary>
@@ -416,7 +382,8 @@ namespace TestCaseManagerApp.ViewModels
             int j = 0;
             for (int i = selectedIndex; i < innerTestSteps.Count + selectedIndex; i++)
             {
-                this.ObservableTestSteps.Insert(i, innerTestSteps[j++]);
+                this.InsertTestStepInTestCase(innerTestSteps[j], i);
+                j++;
             }
         }
 
@@ -424,12 +391,15 @@ namespace TestCaseManagerApp.ViewModels
         /// Deletes the test step.
         /// </summary>
         /// <param name="testStepsToBeRemoved">The test steps to be removed.</param>
-        public void RemoveTestSteps(List<TestStep> testStepsToBeRemoved)
+        public void RemoveTestSteps(List<TestStepFull> testStepsToBeRemoved)
         {
-            foreach (TestStep currentStepToBeRemoved in testStepsToBeRemoved)
+            using (new UndoTransaction("Delete all selected test steps", false))
             {
-                this.ObservableTestSteps.Remove(currentStepToBeRemoved);
-            }
+                for (int i = testStepsToBeRemoved.Count - 1; i >= 0; i--)
+                {
+                    this.RemoveTestStepFromObservableCollection(testStepsToBeRemoved[i], testStepsToBeRemoved[i].Index);
+                }
+            }           
         }
 
         /// <summary>

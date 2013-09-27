@@ -122,6 +122,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="BusinessLogic\Contracts\IClipBoard.cs" />
+    <Compile Include="BusinessLogic\Contracts\IUndoRedoRecord.cs" />
     <Compile Include="BusinessLogic\Converters\TestStepPropertiesConverter.cs" />
     <Compile Include="BusinessLogic\Entities\AssociatedAutomation.cs" />
     <Compile Include="BusinessLogic\Entities\AssociateTestViewFilters.cs" />
@@ -129,16 +130,21 @@
     <Compile Include="BusinessLogic\Entities\ClipBoardTestCase.cs" />
     <Compile Include="BusinessLogic\Entities\ClipBoardTestStep.cs" />
     <Compile Include="BusinessLogic\Entities\InitialViewFilters.cs" />
+    <Compile Include="BusinessLogic\Entities\ListStackExtensions.cs" />
     <Compile Include="BusinessLogic\Entities\SharedStepIdReplacePair.cs" />
     <Compile Include="BusinessLogic\Entities\Suite.cs" />
     <Compile Include="BusinessLogic\Entities\Test.cs" />
+    <Compile Include="BusinessLogic\Entities\TestStepFull.cs" />
     <Compile Include="BusinessLogic\Entities\TextReplacePair.cs" />
+    <Compile Include="BusinessLogic\Entities\UndoRedoRecord.cs" />
+    <Compile Include="BusinessLogic\Entities\UndoTransaction.cs" />
     <Compile Include="BusinessLogic\Enums\ClipBoardCommand.cs" />
     <Compile Include="BusinessLogic\Managers\ClipBoardManager.cs" />
     <Compile Include="BusinessLogic\Managers\ProjectManager.cs" />
     <Compile Include="BusinessLogic\Managers\ReplaceTextManager.cs" />
     <Compile Include="BusinessLogic\Managers\SerializationManager.cs" />
     <Compile Include="BusinessLogic\Managers\TestPlanManager.cs" />
+    <Compile Include="BusinessLogic\Managers\UndoRedoManager.cs" />
     <Compile Include="BusinessLogic\UiControlExtensions\ComboBoxDropdownExtensions.cs" />
     <Compile Include="BusinessLogic\UiControlExtensions\RichTextBoxExtensions.cs" />
     <Compile Include="BusinessLogic\Entities\SharedStep.cs" />
