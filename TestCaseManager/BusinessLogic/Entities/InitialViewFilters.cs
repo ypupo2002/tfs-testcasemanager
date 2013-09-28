@@ -27,6 +27,16 @@ namespace TestCaseManagerApp.BusinessLogic.Entities
         public string DetaultSuite = "Suite";
 
         /// <summary>
+        /// The detault priority
+        /// </summary>
+        public string DetaultPriority = "Priority";
+
+        /// <summary>
+        /// The detault assigned automatic
+        /// </summary>
+        public string DetaultAssignedTo = "Assigned To";
+
+        /// <summary>
         /// The is title text set
         /// </summary>
         public bool IsTitleTextSet;
@@ -40,6 +50,16 @@ namespace TestCaseManagerApp.BusinessLogic.Entities
         /// The is unique identifier text set
         /// </summary>
         public bool IsIdTextSet;
+
+        /// <summary>
+        /// The is priority text set
+        /// </summary>
+        public bool IsPriorityTextSet;
+
+        /// <summary>
+        /// The is assigned automatic text set
+        /// </summary>
+        public bool IsAssignedToTextSet;
 
         /// <summary>
         /// The title filter
@@ -57,6 +77,16 @@ namespace TestCaseManagerApp.BusinessLogic.Entities
         private string idFilter;
 
         /// <summary>
+        /// The priority filter
+        /// </summary>
+        private string priorityFilter;
+
+        /// <summary>
+        /// The assigned automatic filter
+        /// </summary>
+        private string assignedToFilter;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="InitialViewFilters"/> class.
         /// </summary>
         /// <param name="title">The title.</param>
@@ -67,6 +97,21 @@ namespace TestCaseManagerApp.BusinessLogic.Entities
             this.TitleFilter = title;
             this.SuiteFilter = suite;
             this.IdFilter = id;
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="InitialViewFilters"/> class.
+        /// </summary>
+        /// <param name="title">The title.</param>
+        /// <param name="suite">The suite.</param>
+        /// <param name="id">The unique identifier.</param>
+        /// <param name="priority">The priority.</param>
+        /// <param name="assignedTo">The assigned automatic.</param>
+        public InitialViewFilters(string title, string suite, string id, string priority, string assignedTo)
+            : this(title, suite, id)
+        {
+            this.PriorityFilter = priorityFilter;
+            this.AssignedToFilter = assignedTo;
         }
 
         /// <summary>
@@ -138,6 +183,46 @@ namespace TestCaseManagerApp.BusinessLogic.Entities
         }
 
         /// <summary>
+        /// Gets or sets the priority filter.
+        /// </summary>
+        /// <value>
+        /// The priority filter.
+        /// </value>
+        public string PriorityFilter
+        {
+            get
+            {
+                return this.priorityFilter;
+            }
+
+            set
+            {
+                this.priorityFilter = value;
+                this.NotifyPropertyChanged();
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the assigned automatic filter.
+        /// </summary>
+        /// <value>
+        /// The assigned automatic filter.
+        /// </value>
+        public string AssignedToFilter
+        {
+            get
+            {
+                return this.assignedToFilter;
+            }
+
+            set
+            {
+                this.assignedToFilter = value;
+                this.NotifyPropertyChanged();
+            }
+        }
+
+        /// <summary>
         /// Resets this instance.
         /// </summary>
         public void Reset()
@@ -145,9 +230,13 @@ namespace TestCaseManagerApp.BusinessLogic.Entities
             this.IdFilter = this.DetaultId;
             this.TitleFilter = this.DetaultTitle;
             this.SuiteFilter = this.DetaultSuite;
+            this.PriorityFilter = this.DetaultPriority;
+            this.AssignedToFilter = this.DetaultAssignedTo;
             this.IsIdTextSet = false;
             this.IsSuiteTextSet = false;
             this.IsTitleTextSet = false;
+            this.IsPriorityTextSet = false;
+            this.IsAssignedToTextSet = false;
         }
     }
 }

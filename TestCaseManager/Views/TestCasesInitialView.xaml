@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:mui="http://firstfloorsoftware.com/ModernU"
              xmlns:local="clr-namespace:TestCaseManagerApp.Views"
-             xmlns:entities="clr-namespace:TestCaseManagerApp.BusinessLogic.Entities"
+             xmlns:entities="clr-namespace:TestCaseManagerApp.BusinessLogic.Entities"       
              mc:Ignorable="d" Loaded="TestCaseInitialView_Loaded">
     <Grid>
         <Grid.CommandBindings>
@@ -130,7 +130,7 @@
                             </Style>
                         </DataGridTextColumn.HeaderStyle>
                     </DataGridTextColumn>
-                    <DataGridTextColumn Header="Title" Binding="{Binding ITestCase.Title}" Width="9*">
+                    <DataGridTextColumn Header="Title" Binding="{Binding Title}" Width="9*">
                         <DataGridTextColumn.HeaderStyle>
                             <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource {x:Type DataGridColumnHeader}}">
                                 <Setter Property="HorizontalContentAlignment" Value="Left"/>
@@ -144,7 +144,7 @@
                             </Style>
                         </DataGridTextColumn.HeaderStyle>
                     </DataGridTextColumn>
-                    <DataGridTextColumn Header="Priority" Binding="{Binding ITestCase.Priority}" Width="1.5*">
+                    <DataGridTextColumn Header="Priority" Binding="{Binding Priority}" Width="1.5*">
                         <DataGridTextColumn.HeaderStyle>
                             <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource {x:Type DataGridColumnHeader}}">
                                 <Setter Property="HorizontalContentAlignment" Value="Left"/>

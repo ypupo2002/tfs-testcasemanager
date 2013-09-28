@@ -139,6 +139,7 @@
     <Compile Include="BusinessLogic\Entities\UndoRedoRecord.cs" />
     <Compile Include="BusinessLogic\Entities\UndoTransaction.cs" />
     <Compile Include="BusinessLogic\Enums\ClipBoardCommand.cs" />
+    <Compile Include="BusinessLogic\Enums\Priority.cs" />
     <Compile Include="BusinessLogic\Managers\ClipBoardManager.cs" />
     <Compile Include="BusinessLogic\Managers\ProjectManager.cs" />
     <Compile Include="BusinessLogic\Managers\ReplaceTextManager.cs" />

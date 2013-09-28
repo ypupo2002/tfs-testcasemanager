@@ -11,6 +11,7 @@ namespace TestCaseManagerApp
     using System.Threading.Tasks;
     using Microsoft.TeamFoundation.TestManagement.Client;
     using TestCaseManagerApp.BusinessLogic.Entities;
+    using TestCaseManagerApp.BusinessLogic.Enums;
     using UndoMethods;
 
     /// <summary>
@@ -49,7 +50,7 @@ namespace TestCaseManagerApp
         /// <summary>
         /// The priority
         /// </summary>
-        private int priority;
+        private Priority priority;
 
         /// <summary>
         /// The is initialized
@@ -68,10 +69,10 @@ namespace TestCaseManagerApp
             this.TestCaseId = testCaseCore.Id;
             this.Title = testCaseCore.Title;
             this.Area = testCaseCore.Area;
-            this.Priority = testCaseCore.Priority;
+            this.Priority = (Priority)testCaseCore.Priority;
             this.OwnerName = testCaseCore.OwnerName;
             this.TestSuiteId = testSuiteBaseCore.Id;
-            this.isInitialized = true;
+            this.isInitialized = true;    
         }
 
         /// <summary>
@@ -206,7 +207,7 @@ namespace TestCaseManagerApp
         /// <value>
         /// The priority.
         /// </value>
-        public int Priority
+        public Priority Priority
         {
             get
             {

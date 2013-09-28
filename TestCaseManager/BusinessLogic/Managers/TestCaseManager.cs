@@ -137,7 +137,7 @@ namespace TestCaseManagerApp
             }
             currentTestCase.ITestCase.Area = testCase.Area;
             currentTestCase.ITestCase.Title = testCase.Title;
-            currentTestCase.ITestCase.Priority = testCase.Priority;
+            currentTestCase.ITestCase.Priority = (int)testCase.Priority;
             currentTestCase.ITestCase.Actions.Clear();
             List<Guid> addedSharedStepGuids = new List<Guid>();
             foreach (TestStep currentStep in testSteps)
@@ -212,7 +212,8 @@ namespace TestCaseManagerApp
         /// <param name="replaceInTitles">if set to <c>true</c> [replace information titles].</param>
         /// <param name="replaceSharedSteps">if set to <c>true</c> [replace shared steps].</param>
         /// <param name="replaceInSteps">if set to <c>true</c> [replace information steps].</param>
-        public static void FindAndReplaceInTestCase(this TestCase testCase, List<TextReplacePair> textReplacePairs, List<SharedStepIdReplacePair> sharedStepIdReplacePairs, bool replaceInTitles, bool replaceSharedSteps, bool replaceInSteps)
+        public static void FindAndReplaceInTestCase(this TestCase testCase, List<TextReplacePair> textReplacePairs, List<SharedStepIdReplacePair> sharedStepIdReplacePairs, 
+            bool replaceInTitles, bool replaceSharedSteps, bool replaceInSteps)
         {
             TestCase currentTestCase = testCase;
             currentTestCase.ITestCase = ExecutionContext.TestManagementTeamProject.TestCases.Find(testCase.ITestCase.Id);

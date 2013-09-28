@@ -7,6 +7,8 @@
              xmlns:helpers="clr-namespace:TestCaseManagerApp.Helpers"
              xmlns:local="clr-namespace:TestCaseManagerApp.Views"
              xmlns:convert="clr-namespace:TestCaseManagerApp.BusinessLogic.Converters"
+             xmlns:System="clr-namespace:System;assembly=mscorlib"
+             xmlns:enums="clr-namespace:TestCaseManagerApp.BusinessLogic.Enums"
              mc:Ignorable="d" Loaded="UserControl_Loaded">
     <Grid>
         <Grid.Resources>
@@ -54,6 +56,14 @@
             </Grid>
             
             <Grid Grid.Row="1">
+                <Grid.Resources>
+                    <ObjectDataProvider x:Key="dataFromEnum" MethodName="GetValues"
+                            ObjectType="{x:Type System:Enum}">
+                        <ObjectDataProvider.MethodParameters>
+                            <x:Type TypeName="enums:Priority"/>
+                        </ObjectDataProvider.MethodParameters>
+                    </ObjectDataProvider>
+                </Grid.Resources>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
@@ -73,11 +83,14 @@
                 <TextBlock Text="Title" Margin="10,0,10,0" Height="25" FontWeight="Bold" HorizontalAlignment="Left" Grid.Row="0" Grid.Column="1"/>
                 <TextBox Text="{Binding TestCase.Title}" HorizontalAlignment="Stretch" Margin="10,0,10,0" Height="25" Grid.Row="1" Grid.Column="1"/>
                 <TextBlock Text="Suite" Margin="10,0,10,0" Height="25" FontWeight="Bold" HorizontalAlignment="Left" Grid.Row="0" Grid.Column="2"/>
-                <TextBox Text="{Binding TestCase.ITestSuiteBase.Title, Mode=OneWay}" Name="tbSuite" Margin="10,0,10,0" Height="25" HorizontalAlignment="Stretch" Grid.Row="1" Grid.Column="2" IsReadOnly="True" />
+                <TextBox Text="{Binding TestCase.ITestSuiteBase.Title, Mode=OneWay}" Name="tbSuite" Margin="10,0,10,0" Height="25" HorizontalAlignment="Stretch" Grid.Row="1" Grid.Column="2" 
+                         IsReadOnly="True" />
                 <TextBlock Text="Area" Margin="10,0,10,0" Height="25" FontWeight="Bold" HorizontalAlignment="Left" Grid.Row="0" Grid.Column="3"/>
-                <ComboBox Height="25" Margin="10,0,10,0" ItemsSource="{Binding Areas}" SelectedValue="{Binding Path=TestCase.Area, Mode=TwoWay}" Name="cbArea" IsTextSearchEnabled="True" IsEditable ="True" helpers:ComboBoxDropdownExtensions.OpenDropDownAutomatically="True" Grid.Row="1" Grid.Column="3"  MouseEnter="cbArea_MouseEnter" MouseMove="cbArea_MouseMove"/>
+                <ComboBox Height="25" Margin="10,0,10,0" ItemsSource="{Binding Areas}" SelectedValue="{Binding Path=TestCase.Area, Mode=TwoWay}" Name="cbArea" IsTextSearchEnabled="True"
+                          IsEditable ="True" helpers:ComboBoxDropdownExtensions.OpenDropDownAutomatically="True" Grid.Row="1" Grid.Column="3"  MouseEnter="cbArea_MouseEnter" MouseMove="cbArea_MouseMove"/>
                 <TextBlock Text="Priority" Margin="10,0,10,0" Height="25" FontWeight="Bold" HorizontalAlignment="Left" Grid.Row="0" Grid.Column="4"/>
-                <ComboBox Height="25" Margin="10,0,10,0" ItemsSource="{Binding Priorities}" SelectedValue="{Binding Path=TestCase.Priority, Mode=TwoWay}" Name="cbPriority" Grid.Row="1" Grid.Column="4" helpers:ComboBoxDropdownExtensions.OpenDropDownAutomatically="True" MouseEnter="cbPriority_MouseEnter" MouseMove="cbPriority_MouseMove"/>
+                <ComboBox Height="25" Margin="10,0,10,0" ItemsSource="{Binding Source={StaticResource dataFromEnum}}" SelectedValue="{Binding Path=TestCase.Priority, Mode=TwoWay}"
+                          Name="cbPriority" Grid.Row="1" Grid.Column="4" helpers:ComboBoxDropdownExtensions.OpenDropDownAutomatically="True" MouseEnter="cbPriority_MouseEnter" MouseMove="cbPriority_MouseMove"/>
                 <TextBlock Text="Automated" Margin="10,0,10,0" Height="25" FontWeight="Bold" HorizontalAlignment="Left" Grid.Row="0" Grid.Column="5"/>
                 <TextBox Text="{Binding TestCase.ITestCase.IsAutomated, Mode=OneWay}" Grid.Row="1" Grid.Column="5" IsReadOnly="True"/>
             </Grid>

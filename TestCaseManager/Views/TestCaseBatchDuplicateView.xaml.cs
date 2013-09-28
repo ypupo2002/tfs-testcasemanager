@@ -108,6 +108,9 @@ namespace TestCaseManagerApp.Views
             t.ContinueWith(antecedent =>
             {
                 this.DataContext = this.TestCasesBatchDuplicateViewModel;
+
+                // TODO: Fix to be initialized from XAML
+                this.cbTeamFoundationIdentityNames.SelectedIndex = 0;
                 this.HideProgressBar();
                 this.tbTitleFilter.Focus();
                 isInitialized = true;
@@ -139,7 +142,7 @@ namespace TestCaseManagerApp.Views
         /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void tbTitleFilter_GotFocus(object sender, RoutedEventArgs e)
         {
-            tbTitleFilter.ClearDefaultContent(ref TestCasesBatchDuplicateViewModel.InitialViewFilters.IsTitleTextSet);
+            tbTitleFilter.ClearDefaultContent(ref this.TestCasesBatchDuplicateViewModel.InitialViewFilters.IsTitleTextSet);
         }
 
         /// <summary>
@@ -149,7 +152,7 @@ namespace TestCaseManagerApp.Views
         /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void tbTextSuiteFilter_GotFocus(object sender, RoutedEventArgs e)
         {
-            tbSuiteFilter.ClearDefaultContent(ref TestCasesBatchDuplicateViewModel.InitialViewFilters.IsSuiteTextSet);
+            tbSuiteFilter.ClearDefaultContent(ref this.TestCasesBatchDuplicateViewModel.InitialViewFilters.IsSuiteTextSet);
         }
 
         /// <summary>
@@ -159,7 +162,7 @@ namespace TestCaseManagerApp.Views
         /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void tbTitleFilter_LostFocus(object sender, RoutedEventArgs e)
         {
-            tbTitleFilter.RestoreDefaultText("Title", ref TestCasesBatchDuplicateViewModel.InitialViewFilters.IsTitleTextSet);
+            tbTitleFilter.RestoreDefaultText(this.TestCasesBatchDuplicateViewModel.InitialViewFilters.DetaultTitle, ref this.TestCasesBatchDuplicateViewModel.InitialViewFilters.IsTitleTextSet);
         }
 
         /// <summary>
@@ -169,8 +172,69 @@ namespace TestCaseManagerApp.Views
         /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void tbSuiteFilter_LostFocus(object sender, RoutedEventArgs e)
         {
-            tbSuiteFilter.RestoreDefaultText("Suite", ref TestCasesBatchDuplicateViewModel.InitialViewFilters.IsSuiteTextSet);
+            tbSuiteFilter.RestoreDefaultText(this.TestCasesBatchDuplicateViewModel.InitialViewFilters.DetaultSuite, ref this.TestCasesBatchDuplicateViewModel.InitialViewFilters.IsSuiteTextSet);
         }
+
+        /// <summary>
+        /// Handles the GotFocus event of the tbAssignedToFilter control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
+        private void tbAssignedToFilter_GotFocus(object sender, RoutedEventArgs e)
+        {
+            tbAssignedToFilter.ClearDefaultContent(ref this.TestCasesBatchDuplicateViewModel.InitialViewFilters.IsAssignedToTextSet);
+        }
+
+        /// <summary>
+        /// Handles the LostFocus event of the tbAssignedToFilter control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
+        private void tbAssignedToFilter_LostFocus(object sender, RoutedEventArgs e)
+        {
+            tbAssignedToFilter.RestoreDefaultText(this.TestCasesBatchDuplicateViewModel.InitialViewFilters.DetaultAssignedTo, ref this.TestCasesBatchDuplicateViewModel.InitialViewFilters.IsAssignedToTextSet);
+        }
+
+        /// <summary>
+        /// Handles the KeyUp event of the tbAssignedToFilter control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="KeyEventArgs"/> instance containing the event data.</param>
+        private void tbAssignedToFilter_KeyUp(object sender, KeyEventArgs e)
+        {
+            this.TestCasesBatchDuplicateViewModel.FilterTestCases();
+        }
+
+        /// <summary>
+        /// Handles the GotFocus event of the tbPriorityFilter control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
+        private void tbPriorityFilter_GotFocus(object sender, RoutedEventArgs e)
+        {
+            tbPriorityFilter.ClearDefaultContent(ref this.TestCasesBatchDuplicateViewModel.InitialViewFilters.IsPriorityTextSet);
+        }
+
+        /// <summary>
+        /// Handles the LostFocus event of the tbPriorityFilter control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
+        private void tbPriorityFilter_LostFocus(object sender, RoutedEventArgs e)
+        {
+            tbPriorityFilter.RestoreDefaultText(this.TestCasesBatchDuplicateViewModel.InitialViewFilters.DetaultPriority, ref this.TestCasesBatchDuplicateViewModel.InitialViewFilters.IsPriorityTextSet);
+
+        }
+
+        /// <summary>
+        /// Handles the KeyUp event of the tbPriorityFilter control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="KeyEventArgs"/> instance containing the event data.</param>
+        private void tbPriorityFilter_KeyUp(object sender, KeyEventArgs e)
+        {
+            this.TestCasesBatchDuplicateViewModel.FilterTestCases();
+        }    
 
         /// <summary>
         /// Handles the KeyUp event of the tbIdFilter control.
@@ -179,7 +243,7 @@ namespace TestCaseManagerApp.Views
         /// <param name="e">The <see cref="KeyEventArgs"/> instance containing the event data.</param>
         private void tbIdFilter_KeyUp(object sender, KeyEventArgs e)
         {
-            TestCasesBatchDuplicateViewModel.FilterTestCases();
+            this.TestCasesBatchDuplicateViewModel.FilterTestCases();
         }
 
         /// <summary>
@@ -189,7 +253,7 @@ namespace TestCaseManagerApp.Views
         /// <param name="e">The <see cref="KeyEventArgs"/> instance containing the event data.</param>
         private void tbTitleFilter_KeyUp(object sender, KeyEventArgs e)
         {
-            TestCasesBatchDuplicateViewModel.FilterTestCases();
+            this.TestCasesBatchDuplicateViewModel.FilterTestCases();
         }
 
         /// <summary>
@@ -199,7 +263,7 @@ namespace TestCaseManagerApp.Views
         /// <param name="e">The <see cref="KeyEventArgs"/> instance containing the event data.</param>
         private void tbSuiteFilter_KeyUp(object sender, KeyEventArgs e)
         {
-            TestCasesBatchDuplicateViewModel.FilterTestCases();
+            this.TestCasesBatchDuplicateViewModel.FilterTestCases();
         }
 
         /// <summary>
@@ -227,6 +291,54 @@ namespace TestCaseManagerApp.Views
         }
 
         /// <summary>
+        /// Handles the MouseEnter event of the cbPriority control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="MouseEventArgs"/> instance containing the event data.</param>
+        private void cbPriority_MouseEnter(object sender, MouseEventArgs e)
+        {
+            if (ExecutionContext.SettingsViewModel.HoverBehaviorDropDown)
+            {
+                cbPriority.IsDropDownOpen = true;
+                cbPriority.Focus();
+            }  
+        }
+
+        /// <summary>
+        /// Handles the MouseEnter event of the cbTeamFoundationIdentityNames control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="MouseEventArgs"/> instance containing the event data.</param>
+        private void cbTeamFoundationIdentityNames_MouseEnter(object sender, MouseEventArgs e)
+        {
+            if (ExecutionContext.SettingsViewModel.HoverBehaviorDropDown)
+            {
+                cbTeamFoundationIdentityNames.IsDropDownOpen = true;
+                cbTeamFoundationIdentityNames.Focus();
+            }  
+        }
+
+        /// <summary>
+        /// Handles the MouseMove event of the cbTeamFoundationIdentityNames control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="MouseEventArgs"/> instance containing the event data.</param>
+        private void cbTeamFoundationIdentityNames_MouseMove(object sender, MouseEventArgs e)
+        {
+            ComboBoxDropdownExtensions.cboMouseMove(sender, e);
+        }   
+
+        /// <summary>
+        /// Handles the MouseMove event of the cbPriority control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="MouseEventArgs"/> instance containing the event data.</param>
+        private void cbPriority_MouseMove(object sender, MouseEventArgs e)
+        {
+            ComboBoxDropdownExtensions.cboMouseMove(sender, e);
+        }
+
+        /// <summary>
         /// Handles the Click event of the btnBatchDuplicate control.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
@@ -241,7 +353,7 @@ namespace TestCaseManagerApp.Views
             ShowProgressBar();
             Task t = Task.Factory.StartNew(() =>
             {
-                foreach (TestCase currentSelectedTestCase in TestCasesBatchDuplicateViewModel.SelectedTestCases)
+                foreach (TestCase currentSelectedTestCase in this.TestCasesBatchDuplicateViewModel.SelectedTestCases)
                 {
                     currentSelectedTestCase.DuplicateTestCase(textReplacePairsList, sharedStepIdReplacePairList, newSuiteTitle, this.TestCasesBatchDuplicateViewModel.ReplaceInTitles, this.TestCasesBatchDuplicateViewModel.ReplaceSharedSteps, this.TestCasesBatchDuplicateViewModel.ReplaceInTestSteps);
                     duplicatedCount++;
@@ -250,7 +362,7 @@ namespace TestCaseManagerApp.Views
             });
             t.ContinueWith(antecedent =>
             {
-                TestCasesBatchDuplicateViewModel.InitializeTestCases();
+                this.TestCasesBatchDuplicateViewModel.InitializeTestCases();
                 HideProgressBar();
                 ModernDialog.ShowMessage(string.Format("{0} test cases duplicated.", duplicatedCount), "Success!", MessageBoxButton.OK);
             }, TaskScheduler.FromCurrentSynchronizationContext());
@@ -264,22 +376,22 @@ namespace TestCaseManagerApp.Views
         private void btnFindAndReplace_Click(object sender, RoutedEventArgs e)
         {
             this.InitializeCurrentSelectedTestCases();
-            List<TextReplacePair> textReplacePairsList = TestCasesBatchDuplicateViewModel.ObservableTextReplacePairs.ToList();
-            List<SharedStepIdReplacePair> sharedStepIdReplacePairList = TestCasesBatchDuplicateViewModel.ObservableSharedStepIdReplacePairs.ToList();
+            List<TextReplacePair> textReplacePairsList = this.TestCasesBatchDuplicateViewModel.ObservableTextReplacePairs.ToList();
+            List<SharedStepIdReplacePair> sharedStepIdReplacePairList = this.TestCasesBatchDuplicateViewModel.ObservableSharedStepIdReplacePairs.ToList();
             int replacedCount = 0;
             ShowProgressBar();
             Task t = Task.Factory.StartNew(() =>
             {
-                for (int i = 0; i < TestCasesBatchDuplicateViewModel.SelectedTestCases.Count; i++)
+                for (int i = 0; i < this.TestCasesBatchDuplicateViewModel.SelectedTestCases.Count; i++)
                 {
-                    TestCasesBatchDuplicateViewModel.SelectedTestCases[i].FindAndReplaceInTestCase(textReplacePairsList, sharedStepIdReplacePairList, TestCasesBatchDuplicateViewModel.ReplaceInTitles, TestCasesBatchDuplicateViewModel.ReplaceSharedSteps, TestCasesBatchDuplicateViewModel.ReplaceInTestSteps);
+                    this.TestCasesBatchDuplicateViewModel.SelectedTestCases[i].FindAndReplaceInTestCase(textReplacePairsList, sharedStepIdReplacePairList, this.TestCasesBatchDuplicateViewModel.ReplaceInTitles, TestCasesBatchDuplicateViewModel.ReplaceSharedSteps, TestCasesBatchDuplicateViewModel.ReplaceInTestSteps);
                     replacedCount++;
                 }               
             });
             t.ContinueWith(antecedent =>
             {
-                TestCasesBatchDuplicateViewModel.InitializeTestCases();
-                TestCasesBatchDuplicateViewModel.FilterTestCases();
+                this.TestCasesBatchDuplicateViewModel.InitializeTestCases();
+                this.TestCasesBatchDuplicateViewModel.FilterTestCases();
                 HideProgressBar();
                 ModernDialog.ShowMessage(string.Format("{0} test cases replaced.", replacedCount), "Success!", MessageBoxButton.OK);
             }, TaskScheduler.FromCurrentSynchronizationContext());           
@@ -290,11 +402,16 @@ namespace TestCaseManagerApp.Views
         /// </summary>
         private void InitializeCurrentSelectedTestCases()
         {
-            TestCasesBatchDuplicateViewModel.SelectedTestCases.Clear();
+            this.TestCasesBatchDuplicateViewModel.SelectedTestCases.Clear();
             foreach (TestCase currentSelectedItem in dgTestCases.SelectedItems)
             {
-                TestCasesBatchDuplicateViewModel.SelectedTestCases.Add(currentSelectedItem);
+                this.TestCasesBatchDuplicateViewModel.SelectedTestCases.Add(currentSelectedItem);
             }
         }
+
+        private void dgTestCases_SelectedCellsChanged_1(object sender, SelectedCellsChangedEventArgs e)
+        {
+            this.TestCasesBatchDuplicateViewModel.SelectedTestCasesCount = this.dgTestCases.SelectedItems.Count.ToString();
+        }              
     }
 }

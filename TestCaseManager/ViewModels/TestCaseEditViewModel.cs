@@ -70,7 +70,6 @@ namespace TestCaseManagerApp.ViewModels
             this.ObservableTestSteps = new ObservableCollection<TestStep>();
             this.ObservableSharedSteps = new ObservableCollection<SharedStep>();
 
-            this.Priorities = new List<int>() { 1, 2, 3, 4 };
             this.AlreadyAddedSharedSteps = new Dictionary<int, string>();
             ITestSuiteBase testSuiteBaseCore = TestSuiteManager.GetTestSuiteById(suiteId);
 
@@ -147,14 +146,6 @@ namespace TestCaseManagerApp.ViewModels
         /// The associated automation.
         /// </value>
         public AssociatedAutomation AssociatedAutomation { get; set; }
-
-        /// <summary>
-        /// Gets or sets the priorities.
-        /// </summary>
-        /// <value>
-        /// The priorities.
-        /// </value>
-        public List<int> Priorities { get; set; }
 
         /// <summary>
         /// Gets or sets the areas.

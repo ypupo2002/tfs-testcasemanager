@@ -5,6 +5,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:mui="http://firstfloorsoftware.com/ModernU"
              xmlns:local="clr-namespace:TestCaseManagerApp.Helpers"
+             xmlns:System="clr-namespace:System;assembly=mscorlib"
+             xmlns:enums="clr-namespace:TestCaseManagerApp.BusinessLogic.Enums"
              mc:Ignorable="d" Loaded="UserControl_Loaded">
     <Grid>
         <ProgressBar Name="progressBar" Minimum="0" Maximum="1" Height="16" IsIndeterminate="True" Margin="0,0,0,16" />
@@ -12,78 +14,124 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="3*" />
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="8*" />
             </Grid.ColumnDefinitions>
             <TextBlock Text="Batch Duplicate" Margin="10,0,10,30" Height="25" Width="150" FontWeight="Bold" FontSize="18" HorizontalAlignment="Left" Grid.Row="0"/>
-            
-            <StackPanel Orientation="Vertical" Grid.Column="0" Grid.Row="1">
-                <TextBlock Text="New Suite:" Margin="10,0,0,0" Height="25" Width="Auto" HorizontalAlignment="Left"/>
-                <ComboBox Height="25" Margin="10,0,0,20" Name="cbSuite" SelectedIndex="0" HorizontalAlignment="Stretch" ItemsSource="{Binding ObservableTestSuites}" DisplayMemberPath="Title" IsTextSearchEnabled="True" local:ComboBoxDropdownExtensions.OpenDropDownAutomatically="True" IsEditable ="True" MouseEnter="cbSuite_MouseEnter" MouseMove="cbSuite_MouseMove"/>
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
+
+            <StackPanel Orientation="Vertical" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2">
+                <Grid >
+                    <Grid.Resources>
+                        <ObjectDataProvider x:Key="dataFromEnum" MethodName="GetValues"
+                            ObjectType="{x:Type System:Enum}">
+                            <ObjectDataProvider.MethodParameters>
+                                <x:Type TypeName="enums:Priority"/>
+                            </ObjectDataProvider.MethodParameters>
+                        </ObjectDataProvider>
+                    </Grid.Resources>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
-                    <TextBlock Text="Replace In Titles:" Margin="10,0,10,10" Height="25" Width="Auto" HorizontalAlignment="Left" Grid.Column="0" Grid.Row="0"/>
-                    <TextBlock Text="Replace Shared Steps:" Margin="10,0,10,10" Height="25" Width="Auto" HorizontalAlignment="Left" Grid.Column="0" Grid.Row="1"/>
-                    <TextBlock Text="Replace Steps:" Margin="10,0,10,30" Height="25" Width="Auto" HorizontalAlignment="Left" Grid.Column="0" Grid.Row="2"/>
-
-                    <CheckBox Margin="10,0,10,10" HorizontalAlignment="Left" IsChecked="{Binding Path=ReplaceInTitles, Mode=TwoWay}" Grid.Column="1" Grid.Row="0"/>
-                    <CheckBox Margin="10,0,10,10" HorizontalAlignment="Left" IsChecked="{Binding Path=ReplaceSharedSteps, Mode=TwoWay}" Grid.Column="1" Grid.Row="1"/>
-                    <CheckBox Margin="10,0,10,30" HorizontalAlignment="Left" IsChecked="{Binding Path=ReplaceInTestSteps, Mode=TwoWay}" Grid.Column="1" Grid.Row="2"/>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="4*" />
+                        <ColumnDefinition Width="2*" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="New Suite" Margin="10,0,0,0" Height="25" Width="Auto" HorizontalAlignment="Left" Grid.Row="0" Grid.Column="0"/>
+                    <ComboBox Height="25" Margin="10,0,0,20" Name="cbSuite" SelectedIndex="0" HorizontalAlignment="Stretch" ItemsSource="{Binding ObservableTestSuites}" DisplayMemberPath="Title"
+                              IsTextSearchEnabled="True" local:ComboBoxDropdownExtensions.OpenDropDownAutomatically="True" IsEditable ="True" MouseEnter="cbSuite_MouseEnter" 
+                              MouseMove="cbSuite_MouseMove" Grid.Row="1" Grid.Column="0"/>
+                    <TextBlock Text="Priority" Margin="10,0,0,0" Height="25" Width="Auto" HorizontalAlignment="Left" Grid.Row="0" Grid.Column="1"/>
+                    <ComboBox Height="25" Margin="10,0,0,20" Name="cbPriority" SelectedIndex="0" HorizontalAlignment="Stretch" ItemsSource="{Binding Source={StaticResource dataFromEnum}}" SelectedValue="{Binding Path=Priority, Mode=TwoWay}"
+                              IsTextSearchEnabled="True" local:ComboBoxDropdownExtensions.OpenDropDownAutomatically="True" IsEditable ="True" MouseEnter="cbPriority_MouseEnter"
+                              MouseMove="cbPriority_MouseMove" Grid.Row="1" Grid.Column="1"/>
+                    <TextBlock Text="Assigned To" Margin="10,0,0,0" Height="25" Width="Auto" HorizontalAlignment="Left" Grid.Row="2" Grid.Column="0"/>
+                    <ComboBox Height="25" Margin="10,0,0,20" Name="cbTeamFoundationIdentityNames" SelectedIndex="0" HorizontalAlignment="Stretch" ItemsSource="{Binding TeamFoundationIdentityNames}"
+                              SelectedValue="{Binding Path=SelectedTeamFoundationIdentityName, Mode=TwoWay}" DisplayMemberPath="DisplayName" IsTextSearchEnabled="True" 
+                              local:ComboBoxDropdownExtensions.OpenDropDownAutomatically="True" IsEditable ="True" MouseEnter="cbTeamFoundationIdentityNames_MouseEnter"
+                              MouseMove="cbTeamFoundationIdentityNames_MouseMove" Grid.Row="3" Grid.Column="0" />
                 </Grid>
             </StackPanel>
-            <TextBox Name="tbTitleFilter" Margin="10,0,10,30" Height="25" Text="{Binding InitialViewFilters.TitleFilter, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" GotFocus="tbTitleFilter_GotFocus" LostFocus="tbTitleFilter_LostFocus" KeyUp="tbTitleFilter_KeyUp" Grid.Column="2" Grid.Row="1"/>
-            <TextBox Name="tbSuiteFilter" Margin="10,0,10,30" Height="25" Text="{Binding InitialViewFilters.SuiteFilter, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" GotFocus="tbTextSuiteFilter_GotFocus" LostFocus="tbSuiteFilter_LostFocus" KeyUp="tbSuiteFilter_KeyUp" Grid.Column="3" Grid.Row="1"/>
+            <StackPanel Orientation="Vertical" Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2">
+                <StackPanel Orientation="Horizontal">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <TextBlock Text="Replace In Titles:" Margin="10,0,10,10" Height="25" Width="Auto" HorizontalAlignment="Left" Grid.Column="0" Grid.Row="0"/>
+                        <TextBlock Text="Replace Shared Steps:" Margin="10,0,10,10" Height="25" Width="Auto" HorizontalAlignment="Left" Grid.Column="0" Grid.Row="1"/>
+                        <TextBlock Text="Replace Steps:" Margin="10,0,10,30" Height="25" Width="Auto" HorizontalAlignment="Left" Grid.Column="0" Grid.Row="2"/>
 
-            <DataGrid Name="dgSharedStepIds" ItemsSource="{Binding ObservableSharedStepIdReplacePairs}" CanUserAddRows="True" Grid.Row="2" Grid.Column="0" AutoGenerateColumns="False">
+                        <CheckBox Margin="10,0,10,10" HorizontalAlignment="Left" IsChecked="{Binding Path=ReplaceInTitles, Mode=TwoWay}" Grid.Column="1" Grid.Row="0"/>
+                        <CheckBox Margin="10,0,10,10" HorizontalAlignment="Left" IsChecked="{Binding Path=ReplaceSharedSteps, Mode=TwoWay}" Grid.Column="1" Grid.Row="1"/>
+                        <CheckBox Margin="10,0,10,30" HorizontalAlignment="Left" IsChecked="{Binding Path=ReplaceInTestSteps, Mode=TwoWay}" Grid.Column="1" Grid.Row="2"/>
+                    </Grid>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <TextBlock Text="Change Priorities" Margin="10,0,10,10" Height="25" Width="Auto" HorizontalAlignment="Left" Grid.Column="0" Grid.Row="0"/>
+                        <TextBlock Text="Change Owner" Margin="10,0,10,10" Height="25" Width="Auto" HorizontalAlignment="Left" Grid.Column="0" Grid.Row="1"/>
+
+                        <CheckBox Margin="10,0,10,10" HorizontalAlignment="Left" IsChecked="{Binding Path=ChangePriorities, Mode=TwoWay}" Grid.Column="1" Grid.Row="0"/>
+                        <CheckBox Margin="10,0,10,10" HorizontalAlignment="Left" IsChecked="{Binding Path=ChangeOwner, Mode=TwoWay}" Grid.Column="1" Grid.Row="1"/>
+                    </Grid>
+                </StackPanel>
+            </StackPanel>
+               
+            <DataGrid Name="dgSharedStepIds" ItemsSource="{Binding ObservableSharedStepIdReplacePairs}" CanUserAddRows="True" AutoGenerateColumns="False"  Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Old Shared Step ID" Binding="{Binding OldSharedStepId}"/>
-                    <DataGridTextColumn Header="New Shared Step ID" Binding="{Binding NewSharedStepId}"/>
+                    <DataGridTextColumn Header="Old Shared Step ID" Binding="{Binding OldSharedStepId}" Width="*">
+                        <DataGridTextColumn.HeaderStyle>
+                            <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource {x:Type DataGridColumnHeader}}">
+                                <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                            </Style>
+                        </DataGridTextColumn.HeaderStyle>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn Header="New Shared Step ID" Binding="{Binding NewSharedStepId}" Width="*">
+                        <DataGridTextColumn.HeaderStyle>
+                            <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource {x:Type DataGridColumnHeader}}">
+                                <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                            </Style>
+                        </DataGridTextColumn.HeaderStyle>
+                    </DataGridTextColumn>
                 </DataGrid.Columns>
             </DataGrid>
 
-            <DataGrid Name="dgTextsToBeReplaced" ItemsSource="{Binding ObservableTextReplacePairs}"  CanUserAddRows="True" Grid.Row="2" Grid.Column="1" AutoGenerateColumns="False">
-                <DataGrid.Columns>
-                    <DataGridTextColumn Header="Old Text" Binding="{Binding OldText}">
-                        <DataGridTextColumn.HeaderStyle>
-                            <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource {x:Type DataGridColumnHeader}}">
-                                <Setter Property="HorizontalContentAlignment" Value="Left"/>
-                            </Style>
-                        </DataGridTextColumn.HeaderStyle>
-                    </DataGridTextColumn>
-                    <DataGridTextColumn Header="New Text" Binding="{Binding NewText}">
-                        <DataGridTextColumn.HeaderStyle>
-                            <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource {x:Type DataGridColumnHeader}}">
-                                <Setter Property="HorizontalContentAlignment" Value="Left"/>
-                            </Style>
-                        </DataGridTextColumn.HeaderStyle>
-                    </DataGridTextColumn>
-                </DataGrid.Columns>
-            </DataGrid>
+                <GridSplitter Height="5" ResizeDirection="Auto"  HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2"/>
 
-            <DataGrid ItemsSource="{Binding ObservableTestCases}" AutoGenerateColumns="False" Name="dgTestCases" Grid.Row="2" Grid.Column="2" IsReadOnly="True" SelectionMode="Extended" Grid.ColumnSpan="2">
+            <DataGrid Name="dgTextsToBeReplaced" ItemsSource="{Binding ObservableTextReplacePairs}"  CanUserAddRows="True" AutoGenerateColumns="False" Grid.Row="5"   Grid.Column="0" Grid.ColumnSpan="2">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Title" Binding="{Binding ITestCase.Title}" Width="10*">
+                    <DataGridTextColumn Header="Old Text" Binding="{Binding OldText}" Width="*">
                         <DataGridTextColumn.HeaderStyle>
                             <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource {x:Type DataGridColumnHeader}}">
                                 <Setter Property="HorizontalContentAlignment" Value="Left"/>
                             </Style>
                         </DataGridTextColumn.HeaderStyle>
                     </DataGridTextColumn>
-                    <DataGridTextColumn Header="Suite" Binding="{Binding ITestSuiteBase.Title}" Width="5*">
+                    <DataGridTextColumn Header="New Text" Binding="{Binding NewText}" Width="*">
                         <DataGridTextColumn.HeaderStyle>
                             <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource {x:Type DataGridColumnHeader}}">
                                 <Setter Property="HorizontalContentAlignment" Value="Left"/>
@@ -93,14 +141,69 @@
                 </DataGrid.Columns>
             </DataGrid>
             
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2">
-                <Button Name="btnBatchDuplicate" Margin="0,30,10,0" Height="30" Width="150" Content="Batch Duplicate" HorizontalAlignment="Left" VerticalAlignment="Center" Click="btnBatchDuplicate_Click" Grid.Row="3" Grid.Column="0"/>
-                <Button Name="btnFindAndReplace" Margin="0,30,10,0" Height="30" Width="150" Content="Find And Replace" HorizontalAlignment="Left" VerticalAlignment="Center" Click="btnFindAndReplace_Click" Grid.Row="3" Grid.Column="0"/>
+            <StackPanel Orientation="Vertical" Grid.Row="1" Grid.RowSpan="5" Grid.Column="2" Margin="10,25,0,10">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="5*" />
+                        <ColumnDefinition Width="3*" />
+                        <ColumnDefinition Width="2*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <TextBox Name="tbTitleFilter" Margin="10,0,0,10" Height="25" Text="{Binding InitialViewFilters.TitleFilter, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                     GotFocus="tbTitleFilter_GotFocus" LostFocus="tbTitleFilter_LostFocus" KeyUp="tbTitleFilter_KeyUp" Grid.Column="0" />
+                    <TextBox Name="tbSuiteFilter" Margin="10,0,0,10" Height="25" Text="{Binding InitialViewFilters.SuiteFilter, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                     GotFocus="tbTextSuiteFilter_GotFocus" LostFocus="tbSuiteFilter_LostFocus" KeyUp="tbSuiteFilter_KeyUp" Grid.Column="1" />
+                    <TextBox Name="tbAssignedToFilter" Margin="10,0,0,10" Height="25" Text="{Binding InitialViewFilters.AssignedToFilter, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                     GotFocus="tbAssignedToFilter_GotFocus"  LostFocus="tbAssignedToFilter_LostFocus"  KeyUp="tbAssignedToFilter_KeyUp"  Grid.Column="2"/>
+                    <TextBox Name="tbPriorityFilter" Margin="10,0,0,10" Height="25" Text="{Binding InitialViewFilters.PriorityFilter, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                     GotFocus="tbPriorityFilter_GotFocus"  LostFocus="tbPriorityFilter_LostFocus" KeyUp="tbPriorityFilter_KeyUp" Grid.Column="3" />               
+                </Grid>
+                
+                <DataGrid ItemsSource="{Binding ObservableTestCases}" AutoGenerateColumns="False" Name="dgTestCases" IsReadOnly="True" SelectionMode="Extended"
+                      SelectedCellsChanged="dgTestCases_SelectedCellsChanged_1">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Title" Binding="{Binding ITestCase.Title}" Width="5*">
+                            <DataGridTextColumn.HeaderStyle>
+                                <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource {x:Type DataGridColumnHeader}}">
+                                    <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                                </Style>
+                            </DataGridTextColumn.HeaderStyle>
+                        </DataGridTextColumn>
+                        <DataGridTextColumn Header="Suite" Binding="{Binding ITestSuiteBase.Title}" Width="3*">
+                            <DataGridTextColumn.HeaderStyle>
+                                <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource {x:Type DataGridColumnHeader}}">
+                                    <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                                </Style>
+                            </DataGridTextColumn.HeaderStyle>
+                        </DataGridTextColumn>
+                        <DataGridTextColumn Header="Assigned To" Binding="{Binding OwnerName}" Width="2*">
+                            <DataGridTextColumn.HeaderStyle>
+                                <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource {x:Type DataGridColumnHeader}}">
+                                    <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                                </Style>
+                            </DataGridTextColumn.HeaderStyle>
+                        </DataGridTextColumn>
+                        <DataGridTextColumn Header="Priority" Binding="{Binding Priority}" Width="*">
+                            <DataGridTextColumn.HeaderStyle>
+                                <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource {x:Type DataGridColumnHeader}}">
+                                    <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                                </Style>
+                            </DataGridTextColumn.HeaderStyle>
+                        </DataGridTextColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </StackPanel>           
+            
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2">
+                <Button Name="btnBatchDuplicate" Margin="0,20,10,0" Height="30" Width="150" Content="Batch Duplicate" HorizontalAlignment="Left" VerticalAlignment="Center" Click="btnBatchDuplicate_Click" Grid.Row="3" Grid.Column="0"/>
+                <Button Name="btnFindAndReplace" Margin="10,20,10,0" Height="30" Width="150" Content="Find And Replace" HorizontalAlignment="Left" VerticalAlignment="Center" Click="btnFindAndReplace_Click" Grid.Row="3" Grid.Column="0"/>
             </StackPanel>
            
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="2">
-                <TextBlock Text="Test Case Count:" Margin="0,0,10,30" Height="25" Width="Auto" FontWeight="Bold"/>
-                <TextBlock Name="tbTestCaseCount" Text="{Binding TestCasesCount}"  Margin="10,0,10,30" Height="25" Width="Auto" />
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Grid.Row="6" Grid.Column="2">
+                <TextBlock Text="Selected Test Cases Count:" Margin="0,20,10,0" Height="25" Width="Auto" FontWeight="Bold"/>
+                <TextBlock Name="tbSelectedTestCaseCount" Text="{Binding SelectedTestCasesCount}"  Margin="10,20,30,0" Height="25" Width="Auto" />
+                <TextBlock Text="Test Cases Count:" Margin="0,20,10,0" Height="25" Width="Auto" FontWeight="Bold"/>
+                <TextBlock Name="tbTestCaseCount" Text="{Binding TestCasesCount}"  Margin="10,20,10,0" Height="25" Width="Auto" />
             </StackPanel>
         </Grid>
     </Grid>

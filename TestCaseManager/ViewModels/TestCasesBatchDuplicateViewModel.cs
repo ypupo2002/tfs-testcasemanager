@@ -13,6 +13,7 @@ namespace TestCaseManagerApp.ViewModels
     using FirstFloor.ModernUI.Presentation;
     using Microsoft.TeamFoundation.TestManagement.Client;
     using TestCaseManagerApp.BusinessLogic.Entities;
+using TestCaseManagerApp.BusinessLogic.Enums;
 
     /// <summary>
     /// Contains methods and properties related to the TestCasesBatchDuplicate View
@@ -35,9 +36,35 @@ namespace TestCaseManagerApp.ViewModels
         private bool replaceInTestSteps;
 
         /// <summary>
+        /// The change owner
+        /// </summary>
+        private bool changeOwner;
+
+        /// <summary>
+        /// The change priorities
+        /// </summary>
+        private bool changePriorities;
+
+        /// <summary>
         /// The test cases count after filtering
         /// </summary>
         private string testCasesCount;
+
+        /// <summary>
+        /// The selected test case count
+        /// </summary>
+        private string selectedTestCasesCount;
+
+        /// <summary>
+        /// The selected priority
+        /// </summary>
+        private Priority selectedPriority;
+
+        /// <summary>
+        /// The selected team foundation identity name
+        /// </summary>
+        private TeamFoundationIdentityName selectedTeamFoundationIdentityName;
+
 
         /// <summary>
         /// Initializes a new instance of the <see cref="TestCasesBatchDuplicateViewModel"/> class.
@@ -48,10 +75,14 @@ namespace TestCaseManagerApp.ViewModels
             this.InitializeTestCases();
             this.InitializeInitialTestCaseCollection();
             this.InitializeTestSuiteList();
+            this.InitializeTeamFoundationIdentityNames();
             this.TestCasesCount = this.ObservableTestCases.Count.ToString();
             this.ReplaceInTitles = true;
             this.ReplaceInTestSteps = true;
             this.ReplaceSharedSteps = true;
+            this.ChangeOwner = true;
+            this.changePriorities = true;
+            this.SelectedTestCasesCount = "0";   
         }
 
         /// <summary>
@@ -76,6 +107,8 @@ namespace TestCaseManagerApp.ViewModels
             this.ReplaceInTitles = viewModel.ReplaceInTitles;
             this.ReplaceInTestSteps = viewModel.ReplaceInTestSteps;
             this.ReplaceSharedSteps = viewModel.ReplaceSharedSteps;
+            this.ChangeOwner = viewModel.ChangeOwner;
+            this.changePriorities = viewModel.changePriorities;
         }
 
         /// <summary>
@@ -133,6 +166,14 @@ namespace TestCaseManagerApp.ViewModels
         /// The initial view filters.
         /// </value>
         public InitialViewFilters InitialViewFilters { get; set; }
+
+        /// <summary>
+        /// Gets or sets the team foundation identity names.
+        /// </summary>
+        /// <value>
+        /// The team foundation identity names.
+        /// </value>
+        public ObservableCollection<TeamFoundationIdentityName> TeamFoundationIdentityNames { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether [the text in the test case title should be replaced].
@@ -195,6 +236,46 @@ namespace TestCaseManagerApp.ViewModels
         }
 
         /// <summary>
+        /// Gets or sets a value indicating whether [change priorities].
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if [change priorities]; otherwise, <c>false</c>.
+        /// </value>
+        public bool ChangePriorities
+        {
+            get
+            {
+                return this.changePriorities;
+            }
+
+            set
+            {
+                this.changePriorities = value;
+                this.NotifyPropertyChanged();
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether [change owner].
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if [change owner]; otherwise, <c>false</c>.
+        /// </value>
+        public bool ChangeOwner
+        {
+            get
+            {
+                return this.changeOwner;
+            }
+
+            set
+            {
+                this.changeOwner = value;
+                this.NotifyPropertyChanged();
+            }
+        }
+
+        /// <summary>
         /// Gets or sets the test cases count after filtering is applied.
         /// </summary>
         /// <value>
@@ -215,13 +296,85 @@ namespace TestCaseManagerApp.ViewModels
         }
 
         /// <summary>
+        /// Gets or sets the selected test cases count.
+        /// </summary>
+        /// <value>
+        /// The selected test cases count.
+        /// </value>
+        public string SelectedTestCasesCount
+        {
+            get
+            {
+                return this.selectedTestCasesCount;
+            }
+
+            set
+            {
+                this.selectedTestCasesCount = value;
+                this.NotifyPropertyChanged();
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the priority.
+        /// </summary>
+        /// <value>
+        /// The priority.
+        /// </value>
+        public Priority Priority
+        {
+            get
+            {
+                return this.selectedPriority;
+            }
+
+            set
+            {
+                this.selectedPriority = value;
+                this.NotifyPropertyChanged();
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the name of the selected team foundation identity.
+        /// </summary>
+        /// <value>
+        /// The name of the selected team foundation identity.
+        /// </value>
+        public TeamFoundationIdentityName SelectedTeamFoundationIdentityName
+        {
+            get
+            {
+                return this.selectedTeamFoundationIdentityName;
+            }
+
+            set
+            {
+                this.selectedTeamFoundationIdentityName = value;
+                this.NotifyPropertyChanged();
+            }
+        }
+
+        /// <summary>
         /// Filters the test cases.
         /// </summary>
         public void FilterTestCases()
         {
-            var filteredList = this.InitialTestCaseCollection.Where(
-                t => ((InitialViewFilters.IsTitleTextSet && !string.IsNullOrEmpty(this.InitialViewFilters.TitleFilter)) ? t.ITestCase.Title.ToLower().Contains(this.InitialViewFilters.TitleFilter.ToLower()) : true)
-                    && ((InitialViewFilters.IsSuiteTextSet && !string.IsNullOrEmpty(this.InitialViewFilters.SuiteFilter)) ? t.ITestSuiteBase.Title.ToLower().Contains(this.InitialViewFilters.SuiteFilter.ToLower()) : true)).ToList();
+            bool shouldSetTextFilter = InitialViewFilters.IsTitleTextSet && !string.IsNullOrEmpty(this.InitialViewFilters.TitleFilter);
+            string titleFilter = this.InitialViewFilters.TitleFilter.ToLower();
+            bool shouldSetSuiteFilter = InitialViewFilters.IsSuiteTextSet && !string.IsNullOrEmpty(this.InitialViewFilters.SuiteFilter);
+            string suiteFilter = this.InitialViewFilters.SuiteFilter.ToLower();
+            bool shouldSetPriorityFilter = InitialViewFilters.IsPriorityTextSet && !string.IsNullOrEmpty(this.InitialViewFilters.PriorityFilter);
+            string priorityFilter = this.InitialViewFilters.PriorityFilter.ToLower();
+            bool shouldSetAssignedToFilter = InitialViewFilters.IsAssignedToTextSet && !string.IsNullOrEmpty(this.InitialViewFilters.AssignedToFilter);
+            string assignedToFilter = this.InitialViewFilters.AssignedToFilter.ToLower();
+
+            var filteredList = this.InitialTestCaseCollection.Where(t =>
+                (shouldSetTextFilter ? (t.ITestCase.Title.ToLower().Contains(titleFilter)) : true) &&
+                (shouldSetSuiteFilter ? t.ITestSuiteBase.Title.ToLower().Contains(suiteFilter) : true) &&
+                (shouldSetPriorityFilter ? t.Priority.ToString().ToLower().Contains(priorityFilter) : true) &&
+                (shouldSetAssignedToFilter ? t.OwnerName.ToLower().Contains(assignedToFilter) : true)
+                ).ToList();
             this.ObservableTestCases.Clear();
             filteredList.ForEach(x => this.ObservableTestCases.Add(x));
             this.TestCasesCount = filteredList.Count.ToString();
@@ -260,6 +413,20 @@ namespace TestCaseManagerApp.ViewModels
             this.ObservableSharedStepIdReplacePairs.Add(new SharedStepIdReplacePair());
             this.SelectedTestCases = new List<TestCase>();
             this.InitialViewFilters = new InitialViewFilters();
+            this.TeamFoundationIdentityNames = new ObservableCollection<TeamFoundationIdentityName>();
+        }
+
+
+        /// <summary>
+        /// Initializes the team foundation identity names.
+        /// </summary>
+        private void InitializeTeamFoundationIdentityNames()
+        {
+            var allUserIdentityNames = ExecutionContext.TestManagementTeamProject.TfsIdentityStore.AllUserIdentityNames;
+            foreach (TeamFoundationIdentityName currentName in allUserIdentityNames)
+            {
+                this.TeamFoundationIdentityNames.Add(currentName);
+            }
         }
     }
 }
