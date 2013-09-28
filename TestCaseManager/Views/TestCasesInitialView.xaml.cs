@@ -186,6 +186,7 @@ namespace TestCaseManagerApp.Views
             t.ContinueWith(antecedent =>
             {
                 this.DataContext = TestCasesInitialViewModel;
+                this.UpdateButtonsStatus();
                 this.HideProgressBar();
                 this.tbTitleFilter.Focus();
                 isInitialized = true;
@@ -396,6 +397,67 @@ namespace TestCaseManagerApp.Views
         {
             this.TestCasesInitialViewModel.FilterTestCases();
         }
+
+        /// <summary>
+        /// Handles the GotFocus event of the tbAssignedToFilter control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
+        private void tbAssignedToFilter_GotFocus(object sender, RoutedEventArgs e)
+        {
+            tbAssignedToFilter.ClearDefaultContent(ref this.TestCasesInitialViewModel.InitialViewFilters.IsAssignedToTextSet);
+        }
+
+        /// <summary>
+        /// Handles the LostFocus event of the tbAssignedToFilter control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
+        private void tbAssignedToFilter_LostFocus(object sender, RoutedEventArgs e)
+        {
+            tbAssignedToFilter.RestoreDefaultText(this.TestCasesInitialViewModel.InitialViewFilters.DetaultAssignedTo, ref this.TestCasesInitialViewModel.InitialViewFilters.IsAssignedToTextSet);
+        }
+
+        /// <summary>
+        /// Handles the KeyUp event of the tbAssignedToFilter control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="KeyEventArgs"/> instance containing the event data.</param>
+        private void tbAssignedToFilter_KeyUp(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            this.TestCasesInitialViewModel.FilterTestCases();
+        }
+
+        /// <summary>
+        /// Handles the GotFocus event of the tbPriorityFilter control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
+        private void tbPriorityFilter_GotFocus(object sender, RoutedEventArgs e)
+        {
+            tbPriorityFilter.ClearDefaultContent(ref this.TestCasesInitialViewModel.InitialViewFilters.IsPriorityTextSet);
+        }
+
+        /// <summary>
+        /// Handles the LostFocus event of the tbPriorityFilter control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
+        private void tbPriorityFilter_LostFocus(object sender, RoutedEventArgs e)
+        {
+            tbPriorityFilter.RestoreDefaultText(this.TestCasesInitialViewModel.InitialViewFilters.DetaultPriority, ref this.TestCasesInitialViewModel.InitialViewFilters.IsPriorityTextSet);
+
+        }
+
+        /// <summary>
+        /// Handles the KeyUp event of the tbPriorityFilter control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="KeyEventArgs"/> instance containing the event data.</param>
+        private void tbPriorityFilter_KeyUp(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            this.TestCasesInitialViewModel.FilterTestCases();
+        }    
 
         /// <summary>
         /// Handles the MouseDoubleClick event of the dgTestCases control.
@@ -908,6 +970,7 @@ namespace TestCaseManagerApp.Views
         /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void btnRemoveTestCase_Click(object sender, RoutedEventArgs e)
         {
+            this.DisplayNonSelectionWarning();
             this.RemoveTestCaseFromSuiteInternal();
         }
 
@@ -941,22 +1004,36 @@ namespace TestCaseManagerApp.Views
         /// <param name="e">The <see cref="SelectedCellsChangedEventArgs"/> instance containing the event data.</param>
         private void dgTestCases_SelectedCellsChanged(object sender, SelectedCellsChangedEventArgs e)
         {
+            this.UpdateButtonsStatus();
+            this.TestCasesInitialViewModel.SelectedTestCasesCount = this.dgTestCases.SelectedItems.Count.ToString();
+        }
+
+        /// <summary>
+        /// Updates the buttons status.
+        /// </summary>
+        private void UpdateButtonsStatus()
+        {
             btnPreview.IsEnabled = true;
             btnDuplicate.IsEnabled = true;
             btnEdit.IsEnabled = true;
+            btnPreview1.IsEnabled = true;
+            btnDuplicate1.IsEnabled = true;
+            btnEdit1.IsEnabled = true;
             dgTestCaseContextItemEdit.IsEnabled = true;
             dgTestCaseContextItemPreview.IsEnabled = true;
             dgTestCaseContextItemDuplicate.IsEnabled = true;
-            if (dgTestCases.SelectedItems.Count > 1)
+            if (dgTestCases.SelectedItems.Count < 1)
             {
                 btnPreview.IsEnabled = false;
                 btnDuplicate.IsEnabled = false;
                 btnEdit.IsEnabled = false;
+                btnPreview1.IsEnabled = false;
+                btnDuplicate1.IsEnabled = false;
+                btnEdit1.IsEnabled = false;
                 dgTestCaseContextItemEdit.IsEnabled = false;
                 dgTestCaseContextItemPreview.IsEnabled = false;
                 dgTestCaseContextItemDuplicate.IsEnabled = false;
             }
-            this.TestCasesInitialViewModel.SelectedTestCasesCount = this.dgTestCases.SelectedItems.Count.ToString();
         }
     }
 }

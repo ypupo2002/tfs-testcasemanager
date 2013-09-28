@@ -212,14 +212,25 @@ namespace TestCaseManagerApp.ViewModels
         /// </summary>
         public void FilterTestCases()
         {
-            //this.ReinitializeTestCases();
+            bool shouldSetIdFilter = InitialViewFilters.IsIdTextSet && !string.IsNullOrEmpty(this.InitialViewFilters.IdFilter);
+            string idFilter = this.InitialViewFilters.IdFilter;
+            bool shouldSetTextFilter = InitialViewFilters.IsTitleTextSet && !string.IsNullOrEmpty(this.InitialViewFilters.TitleFilter);
+            string titleFilter = this.InitialViewFilters.TitleFilter.ToLower();
+            bool shouldSetSuiteFilter = InitialViewFilters.IsSuiteTextSet && !string.IsNullOrEmpty(this.InitialViewFilters.SuiteFilter);
+            string suiteFilter = this.InitialViewFilters.SuiteFilter.ToLower();
+            bool shouldSetPriorityFilter = InitialViewFilters.IsPriorityTextSet && !string.IsNullOrEmpty(this.InitialViewFilters.PriorityFilter);
+            string priorityFilter = this.InitialViewFilters.PriorityFilter.ToLower();
+            bool shouldSetAssignedToFilter = InitialViewFilters.IsAssignedToTextSet && !string.IsNullOrEmpty(this.InitialViewFilters.AssignedToFilter);
+            string assignedToFilter = this.InitialViewFilters.AssignedToFilter.ToLower();
 
-            var filteredList = this.InitialTestCaseCollection.Where(
-                t => (t.ITestCase != null)
-                    && ((this.InitialViewFilters.IsTitleTextSet && !string.IsNullOrEmpty(this.InitialViewFilters.TitleFilter) && this.InitialViewFilters.TitleFilter != this.InitialViewFilters.DetaultTitle) ? t.ITestCase.Title.ToLower().Contains(this.InitialViewFilters.TitleFilter.ToLower()) : true)
-                    && ((this.InitialViewFilters.IsSuiteTextSet && !string.IsNullOrEmpty(this.InitialViewFilters.SuiteFilter) && this.InitialViewFilters.SuiteFilter != this.InitialViewFilters.DetaultSuite) ? t.ITestSuiteBase.Title.ToLower().Contains(this.InitialViewFilters.SuiteFilter.ToLower()) : true)
-                    && ((this.InitialViewFilters.IsIdTextSet && !string.IsNullOrEmpty(this.InitialViewFilters.IdFilter) && this.InitialViewFilters.IdFilter != this.InitialViewFilters.DetaultId) ? t.ITestCase.Id.ToString().Contains(this.InitialViewFilters.IdFilter) : true)
-                    && (!this.HideAutomated.Equals(t.ITestCase.IsAutomated) || !this.HideAutomated)).ToList();
+            var filteredList = this.InitialTestCaseCollection.Where(t =>
+                (shouldSetIdFilter ? (t.ITestCase.Id.ToString().Contains(idFilter)) : true) &&
+                (shouldSetTextFilter ? (t.ITestCase.Title.ToLower().Contains(titleFilter)) : true) &&
+                (shouldSetSuiteFilter ? t.ITestSuiteBase.Title.ToLower().Contains(suiteFilter) : true) &&
+                (shouldSetPriorityFilter ? t.Priority.ToString().ToLower().Contains(priorityFilter) : true) &&
+                (shouldSetAssignedToFilter ? t.TeamFoundationIdentityName.DisplayName.ToLower().Contains(assignedToFilter) : true) &&
+                (!this.HideAutomated.Equals(t.ITestCase.IsAutomated) || !this.HideAutomated)
+                ).ToList();
             this.ObservableTestCases.Clear();
             filteredList.ForEach(x => this.ObservableTestCases.Add(x));
 

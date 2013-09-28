@@ -22,14 +22,19 @@ namespace TestCaseManagerApp
         /// </summary>
         /// <param name="suiteEntries">The test suite collection.</param>
         /// <returns>list with all test cases</returns>
-        public static List<TestCase> GetAllTestCasesFromSuiteCollection(ITestSuiteCollection suiteEntries)
+        public static List<TestCase> GetAllTestCasesFromSuiteCollection(ITestSuiteCollection suiteEntries, List<int> alreadyCheckedSuitesIds = null)
         {
+            if (alreadyCheckedSuitesIds == null)
+            {
+                alreadyCheckedSuitesIds = new List<int>();
+            }
             List<TestCase> testCases = new List<TestCase>();
-           
+            
             foreach (ITestSuiteBase currentSuite in suiteEntries)
             {
-                if (currentSuite != null)
+                if (currentSuite != null && !alreadyCheckedSuitesIds.Contains(currentSuite.Id))
                 {
+                    alreadyCheckedSuitesIds.Add(currentSuite.Id);
                     currentSuite.Refresh();
                     foreach (var currentTestCase in currentSuite.TestCases)
                     {
@@ -45,7 +50,7 @@ namespace TestCaseManagerApp
                         IStaticTestSuite staticTestSuite = currentSuite as IStaticTestSuite;
                         if (staticTestSuite != null && (staticTestSuite.SubSuites.Count > 0))
                         {
-                            List<TestCase> testCasesInternal = GetAllTestCasesFromSuiteCollection(staticTestSuite.SubSuites);
+                            List<TestCase> testCasesInternal = GetAllTestCasesFromSuiteCollection(staticTestSuite.SubSuites, alreadyCheckedSuitesIds);
                             foreach (var currentTestCase in testCasesInternal)
                             {
                                 if (!testCases.Contains(currentTestCase))
@@ -126,14 +131,32 @@ namespace TestCaseManagerApp
         /// Gets all test cases in current test plan.
         /// </summary>
         /// <returns>list of all test cases</returns>
-        public static List<TestCase> GetAllTestCasesInTestPlan()
+        public static List<TestCase> GetAllTestCasesInTestPlan(bool includeSuites = true)
         {
             ExecutionContext.Preferences.TestPlan.Refresh();
-            List<TestCase> testCasesList = GetAllTestCasesFromSuiteCollection(ExecutionContext.Preferences.TestPlan.RootSuite.SubSuites);
-            AddTestCasesWithoutSuites(testCasesList);
+            List<TestCase> testCasesList;
+            if (includeSuites)
+            {
+                testCasesList = GetAllTestCasesFromSuiteCollection(ExecutionContext.Preferences.TestPlan.RootSuite.SubSuites);
+                AddTestCasesWithoutSuites(testCasesList);
+            }
+            else
+            {
+                testCasesList = new List<TestCase>();
+                string queryText = "select [System.Id], [System.Title] from WorkItems where [System.WorkItemType] = 'Test Case'";
+                IEnumerable<ITestCase> allTestCases = ExecutionContext.TestManagementTeamProject.TestCases.InPlans(queryText, true);
+                foreach (var currentTestCase in allTestCases)
+                {
+                    TestCase testCaseToAdd = new TestCase(currentTestCase, currentTestCase.TestSuiteEntry.ParentTestSuite);
+                    if (!testCasesList.Contains(testCaseToAdd))
+                    {
+                        testCasesList.Add(testCaseToAdd);
+                    }
+                }
+            }
 
             return testCasesList;
-        }        
+        }      
 
         /// <summary>
         /// Saves the specified test case.
