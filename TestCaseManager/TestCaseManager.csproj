@@ -131,6 +131,7 @@
     <Compile Include="BusinessLogic\Entities\ClipBoardTestStep.cs" />
     <Compile Include="BusinessLogic\Entities\InitialViewFilters.cs" />
     <Compile Include="BusinessLogic\Entities\ListStackExtensions.cs" />
+    <Compile Include="BusinessLogic\Entities\ReplaceContext.cs" />
     <Compile Include="BusinessLogic\Entities\SharedStepIdReplacePair.cs" />
     <Compile Include="BusinessLogic\Entities\Suite.cs" />
     <Compile Include="BusinessLogic\Entities\Test.cs" />

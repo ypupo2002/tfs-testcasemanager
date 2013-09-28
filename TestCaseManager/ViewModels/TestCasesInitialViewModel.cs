@@ -18,7 +18,7 @@ namespace TestCaseManagerApp.ViewModels
     /// <summary>
     /// Contains methods and properties related to the TestCasesInitial View
     /// </summary>
-    public class TestCasesInitialViewModel : NotifyPropertyChanged
+    public class TestCasesInitialViewModel : BaseNotifyPropertyChanged
     {
         /// <summary>
         /// The selected suite unique identifier
@@ -34,6 +34,11 @@ namespace TestCaseManagerApp.ViewModels
         /// The test cases count after filtering
         /// </summary>
         private string testCasesCount;
+
+        /// <summary>
+        /// The selected test cases count
+        /// </summary>
+        private string selectedTestCasesCount;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="TestCasesInitialViewModel"/> class.
@@ -73,6 +78,7 @@ namespace TestCaseManagerApp.ViewModels
             this.Suites.Add(masterSuite);
             this.SelectPreviouslySelectedSuite(this.Suites, this.selectedSuiteId);
             this.IsAfterInitialize = true;
+            this.SelectedTestCasesCount = "0";
         }      
 
         /// <summary>
@@ -142,7 +148,7 @@ namespace TestCaseManagerApp.ViewModels
             set
             {
                 this.hideAutomated = value;
-                this.OnPropertyChanged("HideAutomated");
+                this.NotifyPropertyChanged();
             }
         }
 
@@ -162,7 +168,27 @@ namespace TestCaseManagerApp.ViewModels
             set
             {
                 this.testCasesCount = value;
-                this.OnPropertyChanged("TestCasesCount");
+                this.NotifyPropertyChanged();
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the selected test cases count.
+        /// </summary>
+        /// <value>
+        /// The selected test cases count.
+        /// </value>
+        public string SelectedTestCasesCount
+        {
+            get
+            {
+                return this.selectedTestCasesCount;
+            }
+
+            set
+            {
+                this.selectedTestCasesCount = value;
+                this.NotifyPropertyChanged();
             }
         }
 
@@ -292,7 +318,7 @@ namespace TestCaseManagerApp.ViewModels
         /// <param name="suites">The suites.</param>
         /// <param name="selectedSuiteId">The selected suite unique identifier.</param>
         /// <returns>the suite</returns>
-        public Suite GetSuiteById(ObservableCollection<Suite> suites, int selectedSuiteId)
+        public Suite GetSuiteById(ObservableCollection<Suite> suites, int? selectedSuiteId)
         {
             Suite result = null;
             foreach (Suite currentSuite in suites)
@@ -405,11 +431,15 @@ namespace TestCaseManagerApp.ViewModels
         /// Adds the test cases automatic observable collection.
         /// </summary>
         /// <param name="list">The list.</param>
-        public void AddTestCasesToObservableCollection(Suite suiteToPasteIn, int parentSuiteId)
+        public void AddTestCasesToObservableCollection(Suite suiteToPasteIn, int? parentSuiteId)
         {
             suiteToPasteIn.IsSelected = true;
-            Suite parentSuite = this.GetSuiteById(this.Suites, parentSuiteId);
-            parentSuite.IsSelected = false;
+            if (parentSuiteId != null)
+            {
+                Suite parentSuite = this.GetSuiteById(this.Suites, parentSuiteId);
+                parentSuite.IsSelected = false;
+            }
+           
             List<TestCase> testCasesList = TestCaseManager.GetAllTestCaseFromSuite(suiteToPasteIn.Id);
             this.ObservableTestCases.Clear();
             testCasesList.ForEach(t => this.ObservableTestCases.Add(t));

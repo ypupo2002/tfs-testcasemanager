@@ -347,17 +347,13 @@ namespace TestCaseManagerApp.Views
         {
             this.InitializeCurrentSelectedTestCases();
             string newSuiteTitle = cbSuite.Text;
-            List<TextReplacePair> textReplacePairsList = this.TestCasesBatchDuplicateViewModel.ObservableTextReplacePairs.ToList();
-            List<SharedStepIdReplacePair> sharedStepIdReplacePairList = this.TestCasesBatchDuplicateViewModel.ObservableSharedStepIdReplacePairs.ToList();
+            List<TextReplacePair> textReplacePairsList = this.TestCasesBatchDuplicateViewModel.ReplaceContext.ObservableTextReplacePairs.ToList();
+            List<SharedStepIdReplacePair> sharedStepIdReplacePairList = this.TestCasesBatchDuplicateViewModel.ReplaceContext.ObservableSharedStepIdReplacePairs.ToList();
             int duplicatedCount = 0;
             ShowProgressBar();
             Task t = Task.Factory.StartNew(() =>
             {
-                foreach (TestCase currentSelectedTestCase in this.TestCasesBatchDuplicateViewModel.SelectedTestCases)
-                {
-                    currentSelectedTestCase.DuplicateTestCase(textReplacePairsList, sharedStepIdReplacePairList, newSuiteTitle, this.TestCasesBatchDuplicateViewModel.ReplaceInTitles, this.TestCasesBatchDuplicateViewModel.ReplaceSharedSteps, this.TestCasesBatchDuplicateViewModel.ReplaceInTestSteps);
-                    duplicatedCount++;
-                }
+                duplicatedCount = this.TestCasesBatchDuplicateViewModel.DuplicateTestCase();
                 this.TestCasesBatchDuplicateViewModel.FilterTestCases();
             });
             t.ContinueWith(antecedent =>
@@ -376,17 +372,13 @@ namespace TestCaseManagerApp.Views
         private void btnFindAndReplace_Click(object sender, RoutedEventArgs e)
         {
             this.InitializeCurrentSelectedTestCases();
-            List<TextReplacePair> textReplacePairsList = this.TestCasesBatchDuplicateViewModel.ObservableTextReplacePairs.ToList();
-            List<SharedStepIdReplacePair> sharedStepIdReplacePairList = this.TestCasesBatchDuplicateViewModel.ObservableSharedStepIdReplacePairs.ToList();
+            List<TextReplacePair> textReplacePairsList = this.TestCasesBatchDuplicateViewModel.ReplaceContext.ObservableTextReplacePairs.ToList();
+            List<SharedStepIdReplacePair> sharedStepIdReplacePairList = this.TestCasesBatchDuplicateViewModel.ReplaceContext.ObservableSharedStepIdReplacePairs.ToList();
             int replacedCount = 0;
             ShowProgressBar();
             Task t = Task.Factory.StartNew(() =>
             {
-                for (int i = 0; i < this.TestCasesBatchDuplicateViewModel.SelectedTestCases.Count; i++)
-                {
-                    this.TestCasesBatchDuplicateViewModel.SelectedTestCases[i].FindAndReplaceInTestCase(textReplacePairsList, sharedStepIdReplacePairList, this.TestCasesBatchDuplicateViewModel.ReplaceInTitles, TestCasesBatchDuplicateViewModel.ReplaceSharedSteps, TestCasesBatchDuplicateViewModel.ReplaceInTestSteps);
-                    replacedCount++;
-                }               
+                replacedCount = this.TestCasesBatchDuplicateViewModel.FindAndReplaceInTestCase();              
             });
             t.ContinueWith(antecedent =>
             {
@@ -402,14 +394,14 @@ namespace TestCaseManagerApp.Views
         /// </summary>
         private void InitializeCurrentSelectedTestCases()
         {
-            this.TestCasesBatchDuplicateViewModel.SelectedTestCases.Clear();
+            this.TestCasesBatchDuplicateViewModel.ReplaceContext.SelectedTestCases.Clear();
             foreach (TestCase currentSelectedItem in dgTestCases.SelectedItems)
             {
-                this.TestCasesBatchDuplicateViewModel.SelectedTestCases.Add(currentSelectedItem);
+                this.TestCasesBatchDuplicateViewModel.ReplaceContext.SelectedTestCases.Add(currentSelectedItem);
             }
         }
 
-        private void dgTestCases_SelectedCellsChanged_1(object sender, SelectedCellsChangedEventArgs e)
+        private void dgTestCases_SelectedCellsChanged(object sender, SelectedCellsChangedEventArgs e)
         {
             this.TestCasesBatchDuplicateViewModel.SelectedTestCasesCount = this.dgTestCases.SelectedItems.Count.ToString();
         }              

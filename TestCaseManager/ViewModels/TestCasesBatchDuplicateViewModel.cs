@@ -13,38 +13,13 @@ namespace TestCaseManagerApp.ViewModels
     using FirstFloor.ModernUI.Presentation;
     using Microsoft.TeamFoundation.TestManagement.Client;
     using TestCaseManagerApp.BusinessLogic.Entities;
-using TestCaseManagerApp.BusinessLogic.Enums;
+    using TestCaseManagerApp.BusinessLogic.Enums;
 
     /// <summary>
     /// Contains methods and properties related to the TestCasesBatchDuplicate View
     /// </summary>
     public class TestCasesBatchDuplicateViewModel : BaseNotifyPropertyChanged
     { 
-        /// <summary>
-        /// Defines if the text in titles should be replaced
-        /// </summary>
-        private bool replaceInTitle;
-
-        /// <summary>
-        /// Defines if the text in the test steps in the current test case shared steps should be replaced
-        /// </summary>
-        private bool replaceSharedSteps;
-
-        /// <summary>
-        /// Defines if the text in the test steps in the current test case should be replaced
-        /// </summary>
-        private bool replaceInTestSteps;
-
-        /// <summary>
-        /// The change owner
-        /// </summary>
-        private bool changeOwner;
-
-        /// <summary>
-        /// The change priorities
-        /// </summary>
-        private bool changePriorities;
-
         /// <summary>
         /// The test cases count after filtering
         /// </summary>
@@ -54,17 +29,6 @@ using TestCaseManagerApp.BusinessLogic.Enums;
         /// The selected test case count
         /// </summary>
         private string selectedTestCasesCount;
-
-        /// <summary>
-        /// The selected priority
-        /// </summary>
-        private Priority selectedPriority;
-
-        /// <summary>
-        /// The selected team foundation identity name
-        /// </summary>
-        private TeamFoundationIdentityName selectedTeamFoundationIdentityName;
-
 
         /// <summary>
         /// Initializes a new instance of the <see cref="TestCasesBatchDuplicateViewModel"/> class.
@@ -77,24 +41,10 @@ using TestCaseManagerApp.BusinessLogic.Enums;
             this.InitializeTestSuiteList();
             this.InitializeTeamFoundationIdentityNames();
             this.TestCasesCount = this.ObservableTestCases.Count.ToString();
-            this.ReplaceInTitles = true;
-            this.ReplaceInTestSteps = true;
-            this.ReplaceSharedSteps = true;
-            this.ChangeOwner = true;
-            this.changePriorities = true;
+            this.ReplaceContext = new ReplaceContext();
+            this.ReplaceContext.SelectedSuite = this.ObservableTestSuites[0];
+            this.ReplaceContext.SelectedTeamFoundationIdentityName = this.ObservableTeamFoundationIdentityNames[0];
             this.SelectedTestCasesCount = "0";   
-        }
-
-        /// <summary>
-        /// Initializes the test cases.
-        /// </summary>
-        public void InitializeTestCases()
-        {
-            ExecutionContext.Preferences.TestPlan.Refresh();
-            ExecutionContext.Preferences.TestPlan.RootSuite.Refresh();
-            List<TestCase> testCasesList = TestCaseManager.GetAllTestCasesInTestPlan();
-            this.ObservableTestCases = new ObservableCollection<TestCase>();
-            testCasesList.ForEach(t => this.ObservableTestCases.Add(t));
         }
 
         /// <summary>
@@ -104,12 +54,18 @@ using TestCaseManagerApp.BusinessLogic.Enums;
         public TestCasesBatchDuplicateViewModel(TestCasesBatchDuplicateViewModel viewModel) : this()
         {
             this.InitialViewFilters = viewModel.InitialViewFilters;
-            this.ReplaceInTitles = viewModel.ReplaceInTitles;
-            this.ReplaceInTestSteps = viewModel.ReplaceInTestSteps;
-            this.ReplaceSharedSteps = viewModel.ReplaceSharedSteps;
-            this.ChangeOwner = viewModel.ChangeOwner;
-            this.changePriorities = viewModel.changePriorities;
+            this.ReplaceContext = viewModel.ReplaceContext;
+            this.ReplaceContext.SelectedSuite = this.ObservableTestSuites[0];
+            this.ReplaceContext.SelectedTeamFoundationIdentityName = this.ObservableTeamFoundationIdentityNames[0];
         }
+
+        /// <summary>
+        /// Gets or sets the replace context.
+        /// </summary>
+        /// <value>
+        /// The replace context.
+        /// </value>
+        public ReplaceContext ReplaceContext { get; set; }
 
         /// <summary>
         /// Gets or sets the observable test cases.
@@ -117,23 +73,7 @@ using TestCaseManagerApp.BusinessLogic.Enums;
         /// <value>
         /// The observable test cases.
         /// </value>
-        public ObservableCollection<TestCase> ObservableTestCases { get; set; }
-
-        /// <summary>
-        /// Gets or sets the observable text replace pairs.
-        /// </summary>
-        /// <value>
-        /// The observable text replace pairs.
-        /// </value>
-        public ObservableCollection<TextReplacePair> ObservableTextReplacePairs { get; set; }
-
-        /// <summary>
-        /// Gets or sets the observable shared step unique identifier replace pairs.
-        /// </summary>
-        /// <value>
-        /// The observable shared step unique identifier replace pairs.
-        /// </value>
-        public ObservableCollection<SharedStepIdReplacePair> ObservableSharedStepIdReplacePairs { get; set; }
+        public ObservableCollection<TestCase> ObservableTestCases { get; set; }      
 
         /// <summary>
         /// Gets or sets the initial test case collection.
@@ -152,14 +92,6 @@ using TestCaseManagerApp.BusinessLogic.Enums;
         public ObservableCollection<ITestSuiteBase> ObservableTestSuites { get; set; }
 
         /// <summary>
-        /// Gets or sets the selected test cases.
-        /// </summary>
-        /// <value>
-        /// The selected test cases.
-        /// </value>
-        public List<TestCase> SelectedTestCases { get; set; }
-
-        /// <summary>
         /// Gets or sets the initial view filters.
         /// </summary>
         /// <value>
@@ -173,107 +105,7 @@ using TestCaseManagerApp.BusinessLogic.Enums;
         /// <value>
         /// The team foundation identity names.
         /// </value>
-        public ObservableCollection<TeamFoundationIdentityName> TeamFoundationIdentityNames { get; set; }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether [the text in the test case title should be replaced].
-        /// </summary>
-        /// <value>
-        /// <c>true</c> if [the text in the test case title should be replaced]; otherwise, <c>false</c>.
-        /// </value>
-        public bool ReplaceInTitles
-        {
-            get
-            {
-                return this.replaceInTitle;
-            }
-
-            set
-            {
-                this.replaceInTitle = value;
-                this.NotifyPropertyChanged();
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether [text in the test steps in the shared steps should be replaced].
-        /// </summary>
-        /// <value>
-        ///   <c>true</c> if [text in the test steps in the shared steps should be replaced]; otherwise, <c>false</c>.
-        /// </value>
-        public bool ReplaceSharedSteps
-        {
-            get
-            {
-                return this.replaceSharedSteps;
-            }
-
-            set
-            {
-                this.replaceSharedSteps = value;
-                this.NotifyPropertyChanged();
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether [text in the test steps of the current test case should be replaced].
-        /// </summary>
-        /// <value>
-        /// <c>true</c> if [text in the test steps of the current test case should be replaced]; otherwise, <c>false</c>.
-        /// </value>
-        public bool ReplaceInTestSteps
-        {
-            get
-            {
-                return this.replaceInTestSteps;
-            }
-
-            set
-            {
-                this.replaceInTestSteps = value;
-                this.NotifyPropertyChanged();
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether [change priorities].
-        /// </summary>
-        /// <value>
-        ///   <c>true</c> if [change priorities]; otherwise, <c>false</c>.
-        /// </value>
-        public bool ChangePriorities
-        {
-            get
-            {
-                return this.changePriorities;
-            }
-
-            set
-            {
-                this.changePriorities = value;
-                this.NotifyPropertyChanged();
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether [change owner].
-        /// </summary>
-        /// <value>
-        ///   <c>true</c> if [change owner]; otherwise, <c>false</c>.
-        /// </value>
-        public bool ChangeOwner
-        {
-            get
-            {
-                return this.changeOwner;
-            }
-
-            set
-            {
-                this.changeOwner = value;
-                this.NotifyPropertyChanged();
-            }
-        }
+        public ObservableCollection<TeamFoundationIdentityName> ObservableTeamFoundationIdentityNames { get; set; }
 
         /// <summary>
         /// Gets or sets the test cases count after filtering is applied.
@@ -316,43 +148,15 @@ using TestCaseManagerApp.BusinessLogic.Enums;
         }
 
         /// <summary>
-        /// Gets or sets the priority.
+        /// Initializes the test cases.
         /// </summary>
-        /// <value>
-        /// The priority.
-        /// </value>
-        public Priority Priority
+        public void InitializeTestCases()
         {
-            get
-            {
-                return this.selectedPriority;
-            }
-
-            set
-            {
-                this.selectedPriority = value;
-                this.NotifyPropertyChanged();
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the name of the selected team foundation identity.
-        /// </summary>
-        /// <value>
-        /// The name of the selected team foundation identity.
-        /// </value>
-        public TeamFoundationIdentityName SelectedTeamFoundationIdentityName
-        {
-            get
-            {
-                return this.selectedTeamFoundationIdentityName;
-            }
-
-            set
-            {
-                this.selectedTeamFoundationIdentityName = value;
-                this.NotifyPropertyChanged();
-            }
+            ExecutionContext.Preferences.TestPlan.Refresh();
+            ExecutionContext.Preferences.TestPlan.RootSuite.Refresh();
+            List<TestCase> testCasesList = TestCaseManager.GetAllTestCasesInTestPlan();
+            this.ObservableTestCases = new ObservableCollection<TestCase>();
+            testCasesList.ForEach(t => this.ObservableTestCases.Add(t));
         }
 
         /// <summary>
@@ -373,12 +177,101 @@ using TestCaseManagerApp.BusinessLogic.Enums;
                 (shouldSetTextFilter ? (t.ITestCase.Title.ToLower().Contains(titleFilter)) : true) &&
                 (shouldSetSuiteFilter ? t.ITestSuiteBase.Title.ToLower().Contains(suiteFilter) : true) &&
                 (shouldSetPriorityFilter ? t.Priority.ToString().ToLower().Contains(priorityFilter) : true) &&
-                (shouldSetAssignedToFilter ? t.OwnerName.ToLower().Contains(assignedToFilter) : true)
+                (shouldSetAssignedToFilter ? t.TeamFoundationIdentityName.DisplayName.ToLower().Contains(assignedToFilter) : true)
                 ).ToList();
             this.ObservableTestCases.Clear();
             filteredList.ForEach(x => this.ObservableTestCases.Add(x));
             this.TestCasesCount = filteredList.Count.ToString();
         }
+
+        /// <summary>
+        /// Finds the and replace information test case.
+        /// </summary>
+        /// <returns></returns>
+        public int FindAndReplaceInTestCase()
+        {
+            int replacedCount = 0;
+            for (int i = 0; i < this.ReplaceContext.SelectedTestCases.Count; i++)
+            {
+                this.FindAndReplaceInTestCaseInternal(ReplaceContext.SelectedTestCases[i]);
+                replacedCount++;
+            }
+
+            return replacedCount;
+        }
+
+        /// <summary>
+        /// Duplicates the test case.
+        /// </summary>
+        /// <returns></returns>
+        public int DuplicateTestCase()
+        {
+            int duplicatedCount = 0;
+            foreach (TestCase currentSelectedTestCase in this.ReplaceContext.SelectedTestCases)
+            {
+                this.DuplicateTestCaseInternal(currentSelectedTestCase);
+                duplicatedCount++;
+            }
+
+            return duplicatedCount;
+        }
+
+        /// <summary>
+        /// Duplicates the test case.
+        /// </summary>
+        /// <param name="testCaseToBeDuplicated">The test case to be duplicated.</param>
+        private void DuplicateTestCaseInternal(TestCase testCaseToBeDuplicated)
+        {
+            List<TestStep> testSteps = TestStepManager.GetTestStepsFromTestActions(testCaseToBeDuplicated.ITestCase.Actions.ToList());
+            ITestCase testCaseCore = ExecutionContext.TestManagementTeamProject.TestCases.Create();
+            TestCase currentTestCase = new TestCase(testCaseCore, testCaseToBeDuplicated.ITestSuiteBase);
+
+            currentTestCase.ITestCase.Area = testCaseToBeDuplicated.ITestCase.Area;
+            if (this.ReplaceContext.ReplaceInTitles)
+            {
+                currentTestCase.ITestCase.Title = testCaseToBeDuplicated.ITestCase.Title.ReplaceAll(this.ReplaceContext.ObservableTextReplacePairs);
+            }
+            else
+            {
+                currentTestCase.ITestCase.Title = testCaseToBeDuplicated.ITestCase.Title;
+            }
+            if (this.ReplaceContext.ChangePriorities)
+            {
+                currentTestCase.Priority = this.ReplaceContext.SelectedPriority;
+            }
+            if(this.ReplaceContext.ChangeOwner)
+            {
+                currentTestCase.TeamFoundationIdentityName = this.ReplaceContext.SelectedTeamFoundationIdentityName;
+            }
+            currentTestCase.ITestCase.Priority = testCaseToBeDuplicated.ITestCase.Priority;
+            this.ReplaceStepsInTestCase(currentTestCase, testSteps);
+            currentTestCase.ITestCase.Flush();
+            currentTestCase.ITestCase.Save();
+
+            var newSuite = TestSuiteManager.GetTestSuiteByName(this.ReplaceContext.SelectedSuite.Title);
+            newSuite.AddTestCase(currentTestCase.ITestCase);
+        }
+
+        /// <summary>
+        /// Finds the and replace information test case.
+        /// </summary>
+        /// <param name="testCaseToReplaceIn">The test case to replace in.</param>
+        private void FindAndReplaceInTestCaseInternal(TestCase testCaseToReplaceIn)
+        {
+            TestCase currentTestCase = testCaseToReplaceIn;
+            currentTestCase.ITestCase = ExecutionContext.TestManagementTeamProject.TestCases.Find(testCaseToReplaceIn.ITestCase.Id);
+            List<TestStep> testSteps = TestStepManager.GetTestStepsFromTestActions(currentTestCase.ITestCase.Actions.ToList());
+            if (this.ReplaceContext.ReplaceInTitles)
+            {
+                string newTitle = currentTestCase.ITestCase.Title.ReplaceAll(this.ReplaceContext.ObservableTextReplacePairs);
+                currentTestCase.ITestCase.Title = newTitle;
+            }
+            this.ReplaceStepsInTestCase(currentTestCase,testSteps);
+
+            currentTestCase.ITestCase.Flush();
+            currentTestCase.ITestCase.Save();
+        }
+
 
         /// <summary>
         /// Initializes the test suite list.
@@ -406,14 +299,9 @@ using TestCaseManagerApp.BusinessLogic.Enums;
         /// </summary>
         private void InitializeInnerCollections()
         {
-            this.ObservableTestSuites = new ObservableCollection<ITestSuiteBase>();
-            this.ObservableTextReplacePairs = new ObservableCollection<TextReplacePair>();
-            this.ObservableTextReplacePairs.Add(new TextReplacePair());
-            this.ObservableSharedStepIdReplacePairs = new ObservableCollection<SharedStepIdReplacePair>();
-            this.ObservableSharedStepIdReplacePairs.Add(new SharedStepIdReplacePair());
-            this.SelectedTestCases = new List<TestCase>();
+            this.ObservableTestSuites = new ObservableCollection<ITestSuiteBase>();         
             this.InitialViewFilters = new InitialViewFilters();
-            this.TeamFoundationIdentityNames = new ObservableCollection<TeamFoundationIdentityName>();
+            this.ObservableTeamFoundationIdentityNames = new ObservableCollection<TeamFoundationIdentityName>();
         }
 
 
@@ -425,8 +313,75 @@ using TestCaseManagerApp.BusinessLogic.Enums;
             var allUserIdentityNames = ExecutionContext.TestManagementTeamProject.TfsIdentityStore.AllUserIdentityNames;
             foreach (TeamFoundationIdentityName currentName in allUserIdentityNames)
             {
-                this.TeamFoundationIdentityNames.Add(currentName);
+                this.ObservableTeamFoundationIdentityNames.Add(currentName);
             }
+        }
+
+        /// <summary>
+        /// Replaces the test steps information in specific test case.
+        /// </summary>
+        /// <param name="testCase">The test case.</param>
+        /// <param name="testSteps">The test steps.</param>
+        private void ReplaceStepsInTestCase(TestCase testCase, List<TestStep> testSteps)
+        {
+            if (this.ReplaceContext.ReplaceSharedSteps || this.ReplaceContext.ReplaceInTestSteps)
+            {
+                testCase.ITestCase.Actions.Clear();
+                List<Guid> addedSharedStepGuids = new List<Guid>();
+
+                foreach (TestStep currentStep in testSteps)
+                {
+                    if (currentStep.IsShared && !addedSharedStepGuids.Contains(currentStep.TestStepGuid) && this.ReplaceContext.ReplaceSharedSteps)
+                    {
+                        int newSharedStepId = GetNewSharedStepId(currentStep.SharedStepId, this.ReplaceContext.ObservableSharedStepIdReplacePairs);
+                        if (!this.ReplaceContext.ReplaceSharedSteps)
+                        {
+                            newSharedStepId = currentStep.SharedStepId;
+                        }
+                        ISharedStep sharedStep = ExecutionContext.TestManagementTeamProject.SharedSteps.Find(newSharedStepId);
+                        ISharedStepReference sharedStepReferenceCore = testCase.ITestCase.CreateSharedStepReference();
+                        sharedStepReferenceCore.SharedStepId = sharedStep.Id;
+                        testCase.ITestCase.Actions.Add(sharedStepReferenceCore);
+                        addedSharedStepGuids.Add(currentStep.TestStepGuid);
+                    }
+                    else if (!currentStep.IsShared)
+                    {
+                        ITestStep testStepCore = testCase.ITestCase.CreateTestStep();
+                        if (this.ReplaceContext.ReplaceInTestSteps)
+                        {
+                            testStepCore.Title = currentStep.ActionTitle.ToString().ReplaceAll(this.ReplaceContext.ObservableTextReplacePairs);
+                            testStepCore.ExpectedResult = currentStep.ActionExpectedResult.ToString().ReplaceAll(this.ReplaceContext.ObservableTextReplacePairs);
+                        }
+                        else
+                        {
+                            testStepCore.Title = currentStep.ActionTitle;
+                            testStepCore.ExpectedResult = currentStep.ActionExpectedResult;
+                        }
+                        testCase.ITestCase.Actions.Add(testStepCore);
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// Gets the new shared step unique identifier.
+        /// </summary>
+        /// <param name="currentSharedStepId">The current shared step unique identifier.</param>
+        /// <param name="sharedStepIdReplacePairs">The shared steps replace pairs.</param>
+        /// <returns>new shared step id</returns>
+        private int GetNewSharedStepId(int currentSharedStepId, ICollection<SharedStepIdReplacePair> sharedStepIdReplacePairs)
+        {
+            int newSharedStepId = currentSharedStepId;
+            foreach (SharedStepIdReplacePair currentPair in sharedStepIdReplacePairs)
+            {
+                if (currentSharedStepId.Equals(currentPair.OldSharedStepId))
+                {
+                    newSharedStepId = currentPair.NewSharedStepId;
+                    break;
+                }
+            }
+
+            return newSharedStepId;
         }
     }
 }

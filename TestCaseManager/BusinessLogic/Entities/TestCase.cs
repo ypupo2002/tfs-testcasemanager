@@ -18,7 +18,7 @@ namespace TestCaseManagerApp
     /// Contains Test Case object information properties
     /// </summary>
     [Serializable]
-    public class TestCase : BaseNotifyPropertyChanged
+    public class TestCase : BaseNotifyPropertyChanged, IEquatable<TestCase>
     {
         /// <summary>
         /// The test case core object
@@ -33,6 +33,12 @@ namespace TestCaseManagerApp
         private ITestSuiteBase testSuiteBaseCore;
 
         /// <summary>
+        /// The owner
+        /// </summary>
+        [NonSerialized]
+        private TeamFoundationIdentityName teamFoundationIdentityName;
+
+        /// <summary>
         /// The title
         /// </summary>
         private string title;
@@ -40,12 +46,7 @@ namespace TestCaseManagerApp
         /// <summary>
         /// The area
         /// </summary>
-        private string area;
-
-        /// <summary>
-        /// The owner
-        /// </summary>
-        private string ownerName;
+        private string area;        
 
         /// <summary>
         /// The priority
@@ -70,8 +71,10 @@ namespace TestCaseManagerApp
             this.Title = testCaseCore.Title;
             this.Area = testCaseCore.Area;
             this.Priority = (Priority)testCaseCore.Priority;
-            this.OwnerName = testCaseCore.OwnerName;
-            this.TestSuiteId = testSuiteBaseCore.Id;
+            this.TeamFoundationIdentityName = new TeamFoundationIdentityName(testCaseCore.OwnerTeamFoundationId, testCaseCore.OwnerName);
+            this.OwnerDisplayName = testCaseCore.OwnerName;
+            this.TeamFoundationId = testCaseCore.OwnerTeamFoundationId;
+            this.TestSuiteId = (testSuiteBaseCore == null) ? null : (int?)testSuiteBaseCore.Id;
             this.isInitialized = true;    
         }
 
@@ -89,7 +92,23 @@ namespace TestCaseManagerApp
         /// <value>
         /// The test suite unique identifier.
         /// </value>
-        public int TestSuiteId { get; set; }
+        public int? TestSuiteId { get; set; }
+
+        /// <summary>
+        /// Gets the display name of the owner.
+        /// </summary>
+        /// <value>
+        /// The display name of the owner.
+        /// </value>
+        public string OwnerDisplayName { get; set; }
+
+        /// <summary>
+        /// Gets the team foundation unique identifier.
+        /// </summary>
+        /// <value>
+        /// The team foundation unique identifier.
+        /// </value>
+        public Guid TeamFoundationId { get; set; }
 
         /// <summary>
         /// Gets or sets the core test case object.
@@ -183,20 +202,20 @@ namespace TestCaseManagerApp
         /// <value>
         /// The owner.
         /// </value>
-        public string OwnerName
+        public TeamFoundationIdentityName TeamFoundationIdentityName
         {
             get
             {
-                return this.ownerName;
+                return this.teamFoundationIdentityName;
             }
 
             set
             {
                 if (this.isInitialized)
                 {
-                    UndoRedoManager.Instance().Push(o => this.OwnerName = o, this.ownerName, "Change the test case owner");
+                    UndoRedoManager.Instance().Push(t => this.TeamFoundationIdentityName = t, this.teamFoundationIdentityName, "Change the test case owner");
                 }                
-                this.ownerName = value;
+                this.teamFoundationIdentityName = value;
                 this.NotifyPropertyChanged();
             }
         }
@@ -223,6 +242,18 @@ namespace TestCaseManagerApp
                 this.priority = value;
                 this.NotifyPropertyChanged();
             }
+        }
+
+        /// <summary>
+        /// Indicates whether the current object is equal to another object of the same type.
+        /// </summary>
+        /// <param name="other">An object to compare with this object.</param>
+        /// <returns>
+        /// true if the current object is equal to the <paramref name="other" /> parameter; otherwise, false.
+        /// </returns>
+        public bool Equals(TestCase other)
+        {
+            return this.TestCaseId.Equals(other.TestCaseId);
         }
     }
 }

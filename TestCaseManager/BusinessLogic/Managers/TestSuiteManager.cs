@@ -168,7 +168,16 @@ using TestCaseManagerApp.BusinessLogic.Enums;
                 throw new ArgumentException("New test cases cannot be added to requirement based suites!");
             }
             IStaticTestSuite suiteToAddInStatic = suiteToAddIn as IStaticTestSuite;
-            ITestSuiteBase oldSuite = ExecutionContext.TestManagementTeamProject.TestSuites.Find(clipBoardTestCase.TestCases[0].TestSuiteId);
+            ITestSuiteBase oldSuite;
+            List<TestCase> allTestCasesInPlan = null;
+            if (clipBoardTestCase.TestCases[0].TestSuiteId != null)
+            {
+                oldSuite = ExecutionContext.TestManagementTeamProject.TestSuites.Find((int)clipBoardTestCase.TestCases[0].TestSuiteId);
+            }
+            else
+            {
+                oldSuite = null;
+            }            
 
             foreach (TestCase currentTestCase in clipBoardTestCase.TestCases)
             {
@@ -181,7 +190,15 @@ using TestCaseManagerApp.BusinessLogic.Enums;
                 else if (oldSuite is IStaticTestSuite)
                 {
                     IStaticTestSuite suite = oldSuite as IStaticTestSuite;
-                    testCaseCore = suite.Entries.Where(x => x.TestCase != null && x.TestCase.Id.Equals(currentTestCase.TestCaseId)).FirstOrDefault().TestCase;                   
+                    testCaseCore = suite.Entries.Where(x => x.TestCase != null && x.TestCase.Id.Equals(currentTestCase.TestCaseId)).FirstOrDefault().TestCase;
+                }
+                else if (oldSuite == null)
+                {
+                    if (allTestCasesInPlan == null)
+                    {
+                        allTestCasesInPlan = TestCaseManager.GetAllTestCasesInTestPlan();                        
+                    }
+                    testCaseCore = allTestCasesInPlan.Where(t => t.TestCaseId.Equals(currentTestCase.TestCaseId)).FirstOrDefault().ITestCase;
                 }
                 if (!suiteToAddInStatic.Entries.Contains(testCaseCore))
                 {

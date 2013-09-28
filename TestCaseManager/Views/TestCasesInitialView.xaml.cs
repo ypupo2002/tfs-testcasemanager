@@ -956,6 +956,7 @@ namespace TestCaseManagerApp.Views
                 dgTestCaseContextItemPreview.IsEnabled = false;
                 dgTestCaseContextItemDuplicate.IsEnabled = false;
             }
+            this.TestCasesInitialViewModel.SelectedTestCasesCount = this.dgTestCases.SelectedItems.Count.ToString();
         }
     }
 }

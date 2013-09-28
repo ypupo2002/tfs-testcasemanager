@@ -22,7 +22,7 @@ namespace TestCaseManagerApp
         /// <param name="textToReplace">The text to be replaced.</param>
         /// <param name="textReplacePairs">The text replace pairs.</param>
         /// <returns>replaced text</returns>
-        public static string ReplaceAll(this string textToReplace, List<TextReplacePair> textReplacePairs)
+        public static string ReplaceAll(this string textToReplace, ICollection<TextReplacePair> textReplacePairs)
         {
             string newText = textToReplace ?? string.Empty;
             foreach (TextReplacePair currentPair in textReplacePairs)

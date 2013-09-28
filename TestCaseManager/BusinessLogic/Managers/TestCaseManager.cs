@@ -31,9 +31,13 @@ namespace TestCaseManagerApp
                 if (currentSuite != null)
                 {
                     currentSuite.Refresh();
-                    foreach (var tc in currentSuite.TestCases)
+                    foreach (var currentTestCase in currentSuite.TestCases)
                     {
-                        testCases.Add(new TestCase(tc.TestCase, currentSuite));
+                        TestCase testCaseToAdd = new TestCase(currentTestCase.TestCase, currentSuite);
+                        if (!testCases.Contains(testCaseToAdd))
+                        {
+                            testCases.Add(testCaseToAdd);
+                        }                        
                     }
 
                     if (currentSuite.TestSuiteType == TestSuiteType.StaticTestSuite)
@@ -41,7 +45,14 @@ namespace TestCaseManagerApp
                         IStaticTestSuite staticTestSuite = currentSuite as IStaticTestSuite;
                         if (staticTestSuite != null && (staticTestSuite.SubSuites.Count > 0))
                         {
-                            testCases.AddRange(GetAllTestCasesFromSuiteCollection(staticTestSuite.SubSuites));
+                            List<TestCase> testCasesInternal = GetAllTestCasesFromSuiteCollection(staticTestSuite.SubSuites);
+                            foreach (var currentTestCase in testCasesInternal)
+                            {
+                                if (!testCases.Contains(currentTestCase))
+                                {
+                                    testCases.Add(currentTestCase);
+                                }   
+                            }
                         }
                     }
                 }
@@ -62,7 +73,11 @@ namespace TestCaseManagerApp
             currentSuite.Refresh();
             foreach (var currentTestCase in currentSuite.TestCases)
             {
-                testCases.Add(new TestCase(currentTestCase.TestCase, currentSuite));
+                TestCase testCaseToAdd = new TestCase(currentTestCase.TestCase, currentSuite);
+                if (!testCases.Contains(testCaseToAdd))
+                {
+                    testCases.Add(testCaseToAdd);
+                }                        
             }
 
             return testCases;
@@ -115,9 +130,10 @@ namespace TestCaseManagerApp
         {
             ExecutionContext.Preferences.TestPlan.Refresh();
             List<TestCase> testCasesList = GetAllTestCasesFromSuiteCollection(ExecutionContext.Preferences.TestPlan.RootSuite.SubSuites);
+            AddTestCasesWithoutSuites(testCasesList);
 
             return testCasesList;
-        }
+        }        
 
         /// <summary>
         /// Saves the specified test case.
@@ -139,14 +155,13 @@ namespace TestCaseManagerApp
             currentTestCase.ITestCase.Title = testCase.Title;
             currentTestCase.ITestCase.Priority = (int)testCase.Priority;
             currentTestCase.ITestCase.Actions.Clear();
+            currentTestCase.ITestCase.Owner = ExecutionContext.TestManagementTeamProject.TfsIdentityStore.FindByTeamFoundationId(testCase.TeamFoundationId);
             List<Guid> addedSharedStepGuids = new List<Guid>();
             foreach (TestStep currentStep in testSteps)
             {
                 if (currentStep.IsShared && !addedSharedStepGuids.Contains(currentStep.TestStepGuid))
                 {
                     ISharedStep sharedStepCore = ExecutionContext.TestManagementTeamProject.SharedSteps.Find(currentStep.SharedStepId);
-
-                    // currentTestCase.ITestCase.Actions.Add(sharedStep as ITestAction);
                     ISharedStepReference sharedStepReferenceCore = currentTestCase.ITestCase.CreateSharedStepReference();
                     sharedStepReferenceCore.SharedStepId = sharedStepCore.Id;
                     currentTestCase.ITestCase.Actions.Add(sharedStepReferenceCore);
@@ -163,72 +178,11 @@ namespace TestCaseManagerApp
             currentTestCase.ITestCase.Flush();
             currentTestCase.ITestCase.Save();
 
-            // TestSuiteManager.RemoveTestCase(currentTestCase.ITestCase);
             SetTestCaseSuite(newSuiteTitle, currentTestCase);
 
             return currentTestCase;
         }
-
-        /// <summary>
-        /// Duplicates the test case.
-        /// </summary>
-        /// <param name="testCase">The test case.</param>
-        /// <param name="textReplacePairs">The text replace pairs.</param>
-        /// <param name="sharedStepIdReplacePairs">The shared step replace pairs.</param>
-        /// <param name="newSuiteTitle">The new suite title.</param>
-        /// <param name="replaceInTitles">if set to <c>true</c> [replace information titles].</param>
-        /// <param name="replaceSharedSteps">if set to <c>true</c> [replace shared steps].</param>
-        /// <param name="replaceInSteps">if set to <c>true</c> [replace information steps].</param>
-        public static void DuplicateTestCase(this TestCase testCase, List<TextReplacePair> textReplacePairs, List<SharedStepIdReplacePair> sharedStepIdReplacePairs, string newSuiteTitle, bool replaceInTitles, bool replaceSharedSteps, bool replaceInSteps)
-        {
-            List<TestStep> testSteps = TestStepManager.GetTestStepsFromTestActions(testCase.ITestCase.Actions.ToList());
-            ITestCase testCaseCore = ExecutionContext.TestManagementTeamProject.TestCases.Create();
-            TestCase currentTestCase = new TestCase(testCaseCore, testCase.ITestSuiteBase);
-
-            currentTestCase.ITestCase.Area = testCase.ITestCase.Area;
-            if (replaceInTitles)
-            {
-                currentTestCase.ITestCase.Title = testCase.ITestCase.Title.ReplaceAll(textReplacePairs);
-            }
-            else
-            {
-                currentTestCase.ITestCase.Title = testCase.ITestCase.Title;
-            }
-            currentTestCase.ITestCase.Priority = testCase.ITestCase.Priority;
-            ReplaceStepsInTestCase(currentTestCase, textReplacePairs, sharedStepIdReplacePairs, testSteps, replaceSharedSteps, replaceInSteps);
-            currentTestCase.ITestCase.Flush();
-            currentTestCase.ITestCase.Save();
-
-            var newSuite = TestSuiteManager.GetTestSuiteByName(newSuiteTitle);
-            newSuite.AddTestCase(currentTestCase.ITestCase);
-        }
-
-        /// <summary>
-        /// Finds the and replace information test case.
-        /// </summary>
-        /// <param name="testCase">The test case.</param>
-        /// <param name="textReplacePairs">The text replace pairs.</param>
-        /// <param name="sharedStepIdReplacePairs">The shared step replace pairs.</param>
-        /// <param name="replaceInTitles">if set to <c>true</c> [replace information titles].</param>
-        /// <param name="replaceSharedSteps">if set to <c>true</c> [replace shared steps].</param>
-        /// <param name="replaceInSteps">if set to <c>true</c> [replace information steps].</param>
-        public static void FindAndReplaceInTestCase(this TestCase testCase, List<TextReplacePair> textReplacePairs, List<SharedStepIdReplacePair> sharedStepIdReplacePairs, 
-            bool replaceInTitles, bool replaceSharedSteps, bool replaceInSteps)
-        {
-            TestCase currentTestCase = testCase;
-            currentTestCase.ITestCase = ExecutionContext.TestManagementTeamProject.TestCases.Find(testCase.ITestCase.Id);
-            List<TestStep> testSteps = TestStepManager.GetTestStepsFromTestActions(currentTestCase.ITestCase.Actions.ToList());
-            if (replaceInTitles)
-            {
-                string newTitle = currentTestCase.ITestCase.Title.ReplaceAll(textReplacePairs);
-                currentTestCase.ITestCase.Title = newTitle;
-            }
-            ReplaceStepsInTestCase(currentTestCase, textReplacePairs, sharedStepIdReplacePairs, testSteps, replaceSharedSteps, replaceInSteps);
-
-            currentTestCase.ITestCase.Flush();
-            currentTestCase.ITestCase.Save();
-        }
-
+    
         /// <summary>
         /// Copies the automatic clipboard.
         /// </summary>
@@ -239,6 +193,7 @@ namespace TestCaseManagerApp
             ClipBoardCommand clipBoardCommand = isCopy ? ClipBoardCommand.Copy : ClipBoardCommand.Cut;
             ClipBoardTestCase clipBoardTestCase = new ClipBoardTestCase(testCases, clipBoardCommand);
             ClipBoardManager<ClipBoardTestCase>.CopyToClipboard(clipBoardTestCase);
+            SerializationManager.IsSerializable(clipBoardTestCase);
         }
 
         /// <summary>
@@ -279,51 +234,19 @@ namespace TestCaseManagerApp
         }
 
         /// <summary>
-        /// Replaces the test steps information in specific test case.
+        /// Adds the test cases without suites.
         /// </summary>
-        /// <param name="testCase">The test case.</param>
-        /// <param name="textReplacePairs">The text replace pairs.</param>
-        /// <param name="sharedStepReplacePairs">The shared step replace pairs.</param>
-        /// <param name="testSteps">The test steps.</param>
-        /// <param name="replaceSharedSteps">if set to <c>true</c> [replace shared steps].</param>
-        /// <param name="replaceInSteps">if set to <c>true</c> [replace information steps].</param>
-        private static void ReplaceStepsInTestCase(TestCase testCase, List<TextReplacePair> textReplacePairs, List<SharedStepIdReplacePair> sharedStepReplacePairs, List<TestStep> testSteps, bool replaceSharedSteps, bool replaceInSteps)
+        /// <param name="testCasesList">The test cases list.</param>
+        private static void AddTestCasesWithoutSuites(List<TestCase> testCasesList)
         {
-            if (replaceSharedSteps || replaceInSteps)
+            string queryText = "select [System.Id], [System.Title] from WorkItems where [System.WorkItemType] = 'Test Case'";
+            IEnumerable<ITestCase> allTestCases = ExecutionContext.TestManagementTeamProject.TestCases.InPlans(queryText, true);
+            foreach (var currentTestCase in allTestCases)
             {
-                testCase.ITestCase.Actions.Clear();
-                List<Guid> addedSharedStepGuids = new List<Guid>();
-
-                foreach (TestStep currentStep in testSteps)
+                TestCase testCaseToAdd = new TestCase(currentTestCase, null);
+                if (!testCasesList.Contains(testCaseToAdd))
                 {
-                    if (currentStep.IsShared && !addedSharedStepGuids.Contains(currentStep.TestStepGuid) && replaceSharedSteps)
-                    {
-                        int newSharedStepId = GetNewSharedStepId(currentStep.SharedStepId, sharedStepReplacePairs);
-                        if (!replaceSharedSteps)
-                        {
-                            newSharedStepId = currentStep.SharedStepId;
-                        }
-                        ISharedStep sharedStep = ExecutionContext.TestManagementTeamProject.SharedSteps.Find(newSharedStepId);
-                        ISharedStepReference sharedStepReferenceCore = testCase.ITestCase.CreateSharedStepReference();
-                        sharedStepReferenceCore.SharedStepId = sharedStep.Id;
-                        testCase.ITestCase.Actions.Add(sharedStepReferenceCore);
-                        addedSharedStepGuids.Add(currentStep.TestStepGuid);
-                    }
-                    else if (!currentStep.IsShared)
-                    {
-                        ITestStep testStepCore = testCase.ITestCase.CreateTestStep();
-                        if (replaceInSteps)
-                        {
-                            testStepCore.Title = currentStep.ActionTitle.ToString().ReplaceAll(textReplacePairs);
-                            testStepCore.ExpectedResult = currentStep.ActionExpectedResult.ToString().ReplaceAll(textReplacePairs);
-                        }
-                        else
-                        {
-                            testStepCore.Title = currentStep.ActionTitle;
-                            testStepCore.ExpectedResult = currentStep.ActionExpectedResult;
-                        }
-                        testCase.ITestCase.Actions.Add(testStepCore);
-                    }
+                    testCasesList.Add(testCaseToAdd);
                 }
             }
         }
@@ -338,27 +261,6 @@ namespace TestCaseManagerApp
             var newSuite = TestSuiteManager.GetTestSuiteByName(newSuiteTitle);
             newSuite.AddTestCase(testCase.ITestCase);
             testCase.ITestSuiteBase = newSuite;
-        }
-
-        /// <summary>
-        /// Gets the new shared step unique identifier.
-        /// </summary>
-        /// <param name="currentSharedStepId">The current shared step unique identifier.</param>
-        /// <param name="sharedStepIdReplacePairs">The shared steps replace pairs.</param>
-        /// <returns>new shared step id</returns>
-        private static int GetNewSharedStepId(int currentSharedStepId, List<SharedStepIdReplacePair> sharedStepIdReplacePairs)
-        {
-            int newSharedStepId = currentSharedStepId;
-            foreach (SharedStepIdReplacePair currentPair in sharedStepIdReplacePairs)
-            {
-                if (currentSharedStepId.Equals(currentPair.OldSharedStepId))
-                {
-                    newSharedStepId = currentPair.NewSharedStepId;
-                    break;
-                }
-            }
-
-            return newSharedStepId;
-        }
+        }        
     }
 }

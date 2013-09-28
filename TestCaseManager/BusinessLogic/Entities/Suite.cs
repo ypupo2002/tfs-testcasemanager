@@ -334,7 +334,7 @@ namespace TestCaseManagerApp.BusinessLogic.Entities
         public void CopyToClipboard(bool isCopy)
         {
             this.ClipBoardCommand = isCopy ? Enums.ClipBoardCommand.Copy : Enums.ClipBoardCommand.Cut;
-            ClipBoardManager<Suite>.CopyToClipboard(this);
+            ClipBoardManager<Suite>.CopyToClipboard(this);            
         }      
 
         /// <summary>
