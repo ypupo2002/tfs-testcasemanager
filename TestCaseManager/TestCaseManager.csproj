@@ -129,6 +129,8 @@
     <Compile Include="BusinessLogic\Entities\BaseNotifyPropertyChanged.cs" />
     <Compile Include="BusinessLogic\Entities\ClipBoardTestCase.cs" />
     <Compile Include="BusinessLogic\Entities\ClipBoardTestStep.cs" />
+    <Compile Include="BusinessLogic\Entities\EditViewContext.cs" />
+    <Compile Include="BusinessLogic\Entities\TestBase.cs" />
     <Compile Include="BusinessLogic\Entities\InitialViewFilters.cs" />
     <Compile Include="BusinessLogic\Entities\ListStackExtensions.cs" />
     <Compile Include="BusinessLogic\Entities\ReplaceContext.cs" />
@@ -142,6 +144,7 @@
     <Compile Include="BusinessLogic\Enums\ClipBoardCommand.cs" />
     <Compile Include="BusinessLogic\Enums\Priority.cs" />
     <Compile Include="BusinessLogic\Managers\ClipBoardManager.cs" />
+    <Compile Include="BusinessLogic\Managers\SharedStepManager.cs" />
     <Compile Include="BusinessLogic\Managers\ProjectManager.cs" />
     <Compile Include="BusinessLogic\Managers\ReplaceTextManager.cs" />
     <Compile Include="BusinessLogic\Managers\SerializationManager.cs" />

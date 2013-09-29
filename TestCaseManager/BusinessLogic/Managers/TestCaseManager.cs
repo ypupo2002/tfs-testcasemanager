@@ -166,7 +166,7 @@ namespace TestCaseManagerApp
         /// <param name="newSuiteTitle">The new suite title.</param>
         /// <param name="testSteps">The test steps.</param>
         /// <returns>the saved test case</returns>
-        public static TestCase Save(this TestCase testCase, bool createNew, string newSuiteTitle, List<TestStep> testSteps)
+        public static TestCase Save(this TestCase testCase, bool createNew, string newSuiteTitle, ICollection<TestStep> testSteps)
         {
             TestCase currentTestCase = testCase;
             if (createNew)

@@ -8,6 +8,7 @@ namespace TestCaseManagerApp.ViewModels
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.Linq;
+    using System.Windows;
     using System.Xml;
     using Microsoft.TeamFoundation.Server;
     using Microsoft.TeamFoundation.TestManagement.Client;
@@ -17,7 +18,7 @@ namespace TestCaseManagerApp.ViewModels
     /// <summary>
     /// Contains methods and properties related to the TestCaseEdit View
     /// </summary>
-    public class TestCaseEditViewModel
+    public class TestCaseEditViewModel : BaseNotifyPropertyChanged
     {
         /// <summary>
         /// The shared step search default text
@@ -50,6 +51,11 @@ namespace TestCaseManagerApp.ViewModels
         public bool IsSharedStepSearchTextSet;
 
         /// <summary>
+        /// The page title
+        /// </summary>
+        private string pageTitle;
+
+        /// <summary>
         /// Gets or sets the initial shared step collection.
         /// </summary>
         /// <value>
@@ -60,35 +66,64 @@ namespace TestCaseManagerApp.ViewModels
         /// <summary>
         /// Initializes a new instance of the <see cref="TestCaseEditViewModel"/> class.
         /// </summary>
-        /// <param name="testCaseId">The test case unique identifier.</param>
-        /// <param name="suiteId">The suite unique identifier.</param>
-        /// <param name="createNew">if set to <c>true</c> [create new].</param>
-        /// <param name="duplicate">if set to <c>true</c> [duplicate].</param>
-        public TestCaseEditViewModel(int testCaseId, int suiteId, bool createNew, bool duplicate)
+        /// <param name="editViewContext">The edit view context.</param>
+        public TestCaseEditViewModel(EditViewContext editViewContext)
         {
+            this.EditViewContext = editViewContext;
             this.Areas = this.GetProjectAreas();
             this.ObservableTestSteps = new ObservableCollection<TestStep>();
-            this.ObservableSharedSteps = new ObservableCollection<SharedStep>();
 
-            this.AlreadyAddedSharedSteps = new Dictionary<int, string>();
-            ITestSuiteBase testSuiteBaseCore = TestSuiteManager.GetTestSuiteById(suiteId);
-
-            if (createNew && !duplicate)
+            if (!this.EditViewContext.IsSharedStep)
             {
-                ITestCase newTestCase = ExecutionContext.TestManagementTeamProject.TestCases.Create();               
-                this.TestCase = new TestCase(newTestCase, testSuiteBaseCore);
+                this.ShowTestCaseSpecificFields = true;
+                ITestSuiteBase testSuiteBaseCore = TestSuiteManager.GetTestSuiteById(this.EditViewContext.TestSuiteId);
+                if (this.EditViewContext.CreateNew && !this.EditViewContext.Duplicate)
+                {
+                    ITestCase newTestCase = ExecutionContext.TestManagementTeamProject.TestCases.Create();
+                    this.TestCase = new TestCase(newTestCase, testSuiteBaseCore);
+                }
+                else
+                {
+                    ITestCase testCaseCore = ExecutionContext.TestManagementTeamProject.TestCases.Find(this.EditViewContext.TestCaseId);
+                    this.TestCase = new TestCase(testCaseCore, testSuiteBaseCore);
+                }
+                this.AlreadyAddedSharedSteps = new Dictionary<int, string>();
+                this.ObservableSharedSteps = new ObservableCollection<SharedStep>();
+                this.InitializeInitialSharedStepCollection();                
+                this.InitializeObservableSharedSteps();
+                //if (!this.EditViewContext.ComesFromSharedStep)
+                //{
+                    this.InitializeTestCaseTestStepsFromITestCaseActions();
+                //}
+                //else
+                //{
+                //    this.InitializeTestStepsFromCopy();
+                //}
+                this.EditViewContext.ComesFromSharedStep = false;
+                this.AssociatedAutomation = this.TestCase.ITestCase.GetAssociatedAutomation();
+                this.TestBase = this.TestCase;
             }
             else
             {
-                ITestCase testCaseCore = ExecutionContext.TestManagementTeamProject.TestCases.Find(testCaseId);
-                this.TestCase = new TestCase(testCaseCore, testSuiteBaseCore);               
-            }
+                if (this.EditViewContext.CreateNew && !this.EditViewContext.Duplicate)
+                {
+                    ISharedStep currentSharedStepCore = ExecutionContext.TestManagementTeamProject.SharedSteps.Create();
+                    this.SharedStep = new SharedStep(currentSharedStepCore);
+                }
+                else
+                {
+                    SharedStep currentSharedStep = SharedStepManager.GetSharedStepById(this.EditViewContext.SharedStepId);
+                    this.SharedStep = currentSharedStep;
+                }
 
-            this.InitializeIdLabel(createNew, duplicate);
-            this.InitializeObservableSharedSteps();
-            this.InitializeTestCaseTestStepsFromITestCaseActions();
-            this.InitializeInitialSharedStepCollection();
-            this.AssociatedAutomation = this.TestCase.ITestCase.GetAssociatedAutomation();
+                List<TestStep> innerTestSteps = TestStepManager.GetAllTestStepsInSharedStep(this.SharedStep.ISharedStep, false);
+                this.AddTestStepsToObservableCollection(innerTestSteps);
+                //this.TestCaseIdLabel = this.SharedStep.ISharedStep.Id.ToString();
+                this.ShowTestCaseSpecificFields = false;
+                this.TestBase = this.SharedStep;
+            }
+            this.InitializeIdLabelFromTestBase(this.EditViewContext.CreateNew, this.EditViewContext.Duplicate);
+            this.InitializePageTitle();
         }      
 
         /// <summary>
@@ -108,6 +143,30 @@ namespace TestCaseManagerApp.ViewModels
         public TestCase TestCase { get; set; }
 
         /// <summary>
+        /// Gets or sets the shared step.
+        /// </summary>
+        /// <value>
+        /// The shared step.
+        /// </value>
+        public SharedStep SharedStep { get; set; }
+
+        /// <summary>
+        /// Gets or sets the edit view context.
+        /// </summary>
+        /// <value>
+        /// The edit view context.
+        /// </value>
+        public EditViewContext EditViewContext { get; set; }
+
+        /// <summary>
+        /// Gets or sets the test base.
+        /// </summary>
+        /// <value>
+        /// The test base.
+        /// </value>
+        public TestBase TestBase { get; set; }
+
+        /// <summary>
         /// Gets or sets the test case unique identifier label.
         /// </summary>
         /// <value>
@@ -122,6 +181,14 @@ namespace TestCaseManagerApp.ViewModels
         /// The observable test steps.
         /// </value>
         public ObservableCollection<TestStep> ObservableTestSteps { get; set; }
+
+        /// <summary>
+        /// Gets or sets the test case test steps. Used to preserve the current state of the test case test steps if the user edit shared step.
+        /// </summary>
+        /// <value>
+        /// The test case test steps.
+        /// </value>
+        public List<TestStep> TestCaseTestSteps { get; set; }
 
         /// <summary>
         /// Gets or sets the observable shared steps.
@@ -154,6 +221,88 @@ namespace TestCaseManagerApp.ViewModels
         /// The areas.
         /// </value>
         public List<string> Areas { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether [show test case specific fields].
+        /// </summary>
+        /// <value>
+        /// <c>true</c> if [show test case specific fields]; otherwise, <c>false</c>.
+        /// </value>
+        public bool ShowTestCaseSpecificFields { get; set; }
+
+        /// <summary>
+        /// Gets or sets the page title.
+        /// </summary>
+        /// <value>
+        /// The page title.
+        /// </value>
+        public string PageTitle
+        {
+            get
+            {
+                return this.pageTitle;
+            }
+
+            set
+            {
+                this.pageTitle = value;
+                this.NotifyPropertyChanged();
+            }
+        }
+
+        /// <summary>
+        /// Initializes the page title.
+        /// </summary>
+        private void InitializePageTitle()
+        {
+            if (!this.EditViewContext.IsSharedStep && this.EditViewContext.CreateNew && !this.EditViewContext.Duplicate)
+            {
+                this.PageTitle = "Create New";
+            }
+            else if (!this.EditViewContext.IsSharedStep && this.EditViewContext.CreateNew && this.EditViewContext.Duplicate)
+            {
+                this.PageTitle = "Duplicate";
+            }
+            else if (this.EditViewContext.IsSharedStep && this.EditViewContext.CreateNew && !this.EditViewContext.Duplicate)
+            {
+                this.PageTitle = "Create New Shared Step";
+            }
+            else if (this.EditViewContext.IsSharedStep && this.EditViewContext.CreateNew && this.EditViewContext.Duplicate)
+            {
+                this.PageTitle = "Duplicate Shared Step";
+            }
+            else if (this.EditViewContext.IsSharedStep)
+            {
+                this.PageTitle = "Edit Shared Step";
+            }
+            else
+            {
+                this.PageTitle = "Edit";
+            }
+        }
+
+        /// <summary>
+        /// Copies the current test steps automatic copy.
+        /// </summary>
+        public void CopyCurrentTestStepsToCopy()
+        {
+            this.TestCaseTestSteps = new List<TestStep>();
+            foreach (TestStep currentTestStep in this.ObservableTestSteps)
+            {
+                this.TestCaseTestSteps.Add(currentTestStep);
+            }
+        }
+
+        /// <summary>
+        /// Initializes the test steps from copy.
+        /// </summary>
+        public void InitializeTestStepsFromCopy()
+        {
+            foreach (TestStep currentTestStep in this.TestCaseTestSteps)
+            {
+                this.ObservableTestSteps.Add(currentTestStep);
+            }
+        }
 
         /// <summary>
         /// Reinitializes the shared step collection.
@@ -391,7 +540,7 @@ namespace TestCaseManagerApp.ViewModels
         /// </summary>
         /// <param name="createNew">if set to <c>true</c> [create new].</param>
         /// <param name="duplicate">if set to <c>true</c> [duplicate].</param>
-        private void InitializeIdLabel(bool createNew, bool duplicate)
+        private void InitializeIdLabelFromTestBase(bool createNew, bool duplicate)
         {
             if (duplicate || createNew)
             {
@@ -399,7 +548,7 @@ namespace TestCaseManagerApp.ViewModels
             }
             else
             {
-                this.TestCaseIdLabel = TestCase.ITestCase.Id.ToString();
+                this.TestCaseIdLabel = this.TestBase.Id.ToString();
             }
         }
 
@@ -439,6 +588,15 @@ namespace TestCaseManagerApp.ViewModels
         private void InitializeTestCaseTestStepsFromITestCaseActions()
         {
             List<TestStep> testSteps = TestStepManager.GetTestStepsFromTestActions(this.TestCase.ITestCase.Actions.ToList(), this.AlreadyAddedSharedSteps);
+            this.AddTestStepsToObservableCollection(testSteps);
+        }
+
+        /// <summary>
+        /// Adds the test steps automatic observable collection.
+        /// </summary>
+        /// <param name="testSteps">The test steps.</param>
+        private void AddTestStepsToObservableCollection(List<TestStep> testSteps)
+        {
             foreach (var currentTestStep in testSteps)
             {
                 this.ObservableTestSteps.Add(currentTestStep);

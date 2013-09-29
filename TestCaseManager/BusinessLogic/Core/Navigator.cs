@@ -85,6 +85,19 @@ namespace TestCaseManagerApp
         }
 
         /// <summary>
+        /// Navigates the automatic test cases edit view. Shared step edit.
+        /// </summary>
+        /// <param name="source">The source.</param>
+        /// <param name="isShared">if set to <c>true</c> [is shared].</param>
+        /// <param name="sharedStepId">The test step unique identifier.</param>
+        public static void NavigateToTestCasesEditView(this FrameworkElement source, bool isShared, int sharedStepId)
+        {
+            string url = string.Format("/Views/TestCaseEditView.xaml#isShared={0}&sharedStepId={1}", isShared, sharedStepId);
+
+            source.Navigate(url);
+        }
+
+        /// <summary>
         /// Navigates to associate automation view.
         /// </summary>
         /// <param name="source">The source.</param>

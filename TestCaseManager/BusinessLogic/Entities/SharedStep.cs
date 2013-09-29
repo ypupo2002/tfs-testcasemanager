@@ -10,11 +10,12 @@ namespace TestCaseManagerApp
     using System.Text;
     using System.Threading.Tasks;
     using Microsoft.TeamFoundation.TestManagement.Client;
+    using TestCaseManagerApp.BusinessLogic.Enums;
 
     /// <summary>
     /// Contains information about Shared Step object
     /// </summary>
-    public class SharedStep
+    public class SharedStep : TestBase
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="SharedStep"/> class.
@@ -25,6 +26,15 @@ namespace TestCaseManagerApp
             this.ISharedStep = sharedStepCore;
             List<TestStep> allTestSteps = TestStepManager.GetAllTestStepsInSharedStep(sharedStepCore);
             this.StepsToolTip = TestStepManager.GenerateTestStepsText(allTestSteps);
+
+            this.Title = sharedStepCore.Title;
+            this.Area = sharedStepCore.Area;
+            this.Priority = (Priority)sharedStepCore.Priority;
+            this.TeamFoundationIdentityName = new TeamFoundationIdentityName(sharedStepCore.OwnerTeamFoundationId, sharedStepCore.OwnerName);
+            this.OwnerDisplayName = sharedStepCore.OwnerName;
+            this.TeamFoundationId = sharedStepCore.OwnerTeamFoundationId;
+            base.isInitialized = true;
+            this.Id = sharedStepCore.Id;
         }
 
         /// <summary>

@@ -109,7 +109,7 @@ namespace TestCaseManagerApp
         /// </summary>
         /// <param name="currentSharedStep">The current shared step.</param>
         /// <returns>list of all test steps in the specified shared step</returns>
-        public static List<TestStep> GetAllTestStepsInSharedStep(ISharedStep currentSharedStep)
+        public static List<TestStep> GetAllTestStepsInSharedStep(ISharedStep currentSharedStep, bool includeSharedStep = true)
         {
             List<TestStep> testSteps = new List<TestStep>();
             Guid sharedStepUniqueGuid = Guid.NewGuid();
@@ -117,7 +117,14 @@ namespace TestCaseManagerApp
             {                
                 foreach (var currentSharedStepAction in currentSharedStep.Actions)
                 {
-                    testSteps.Add(new TestStep(true, currentSharedStep.Title, sharedStepUniqueGuid, currentSharedStepAction as ITestStep, currentSharedStep.Id));
+                    if(includeSharedStep)
+                    {
+                        testSteps.Add(new TestStep(true, currentSharedStep.Title, sharedStepUniqueGuid, currentSharedStepAction as ITestStep, currentSharedStep.Id));
+                    }
+                    else
+                    {
+                        testSteps.Add(new TestStep(false, currentSharedStep.Title, Guid.NewGuid(), currentSharedStepAction as ITestStep));
+                    }                   
                 }
             }
 
@@ -145,14 +152,14 @@ namespace TestCaseManagerApp
         /// <summary>
         /// Creates the new test step.
         /// </summary>
-        /// <param name="testCase">The test case.</param>
+        /// <param name="testBase">The test case.</param>
         /// <param name="stepTitle">The step title.</param>
         /// <param name="expectedResult">The expected result.</param>
         /// <param name="testStepGuid">The unique identifier.</param>
         /// <returns>the test step object</returns>
-        public static TestStep CreateNewTestStep(TestCase testCase, string stepTitle, string expectedResult, Guid testStepGuid)
+        public static TestStep CreateNewTestStep(ITestBase testBase, string stepTitle, string expectedResult, Guid testStepGuid)
         {
-            ITestStep testStepCore = testCase.ITestCase.CreateTestStep();
+            ITestStep testStepCore = testBase.CreateTestStep();
             testStepCore.ExpectedResult = expectedResult;
             testStepCore.Title = stepTitle;
             if (testStepGuid == default(Guid))

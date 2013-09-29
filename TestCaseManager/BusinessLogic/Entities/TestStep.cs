@@ -267,7 +267,8 @@ namespace TestCaseManagerApp
                 this.ActionTitle.Equals(other.ActionTitle) &&
                 this.ActionExpectedResult.Equals(other.ActionExpectedResult) &&
                 this.IsShared.Equals(other.IsShared) &&
-                this.SharedStepId.Equals(other.SharedStepId);
+                this.SharedStepId.Equals(other.SharedStepId) &&
+                this.TestStepId.Equals(other.TestStepId);
 
             return result;
         }
