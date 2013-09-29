@@ -865,7 +865,15 @@ namespace TestCaseManagerApp.Views
             }
             else if (!this.editViewContext.ComeFromTestCase && this.editViewContext.IsSharedStep)
             {
-                // TODO: Add navigation the shared steps view
+                result = this.SaveChangesDialog();
+                if (result != MessageBoxResult.Cancel && !isFromNavigation)
+                {
+                    this.NavigateToSharedStepsInitialView();
+                }
+                else
+                {
+                    this.editViewContext.IsInitialized = true;
+                }
             }
             else
             {
@@ -999,11 +1007,14 @@ namespace TestCaseManagerApp.Views
         /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
-            //MessageBoxResult result =  this.SaveChangesDialog();
-            //if (result != MessageBoxResult.Cancel)
-            //{
+            if (this.editViewContext.ComeFromTestCase)
+            {
                 this.NavigateToTestCasesInitialView();
-            //}            
+            }
+            else
+            {
+                this.NavigateToSharedStepsInitialView();
+            }
         }
 
         /// <summary>

@@ -14,6 +14,23 @@ namespace TestCaseManagerApp
     public static class SharedStepManager
     {
         /// <summary>
+        /// Gets all shared steps information test plan.
+        /// </summary>
+        /// <returns></returns>
+        public static List<SharedStep> GetAllSharedStepsInTestPlan()
+        {
+            List<SharedStep> sharedSteps = new List<SharedStep>();
+            var testPlanSharedStepsCore = ExecutionContext.TestManagementTeamProject.SharedSteps.Query("select * from WorkItems where [System.TeamProject] = @project and [System.WorkItemType] = 'Shared Steps'");
+            foreach (ISharedStep currentSharedStepCore in testPlanSharedStepsCore)
+            {
+                SharedStep currentSharedStep = new SharedStep(currentSharedStepCore);
+                sharedSteps.Add(currentSharedStep);
+            }
+
+            return sharedSteps;
+        }
+
+        /// <summary>
         /// Gets the shared step by unique identifier.
         /// </summary>
         /// <param name="sharedStepId">The shared step unique identifier.</param>

@@ -1,0 +1,153 @@
+﻿<UserControl x:Class="TestCaseManagerApp.Views.SharedStepsInitialView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:mui="http://firstfloorsoftware.com/ModernU"
+             xmlns:local="clr-namespace:TestCaseManagerApp.Views"
+             xmlns:entities="clr-namespace:TestCaseManagerApp.BusinessLogic.Entities"       
+             mc:Ignorable="d" Loaded="TestCaseInitialView_Loaded">
+    <Grid>
+        <Grid.CommandBindings>
+            <CommandBinding Command="{x:Static local:TestCasesInitialView.EditCommand}" Executed="btnEdit_Click"/>
+            <CommandBinding Command="{x:Static local:TestCasesInitialView.DuplicateCommand}" Executed="btnDuplicate_Click"/>
+            <CommandBinding Command="{x:Static local:TestCasesInitialView.NewCommand}" Executed="btnNew_Click"/>
+        </Grid.CommandBindings>
+        <ProgressBar Name="progressBar" Minimum="0" Maximum="1" Height="16" IsIndeterminate="True" Margin="0,0,0,16" />
+        
+        <Grid Name="mainGrid" Visibility="Hidden">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <!--<Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" MinWidth="65"/>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="6*" MinWidth="800"/>
+            </Grid.ColumnDefinitions>-->
+            <StackPanel Orientation="Horizontal" Grid.ColumnSpan="2">
+                <TextBlock Text="Search" Margin="10,0,10,30" Height="25" Width="Auto" FontWeight="Bold" FontSize="18" HorizontalAlignment="Left" Grid.Row="0"/>
+                
+            </StackPanel>
+
+            <StackPanel Orientation="Vertical" Grid.Row="1">
+                <StackPanel Orientation="Vertical" Margin="10,0,0,30">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                        <Button Name="btnEdit1" Margin="0,0,10,0" Height="30" Width="90" VerticalAlignment="Center" Click="btnEdit_Click">
+                            <Button.Content>
+                                <TextBlock>
+                                  <Underline>E</Underline>dit
+                                </TextBlock>
+                            </Button.Content>
+                        </Button>
+                        <Button Name="btnDuplicate1" Margin="30,0,10,0" Height="30" Width="90" VerticalAlignment="Center" Click="btnDuplicate_Click">
+                            <Button.Content>
+                                <TextBlock>
+                                  <Underline>D</Underline>uplicate
+                                </TextBlock>
+                            </Button.Content>
+                        </Button>
+                        <Button Name="btnNew1" Margin="30,0,10,0" Height="30" Width="90" VerticalAlignment="Center" Click="btnNew_Click">
+                            <Button.Content>
+                                <TextBlock>
+                                  <Underline>N</Underline>ew
+                                </TextBlock>
+                            </Button.Content>
+                        </Button>
+                    </StackPanel>
+                </StackPanel>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1.15*" />
+                        <ColumnDefinition Width="6*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="2*" />
+                    </Grid.ColumnDefinitions>
+                    <TextBox Name="tbIdFilter" Text="{Binding InitialViewFilters.IdFilter, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TabIndex="0" Margin="10,0,0,10" Height="25"
+                             Grid.Column="0" GotFocus="tbIdFilter_GotFocus" LostFocus="tbIdFilter_LostFocus" KeyUp="tbIdFilter_KeyUp" />
+                    <TextBox Name="tbTitleFilter" Text="{Binding InitialViewFilters.TitleFilter, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TabIndex="1" Margin="10,0,0,10" Height="25"
+                             Grid.Column="1" GotFocus="tbTitleFilter_GotFocus" LostFocus="tbTitleFilter_LostFocus" KeyUp="tbTitleFilter_KeyUp"/>
+                    <TextBox Name="tbPriorityFilter" Margin="10,0,0,10" Height="25" Text="{Binding InitialViewFilters.PriorityFilter, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TabIndex="3"
+                             GotFocus="tbPriorityFilter_GotFocus"  LostFocus="tbPriorityFilter_LostFocus" KeyUp="tbPriorityFilter_KeyUp" Grid.Column="2" />
+                    <TextBox Name="tbAssignedToFilter" Margin="10,0,0,10" Height="25" Text="{Binding InitialViewFilters.AssignedToFilter, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TabIndex="4"
+                             GotFocus="tbAssignedToFilter_GotFocus"  LostFocus="tbAssignedToFilter_LostFocus"  KeyUp="tbAssignedToFilter_KeyUp"  Grid.Column="3"/>
+                </Grid>               
+            </StackPanel>
+            
+            <DataGrid ItemsSource="{Binding Path=ObservableSharedSteps}" AutoGenerateColumns="False" Name="dgSharedSteps" Grid.Row="2" MouseDoubleClick="dgSharedSteps_MouseDoubleClick" 
+                      IsReadOnly="True" SelectionMode="Single" SelectionUnit="FullRow" TabIndex="4" PreviewKeyDown="dgSharedSteps_KeyDown" 
+                      SelectedCellsChanged="dgSharedSteps_SelectedCellsChanged" Margin="{StaticResource SplitRight}">
+                <DataGrid.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Name="dgSharedStepsContextItemPreview" Command="{x:Static local:TestCasesInitialView.PreviewCommand}" Header="Preview"/>
+                        <MenuItem Name="dgSharedStepsContextItemEdit" Command="{x:Static local:TestCasesInitialView.EditCommand}" Header="Edit"/>
+                        <MenuItem Name="dgSharedStepsContextItemDuplicate" Command="{x:Static local:TestCasesInitialView.DuplicateCommand}" Header="Duplicate"/>
+                    </ContextMenu>
+                </DataGrid.ContextMenu>
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="ID"  Binding="{Binding ISharedStep.Id}" Width="*">
+                        <DataGridTextColumn.HeaderStyle>
+                            <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource {x:Type DataGridColumnHeader}}">
+                                <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                            </Style>
+                        </DataGridTextColumn.HeaderStyle>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn Header="Title" Binding="{Binding Title}" Width="6*">
+                        <DataGridTextColumn.HeaderStyle>
+                            <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource {x:Type DataGridColumnHeader}}">
+                                <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                            </Style>
+                        </DataGridTextColumn.HeaderStyle>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn Header="Priority" Binding="{Binding Priority}" Width="*">
+                        <DataGridTextColumn.HeaderStyle>
+                            <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource {x:Type DataGridColumnHeader}}">
+                                <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                            </Style>
+                        </DataGridTextColumn.HeaderStyle>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn Header="Assigned To" Binding="{Binding TeamFoundationIdentityName.DisplayName}" Width="2*">
+                        <DataGridTextColumn.HeaderStyle>
+                            <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource {x:Type DataGridColumnHeader}}">
+                                <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                            </Style>
+                        </DataGridTextColumn.HeaderStyle>
+                    </DataGridTextColumn>
+                    </DataGrid.Columns>
+            </DataGrid>
+
+            <StackPanel Orientation="Vertical" Grid.Row="3" Margin="10,30,0,30">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                    <Button Name="btnEdit" Margin="0,0,10,0" Height="30" Width="90" VerticalAlignment="Center" Click="btnEdit_Click">
+                        <Button.Content>
+                            <TextBlock>
+                                  <Underline>E</Underline>dit
+                            </TextBlock>
+                        </Button.Content>
+                    </Button>
+                    <Button Name="btnDuplicate" Margin="30,0,10,0" Height="30" Width="90" VerticalAlignment="Center" Click="btnDuplicate_Click">
+                        <Button.Content>
+                            <TextBlock>
+                                  <Underline>D</Underline>uplicate
+                            </TextBlock>
+                        </Button.Content>
+                    </Button>
+                    <Button Name="btnNew" Margin="30,0,10,0" Height="30" Width="90" VerticalAlignment="Center" Click="btnNew_Click">
+                        <Button.Content>
+                            <TextBlock>
+                                  <Underline>N</Underline>ew
+                            </TextBlock>
+                        </Button.Content>
+                    </Button>
+                </StackPanel>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Grid.Row="4">
+                <TextBlock Text="Shared Steps Count:" Margin="10,0,10,30" Height="25" Width="Auto" FontWeight="Bold"/>
+                <TextBlock Text="{Binding SharedStepsCount}" Margin="10,0,10,30" Height="25" Width="Auto" />                
+            </StackPanel>
+        </Grid>
+    </Grid>    
+</UserControl>

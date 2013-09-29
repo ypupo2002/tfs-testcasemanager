@@ -178,6 +178,13 @@ namespace TestCaseManagerApp.Views
             l1.Source = u1;
             mw.ContentSource = u1;
             lg.Links.Add(l1);
+
+            Link l3 = new Link();
+            l3.DisplayName = "All Shared Steps";
+            Uri u3 = new Uri("/Views/SharedStepsInitialView.xaml", UriKind.Relative);
+            l3.Source = u3;
+            lg.Links.Add(l3);
+
             Uri u2 = new Uri("/Views/TestCaseBatchDuplicateView.xaml", UriKind.Relative);
             Link l2 = new Link();
             l2.DisplayName = "Find/Replace/Duplicate";

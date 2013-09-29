@@ -35,6 +35,16 @@ namespace TestCaseManagerApp
         }
 
         /// <summary>
+        /// Navigates the automatic shared steps initial view.
+        /// </summary>
+        /// <param name="source">The source.</param>
+        public static void NavigateToSharedStepsInitialView(this FrameworkElement source)
+        {
+            string url = "/Views/SharedStepsInitialView.xaml";
+            source.Navigate(url);
+        }
+
+        /// <summary>
         /// Navigates to test cases edit view.
         /// </summary>
         /// <param name="source">The source.</param>
@@ -85,6 +95,35 @@ namespace TestCaseManagerApp
         }
 
         /// <summary>
+        /// Navigates the automatic test cases edit view.
+        /// </summary>
+        /// <param name="source">The source.</param>
+        /// <param name="isSharedStep">if set to <c>true</c> [is shared step].</param>
+        /// <param name="sharedStepId">The shared step unique identifier.</param>
+        /// <param name="createNew">if set to <c>true</c> [create new].</param>
+        /// <param name="duplicate">if set to <c>true</c> [duplicate].</param>
+        public static void NavigateToTestCasesEditView(this FrameworkElement source, bool isSharedStep, int sharedStepId, bool createNew, bool duplicate)
+        {
+            string url = string.Format("/Views/TestCaseEditView.xaml#isSharedStep={0}&sharedStepId={1}&createNew={2}&duplicate={3}", isSharedStep, sharedStepId, createNew, duplicate);
+
+            source.Navigate(url);
+        }
+
+        /// <summary>
+        /// Navigates the automatic test cases edit view.
+        /// </summary>
+        /// <param name="source">The source.</param>
+        /// <param name="isSharedStep">if set to <c>true</c> [is shared step].</param>
+        /// <param name="createNew">if set to <c>true</c> [create new].</param>
+        /// <param name="duplicate">if set to <c>true</c> [duplicate].</param>
+        public static void NavigateToTestCasesEditView(this FrameworkElement source, bool isSharedStep, bool createNew, bool duplicate)
+        {
+            string url = string.Format("/Views/TestCaseEditView.xaml#isSharedStep={0}&createNew={1}&duplicate={2}", isSharedStep, createNew, duplicate);
+
+            source.Navigate(url);
+        }
+
+        /// <summary>
         /// Navigates the automatic test cases edit view. Shared step edit.
         /// </summary>
         /// <param name="source">The source.</param>
@@ -92,7 +131,7 @@ namespace TestCaseManagerApp
         /// <param name="sharedStepId">The test step unique identifier.</param>
         public static void NavigateToTestCasesEditView(this FrameworkElement source, bool isShared, int sharedStepId)
         {
-            string url = string.Format("/Views/TestCaseEditView.xaml#isShared={0}&sharedStepId={1}", isShared, sharedStepId);
+            string url = string.Format("/Views/TestCaseEditView.xaml#isSharedStep={0}&sharedStepId={1}", isShared, sharedStepId);
 
             source.Navigate(url);
         }

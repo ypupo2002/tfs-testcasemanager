@@ -164,6 +164,7 @@
     <Compile Include="BusinessLogic\Entities\TestStep.cs" />
     <Compile Include="BusinessLogic\Managers\TestStepManager.cs" />
     <Compile Include="BusinessLogic\UiControlExtensions\TextBoxExtensions.cs" />
+    <Compile Include="ViewModels\SharedStepsInitialViewModel.cs" />
     <Compile Include="ViewModels\ProjectSelectionViewModel.cs" />
     <Compile Include="ViewModels\SettingsViewModel.cs" />
     <Compile Include="ViewModels\AssociateTestViewModel.cs" />
@@ -173,6 +174,9 @@
     <Compile Include="ViewModels\TestCaseDetailedViewModel.cs" />
     <Compile Include="ViewModels\TestCasesInitialViewModel.cs">
       <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
+    </Compile>
+    <Compile Include="Views\SharedStepsInitialView.xaml.cs">
+      <DependentUpon>SharedStepsInitialView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\SettingsView.xaml.cs">
       <DependentUpon>SettingsView.xaml</DependentUpon>
@@ -225,6 +229,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Views\SharedStepsInitialView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Views\SettingsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
