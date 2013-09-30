@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:mui="http://firstfloorsoftware.com/ModernU"
              xmlns:local="clr-namespace:TestCaseManagerApp.Views"
-             xmlns:entities="clr-namespace:TestCaseManagerApp.BusinessLogic.Entities"       
+             xmlns:entities="clr-namespace:TestCaseManagerCore.BusinessLogic.Entities;assembly=TestCaseManagerCore"       
              mc:Ignorable="d" Loaded="TestCaseInitialView_Loaded">
     <Grid>
         <Grid.CommandBindings>

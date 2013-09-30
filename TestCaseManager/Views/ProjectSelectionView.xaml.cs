@@ -10,9 +10,10 @@ using FirstFloor.ModernUI.Windows;
 using FirstFloor.ModernUI.Windows.Controls;
 using FirstFloor.ModernUI.Windows.Navigation;
 using Microsoft.TeamFoundation.Client;
-using TestCaseManagerApp.BusinessLogic.Managers;
-using TestCaseManagerApp.Helpers;
-using TestCaseManagerApp.ViewModels;
+using TestCaseManagerCore;
+using TestCaseManagerCore.BusinessLogic.Managers;
+using TestCaseManagerCore.Helpers;
+using TestCaseManagerCore.ViewModels;
 
 namespace TestCaseManagerApp.Views
 {

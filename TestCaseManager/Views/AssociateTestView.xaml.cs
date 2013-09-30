@@ -2,19 +2,20 @@
 // https://testcasemanager.codeplex.com/ All rights reserved.
 // </copyright>
 // <author>Anton Angelov</author>
+using System;
+using System.Linq;
+using System.Windows;
+using FirstFloor.ModernUI.Windows;
+using FirstFloor.ModernUI.Windows.Controls;
+using FirstFloor.ModernUI.Windows.Navigation;
+using TestCaseManagerCore.BusinessLogic.Entities;
+using TestCaseManagerCore.BusinessLogic.Managers;
+using TestCaseManagerCore.Helpers;
+using TestCaseManagerCore.ViewModels;
+using TestCaseManagerCore;
+
 namespace TestCaseManagerApp.Views
 {
-    using System;
-    using System.Linq;
-    using System.Windows;
-    using FirstFloor.ModernUI.Windows;
-    using FirstFloor.ModernUI.Windows.Controls;
-    using FirstFloor.ModernUI.Windows.Navigation;
-    using TestCaseManagerApp.BusinessLogic.Entities;
-    using TestCaseManagerApp.BusinessLogic.Managers;
-    using TestCaseManagerApp.Helpers;
-    using TestCaseManagerApp.ViewModels;
-
     /// <summary>
     /// Contains logic related to the associate test case to test page
     /// </summary>

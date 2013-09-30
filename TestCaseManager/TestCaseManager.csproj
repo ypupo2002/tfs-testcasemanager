@@ -121,61 +121,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="BusinessLogic\Contracts\IClipBoard.cs" />
-    <Compile Include="BusinessLogic\Contracts\IUndoRedoRecord.cs" />
-    <Compile Include="BusinessLogic\Converters\TestStepPropertiesConverter.cs" />
-    <Compile Include="BusinessLogic\Entities\AssociatedAutomation.cs" />
-    <Compile Include="BusinessLogic\Entities\AssociateTestViewFilters.cs" />
-    <Compile Include="BusinessLogic\Entities\BaseNotifyPropertyChanged.cs" />
-    <Compile Include="BusinessLogic\Entities\ClipBoardTestCase.cs" />
-    <Compile Include="BusinessLogic\Entities\ClipBoardTestStep.cs" />
-    <Compile Include="BusinessLogic\Entities\TestCaseFull.cs" />
-    <Compile Include="BusinessLogic\Entities\EditViewContext.cs" />
-    <Compile Include="BusinessLogic\Entities\TestBase.cs" />
-    <Compile Include="BusinessLogic\Entities\InitialViewFilters.cs" />
-    <Compile Include="BusinessLogic\Entities\ListStackExtensions.cs" />
-    <Compile Include="BusinessLogic\Entities\ReplaceContext.cs" />
-    <Compile Include="BusinessLogic\Entities\SharedStepIdReplacePair.cs" />
-    <Compile Include="BusinessLogic\Entities\Suite.cs" />
-    <Compile Include="BusinessLogic\Entities\Test.cs" />
-    <Compile Include="BusinessLogic\Entities\TestStepFull.cs" />
-    <Compile Include="BusinessLogic\Entities\TextReplacePair.cs" />
-    <Compile Include="BusinessLogic\Entities\UndoRedoRecord.cs" />
-    <Compile Include="BusinessLogic\Entities\UndoTransaction.cs" />
-    <Compile Include="BusinessLogic\Enums\ClipBoardCommand.cs" />
-    <Compile Include="BusinessLogic\Enums\Priority.cs" />
-    <Compile Include="BusinessLogic\Managers\ClipBoardManager.cs" />
-    <Compile Include="BusinessLogic\Managers\SharedStepManager.cs" />
-    <Compile Include="BusinessLogic\Managers\ProjectManager.cs" />
-    <Compile Include="BusinessLogic\Managers\ReplaceTextManager.cs" />
-    <Compile Include="BusinessLogic\Managers\SerializationManager.cs" />
-    <Compile Include="BusinessLogic\Managers\TestPlanManager.cs" />
-    <Compile Include="BusinessLogic\Managers\UndoRedoManager.cs" />
-    <Compile Include="BusinessLogic\UiControlExtensions\ComboBoxDropdownExtensions.cs" />
-    <Compile Include="BusinessLogic\UiControlExtensions\RichTextBoxExtensions.cs" />
-    <Compile Include="BusinessLogic\Entities\SharedStep.cs" />
-    <Compile Include="BusinessLogic\Managers\TestSuiteManager.cs" />
-    <Compile Include="BusinessLogic\Core\ExecutionContext.cs" />
-    <Compile Include="BusinessLogic\Managers\FragmentManager.cs" />
-    <Compile Include="BusinessLogic\Core\Navigator.cs" />
-    <Compile Include="BusinessLogic\Core\Preferences.cs" />
-    <Compile Include="BusinessLogic\Managers\RegistryManager.cs" />
-    <Compile Include="BusinessLogic\Entities\TestCase.cs" />
-    <Compile Include="BusinessLogic\Managers\TestCaseManager.cs" />
-    <Compile Include="BusinessLogic\Entities\TestStep.cs" />
-    <Compile Include="BusinessLogic\Managers\TestStepManager.cs" />
-    <Compile Include="BusinessLogic\UiControlExtensions\TextBoxExtensions.cs" />
-    <Compile Include="ViewModels\SharedStepsInitialViewModel.cs" />
-    <Compile Include="ViewModels\ProjectSelectionViewModel.cs" />
-    <Compile Include="ViewModels\SettingsViewModel.cs" />
-    <Compile Include="ViewModels\AssociateTestViewModel.cs" />
-    <Compile Include="ViewModels\TestCasesBatchDuplicateViewModel.cs" />
-    <Compile Include="ViewModels\PromptDialogViewModel.cs" />
-    <Compile Include="ViewModels\TestCaseEditViewModel.cs" />
-    <Compile Include="ViewModels\TestCaseDetailedViewModel.cs" />
-    <Compile Include="ViewModels\TestCasesInitialViewModel.cs">
-      <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
-    </Compile>
     <Compile Include="Views\AboutView.xaml.cs">
       <DependentUpon>AboutView.xaml</DependentUpon>
     </Compile>
@@ -332,8 +277,12 @@
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="Templates\" />
+    <ProjectReference Include="..\TestCaseManagerCore\TestCaseManagerCore.csproj">
+      <Project>{d5457a68-337d-4d6b-8ad0-b335b9b996db}</Project>
+      <Name>TestCaseManagerCore</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />

@@ -11,8 +11,9 @@ using System.Windows.Controls;
 using System.Windows.Documents;
 using FirstFloor.ModernUI.Windows;
 using FirstFloor.ModernUI.Windows.Navigation;
-using TestCaseManagerApp.BusinessLogic.Managers;
-using TestCaseManagerApp.ViewModels;
+using TestCaseManagerCore.BusinessLogic.Managers;
+using TestCaseManagerCore.ViewModels;
+using TestCaseManagerCore;
 
 namespace TestCaseManagerApp.Views
 {

@@ -140,7 +140,6 @@ D:\Projects\TestCaseManager\TestCaseManager\obj\Debug\Views\ProjectSelectionView
 D:\Projects\TestCaseManager\TestCaseManager\obj\Debug\Views\TestCaseDetailedView.g.cs
 D:\Projects\TestCaseManager\TestCaseManager\obj\Debug\Views\TestCasesInitialView.g.cs
 D:\Projects\TestCaseManager\TestCaseManager\obj\Debug\App.g.cs
-D:\Projects\TestCaseManager\TestCaseManager\obj\Debug\GeneratedInternalTypeHelper.g.cs
 D:\Projects\TestCaseManager\TestCaseManager\obj\Debug\TestCaseManager_MarkupCompile.cache
 D:\Projects\TestCaseManager\TestCaseManager\obj\Debug\TestCaseManager_MarkupCompile.lref
 D:\Projects\TestCaseManager\TestCaseManager\obj\Debug\MainWindow.baml
@@ -185,3 +184,5 @@ D:\Projects\TestCaseManager\TestCaseManager\obj\Debug\Views\SharedStepsInitialVi
 D:\Projects\TestCaseManager\TestCaseManager\obj\Debug\TestCaseManager.csprojResolveAssemblyReference.cache
 D:\Projects\TestCaseManager\TestCaseManager\obj\Debug\Views\AboutView.baml
 D:\Projects\TestCaseManager\TestCaseManager\obj\Debug\Views\AboutView.g.cs
+D:\Projects\TestCaseManager\TestCaseManager\bin\Debug\TestCaseManagerCore.dll
+D:\Projects\TestCaseManager\TestCaseManager\bin\Debug\TestCaseManagerCore.pdb

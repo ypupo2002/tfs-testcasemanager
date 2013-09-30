@@ -11,8 +11,9 @@ using System.Windows.Input;
 using FirstFloor.ModernUI.Windows;
 using FirstFloor.ModernUI.Windows.Controls;
 using FirstFloor.ModernUI.Windows.Navigation;
-using TestCaseManagerApp.BusinessLogic.Entities;
-using TestCaseManagerApp.ViewModels;
+using TestCaseManagerCore.BusinessLogic.Entities;
+using TestCaseManagerCore.ViewModels;
+using TestCaseManagerCore;
 
 namespace TestCaseManagerApp.Views
 {
@@ -115,11 +116,11 @@ namespace TestCaseManagerApp.Views
             {
                 if (this.SharedStepsInitialViewModel != null)
                 {
-                    this.SharedStepsInitialViewModel = new ViewModels.SharedStepsInitialViewModel(this.SharedStepsInitialViewModel);
+                    this.SharedStepsInitialViewModel = new TestCaseManagerCore.ViewModels.SharedStepsInitialViewModel(this.SharedStepsInitialViewModel);
                 }
                 else
                 {
-                    SharedStepsInitialViewModel = new ViewModels.SharedStepsInitialViewModel();
+                    SharedStepsInitialViewModel = new TestCaseManagerCore.ViewModels.SharedStepsInitialViewModel();
                 }
             });
             t.ContinueWith(antecedent =>

@@ -4,11 +4,11 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:mui="http://firstfloorsoftware.com/ModernU"
-             xmlns:helpers="clr-namespace:TestCaseManagerApp.Helpers"
+             xmlns:helpers="clr-namespace:TestCaseManagerCore.Helpers;assembly=TestCaseManagerCore"
              xmlns:local="clr-namespace:TestCaseManagerApp.Views"
-             xmlns:convert="clr-namespace:TestCaseManagerApp.BusinessLogic.Converters"
+             xmlns:convert="clr-namespace:TestCaseManagerCore.BusinessLogic.Converters;assembly=TestCaseManagerCore"
              xmlns:System="clr-namespace:System;assembly=mscorlib"
-             xmlns:enums="clr-namespace:TestCaseManagerApp.BusinessLogic.Enums"
+             xmlns:enums="clr-namespace:TestCaseManagerCore.BusinessLogic.Enums;assembly=TestCaseManagerCore"
              mc:Ignorable="d" Loaded="UserControl_Loaded">
     <Grid>
         <Grid.Resources>

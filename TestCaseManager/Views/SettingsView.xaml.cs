@@ -8,8 +8,9 @@ namespace TestCaseManagerApp
     using System.Windows.Controls;
     using FirstFloor.ModernUI.Windows;
     using FirstFloor.ModernUI.Windows.Navigation;
-    using TestCaseManagerApp.BusinessLogic.Managers;
-    using TestCaseManagerApp.Helpers;
+    using TestCaseManagerCore;
+    using TestCaseManagerCore.BusinessLogic.Managers;
+    using TestCaseManagerCore.Helpers;
     /// <summary>
     /// Contains logic related to the settings page
     /// </summary>

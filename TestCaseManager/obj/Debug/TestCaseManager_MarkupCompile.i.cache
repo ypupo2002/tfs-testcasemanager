@@ -12,9 +12,9 @@ DEBUG;TRACE
 D:\Projects\TestCaseManager\TestCaseManager\App.xaml
 151169058481
 
-73-17864450
-331068212086
+20-1533161736
+34-1931423203
 Assets\ModernUI.HelloKitty.xaml;Assets\ModernUI.Love.xaml;Assets\ModernUI.Snowflakes.xaml;MainWindow.xaml;Views\AboutView.xaml;Views\SharedStepsInitialView.xaml;Views\SettingsView.xaml;Views\AssociateTestView.xaml;Views\PrompDialogWindow.xaml;Views\PrompDialogUserControl.xaml;Views\TestCaseBatchDuplicateView.xaml;Views\TestCaseEditView.xaml;Views\ProjectSelectionView.xaml;Views\TestCaseDetailedView.xaml;Views\TestCasesInitialView.xaml;
 
-False
+True
 

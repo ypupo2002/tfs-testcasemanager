@@ -4,9 +4,9 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:mui="http://firstfloorsoftware.com/ModernU"
-             xmlns:local="clr-namespace:TestCaseManagerApp.Helpers"
+             xmlns:local="clr-namespace:TestCaseManagerCore.Helpers;assembly=TestCaseManagerCore"
              xmlns:System="clr-namespace:System;assembly=mscorlib"
-             xmlns:enums="clr-namespace:TestCaseManagerApp.BusinessLogic.Enums"
+             xmlns:enums="clr-namespace:TestCaseManagerCore.BusinessLogic.Enums;assembly=TestCaseManagerCore"
              mc:Ignorable="d" Loaded="UserControl_Loaded">
     <Grid>
         <ProgressBar Name="progressBar" Minimum="0" Maximum="1" Height="16" IsIndeterminate="True" Margin="0,0,0,16" />

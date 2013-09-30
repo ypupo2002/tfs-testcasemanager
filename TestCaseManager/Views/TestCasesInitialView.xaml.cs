@@ -13,10 +13,11 @@ using System.Windows.Media;
 using FirstFloor.ModernUI.Windows;
 using FirstFloor.ModernUI.Windows.Controls;
 using FirstFloor.ModernUI.Windows.Navigation;
-using TestCaseManagerApp.BusinessLogic.Entities;
-using TestCaseManagerApp.BusinessLogic.Enums;
-using TestCaseManagerApp.BusinessLogic.Managers;
-using TestCaseManagerApp.ViewModels;
+using TestCaseManagerCore.BusinessLogic.Entities;
+using TestCaseManagerCore.BusinessLogic.Enums;
+using TestCaseManagerCore.BusinessLogic.Managers;
+using TestCaseManagerCore.ViewModels;
+using TestCaseManagerCore;
 
 namespace TestCaseManagerApp.Views
 {
@@ -174,11 +175,11 @@ namespace TestCaseManagerApp.Views
             {
                 if (this.TestCasesInitialViewModel != null)
                 {
-                    this.TestCasesInitialViewModel = new ViewModels.TestCasesInitialViewModel(this.TestCasesInitialViewModel);
+                    this.TestCasesInitialViewModel = new TestCaseManagerCore.ViewModels.TestCasesInitialViewModel(this.TestCasesInitialViewModel);
                 }
                 else
                 {
-                    TestCasesInitialViewModel = new ViewModels.TestCasesInitialViewModel();
+                    TestCasesInitialViewModel = new TestCaseManagerCore.ViewModels.TestCasesInitialViewModel();
                 }
             });
             t.ContinueWith(antecedent =>

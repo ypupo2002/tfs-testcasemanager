@@ -12,9 +12,10 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using FirstFloor.ModernUI.Windows;
 using FirstFloor.ModernUI.Windows.Controls;
-using TestCaseManagerApp.BusinessLogic.Entities;
-using TestCaseManagerApp.Helpers;
-using TestCaseManagerApp.ViewModels;
+using TestCaseManagerCore;
+using TestCaseManagerCore.BusinessLogic.Entities;
+using TestCaseManagerCore.Helpers;
+using TestCaseManagerCore.ViewModels;
 
 namespace TestCaseManagerApp.Views
 {
@@ -97,12 +98,12 @@ namespace TestCaseManagerApp.Views
             {
                 if (this.TestCasesBatchDuplicateViewModel != null)
                 {
-                    this.TestCasesBatchDuplicateViewModel = new ViewModels.TestCasesBatchDuplicateViewModel(this.TestCasesBatchDuplicateViewModel);
+                    this.TestCasesBatchDuplicateViewModel = new TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel(this.TestCasesBatchDuplicateViewModel);
                     this.TestCasesBatchDuplicateViewModel.FilterTestCases();
                 }
                 else
                 {
-                    this.TestCasesBatchDuplicateViewModel = new ViewModels.TestCasesBatchDuplicateViewModel();
+                    this.TestCasesBatchDuplicateViewModel = new TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel();
                 }
             });
             t.ContinueWith(antecedent =>

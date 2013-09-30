@@ -14,11 +14,12 @@ using FirstFloor.ModernUI.Windows;
 using FirstFloor.ModernUI.Windows.Controls;
 using FirstFloor.ModernUI.Windows.Navigation;
 using Microsoft.TeamFoundation.TestManagement.Client;
-using TestCaseManagerApp.BusinessLogic.Entities;
-using TestCaseManagerApp.BusinessLogic.Enums;
-using TestCaseManagerApp.BusinessLogic.Managers;
-using TestCaseManagerApp.Helpers;
-using TestCaseManagerApp.ViewModels;
+using TestCaseManagerCore.BusinessLogic.Entities;
+using TestCaseManagerCore.BusinessLogic.Enums;
+using TestCaseManagerCore.BusinessLogic.Managers;
+using TestCaseManagerCore.Helpers;
+using TestCaseManagerCore.ViewModels;
+using TestCaseManagerCore;
 
 namespace TestCaseManagerApp.Views
 {

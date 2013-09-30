@@ -17,6 +17,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using FirstFloor.ModernUI.Windows.Controls;
+using TestCaseManagerCore;
 
 namespace TestCaseManagerApp
 {
@@ -32,7 +33,7 @@ namespace TestCaseManagerApp
         {
             this.InitializeComponent();
             ExecutionContext.Preferences = new Preferences();
-            ExecutionContext.SettingsViewModel = new ViewModels.SettingsViewModel();
+            ExecutionContext.SettingsViewModel = new TestCaseManagerCore.ViewModels.SettingsViewModel();
         }
 
         /// <summary>

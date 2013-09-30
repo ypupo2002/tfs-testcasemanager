@@ -1,0 +1,177 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{D5457A68-337D-4D6B-8AD0-B335B9B996DB}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>TestCaseManagerCore</RootNamespace>
+    <AssemblyName>TestCaseManagerCore</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Accessibility">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="FirstFloor.ModernUI">
+      <HintPath>..\packages\ModernUI.WPF.1.0.5\lib\net45\FirstFloor.ModernUI.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.TeamFoundation, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.TeamFoundation.Client, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.TeamFoundation.Common, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.TeamFoundation.Common.Library, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.TeamFoundation.TestManagement.Client, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.TeamFoundation.TestManagement.Common, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.TeamFoundation.WorkItemTracking.Client, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.TeamFoundation.WorkItemTracking.Client.Cache, Version=10.2.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=x86" />
+    <Reference Include="Microsoft.TeamFoundation.WorkItemTracking.Client.DataStore, Version=10.2.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=x86" />
+    <Reference Include="Microsoft.TeamFoundation.WorkItemTracking.Client.RuleEngine, Version=10.2.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=x86" />
+    <Reference Include="Microsoft.TeamFoundation.WorkItemTracking.Proxy, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files (x86)\Microsoft Visual Studio 10.0\Common7\IDE\ReferenceAssemblies\v2.0\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationUI, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="ReachFramework">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Data">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Deployment">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Printing">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Windows.Forms">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Xml">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.CSharp">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Core">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Xml.Linq">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="UIAutomationProvider">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="UIAutomationTypes">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="WindowsBase">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="PresentationCore">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="PresentationFramework">
+      <Private>True</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BusinessLogic\Contracts\IClipBoard.cs" />
+    <Compile Include="BusinessLogic\Contracts\IUndoRedoRecord.cs" />
+    <Compile Include="BusinessLogic\Converters\TestStepPropertiesConverter.cs" />
+    <Compile Include="BusinessLogic\Core\ExecutionContext.cs" />
+    <Compile Include="BusinessLogic\Core\Navigator.cs" />
+    <Compile Include="BusinessLogic\Core\Preferences.cs" />
+    <Compile Include="BusinessLogic\Entities\AssociatedAutomation.cs" />
+    <Compile Include="BusinessLogic\Entities\AssociateTestViewFilters.cs" />
+    <Compile Include="BusinessLogic\Entities\BaseNotifyPropertyChanged.cs" />
+    <Compile Include="BusinessLogic\Entities\ClipBoardTestCase.cs" />
+    <Compile Include="BusinessLogic\Entities\ClipBoardTestStep.cs" />
+    <Compile Include="BusinessLogic\Entities\EditViewContext.cs" />
+    <Compile Include="BusinessLogic\Entities\InitialViewFilters.cs" />
+    <Compile Include="BusinessLogic\Entities\ListStackExtensions.cs" />
+    <Compile Include="BusinessLogic\Entities\ReplaceContext.cs" />
+    <Compile Include="BusinessLogic\Entities\SharedStep.cs" />
+    <Compile Include="BusinessLogic\Entities\SharedStepIdReplacePair.cs" />
+    <Compile Include="BusinessLogic\Entities\Suite.cs" />
+    <Compile Include="BusinessLogic\Entities\Test.cs" />
+    <Compile Include="BusinessLogic\Entities\TestBase.cs" />
+    <Compile Include="BusinessLogic\Entities\TestCase.cs" />
+    <Compile Include="BusinessLogic\Entities\TestCaseFull.cs" />
+    <Compile Include="BusinessLogic\Entities\TestStep.cs" />
+    <Compile Include="BusinessLogic\Entities\TestStepFull.cs" />
+    <Compile Include="BusinessLogic\Entities\TextReplacePair.cs" />
+    <Compile Include="BusinessLogic\Entities\UndoRedoRecord.cs" />
+    <Compile Include="BusinessLogic\Entities\UndoTransaction.cs" />
+    <Compile Include="BusinessLogic\Enums\ClipBoardCommand.cs" />
+    <Compile Include="BusinessLogic\Enums\Priority.cs" />
+    <Compile Include="BusinessLogic\Managers\ClipBoardManager.cs" />
+    <Compile Include="BusinessLogic\Managers\FragmentManager.cs" />
+    <Compile Include="BusinessLogic\Managers\ProjectManager.cs" />
+    <Compile Include="BusinessLogic\Managers\RegistryManager.cs" />
+    <Compile Include="BusinessLogic\Managers\ReplaceTextManager.cs" />
+    <Compile Include="BusinessLogic\Managers\SerializationManager.cs" />
+    <Compile Include="BusinessLogic\Managers\SharedStepManager.cs" />
+    <Compile Include="BusinessLogic\Managers\TestCaseManager.cs" />
+    <Compile Include="BusinessLogic\Managers\TestPlanManager.cs" />
+    <Compile Include="BusinessLogic\Managers\TestStepManager.cs" />
+    <Compile Include="BusinessLogic\Managers\TestSuiteManager.cs" />
+    <Compile Include="BusinessLogic\Managers\UndoRedoManager.cs" />
+    <Compile Include="BusinessLogic\UiControlExtensions\ComboBoxDropdownExtensions.cs" />
+    <Compile Include="BusinessLogic\UiControlExtensions\RichTextBoxExtensions.cs" />
+    <Compile Include="BusinessLogic\UiControlExtensions\TextBoxExtensions.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\AssociateTestViewModel.cs" />
+    <Compile Include="ViewModels\ProjectSelectionViewModel.cs" />
+    <Compile Include="ViewModels\PromptDialogViewModel.cs" />
+    <Compile Include="ViewModels\SettingsViewModel.cs" />
+    <Compile Include="ViewModels\SharedStepsInitialViewModel.cs" />
+    <Compile Include="ViewModels\TestCaseDetailedViewModel.cs" />
+    <Compile Include="ViewModels\TestCaseEditViewModel.cs" />
+    <Compile Include="ViewModels\TestCasesBatchDuplicateViewModel.cs" />
+    <Compile Include="ViewModels\TestCasesInitialViewModel.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Templates\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
