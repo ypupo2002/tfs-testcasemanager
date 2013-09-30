@@ -4,16 +4,16 @@
 // <author>Anton Angelov</author>
 namespace TestCaseManagerApp.ViewModels
 {
-    using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.Linq;
+    using System.Windows;
     using System.Windows.Forms;
-    using System.Windows.Threading;
-    using FirstFloor.ModernUI.Presentation;
+    using FirstFloor.ModernUI.Windows.Controls;
     using Microsoft.TeamFoundation.TestManagement.Client;
     using TestCaseManagerApp.BusinessLogic.Entities;
     using TestCaseManagerApp.BusinessLogic.Enums;
+    using TestCaseManagerApp.BusinessLogic.Managers;
 
     /// <summary>
     /// Contains methods and properties related to the TestCasesInitial View
@@ -208,6 +208,14 @@ namespace TestCaseManagerApp.ViewModels
         }
 
         /// <summary>
+        /// Exports the test cases.
+        /// </summary>
+        public void ExportTestCases()
+        {
+            List<TestCaseFull> fullTestCases = this.GetAllFullTestCasesForObservableTestCases();
+        }      
+
+        /// <summary>
         /// Filters the test cases.
         /// </summary>
         public void FilterTestCases()
@@ -224,18 +232,19 @@ namespace TestCaseManagerApp.ViewModels
             string assignedToFilter = this.InitialViewFilters.AssignedToFilter.ToLower();
 
             var filteredList = this.InitialTestCaseCollection.Where(t =>
+                (t.ITestCase != null) &&
                 (shouldSetIdFilter ? (t.ITestCase.Id.ToString().Contains(idFilter)) : true) &&
                 (shouldSetTextFilter ? (t.ITestCase.Title.ToLower().Contains(titleFilter)) : true) &&
-                (shouldSetSuiteFilter ? t.ITestSuiteBase.Title.ToLower().Contains(suiteFilter) : true) &&
+                (this.FilterTestCasesBySuite(shouldSetSuiteFilter, suiteFilter, t)) &&
                 (shouldSetPriorityFilter ? t.Priority.ToString().ToLower().Contains(priorityFilter) : true) &&
                 (shouldSetAssignedToFilter ? t.TeamFoundationIdentityName.DisplayName.ToLower().Contains(assignedToFilter) : true) &&
                 (!this.HideAutomated.Equals(t.ITestCase.IsAutomated) || !this.HideAutomated)
                 ).ToList();
             this.ObservableTestCases.Clear();
             filteredList.ForEach(x => this.ObservableTestCases.Add(x));
-
+       
             this.TestCasesCount = filteredList.Count.ToString();
-        }
+        }       
 
         /// <summary>
         /// Refreshes the test cases.
@@ -390,7 +399,20 @@ namespace TestCaseManagerApp.ViewModels
         /// <param name="clipboardSuite">The clipboard suite.</param>
         public void CopyPasteSuiteToParentSuite(Suite parentSuite, Suite clipboardSuite)
         {
-            TestSuiteManager.PasteSuiteToParent(parentSuite.Id, clipboardSuite.Id, ClipBoardCommand.Copy);
+            try
+            {
+                TestSuiteManager.PasteSuiteToParent(parentSuite.Id, clipboardSuite.Id, ClipBoardCommand.Copy);
+            }
+            catch (TestManagementValidationException ex)
+            {
+                if (ex.Message.Equals("This item has already been added. A test suite cannot contain a duplicate test case or test suite."))
+                {
+                    ModernDialog.ShowMessage(ex.Message, "Warrning!", MessageBoxButton.OK);
+                    return;
+
+                    // TODO: Log the exception
+                }
+            }
             Suite suiteToBePasted = (Suite)clipboardSuite.Clone();
             suiteToBePasted.Parent = parentSuite;
             parentSuite.SubSuites.Add(suiteToBePasted);
@@ -412,7 +434,7 @@ namespace TestCaseManagerApp.ViewModels
             parentSuite.SubSuites.Add(suiteToBePasted);
             parentSuite.IsSelected = true;
             parentSuite.IsNodeExpanded = true;
-            Clipboard.Clear();
+            System.Windows.Clipboard.Clear();
         }
 
         /// <summary>
@@ -455,6 +477,22 @@ namespace TestCaseManagerApp.ViewModels
             this.ObservableTestCases.Clear();
             testCasesList.ForEach(t => this.ObservableTestCases.Add(t));
             this.InitializeInitialTestCaseCollection(this.ObservableTestCases);
+        }
+
+        /// <summary>
+        /// Gets all full test cases for observable test cases.
+        /// </summary>
+        /// <returns></returns>
+        private List<TestCaseFull> GetAllFullTestCasesForObservableTestCases()
+        {
+            List<TestCaseFull> fullTestCases = new List<TestCaseFull>();
+            foreach (TestCase currentTestCase in this.ObservableTestCases)
+            {
+                List<TestStep> currentTestSteps = TestStepManager.GetTestStepsFromTestActions(currentTestCase.ITestCase.Actions);
+                fullTestCases.Add(new TestCaseFull(currentTestCase, currentTestSteps));
+            }
+
+            return fullTestCases;
         }
 
         /// <summary>
@@ -514,6 +552,29 @@ namespace TestCaseManagerApp.ViewModels
                 currentSuite.Parent.IsNodeExpanded = true;
                 this.ExpandParent(currentSuite.Parent);
             }
-        }       
+        }
+
+        /// <summary>
+        /// Filters the test cases by suite.
+        /// </summary>
+        /// <param name="shouldSetSuiteFilter">if set to <c>true</c> [should set suite filter].</param>
+        /// <param name="suiteFilter">The suite filter.</param>
+        /// <param name="testCase">The test case.</param>
+        /// <returns>should the test case be in</returns>
+        private bool FilterTestCasesBySuite(bool shouldSetSuiteFilter, string suiteFilter, TestCase testCase)
+        {
+            if (!shouldSetSuiteFilter)
+            {
+                return true;
+            }
+            else if (testCase.ITestSuiteBase != null)
+            {
+                return testCase.ITestSuiteBase.Title.ToLower().Contains(suiteFilter);
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 }

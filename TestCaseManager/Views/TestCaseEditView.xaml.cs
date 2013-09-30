@@ -6,22 +6,19 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Forms;
 using System.Windows.Input;
-using System.Windows.Media;
 using FirstFloor.ModernUI.Windows;
 using FirstFloor.ModernUI.Windows.Controls;
 using FirstFloor.ModernUI.Windows.Navigation;
 using Microsoft.TeamFoundation.TestManagement.Client;
 using TestCaseManagerApp.BusinessLogic.Entities;
 using TestCaseManagerApp.BusinessLogic.Enums;
+using TestCaseManagerApp.BusinessLogic.Managers;
 using TestCaseManagerApp.Helpers;
 using TestCaseManagerApp.ViewModels;
-using UndoMethods;
 
 namespace TestCaseManagerApp.Views
 {
@@ -171,10 +168,6 @@ namespace TestCaseManagerApp.Views
         /// </remarks>
         public void OnNavigatingFrom(NavigatingCancelEventArgs e)
         {
-            //if (this.editViewContext.ComeFromTestCase && this.editViewContext.IsSharedStep)
-            //{
-            //    e.Cancel = true;
-            //}
             MessageBoxResult result =  this.NavigateBackToPreviousPage(true);
             if (result == MessageBoxResult.Cancel)
             {
@@ -1007,7 +1000,7 @@ namespace TestCaseManagerApp.Views
         /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
-            if (this.editViewContext.ComeFromTestCase)
+            if (this.editViewContext.ComeFromTestCase || !this.editViewContext.IsSharedStep)
             {
                 this.NavigateToTestCasesInitialView();
             }

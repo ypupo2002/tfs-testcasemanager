@@ -2,15 +2,12 @@
 // https://testcasemanager.codeplex.com/ All rights reserved.
 // </copyright>
 // <author>Anton Angelov</author>
-namespace TestCaseManagerApp
+namespace TestCaseManagerApp.BusinessLogic.Entities
 {
-    using System;
     using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
     using Microsoft.TeamFoundation.TestManagement.Client;
     using TestCaseManagerApp.BusinessLogic.Enums;
+    using TestCaseManagerApp.BusinessLogic.Managers;
 
     /// <summary>
     /// Contains information about Shared Step object

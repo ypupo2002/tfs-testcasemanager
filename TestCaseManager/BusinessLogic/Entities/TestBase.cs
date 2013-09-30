@@ -2,13 +2,12 @@
 // https://testcasemanager.codeplex.com/ All rights reserved.
 // </copyright>
 // <author>Anton Angelov</author>
-namespace TestCaseManagerApp
+namespace TestCaseManagerApp.BusinessLogic.Entities
 {
     using System;
     using Microsoft.TeamFoundation.TestManagement.Client;
-    using TestCaseManagerApp.BusinessLogic.Entities;
     using TestCaseManagerApp.BusinessLogic.Enums;
-    using UndoMethods;
+    using TestCaseManagerApp.BusinessLogic.Managers;
 
     /// <summary>
     /// Contains Base Test Entities properties

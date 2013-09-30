@@ -11,6 +11,8 @@ namespace TestCaseManagerApp.ViewModels
     using System.Text;
     using System.Threading.Tasks;
     using Microsoft.TeamFoundation.TestManagement.Client;
+    using TestCaseManagerApp.BusinessLogic.Entities;
+    using TestCaseManagerApp.BusinessLogic.Managers;
 
     /// <summary>
     /// Contains methods and properties related to the TestCaseDetailed View

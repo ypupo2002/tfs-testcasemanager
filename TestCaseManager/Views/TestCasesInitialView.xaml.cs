@@ -4,20 +4,18 @@
 // <author>Anton Angelov</author>
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Threading;
 using FirstFloor.ModernUI.Windows;
 using FirstFloor.ModernUI.Windows.Controls;
 using FirstFloor.ModernUI.Windows.Navigation;
 using TestCaseManagerApp.BusinessLogic.Entities;
 using TestCaseManagerApp.BusinessLogic.Enums;
+using TestCaseManagerApp.BusinessLogic.Managers;
 using TestCaseManagerApp.ViewModels;
 
 namespace TestCaseManagerApp.Views
@@ -779,6 +777,11 @@ namespace TestCaseManagerApp.Views
             if (!isCanceled)
             {
                 int selectedSuiteId = RegistryManager.GetSelectedSuiteId();
+                if (selectedSuiteId == -1)
+                {
+                    ModernDialog.ShowMessage("Cannot rename root suite!", "Warrning!", MessageBoxButton.OK);
+                    return;
+                }
                 TestSuiteManager.RenameSuite(selectedSuiteId, newTitle);
                 this.TestCasesInitialViewModel.RenameSuiteInObservableCollection(this.TestCasesInitialViewModel.Suites, selectedSuiteId, newTitle);
             }
@@ -1034,6 +1037,16 @@ namespace TestCaseManagerApp.Views
                 dgTestCaseContextItemPreview.IsEnabled = false;
                 dgTestCaseContextItemDuplicate.IsEnabled = false;
             }
+        }
+
+        /// <summary>
+        /// Handles the Click event of the btnExport control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
+        private void btnExport_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

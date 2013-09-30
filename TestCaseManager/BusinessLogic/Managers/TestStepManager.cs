@@ -2,7 +2,7 @@
 // https://testcasemanager.codeplex.com/ All rights reserved.
 // </copyright>
 // <author>Anton Angelov</author>
-namespace TestCaseManagerApp
+namespace TestCaseManagerApp.BusinessLogic.Managers
 {
     using System;
     using System.Collections.Generic;
@@ -27,13 +27,8 @@ namespace TestCaseManagerApp
         /// <param name="alreadyAddedSharedSteps">The already added shared steps.</param>
         /// <param name="sharedSteps">The shared steps.</param>
         /// <returns>list of all test steps</returns>
-        public static List<TestStep> GetTestStepsFromTestActions(List<ITestAction> testActions, Dictionary<int, string> alreadyAddedSharedSteps = null, List<SharedStep> sharedSteps = null)
+        public static List<TestStep> GetTestStepsFromTestActions(ICollection<ITestAction> testActions)
         {
-            if (alreadyAddedSharedSteps == null)
-            {
-                alreadyAddedSharedSteps = new Dictionary<int, string>();
-            }
-
             List<TestStep> testSteps = new List<TestStep>();           
 
             foreach (var currentAction in testActions)

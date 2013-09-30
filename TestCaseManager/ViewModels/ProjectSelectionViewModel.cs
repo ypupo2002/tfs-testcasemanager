@@ -5,18 +5,15 @@
 namespace TestCaseManagerApp.ViewModels
 {
     using System;
-    using System.Collections.Generic;
     using System.Collections.ObjectModel;
-    using System.Linq;
     using System.Net;
     using System.Net.Sockets;
-    using System.Text;
-    using System.Threading.Tasks;
     using System.Windows;
     using System.Windows.Forms;
     using FirstFloor.ModernUI.Windows.Controls;
     using Microsoft.TeamFoundation.Client;
     using Microsoft.TeamFoundation.TestManagement.Client;
+    using TestCaseManagerApp.BusinessLogic.Managers;
 
     /// <summary>
     /// Provides methods and properties related to the Project Selection View
@@ -56,6 +53,22 @@ namespace TestCaseManagerApp.ViewModels
         public ObservableCollection<string> ObservableTestPlans { get; set; }
 
         /// <summary>
+        /// Gets or sets a value indicating whether [is initialized from registry].
+        /// </summary>
+        /// <value>
+        /// <c>true</c> if [is initialized from registry]; otherwise, <c>false</c>.
+        /// </value>
+        public bool IsInitializedFromRegistry { get; set; }
+
+        /// <summary>
+        /// Gets or sets the selected test plan.
+        /// </summary>
+        /// <value>
+        /// The selected test plan.
+        /// </value>
+        public string SelectedTestPlan { get; set; }
+
+        /// <summary>
         /// Load project settings from TFS team project picker.
         /// </summary>
         /// <param name="projectPicker">The project picker.</param>
@@ -82,8 +95,6 @@ namespace TestCaseManagerApp.ViewModels
                         ExecutionContext.TfsTeamProjectCollection = projectPicker.SelectedTeamProjectCollection;
                         this.TestService = (ITestManagementService)ExecutionContext.TfsTeamProjectCollection.GetService(typeof(ITestManagementService));
                         this.InitializeTestProjectByName(this.TestService, ExecutionContext.Preferences.TestProjectName);
-
-                        // InitializeTestPlans(ExecutionContext.TeamProject);
                     }
                     this.FullTeamProjectName = this.GenerateFullTeamProjectName();
                    
@@ -126,6 +137,11 @@ namespace TestCaseManagerApp.ViewModels
                     // TODO: Add exception logging
                     return;
                 }
+                this.SelectedTestPlan = RegistryManager.GetTestPlan();
+                if (!string.IsNullOrEmpty(this.SelectedTestPlan))
+                {
+                    this.IsInitializedFromRegistry = true;
+                }                
             }
         }
 

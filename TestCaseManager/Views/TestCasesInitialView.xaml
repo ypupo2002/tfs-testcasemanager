@@ -41,7 +41,7 @@
                 <ColumnDefinition Width="6*" MinWidth="800"/>
             </Grid.ColumnDefinitions>
             <StackPanel Orientation="Horizontal" Grid.ColumnSpan="2">
-                <TextBlock Text="Search" Margin="10,0,10,30" Height="25" Width="Auto" FontWeight="Bold" FontSize="18" HorizontalAlignment="Left" Grid.Row="0"/>
+                <TextBlock Text="Search" Margin="0,0,10,15" Height="25" Width="Auto" FontWeight="Bold" FontSize="18" HorizontalAlignment="Left" Grid.Row="0"/>
                 
                 <!--TODO: fix the logic of the refresh-->
                 <Button Name="btnRefresh" Margin="10,0,10,30" Height="30" Width="90" VerticalAlignment="Center" Click="btnRefresh_Click" Visibility="Hidden">
@@ -54,37 +54,38 @@
             </StackPanel>
 
             <StackPanel Orientation="Vertical" Grid.Row="1" Grid.Column="2">
-                <StackPanel Orientation="Vertical" Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="3" Margin="30,0,0,30">
+                <StackPanel Orientation="Vertical" Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="3" Margin="10,0,0,15">
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
-                        <Button Name="btnPreview1" Margin="0,0,10,0" Height="30" Width="90" VerticalAlignment="Center" Click="PreviewButton_Click">
+                        <Button Name="btnPreview1" Margin="20,0,10,0" Height="30" Width="90" VerticalAlignment="Center" Click="PreviewButton_Click">
                             <Button.Content>
                                 <TextBlock>
                                   <Underline>P</Underline>review
                                 </TextBlock>
                             </Button.Content>
                         </Button>
-                        <Button Name="btnEdit1" Margin="30,0,10,0" Height="30" Width="90" VerticalAlignment="Center" Click="EditButton_Click">
+                        <Button Name="btnEdit1" Margin="15,0,10,0" Height="30" Width="90" VerticalAlignment="Center" Click="EditButton_Click">
                             <Button.Content>
                                 <TextBlock>
                                   <Underline>E</Underline>dit
                                 </TextBlock>
                             </Button.Content>
                         </Button>
-                        <Button Name="btnDuplicate1" Margin="30,0,10,0" Height="30" Width="90" VerticalAlignment="Center" Click="DuplicateButton_Click">
+                        <Button Name="btnDuplicate1" Margin="15,0,10,0" Height="30" Width="90" VerticalAlignment="Center" Click="DuplicateButton_Click">
                             <Button.Content>
                                 <TextBlock>
                                   <Underline>D</Underline>uplicate
                                 </TextBlock>
                             </Button.Content>
                         </Button>
-                        <Button Name="btnNew1" Margin="30,0,10,0" Height="30" Width="90" VerticalAlignment="Center" Click="btnNew_Click">
+                        <Button Name="btnNew1" Margin="15,0,10,0" Height="30" Width="90" VerticalAlignment="Center" Click="btnNew_Click">
                             <Button.Content>
                                 <TextBlock>
                                   <Underline>N</Underline>ew
                                 </TextBlock>
                             </Button.Content>
                         </Button>
-                        <Button Name="btnRemoveTestCase1" Content="Remove" Margin="30,0,10,0" Height="30" Width="90" VerticalAlignment="Center" Click="btnRemoveTestCase_Click"/>
+                        <Button Name="btnRemoveTestCase1" Content="Remove" Margin="15,0,10,0" Height="30" Width="90" VerticalAlignment="Center" Click="btnRemoveTestCase_Click"/>
+                        <Button Name="btnExport" Content="Export" Margin="15,0,10,0" Height="30" Width="90" VerticalAlignment="Center" Click="btnExport_Click"/>
                     </StackPanel>
                 </StackPanel>
                 <Grid>
@@ -108,7 +109,7 @@
                              GotFocus="tbAssignedToFilter_GotFocus"  LostFocus="tbAssignedToFilter_LostFocus"  KeyUp="tbAssignedToFilter_KeyUp"  Grid.Column="4"/>
                     <StackPanel Orientation="Horizontal"  Grid.Column="5">
                         <CheckBox Margin="10,0,10,10" VerticalAlignment="Center" HorizontalAlignment="Left" IsChecked="{Binding Path=HideAutomated, Mode=TwoWay}" Name="cbHideAutomated" Unchecked="cbHideAutomated_Unchecked" Checked="cbHideAutomated_Checked"/>
-                        <TextBlock Text="Hide Automated" Margin="10,10,10,10" Height="25" Width="Auto" HorizontalAlignment="Left" VerticalAlignment="Bottom" FontSize="12"/>                        
+                        <TextBlock Text="Hide Automated" Margin="0,10,10,10" Height="25" Width="Auto" HorizontalAlignment="Left" VerticalAlignment="Bottom" FontSize="12"/>                        
                     </StackPanel>
                 </Grid>               
             </StackPanel>
@@ -148,8 +149,8 @@
 
             <ProgressBar Name="progressBarTestCases" Minimum="0" Maximum="1" Height="16" IsIndeterminate="True" Margin="0,0,0,16" Grid.Row="2" Grid.Column="2" Visibility="Hidden"/>
            
-            <DataGrid ItemsSource="{Binding Path=ObservableTestCases}" AutoGenerateColumns="False" Name="dgTestCases" Grid.Row="2" Grid.Column="2" MouseDoubleClick="dgTestCases_MouseDoubleClick" 
-                      IsReadOnly="True" SelectionMode="Extended"  SelectionUnit="FullRow" TabIndex="5" PreviewKeyDown="dgTestCases_KeyDown" 
+            <DataGrid ItemsSource="{Binding Path=ObservableTestCases}" AutoGenerateColumns="False" Name="dgTestCases" Grid.Row="2" Grid.Column="2" 
+                      IsReadOnly="True" SelectionMode="Extended"  SelectionUnit="FullRow" TabIndex="5"
                       SelectedCellsChanged="dgTestCases_SelectedCellsChanged" PreviewMouseRightButtonDown="dgTestCases_PreviewMouseRightButtonDown" Margin="{StaticResource SplitRight}">
                 <DataGrid.ContextMenu>
                     <ContextMenu>
@@ -163,6 +164,14 @@
                         <MenuItem Name="dgTestCaseContextItemRemove" Command="{x:Static local:TestCasesInitialView.RemoveTestCaseFromSuiteCommand}" Header="Remove"/>
                     </ContextMenu>
                 </DataGrid.ContextMenu>
+
+                <DataGrid.RowStyle>
+                    <Style TargetType="{x:Type DataGridRow}">
+                        <EventSetter Event="MouseDoubleClick" Handler="dgTestCases_MouseDoubleClick" />
+                        <EventSetter Event="PreviewKeyDown" Handler="dgTestCases_KeyDown" />
+                    </Style>
+                </DataGrid.RowStyle>
+
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="ID"  Binding="{Binding ITestCase.Id}" Width="0.6*">
                         <DataGridTextColumn.HeaderStyle>
@@ -209,44 +218,45 @@
                     </DataGrid.Columns>
             </DataGrid>
 
-            <StackPanel Orientation="Vertical" Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="3" Margin="30,30,0,30">
+            <StackPanel Orientation="Vertical" Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="3" Margin="10,10,0,0">
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
-                    <Button Name="btnPreview" Margin="0,0,10,0" Height="30" Width="90" VerticalAlignment="Center" Click="PreviewButton_Click">
+                    <Button Name="btnPreview" Margin="20,0,10,0" Height="30" Width="90" VerticalAlignment="Center" Click="PreviewButton_Click">
                         <Button.Content>
                             <TextBlock>
                                   <Underline>P</Underline>review
                             </TextBlock>
                         </Button.Content>
                     </Button>
-                    <Button Name="btnEdit" Margin="30,0,10,0" Height="30" Width="90" VerticalAlignment="Center" Click="EditButton_Click">
+                    <Button Name="btnEdit" Margin="15,0,10,0" Height="30" Width="90" VerticalAlignment="Center" Click="EditButton_Click">
                         <Button.Content>
                             <TextBlock>
                                   <Underline>E</Underline>dit
                             </TextBlock>
                         </Button.Content>
                     </Button>
-                    <Button Name="btnDuplicate" Margin="30,0,10,0" Height="30" Width="90" VerticalAlignment="Center" Click="DuplicateButton_Click">
+                    <Button Name="btnDuplicate" Margin="15,0,10,0" Height="30" Width="90" VerticalAlignment="Center" Click="DuplicateButton_Click">
                         <Button.Content>
                             <TextBlock>
                                   <Underline>D</Underline>uplicate
                             </TextBlock>
                         </Button.Content>
                     </Button>
-                    <Button Name="btnNew" Margin="30,0,10,0" Height="30" Width="90" VerticalAlignment="Center" Click="btnNew_Click">
+                    <Button Name="btnNew" Margin="15,0,10,0" Height="30" Width="90" VerticalAlignment="Center" Click="btnNew_Click">
                         <Button.Content>
                             <TextBlock>
                                   <Underline>N</Underline>ew
                             </TextBlock>
                         </Button.Content>
                     </Button>
-                    <Button Name="btnRemoveTestCase" Content="Remove" Margin="30,0,10,0" Height="30" Width="90" VerticalAlignment="Center" Click="btnRemoveTestCase_Click"/>
+                    <Button Name="btnRemoveTestCase" Content="Remove" Margin="15,0,10,0" Height="30" Width="90" VerticalAlignment="Center" Click="btnRemoveTestCase_Click"/>
+                    <Button Name="btnExport1" Content="Export" Margin="15,0,10,0" Height="30" Width="90" VerticalAlignment="Center" Click="btnExport_Click"/>
                 </StackPanel>
             </StackPanel>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Grid.Row="4" Grid.Column="2" Grid.ColumnSpan="3">
-                <TextBlock Text="Selected Test Case Count:" Margin="30,0,10,30" Height="25" Width="Auto" FontWeight="Bold"/>
-                <TextBlock Name="tbSelectedTestCaseCount"  Text="{Binding SelectedTestCasesCount}" Margin="10,0,10,30" Height="25" Width="Auto" />
-                <TextBlock Text="Test Case Count:" Margin="0,0,10,30" Height="25" Width="Auto" FontWeight="Bold"/>
-                <TextBlock Name="tbTestCaseCount"  Text="{Binding TestCasesCount}" Margin="10,0,10,30" Height="25" Width="Auto" />                
+                <TextBlock Text="Selected Test Case Count:" Margin="30,30,10,0" Height="25" Width="Auto" FontWeight="Bold"/>
+                <TextBlock Name="tbSelectedTestCaseCount"  Text="{Binding SelectedTestCasesCount}" Margin="0,30,10,0" Height="25" Width="Auto" />
+                <TextBlock Text="Test Case Count:" Margin="0,30,10,0" Height="25" Width="Auto" FontWeight="Bold"/>
+                <TextBlock Name="tbTestCaseCount"  Text="{Binding TestCasesCount}" Margin="0,30,10,0" Height="25" Width="Auto" />                
             </StackPanel>
         </Grid>
     </Grid>    

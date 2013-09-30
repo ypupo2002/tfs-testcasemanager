@@ -2,11 +2,12 @@
 // https://testcasemanager.codeplex.com/ All rights reserved.
 // </copyright>
 // <author>Anton Angelov</author>
-namespace TestCaseManagerApp
+namespace TestCaseManagerApp.BusinessLogic.Managers
 {
     using System;
     using System.Collections.Generic;
     using Microsoft.TeamFoundation.TestManagement.Client;
+    using TestCaseManagerApp.BusinessLogic.Entities;
 
     /// <summary>
     /// Contains helper methods for working with SharedStep entities

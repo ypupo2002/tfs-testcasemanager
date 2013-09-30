@@ -2,9 +2,10 @@
 // http://www.codeproject.com/Articles/456591/Simple-Undo-redo-library-for-Csharp-NET?msg=4572235#xx4572235xx All rights reserved.
 // </copyright>
 // <author>Y Sujan</author>
-namespace UndoMethods
+namespace TestCaseManagerApp.BusinessLogic.Entities
 {
     using System.Collections.Generic;
+    using TestCaseManagerApp.BusinessLogic.Contracts;
 
     /// <summary>
     /// Extension methods which allow a List to be used as a stack. This was created as we need to be able to manipulate the stack size dynamically

@@ -6,6 +6,7 @@
         Title="Select Project"  ContentSource="/Views/ProjectSelectionView.xaml" WindowState="Maximized" Loaded="ModernWindow_Loaded">
     <mui:ModernWindow.TitleLinks>
         <mui:Link DisplayName="Settings" Source="/Views/SettingsView.xaml" />
-        <mui:Link DisplayName="Change Project" Source="/Views/ProjectSelectionView.xaml" />
+        <mui:Link DisplayName="Change Project" Source="/Views/ProjectSelectionView.xaml#skipAutoLoad=true" />
+        <mui:Link DisplayName="About" Source="/Views/AboutView.xaml" />
     </mui:ModernWindow.TitleLinks>
 </mui:ModernWindow>

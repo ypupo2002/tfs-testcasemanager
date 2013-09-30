@@ -2,7 +2,7 @@
 // https://testcasemanager.codeplex.com/ All rights reserved.
 // </copyright>
 // <author>Anton Angelov</author>
-namespace TestCaseManagerApp
+namespace TestCaseManagerApp.BusinessLogic.Entities
 {
     using System;
     using Microsoft.TeamFoundation.TestManagement.Client;
@@ -40,7 +40,10 @@ namespace TestCaseManagerApp
             this.Title = testCaseCore.Title;
             this.Area = testCaseCore.Area;
             this.Priority = (Priority)testCaseCore.Priority;
-            this.TeamFoundationIdentityName = new TeamFoundationIdentityName(testCaseCore.OwnerTeamFoundationId, testCaseCore.OwnerName);
+            if (testCaseCore.OwnerTeamFoundationId != default(Guid) && !string.IsNullOrEmpty(testCaseCore.OwnerName))
+            {
+                this.TeamFoundationIdentityName = new TeamFoundationIdentityName(testCaseCore.OwnerTeamFoundationId, testCaseCore.OwnerName);
+            }           
             this.OwnerDisplayName = testCaseCore.OwnerName;
             this.TeamFoundationId = testCaseCore.OwnerTeamFoundationId;
             this.TestSuiteId = (testSuiteBaseCore == null) ? null : (int?)testSuiteBaseCore.Id;

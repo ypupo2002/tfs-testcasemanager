@@ -2,7 +2,7 @@
 // http://www.codeproject.com/Articles/456591/Simple-Undo-redo-library-for-Csharp-NET?msg=4572235#xx4572235xx All rights reserved.
 // </copyright>
 // <author>Y Sujan</author>
-namespace UndoMethods
+namespace TestCaseManagerApp.BusinessLogic.Managers
 {
     using System;
     using System.Collections;
@@ -11,6 +11,8 @@ namespace UndoMethods
     using System.Linq;
     using System.Reflection;
     using System.Text;
+    using TestCaseManagerApp.BusinessLogic.Contracts;
+    using TestCaseManagerApp.BusinessLogic.Entities;
 
     /// <summary>
     /// This is a singleton class which stores undo/redo records and executes the undo/redo operations specified in these records

@@ -13,7 +13,7 @@ namespace TestCaseManagerApp.ViewModels
     using Microsoft.TeamFoundation.Server;
     using Microsoft.TeamFoundation.TestManagement.Client;
     using TestCaseManagerApp.BusinessLogic.Entities;
-    using UndoMethods;
+    using TestCaseManagerApp.BusinessLogic.Managers;
 
     /// <summary>
     /// Contains methods and properties related to the TestCaseEdit View
@@ -87,18 +87,10 @@ namespace TestCaseManagerApp.ViewModels
                     ITestCase testCaseCore = ExecutionContext.TestManagementTeamProject.TestCases.Find(this.EditViewContext.TestCaseId);
                     this.TestCase = new TestCase(testCaseCore, testSuiteBaseCore);
                 }
-                this.AlreadyAddedSharedSteps = new Dictionary<int, string>();
                 this.ObservableSharedSteps = new ObservableCollection<SharedStep>();
                 this.InitializeInitialSharedStepCollection();                
                 this.InitializeObservableSharedSteps();
-                //if (!this.EditViewContext.ComesFromSharedStep)
-                //{
-                    this.InitializeTestCaseTestStepsFromITestCaseActions();
-                //}
-                //else
-                //{
-                //    this.InitializeTestStepsFromCopy();
-                //}
+                this.InitializeTestCaseTestStepsFromITestCaseActions();
                 this.EditViewContext.ComesFromSharedStep = false;
                 this.AssociatedAutomation = this.TestCase.ITestCase.GetAssociatedAutomation();
                 this.TestBase = this.TestCase;
@@ -125,14 +117,6 @@ namespace TestCaseManagerApp.ViewModels
             this.InitializeIdLabelFromTestBase(this.EditViewContext.CreateNew, this.EditViewContext.Duplicate);
             this.InitializePageTitle();
         }      
-
-        /// <summary>
-        /// Gets or sets the already added shared steps.
-        /// </summary>
-        /// <value>
-        /// The already added shared steps.
-        /// </value>
-        public Dictionary<int, string> AlreadyAddedSharedSteps { get; set; }
 
         /// <summary>
         /// Gets or sets the test case.
@@ -587,7 +571,7 @@ namespace TestCaseManagerApp.ViewModels
         /// </summary>
         private void InitializeTestCaseTestStepsFromITestCaseActions()
         {
-            List<TestStep> testSteps = TestStepManager.GetTestStepsFromTestActions(this.TestCase.ITestCase.Actions.ToList(), this.AlreadyAddedSharedSteps);
+            List<TestStep> testSteps = TestStepManager.GetTestStepsFromTestActions(this.TestCase.ITestCase.Actions);
             this.AddTestStepsToObservableCollection(testSteps);
         }
 

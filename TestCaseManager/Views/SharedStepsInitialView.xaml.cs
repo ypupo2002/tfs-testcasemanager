@@ -11,6 +11,7 @@ using System.Windows.Input;
 using FirstFloor.ModernUI.Windows;
 using FirstFloor.ModernUI.Windows.Controls;
 using FirstFloor.ModernUI.Windows.Navigation;
+using TestCaseManagerApp.BusinessLogic.Entities;
 using TestCaseManagerApp.ViewModels;
 
 namespace TestCaseManagerApp.Views

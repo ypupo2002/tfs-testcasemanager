@@ -4,16 +4,11 @@
 // <author>Anton Angelov</author>
 namespace TestCaseManagerApp.ViewModels
 {
-    using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.Linq;
-    using System.Windows.Forms;
-    using System.Windows.Threading;
-    using FirstFloor.ModernUI.Presentation;
-    using Microsoft.TeamFoundation.TestManagement.Client;
     using TestCaseManagerApp.BusinessLogic.Entities;
-    using TestCaseManagerApp.BusinessLogic.Enums;
+    using TestCaseManagerApp.BusinessLogic.Managers;
 
     /// <summary>
     /// Contains methods and properties related to the TestCasesInitial View

@@ -4,13 +4,12 @@
 // <author>Anton Angelov</author>
 namespace TestCaseManagerApp
 {
-    using System;
     using System.Windows;
     using System.Windows.Controls;
     using FirstFloor.ModernUI.Windows;
     using FirstFloor.ModernUI.Windows.Navigation;
+    using TestCaseManagerApp.BusinessLogic.Managers;
     using TestCaseManagerApp.Helpers;
-    using TestCaseManagerApp.ViewModels;
     /// <summary>
     /// Contains logic related to the settings page
     /// </summary>

@@ -2,10 +2,11 @@
 // http://www.codeproject.com/Articles/456591/Simple-Undo-redo-library-for-Csharp-NET?msg=4572235#xx4572235xx All rights reserved.
 // </copyright>
 // <author>Y Sujan</author>
-namespace UndoMethods
+namespace TestCaseManagerApp.BusinessLogic.Entities
 {
     using System.Collections.Generic;
     using System.Diagnostics;
+    using TestCaseManagerApp.BusinessLogic.Contracts;
 
     /// <summary>
     /// undo operation that will be pushed to stack with one parameter

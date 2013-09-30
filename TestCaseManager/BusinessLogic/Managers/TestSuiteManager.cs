@@ -2,7 +2,7 @@
 // https://testcasemanager.codeplex.com/ All rights reserved.
 // </copyright>
 // <author>Anton Angelov</author>
-namespace TestCaseManagerApp
+namespace TestCaseManagerApp.BusinessLogic.Managers
 {
     using System;
     using System.Collections.Generic;
@@ -10,7 +10,7 @@ namespace TestCaseManagerApp
     using System.Linq;
     using Microsoft.TeamFoundation.TestManagement.Client;
     using TestCaseManagerApp.BusinessLogic.Entities;
-using TestCaseManagerApp.BusinessLogic.Enums;
+    using TestCaseManagerApp.BusinessLogic.Enums;
 
     /// <summary>
     /// Contains helper methods for working with TestSuite entities
@@ -140,7 +140,7 @@ using TestCaseManagerApp.BusinessLogic.Enums;
             if (parentSuite != null && parentSuite is IStaticTestSuite && parentSuiteId != -1)
             {
                 IStaticTestSuite parentSuiteStatic = parentSuite as IStaticTestSuite;
-                parentSuiteStatic.Entries.Add(suiteToAdd);
+                parentSuiteStatic.Entries.Add(suiteToAdd); 
             }
             else
             {

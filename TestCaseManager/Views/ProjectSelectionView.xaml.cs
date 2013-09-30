@@ -3,20 +3,14 @@
 // </copyright>
 // <author>Anton Angelov</author>
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Sockets;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Forms;
 using FirstFloor.ModernUI.Presentation;
 using FirstFloor.ModernUI.Windows;
 using FirstFloor.ModernUI.Windows.Controls;
 using FirstFloor.ModernUI.Windows.Navigation;
 using Microsoft.TeamFoundation.Client;
-using Microsoft.TeamFoundation.TestManagement.Client;
+using TestCaseManagerApp.BusinessLogic.Managers;
 using TestCaseManagerApp.Helpers;
 using TestCaseManagerApp.ViewModels;
 
@@ -31,6 +25,11 @@ namespace TestCaseManagerApp.Views
         /// Indicates if the view model is already initialized
         /// </summary>
         private static bool isInitialized;
+
+        /// <summary>
+        /// The skip automatic load from registry
+        /// </summary>
+        private bool skipAutoLoad;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ProjectSelectionView"/> class.
@@ -55,6 +54,12 @@ namespace TestCaseManagerApp.Views
         /// <param name="e">An object that contains the navigation data.</param>
         public void OnFragmentNavigation(FragmentNavigationEventArgs e)
         {
+            FragmentManager fm = new FragmentManager(e.Fragment);
+            string skipAutoLoadStr = fm.Get("skipAutoLoad");
+            if (!string.IsNullOrEmpty(skipAutoLoadStr))
+            {
+                this.skipAutoLoad = bool.Parse(skipAutoLoadStr);
+            }
         }
 
         /// <summary>
@@ -108,7 +113,15 @@ namespace TestCaseManagerApp.Views
             {
                 this.DataContext = this.ProjectSelectionViewModel;
                 isInitialized = true;
-                HideProgressBar();
+                if (this.ProjectSelectionViewModel.IsInitializedFromRegistry && !this.skipAutoLoad)
+                {
+                    ExecutionContext.Preferences.TestPlan = TestPlanManager.GetTestPlanByName(ExecutionContext.TestManagementTeamProject, this.ProjectSelectionViewModel.SelectedTestPlan);
+                    this.AddNewLinksToWindow();
+                }
+                else
+                {
+                    HideProgressBar();
+                }
             }, TaskScheduler.FromCurrentSynchronizationContext());
         }
 
@@ -149,8 +162,8 @@ namespace TestCaseManagerApp.Views
         /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void DisplayButton_Click(object sender, RoutedEventArgs e)
         {
-            string selectedTestPlan = cbTestPlans.Text;
-            if (string.IsNullOrEmpty(selectedTestPlan))
+            this.ProjectSelectionViewModel.SelectedTestPlan = cbTestPlans.Text;
+            if (string.IsNullOrEmpty(this.ProjectSelectionViewModel.SelectedTestPlan))
             {
                 ModernDialog.ShowMessage("No test plan selected.", "Warning", MessageBoxButton.OK);
                 return;
@@ -160,7 +173,8 @@ namespace TestCaseManagerApp.Views
                 ModernDialog.ShowMessage("No test project selected.", "Warning", MessageBoxButton.OK);
                 return;
             }
-            ExecutionContext.Preferences.TestPlan = TestPlanManager.GetTestPlanByName(ExecutionContext.TestManagementTeamProject, selectedTestPlan);
+            RegistryManager.WriteCurrentTestPlan(this.ProjectSelectionViewModel.SelectedTestPlan);
+            ExecutionContext.Preferences.TestPlan = TestPlanManager.GetTestPlanByName(ExecutionContext.TestManagementTeamProject, this.ProjectSelectionViewModel.SelectedTestPlan);
             this.AddNewLinksToWindow();
         }
 

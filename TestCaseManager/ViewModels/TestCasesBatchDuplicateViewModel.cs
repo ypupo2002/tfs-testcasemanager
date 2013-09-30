@@ -9,11 +9,9 @@ namespace TestCaseManagerApp.ViewModels
     using System.Collections.ObjectModel;
     using System.Linq;
     using System.Windows.Documents;
-    using System.Windows.Threading;
-    using FirstFloor.ModernUI.Presentation;
     using Microsoft.TeamFoundation.TestManagement.Client;
     using TestCaseManagerApp.BusinessLogic.Entities;
-    using TestCaseManagerApp.BusinessLogic.Enums;
+    using TestCaseManagerApp.BusinessLogic.Managers;
 
     /// <summary>
     /// Contains methods and properties related to the TestCasesBatchDuplicate View
@@ -174,8 +172,9 @@ namespace TestCaseManagerApp.ViewModels
             string assignedToFilter = this.InitialViewFilters.AssignedToFilter.ToLower();
 
             var filteredList = this.InitialTestCaseCollection.Where(t =>
+                (t.ITestCase != null) &&
                 (shouldSetTextFilter ? (t.ITestCase.Title.ToLower().Contains(titleFilter)) : true) &&
-                (shouldSetSuiteFilter ? t.ITestSuiteBase.Title.ToLower().Contains(suiteFilter) : true) &&
+                (this.FilterTestCasesBySuite(shouldSetSuiteFilter, suiteFilter, t)) &&
                 (shouldSetPriorityFilter ? t.Priority.ToString().ToLower().Contains(priorityFilter) : true) &&
                 (shouldSetAssignedToFilter ? t.TeamFoundationIdentityName.DisplayName.ToLower().Contains(assignedToFilter) : true)
                 ).ToList();
@@ -382,6 +381,29 @@ namespace TestCaseManagerApp.ViewModels
             }
 
             return newSharedStepId;
+        }
+
+        /// <summary>
+        /// Filters the test cases by suite.
+        /// </summary>
+        /// <param name="shouldSetSuiteFilter">if set to <c>true</c> [should set suite filter].</param>
+        /// <param name="suiteFilter">The suite filter.</param>
+        /// <param name="testCase">The test case.</param>
+        /// <returns>should the test case be in</returns>
+        private bool FilterTestCasesBySuite(bool shouldSetSuiteFilter, string suiteFilter, TestCase testCase)
+        {
+            if (!shouldSetSuiteFilter)
+            {
+                return true;
+            }
+            else if (testCase.ITestSuiteBase != null)
+            {
+                return testCase.ITestSuiteBase.Title.ToLower().Contains(suiteFilter);
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }

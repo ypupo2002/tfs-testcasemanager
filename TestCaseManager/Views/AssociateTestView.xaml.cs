@@ -11,6 +11,7 @@ namespace TestCaseManagerApp.Views
     using FirstFloor.ModernUI.Windows.Controls;
     using FirstFloor.ModernUI.Windows.Navigation;
     using TestCaseManagerApp.BusinessLogic.Entities;
+    using TestCaseManagerApp.BusinessLogic.Managers;
     using TestCaseManagerApp.Helpers;
     using TestCaseManagerApp.ViewModels;
 

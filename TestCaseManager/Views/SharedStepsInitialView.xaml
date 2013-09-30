@@ -23,11 +23,6 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
-            <!--<Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" MinWidth="65"/>
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="6*" MinWidth="800"/>
-            </Grid.ColumnDefinitions>-->
             <StackPanel Orientation="Horizontal" Grid.ColumnSpan="2">
                 <TextBlock Text="Search" Margin="10,0,10,30" Height="25" Width="Auto" FontWeight="Bold" FontSize="18" HorizontalAlignment="Left" Grid.Row="0"/>
                 
@@ -77,9 +72,16 @@
                 </Grid>               
             </StackPanel>
             
-            <DataGrid ItemsSource="{Binding Path=ObservableSharedSteps}" AutoGenerateColumns="False" Name="dgSharedSteps" Grid.Row="2" MouseDoubleClick="dgSharedSteps_MouseDoubleClick" 
-                      IsReadOnly="True" SelectionMode="Single" SelectionUnit="FullRow" TabIndex="4" PreviewKeyDown="dgSharedSteps_KeyDown" 
+            <DataGrid ItemsSource="{Binding Path=ObservableSharedSteps}" AutoGenerateColumns="False" Name="dgSharedSteps" Grid.Row="2"
+                      IsReadOnly="True" SelectionMode="Single" SelectionUnit="FullRow" TabIndex="4"
                       SelectedCellsChanged="dgSharedSteps_SelectedCellsChanged" Margin="{StaticResource SplitRight}">
+                <DataGrid.RowStyle>
+                    <Style TargetType="{x:Type DataGridRow}">
+                        <EventSetter Event="MouseDoubleClick" Handler="dgSharedSteps_MouseDoubleClick" />
+                        <EventSetter Event="PreviewKeyDown" Handler="dgSharedSteps_KeyDown" />
+                    </Style>
+                </DataGrid.RowStyle>
+                
                 <DataGrid.ContextMenu>
                     <ContextMenu>
                         <MenuItem Name="dgSharedStepsContextItemPreview" Command="{x:Static local:TestCasesInitialView.PreviewCommand}" Header="Preview"/>

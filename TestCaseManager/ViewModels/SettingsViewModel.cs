@@ -9,6 +9,7 @@ namespace TestCaseManagerApp.ViewModels
     using System.Linq;
     using System.Windows.Media;
     using FirstFloor.ModernUI.Presentation;
+    using TestCaseManagerApp.BusinessLogic.Managers;
 
     /// <summary>
     /// Contains methods and properties related to the Settings View

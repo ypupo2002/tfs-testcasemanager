@@ -2,12 +2,12 @@
 // https://testcasemanager.codeplex.com/ All rights reserved.
 // </copyright>
 // <author>Anton Angelov</author>
-namespace UndoMethods
+namespace TestCaseManagerApp.BusinessLogic.Entities
 {
     using System;
     using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
+    using TestCaseManagerApp.BusinessLogic.Contracts;
+    using TestCaseManagerApp.BusinessLogic.Managers;
 
     /// <summary>
     /// This acts as a container for multiple undo/redo records.

@@ -14,6 +14,7 @@ namespace TestCaseManagerApp.ViewModels
     using System.Windows.Media;
     using FirstFloor.ModernUI.Presentation;
     using Microsoft.TeamFoundation.TestManagement.Client;
+    using TestCaseManagerApp.BusinessLogic.Managers;
     
     /// <summary>
     /// Holds PromptDialogView Properties

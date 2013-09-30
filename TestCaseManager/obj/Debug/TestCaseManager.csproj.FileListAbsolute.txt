@@ -180,6 +180,8 @@ D:\Projects\TestCaseManager\TestCaseManager\obj\Debug\Views\TestCasesInitialView
 D:\Projects\TestCaseManager\TestCaseManager\obj\Debug\TestCaseManager.g.resources
 D:\Projects\TestCaseManager\TestCaseManager\obj\Debug\TestCaseManagerApp.Properties.Resources.resources
 D:\Projects\TestCaseManager\TestCaseManager\obj\Debug\TestCaseManager.csproj.GenerateResource.Cache
-D:\Projects\TestCaseManager\TestCaseManager\obj\Debug\TestCaseManager.csprojResolveAssemblyReference.cache
 D:\Projects\TestCaseManager\TestCaseManager\obj\Debug\Views\SharedStepsInitialView.g.cs
 D:\Projects\TestCaseManager\TestCaseManager\obj\Debug\Views\SharedStepsInitialView.baml
+D:\Projects\TestCaseManager\TestCaseManager\obj\Debug\TestCaseManager.csprojResolveAssemblyReference.cache
+D:\Projects\TestCaseManager\TestCaseManager\obj\Debug\Views\AboutView.baml
+D:\Projects\TestCaseManager\TestCaseManager\obj\Debug\Views\AboutView.g.cs

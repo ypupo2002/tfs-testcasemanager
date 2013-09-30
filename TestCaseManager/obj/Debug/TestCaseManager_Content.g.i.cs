@@ -8,8 +8,6 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("licenses/modernui/icons.license.txt")]
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("licenses/modernui/modernui.license.txt")]
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("licenses/modernui/relativeanimatingcontentcontrol.license.txt")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("templates/testcasesinsuitehtmltemplate.html")]
 
 
