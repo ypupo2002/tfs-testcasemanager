@@ -1047,7 +1047,33 @@ namespace TestCaseManagerApp.Views
         /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void btnExport_Click(object sender, RoutedEventArgs e)
         {
+            Microsoft.Win32.SaveFileDialog dlg = new Microsoft.Win32.SaveFileDialog();
 
+            // Set filter for file extension and default file extension 
+            dlg.DefaultExt = ".html";
+            dlg.Filter = "Html Files (*.html)|*.html";
+
+            // Display OpenFileDialog by calling ShowDialog method 
+            bool? result = dlg.ShowDialog();
+
+            // Get the selected file name and display in a TextBox 
+            if (result == true)
+            {
+                // Open document 
+                string filename = dlg.FileName;
+                this.ShowTestCasesProgressbar();
+                List<TestCase> suiteTestCaseCollection = new List<TestCase>();
+                Task t = Task.Factory.StartNew(() =>
+                {
+                    this.TestCasesInitialViewModel.ExportTestCases(filename);
+                });
+                t.ContinueWith(antecedent =>
+                {
+                    this.HideTestCasesProgressbar();
+                    ModernDialog.ShowMessage("Test Cases Exported!", "Success!", MessageBoxButton.OK);
+                    System.Diagnostics.Process.Start(filename);
+                }, TaskScheduler.FromCurrentSynchronizationContext());                
+            }            
         }
     }
 }

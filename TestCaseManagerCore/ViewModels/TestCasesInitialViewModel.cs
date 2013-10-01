@@ -6,6 +6,7 @@ namespace TestCaseManagerCore.ViewModels
 {
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
+    using System.IO;
     using System.Linq;
     using System.Windows;
     using System.Windows.Forms;
@@ -14,6 +15,7 @@ namespace TestCaseManagerCore.ViewModels
     using TestCaseManagerCore.BusinessLogic.Entities;
     using TestCaseManagerCore.BusinessLogic.Enums;
     using TestCaseManagerCore.BusinessLogic.Managers;
+    using TestCaseManagerCore.Templates;
 
     /// <summary>
     /// Contains methods and properties related to the TestCasesInitial View
@@ -210,9 +212,20 @@ namespace TestCaseManagerCore.ViewModels
         /// <summary>
         /// Exports the test cases.
         /// </summary>
-        public void ExportTestCases()
+        /// <param name="fileName">Name of the file.</param>
+        public void ExportTestCases(string fileName)
         {
             List<TestCaseFull> fullTestCases = this.GetAllFullTestCasesForObservableTestCases();
+            HtmlTestCaseExportTemplate htmlTestCaseExportTemplate = new HtmlTestCaseExportTemplate();
+            htmlTestCaseExportTemplate.Session = new Dictionary<string, object>();
+            htmlTestCaseExportTemplate.Session.Add("FullTestCases", fullTestCases);
+            htmlTestCaseExportTemplate.Initialize();
+            string currentSvcFileContent = htmlTestCaseExportTemplate.TransformText();
+            StreamWriter writer = new StreamWriter(fileName);
+            using (writer)
+            {
+                writer.WriteLine(currentSvcFileContent);
+            }
         }      
 
         /// <summary>

@@ -88,9 +88,9 @@ namespace TestCaseManagerCore.ViewModels
                     this.TestCase = new TestCase(testCaseCore, testSuiteBaseCore);
                 }
                 this.ObservableSharedSteps = new ObservableCollection<SharedStep>();
-                this.InitializeInitialSharedStepCollection();                
-                this.InitializeObservableSharedSteps();
-                this.InitializeTestCaseTestStepsFromITestCaseActions();
+                 this.InitializeObservableSharedSteps();
+                this.InitializeInitialSharedStepCollection();
+                this.InitializeTestCaseTestStepsFromITestCaseActions();    
                 this.EditViewContext.ComesFromSharedStep = false;
                 this.AssociatedAutomation = this.TestCase.ITestCase.GetAssociatedAutomation();
                 this.TestBase = this.TestCase;

@@ -5,6 +5,7 @@
 namespace TestCaseManagerApp
 {
     using System;
+    using System.IO;
     using System.Reflection;
     using System.Windows;
     using System.Windows.Controls;
@@ -30,7 +31,7 @@ namespace TestCaseManagerApp
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
             tbVersion.Text = Assembly.GetExecutingAssembly().GetName().Version.ToString();
-            tbDate.Text = DateTime.Now.ToShortDateString();
+            tbDate.Text = File.GetCreationTime(Assembly.GetExecutingAssembly().Location).ToShortDateString();
         }
     }
 }

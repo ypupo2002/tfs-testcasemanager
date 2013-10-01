@@ -116,7 +116,7 @@ namespace TestCaseManagerApp.Views
                 isInitialized = true;
                 if (this.ProjectSelectionViewModel.IsInitializedFromRegistry && !this.skipAutoLoad)
                 {
-                    ExecutionContext.Preferences.TestPlan = TestPlanManager.GetTestPlanByName(ExecutionContext.TestManagementTeamProject, this.ProjectSelectionViewModel.SelectedTestPlan);
+                    ExecutionContext.Preferences.TestPlan = TestPlanManager.GetTestPlanByName(ExecutionContext.TestManagementTeamProject,     this.ProjectSelectionViewModel.SelectedTestPlan);
                     this.AddNewLinksToWindow();
                 }
                 else

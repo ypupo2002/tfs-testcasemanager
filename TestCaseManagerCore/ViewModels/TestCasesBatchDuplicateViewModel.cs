@@ -9,6 +9,8 @@ namespace TestCaseManagerCore.ViewModels
     using System.Collections.ObjectModel;
     using System.Linq;
     using System.Windows.Documents;
+    using Microsoft.TeamFoundation.Framework.Client;
+    using Microsoft.TeamFoundation.Framework.Common;
     using Microsoft.TeamFoundation.TestManagement.Client;
     using TestCaseManagerCore.BusinessLogic.Entities;
     using TestCaseManagerCore.BusinessLogic.Managers;
@@ -310,6 +312,9 @@ namespace TestCaseManagerCore.ViewModels
         private void InitializeTeamFoundationIdentityNames()
         {
             var allUserIdentityNames = ExecutionContext.TestManagementTeamProject.TfsIdentityStore.AllUserIdentityNames;
+            //IIdentityManagementService identityManagementService = ExecutionContext.TfsTeamProjectCollection.GetService<IIdentityManagementService>();
+            //TeamFoundationIdentity[][] identities = identityManagementService.ReadIdentities(IdentitySearchFactor.AccountName,
+            //    new[] { "Project Collection Valid Users" }, MembershipQuery.Expanded, ReadIdentityOptions.ExtendedProperties);
             foreach (TeamFoundationIdentityName currentName in allUserIdentityNames)
             {
                 this.ObservableTeamFoundationIdentityNames.Add(currentName);
