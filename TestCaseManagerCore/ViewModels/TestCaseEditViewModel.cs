@@ -76,7 +76,11 @@ namespace TestCaseManagerCore.ViewModels
             if (!this.EditViewContext.IsSharedStep)
             {
                 this.ShowTestCaseSpecificFields = true;
-                ITestSuiteBase testSuiteBaseCore = TestSuiteManager.GetTestSuiteById(this.EditViewContext.TestSuiteId);
+                ITestSuiteBase testSuiteBaseCore = null;
+                if (this.EditViewContext.TestSuiteId != -1 )
+                {
+                    testSuiteBaseCore = TestSuiteManager.GetTestSuiteById(this.EditViewContext.TestSuiteId);
+                }
                 if (this.EditViewContext.CreateNew && !this.EditViewContext.Duplicate)
                 {
                     ITestCase newTestCase = ExecutionContext.TestManagementTeamProject.TestCases.Create();
@@ -88,7 +92,7 @@ namespace TestCaseManagerCore.ViewModels
                     this.TestCase = new TestCase(testCaseCore, testSuiteBaseCore);
                 }
                 this.ObservableSharedSteps = new ObservableCollection<SharedStep>();
-                 this.InitializeObservableSharedSteps();
+                this.InitializeObservableSharedSteps();
                 this.InitializeInitialSharedStepCollection();
                 this.InitializeTestCaseTestStepsFromITestCaseActions();   
                 this.AssociatedAutomation = this.TestCase.ITestCase.GetAssociatedAutomation();

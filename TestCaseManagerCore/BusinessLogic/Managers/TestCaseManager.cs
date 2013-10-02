@@ -166,7 +166,7 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
         /// <param name="newSuiteTitle">The new suite title.</param>
         /// <param name="testSteps">The test steps.</param>
         /// <returns>the saved test case</returns>
-        public static TestCase Save(this TestCase testCase, bool createNew, string newSuiteTitle, ICollection<TestStep> testSteps)
+        public static TestCase Save(this TestCase testCase, bool createNew, int? suiteId, ICollection<TestStep> testSteps)
         {
             TestCase currentTestCase = testCase;
             if (createNew)
@@ -198,10 +198,21 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
                     currentTestCase.ITestCase.Actions.Add(testStepCore);
                 }
             }
+            
+            if (suiteId != null)
+            {
+                var newSuite = TestSuiteManager.GetTestSuiteById((int)suiteId);
+                testCase.ITestSuiteBase = newSuite;
+            }        
             currentTestCase.ITestCase.Flush();
             currentTestCase.ITestCase.Save();
+            if (suiteId != null)
+            {
+                SetTestCaseSuite((int)suiteId, currentTestCase);
+            } 
 
-            SetTestCaseSuite(newSuiteTitle, currentTestCase);
+            currentTestCase.ITestCase.Flush();
+            currentTestCase.ITestCase.Save();
 
             return currentTestCase;
         }
@@ -277,13 +288,16 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
         /// <summary>
         /// Sets the test case suite.
         /// </summary>
-        /// <param name="newSuiteTitle">The new suite title.</param>
+        /// <param name="suiteId">The suite unique identifier.</param>
         /// <param name="testCase">The test case.</param>
-        private static void SetTestCaseSuite(string newSuiteTitle, TestCase testCase)
+        private static void SetTestCaseSuite(int suiteId, TestCase testCase)
         {
-            var newSuite = TestSuiteManager.GetTestSuiteByName(newSuiteTitle);
-            newSuite.AddTestCase(testCase.ITestCase);
-            testCase.ITestSuiteBase = newSuite;
+            var newSuite = TestSuiteManager.GetTestSuiteById(suiteId);
+            if (newSuite != null)
+            {
+                newSuite.AddTestCase(testCase.ITestCase);
+                testCase.ITestSuiteBase = newSuite;
+            }         
         }        
     }
 }

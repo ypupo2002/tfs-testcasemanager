@@ -15,6 +15,6 @@ namespace TestCaseManagerCore.BusinessLogic.Enums
     /// </summary>
     public enum Priority
     {
-        VeryHigh, High, Medium, Low
+        VeryHigh = 1, High, Medium, Low
     }
 }
