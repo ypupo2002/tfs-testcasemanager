@@ -120,8 +120,7 @@ namespace TestCaseManagerApp.Views
         public TestCaseEditView()
         {
             this.InitializeComponent();
-            this.InitializeFastKeys();
-            editViewContext = new EditViewContext();
+            this.InitializeFastKeys();            
         }  
 
         /// <summary>
@@ -155,6 +154,7 @@ namespace TestCaseManagerApp.Views
         /// <param name="e">An object that contains the navigation data.</param>
         public void OnNavigatedTo(NavigationEventArgs e)
         {
+            this.editViewContext = new EditViewContext();
             editViewContext.IsInitialized = false;
             ComboBoxDropdownExtensions.SetOpenDropDownAutomatically(this.cbArea, ExecutionContext.SettingsViewModel.HoverBehaviorDropDown);
             ComboBoxDropdownExtensions.SetOpenDropDownAutomatically(this.cbPriority, ExecutionContext.SettingsViewModel.HoverBehaviorDropDown);
@@ -288,7 +288,7 @@ namespace TestCaseManagerApp.Views
         /// </summary>
         /// <param name="e">The <see cref="FragmentNavigationEventArgs"/> instance containing the event data.</param>
         private void InitializeUrlParameters(FragmentNavigationEventArgs e)
-        {
+        {         
             this.editViewContext.CreateNew = false;
             this.editViewContext.Duplicate = false;
             FragmentManager fm = new FragmentManager(e.Fragment);
@@ -326,7 +326,6 @@ namespace TestCaseManagerApp.Views
             {
                 this.editViewContext.SharedStepId = int.Parse(sharedStepIdStr);
             }
-
         }
 
         /// <summary>
@@ -877,7 +876,6 @@ namespace TestCaseManagerApp.Views
                     result = MessageBoxResult.Cancel;
                     this.editViewContext.IsSharedStep = false;
                     this.editViewContext.ComeFromTestCase = false;
-                    this.editViewContext.ComesFromSharedStep = true;
                     this.editViewContext.IsInitialized = false;
                     this.InitializeInternal();
                 }

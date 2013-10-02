@@ -360,6 +360,8 @@ namespace TestCaseManagerApp.Views
             t.ContinueWith(antecedent =>
             {
                 this.TestCasesBatchDuplicateViewModel.InitializeTestCases();
+                this.DataContext = this.TestCasesBatchDuplicateViewModel;
+                this.TestCasesBatchDuplicateViewModel.FilterTestCases();
                 HideProgressBar();
                 ModernDialog.ShowMessage(string.Format("{0} test cases duplicated.", duplicatedCount), "Success!", MessageBoxButton.OK);
             }, TaskScheduler.FromCurrentSynchronizationContext());
@@ -384,6 +386,7 @@ namespace TestCaseManagerApp.Views
             t.ContinueWith(antecedent =>
             {
                 this.TestCasesBatchDuplicateViewModel.InitializeTestCases();
+                this.DataContext = this.TestCasesBatchDuplicateViewModel; 
                 this.TestCasesBatchDuplicateViewModel.FilterTestCases();
                 HideProgressBar();
                 ModernDialog.ShowMessage(string.Format("{0} test cases replaced.", replacedCount), "Success!", MessageBoxButton.OK);

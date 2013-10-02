@@ -4,6 +4,7 @@
 // <author>Anton Angelov</author>
 namespace TestCaseManagerCore.ViewModels
 {
+    using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.IO;
@@ -54,7 +55,16 @@ namespace TestCaseManagerCore.ViewModels
             List<TestCase> suiteTestCaseCollection = new List<TestCase>();
             if (this.selectedSuiteId != -1)
             {
-                suiteTestCaseCollection = TestCaseManager.GetAllTestCaseFromSuite(this.selectedSuiteId);
+                try
+                {
+                    suiteTestCaseCollection = TestCaseManager.GetAllTestCaseFromSuite(this.selectedSuiteId);
+                }
+                catch(NullReferenceException ex)
+                {
+                    // No such suite in current test project
+                    // TODO: log the exception
+                    suiteTestCaseCollection = TestCaseManager.GetAllTestCasesInTestPlan();
+                }
             }
             else
             {

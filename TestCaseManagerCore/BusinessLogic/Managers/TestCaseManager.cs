@@ -74,7 +74,7 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
         {
             List<TestCase> testCases = new List<TestCase>();
             ExecutionContext.Preferences.TestPlan.Refresh();
-            ITestSuiteBase currentSuite = ExecutionContext.Preferences.TestPlan.Project.TestSuites.Find(suiteId);
+            ITestSuiteBase currentSuite = ExecutionContext.Preferences.TestPlan.Project.TestSuites.Find(suiteId);         
             currentSuite.Refresh();
             foreach (var currentTestCase in currentSuite.TestCases)
             {

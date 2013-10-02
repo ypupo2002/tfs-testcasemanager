@@ -90,8 +90,7 @@ namespace TestCaseManagerCore.ViewModels
                 this.ObservableSharedSteps = new ObservableCollection<SharedStep>();
                  this.InitializeObservableSharedSteps();
                 this.InitializeInitialSharedStepCollection();
-                this.InitializeTestCaseTestStepsFromITestCaseActions();    
-                this.EditViewContext.ComesFromSharedStep = false;
+                this.InitializeTestCaseTestStepsFromITestCaseActions();   
                 this.AssociatedAutomation = this.TestCase.ITestCase.GetAssociatedAutomation();
                 this.TestBase = this.TestCase;
             }
@@ -558,10 +557,16 @@ namespace TestCaseManagerCore.ViewModels
             ICommonStructureService css = (ICommonStructureService)ExecutionContext.TfsTeamProjectCollection.GetService(typeof(ICommonStructureService));
             ProjectInfo projectInfo = css.GetProjectFromName(ExecutionContext.Preferences.TestProjectName);
             NodeInfo[] nodes = css.ListStructures(projectInfo.Uri);
-            XmlElement areaTree = css.GetNodesXml(new string[] { nodes[0].Uri }, true);
-            areas.Clear();
-            XmlNode areaNodes = areaTree.ChildNodes[0];
-            this.CreateAreasList(areaNodes, areas);
+            foreach (NodeInfo currentNode in nodes)
+            {
+                if (currentNode.Name.Equals("Area"))
+                {
+                    XmlElement areaTree = css.GetNodesXml(new string[] { currentNode.Uri }, true);
+                    areas.Clear();
+                    XmlNode areaNodes = areaTree.ChildNodes[0];
+                    this.CreateAreasList(areaNodes, areas);
+                }
+            }          
 
             return areas;
         }

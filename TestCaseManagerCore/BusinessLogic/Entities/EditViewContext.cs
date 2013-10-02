@@ -98,13 +98,5 @@ namespace TestCaseManagerCore.BusinessLogic.Entities
         ///   <c>true</c> if [come from test case]; otherwise, <c>false</c>.
         /// </value>
         public bool ComeFromTestCase { get; set; }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether [comes from shared step].
-        /// </summary>
-        /// <value>
-        /// <c>true</c> if [comes from shared step]; otherwise, <c>false</c>.
-        /// </value>
-        public bool ComesFromSharedStep { get; set; }
     }
 }

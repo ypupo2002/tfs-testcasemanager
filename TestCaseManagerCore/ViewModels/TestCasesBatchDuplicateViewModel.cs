@@ -267,6 +267,14 @@ namespace TestCaseManagerCore.ViewModels
                 string newTitle = currentTestCase.ITestCase.Title.ReplaceAll(this.ReplaceContext.ObservableTextReplacePairs);
                 currentTestCase.ITestCase.Title = newTitle;
             }
+            if (this.ReplaceContext.ChangePriorities)
+            {
+                currentTestCase.Priority = this.ReplaceContext.SelectedPriority;
+            }
+            if (this.ReplaceContext.ChangeOwner)
+            {
+                currentTestCase.TeamFoundationIdentityName = this.ReplaceContext.SelectedTeamFoundationIdentityName;
+            }
             this.ReplaceStepsInTestCase(currentTestCase,testSteps);
 
             currentTestCase.ITestCase.Flush();
@@ -311,13 +319,33 @@ namespace TestCaseManagerCore.ViewModels
         /// </summary>
         private void InitializeTeamFoundationIdentityNames()
         {
-            var allUserIdentityNames = ExecutionContext.TestManagementTeamProject.TfsIdentityStore.AllUserIdentityNames;
-            //IIdentityManagementService identityManagementService = ExecutionContext.TfsTeamProjectCollection.GetService<IIdentityManagementService>();
-            //TeamFoundationIdentity[][] identities = identityManagementService.ReadIdentities(IdentitySearchFactor.AccountName,
-            //    new[] { "Project Collection Valid Users" }, MembershipQuery.Expanded, ReadIdentityOptions.ExtendedProperties);
-            foreach (TeamFoundationIdentityName currentName in allUserIdentityNames)
+            this.ObservableTeamFoundationIdentityNames = new ObservableCollection<TeamFoundationIdentityName>();
+            ExecutionContext.TestManagementTeamProject.TfsIdentityStore.Refresh();
+            ITestManagementService testManagementService = (ITestManagementService)ExecutionContext.TfsTeamProjectCollection.GetService(typeof(ITestManagementService));
+            foreach (string currentProjectName in this.GetTeamProjectNamesUsingVcs())
             {
-                this.ObservableTeamFoundationIdentityNames.Add(currentName);
+                var project = testManagementService.GetTeamProject(currentProjectName);
+                foreach (var member in project.TfsIdentityStore.AllUserIdentities)
+                {
+                    if (member.TeamFoundationId != default(Guid) && !String.IsNullOrEmpty(member.DisplayName) && member.DisplayName.Contains(" ") && this.ObservableTeamFoundationIdentityNames.Where(x => x.TeamFoundationId == member.TeamFoundationId).ToArray().Count() == 0)
+                    {
+                        this.ObservableTeamFoundationIdentityNames.Add(new TeamFoundationIdentityName(member.TeamFoundationId, member.DisplayName));
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// Gets the team project names using VCS.
+        /// </summary>
+        /// <returns></returns>
+        private IEnumerable<string> GetTeamProjectNamesUsingVcs()
+        {
+            ReadOnlyCollection<CatalogNode> projectNodes = ExecutionContext.TfsTeamProjectCollection.CatalogNode.QueryChildren(new[] { CatalogResourceTypes.TeamProject }, false, CatalogQueryOptions.None);
+
+            foreach (var tp in projectNodes)
+            {
+                yield return tp.Resource.DisplayName;
             }
         }
 

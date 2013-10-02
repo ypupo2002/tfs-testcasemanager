@@ -27,3 +27,4 @@ D:\Projects\TestCaseManager\TestCaseManagerCore\bin\Debug\FirstFloor.ModernUI.xm
 D:\Projects\TestCaseManager\TestCaseManagerCore\bin\Debug\Microsoft.WITDataStore.dll
 D:\Projects\TestCaseManager\TestCaseManagerCore\obj\Debug\TestCaseManagerCore.dll
 D:\Projects\TestCaseManager\TestCaseManagerCore\obj\Debug\TestCaseManagerCore.pdb
+D:\Projects\TestCaseManager\TestCaseManagerCore\obj\Debug\TestCaseManagerCore.csprojResolveAssemblyReference.cache

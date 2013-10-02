@@ -13,13 +13,19 @@ namespace TestCaseManagerCore.ViewModels
     using FirstFloor.ModernUI.Windows.Controls;
     using Microsoft.TeamFoundation.Client;
     using Microsoft.TeamFoundation.TestManagement.Client;
+    using TestCaseManagerCore.BusinessLogic.Entities;
     using TestCaseManagerCore.BusinessLogic.Managers;
 
     /// <summary>
     /// Provides methods and properties related to the Project Selection View
     /// </summary>
-    public class ProjectSelectionViewModel
+    public class ProjectSelectionViewModel : BaseNotifyPropertyChanged
     {
+        /// <summary>
+        /// The full team project name
+        /// </summary>
+        private string fullTeamProjectName;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="ProjectSelectionViewModel"/> class.
         /// </summary>
@@ -42,7 +48,19 @@ namespace TestCaseManagerCore.ViewModels
         /// <value>
         /// The full name of the team project.
         /// </value>
-        public string FullTeamProjectName { get; set; }
+        public string FullTeamProjectName
+        {
+            get
+            {
+                return this.fullTeamProjectName;
+            }
+
+            set
+            {
+                this.fullTeamProjectName = value;
+                this.NotifyPropertyChanged();
+            }
+        }
 
         /// <summary>
         /// Gets or sets the observable test plans.
