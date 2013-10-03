@@ -526,7 +526,9 @@ namespace TestCaseManagerApp.Views
             {
                 TestCaseEditViewModel.CreateNewTestStepCollectionAfterMoveUp(startIndex, count);
                 this.SelectNextItemsAfterMoveUp(startIndex, count);
-            }       
+            }
+            dgTestSteps.UpdateLayout();
+            dgTestSteps.ScrollIntoView(dgTestSteps.SelectedItem);
         }
 
         /// <summary>
@@ -563,7 +565,9 @@ namespace TestCaseManagerApp.Views
             {
                 TestCaseEditViewModel.CreateNewTestStepCollectionAfterMoveDown(startIndex, count);
                 this.SelectNextItemsAfterMoveDown(startIndex, count);
-            }       
+            }
+            dgTestSteps.UpdateLayout();
+            dgTestSteps.ScrollIntoView(dgTestSteps.SelectedItems[dgTestSteps.SelectedItems.Count - 1]);
         }
 
         /// <summary>
@@ -1332,6 +1336,8 @@ namespace TestCaseManagerApp.Views
         /// <param name="e">The <see cref="MouseButtonEventArgs"/> instance containing the event data.</param>
         private void dgTestSteps_PreviewMouseRightButtonDown(object sender, MouseButtonEventArgs e)
         {
+            //List<TestStep> selectedTestSteps = this.AddMissedSelectedSharedSteps();
+            //this.UpdateSelectedTestSteps(selectedTestSteps);
             ClipBoardTestStep clipBoardItem = TestStepManager.GetFromClipboardTestSteps();
             bool isPasteEnabled = clipBoardItem == null ? false : true;
             dgTestStepsPasteMenuItem.IsEnabled = isPasteEnabled;

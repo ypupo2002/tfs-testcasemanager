@@ -30,3 +30,4 @@ D:\Projects\TestCaseManager\TestCaseManagerCore\obj\Debug\TestCaseManagerCore.pd
 D:\Projects\TestCaseManager\TestCaseManagerCore\bin\Debug\TestCaseManagerCore.dll.config
 D:\Projects\TestCaseManager\TestCaseManagerCore\bin\Debug\log4net.dll
 D:\Projects\TestCaseManager\TestCaseManagerCore\bin\Debug\log4net.xml
+D:\Projects\TestCaseManager\TestCaseManagerCore\obj\Debug\TestCaseManagerCore.csprojResolveAssemblyReference.cache
