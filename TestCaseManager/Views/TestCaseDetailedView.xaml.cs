@@ -158,6 +158,18 @@ namespace TestCaseManagerApp.Views
         private void DuplicateButton_Click(object sender, RoutedEventArgs e)
         {
             this.NavigateToTestCasesEditView(TestCaseDetailedViewModel.TestCase.ITestCase.Id, TestCaseDetailedViewModel.TestCase.ITestSuiteBase.Id, true, true);
+        }
+
+        /// <summary>
+        /// Handles the LoadingRow event of the dgTestSteps control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="DataGridRowEventArgs"/> instance containing the event data.</param>
+        private void dgTestSteps_LoadingRow(object sender, DataGridRowEventArgs e)
+        {
+            // Adding 1 to make the row count start at 1 instead of 0
+            // as pointed out by daub815
+            e.Row.Header = (e.Row.GetIndex() + 1).ToString(); 
         }   
     }
 }

@@ -19,7 +19,7 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="0.4*"/>
             </Grid.ColumnDefinitions>
-            <Label Content="Select Team Project" FontWeight="Bold" FontSize="18" Margin="10" Grid.Row="0"/>
+            <Label Content="Select Team Project" FontWeight="Bold" FontSize="26" Margin="10" Grid.Row="0" Height="Auto"/>
             <StackPanel Orientation="Vertical" Grid.Column="0" Grid.Row="1">            
                 <Label Content="Team Foundation Server Project" FontWeight="Bold" FontSize="12" Margin="10"/>
                 <Label Content="Test Plan" FontWeight="Bold" FontSize="12" Margin="10"/>

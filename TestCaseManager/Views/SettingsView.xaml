@@ -10,7 +10,7 @@
     <Grid>
         <ScrollViewer>
             <StackPanel x:Name="Panel" MinWidth="150">
-                <TextBlock Text="APPEARANCE" FontWeight="Bold" Margin="0,0,0,8" />
+                <TextBlock Text="Settings" FontWeight="Bold" Margin="0,0,0,8" Height="Auto" FontSize="26" />
 
                 <ListBox ItemsSource="{Binding AccentColors}"
                          SelectedItem="{Binding SelectedAccentColor, Mode=TwoWay}"

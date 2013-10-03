@@ -8,7 +8,7 @@
     <Grid>
         <ScrollViewer>
             <StackPanel >
-                <TextBlock Text="Test Case Manager" Style="{StaticResource Heading1}" Margin="0,0,0,15"/>
+                <TextBlock Text="About Test Case Manager" FontSize="26" Height="Auto" Margin="0,0,0,15"/>
                 <StackPanel Orientation="Horizontal">
                     <mui:BBCodeBlock Name="bbcVersion"  BBCode="[b]Version[/b]:" Margin="0,0,10,15"/>
                     <TextBlock Name="tbVersion" Margin="0,0,0,15"/>
@@ -19,8 +19,9 @@
                 </StackPanel>
                 <mui:BBCodeBlock BBCode="[b]License:[/b] [url=https://testcasemanager.codeplex.com/license]Microsoft Public License (Ms-PL)[/url]" Margin="0,0,0,15" />
                 <mui:BBCodeBlock BBCode="See the [url=https://testcasemanager.codeplex.com/documentation]online documentation[/url] to learn how to use the tool." Margin="0,0,0,15" />
-                <mui:BBCodeBlock BBCode="You can submit bugs in the [url=hhttps://testcasemanager.codeplex.com/workitem/list/basic]official issue tracking system[/url]." Margin="0,0,0,15" />
+                <mui:BBCodeBlock BBCode="You can submit bugs in the [url=https://testcasemanager.codeplex.com/discussions]official issue tracking system[/url]." Margin="0,0,0,15" />
                 <mui:BBCodeBlock BBCode="If you have any questions please use the [url=https://testcasemanager.codeplex.com/workitem/list/basic]official discussion chanel[/url]." Margin="0,0,0,15" />
+                <mui:BBCodeBlock BBCode="Created by: [b]Anton Angelov[/b]" Margin="0,0,0,15" />
                 <mui:BBCodeBlock BBCode="Send feedback to: [b]angelov.st.anton@gmail.com[/b]" Margin="0,0,0,15" />                
                 <TextBlock Text="APPEARANCE" Style="{StaticResource Heading2}" />
                 <mui:BBCodeBlock BBCode="The appearance of Test Case Manager can be changed on the fly. Make sure you visit the [url=/Views/SettingsView.xaml]settings[/url] to adapt the appearance to your preference." Margin="0,0,0,15"/>

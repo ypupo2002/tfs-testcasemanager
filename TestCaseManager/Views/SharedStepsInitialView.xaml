@@ -24,8 +24,7 @@
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
             <StackPanel Orientation="Horizontal" Grid.ColumnSpan="2">
-                <TextBlock Text="Search" Margin="10,0,10,30" Height="25" Width="Auto" FontWeight="Bold" FontSize="18" HorizontalAlignment="Left" Grid.Row="0"/>
-                
+                <TextBlock Text="Search Shared Steps" Margin="10,0,10,30" Height="Auto" Width="Auto" FontWeight="Bold" FontSize="26" HorizontalAlignment="Left" Grid.Row="0"/>                
             </StackPanel>
 
             <StackPanel Orientation="Vertical" Grid.Row="1">
@@ -75,12 +74,12 @@
             <DataGrid ItemsSource="{Binding Path=ObservableSharedSteps}" AutoGenerateColumns="False" Name="dgSharedSteps" Grid.Row="2"
                       IsReadOnly="True" SelectionMode="Single" SelectionUnit="FullRow" TabIndex="4"
                       SelectedCellsChanged="dgSharedSteps_SelectedCellsChanged" Margin="{StaticResource SplitRight}">
-                <DataGrid.RowStyle>
-                    <Style TargetType="{x:Type DataGridRow}">
+                <DataGrid.ItemContainerStyle>
+                    <Style TargetType="{x:Type DataGridRow}" BasedOn="{StaticResource {x:Type DataGridRow}}">
                         <EventSetter Event="MouseDoubleClick" Handler="dgSharedSteps_MouseDoubleClick" />
                         <EventSetter Event="PreviewKeyDown" Handler="dgSharedSteps_KeyDown" />
                     </Style>
-                </DataGrid.RowStyle>
+                </DataGrid.ItemContainerStyle>
                 
                 <DataGrid.ContextMenu>
                     <ContextMenu>

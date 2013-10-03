@@ -130,7 +130,7 @@ namespace TestCaseManagerCore.ViewModels
                 (shouldSetIdFilter ? (t.ISharedStep.Id.ToString().Contains(idFilter)) : true) &&
                 (shouldSetTextFilter ? (t.Title.ToLower().Contains(titleFilter)) : true) &&
                 (shouldSetPriorityFilter ? t.Priority.ToString().ToLower().Contains(priorityFilter) : true) &&
-                (shouldSetAssignedToFilter ? t.TeamFoundationIdentityName.DisplayName.ToLower().Contains(assignedToFilter) : true)
+                (t.TeamFoundationIdentityName != null &&  shouldSetAssignedToFilter ? t.TeamFoundationIdentityName.DisplayName.ToLower().Contains(assignedToFilter) : true)
                 ).ToList();
             this.ObservableSharedSteps.Clear();
             filteredList.ForEach(x => this.ObservableSharedSteps.Add(x));

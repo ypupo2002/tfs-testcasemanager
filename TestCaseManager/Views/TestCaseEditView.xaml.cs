@@ -367,8 +367,8 @@ namespace TestCaseManagerApp.Views
             {
                 testStepToInsert = TestStepManager.CreateNewTestStep(TestCaseEditViewModel.SharedStep.ISharedStep, stepTitle, expectedResult, default(Guid));
             }
-            TestCaseEditViewModel.InsertTestStepInTestCase(testStepToInsert, selectedIndex);
-            dgTestSteps.SelectedIndex = dgTestSteps.SelectedIndex + 1;
+            int newSelectedIndex = this.TestCaseEditViewModel.InsertTestStepInTestCase(testStepToInsert, selectedIndex);
+            dgTestSteps.SelectedIndex = newSelectedIndex + 1;
             dgTestSteps.Focus();
         }
 
@@ -422,12 +422,19 @@ namespace TestCaseManagerApp.Views
         /// Gets the test steps from grid.
         /// </summary>
         /// <param name="selectedTestSteps">The selected test steps.</param>
-        private void GetTestStepsFromGrid(List<TestStep> selectedTestSteps)
+        /// <returns>list of selected test steps</returns>
+        private List<TestStep> GetTestStepsFromGrid(List<TestStep> selectedTestSteps = null)
         {
+            if (selectedTestSteps == null)
+            {
+                selectedTestSteps = new List<TestStep>();
+            }
             foreach (var item in dgTestSteps.SelectedItems)
             {
                 selectedTestSteps.Add(item as TestStep);
             }
+
+            return selectedTestSteps;
         }
 
         /// <summary>
@@ -917,6 +924,7 @@ namespace TestCaseManagerApp.Views
                 currentBase = this.SaveSharedStepInternal();
             }
             UndoRedoManager.Instance().Clear();
+            
             return currentBase;
         }
 
@@ -959,7 +967,7 @@ namespace TestCaseManagerApp.Views
         private SharedStep SaveSharedStepInternal()
         {
             SharedStep savedSharedStep;
-            if (String.IsNullOrEmpty(this.TestCaseEditViewModel.TestCase.Title))
+            if (String.IsNullOrEmpty(this.TestCaseEditViewModel.TestBase.Title))
             {
                 ModernDialog.ShowMessage("Shared Step title cannot be empty!", "Warning", MessageBoxButton.OK);
                 return null;
@@ -978,7 +986,7 @@ namespace TestCaseManagerApp.Views
                 savedSharedStep = this.TestCaseEditViewModel.SharedStep.Save(false, this.TestCaseEditViewModel.ObservableTestSteps);
             }
             this.editViewContext.SharedStepId = savedSharedStep.ISharedStep.Id;
-            this.TestCaseEditViewModel.TestCaseIdLabel = this.editViewContext.SharedStepId.ToString();
+            this.TestCaseEditViewModel.TestCaseIdLabel = this.editViewContext.SharedStepId.ToString();            
 
             return savedSharedStep;
         }
@@ -1104,7 +1112,8 @@ namespace TestCaseManagerApp.Views
                     {
                         testStepToBeInserted.TestStepGuid = previousNewGuid;
                     }
-                    TestCaseEditViewModel.InsertTestStepInTestCase(testStepToBeInserted, selectedIndex++);
+                    int newSelectedId = TestCaseEditViewModel.InsertTestStepInTestCase(testStepToBeInserted, selectedIndex++);
+                    dgTestSteps.SelectedIndex = newSelectedId + 1;                
                     previousNewGuid = testStepToBeInserted.TestStepGuid;
                     previousOldGuid = copiedTestStep.TestStepGuid;
                 }
@@ -1389,7 +1398,18 @@ namespace TestCaseManagerApp.Views
                 dgTestStepsShareMenuItem.IsEnabled = false;
                 dgTestStepsDeleteMenuItem.IsEnabled = false;
             }
-
+            if(this.editViewContext.IsSharedStep)
+            {
+                dgTestStepsShareMenuItem.IsEnabled = false;
+                btnShare.IsEnabled = false;
+            }
+            List<TestStep> selectedTestSteps = this.GetTestStepsFromGrid();
+            if (this.TestCaseEditViewModel.IsSharedStepSelected(selectedTestSteps))
+            {
+                dgTestStepsShareMenuItem.IsEnabled = false;
+                btnShare.IsEnabled = false;
+            }
+            
             btnAdd.IsEnabled = true;
             if (dgSharedSteps.SelectedItems.Count == 0)
             {
@@ -1409,6 +1429,18 @@ namespace TestCaseManagerApp.Views
             {
                 btnAdd.IsEnabled = false;
             }
+        }
+
+        /// <summary>
+        /// Handles the LoadingRow event of the dgTestSteps control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.Windows.Controls.DataGridRowEventArgs"/> instance containing the event data.</param>
+        private void dgTestSteps_LoadingRow(object sender, System.Windows.Controls.DataGridRowEventArgs e)
+        {
+            // Adding 1 to make the row count start at 1 instead of 0
+            // as pointed out by daub815
+            e.Row.Header = (e.Row.GetIndex() + 1).ToString(); 
         }     
     }
 }

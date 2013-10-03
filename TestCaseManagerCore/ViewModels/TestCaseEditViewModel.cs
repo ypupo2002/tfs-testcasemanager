@@ -116,6 +116,7 @@ namespace TestCaseManagerCore.ViewModels
                 //this.TestCaseIdLabel = this.SharedStep.ISharedStep.Id.ToString();
                 this.ShowTestCaseSpecificFields = false;
                 this.TestBase = this.SharedStep;
+                this.ClearTestStepNames();
             }
             this.InitializeIdLabelFromTestBase(this.EditViewContext.CreateNew, this.EditViewContext.Duplicate);
             this.InitializePageTitle();
@@ -244,11 +245,11 @@ namespace TestCaseManagerCore.ViewModels
         {
             if (!this.EditViewContext.IsSharedStep && this.EditViewContext.CreateNew && !this.EditViewContext.Duplicate)
             {
-                this.PageTitle = "Create New";
+                this.PageTitle = "Create New Test Case";
             }
             else if (!this.EditViewContext.IsSharedStep && this.EditViewContext.CreateNew && this.EditViewContext.Duplicate)
             {
-                this.PageTitle = "Duplicate";
+                this.PageTitle = "Duplicate Test Case";
             }
             else if (this.EditViewContext.IsSharedStep && this.EditViewContext.CreateNew && !this.EditViewContext.Duplicate)
             {
@@ -264,7 +265,7 @@ namespace TestCaseManagerCore.ViewModels
             }
             else
             {
-                this.PageTitle = "Edit";
+                this.PageTitle = "Edit Test Case";
             }
         }
 
@@ -317,6 +318,16 @@ namespace TestCaseManagerCore.ViewModels
             }
 
             return finalStepTitle;
+        }
+
+        /// <summary>
+        /// Determines whether [is shared step selected] [the specified test steps].
+        /// </summary>
+        /// <param name="testSteps">The test steps.</param>
+        /// <returns>is shared step selected</returns>
+        public bool IsSharedStepSelected(List<TestStep> testSteps)
+        {
+            return testSteps.Where(x => x.IsShared).Count() > 0;
         }
 
         /// <summary>
@@ -401,8 +412,11 @@ namespace TestCaseManagerCore.ViewModels
         /// </summary>
         /// <param name="testStepToInsert">The test step to be insert.</param>
         /// <param name="selectedIndex">Index of the selected test step.</param>
-        public void InsertTestStepInTestCase(TestStep testStepToInsert, int selectedIndex)
+        /// <returns>new selected index</returns>
+        public int InsertTestStepInTestCase(TestStep testStepToInsert, int selectedIndex)
         {
+            bool isNextStepShared = this.IsNextTestStepShared(selectedIndex);
+            selectedIndex = this.FindNextNotSharedStepIndex(selectedIndex);
             // If you delete first step and call redo operation, the step should be inserted at the beginning
             if (selectedIndex == -2)
             {
@@ -417,6 +431,51 @@ namespace TestCaseManagerCore.ViewModels
                 this.ObservableTestSteps.Add(testStepToInsert);                 
             }
             UndoRedoManager.Instance().Push((r, i) => this.RemoveTestStepFromObservableCollection(r, i), testStepToInsert, selectedIndex);
+
+            return selectedIndex;
+        }
+
+        /// <summary>
+        /// Determines whether [is next test step shared] [the specified selected index].
+        /// </summary>
+        /// <param name="selectedIndex">Index of the selected.</param>
+        /// <returns></returns>
+        private bool IsNextTestStepShared(int selectedIndex)
+        {
+            bool isNextStepShared = false;
+            if (this.ObservableTestSteps.Count > selectedIndex + 1)
+            {
+                if (this.ObservableTestSteps[selectedIndex + 1].IsShared && !this.EditViewContext.IsSharedStep && this.ObservableTestSteps[selectedIndex].TestStepGuid.Equals(this.ObservableTestSteps[selectedIndex + 1].TestStepGuid))
+                {
+                    isNextStepShared = true;
+                }
+            }
+
+            return isNextStepShared;
+        }
+
+        /// <summary>
+        /// Finds the index of the next not shared step.
+        /// </summary>
+        /// <param name="selectedIndex">Index of the selected.</param>
+        /// <returns>new selected index</returns>
+        private int FindNextNotSharedStepIndex(int selectedIndex)
+        {
+            int newSelectedIndex = -1;
+            for (int i = selectedIndex; i < this.ObservableTestSteps.Count; i++)
+            {
+                if (this.IsNextTestStepShared(i))
+                {
+                    continue;
+                }
+                else
+                {
+                    newSelectedIndex = i;
+                    break;
+                }
+            }
+
+            return newSelectedIndex;
         }
 
         /// <summary>
@@ -520,6 +579,17 @@ namespace TestCaseManagerCore.ViewModels
                     this.RemoveTestStepFromObservableCollection(testStepsToBeRemoved[i], testStepsToBeRemoved[i].Index);
                 }
             }           
+        }
+
+        /// <summary>
+        /// Clears the test step names.
+        /// </summary>
+        private void ClearTestStepNames()
+        {
+            foreach (TestStep currentTestStep in this.ObservableTestSteps)
+            {
+                currentTestStep.Title = String.Empty;
+            }
         }
 
         /// <summary>

@@ -41,7 +41,7 @@
                 <ColumnDefinition Width="6*" MinWidth="800"/>
             </Grid.ColumnDefinitions>
             <StackPanel Orientation="Horizontal" Grid.ColumnSpan="2">
-                <TextBlock Text="Search" Margin="0,0,10,15" Height="25" Width="Auto" FontWeight="Bold" FontSize="18" HorizontalAlignment="Left" Grid.Row="0"/>
+                <TextBlock Text="Search Test Cases" Margin="0,0,10,15" Height="Auto" Width="Auto" FontWeight="Bold" FontSize="26" HorizontalAlignment="Left" Grid.Row="0"/>
                 
                 <!--TODO: fix the logic of the refresh-->
                 <Button Name="btnRefresh" Margin="10,0,10,30" Height="30" Width="90" VerticalAlignment="Center" Click="btnRefresh_Click" Visibility="Hidden">
@@ -116,7 +116,7 @@
 
             <TreeView  Name="tvSuites" Grid.Row="1" Grid.Column="0" Grid.RowSpan="2"  SelectedValuePath="Id" ItemsSource="{Binding Suites}" Margin="{StaticResource SplitLeft}">
                 <TreeView.ItemContainerStyle>
-                    <Style TargetType="{x:Type TreeViewItem}">
+                    <Style TargetType="{x:Type TreeViewItem}"  BasedOn="{StaticResource {x:Type TreeViewItem}}">
                         <Setter Property="IsExpanded" Value="{Binding Path=IsNodeExpanded, Mode=TwoWay}" />
                         <Setter Property="IsSelected" Value="{Binding Path=IsSelected, Mode=TwoWay}" />
                         <EventSetter Event="TreeViewItem.PreviewMouseRightButtonDown" Handler="TreeViewItem_PreviewMouseRightButtonDown"/>
@@ -165,12 +165,12 @@
                     </ContextMenu>
                 </DataGrid.ContextMenu>
 
-                <DataGrid.RowStyle>
-                    <Style TargetType="{x:Type DataGridRow}">
+                <DataGrid.ItemContainerStyle>
+                    <Style TargetType="{x:Type DataGridRow}"  BasedOn="{StaticResource {x:Type DataGridRow}}">
                         <EventSetter Event="MouseDoubleClick" Handler="dgTestCases_MouseDoubleClick" />
                         <EventSetter Event="PreviewKeyDown" Handler="dgTestCases_KeyDown" />
                     </Style>
-                </DataGrid.RowStyle>
+                </DataGrid.ItemContainerStyle>
 
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="ID"  Binding="{Binding ITestCase.Id}" Width="0.6*">

@@ -186,3 +186,5 @@ D:\Projects\TestCaseManager\TestCaseManager\obj\Debug\Views\AboutView.baml
 D:\Projects\TestCaseManager\TestCaseManager\obj\Debug\Views\AboutView.g.cs
 D:\Projects\TestCaseManager\TestCaseManager\bin\Debug\TestCaseManagerCore.dll
 D:\Projects\TestCaseManager\TestCaseManager\bin\Debug\TestCaseManagerCore.pdb
+D:\Projects\TestCaseManager\TestCaseManager\bin\Debug\log4net.dll
+D:\Projects\TestCaseManager\TestCaseManager\bin\Debug\log4net.xml

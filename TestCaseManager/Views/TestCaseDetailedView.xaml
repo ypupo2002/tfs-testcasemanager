@@ -19,7 +19,7 @@
             </Grid.RowDefinitions>
             
             <StackPanel Orientation="Vertical">
-                <TextBlock Text="Preview" Margin="10,0,10,30" Height="25" Width="Auto" FontSize="18" FontWeight="Bold" HorizontalAlignment="Left" Grid.Row="0"/>
+                <TextBlock Text="Preview Test Case" Margin="10,0,10,30" Height="Auto" Width="Auto" FontSize="26" FontWeight="Bold" HorizontalAlignment="Left" Grid.Row="0"/>
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
@@ -65,7 +65,7 @@
                 </Grid>
             </StackPanel>
 
-            <DataGrid ItemsSource="{Binding Path=ObservableTestSteps}" AutoGenerateColumns="False" Name="dgTestSteps" Height="Auto" Grid.Row="1" Margin="0,0,0,30">
+            <DataGrid ItemsSource="{Binding Path=ObservableTestSteps}" AutoGenerateColumns="False" Name="dgTestSteps" Height="Auto" Grid.Row="1" Margin="0,0,0,30" LoadingRow="dgTestSteps_LoadingRow">
                 <DataGrid.Columns>
                     <!--<DataGridTemplateColumn   Header="Step Name"  Width="150" MaxWidth="200" >
                         <DataGridTemplateColumn.HeaderStyle>

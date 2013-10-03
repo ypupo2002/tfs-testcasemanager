@@ -50,7 +50,7 @@
                     <ColumnDefinition Width="Auto"/>
                </Grid.ColumnDefinitions>
 
-                <TextBlock Text="{Binding PageTitle}"  Margin="10,0,10,20" Height="25" Width="Auto" FontSize="18" FontWeight="Bold" HorizontalAlignment="Left" Grid.Column="0"/>
+                <TextBlock Text="{Binding PageTitle}"  Margin="10,0,10,20" Height="Auto" Width="Auto" FontSize="26" FontWeight="Bold" HorizontalAlignment="Left" Grid.Column="0"/>
                 <Button IsEnabled="False" Content="Undo" Margin="0,0,0,20" Name="btnUndo" Width="100" Height="25" VerticalAlignment="Center" IsDefault="True" Click="btnUndo_Click" Grid.Column="1"/>
                 <Button IsEnabled="False" Content="Redo" Margin="20,0,10,20" Name="btnRedo" Width="100" Height="25" VerticalAlignment="Center" IsDefault="True" Click="btnRedo_Click" Grid.Column="2"/>
             </Grid>
@@ -143,7 +143,8 @@
 
                     <DataGrid ItemsSource="{Binding ObservableTestSteps}" AutoGenerateColumns="False" Name="dgTestSteps" IsReadOnly="True"
                           IsSynchronizedWithCurrentItem="True" SelectionMode="Extended"  SelectionUnit="FullRow" HorizontalAlignment="Left" Grid.Column="0"  
-                              MouseLeftButtonUp="dgTestSteps_MouseLeftButtonUp" PreviewMouseRightButtonDown="dgTestSteps_PreviewMouseRightButtonDown" SelectedCellsChanged="dgTestSteps_SelectedCellsChanged">
+                              MouseLeftButtonUp="dgTestSteps_MouseLeftButtonUp" PreviewMouseRightButtonDown="dgTestSteps_PreviewMouseRightButtonDown" 
+                              SelectedCellsChanged="dgTestSteps_SelectedCellsChanged" LoadingRow="dgTestSteps_LoadingRow">
                         <DataGrid.ContextMenu>
                             <ContextMenu>
                                 <MenuItem Name="dgTestStepsCutMenuItem" Command="{x:Static local:TestCaseEditView.CutTestStepsCommand}" Header="Cut" />
@@ -214,11 +215,12 @@
                 <DataGrid ItemsSource="{Binding ObservableSharedSteps}" AutoGenerateColumns="False" Name="dgSharedSteps" HorizontalScrollBarVisibility="Disabled"
                           IsReadOnly="True" Grid.Row="3" Grid.Column="2" IsEnabled="{Binding ShowTestCaseSpecificFields}"
                           SelectedCellsChanged="dgSharedSteps_SelectedCellsChanged">
-                    <DataGrid.RowStyle>
-                        <Style TargetType="{x:Type DataGridRow}">
+                  
+                    <DataGrid.ItemContainerStyle>
+                        <Style TargetType="{x:Type DataGridRow}" BasedOn="{StaticResource {x:Type DataGridRow}}">
                             <EventSetter Event="MouseDoubleClick" Handler="dgSharedSteps_MouseDoubleClick" />
                         </Style>
-                    </DataGrid.RowStyle>
+                    </DataGrid.ItemContainerStyle>
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Title" Binding="{Binding ISharedStep.Title}" Width="400">
                             <DataGridTextColumn.HeaderStyle>

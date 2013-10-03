@@ -491,6 +491,7 @@ namespace TestCaseManagerApp.Views
             // Remove the initial view filters because we are currently filtering by suite and the old filters are not valid any more
             this.TestCasesInitialViewModel.ResetInitialFilters();
             RegistryManager.WriteSelectedSuiteId(selectedSuiteId);
+            this.TestCasesInitialViewModel.TestCasesCount = "...";
             this.ShowTestCasesProgressbar();
             List<TestCase> suiteTestCaseCollection = new List<TestCase>();
             Task t = Task.Factory.StartNew(() =>
@@ -974,7 +975,11 @@ namespace TestCaseManagerApp.Views
         /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void btnRemoveTestCase_Click(object sender, RoutedEventArgs e)
         {
-            this.DisplayNonSelectionWarning();
+            if(dgTestCases.SelectedItems.Count == 0)
+            {
+                this.DisplayNonSelectionWarning();
+                return;
+            }
             this.RemoveTestCaseFromSuiteInternal();
         }
 

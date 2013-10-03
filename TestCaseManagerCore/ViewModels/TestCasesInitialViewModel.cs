@@ -49,6 +49,7 @@ namespace TestCaseManagerCore.ViewModels
         public TestCasesInitialViewModel()
         {
             this.InitialViewFilters = new InitialViewFilters();
+            ObservableCollection<Suite> subSuites = TestSuiteManager.GetAllSuites(ExecutionContext.Preferences.TestPlan.RootSuite.SubSuites);
 
             // Load last selected suite in the treeview in order to selected it again
             this.selectedSuiteId = RegistryManager.GetSelectedSuiteId();
@@ -63,7 +64,15 @@ namespace TestCaseManagerCore.ViewModels
                 {
                     // No such suite in current test project
                     // TODO: log the exception
-                    suiteTestCaseCollection = TestCaseManager.GetAllTestCasesInTestPlan();
+                    if (subSuites.Count > 0)
+                    {
+                        suiteTestCaseCollection = TestCaseManager.GetAllTestCaseFromSuite(subSuites[0].Id);
+                        this.selectedSuiteId = subSuites[0].Id;
+                    }
+                    else
+                    {                    
+                        suiteTestCaseCollection = TestCaseManager.GetAllTestCasesInTestPlan();
+                    }
                 }
             }
             else
@@ -76,7 +85,7 @@ namespace TestCaseManagerCore.ViewModels
             suiteTestCaseCollection.ForEach(t => this.ObservableTestCases.Add(t));
             this.InitializeInitialTestCaseCollection(this.ObservableTestCases);
             this.TestCasesCount = this.ObservableTestCases.Count.ToString();
-            ObservableCollection<Suite> subSuites = TestSuiteManager.GetAllSuites(ExecutionContext.Preferences.TestPlan.RootSuite.SubSuites);
+         
             this.Suites = new ObservableCollection<Suite>();
 
             // Add a master node which will represnt all test cases in the plan. If selected all test cases will be displayed.
@@ -260,7 +269,7 @@ namespace TestCaseManagerCore.ViewModels
                 (shouldSetTextFilter ? (t.ITestCase.Title.ToLower().Contains(titleFilter)) : true) &&
                 (this.FilterTestCasesBySuite(shouldSetSuiteFilter, suiteFilter, t)) &&
                 (shouldSetPriorityFilter ? t.Priority.ToString().ToLower().Contains(priorityFilter) : true) &&
-                (shouldSetAssignedToFilter ? t.TeamFoundationIdentityName.DisplayName.ToLower().Contains(assignedToFilter) : true) &&
+                (t.TeamFoundationIdentityName != null && shouldSetAssignedToFilter ? t.TeamFoundationIdentityName.DisplayName.ToLower().Contains(assignedToFilter) : true) &&
                 (!this.HideAutomated.Equals(t.ITestCase.IsAutomated) || !this.HideAutomated)
                 ).ToList();
             this.ObservableTestCases.Clear();
