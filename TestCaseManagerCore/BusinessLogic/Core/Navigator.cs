@@ -35,6 +35,18 @@ namespace TestCaseManagerCore
         }
 
         /// <summary>
+        /// Navigates the back.
+        /// </summary>
+        /// <param name="source">The source.</param>
+        public static void NavigateBack(this FrameworkElement source)
+        {
+            string url = "cmd://browseback";
+            //source.Navigate(url);
+            DefaultLinkNavigator navigator = new DefaultLinkNavigator();
+            navigator.Navigate(new Uri(url, UriKind.Absolute), source, "_self");
+        }
+
+        /// <summary>
         /// Navigates the automatic shared steps initial view.
         /// </summary>
         /// <param name="source">The source.</param>

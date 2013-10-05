@@ -4,12 +4,17 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:mui="http://firstfloorsoftware.com/ModernU"
+              xmlns:local="clr-namespace:TestCaseManagerApp.Views"
              xmlns:convert="clr-namespace:TestCaseManagerCore.BusinessLogic.Converters;assembly=TestCaseManagerCore"
              mc:Ignorable="d" Loaded="UserControl_Loaded">
     <Grid>
         <Grid.Resources>
             <convert:TestStepPropertiesConverter x:Key="TestStepPropertiesConverter" />
         </Grid.Resources>
+        <Grid.CommandBindings>
+            <CommandBinding Command="{x:Static local:TestCasesInitialView.EditCommand}" Executed="EditButton_Click"/>
+            <CommandBinding Command="{x:Static local:TestCasesInitialView.DuplicateCommand}" Executed="DuplicateButton_Click"/>
+        </Grid.CommandBindings>
         <ProgressBar Name="progressBar" Minimum="0" Maximum="1" Height="16" IsIndeterminate="True" Margin="0,0,0,16" Visibility="Visible" />
         <Grid Name="mainGrid" Visibility="Hidden">
             <Grid.RowDefinitions>
@@ -108,8 +113,8 @@
                 </DataGrid.Columns>
             </DataGrid>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Grid.Row="2">
-                <Button Name="btnEdit" Margin="0,0,0,30" Height="30" Width="90" Content="Edit" VerticalAlignment="Center" Click="EditButton_Click"/>
-                <Button Name="btnDuplicate" Margin="40,0,10,30" Height="30" Width="90" Content="Duplicate" VerticalAlignment="Center" Click="DuplicateButton_Click"/>
+                <Button Name="btnEdit" Margin="0,0,0,30" Height="30" Width="90" Content="_Edit" VerticalAlignment="Center" Click="EditButton_Click"/>
+                <Button Name="btnDuplicate" Margin="40,0,10,30" Height="30" Width="90" Content="_Duplicate" VerticalAlignment="Center" Click="DuplicateButton_Click"/>
             </StackPanel>
         </Grid>
     </Grid>       

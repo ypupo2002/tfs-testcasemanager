@@ -49,7 +49,7 @@ namespace TestCaseManagerApp.Views
         /// <summary>
         /// The refresh command
         /// </summary>
-        public static RoutedCommand RefreshCommand = new RoutedCommand();
+        public static RoutedCommand RemoveCommand = new RoutedCommand();
 
         /// <summary>
         /// The remove test case from suite command
@@ -100,6 +100,11 @@ namespace TestCaseManagerApp.Views
         /// The paste test cases command
         /// </summary>
         public static RoutedCommand PasteTestCasesCommand = new RoutedCommand();
+
+        /// <summary>
+        /// The export test cases command
+        /// </summary>
+        public static RoutedCommand ExportTestCasesCommand = new RoutedCommand();
 
         /// <summary>
         /// Indicates if the view model is already initialized
@@ -197,11 +202,12 @@ namespace TestCaseManagerApp.Views
         /// </summary>
         private void InitializeFastKeys()
         {
-            EditCommand.InputGestures.Add(new KeyGesture(Key.E, ModifierKeys.Control));
-            DuplicateCommand.InputGestures.Add(new KeyGesture(Key.D, ModifierKeys.Control));
-            PreviewCommand.InputGestures.Add(new KeyGesture(Key.P, ModifierKeys.Control));
-            NewCommand.InputGestures.Add(new KeyGesture(Key.N, ModifierKeys.Control));
-            RefreshCommand.InputGestures.Add(new KeyGesture(Key.R, ModifierKeys.Control));
+            EditCommand.InputGestures.Add(new KeyGesture(Key.E, ModifierKeys.Alt));
+            DuplicateCommand.InputGestures.Add(new KeyGesture(Key.D, ModifierKeys.Alt));
+            PreviewCommand.InputGestures.Add(new KeyGesture(Key.P, ModifierKeys.Alt));
+            NewCommand.InputGestures.Add(new KeyGesture(Key.N, ModifierKeys.Alt));
+            RemoveCommand.InputGestures.Add(new KeyGesture(Key.R, ModifierKeys.Alt));
+            ExportTestCasesCommand.InputGestures.Add(new KeyGesture(Key.X, ModifierKeys.Alt));
         }
 
         /// <summary>

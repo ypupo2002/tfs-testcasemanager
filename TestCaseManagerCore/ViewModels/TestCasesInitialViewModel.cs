@@ -97,6 +97,7 @@ namespace TestCaseManagerCore.ViewModels
             masterSuite.IsCutEnabled = false;
             masterSuite.IsRemoveEnabled = false;
             this.Suites.Add(masterSuite);
+            TestSuiteManager.SetParentToAllChildrenSuites(masterSuite.SubSuites, masterSuite);
             this.SelectPreviouslySelectedSuite(this.Suites, this.selectedSuiteId);
             this.IsAfterInitialize = true;
             this.SelectedTestCasesCount = "0";
@@ -460,7 +461,11 @@ namespace TestCaseManagerCore.ViewModels
         public void CutPasteSuiteToParentSuite(Suite parentSuite, Suite clipboardSuite)
         {
             TestSuiteManager.PasteSuiteToParent(parentSuite.Id, clipboardSuite.Id, ClipBoardCommand.Cut);
-            this.DeleteSuiteObservableCollection(this.Suites, clipboardSuite.Parent.Id);
+            if (clipboardSuite.Parent != null)
+            {
+                this.DeleteSuiteObservableCollection(this.Suites, clipboardSuite.Id);
+            }
+          
             Suite suiteToBePasted = (Suite)clipboardSuite.Clone();
             suiteToBePasted.Parent = parentSuite;
             parentSuite.SubSuites.Add(suiteToBePasted);
@@ -473,21 +478,21 @@ namespace TestCaseManagerCore.ViewModels
         /// Deletes the suite from the suite observable collection.
         /// </summary>
         /// <param name="suites">The suites.</param>
-        /// <param name="selectedSuiteId">The selected suite unique identifier.</param>
-        public void DeleteSuiteObservableCollection(ObservableCollection<Suite> suites, int selectedSuiteId)
+        /// <param name="suiteForDeleteId">The suite for delete unique identifier.</param>
+        public void DeleteSuiteObservableCollection(ObservableCollection<Suite> suites, int suiteForDeleteId)
         {
             Suite[] suitesCopy = new Suite[suites.Count];
             suites.CopyTo(suitesCopy, 0);
 
             for (int i = 0; i < suitesCopy.Length; i++)
             {
-                if (suitesCopy[i].Id.Equals(selectedSuiteId) && suitesCopy[i].Parent != null)
+                if (suitesCopy[i].Id.Equals(suiteForDeleteId) && suitesCopy[i].Parent != null)
                 {
                     suitesCopy[i].Parent.SubSuites.Remove(suitesCopy[i]);
                 }
                 if (suitesCopy[i].SubSuites != null && suitesCopy[i].SubSuites.Count > 0)
                 {
-                    this.DeleteSuiteObservableCollection(suitesCopy[i].SubSuites, selectedSuiteId);
+                    this.DeleteSuiteObservableCollection(suitesCopy[i].SubSuites, suiteForDeleteId);
                 }
             }
         }

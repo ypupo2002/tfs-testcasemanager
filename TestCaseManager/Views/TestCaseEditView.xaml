@@ -114,13 +114,7 @@
                 <RichTextBox VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="10,0,10,0"  Name="rtbExpectedResult" TabIndex="2" Grid.Row="1" Grid.Column="1" GotFocus="rtbExpectedResult_GotFocus" LostFocus="rtbExpectedResult_LostFocus"/>
                 <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" Grid.Column="2" Grid.Row="1" IsEnabled="{Binding ShowTestCaseSpecificFields}">
                     <StackPanel Orientation="Vertical" IsEnabled="{Binding ShowTestCaseSpecificFields}">
-                        <Button IsEnabled="{Binding IsAutomated}" Name="btnAssociateToAutomation" Width="Auto" Height="30" Margin="10,0,10,10" HorizontalAlignment="Left" VerticalAlignment="Center" IsDefault="True" Click="btnAssociateToAutomation_Click">
-                            <Button.Content>
-                                <TextBlock>
-                                  <Underline>A</Underline>ssociate Automation
-                                </TextBlock>
-                            </Button.Content>
-                        </Button>
+                        <Button IsEnabled="{Binding IsAutomated}" Content="Ass_ociate" Name="btnAssociateToAutomation" Width="Auto" Height="30" Margin="10,0,10,10" HorizontalAlignment="Left" VerticalAlignment="Center" IsDefault="True" Click="btnAssociateToAutomation_Click"/>
                         <TextBlock Text="Automated Test Type" Margin="10,0,10,10" Height="25" FontWeight="Bold" HorizontalAlignment="Left" />
                         <TextBox Text="{Binding AssociatedAutomation.Type, Mode=OneWay}" Margin="10,0,10,10" Height="25" HorizontalAlignment="Stretch" Grid.Row="1" IsReadOnly="True"/>
                         <TextBlock Text="Automated test storage" Margin="10,0,10,10" Height="25" FontWeight="Bold" HorizontalAlignment="Left" />
@@ -130,8 +124,8 @@
                 </StackPanel>
                 </ScrollViewer>
                 <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2">
-                    <Button Content="Insert" Name="btnInsertStep" Width="100" Height="30" Margin="10,0,10,0" VerticalAlignment="Center" IsDefault="True" Click="btnInsertStep_Click" TabIndex="3"/>
-                    <Button Content="Edit" Name="btnEdit" Width="100" Height="30" Margin="10,0,10,0" VerticalAlignment="Center"  Click="btnEdit_Click" TabIndex="4"/>
+                    <Button Content="_Insert" Name="btnInsertStep" Width="100" Height="30" Margin="10,0,10,0" VerticalAlignment="Center" IsDefault="True" Click="btnInsertStep_Click" TabIndex="3"/>
+                    <Button Content="_Edit" Name="btnEdit" Width="100" Height="30" Margin="10,0,10,0" VerticalAlignment="Center"  Click="btnEdit_Click" TabIndex="4"/>
                     <Button Content="Save" Name="btnSaveTestStep" Width="100" Height="30" Margin="10,0,10,0" VerticalAlignment="Center"  Click="btnSaveTestStep_Click" IsEnabled="False" TabIndex="5"/>
                     <Button Content="Cancel" Name="btnCancelEdit" Width="100" Height="30" Margin="10,0,10,0" VerticalAlignment="Center" HorizontalAlignment="Left" IsEnabled="False" Click="btnCancelEdit_Click" TabIndex="6"/>
                 </StackPanel>
@@ -140,11 +134,27 @@
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
-
+                    
                     <DataGrid ItemsSource="{Binding ObservableTestSteps}" AutoGenerateColumns="False" Name="dgTestSteps" IsReadOnly="True"
                           IsSynchronizedWithCurrentItem="True" SelectionMode="Extended"  SelectionUnit="FullRow" HorizontalAlignment="Left" Grid.Column="0"  
                               MouseLeftButtonUp="dgTestSteps_MouseLeftButtonUp" PreviewMouseRightButtonDown="dgTestSteps_PreviewMouseRightButtonDown" 
-                              SelectedCellsChanged="dgTestSteps_SelectedCellsChanged" LoadingRow="dgTestSteps_LoadingRow">
+                              SelectedCellsChanged="dgTestSteps_SelectedCellsChanged" LoadingRow="dgTestSteps_LoadingRow" SelectedIndex="0">
+                        <DataGrid.InputBindings>
+                            <KeyBinding Key="C"  Modifiers="Ctrl"  Command="Copy"/>
+                            <KeyBinding Key="V"  Modifiers="Ctrl"  Command="Paste"/>
+                            <KeyBinding Key="X"  Modifiers="Ctrl"  Command="Cut"/>
+                        </DataGrid.InputBindings>
+                        <DataGrid.CommandBindings>
+                            <CommandBinding Command="Copy"  Executed="copyTestSteps_Command"/>
+                            <CommandBinding Command="Paste"  Executed="pasteTestSteps_Command"/>
+                            <CommandBinding Command="Cut"  Executed="cutTestSteps_Command"/>
+                        </DataGrid.CommandBindings>
+                        <DataGrid.ItemContainerStyle>
+                            <Style TargetType="{x:Type DataGridRow}"  BasedOn="{StaticResource {x:Type DataGridRow}}">
+                                <EventSetter Event="MouseDoubleClick" Handler="dgTestSteps_MouseDoubleClick" />
+                            </Style>
+                        </DataGrid.ItemContainerStyle>
+
                         <DataGrid.ContextMenu>
                             <ContextMenu>
                                 <MenuItem Name="dgTestStepsCutMenuItem" Command="{x:Static local:TestCaseEditView.CutTestStepsCommand}" Header="Cut" />
@@ -156,7 +166,7 @@
                             </ContextMenu>
                         </DataGrid.ContextMenu>
                         <DataGrid.Columns>
-                            <DataGridTemplateColumn   Header="Step Name"  Width="150" MaxWidth="200" >
+                            <DataGridTemplateColumn   Header="Shared Step"  Width="150" MaxWidth="200" >
                                 <DataGridTemplateColumn.HeaderStyle>
                                     <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource {x:Type DataGridColumnHeader}}">
                                         <Setter Property="HorizontalContentAlignment" Value="Left"/>
@@ -198,12 +208,12 @@
                     </DataGrid>
                     <StackPanel Orientation="Horizontal" Grid.Column="1" >
                         <StackPanel Orientation="Vertical" VerticalAlignment="Center">
-                            <Button Content="Up" Width="80" Height="30" Margin="5" VerticalAlignment="Center" Name="btnMoveUp"  Click="btnMoveUp_Click"/>
-                            <Button Content="Down" Width="80" Height="30" Margin="5" VerticalAlignment="Center" Name="btnMoveDown"  Click="btnMoveDown_Click"/>
-                            <Button Content="Add" Width="80" Height="30" Margin="5" VerticalAlignment="Center" Name="btnAdd"  Click="btnAdd_Click" IsEnabled="{Binding ShowTestCaseSpecificFields}"/>
-                            <Button Content="Share"  Name="btnShare" Width="80" Height="30" Margin="5" VerticalAlignment="Center" Click="btnShare_Click" TabIndex="6" IsEnabled="{Binding ShowTestCaseSpecificFields}"/>
-                            <Button Content="Delete"  Name="btnDeleteStep" Width="80" Height="30" Margin="5" VerticalAlignment="Center" Click="btnDeleteStep_Click" TabIndex="7"/>
-                            <Button Content="Change"  Name="btnChange" Width="80" Height="30" Margin="5" VerticalAlignment="Center" Click="btnChange_Click" TabIndex="8"/>
+                            <Button Content="_Up" Width="80" Height="30" Margin="5" VerticalAlignment="Center" Name="btnMoveUp"  Click="btnMoveUp_Click"/>
+                            <Button Content="_Down" Width="80" Height="30" Margin="5" VerticalAlignment="Center" Name="btnMoveDown"  Click="btnMoveDown_Click"/>
+                            <Button Content="_Add" Width="80" Height="30" Margin="5" VerticalAlignment="Center" Name="btnAdd"  Click="btnAdd_Click" IsEnabled="{Binding ShowTestCaseSpecificFields}"/>
+                            <Button Content="_Share"  Name="btnShare" Width="80" Height="30" Margin="5" VerticalAlignment="Center" Click="btnShare_Click" TabIndex="6" IsEnabled="{Binding ShowTestCaseSpecificFields}"/>
+                            <Button Content="_Delete"  Name="btnDeleteStep" Width="80" Height="30" Margin="5" VerticalAlignment="Center" Click="btnDeleteStep_Click" TabIndex="7"/>
+                            <Button Content="_Change"  Name="btnChange" Width="80" Height="30" Margin="5" VerticalAlignment="Center" Click="btnChange_Click" TabIndex="8"/>
                         </StackPanel>
                     </StackPanel>
                 </Grid>
@@ -240,15 +250,9 @@
             
             <StackPanel Orientation="Horizontal" Grid.Row="3">
                 <Button Content="SaveAndClose" Height="30" Width="150" Name="btnSaveAndCloseTestCase" Margin="0,20,0,20" VerticalAlignment="Center" IsDefault="True" Click="btnSaveAndCloseTestCase_Click"/>
-                <Button Height="30" Width="90" Name="btnSaveTestCase" Margin="20,20,0,20" VerticalAlignment="Center" IsDefault="True" Click="btnSaveTestCase_Click">
-                   <Button.Content>
-                        <TextBlock>
-                                  <Underline>S</Underline>ave
-                        </TextBlock>
-                    </Button.Content>
-                </Button>
+                <Button Height="30" Width="90" Name="btnSaveTestCase" Margin="20,20,0,20" VerticalAlignment="Center" IsDefault="True" Click="btnSaveTestCase_Click"/>
                 <Button Content="Cancel" Height="30" Width="90" Name="btnCancel" Margin="20,20,0,20" VerticalAlignment="Center" IsDefault="True" Click="btnCancel_Click" IsCancel="true"/>
-                <Button Content="Duplicate" Height="30" Width="90" Name="btnDuplicate" Margin="20,20,0,20" VerticalAlignment="Center" IsDefault="True"
+                <Button Content="_Duplicate" Height="30" Width="90" Name="btnDuplicate" Margin="20,20,0,20" VerticalAlignment="Center" IsDefault="True"
                         Click="btnDuplicate_Click" IsEnabled="{Binding ShowTestCaseSpecificFields}"/>
             </StackPanel>
         </Grid>

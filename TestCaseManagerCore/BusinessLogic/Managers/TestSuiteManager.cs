@@ -129,8 +129,25 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
         /// <exception cref="System.ArgumentException">The requirments based suites cannot have child suites!</exception>
         public static void PasteSuiteToParent(int parentSuiteId, int suiteToAddId, ClipBoardCommand clipBoardCommand)
         {
-            ITestSuiteBase parentSuite = ExecutionContext.TestManagementTeamProject.TestSuites.Find(parentSuiteId);
-            ITestSuiteBase suiteToAdd = ExecutionContext.TestManagementTeamProject.TestSuites.Find(suiteToAddId);
+            ITestSuiteBase parentSuite = null;
+            ITestSuiteBase suiteToAdd = null;
+            try
+            {
+                parentSuite = ExecutionContext.TestManagementTeamProject.TestSuites.Find(parentSuiteId);
+            }
+            catch(TestManagementValidationException ex)
+            {
+                // TODO: Add to log
+            }
+            try
+            {
+                suiteToAdd = ExecutionContext.TestManagementTeamProject.TestSuites.Find(suiteToAddId);
+            }
+            catch (TestManagementValidationException ex)
+            {
+                // TODO: Add to log
+            }
+          
             IStaticTestSuite oldParent = suiteToAdd.Parent;
             if (parentSuite != null && parentSuite is IRequirementTestSuite)
             {
@@ -359,7 +376,7 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
         /// </summary>
         /// <param name="childred">The childred.</param>
         /// <param name="newSuite">The new suite.</param>
-        private static void SetParentToAllChildrenSuites(ObservableCollection<Suite> childred, Suite newSuite)
+        public static void SetParentToAllChildrenSuites(ObservableCollection<Suite> childred, Suite newSuite)
         {
             if (childred != null)
             {

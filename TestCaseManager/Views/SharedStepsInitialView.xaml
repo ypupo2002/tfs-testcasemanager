@@ -30,27 +30,9 @@
             <StackPanel Orientation="Vertical" Grid.Row="1">
                 <StackPanel Orientation="Vertical" Margin="10,0,0,30">
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
-                        <Button Name="btnEdit1" Margin="0,0,10,0" Height="30" Width="90" VerticalAlignment="Center" Click="btnEdit_Click">
-                            <Button.Content>
-                                <TextBlock>
-                                  <Underline>E</Underline>dit
-                                </TextBlock>
-                            </Button.Content>
-                        </Button>
-                        <Button Name="btnDuplicate1" Margin="30,0,10,0" Height="30" Width="90" VerticalAlignment="Center" Click="btnDuplicate_Click">
-                            <Button.Content>
-                                <TextBlock>
-                                  <Underline>D</Underline>uplicate
-                                </TextBlock>
-                            </Button.Content>
-                        </Button>
-                        <Button Name="btnNew1" Margin="30,0,10,0" Height="30" Width="90" VerticalAlignment="Center" Click="btnNew_Click">
-                            <Button.Content>
-                                <TextBlock>
-                                  <Underline>N</Underline>ew
-                                </TextBlock>
-                            </Button.Content>
-                        </Button>
+                        <Button Name="btnEdit1" Content="_Edit" Margin="0,0,10,0" Height="30" Width="90" VerticalAlignment="Center" Click="btnEdit_Click"/>
+                        <Button Name="btnDuplicate1" Content="_Duplcate"  Margin="30,0,10,0" Height="30" Width="90" VerticalAlignment="Center" Click="btnDuplicate_Click"/>
+                        <Button Name="btnNew1" Content="_New"  Margin="30,0,10,0" Height="30" Width="90" VerticalAlignment="Center" Click="btnNew_Click"/>
                     </StackPanel>
                 </StackPanel>
                 <Grid>
@@ -122,27 +104,9 @@
 
             <StackPanel Orientation="Vertical" Grid.Row="3" Margin="10,30,0,30">
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
-                    <Button Name="btnEdit" Margin="0,0,10,0" Height="30" Width="90" VerticalAlignment="Center" Click="btnEdit_Click">
-                        <Button.Content>
-                            <TextBlock>
-                                  <Underline>E</Underline>dit
-                            </TextBlock>
-                        </Button.Content>
-                    </Button>
-                    <Button Name="btnDuplicate" Margin="30,0,10,0" Height="30" Width="90" VerticalAlignment="Center" Click="btnDuplicate_Click">
-                        <Button.Content>
-                            <TextBlock>
-                                  <Underline>D</Underline>uplicate
-                            </TextBlock>
-                        </Button.Content>
-                    </Button>
-                    <Button Name="btnNew" Margin="30,0,10,0" Height="30" Width="90" VerticalAlignment="Center" Click="btnNew_Click">
-                        <Button.Content>
-                            <TextBlock>
-                                  <Underline>N</Underline>ew
-                            </TextBlock>
-                        </Button.Content>
-                    </Button>
+                    <Button Name="btnEdit" Content="_Edit" Margin="0,0,10,0" Height="30" Width="90" VerticalAlignment="Center" Click="btnEdit_Click"/>
+                    <Button Name="btnDuplicate" Content="_Duplcate"  Margin="30,0,10,0" Height="30" Width="90" VerticalAlignment="Center" Click="btnDuplicate_Click"/>
+                    <Button Name="btnNew" Content="_New"  Margin="30,0,10,0" Height="30" Width="90" VerticalAlignment="Center" Click="btnNew_Click"/>
                 </StackPanel>
             </StackPanel>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Grid.Row="4">

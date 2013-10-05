@@ -15,8 +15,8 @@
             <CommandBinding Command="{x:Static local:TestCasesInitialView.NewCommand}" Executed="btnNew_Click"/>
             <CommandBinding Command="{x:Static local:TestCasesInitialView.CopyTestCasesCommand}" Executed="copyTestCases_Command"/>
             <CommandBinding Command="{x:Static local:TestCasesInitialView.CutTestCasesCommand}" Executed="cutTestCases_Command"/>
-            <CommandBinding Command="{x:Static local:TestCasesInitialView.PasteTestCasesCommand}" Executed="pasteTestCases_Command"/>            
-            <CommandBinding Command="{x:Static local:TestCasesInitialView.RefreshCommand}" Executed="btnRefresh_Click"/>
+            <CommandBinding Command="{x:Static local:TestCasesInitialView.PasteTestCasesCommand}" Executed="pasteTestCases_Command"/>
+            <CommandBinding Command="{x:Static local:TestCasesInitialView.RemoveCommand}" Executed="btnRemoveTestCase_Click"/>
             <CommandBinding Command="{x:Static local:TestCasesInitialView.RemoveTestCaseFromSuiteCommand}" Executed="removeTestCaseFromSuite_Command"/>
             <CommandBinding Command="{x:Static local:TestCasesInitialView.RenameSuiteCommand}" Executed="renameSuite_Command"/>
             <CommandBinding Command="{x:Static local:TestCasesInitialView.AddSuiteCommand}" Executed="addSuite_Command"/>
@@ -24,6 +24,7 @@
             <CommandBinding Command="{x:Static local:TestCasesInitialView.CopySuiteCommand}" Executed="copySuite_Command"/>
             <CommandBinding Command="{x:Static local:TestCasesInitialView.CutSuiteCommand}" Executed="cutSuite_Command"/>
             <CommandBinding Command="{x:Static local:TestCasesInitialView.PasteSuiteCommand}" Executed="pasteSuite_Command"/>
+            <CommandBinding Command="{x:Static local:TestCasesInitialView.ExportTestCasesCommand}" Executed="btnExport_Click"/>
         </Grid.CommandBindings>
         <ProgressBar Name="progressBar" Minimum="0" Maximum="1" Height="16" IsIndeterminate="True" Margin="0,0,0,16" />
         
@@ -56,36 +57,12 @@
             <StackPanel Orientation="Vertical" Grid.Row="1" Grid.Column="2">
                 <StackPanel Orientation="Vertical" Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="3" Margin="10,0,0,15">
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
-                        <Button Name="btnPreview1" Margin="20,0,10,0" Height="30" Width="90" VerticalAlignment="Center" Click="PreviewButton_Click">
-                            <Button.Content>
-                                <TextBlock>
-                                  <Underline>P</Underline>review
-                                </TextBlock>
-                            </Button.Content>
-                        </Button>
-                        <Button Name="btnEdit1" Margin="15,0,10,0" Height="30" Width="90" VerticalAlignment="Center" Click="EditButton_Click">
-                            <Button.Content>
-                                <TextBlock>
-                                  <Underline>E</Underline>dit
-                                </TextBlock>
-                            </Button.Content>
-                        </Button>
-                        <Button Name="btnDuplicate1" Margin="15,0,10,0" Height="30" Width="90" VerticalAlignment="Center" Click="DuplicateButton_Click">
-                            <Button.Content>
-                                <TextBlock>
-                                  <Underline>D</Underline>uplicate
-                                </TextBlock>
-                            </Button.Content>
-                        </Button>
-                        <Button Name="btnNew1" Margin="15,0,10,0" Height="30" Width="90" VerticalAlignment="Center" Click="btnNew_Click">
-                            <Button.Content>
-                                <TextBlock>
-                                  <Underline>N</Underline>ew
-                                </TextBlock>
-                            </Button.Content>
-                        </Button>
-                        <Button Name="btnRemoveTestCase1" Content="Remove" Margin="15,0,10,0" Height="30" Width="90" VerticalAlignment="Center" Click="btnRemoveTestCase_Click"/>
-                        <Button Name="btnExport" Content="Export" Margin="15,0,10,0" Height="30" Width="90" VerticalAlignment="Center" Click="btnExport_Click"/>
+                        <Button Name="btnPreview1" Content="_Preview" Margin="20,0,10,0" Height="30" Width="90" VerticalAlignment="Center" Click="PreviewButton_Click"/>
+                        <Button Name="btnEdit1" Content="_Edit" Margin="15,0,10,0" Height="30" Width="90" VerticalAlignment="Center" Click="EditButton_Click"/>
+                        <Button Name="btnDuplicate1" Content="_Duplicate" Margin="15,0,10,0" Height="30" Width="90" VerticalAlignment="Center" Click="DuplicateButton_Click"/>
+                        <Button Name="btnNew1" Content="_New" Margin="15,0,10,0" Height="30" Width="90" VerticalAlignment="Center" Click="btnNew_Click"/>
+                        <Button Name="btnRemoveTestCase1" Content="_Remove" Margin="15,0,10,0" Height="30" Width="90" VerticalAlignment="Center" Click="btnRemoveTestCase_Click"/>
+                        <Button Name="btnExport" Content="_Export" Margin="15,0,10,0" Height="30" Width="90" VerticalAlignment="Center" Click="btnExport_Click"/>
                     </StackPanel>
                 </StackPanel>
                 <Grid>
@@ -121,7 +98,7 @@
                         <Setter Property="IsSelected" Value="{Binding Path=IsSelected, Mode=TwoWay}" />
                         <EventSetter Event="TreeViewItem.PreviewMouseRightButtonDown" Handler="TreeViewItem_PreviewMouseRightButtonDown"/>
                         <EventSetter Event="TreeViewItem.MouseDoubleClick" Handler="TreeViewItem_MouseDoubleClick"/>
-                        <EventSetter Event="TreeViewItem.Selected" Handler="treeViewItem_Selected"/>
+                        <EventSetter Event="TreeViewItem.Selected" Handler="treeViewItem_Selected"/>                       
                         <Setter Property="ContextMenu">
                             <Setter.Value>
                                 <ContextMenu>                                    
@@ -138,6 +115,16 @@
                         </Setter>
                     </Style>
                 </TreeView.ItemContainerStyle>
+                <TreeView.InputBindings>
+                    <KeyBinding Key="C"  Modifiers="Ctrl"  Command="Copy"/>
+                    <KeyBinding Key="V"  Modifiers="Ctrl"  Command="Paste"/>
+                    <KeyBinding Key="X"  Modifiers="Ctrl"  Command="Cut"/>
+                </TreeView.InputBindings>
+                <TreeView.CommandBindings>
+                    <CommandBinding Command="Copy"  Executed="copySuite_Command"/>
+                    <CommandBinding Command="Paste"  Executed="pasteSuite_Command"/>
+                    <CommandBinding Command="Cut"  Executed="cutSuite_Command"/>
+                </TreeView.CommandBindings>
                 <TreeView.Resources>                 
                     <HierarchicalDataTemplate DataType="{x:Type entities:Suite}" ItemsSource="{Binding SubSuites}" >                     
                         <TextBlock Text="{Binding Path=Title}" FontSize="14"/>
@@ -164,7 +151,16 @@
                         <MenuItem Name="dgTestCaseContextItemRemove" Command="{x:Static local:TestCasesInitialView.RemoveTestCaseFromSuiteCommand}" Header="Remove"/>
                     </ContextMenu>
                 </DataGrid.ContextMenu>
-
+                <DataGrid.InputBindings>
+                    <KeyBinding Key="C"  Modifiers="Ctrl"  Command="Copy"/>
+                    <KeyBinding Key="V"  Modifiers="Ctrl"  Command="Paste"/>
+                    <KeyBinding Key="X"  Modifiers="Ctrl"  Command="Cut"/>
+                </DataGrid.InputBindings>
+                <DataGrid.CommandBindings>
+                    <CommandBinding Command="Copy"  Executed="copyTestCases_Command"/>
+                    <CommandBinding Command="Paste"  Executed="pasteTestCases_Command"/>
+                    <CommandBinding Command="Cut"  Executed="cutTestCases_Command"/>
+                </DataGrid.CommandBindings>
                 <DataGrid.ItemContainerStyle>
                     <Style TargetType="{x:Type DataGridRow}"  BasedOn="{StaticResource {x:Type DataGridRow}}">
                         <EventSetter Event="MouseDoubleClick" Handler="dgTestCases_MouseDoubleClick" />
@@ -220,36 +216,12 @@
 
             <StackPanel Orientation="Vertical" Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="3" Margin="10,10,0,0">
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
-                    <Button Name="btnPreview" Margin="20,0,10,0" Height="30" Width="90" VerticalAlignment="Center" Click="PreviewButton_Click">
-                        <Button.Content>
-                            <TextBlock>
-                                  <Underline>P</Underline>review
-                            </TextBlock>
-                        </Button.Content>
-                    </Button>
-                    <Button Name="btnEdit" Margin="15,0,10,0" Height="30" Width="90" VerticalAlignment="Center" Click="EditButton_Click">
-                        <Button.Content>
-                            <TextBlock>
-                                  <Underline>E</Underline>dit
-                            </TextBlock>
-                        </Button.Content>
-                    </Button>
-                    <Button Name="btnDuplicate" Margin="15,0,10,0" Height="30" Width="90" VerticalAlignment="Center" Click="DuplicateButton_Click">
-                        <Button.Content>
-                            <TextBlock>
-                                  <Underline>D</Underline>uplicate
-                            </TextBlock>
-                        </Button.Content>
-                    </Button>
-                    <Button Name="btnNew" Margin="15,0,10,0" Height="30" Width="90" VerticalAlignment="Center" Click="btnNew_Click">
-                        <Button.Content>
-                            <TextBlock>
-                                  <Underline>N</Underline>ew
-                            </TextBlock>
-                        </Button.Content>
-                    </Button>
-                    <Button Name="btnRemoveTestCase" Content="Remove" Margin="15,0,10,0" Height="30" Width="90" VerticalAlignment="Center" Click="btnRemoveTestCase_Click"/>
-                    <Button Name="btnExport1" Content="Export" Margin="15,0,10,0" Height="30" Width="90" VerticalAlignment="Center" Click="btnExport_Click"/>
+                    <Button Name="btnPreview" Content="_Preview" Margin="20,0,10,0" Height="30" Width="90" VerticalAlignment="Center" Click="PreviewButton_Click"/>
+                    <Button Name="btnEdit" Content="_Edit" Margin="15,0,10,0" Height="30" Width="90" VerticalAlignment="Center" Click="EditButton_Click"/>
+                    <Button Name="btnDuplicate" Content="_Duplicate" Margin="15,0,10,0" Height="30" Width="90" VerticalAlignment="Center" Click="DuplicateButton_Click"/>
+                    <Button Name="btnNew" Content="_New" Margin="15,0,10,0" Height="30" Width="90" VerticalAlignment="Center" Click="btnNew_Click"/>
+                    <Button Name="btnRemoveTestCase" Content="_Remove" Margin="15,0,10,0" Height="30" Width="90" VerticalAlignment="Center" Click="btnRemoveTestCase_Click"/>
+                    <Button Name="btnExport1" Content="_Export" Margin="15,0,10,0" Height="30" Width="90" VerticalAlignment="Center" Click="btnExport_Click"/>
                 </StackPanel>
             </StackPanel>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Grid.Row="4" Grid.Column="2" Grid.ColumnSpan="3">

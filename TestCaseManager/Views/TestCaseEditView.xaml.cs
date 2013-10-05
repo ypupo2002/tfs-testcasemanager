@@ -20,6 +20,7 @@ using TestCaseManagerCore.BusinessLogic.Managers;
 using TestCaseManagerCore.Helpers;
 using TestCaseManagerCore.ViewModels;
 using TestCaseManagerCore;
+using System.Windows.Controls;
 
 namespace TestCaseManagerApp.Views
 {
@@ -206,6 +207,8 @@ namespace TestCaseManagerApp.Views
                 this.InitializeUiRelatedViewSettings();
                 UndoRedoManager.Instance().RedoStackStatusChanged += new UndoRedoManager.OnStackStatusChanged(RedoStackStatusChanged);
                 UndoRedoManager.Instance().UndoStackStatusChanged += new UndoRedoManager.OnStackStatusChanged(UndoStackStatusChanged);
+                List<TestStep> selectedTestSteps = this.AddMissedSelectedSharedSteps();
+                this.UpdateSelectedTestSteps(selectedTestSteps);
                 this.HideProgressBar();
                 this.editViewContext.IsInitialized = true;
             }, TaskScheduler.FromCurrentSynchronizationContext());
@@ -333,9 +336,9 @@ namespace TestCaseManagerApp.Views
         /// </summary>
         private void InitializeFastKeys()
         {
-            SaveCommand.InputGestures.Add(new KeyGesture(Key.S, ModifierKeys.Control));
-            SaveAndCloseCommand.InputGestures.Add(new KeyGesture(Key.S, ModifierKeys.Shift | ModifierKeys.Control));
-            AssociateTestCommand.InputGestures.Add(new KeyGesture(Key.A, ModifierKeys.Control));
+            SaveCommand.InputGestures.Add(new KeyGesture(Key.S, ModifierKeys.Control, "Ctrl + S"));
+            SaveAndCloseCommand.InputGestures.Add(new KeyGesture(Key.S, ModifierKeys.Shift | ModifierKeys.Control, "Ctrl + Shift + S"));
+            AssociateTestCommand.InputGestures.Add(new KeyGesture(Key.O, ModifierKeys.Alt));
             DeleteTestStepCommand.InputGestures.Add(new KeyGesture(Key.Delete, ModifierKeys.Alt));
             MoveUpTestStepsCommand.InputGestures.Add(new KeyGesture(Key.Up, ModifierKeys.Alt));
             MoveDownTestStepsCommand.InputGestures.Add(new KeyGesture(Key.Down, ModifierKeys.Alt));
@@ -344,8 +347,8 @@ namespace TestCaseManagerApp.Views
             EditStepCommand.InputGestures.Add(new KeyGesture(Key.E, ModifierKeys.Alt));
             ChangeStepCommand.InputGestures.Add(new KeyGesture(Key.C, ModifierKeys.Alt));
             InsertStepCommand.InputGestures.Add(new KeyGesture(Key.I, ModifierKeys.Alt));
-            UndoCommand.InputGestures.Add(new KeyGesture(Key.Z, ModifierKeys.Control));
-            RedoCommand.InputGestures.Add(new KeyGesture(Key.Y, ModifierKeys.Control));
+            UndoCommand.InputGestures.Add(new KeyGesture(Key.Z, ModifierKeys.Control, "Ctrl + Z"));
+            RedoCommand.InputGestures.Add(new KeyGesture(Key.Y, ModifierKeys.Control, "Ctrl + Y"));
         }
 
         /// <summary>
@@ -653,10 +656,6 @@ namespace TestCaseManagerApp.Views
         /// <param name="e">The <see cref="MouseButtonEventArgs"/> instance containing the event data.</param>
         private void dgTestSteps_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
-            if (System.Windows.Forms.Control.ModifierKeys == Keys.Alt)
-            {
-                this.EditCurrentTestStepInternal();
-            }
             List<TestStep> selectedTestSteps = this.AddMissedSelectedSharedSteps();
             this.UpdateSelectedTestSteps(selectedTestSteps);
         }
@@ -1107,6 +1106,10 @@ namespace TestCaseManagerApp.Views
             int selectedIndex = dgTestSteps.SelectedIndex;
             Guid previousOldGuid = default(Guid);
             Guid previousNewGuid = default(Guid);
+            if (clipBoardTestStep == null || clipBoardTestStep.TestSteps == null)
+            {
+                return;
+            }
             using (new UndoTransaction("Copies previously selected test steps"))
             {
                 foreach (TestStep copiedTestStep in clipBoardTestStep.TestSteps)
@@ -1447,6 +1450,16 @@ namespace TestCaseManagerApp.Views
             // Adding 1 to make the row count start at 1 instead of 0
             // as pointed out by daub815
             e.Row.Header = (e.Row.GetIndex() + 1).ToString(); 
+        }
+
+        /// <summary>
+        /// Handles the MouseDoubleClick event of the dgTestSteps control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="MouseButtonEventArgs"/> instance containing the event data.</param>
+        private void dgTestSteps_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            this.EditCurrentTestStepInternal();
         }     
     }
 }

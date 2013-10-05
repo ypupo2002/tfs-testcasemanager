@@ -2,18 +2,15 @@
 // https://testcasemanager.codeplex.com/ All rights reserved.
 // </copyright>
 // <author>Anton Angelov</author>
-using System;
-using System.Collections.Generic;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Documents;
+using System.Windows.Input;
 using FirstFloor.ModernUI.Windows;
 using FirstFloor.ModernUI.Windows.Navigation;
+using TestCaseManagerCore;
 using TestCaseManagerCore.BusinessLogic.Managers;
 using TestCaseManagerCore.ViewModels;
-using TestCaseManagerCore;
 
 namespace TestCaseManagerApp.Views
 {
@@ -22,6 +19,16 @@ namespace TestCaseManagerApp.Views
     /// </summary>
     public partial class TestCaseDetailedView : UserControl, IContent
     {
+        /// <summary>
+        /// The edit command
+        /// </summary>
+        public static RoutedCommand EditCommand = new RoutedCommand();
+
+        /// <summary>
+        /// The duplicate command
+        /// </summary>
+        public static RoutedCommand DuplicateCommand = new RoutedCommand();
+
         /// <summary>
         /// Indicates if the view model is already initialized
         /// </summary>
@@ -78,6 +85,8 @@ namespace TestCaseManagerApp.Views
             t.ContinueWith(antecedent =>
             {
                 this.DataContext = TestCaseDetailedViewModel;
+                EditCommand.InputGestures.Add(new KeyGesture(Key.E, ModifierKeys.Alt));
+                DuplicateCommand.InputGestures.Add(new KeyGesture(Key.D, ModifierKeys.Alt));
                 this.HideProgressBar();
                 isInitialized = true;
             }, TaskScheduler.FromCurrentSynchronizationContext());   
