@@ -27,7 +27,12 @@ namespace TestCaseManagerCore.ViewModels
         public TestCaseDetailedViewModel(int testCaseId, int suiteId)
         {            
             ITestCase testCaseCore = ExecutionContext.TestManagementTeamProject.TestCases.Find(testCaseId);
-            ITestSuiteBase testSuiteBaseCore = ExecutionContext.TestManagementTeamProject.TestSuites.Find(suiteId);
+            ITestSuiteBase testSuiteBaseCore = null;
+            if (suiteId != -1)
+            {
+                testSuiteBaseCore = ExecutionContext.TestManagementTeamProject.TestSuites.Find(suiteId);
+            }
+            
             this.TestCase = new TestCase(testCaseCore, testSuiteBaseCore);
             this.TestActions = new List<ITestAction>();
             this.TestCase.ITestCase.Actions.ToList().ForEach(x => this.TestActions.Add(x));

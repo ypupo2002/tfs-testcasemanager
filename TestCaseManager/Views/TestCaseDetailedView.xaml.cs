@@ -156,7 +156,14 @@ namespace TestCaseManagerApp.Views
         /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void EditButton_Click(object sender, RoutedEventArgs e)
         {
-            this.NavigateToTestCasesEditView(TestCaseDetailedViewModel.TestCase.ITestCase.Id, TestCaseDetailedViewModel.TestCase.ITestSuiteBase.Id);
+            if (TestCaseDetailedViewModel.TestCase.ITestSuiteBase != null)
+            {
+                this.NavigateToTestCasesEditView(TestCaseDetailedViewModel.TestCase.ITestCase.Id, TestCaseDetailedViewModel.TestCase.ITestSuiteBase.Id);
+            }
+            else
+            {
+                this.NavigateToTestCasesEditView(TestCaseDetailedViewModel.TestCase.ITestCase.Id, -1);
+            }            
         }
 
         /// <summary>
@@ -166,7 +173,14 @@ namespace TestCaseManagerApp.Views
         /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void DuplicateButton_Click(object sender, RoutedEventArgs e)
         {
-            this.NavigateToTestCasesEditView(TestCaseDetailedViewModel.TestCase.ITestCase.Id, TestCaseDetailedViewModel.TestCase.ITestSuiteBase.Id, true, true);
+            if (TestCaseDetailedViewModel.TestCase.ITestSuiteBase != null)
+            {
+                this.NavigateToTestCasesEditView(TestCaseDetailedViewModel.TestCase.ITestCase.Id, TestCaseDetailedViewModel.TestCase.ITestSuiteBase.Id, true, true);
+            }
+            else
+            {
+                this.NavigateToTestCasesEditView(TestCaseDetailedViewModel.TestCase.ITestCase.Id, -1, true, true);
+            }            
         }
 
         /// <summary>

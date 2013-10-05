@@ -246,7 +246,15 @@ namespace TestCaseManagerApp.Views
             this.ValidateTestCaseSelection(() =>
             {
                 TestCase currentTestCase = dgTestCases.SelectedItem as TestCase;
-                this.NavigateToTestCasesDetailedView(currentTestCase.ITestCase.Id, currentTestCase.ITestSuiteBase.Id);
+                if (currentTestCase.ITestSuiteBase != null)
+                {
+                    this.NavigateToTestCasesDetailedView(currentTestCase.ITestCase.Id, currentTestCase.ITestSuiteBase.Id);
+                }
+                else
+                {
+                    this.NavigateToTestCasesDetailedView(currentTestCase.ITestCase.Id, -1);
+                }
+               
             });
         }
 
@@ -284,7 +292,14 @@ namespace TestCaseManagerApp.Views
             this.ValidateTestCaseSelection(() =>
             {
                 TestCase currentTestCase = dgTestCases.SelectedItem as TestCase;
-                this.NavigateToTestCasesEditView(currentTestCase.ITestCase.Id, currentTestCase.ITestSuiteBase.Id);
+                if (currentTestCase.ITestSuiteBase != null)
+                {
+                    this.NavigateToTestCasesEditView(currentTestCase.ITestCase.Id, currentTestCase.ITestSuiteBase.Id);
+                }
+                else
+                {
+                    this.NavigateToTestCasesEditView(currentTestCase.ITestCase.Id, -1);
+                }
             });
         }
 
@@ -298,7 +313,14 @@ namespace TestCaseManagerApp.Views
             this.ValidateTestCaseSelection(() =>
             {
                 TestCase currentTestCase = dgTestCases.SelectedItem as TestCase;
-                this.NavigateToTestCasesEditView(currentTestCase.ITestCase.Id, currentTestCase.ITestSuiteBase.Id, true, true);
+                if (currentTestCase.ITestSuiteBase != null)
+                {
+                    this.NavigateToTestCasesEditView(currentTestCase.ITestCase.Id, currentTestCase.ITestSuiteBase.Id, true, true);
+                }
+                else
+                {
+                    this.NavigateToTestCasesEditView(currentTestCase.ITestCase.Id, -1, true, true);
+                }                
             });
         }
 

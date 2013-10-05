@@ -206,15 +206,17 @@
                             </DataGridTemplateColumn>
                         </DataGrid.Columns>
                     </DataGrid>
-                    <StackPanel Orientation="Horizontal" Grid.Column="1" >
-                        <StackPanel Orientation="Vertical" VerticalAlignment="Center">
-                            <Button Content="_Up" Width="80" Height="30" Margin="5" VerticalAlignment="Center" Name="btnMoveUp"  Click="btnMoveUp_Click"/>
-                            <Button Content="_Down" Width="80" Height="30" Margin="5" VerticalAlignment="Center" Name="btnMoveDown"  Click="btnMoveDown_Click"/>
-                            <Button Content="_Add" Width="80" Height="30" Margin="5" VerticalAlignment="Center" Name="btnAdd"  Click="btnAdd_Click" IsEnabled="{Binding ShowTestCaseSpecificFields}"/>
-                            <Button Content="_Share"  Name="btnShare" Width="80" Height="30" Margin="5" VerticalAlignment="Center" Click="btnShare_Click" TabIndex="6" IsEnabled="{Binding ShowTestCaseSpecificFields}"/>
-                            <Button Content="_Delete"  Name="btnDeleteStep" Width="80" Height="30" Margin="5" VerticalAlignment="Center" Click="btnDeleteStep_Click" TabIndex="7"/>
-                            <Button Content="_Change"  Name="btnChange" Width="80" Height="30" Margin="5" VerticalAlignment="Center" Click="btnChange_Click" TabIndex="8"/>
-                        </StackPanel>
+                    <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.RowSpan="3">
+                        <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+                            <StackPanel Orientation="Vertical" VerticalAlignment="Center">
+                                <Button Content="_Up" Width="80" Height="30" Margin="5" VerticalAlignment="Center" Name="btnMoveUp"  Click="btnMoveUp_Click"/>
+                                <Button Content="_Down" Width="80" Height="30" Margin="5" VerticalAlignment="Center" Name="btnMoveDown"  Click="btnMoveDown_Click"/>
+                                <Button Content="_Add" Width="80" Height="30" Margin="5" VerticalAlignment="Center" Name="btnAdd"  Click="btnAdd_Click" IsEnabled="{Binding ShowTestCaseSpecificFields}"/>
+                                <Button Content="_Share"  Name="btnShare" Width="80" Height="30" Margin="5" VerticalAlignment="Center" Click="btnShare_Click" TabIndex="6" IsEnabled="{Binding ShowTestCaseSpecificFields}"/>
+                                <Button Content="_Delete"  Name="btnDeleteStep" Width="80" Height="30" Margin="5" VerticalAlignment="Center" Click="btnDeleteStep_Click" TabIndex="7"/>
+                                <Button Content="_Change"  Name="btnChange" Width="80" Height="30" Margin="5" VerticalAlignment="Center" Click="btnChange_Click" TabIndex="8"/>
+                            </StackPanel>
+                        </ScrollViewer>                       
                     </StackPanel>
                 </Grid>
 
@@ -250,7 +252,7 @@
             
             <StackPanel Orientation="Horizontal" Grid.Row="3">
                 <Button Content="SaveAndClose" Height="30" Width="150" Name="btnSaveAndCloseTestCase" Margin="0,20,0,20" VerticalAlignment="Center" IsDefault="True" Click="btnSaveAndCloseTestCase_Click"/>
-                <Button Height="30" Width="90" Name="btnSaveTestCase" Margin="20,20,0,20" VerticalAlignment="Center" IsDefault="True" Click="btnSaveTestCase_Click"/>
+                <Button Content="Save" Height="30" Width="90" Name="btnSaveTestCase" Margin="20,20,0,20" VerticalAlignment="Center" IsDefault="True" Click="btnSaveTestCase_Click"/>
                 <Button Content="Cancel" Height="30" Width="90" Name="btnCancel" Margin="20,20,0,20" VerticalAlignment="Center" IsDefault="True" Click="btnCancel_Click" IsCancel="true"/>
                 <Button Content="_Duplicate" Height="30" Width="90" Name="btnDuplicate" Margin="20,20,0,20" VerticalAlignment="Center" IsDefault="True"
                         Click="btnDuplicate_Click" IsEnabled="{Binding ShowTestCaseSpecificFields}"/>

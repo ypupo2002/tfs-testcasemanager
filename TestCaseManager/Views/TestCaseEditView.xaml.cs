@@ -253,9 +253,13 @@ namespace TestCaseManagerApp.Views
                 this.SetTestCasePropertiesToDefault();
                 btnDuplicate.IsEnabled = false;
             }
-            else
+            else if (this.editViewContext.Duplicate && !this.editViewContext.CreateNew)
             {
                 btnDuplicate.IsEnabled = false;
+            }
+            else if (!this.editViewContext.Duplicate && !this.editViewContext.CreateNew)
+            {
+                btnDuplicate.IsEnabled = true;
             }
         }
 
@@ -834,7 +838,11 @@ namespace TestCaseManagerApp.Views
         /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void btnDuplicate_Click(object sender, RoutedEventArgs e)
         {
-            this.NavigateToTestCasesEditView(this.TestCaseEditViewModel.TestCase.ITestCase.Id, this.TestCaseEditViewModel.TestCase.ITestSuiteBase.Id, true, true);
+            this.SaveTestCaseInternal();
+            this.editViewContext.IsInitialized = false;
+            this.editViewContext.CreateNew = true;
+            this.editViewContext.Duplicate = true;
+            this.InitializeInternal();       
         }
 
         /// <summary>
