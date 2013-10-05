@@ -9,7 +9,6 @@ using FirstFloor.ModernUI.Presentation;
 using FirstFloor.ModernUI.Windows;
 using FirstFloor.ModernUI.Windows.Controls;
 using FirstFloor.ModernUI.Windows.Navigation;
-using log4net;
 using Microsoft.TeamFoundation.Client;
 using TestCaseManagerCore;
 using TestCaseManagerCore.BusinessLogic.Managers;
@@ -23,10 +22,6 @@ namespace TestCaseManagerApp.Views
     /// </summary>
     public partial class ProjectSelectionView : System.Windows.Controls.UserControl, IContent
     {
-        /// <summary>
-        /// The log
-        /// </summary>
-        private static readonly ILog log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         /// <summary>
         /// Indicates if the view model is already initialized
@@ -123,7 +118,6 @@ namespace TestCaseManagerApp.Views
                 if (this.ProjectSelectionViewModel.IsInitializedFromRegistry && !this.skipAutoLoad)
                 {
                     ExecutionContext.Preferences.TestPlan = TestPlanManager.GetTestPlanByName(ExecutionContext.TestManagementTeamProject,     this.ProjectSelectionViewModel.SelectedTestPlan);
-                    log.InfoFormat("current selected test plan is {0}", this.ProjectSelectionViewModel.SelectedTestPlan);
                     this.AddNewLinksToWindow();
                 }
                 else

@@ -155,11 +155,7 @@ D:\Projects\TestCaseManager\TestCaseManager\bin\Release\TestCaseManager.exe
 D:\Projects\TestCaseManager\TestCaseManager\bin\Release\TestCaseManager.pdb
 D:\Projects\TestCaseManager\TestCaseManager\bin\Release\Accessibility.dll
 D:\Projects\TestCaseManager\TestCaseManager\bin\Release\FirstFloor.ModernUI.dll
-D:\Projects\TestCaseManager\TestCaseManager\bin\Release\log4net.dll
 D:\Projects\TestCaseManager\TestCaseManager\bin\Release\Microsoft.CSharp.dll
-D:\Projects\TestCaseManager\TestCaseManager\bin\Release\Microsoft.TeamFoundation.WorkItemTracking.Client.Cache.dll
-D:\Projects\TestCaseManager\TestCaseManager\bin\Release\Microsoft.TeamFoundation.WorkItemTracking.Client.DataStore.dll
-D:\Projects\TestCaseManager\TestCaseManager\bin\Release\Microsoft.TeamFoundation.WorkItemTracking.Client.RuleEngine.dll
 D:\Projects\TestCaseManager\TestCaseManager\bin\Release\PresentationCore.dll
 D:\Projects\TestCaseManager\TestCaseManager\bin\Release\PresentationFramework.dll
 D:\Projects\TestCaseManager\TestCaseManager\bin\Release\PresentationUI.dll
@@ -180,7 +176,6 @@ D:\Projects\TestCaseManager\TestCaseManager\bin\Release\WindowsBase.dll
 D:\Projects\TestCaseManager\TestCaseManager\bin\Release\Microsoft.TeamFoundation.WorkItemTracking.Client.DataStoreLoader.dll
 D:\Projects\TestCaseManager\TestCaseManager\bin\Release\TestCaseManagerCore.pdb
 D:\Projects\TestCaseManager\TestCaseManager\bin\Release\FirstFloor.ModernUI.xml
-D:\Projects\TestCaseManager\TestCaseManager\bin\Release\log4net.xml
 D:\Projects\TestCaseManager\TestCaseManager\bin\Release\Microsoft.WITDataStore.dll
 D:\Projects\TestCaseManager\TestCaseManager\obj\Release\TestCaseManager.csprojResolveAssemblyReference.cache
 D:\Projects\TestCaseManager\TestCaseManager\obj\Release\Assets\ModernUI.HelloKitty.baml

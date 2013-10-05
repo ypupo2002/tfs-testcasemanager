@@ -3,14 +3,14 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:mui="http://firstfloorsoftware.com/ModernU"
+            xmlns:mui="http://firstfloorsoftware.com/ModernUI"
              xmlns:helpers="clr-namespace:TestCaseManagerCore.Helpers;assembly=TestCaseManagerCore"
              xmlns:local="clr-namespace:TestCaseManagerApp.Views"
              xmlns:convert="clr-namespace:TestCaseManagerCore.BusinessLogic.Converters;assembly=TestCaseManagerCore"
              xmlns:System="clr-namespace:System;assembly=mscorlib"
              xmlns:enums="clr-namespace:TestCaseManagerCore.BusinessLogic.Enums;assembly=TestCaseManagerCore"
              mc:Ignorable="d" Loaded="UserControl_Loaded">
-    <Grid>
+    <Grid>      
         <Grid.Resources>
             <convert:TestStepPropertiesConverter x:Key="TestStepPropertiesConverter" />
         </Grid.Resources>
@@ -81,7 +81,7 @@
                 <TextBlock Text="ID" Margin="10,0,10,0" Height="25" FontWeight="Bold" HorizontalAlignment="Stretch" Grid.Row="0" Grid.Column="0"/>
                 <TextBox Text="{Binding TestCaseIdLabel}" Margin="10,0,10,0" Height="25" HorizontalAlignment="Left" Grid.Row="1" Grid.Column="0" IsReadOnly="True"/>
                 <TextBlock Text="Title" Margin="10,0,10,0" Height="25" FontWeight="Bold" HorizontalAlignment="Left" Grid.Row="0" Grid.Column="1"/>
-                <TextBox Text="{Binding TestBase.Title}" HorizontalAlignment="Stretch" Margin="10,0,10,0" Height="25" Grid.Row="1" Grid.Column="1"/>
+                <TextBox Name="tbTitle" Text="{Binding TestBase.Title}" HorizontalAlignment="Stretch" Margin="10,0,10,0" Height="25" Grid.Row="1" Grid.Column="1"/>
                 <TextBlock IsEnabled="{Binding ShowTestCaseSpecificFields}" Text="Suite" Margin="10,0,10,0" Height="25" FontWeight="Bold" HorizontalAlignment="Left" Grid.Row="0" Grid.Column="2"/>
                 <TextBox IsEnabled="{Binding ShowTestCaseSpecificFields}" Text="{Binding TestCase.ITestSuiteBase.Title, Mode=OneWay}" Name="tbSuite"
                          Margin="10,0,10,0" Height="25" HorizontalAlignment="Stretch" Grid.Row="1" Grid.Column="2" IsReadOnly="True" />

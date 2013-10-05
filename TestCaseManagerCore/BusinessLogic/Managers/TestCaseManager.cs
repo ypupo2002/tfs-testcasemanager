@@ -144,7 +144,7 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
             {
                 testCasesList = new List<TestCase>();
                 string queryText = "select [System.Id], [System.Title] from WorkItems where [System.WorkItemType] = 'Test Case'";
-                IEnumerable<ITestCase> allTestCases = ExecutionContext.TestManagementTeamProject.TestCases.InPlans(queryText, true);
+                IEnumerable<ITestCase> allTestCases = ExecutionContext.TestManagementTeamProject.TestCases.Query(queryText);
                 foreach (var currentTestCase in allTestCases)
                 {
                     TestCase testCaseToAdd = new TestCase(currentTestCase, currentTestCase.TestSuiteEntry.ParentTestSuite);

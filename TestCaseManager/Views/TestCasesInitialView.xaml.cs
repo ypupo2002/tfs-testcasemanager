@@ -530,7 +530,7 @@ namespace TestCaseManagerApp.Views
                 }
                 else if (isInitialized)
                 {
-                    suiteTestCaseCollection = TestCaseManager.GetAllTestCasesInTestPlan();
+                    suiteTestCaseCollection = TestCaseManager.GetAllTestCasesInTestPlan(false);
                 }
             });
             t.ContinueWith(antecedent =>

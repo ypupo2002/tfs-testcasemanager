@@ -934,8 +934,8 @@ namespace TestCaseManagerApp.Views
             {
                 currentBase = this.SaveSharedStepInternal();
             }
-            UndoRedoManager.Instance().Clear();
-            
+            UndoRedoManager.Instance().Clear();            
+
             return currentBase;
         }
 
@@ -945,9 +945,15 @@ namespace TestCaseManagerApp.Views
         /// <returns>the saved test case</returns>
         private TestCase SaveTestCaseInternal()
         {
+            this.TestCaseEditViewModel.TestCase.Title = this.TestCaseEditViewModel.TestBase.Title;
+            this.TestCaseEditViewModel.TestCase.Area = this.TestCaseEditViewModel.TestBase.Area;
+            this.TestCaseEditViewModel.TestCase.Priority = this.TestCaseEditViewModel.TestBase.Priority;
+            this.TestCaseEditViewModel.TestCase.TeamFoundationIdentityName = this.TestCaseEditViewModel.TestBase.TeamFoundationIdentityName;
+            this.TestCaseEditViewModel.TestCase.TeamFoundationId = this.TestCaseEditViewModel.TestBase.TeamFoundationId;
+            this.TestCaseEditViewModel.TestCase.OwnerDisplayName = this.TestCaseEditViewModel.TestBase.OwnerDisplayName;
             TestCase savedTestCase;
             int? suiteId = this.TestCaseEditViewModel.TestCase.ITestSuiteBase != null ? this.TestCaseEditViewModel.TestCase.TestSuiteId : null;
-            if (String.IsNullOrEmpty(this.TestCaseEditViewModel.TestCase.Title))
+            if (String.IsNullOrEmpty(this.TestCaseEditViewModel.TestBase.Title))
             {
                 ModernDialog.ShowMessage("Test case title cannot be empty!", "Warning", MessageBoxButton.OK);
                 return null;
@@ -967,6 +973,7 @@ namespace TestCaseManagerApp.Views
             }
             this.editViewContext.TestCaseId = savedTestCase.ITestCase.Id;
             this.TestCaseEditViewModel.TestCaseIdLabel = savedTestCase.ITestCase.Id.ToString();
+            //this.TestCaseEditViewModel.TestBase = savedTestCase;
 
             return savedTestCase;
         }
@@ -977,6 +984,12 @@ namespace TestCaseManagerApp.Views
         /// <returns></returns>
         private SharedStep SaveSharedStepInternal()
         {
+            this.TestCaseEditViewModel.SharedStep.Title = this.TestCaseEditViewModel.TestBase.Title;
+            this.TestCaseEditViewModel.SharedStep.Area = this.TestCaseEditViewModel.TestBase.Area;
+            this.TestCaseEditViewModel.SharedStep.Priority = this.TestCaseEditViewModel.TestBase.Priority;
+            this.TestCaseEditViewModel.SharedStep.TeamFoundationIdentityName = this.TestCaseEditViewModel.TestBase.TeamFoundationIdentityName;
+            this.TestCaseEditViewModel.SharedStep.TeamFoundationId = this.TestCaseEditViewModel.TestBase.TeamFoundationId;
+            this.TestCaseEditViewModel.SharedStep.OwnerDisplayName = this.TestCaseEditViewModel.TestBase.OwnerDisplayName;
             SharedStep savedSharedStep;
             if (String.IsNullOrEmpty(this.TestCaseEditViewModel.TestBase.Title))
             {
@@ -997,7 +1010,8 @@ namespace TestCaseManagerApp.Views
                 savedSharedStep = this.TestCaseEditViewModel.SharedStep.Save(false, this.TestCaseEditViewModel.ObservableTestSteps);
             }
             this.editViewContext.SharedStepId = savedSharedStep.ISharedStep.Id;
-            this.TestCaseEditViewModel.TestCaseIdLabel = this.editViewContext.SharedStepId.ToString();            
+            this.TestCaseEditViewModel.TestCaseIdLabel = this.editViewContext.SharedStepId.ToString();
+            //this.TestCaseEditViewModel.TestBase = savedSharedStep;
 
             return savedSharedStep;
         }
