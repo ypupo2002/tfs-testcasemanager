@@ -43,7 +43,10 @@ namespace TestCaseManagerCore.ViewModels
             this.TestCasesCount = this.ObservableTestCases.Count.ToString();
             this.ReplaceContext = new ReplaceContext();
             this.ReplaceContext.SelectedSuite = this.ObservableTestSuites[0];
-            this.ReplaceContext.SelectedTeamFoundationIdentityName = this.ObservableTeamFoundationIdentityNames[0];
+            if (this.ObservableTeamFoundationIdentityNames.Count > 0)
+            {
+                this.ReplaceContext.SelectedTeamFoundationIdentityName = this.ObservableTeamFoundationIdentityNames[0];
+            }            
             this.SelectedTestCasesCount = "0";   
         }
 
@@ -56,7 +59,10 @@ namespace TestCaseManagerCore.ViewModels
             this.InitialViewFilters = viewModel.InitialViewFilters;
             this.ReplaceContext = viewModel.ReplaceContext;
             this.ReplaceContext.SelectedSuite = this.ObservableTestSuites[0];
-            this.ReplaceContext.SelectedTeamFoundationIdentityName = this.ObservableTeamFoundationIdentityNames[0];
+            if (this.ObservableTeamFoundationIdentityNames.Count > 0)
+            {
+                this.ReplaceContext.SelectedTeamFoundationIdentityName = this.ObservableTeamFoundationIdentityNames[0];
+            }
         }
 
         /// <summary>

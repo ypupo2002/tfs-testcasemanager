@@ -29,6 +29,7 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
             {
                 if (currentSuite != null)
                 {
+                    currentSuite.Refresh();
                     ObservableCollection<Suite> childred = null;
                     if (currentSuite is IStaticTestSuite)
                     {
@@ -76,7 +77,7 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
         {
             ITestSuiteBase currentSuite = ExecutionContext.TestManagementTeamProject.TestSuites.Find(suiteId);
             currentSuite.Title = newName;
-            ExecutionContext.Preferences.TestPlan.Save();
+            ExecutionContext.Preferences.TestPlan.Save();          
         }
 
         /// <summary>

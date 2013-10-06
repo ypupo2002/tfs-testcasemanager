@@ -924,21 +924,6 @@ namespace TestCaseManagerApp.Views
         }
 
         /// <summary>
-        /// Handles the MouseDoubleClick event of the TreeViewItem control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="System.Windows.Input.MouseEventArgs"/> instance containing the event data.</param>
-        private void TreeViewItem_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {
-            TreeViewItem treeViewItem = sender as TreeViewItem;
-            if (treeViewItem != null && treeViewItem.IsSelected)
-            {
-                this.RenameSuiteInternal();
-                e.Handled = true;
-            }
-        }
-
-        /// <summary>
         /// Visuals the upward search.
         /// </summary>
         /// <param name="source">The source.</param>
@@ -1002,12 +987,7 @@ namespace TestCaseManagerApp.Views
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void btnRemoveTestCase_Click(object sender, RoutedEventArgs e)
-        {
-            if(dgTestCases.SelectedItems.Count == 0)
-            {
-                this.DisplayNonSelectionWarning();
-                return;
-            }
+        {           
             this.RemoveTestCaseFromSuiteInternal();
         }
 
@@ -1016,6 +996,11 @@ namespace TestCaseManagerApp.Views
         /// </summary>
         private void RemoveTestCaseFromSuiteInternal()
         {
+            if (dgTestCases.SelectedItems.Count == 0)
+            {
+                this.DisplayNonSelectionWarning();
+                return;
+            }
             int selectedIndex = dgTestCases.SelectedIndex;
             do
             {
