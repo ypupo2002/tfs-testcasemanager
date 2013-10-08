@@ -35,7 +35,7 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-  <Reference Include="Accessibility">
+    <Reference Include="Accessibility">
       <Private>True</Private>
     </Reference>
     <Reference Include="FirstFloor.ModernUI">

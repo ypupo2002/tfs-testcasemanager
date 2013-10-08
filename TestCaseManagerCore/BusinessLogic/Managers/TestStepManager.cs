@@ -9,6 +9,7 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
     using System.Collections.ObjectModel;
     using System.Linq;
     using System.Text;
+    using System.Text.RegularExpressions;
     using System.Threading.Tasks;
     using Microsoft.TeamFoundation.TestManagement.Client;
     using TestCaseManagerCore.BusinessLogic.Entities;
@@ -215,6 +216,130 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
         public static List<ISharedStep> GetAllSharedSteps()
         {
             return ExecutionContext.TestManagementTeamProject.SharedSteps.Query("select * from WorkItems where [System.TeamProject] = @project and [System.WorkItemType] = 'Shared Steps'").ToList();
+        }
+
+
+        /// <summary>
+        /// Updates the generic shared steps.
+        /// </summary>
+        /// <param name="testSteps">The test steps.</param>
+        /// <param name="genericParameters">The generic parameters.</param>
+        public static void UpdateGenericSharedSteps(ICollection<TestStep> testSteps, Dictionary<string, Dictionary<string, string>> genericParameters = null)
+        {
+            if (genericParameters == null)
+            {
+                genericParameters = new Dictionary<string, Dictionary<string, string>>();
+            }
+            foreach (TestStep currentTestStep in testSteps)
+            {
+                if (!currentTestStep.IsShared)
+                {
+                    ExtractGenericParameteresFromNonSharedStep(currentTestStep, genericParameters);
+                }
+                else
+                {
+                    ReplaceGenericParametersWithSpecifiedValues(currentTestStep, genericParameters);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Extracts the generic parameteres from non shared step.
+        /// </summary>
+        /// <param name="currentTestStep">The current test step.</param>
+        /// <param name="genericParameters">The generic parameters.</param>
+        private static void ExtractGenericParameteresFromNonSharedStep(TestStep currentTestStep, Dictionary<string, Dictionary<string, string>> genericParameters)
+        {
+            string regexPattern = @"\s*(?<Namespace>[\w.]{1,})\((?<GenParam>[a-zA-Z]{1,})\)\s*=\s*(?<NewValue>\w*);?\s*";
+            Regex r = new Regex(regexPattern, RegexOptions.Multiline);
+            for (Match m = r.Match(currentTestStep.ActionTitle); m.Success; m = m.NextMatch())
+            {
+                if (!genericParameters.Keys.Contains(m.Groups["Namespace"].Value))
+                {
+                    Dictionary<string, string> genericTypesDictionary = new Dictionary<string, string>();
+                    genericTypesDictionary.Add(m.Groups["GenParam"].Value, m.Groups["NewValue"].Value);
+                    genericParameters.Add(m.Groups["Namespace"].Value, genericTypesDictionary);
+                }
+                else
+                {
+                    if (!genericParameters[m.Groups["Namespace"].Value].Keys.Contains(m.Groups["GenParam"].Value))
+                    {
+                        genericParameters[m.Groups["Namespace"].Value].Add(m.Groups["GenParam"].Value, m.Groups["NewValue"].Value);
+                    }
+                    else
+                    {
+                        genericParameters[m.Groups["Namespace"].Value][m.Groups["GenParam"].Value] = m.Groups["NewValue"].Value;
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// Replaces the generic parameters with specified values.
+        /// </summary>
+        /// <param name="currentTestStep">The current test step.</param>
+        /// <param name="genericParameters">The generic parameters.</param>
+        private static void ReplaceGenericParametersWithSpecifiedValues(TestStep currentTestStep, Dictionary<string, Dictionary<string, string>> genericParameters)
+        {
+            string titleRegexPattern = @"\s*(?<Namespace>[\w.]{1,})\((?<GenParam>[a-zA-Z,]{1,})\)\s*:\s*(?<ShareStepTitle>[\w\W]*)";
+            Regex r1 = new Regex(titleRegexPattern, RegexOptions.Singleline);
+            foreach (string currentNamespace in genericParameters.Keys)
+            {
+                Match currentMatch = r1.Match(currentTestStep.Title);
+                if (currentMatch.Success)
+                {
+                    if (currentMatch.Groups["Namespace"].Value.EndsWith(currentNamespace))
+                    {
+                        currentTestStep.ActionTitle = currentTestStep.OriginalActionTitle;
+                        currentTestStep.ActionExpectedResult = currentTestStep.OriginalActionExpectedResult;
+                        currentTestStep.Title = currentTestStep.OriginalTitle;
+
+                        foreach (string currentKey in genericParameters[currentNamespace].Keys)
+                        {
+                            string strToBeReplaced = String.Concat("(", currentKey, ")");
+                            string newStr = String.Concat("(", genericParameters[currentNamespace][currentKey], ")");
+
+                            currentTestStep.ActionTitle = currentTestStep.ActionTitle.Replace(strToBeReplaced, newStr);
+                            currentTestStep.ActionExpectedResult = currentTestStep.ActionExpectedResult.Replace(strToBeReplaced, newStr);
+                            currentTestStep.Title = currentTestStep.Title.Replace(strToBeReplaced, newStr);
+                        }
+                        ReplaceMultipleParamsTitleWithNewValues(currentTestStep, currentNamespace, genericParameters);
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// Replaces the multiple parameters title with new values.
+        /// </summary>
+        /// <param name="currentTestStep">The current test step.</param>
+        /// <param name="currentNamespace">The current namespace.</param>
+        /// <param name="genericParameters">The generic parameters.</param>
+        private static void ReplaceMultipleParamsTitleWithNewValues(TestStep currentTestStep, string currentNamespace, Dictionary<string, Dictionary<string, string>> genericParameters)
+        {
+            if (genericParameters[currentNamespace].Keys.Count > 1)
+            {
+                StringBuilder newStringBuilder = new StringBuilder();
+                StringBuilder oldStringBuilder1 = new StringBuilder();
+                newStringBuilder.Append("(");
+                oldStringBuilder1.Append(")");
+                for (int i = 0; i < genericParameters[currentNamespace].Keys.Count; i++)
+                {
+                    string currentKey = genericParameters[currentNamespace].Keys.ElementAt(i);
+                    newStringBuilder.Append(genericParameters[currentNamespace][currentKey]);
+                    oldStringBuilder1.Append(currentKey);
+                    if (i < genericParameters[currentNamespace].Keys.Count - 1)
+                    {
+                        newStringBuilder.Append(",");
+                        oldStringBuilder1.Append(",");
+                    }
+                }
+                newStringBuilder.Append(")");
+                oldStringBuilder1.Append(")");
+                string genericMultiParamNew = newStringBuilder.ToString();
+                string genericMultiParamOld = oldStringBuilder1.ToString();
+                currentTestStep.Title = currentTestStep.Title.Replace(genericMultiParamOld, genericMultiParamNew);
+            }
         }
 
         /// <summary>

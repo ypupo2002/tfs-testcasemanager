@@ -493,11 +493,21 @@ namespace TestCaseManagerApp.Views
         /// <param name="e">The <see cref="MouseButtonEventArgs"/> instance containing the event data.</param>
         private void dgTestCases_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            this.PreviewSelectedTestCase();
             if (System.Windows.Forms.Control.ModifierKeys == Keys.Alt)
             {
                 TestCase currentTestCase = dgTestCases.SelectedItem as TestCase;
-                this.NavigateToTestCasesEditView(currentTestCase.ITestCase.Id, currentTestCase.ITestSuiteBase.Id);
+                if (currentTestCase.ITestSuiteBase != null)
+                {
+                    this.NavigateToTestCasesEditView(currentTestCase.ITestCase.Id, currentTestCase.ITestSuiteBase.Id);
+                }
+                else
+                {
+                    this.NavigateToTestCasesEditView(currentTestCase.ITestCase.Id, -1);
+                }                
+            }
+            else
+            {
+                this.PreviewSelectedTestCase();
             }
         }
 

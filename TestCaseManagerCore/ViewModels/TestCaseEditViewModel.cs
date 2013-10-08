@@ -8,6 +8,8 @@ namespace TestCaseManagerCore.ViewModels
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.Linq;
+    using System.Text;
+    using System.Text.RegularExpressions;
     using System.Windows;
     using System.Xml;
     using Microsoft.TeamFoundation.Server;
@@ -23,7 +25,7 @@ namespace TestCaseManagerCore.ViewModels
         /// <summary>
         /// The shared step search default text
         /// </summary>
-        public const string SharedStepSearchDefaultText = "Search in Shared";
+        public const string SharedStepSearchDefaultText = "Search for a Shared Step";
 
         /// <summary>
         /// The action default text
@@ -72,7 +74,7 @@ namespace TestCaseManagerCore.ViewModels
             this.EditViewContext = editViewContext;
             this.Areas = this.GetProjectAreas();
             this.ObservableTestSteps = new ObservableCollection<TestStep>();
-
+            this.GenericParameters = new Dictionary<string, Dictionary<string, string>>();
             if (!this.EditViewContext.IsSharedStep)
             {
                 this.ShowTestCaseSpecificFields = true;
@@ -120,6 +122,9 @@ namespace TestCaseManagerCore.ViewModels
             }
             this.InitializeIdLabelFromTestBase(this.EditViewContext.CreateNew, this.EditViewContext.Duplicate);
             this.InitializePageTitle();
+
+
+            TestStepManager.UpdateGenericSharedSteps(this.ObservableTestSteps, this.GenericParameters);
         }      
 
         /// <summary>
@@ -219,6 +224,14 @@ namespace TestCaseManagerCore.ViewModels
         public bool ShowTestCaseSpecificFields { get; set; }
 
         /// <summary>
+        /// Gets or sets the generic parameters.
+        /// </summary>
+        /// <value>
+        /// The generic parameters.
+        /// </value>
+        public Dictionary<string, Dictionary<string, string>> GenericParameters { get; set; }
+
+        /// <summary>
         /// Gets or sets the page title.
         /// </summary>
         /// <value>
@@ -235,37 +248,6 @@ namespace TestCaseManagerCore.ViewModels
             {
                 this.pageTitle = value;
                 this.NotifyPropertyChanged();
-            }
-        }
-
-        /// <summary>
-        /// Initializes the page title.
-        /// </summary>
-        private void InitializePageTitle()
-        {
-            if (!this.EditViewContext.IsSharedStep && this.EditViewContext.CreateNew && !this.EditViewContext.Duplicate)
-            {
-                this.PageTitle = "Create New Test Case";
-            }
-            else if (!this.EditViewContext.IsSharedStep && this.EditViewContext.CreateNew && this.EditViewContext.Duplicate)
-            {
-                this.PageTitle = "Duplicate Test Case";
-            }
-            else if (this.EditViewContext.IsSharedStep && this.EditViewContext.CreateNew && !this.EditViewContext.Duplicate)
-            {
-                this.PageTitle = "Create New Shared Step";
-            }
-            else if (this.EditViewContext.IsSharedStep && this.EditViewContext.CreateNew && this.EditViewContext.Duplicate)
-            {
-                this.PageTitle = "Duplicate Shared Step";
-            }
-            else if (this.EditViewContext.IsSharedStep)
-            {
-                this.PageTitle = "Edit Shared Step";
-            }
-            else
-            {
-                this.PageTitle = "Edit Test Case";
             }
         }
 
@@ -412,11 +394,16 @@ namespace TestCaseManagerCore.ViewModels
         /// </summary>
         /// <param name="testStepToInsert">The test step to be insert.</param>
         /// <param name="selectedIndex">Index of the selected test step.</param>
-        /// <returns>new selected index</returns>
-        public int InsertTestStepInTestCase(TestStep testStepToInsert, int selectedIndex)
+        /// <param name="skipShared">if set to <c>true</c> [skip shared].</param>
+        /// <returns>
+        /// new selected index
+        /// </returns>
+        public int InsertTestStepInTestCase(TestStep testStepToInsert, int selectedIndex, bool skipShared = true)
         {
-            bool isNextStepShared = this.IsNextTestStepShared(selectedIndex);
-            selectedIndex = this.FindNextNotSharedStepIndex(selectedIndex);
+            if (!skipShared)
+            {
+                selectedIndex = this.FindNextNotSharedStepIndex(selectedIndex);
+            }
             // If you delete first step and call redo operation, the step should be inserted at the beginning
             if (selectedIndex == -2)
             {
@@ -442,6 +429,14 @@ namespace TestCaseManagerCore.ViewModels
         /// <returns></returns>
         private bool IsNextTestStepShared(int selectedIndex)
         {
+            if (selectedIndex == -2)
+            {
+                selectedIndex+=2;
+            }
+            else if (selectedIndex == -1)
+            {
+                selectedIndex++;
+            }
             bool isNextStepShared = false;
             if (this.ObservableTestSteps.Count > selectedIndex + 1)
             {
@@ -550,6 +545,17 @@ namespace TestCaseManagerCore.ViewModels
         }
 
         /// <summary>
+        /// Updates the test steps grid.
+        /// </summary>
+        public void UpdateTestStepsGrid()
+        {
+            List<TestStep> testSteps = new List<TestStep>();
+            this.ObservableTestSteps.ToList().ForEach(x => testSteps.Add(x));
+            this.ObservableTestSteps.Clear();
+            testSteps.ForEach(x => this.ObservableTestSteps.Add(x));
+        }
+
+        /// <summary>
         /// Inserts the new shared step.
         /// </summary>
         /// <param name="currentSharedStep">The current shared step.</param>
@@ -561,7 +567,7 @@ namespace TestCaseManagerCore.ViewModels
             int j = 0;
             for (int i = selectedIndex; i < innerTestSteps.Count + selectedIndex; i++)
             {
-                this.InsertTestStepInTestCase(innerTestSteps[j], i);
+                this.InsertTestStepInTestCase(innerTestSteps[j], i, false);
                 j++;
             }
         }
@@ -579,6 +585,37 @@ namespace TestCaseManagerCore.ViewModels
                     this.RemoveTestStepFromObservableCollection(testStepsToBeRemoved[i], testStepsToBeRemoved[i].Index);
                 }
             }           
+        }
+
+        /// <summary>
+        /// Initializes the page title.
+        /// </summary>
+        private void InitializePageTitle()
+        {
+            if (!this.EditViewContext.IsSharedStep && this.EditViewContext.CreateNew && !this.EditViewContext.Duplicate)
+            {
+                this.PageTitle = "Create New Test Case";
+            }
+            else if (!this.EditViewContext.IsSharedStep && this.EditViewContext.CreateNew && this.EditViewContext.Duplicate)
+            {
+                this.PageTitle = "Duplicate Test Case";
+            }
+            else if (this.EditViewContext.IsSharedStep && this.EditViewContext.CreateNew && !this.EditViewContext.Duplicate)
+            {
+                this.PageTitle = "Create New Shared Step";
+            }
+            else if (this.EditViewContext.IsSharedStep && this.EditViewContext.CreateNew && this.EditViewContext.Duplicate)
+            {
+                this.PageTitle = "Duplicate Shared Step";
+            }
+            else if (this.EditViewContext.IsSharedStep)
+            {
+                this.PageTitle = "Edit Shared Step";
+            }
+            else
+            {
+                this.PageTitle = "Edit Test Case";
+            }
         }
 
         /// <summary>

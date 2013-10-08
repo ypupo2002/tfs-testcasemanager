@@ -69,6 +69,8 @@ namespace TestCaseManagerApp.Views
         {
             isInitialized = false;
             ComboBoxDropdownExtensions.SetOpenDropDownAutomatically(this.cbSuite, ExecutionContext.SettingsViewModel.HoverBehaviorDropDown);
+            ComboBoxDropdownExtensions.SetOpenDropDownAutomatically(this.cbPriority, ExecutionContext.SettingsViewModel.HoverBehaviorDropDown);
+            ComboBoxDropdownExtensions.SetOpenDropDownAutomatically(this.cbTeamFoundationIdentityNames, ExecutionContext.SettingsViewModel.HoverBehaviorDropDown);
         }
 
         /// <summary>
@@ -112,6 +114,7 @@ namespace TestCaseManagerApp.Views
 
                 // TODO: Fix to be initialized from XAML
                 this.cbTeamFoundationIdentityNames.SelectedIndex = 0;
+                this.cbPriority.SelectedIndex = 0;
                 this.HideProgressBar();
                 this.tbTitleFilter.Focus();
                 isInitialized = true;
@@ -279,17 +282,7 @@ namespace TestCaseManagerApp.Views
                 cbSuite.IsDropDownOpen = true;
                 cbSuite.Focus();
             }          
-        }
-
-        /// <summary>
-        /// Handles the MouseMove event of the cbSuite control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="MouseEventArgs"/> instance containing the event data.</param>
-        private void cbSuite_MouseMove(object sender, MouseEventArgs e)
-        {
-            ComboBoxDropdownExtensions.cboMouseMove(sender, e);
-        }
+        }       
 
         /// <summary>
         /// Handles the MouseEnter event of the cbPriority control.
@@ -317,6 +310,16 @@ namespace TestCaseManagerApp.Views
                 cbTeamFoundationIdentityNames.IsDropDownOpen = true;
                 cbTeamFoundationIdentityNames.Focus();
             }  
+        }
+
+        /// <summary>
+        /// Handles the MouseMove event of the cbSuite control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="MouseEventArgs"/> instance containing the event data.</param>
+        private void cbSuite_MouseMove(object sender, MouseEventArgs e)
+        {
+            ComboBoxDropdownExtensions.cboMouseMove(sender, e);
         }
 
         /// <summary>

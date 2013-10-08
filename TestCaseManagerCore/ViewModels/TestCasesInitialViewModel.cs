@@ -236,6 +236,11 @@ namespace TestCaseManagerCore.ViewModels
         public void ExportTestCases(string fileName)
         {
             List<TestCaseFull> fullTestCases = this.GetAllFullTestCasesForObservableTestCases();
+            foreach (TestCaseFull currentFullTestCase in fullTestCases)
+            {
+                TestStepManager.UpdateGenericSharedSteps(currentFullTestCase.TestSteps);
+            }
+            
             HtmlTestCaseExportTemplate htmlTestCaseExportTemplate = new HtmlTestCaseExportTemplate();
             htmlTestCaseExportTemplate.Session = new Dictionary<string, object>();
             htmlTestCaseExportTemplate.Session.Add("FullTestCases", fullTestCases);

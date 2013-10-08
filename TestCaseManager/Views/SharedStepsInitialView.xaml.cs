@@ -125,8 +125,9 @@ namespace TestCaseManagerApp.Views
             });
             t.ContinueWith(antecedent =>
             {
+                this.SharedStepsInitialViewModel.FilterSharedSteps();
                 this.DataContext = SharedStepsInitialViewModel;
-                this.UpdateButtonsStatus();
+                this.UpdateButtonsStatus();             
                 this.HideProgressBar();
                 this.tbTitleFilter.Focus();
                 isInitialized = true;

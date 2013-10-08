@@ -23,7 +23,6 @@ namespace TestCaseManagerCore.BusinessLogic.Entities
             this.ISharedStep = sharedStepCore;
             List<TestStep> allTestSteps = TestStepManager.GetAllTestStepsInSharedStep(sharedStepCore);
             this.StepsToolTip = TestStepManager.GenerateTestStepsText(allTestSteps);
-
             this.Title = sharedStepCore.Title;
             this.Area = sharedStepCore.Area;
             this.Priority = (Priority)sharedStepCore.Priority;

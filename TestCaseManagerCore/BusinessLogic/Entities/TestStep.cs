@@ -49,6 +49,7 @@ namespace TestCaseManagerCore.BusinessLogic.Entities
         {
             this.IsShared = isShared;
             this.Title = title;
+            this.OriginalTitle = title;
             this.TestStepGuid = testStepGuid;
             this.IsPasteEnabled = false;
         }
@@ -68,6 +69,8 @@ namespace TestCaseManagerCore.BusinessLogic.Entities
             this.TestStepId = testStepId;
             this.ActionTitle = actionTitle;
             this.ActionExpectedResult = actionExpectedResult;
+            this.OriginalActionTitle = actionTitle;
+            this.OriginalActionExpectedResult = actionExpectedResult;
         }
 
         /// <summary>
@@ -83,6 +86,8 @@ namespace TestCaseManagerCore.BusinessLogic.Entities
             this.TestStepId = testStepCore.Id;
             this.ActionTitle = testStepCore.Title.ToPlainText();
             this.ActionExpectedResult = testStepCore.ExpectedResult.ToPlainText();
+            this.OriginalActionTitle = testStepCore.Title.ToPlainText();
+            this.OriginalActionExpectedResult = testStepCore.ExpectedResult.ToPlainText();
         }
 
         /// <summary>
@@ -238,6 +243,30 @@ namespace TestCaseManagerCore.BusinessLogic.Entities
                 this.NotifyPropertyChanged();
             }
         }
+
+        /// <summary>
+        /// Gets or sets the original title.
+        /// </summary>
+        /// <value>
+        /// The original title.
+        /// </value>
+        public string OriginalTitle { get; set; }
+
+        /// <summary>
+        /// Gets or sets the original action title.
+        /// </summary>
+        /// <value>
+        /// The original action title.
+        /// </value>
+        public string OriginalActionTitle { get; set; }
+
+        /// <summary>
+        /// Gets or sets the original expected result.
+        /// </summary>
+        /// <value>
+        /// The original expected result.
+        /// </value>
+        public string OriginalActionExpectedResult { get; set; }
 
         /// <summary>
         /// Creates a new object that is a copy of the current instance.

@@ -39,6 +39,7 @@ namespace TestCaseManagerCore.ViewModels
             this.ObservableTestSteps = new ObservableCollection<TestStep>();
             TestStepManager.GetTestStepsFromTestActions(this.TestActions).ForEach(x => this.ObservableTestSteps.Add(x));
             this.AssociatedAutomation = TestCase.ITestCase.GetAssociatedAutomation();
+            TestStepManager.UpdateGenericSharedSteps(this.ObservableTestSteps);
         }
 
         /// <summary>
