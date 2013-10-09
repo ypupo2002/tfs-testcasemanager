@@ -135,12 +135,15 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
         public static string GenerateTestStepsText(List<TestStep> testSteps)
         {
             StringBuilder sb = new StringBuilder();
-            foreach (TestStep currentTestStep in testSteps)
+            for (int i = 0; i < testSteps.Count; i++)
             {
-                sb.AppendLine(string.Format("{0}   {1}", currentTestStep.ActionTitle, currentTestStep.ActionExpectedResult));
-                sb.AppendLine(new string('*', 20));
+                sb.AppendLine(string.Format("{0}    {1}", testSteps[i].ActionTitle, testSteps[i].ActionExpectedResult));
+                if (i < testSteps.Count - 1)
+                {
+                    sb.AppendLine(new string('-', 70));
+                }                
             }
-
+           
             string result = sb.ToString();
             return result;
         }
@@ -218,28 +221,17 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
             return ExecutionContext.TestManagementTeamProject.SharedSteps.Query("select * from WorkItems where [System.TeamProject] = @project and [System.WorkItemType] = 'Shared Steps'").ToList();
         }
 
-
         /// <summary>
         /// Updates the generic shared steps.
         /// </summary>
         /// <param name="testSteps">The test steps.</param>
-        /// <param name="genericParameters">The generic parameters.</param>
-        public static void UpdateGenericSharedSteps(ICollection<TestStep> testSteps, Dictionary<string, Dictionary<string, string>> genericParameters = null)
+        public static void UpdateGenericSharedSteps(ICollection<TestStep> testSteps)
         {
-            if (genericParameters == null)
-            {
-                genericParameters = new Dictionary<string, Dictionary<string, string>>();
-            }
+            Dictionary<string, Dictionary<string, string>> genericParameters = new Dictionary<string, Dictionary<string, string>>();
             foreach (TestStep currentTestStep in testSteps)
             {
-                if (!currentTestStep.IsShared)
-                {
-                    ExtractGenericParameteresFromNonSharedStep(currentTestStep, genericParameters);
-                }
-                else
-                {
-                    ReplaceGenericParametersWithSpecifiedValues(currentTestStep, genericParameters);
-                }
+                ExtractGenericParameteresFromNonSharedStep(currentTestStep, genericParameters);
+                ReplaceGenericParametersWithSpecifiedValues(currentTestStep, genericParameters);
             }
         }
 
@@ -250,7 +242,7 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
         /// <param name="genericParameters">The generic parameters.</param>
         private static void ExtractGenericParameteresFromNonSharedStep(TestStep currentTestStep, Dictionary<string, Dictionary<string, string>> genericParameters)
         {
-            string regexPattern = @"\s*(?<Namespace>[\w.]{1,})\((?<GenParam>[a-zA-Z]{1,})\)\s*=\s*(?<NewValue>\w*);?\s*";
+            string regexPattern = @"\s*(?<Namespace>[\w.]{1,})\((?<GenParam>[a-zA-Z]{1,})\)\s*=\s*(?<NewValue>[\w\s-]*);?\s*";
             Regex r = new Regex(regexPattern, RegexOptions.Multiline);
             for (Match m = r.Match(currentTestStep.ActionTitle); m.Success; m = m.NextMatch())
             {
@@ -264,11 +256,11 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
                 {
                     if (!genericParameters[m.Groups["Namespace"].Value].Keys.Contains(m.Groups["GenParam"].Value))
                     {
-                        genericParameters[m.Groups["Namespace"].Value].Add(m.Groups["GenParam"].Value, m.Groups["NewValue"].Value);
+                        genericParameters[m.Groups["Namespace"].Value].Add(m.Groups["GenParam"].Value, m.Groups["NewValue"].Value.Trim());
                     }
                     else
                     {
-                        genericParameters[m.Groups["Namespace"].Value][m.Groups["GenParam"].Value] = m.Groups["NewValue"].Value;
+                        genericParameters[m.Groups["Namespace"].Value][m.Groups["GenParam"].Value] = m.Groups["NewValue"].Value.Trim();
                     }
                 }
             }
@@ -283,29 +275,37 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
         {
             string titleRegexPattern = @"\s*(?<Namespace>[\w.]{1,})\((?<GenParam>[a-zA-Z,]{1,})\)\s*:\s*(?<ShareStepTitle>[\w\W]*)";
             Regex r1 = new Regex(titleRegexPattern, RegexOptions.Singleline);
-            foreach (string currentNamespace in genericParameters.Keys)
+            if (genericParameters.Keys.Count > 0)
             {
-                Match currentMatch = r1.Match(currentTestStep.Title);
-                if (currentMatch.Success)
+                foreach (string currentNamespace in genericParameters.Keys)
                 {
-                    if (currentMatch.Groups["Namespace"].Value.EndsWith(currentNamespace))
+                    Match currentMatch = r1.Match(currentTestStep.Title);
+                    if (currentMatch.Success)
                     {
-                        currentTestStep.ActionTitle = currentTestStep.OriginalActionTitle;
-                        currentTestStep.ActionExpectedResult = currentTestStep.OriginalActionExpectedResult;
-                        currentTestStep.Title = currentTestStep.OriginalTitle;
-
-                        foreach (string currentKey in genericParameters[currentNamespace].Keys)
+                        if (currentMatch.Groups["Namespace"].Value.EndsWith(currentNamespace))
                         {
-                            string strToBeReplaced = String.Concat("(", currentKey, ")");
-                            string newStr = String.Concat("(", genericParameters[currentNamespace][currentKey], ")");
+                            currentTestStep.ActionTitle = currentTestStep.OriginalActionTitle;
+                            currentTestStep.ActionExpectedResult = currentTestStep.OriginalActionExpectedResult;
+                            currentTestStep.Title = currentTestStep.OriginalTitle;
 
-                            currentTestStep.ActionTitle = currentTestStep.ActionTitle.Replace(strToBeReplaced, newStr);
-                            currentTestStep.ActionExpectedResult = currentTestStep.ActionExpectedResult.Replace(strToBeReplaced, newStr);
-                            currentTestStep.Title = currentTestStep.Title.Replace(strToBeReplaced, newStr);
+                            foreach (string currentKey in genericParameters[currentNamespace].Keys)
+                            {
+                                string strToBeReplaced = String.Concat("(", currentKey, ")");
+                                //string newStr = String.Concat("(", genericParameters[currentNamespace][currentKey], ")");
+
+                                currentTestStep.ActionTitle = currentTestStep.ActionTitle.Replace(strToBeReplaced, genericParameters[currentNamespace][currentKey]);
+                                currentTestStep.ActionExpectedResult = currentTestStep.ActionExpectedResult.Replace(strToBeReplaced, genericParameters[currentNamespace][currentKey]);
+                                //currentTestStep.Title = currentTestStep.Title.Replace(strToBeReplaced, newStr);
+                            }
+                            //ReplaceMultipleParamsTitleWithNewValues(currentTestStep, currentNamespace, genericParameters);
                         }
-                        ReplaceMultipleParamsTitleWithNewValues(currentTestStep, currentNamespace, genericParameters);
                     }
                 }
+            }
+            else
+            {
+                   currentTestStep.ActionTitle = currentTestStep.OriginalActionTitle;
+                   currentTestStep.ActionExpectedResult = currentTestStep.OriginalActionExpectedResult;
             }
         }
 

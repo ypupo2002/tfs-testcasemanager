@@ -353,8 +353,11 @@ namespace TestCaseManagerApp.Views
         /// <param name="e">The <see cref="MouseButtonEventArgs"/> instance containing the event data.</param>
         private void dgSharedSteps_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            SharedStep currentSharedStep = dgSharedSteps.SelectedItem as SharedStep;
-            this.NavigateToTestCasesEditView(true, currentSharedStep.ISharedStep.Id);
+            if (dgSharedSteps.SelectedItem != null)
+            {
+                SharedStep currentSharedStep = dgSharedSteps.SelectedItem as SharedStep;
+                this.NavigateToTestCasesEditView(true, currentSharedStep.ISharedStep.Id);
+            }          
         }
 
         /// <summary>

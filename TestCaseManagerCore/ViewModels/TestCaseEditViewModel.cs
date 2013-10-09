@@ -124,7 +124,7 @@ namespace TestCaseManagerCore.ViewModels
             this.InitializePageTitle();
 
 
-            TestStepManager.UpdateGenericSharedSteps(this.ObservableTestSteps, this.GenericParameters);
+            TestStepManager.UpdateGenericSharedSteps(this.ObservableTestSteps);
         }      
 
         /// <summary>
@@ -418,7 +418,7 @@ namespace TestCaseManagerCore.ViewModels
                 this.ObservableTestSteps.Add(testStepToInsert);                 
             }
             UndoRedoManager.Instance().Push((r, i) => this.RemoveTestStepFromObservableCollection(r, i), testStepToInsert, selectedIndex);
-
+            TestStepManager.UpdateGenericSharedSteps(this.ObservableTestSteps);
             return selectedIndex;
         }
 
@@ -482,6 +482,7 @@ namespace TestCaseManagerCore.ViewModels
         {
             this.ObservableTestSteps.Remove(testStepToBeRemoved);
             UndoRedoManager.Instance().Push((r, i) => this.InsertTestStepInTestCase(r, i), testStepToBeRemoved, selectedIndex, "remove Test Step");
+            TestStepManager.UpdateGenericSharedSteps(this.ObservableTestSteps);
         }
 
         /// <summary>
@@ -560,7 +561,8 @@ namespace TestCaseManagerCore.ViewModels
         /// </summary>
         /// <param name="currentSharedStep">The current shared step.</param>
         /// <param name="selectedIndex">Index of the selected test step.</param>
-        public void InsertSharedStep(SharedStep currentSharedStep, int selectedIndex)
+        /// <returns>return the count of the insertedSteps</returns>
+        public int InsertSharedStep(SharedStep currentSharedStep, int selectedIndex)
         {
             List<TestStep> innerTestSteps = TestStepManager.GetAllTestStepsInSharedStep(currentSharedStep.ISharedStep);
           
@@ -570,6 +572,8 @@ namespace TestCaseManagerCore.ViewModels
                 this.InsertTestStepInTestCase(innerTestSteps[j], i, false);
                 j++;
             }
+
+            return innerTestSteps.Count;
         }
 
         /// <summary>

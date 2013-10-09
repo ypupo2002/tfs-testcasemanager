@@ -75,12 +75,14 @@
                             <RowDefinition Height="Auto"/>
                         </Grid.RowDefinitions>
                         <TextBlock Text="Replace In Titles:" Margin="10,0,10,10" Height="25" Width="Auto" HorizontalAlignment="Left" Grid.Column="0" Grid.Row="0"/>
-                        <TextBlock Text="Replace Shared Steps:" Margin="10,0,10,10" Height="25" Width="Auto" HorizontalAlignment="Left" Grid.Column="0" Grid.Row="1"/>
-                        <TextBlock Text="Replace Steps:" Margin="10,0,10,30" Height="25" Width="Auto" HorizontalAlignment="Left" Grid.Column="0" Grid.Row="2"/>
+                        <TextBlock Text="Replace In Test Steps:" Margin="10,0,10,10" Height="25" Width="Auto" HorizontalAlignment="Left" Grid.Column="0" Grid.Row="1"/>
+                        <TextBlock Text="Replace Shared Steps:" Margin="10,0,10,30" Height="25" Width="Auto" HorizontalAlignment="Left" Grid.Column="0" Grid.Row="2"/>
+                       
 
                         <CheckBox Margin="10,0,10,10" HorizontalAlignment="Left" IsChecked="{Binding Path=ReplaceContext.ReplaceInTitles, Mode=TwoWay}" Grid.Column="1" Grid.Row="0"/>
-                        <CheckBox Margin="10,0,10,10" HorizontalAlignment="Left" IsChecked="{Binding Path=ReplaceContext.ReplaceSharedSteps, Mode=TwoWay}" Grid.Column="1" Grid.Row="1"/>
-                        <CheckBox Margin="10,0,10,30" HorizontalAlignment="Left" IsChecked="{Binding Path=ReplaceContext.ReplaceInTestSteps, Mode=TwoWay}" Grid.Column="1" Grid.Row="2"/>
+                        <CheckBox Margin="10,0,10,10" HorizontalAlignment="Left" IsChecked="{Binding Path=ReplaceContext.ReplaceInTestSteps, Mode=TwoWay}" Grid.Column="1" Grid.Row="1"/>
+                        <CheckBox Margin="10,0,10,30" HorizontalAlignment="Left" IsChecked="{Binding Path=ReplaceContext.ReplaceSharedSteps, Mode=TwoWay}" Grid.Column="1" Grid.Row="2"/>
+                        
                     </Grid>
                     <Grid>
                         <Grid.ColumnDefinitions>

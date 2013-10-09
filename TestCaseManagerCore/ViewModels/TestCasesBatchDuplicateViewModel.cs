@@ -246,7 +246,7 @@ namespace TestCaseManagerCore.ViewModels
             {
                 currentTestCase.Priority = this.ReplaceContext.SelectedPriority;
             }
-            if(this.ReplaceContext.ChangeOwner)
+            if (this.ReplaceContext.ChangeOwner && this.ReplaceContext.SelectedTeamFoundationIdentityName != null)
             {
                 currentTestCase.TeamFoundationIdentityName = this.ReplaceContext.SelectedTeamFoundationIdentityName;
             }
@@ -277,7 +277,7 @@ namespace TestCaseManagerCore.ViewModels
             {
                 currentTestCase.Priority = this.ReplaceContext.SelectedPriority;
             }
-            if (this.ReplaceContext.ChangeOwner)
+            if (this.ReplaceContext.ChangeOwner && this.ReplaceContext.SelectedTeamFoundationIdentityName != null)
             {
                 currentTestCase.TeamFoundationIdentityName = this.ReplaceContext.SelectedTeamFoundationIdentityName;
             }

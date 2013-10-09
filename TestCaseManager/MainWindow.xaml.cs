@@ -81,5 +81,14 @@ namespace TestCaseManagerApp
 
             currentModernFrame = (ModernFrame)GetTemplateChild("ContentFrame");
         }
+
+        private void ModernWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            MessageBoxResult messageBoxResult = ModernDialog.ShowMessage("Are you sure you want to exit?", "Confirm Exit!", MessageBoxButton.YesNoCancel);
+            if (messageBoxResult != MessageBoxResult.Yes)
+            {
+                e.Cancel = true;
+            }
+        }
     }
 }

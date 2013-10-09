@@ -110,6 +110,16 @@ namespace TestCaseManagerApp.Views
         public static RoutedCommand RedoCommand = new RoutedCommand();
 
         /// <summary>
+        /// The edit shared step command
+        /// </summary>
+        public static RoutedCommand EditSharedStepCommand = new RoutedCommand();
+
+        /// <summary>
+        /// The edit test step command
+        /// </summary>
+        public static RoutedCommand EditTestStepCommand = new RoutedCommand();
+
+        /// <summary>
         /// The edit view context
         /// </summary>
         private EditViewContext editViewContext;
@@ -377,7 +387,7 @@ namespace TestCaseManagerApp.Views
             }
             int newSelectedIndex = this.TestCaseEditViewModel.InsertTestStepInTestCase(testStepToInsert, selectedIndex, false);
             this.TestCaseEditViewModel.UpdateTestStepsGrid();
-            TestStepManager.UpdateGenericSharedSteps(this.TestCaseEditViewModel.ObservableTestSteps, this.TestCaseEditViewModel.GenericParameters);
+            
             dgTestSteps.SelectedIndex = newSelectedIndex + 1;
             dgTestSteps.Focus();
         }
@@ -425,7 +435,7 @@ namespace TestCaseManagerApp.Views
                 ISharedStep sharedStepCore = this.TestCaseEditViewModel.TestCase.CreateNewSharedStep(newTitle, selectedTestSteps);
                 sharedStepCore.Refresh();
                 this.TestCaseEditViewModel.ObservableSharedSteps.Add(new SharedStep(sharedStepCore));
-                TestStepManager.UpdateGenericSharedSteps(this.TestCaseEditViewModel.ObservableTestSteps, this.TestCaseEditViewModel.GenericParameters);
+                TestStepManager.UpdateGenericSharedSteps(this.TestCaseEditViewModel.ObservableTestSteps);
             }
         }
 
@@ -478,7 +488,7 @@ namespace TestCaseManagerApp.Views
             {
                 List<TestStepFull> testStepsToBeRemoved = TestCaseEditViewModel.MarkInitialStepsToBeRemoved(dgTestSteps.SelectedItems.Cast<TestStep>().ToList());
                 this.TestCaseEditViewModel.RemoveTestSteps(testStepsToBeRemoved);
-                TestStepManager.UpdateGenericSharedSteps(this.TestCaseEditViewModel.ObservableTestSteps, this.TestCaseEditViewModel.GenericParameters);
+                TestStepManager.UpdateGenericSharedSteps(this.TestCaseEditViewModel.ObservableTestSteps);
                 this.TestCaseEditViewModel.UpdateTestStepsGrid();
             }
         }
@@ -542,7 +552,7 @@ namespace TestCaseManagerApp.Views
             }
             dgTestSteps.UpdateLayout();
             dgTestSteps.ScrollIntoView(dgTestSteps.SelectedItem);
-            TestStepManager.UpdateGenericSharedSteps(this.TestCaseEditViewModel.ObservableTestSteps, this.TestCaseEditViewModel.GenericParameters);
+            TestStepManager.UpdateGenericSharedSteps(this.TestCaseEditViewModel.ObservableTestSteps);
         }
 
         /// <summary>
@@ -582,7 +592,7 @@ namespace TestCaseManagerApp.Views
             }
             dgTestSteps.UpdateLayout();
             dgTestSteps.ScrollIntoView(dgTestSteps.SelectedItems[dgTestSteps.SelectedItems.Count - 1]);
-            TestStepManager.UpdateGenericSharedSteps(this.TestCaseEditViewModel.ObservableTestSteps, this.TestCaseEditViewModel.GenericParameters);
+            TestStepManager.UpdateGenericSharedSteps(this.TestCaseEditViewModel.ObservableTestSteps);
         }
 
         /// <summary>
@@ -643,13 +653,18 @@ namespace TestCaseManagerApp.Views
             using (new UndoTransaction("Insert Shared step's inner test steps to the test case test steps Observable collection"))
             {
                 int currentSelectedIndex = dgTestSteps.SelectedIndex;
-                this.TestCaseEditViewModel.InsertSharedStep(currentSharedStep, currentSelectedIndex);
+                int stepsCount = this.TestCaseEditViewModel.InsertSharedStep(currentSharedStep, currentSelectedIndex);
+                if (stepsCount == 0)
+                {
+                    ModernDialog.ShowMessage("No test steps added because the selected shared step doesn't have any!", "Warning", MessageBoxButton.OK);
+                    return;
+                }
                 int index = dgTestSteps.SelectedIndex + currentSharedStep.ISharedStep.Actions.Count;
                 UndoRedoManager.Instance().Push((i) => this.ChangeSelectedIndexTestStepsDataGrid(i), dgTestSteps.SelectedIndex);
                 this.ChangeSelectedIndexTestStepsDataGrid(index);
             }
             this.TestCaseEditViewModel.UpdateTestStepsGrid();
-            TestStepManager.UpdateGenericSharedSteps(this.TestCaseEditViewModel.ObservableTestSteps, this.TestCaseEditViewModel.GenericParameters);
+            TestStepManager.UpdateGenericSharedSteps(this.TestCaseEditViewModel.ObservableTestSteps);
         }
 
         /// <summary>
@@ -723,29 +738,38 @@ namespace TestCaseManagerApp.Views
                 this.editViewContext.CurrentEditedStepGuid = currentTestStep.TestStepGuid;
                 rtbAction.SetText(currentTestStep.ActionTitle);
                 rtbExpectedResult.SetText(currentTestStep.ActionExpectedResult);
-                TestStepManager.UpdateGenericSharedSteps(this.TestCaseEditViewModel.ObservableTestSteps, this.TestCaseEditViewModel.GenericParameters);
+                TestStepManager.UpdateGenericSharedSteps(this.TestCaseEditViewModel.ObservableTestSteps);
             }
             else
             {
-                MessageBoxResult messageBoxResult = this.SaveChangesDialog();
-                if (messageBoxResult == MessageBoxResult.Yes)
-                {
-                    this.SaveTestCaseInternal();
-                    this.editViewContext.IsInitialized = false;
-                    this.editViewContext.IsSharedStep = true;
-                    this.editViewContext.ComeFromTestCase = true;
-                    this.editViewContext.SharedStepId = currentTestStep.SharedStepId;
-                    this.InitializeInternal();
-                }
-                else if (messageBoxResult == MessageBoxResult.No || messageBoxResult == MessageBoxResult.None)
-                {
-                    this.editViewContext.IsInitialized = false;
-                    this.editViewContext.IsSharedStep = true;
-                    this.editViewContext.ComeFromTestCase = true;
-                    this.editViewContext.SharedStepId = currentTestStep.SharedStepId;
-                    this.InitializeInternal();
-                }
+                this.EditSharedStepInternal(currentTestStep.SharedStepId);
             }           
+        }
+
+        /// <summary>
+        /// Edits the shared step internal.
+        /// </summary>
+        /// <param name="sharedStepId">The shared step unique identifier.</param>
+        private void EditSharedStepInternal(int sharedStepId)
+        {
+            MessageBoxResult messageBoxResult = this.SaveChangesDialog();
+            if (messageBoxResult == MessageBoxResult.Yes)
+            {
+                this.SaveTestCaseInternal();
+                this.editViewContext.IsInitialized = false;
+                this.editViewContext.IsSharedStep = true;
+                this.editViewContext.ComeFromTestCase = true;
+                this.editViewContext.SharedStepId = sharedStepId;
+                this.InitializeInternal();
+            }
+            else if (messageBoxResult == MessageBoxResult.No || messageBoxResult == MessageBoxResult.None)
+            {
+                this.editViewContext.IsInitialized = false;
+                this.editViewContext.IsSharedStep = true;
+                this.editViewContext.ComeFromTestCase = true;
+                this.editViewContext.SharedStepId = sharedStepId;
+                this.InitializeInternal();
+            }
         }
 
         /// <summary>
@@ -805,7 +829,7 @@ namespace TestCaseManagerApp.Views
             currentTestStep.ActionTitle = stepTitle;
             currentTestStep.ActionExpectedResult = expectedResult;
             this.editViewContext.CurrentEditedStepGuid = default(Guid);
-            TestStepManager.UpdateGenericSharedSteps(this.TestCaseEditViewModel.ObservableTestSteps, this.TestCaseEditViewModel.GenericParameters);
+            TestStepManager.UpdateGenericSharedSteps(this.TestCaseEditViewModel.ObservableTestSteps);
         }
 
         /// <summary>
@@ -1077,6 +1101,18 @@ namespace TestCaseManagerApp.Views
         }
 
         /// <summary>
+        /// Handles the Command event of the editSharedStep control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="ExecutedRoutedEventArgs"/> instance containing the event data.</param>
+        private void editSharedStep_Command(object sender, ExecutedRoutedEventArgs e)
+        {
+            e.Handled = true;
+            SharedStep currentSharedStep = dgSharedSteps.SelectedItem as SharedStep;
+            this.EditSharedStepInternal(currentSharedStep.ISharedStep.Id);
+        }
+
+        /// <summary>
         /// Gets all selected test steps.
         /// </summary>
         /// <returns></returns>
@@ -1118,7 +1154,7 @@ namespace TestCaseManagerApp.Views
                 {
                     this.TestCaseEditViewModel.DeleteCutTestSteps(clipBoardTestStep.TestSteps);
                     this.TestCaseEditViewModel.UpdateTestStepsGrid();
-                    TestStepManager.UpdateGenericSharedSteps(this.TestCaseEditViewModel.ObservableTestSteps, this.TestCaseEditViewModel.GenericParameters);                   
+                    TestStepManager.UpdateGenericSharedSteps(this.TestCaseEditViewModel.ObservableTestSteps);                   
                 }
             }          
         }
@@ -1160,7 +1196,7 @@ namespace TestCaseManagerApp.Views
                 System.Windows.Forms.Clipboard.Clear();
             }
             this.TestCaseEditViewModel.UpdateTestStepsGrid();
-            TestStepManager.UpdateGenericSharedSteps(this.TestCaseEditViewModel.ObservableTestSteps, this.TestCaseEditViewModel.GenericParameters);
+            TestStepManager.UpdateGenericSharedSteps(this.TestCaseEditViewModel.ObservableTestSteps);
             dgTestSteps.Focus();
 
             // If fake item was inserted in order the paste to be enabled, we delete it from the test steps and select the next item in the grid
@@ -1419,6 +1455,7 @@ namespace TestCaseManagerApp.Views
             btnShare.IsEnabled = true;
 
             dgTestStepsCopyMenuItem.IsEnabled = true;
+            dgTestStepsEditMenuItem.IsEnabled = true;
             dgTestStepsCutMenuItem.IsEnabled = true;
             dgTestStepsShareMenuItem.IsEnabled = true;
             dgTestStepsDeleteMenuItem.IsEnabled = true;
@@ -1432,6 +1469,7 @@ namespace TestCaseManagerApp.Views
                 btnChange.IsEnabled = false;
                 btnShare.IsEnabled = false;
 
+                dgTestStepsEditMenuItem.IsEnabled = false;
                 dgTestStepsCopyMenuItem.IsEnabled = false;
                 dgTestStepsCutMenuItem.IsEnabled = false;
                 dgTestStepsShareMenuItem.IsEnabled = false;

@@ -81,9 +81,14 @@
                     <DataGridTextColumn Header="Title" Binding="{Binding Title}" Width="6*">
                         <DataGridTextColumn.HeaderStyle>
                             <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource {x:Type DataGridColumnHeader}}">
-                                <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                                <Setter Property="HorizontalContentAlignment" Value="Left"/>                                
                             </Style>
                         </DataGridTextColumn.HeaderStyle>
+                        <DataGridTextColumn.CellStyle>
+                            <Style TargetType="DataGridCell">
+                                <Setter Property="ToolTip" Value="{Binding StepsToolTip}" />
+                            </Style>
+                        </DataGridTextColumn.CellStyle>
                     </DataGridTextColumn>
                     <DataGridTextColumn Header="Priority" Binding="{Binding Priority}" Width="*">
                         <DataGridTextColumn.HeaderStyle>

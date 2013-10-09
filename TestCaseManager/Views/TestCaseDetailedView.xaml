@@ -70,7 +70,8 @@
                 </Grid>
             </StackPanel>
 
-            <DataGrid ItemsSource="{Binding Path=ObservableTestSteps}" AutoGenerateColumns="False" Name="dgTestSteps" Height="Auto" Grid.Row="1" Margin="0,0,0,30" LoadingRow="dgTestSteps_LoadingRow">
+            <DataGrid ItemsSource="{Binding Path=ObservableTestSteps}" AutoGenerateColumns="False" Name="dgTestSteps" Height="Auto" Grid.Row="1" Margin="0,0,0,30" IsReadOnly="True"
+                      LoadingRow="dgTestSteps_LoadingRow">
                 <DataGrid.Columns>
                     <!--<DataGridTemplateColumn   Header="Step Name"  Width="150" MaxWidth="200" >
                         <DataGridTemplateColumn.HeaderStyle>

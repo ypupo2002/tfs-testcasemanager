@@ -493,6 +493,10 @@ namespace TestCaseManagerApp.Views
         /// <param name="e">The <see cref="MouseButtonEventArgs"/> instance containing the event data.</param>
         private void dgTestCases_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
+            if (dgTestCases.SelectedItem == null)
+            {
+                return;
+            }
             if (System.Windows.Forms.Control.ModifierKeys == Keys.Alt)
             {
                 TestCase currentTestCase = dgTestCases.SelectedItem as TestCase;
@@ -540,7 +544,7 @@ namespace TestCaseManagerApp.Views
                 }
                 else if (isInitialized)
                 {
-                    suiteTestCaseCollection = TestCaseManager.GetAllTestCasesInTestPlan(false);
+                    suiteTestCaseCollection = TestCaseManager.GetAllTestCasesInTestPlan(true);
                 }
             });
             t.ContinueWith(antecedent =>
@@ -1051,9 +1055,17 @@ namespace TestCaseManagerApp.Views
             btnPreview1.IsEnabled = true;
             btnDuplicate1.IsEnabled = true;
             btnEdit1.IsEnabled = true;
+            btnExport.IsEnabled = true;
+            btnExport1.IsEnabled = true;
+            btnRemoveTestCase.IsEnabled = true;
+            btnRemoveTestCase1.IsEnabled = true;
             dgTestCaseContextItemEdit.IsEnabled = true;
             dgTestCaseContextItemPreview.IsEnabled = true;
             dgTestCaseContextItemDuplicate.IsEnabled = true;
+
+            dgTestCaseContextItemCopy.IsEnabled = true;
+            dgTestCaseContextItemCut.IsEnabled = true;
+            dgTestCaseContextItemRemove.IsEnabled = true;
             if (dgTestCases.SelectedItems.Count < 1)
             {
                 btnPreview.IsEnabled = false;
@@ -1062,9 +1074,21 @@ namespace TestCaseManagerApp.Views
                 btnPreview1.IsEnabled = false;
                 btnDuplicate1.IsEnabled = false;
                 btnEdit1.IsEnabled = false;
+                btnRemoveTestCase.IsEnabled = false;
+                btnRemoveTestCase1.IsEnabled = false;             
                 dgTestCaseContextItemEdit.IsEnabled = false;
                 dgTestCaseContextItemPreview.IsEnabled = false;
                 dgTestCaseContextItemDuplicate.IsEnabled = false;
+
+                dgTestCaseContextItemCopy.IsEnabled = false;
+                dgTestCaseContextItemCut.IsEnabled = false;
+                dgTestCaseContextItemRemove.IsEnabled = false;
+            }
+
+            if (this.TestCasesInitialViewModel.ObservableTestCases.Count == 0)
+            {
+                btnExport.IsEnabled = false;
+                btnExport1.IsEnabled = false;
             }
         }
 
