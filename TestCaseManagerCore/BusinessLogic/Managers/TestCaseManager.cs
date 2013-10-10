@@ -268,6 +268,30 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
         }
 
         /// <summary>
+        /// Finds all reference test cases for specific shared step.
+        /// </summary>
+        /// <param name="sharedStepId">The shared step unique identifier.</param>
+        public static List<TestCase> FindAllReferenceTestCasesForShareStep(int sharedStepId)
+        {
+            List<TestCase> filteredTestCases = new List<TestCase>();
+            List<TestCase> allTestCases = GetAllTestCasesInTestPlan(true);
+            foreach (var currentTestCase in allTestCases)
+            {
+                List<TestStep> testSteps = TestStepManager.GetTestStepsFromTestActions(currentTestCase.ITestCase.Actions);
+                foreach (TestStep currentTestStep in testSteps)
+                {
+                    if (currentTestStep.SharedStepId.Equals(sharedStepId))
+                    {
+                        filteredTestCases.Add(currentTestCase);
+                        break;
+                    }
+                }
+            }
+
+            return filteredTestCases;
+        }
+
+        /// <summary>
         /// Adds the test cases without suites.
         /// </summary>
         /// <param name="testCasesList">The test cases list.</param>

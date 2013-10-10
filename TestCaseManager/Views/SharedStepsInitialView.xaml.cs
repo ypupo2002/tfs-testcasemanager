@@ -14,6 +14,8 @@ using FirstFloor.ModernUI.Windows.Navigation;
 using TestCaseManagerCore.BusinessLogic.Entities;
 using TestCaseManagerCore.ViewModels;
 using TestCaseManagerCore;
+using System.Collections.Generic;
+using TestCaseManagerCore.BusinessLogic.Managers;
 
 namespace TestCaseManagerApp.Views
 {
@@ -232,7 +234,7 @@ namespace TestCaseManagerApp.Views
         /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void tbIdFilter_GotFocus(object sender, RoutedEventArgs e)
         {
-            tbIdFilter.ClearDefaultContent(ref SharedStepsInitialViewModel.InitialViewFilters.IsIdTextSet);
+            tbIdFilter.ClearDefaultContent(ref SharedStepsInitialViewModel.InitialViewFiltersSharedSteps.IsIdTextSet);
         }
 
         /// <summary>
@@ -242,7 +244,7 @@ namespace TestCaseManagerApp.Views
         /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void tbTitleFilter_GotFocus(object sender, RoutedEventArgs e)
         {
-            tbTitleFilter.ClearDefaultContent(ref SharedStepsInitialViewModel.InitialViewFilters.IsTitleTextSet);
+            tbTitleFilter.ClearDefaultContent(ref SharedStepsInitialViewModel.InitialViewFiltersSharedSteps.IsTitleTextSet);
         }
 
         /// <summary>
@@ -252,7 +254,7 @@ namespace TestCaseManagerApp.Views
         /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void tbIdFilter_LostFocus(object sender, RoutedEventArgs e)
         {
-            tbIdFilter.RestoreDefaultText(this.SharedStepsInitialViewModel.InitialViewFilters.DetaultId, ref this.SharedStepsInitialViewModel.InitialViewFilters.IsIdTextSet);
+            tbIdFilter.RestoreDefaultText(this.SharedStepsInitialViewModel.InitialViewFiltersSharedSteps.DetaultId, ref this.SharedStepsInitialViewModel.InitialViewFiltersSharedSteps.IsIdTextSet);
         }
 
         /// <summary>
@@ -262,7 +264,7 @@ namespace TestCaseManagerApp.Views
         /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void tbTitleFilter_LostFocus(object sender, RoutedEventArgs e)
         {
-            tbTitleFilter.RestoreDefaultText(this.SharedStepsInitialViewModel.InitialViewFilters.DetaultTitle, ref this.SharedStepsInitialViewModel.InitialViewFilters.IsTitleTextSet);
+            tbTitleFilter.RestoreDefaultText(this.SharedStepsInitialViewModel.InitialViewFiltersSharedSteps.DetaultTitle, ref this.SharedStepsInitialViewModel.InitialViewFiltersSharedSteps.IsTitleTextSet);
         }
 
         /// <summary>
@@ -292,7 +294,7 @@ namespace TestCaseManagerApp.Views
         /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void tbAssignedToFilter_GotFocus(object sender, RoutedEventArgs e)
         {
-            tbAssignedToFilter.ClearDefaultContent(ref this.SharedStepsInitialViewModel.InitialViewFilters.IsAssignedToTextSet);
+            tbAssignedToFilter.ClearDefaultContent(ref this.SharedStepsInitialViewModel.InitialViewFiltersSharedSteps.IsAssignedToTextSet);
         }
 
         /// <summary>
@@ -302,7 +304,7 @@ namespace TestCaseManagerApp.Views
         /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void tbAssignedToFilter_LostFocus(object sender, RoutedEventArgs e)
         {
-            tbAssignedToFilter.RestoreDefaultText(this.SharedStepsInitialViewModel.InitialViewFilters.DetaultAssignedTo, ref this.SharedStepsInitialViewModel.InitialViewFilters.IsAssignedToTextSet);
+            tbAssignedToFilter.RestoreDefaultText(this.SharedStepsInitialViewModel.InitialViewFiltersSharedSteps.DetaultAssignedTo, ref this.SharedStepsInitialViewModel.InitialViewFiltersSharedSteps.IsAssignedToTextSet);
         }
 
         /// <summary>
@@ -322,7 +324,7 @@ namespace TestCaseManagerApp.Views
         /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void tbPriorityFilter_GotFocus(object sender, RoutedEventArgs e)
         {
-            tbPriorityFilter.ClearDefaultContent(ref this.SharedStepsInitialViewModel.InitialViewFilters.IsPriorityTextSet);
+            tbPriorityFilter.ClearDefaultContent(ref this.SharedStepsInitialViewModel.InitialViewFiltersSharedSteps.IsPriorityTextSet);
         }
 
         /// <summary>
@@ -332,7 +334,7 @@ namespace TestCaseManagerApp.Views
         /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void tbPriorityFilter_LostFocus(object sender, RoutedEventArgs e)
         {
-            tbPriorityFilter.RestoreDefaultText(this.SharedStepsInitialViewModel.InitialViewFilters.DetaultPriority, ref this.SharedStepsInitialViewModel.InitialViewFilters.IsPriorityTextSet);
+            tbPriorityFilter.RestoreDefaultText(this.SharedStepsInitialViewModel.InitialViewFiltersSharedSteps.DetaultPriority, ref this.SharedStepsInitialViewModel.InitialViewFiltersSharedSteps.IsPriorityTextSet);
 
         }
 
@@ -344,7 +346,72 @@ namespace TestCaseManagerApp.Views
         private void tbPriorityFilter_KeyUp(object sender, System.Windows.Input.KeyEventArgs e)
         {
             this.SharedStepsInitialViewModel.FilterSharedSteps();
-        }    
+        }
+
+        /// <summary>
+        /// Handles the GotFocus event of the tbTestCaseTitleFilter control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
+        private void tbTestCaseTitleFilter_GotFocus(object sender, RoutedEventArgs e)
+        {
+            tbTestCaseTitleFilter.ClearDefaultContent(ref SharedStepsInitialViewModel.InitialViewFiltersTestCases.IsTitleTextSet);
+           
+        }
+
+        /// <summary>
+        /// Handles the LostFocus event of the tbTestCaseTitleFilter control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
+        private void tbTestCaseTitleFilter_LostFocus(object sender, RoutedEventArgs e)
+        {
+            tbTestCaseTitleFilter.RestoreDefaultText(this.SharedStepsInitialViewModel.InitialViewFiltersTestCases.DetaultTitle, ref this.SharedStepsInitialViewModel.InitialViewFiltersTestCases.IsTitleTextSet);
+        }
+
+        /// <summary>
+        /// Handles the KeyUp event of the tbTestCaseTitleFilter control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.Windows.Input.KeyEventArgs"/> instance containing the event data.</param>
+        private void tbTestCaseTitleFilter_KeyUp(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            List<TestCase> filteredList= this.SharedStepsInitialViewModel.FilterTestCases();
+            this.SharedStepsInitialViewModel.ObservableTestCases.Clear();
+            filteredList.ForEach(x => this.SharedStepsInitialViewModel.ObservableTestCases.Add(x));
+        }
+
+        /// <summary>
+        /// Handles the GotFocus event of the tbTestCaseSuiteFilter control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
+        private void tbTestCaseSuiteFilter_GotFocus(object sender, RoutedEventArgs e)
+        {
+            tbTestCaseSuiteFilter.ClearDefaultContent(ref this.SharedStepsInitialViewModel.InitialViewFiltersTestCases.IsSuiteTextSet);
+        }
+
+        /// <summary>
+        /// Handles the LostFocus event of the tbTestCaseSuiteFilter control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
+        private void tbTestCaseSuiteFilter_LostFocus(object sender, RoutedEventArgs e)
+        {
+            tbTestCaseSuiteFilter.RestoreDefaultText(this.SharedStepsInitialViewModel.InitialViewFiltersTestCases.DetaultSuite, ref this.SharedStepsInitialViewModel.InitialViewFiltersTestCases.IsSuiteTextSet);
+        }
+
+        /// <summary>
+        /// Handles the KeyUp event of the tbTestCaseSuiteFilter control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.Windows.Input.KeyEventArgs"/> instance containing the event data.</param>
+        private void tbTestCaseSuiteFilter_KeyUp(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            List<TestCase> filteredList = this.SharedStepsInitialViewModel.FilterTestCases();
+            this.SharedStepsInitialViewModel.ObservableTestCases.Clear();
+            filteredList.ForEach(x => this.SharedStepsInitialViewModel.ObservableTestCases.Add(x));
+        }
 
         /// <summary>
         /// Handles the MouseDoubleClick event of the dgTestCases control.
@@ -407,5 +474,59 @@ namespace TestCaseManagerApp.Views
                 dgSharedStepsContextItemDuplicate.IsEnabled = false;
             }
         }
+
+        /// <summary>
+        /// Handles the Click event of the btnFindReferences control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
+        private void btnFindReferences_Click(object sender, RoutedEventArgs e)
+        {
+            if (this.SharedStepsInitialViewModel.SelectedSharedStep == null)
+            {
+                ModernDialog.ShowMessage("No shared step selected.", "Warning", MessageBoxButton.OK);
+                return;
+            }
+            progressBar.Visibility = System.Windows.Visibility.Visible;
+            mainGrid.Visibility = System.Windows.Visibility.Hidden;
+            this.SharedStepsInitialViewModel.ObservableTestCases.Clear();
+            List<TestCase> filteredTestCases = new List<TestCase>();
+            Task t = Task.Factory.StartNew(() =>
+            {
+                filteredTestCases = TestCaseManager.FindAllReferenceTestCasesForShareStep(this.SharedStepsInitialViewModel.SelectedSharedStep.Id);
+                this.SharedStepsInitialViewModel.InitialTestCaseCollection = filteredTestCases;
+            });
+            t.ContinueWith(antecedent =>
+            {
+                filteredTestCases = this.SharedStepsInitialViewModel.FilterTestCases();
+                filteredTestCases.ForEach(tc => this.SharedStepsInitialViewModel.ObservableTestCases.Add(tc));
+                this.SharedStepsInitialViewModel.TestCasesCount = filteredTestCases.Count.ToString();
+
+                progressBar.Visibility = System.Windows.Visibility.Hidden;
+                mainGrid.Visibility = System.Windows.Visibility.Visible;
+            }, TaskScheduler.FromCurrentSynchronizationContext());         
+        }
+
+        /// <summary>
+        /// Handles the MouseDoubleClick event of the dgTestCases control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="MouseButtonEventArgs"/> instance containing the event data.</param>
+        private void dgTestCases_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            if (dgTestCases.SelectedItem == null)
+            {
+                return;
+            }
+            TestCase currentTestCase = dgTestCases.SelectedItem as TestCase;
+            if (currentTestCase.ITestSuiteBase != null)
+            {
+                this.NavigateToTestCasesEditView(currentTestCase.ITestCase.Id, currentTestCase.ITestSuiteBase.Id);
+            }
+            else
+            {
+                this.NavigateToTestCasesEditView(currentTestCase.ITestCase.Id, -1);
+            }
+        }     
     }
 }

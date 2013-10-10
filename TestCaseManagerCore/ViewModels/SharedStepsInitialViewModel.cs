@@ -21,17 +21,29 @@ namespace TestCaseManagerCore.ViewModels
         private string sharedStepsCount;
 
         /// <summary>
+        /// The test cases count after filtering
+        /// </summary>
+        private string testCasesCount;
+
+        /// <summary>
+        /// The selected shared step
+        /// </summary>
+        private SharedStep selectedSharedStep;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="TestCasesInitialViewModel"/> class.
         /// </summary>
         public SharedStepsInitialViewModel()
         {
-            this.InitialViewFilters = new InitialViewFilters();    
-            
+            this.InitialViewFiltersSharedSteps = new InitialViewFilters();
+            this.InitialViewFiltersTestCases = new InitialViewFilters();
             this.ObservableSharedSteps = new ObservableCollection<SharedStep>();
-            this.InitialTestCaseCollection = new ObservableCollection<SharedStep>();
+            this.InitialSharedStepsCollection = new ObservableCollection<SharedStep>();
+            this.ObservableTestCases = new ObservableCollection<TestCase>();
             this.RefreshSharedSteps();
             this.InitializeInitialTestCaseCollection(this.ObservableSharedSteps);
             this.SharedStepsCount = this.ObservableSharedSteps.Count.ToString();
+            this.TestCasesCount = this.ObservableTestCases.Count.ToString();
             this.IsAfterInitialize = true;
         }      
 
@@ -42,7 +54,11 @@ namespace TestCaseManagerCore.ViewModels
         public SharedStepsInitialViewModel(SharedStepsInitialViewModel viewModel)
             : this()
         {
-            this.InitialViewFilters = viewModel.InitialViewFilters;         
+            this.InitialViewFiltersSharedSteps = viewModel.InitialViewFiltersSharedSteps;
+            this.InitialViewFiltersTestCases = viewModel.InitialViewFiltersTestCases;
+            this.ObservableTestCases = viewModel.ObservableTestCases;
+            this.SelectedSharedStep = viewModel.SelectedSharedStep;
+            this.TestCasesCount = this.ObservableTestCases.Count.ToString();
         }
 
         /// <summary>
@@ -67,7 +83,7 @@ namespace TestCaseManagerCore.ViewModels
         /// <value>
         /// The initial test case collection.
         /// </value>
-        public ObservableCollection<SharedStep> InitialTestCaseCollection { get; set; }
+        public ObservableCollection<SharedStep> InitialSharedStepsCollection { get; set; }
 
         /// <summary>
         /// Gets or sets the initial view filters.
@@ -75,7 +91,51 @@ namespace TestCaseManagerCore.ViewModels
         /// <value>
         /// The initial view filters.
         /// </value>
-        public InitialViewFilters InitialViewFilters { get; set; }
+        public InitialViewFilters InitialViewFiltersSharedSteps { get; set; }
+
+        /// <summary>
+        /// Gets or sets the initial view filters test cases.
+        /// </summary>
+        /// <value>
+        /// The initial view filters test cases.
+        /// </value>
+        public InitialViewFilters InitialViewFiltersTestCases { get; set; }
+
+        /// <summary>
+        /// Gets or sets the observable test cases.
+        /// </summary>
+        /// <value>
+        /// The observable test cases.
+        /// </value>
+        public ObservableCollection<TestCase> ObservableTestCases { get; set; }
+
+        /// <summary>
+        /// Gets or sets the initial test case collection.
+        /// </summary>
+        /// <value>
+        /// The initial test case collection.
+        /// </value>
+        public List<TestCase> InitialTestCaseCollection { get; set; }
+
+        /// <summary>
+        /// Gets or sets the test cases count after filtering.
+        /// </summary>
+        /// <value>
+        /// The test cases count.
+        /// </value>
+        public string TestCasesCount
+        {
+            get
+            {
+                return this.testCasesCount;
+            }
+
+            set
+            {
+                this.testCasesCount = value;
+                this.NotifyPropertyChanged();
+            }
+        }
 
         /// <summary>
         /// Gets or sets the shared steps count.
@@ -98,6 +158,26 @@ namespace TestCaseManagerCore.ViewModels
         }
 
         /// <summary>
+        /// Gets or sets the selected test case.
+        /// </summary>
+        /// <value>
+        /// The selected test case.
+        /// </value>
+        public SharedStep SelectedSharedStep
+        {
+            get
+            {
+                return this.selectedSharedStep;
+            }
+
+            set
+            {
+                this.selectedSharedStep = value;
+                this.NotifyPropertyChanged();
+            }
+        }
+
+        /// <summary>
         /// Resets the initial filters. If its comming from another page the filter is saved but on next suite selected it will be reset.
         /// </summary>
         public void ResetInitialFilters()
@@ -108,7 +188,7 @@ namespace TestCaseManagerCore.ViewModels
             }
             else
             {
-                this.InitialViewFilters.Reset();
+                this.InitialViewFiltersSharedSteps.Reset();
             }
         }
 
@@ -117,16 +197,16 @@ namespace TestCaseManagerCore.ViewModels
         /// </summary>
         public void FilterSharedSteps()
         {
-            bool shouldSetIdFilter = InitialViewFilters.IsIdTextSet && !string.IsNullOrEmpty(this.InitialViewFilters.IdFilter);
-            string idFilter = this.InitialViewFilters.IdFilter;
-            bool shouldSetTextFilter = InitialViewFilters.IsTitleTextSet && !string.IsNullOrEmpty(this.InitialViewFilters.TitleFilter);
-            string titleFilter = this.InitialViewFilters.TitleFilter.ToLower();
-            bool shouldSetPriorityFilter = InitialViewFilters.IsPriorityTextSet && !string.IsNullOrEmpty(this.InitialViewFilters.PriorityFilter);
-            string priorityFilter = this.InitialViewFilters.PriorityFilter.ToLower();
-            bool shouldSetAssignedToFilter = InitialViewFilters.IsAssignedToTextSet && !string.IsNullOrEmpty(this.InitialViewFilters.AssignedToFilter);
-            string assignedToFilter = this.InitialViewFilters.AssignedToFilter.ToLower();
+            bool shouldSetIdFilter = InitialViewFiltersSharedSteps.IsIdTextSet && !string.IsNullOrEmpty(this.InitialViewFiltersSharedSteps.IdFilter);
+            string idFilter = this.InitialViewFiltersSharedSteps.IdFilter;
+            bool shouldSetTextFilter = InitialViewFiltersSharedSteps.IsTitleTextSet && !string.IsNullOrEmpty(this.InitialViewFiltersSharedSteps.TitleFilter);
+            string titleFilter = this.InitialViewFiltersSharedSteps.TitleFilter.ToLower();
+            bool shouldSetPriorityFilter = InitialViewFiltersSharedSteps.IsPriorityTextSet && !string.IsNullOrEmpty(this.InitialViewFiltersSharedSteps.PriorityFilter);
+            string priorityFilter = this.InitialViewFiltersSharedSteps.PriorityFilter.ToLower();
+            bool shouldSetAssignedToFilter = InitialViewFiltersSharedSteps.IsAssignedToTextSet && !string.IsNullOrEmpty(this.InitialViewFiltersSharedSteps.AssignedToFilter);
+            string assignedToFilter = this.InitialViewFiltersSharedSteps.AssignedToFilter.ToLower();
 
-            var filteredList = this.InitialTestCaseCollection.Where(t =>
+            var filteredList = this.InitialSharedStepsCollection.Where(t =>
                 (shouldSetIdFilter ? (t.ISharedStep.Id.ToString().Contains(idFilter)) : true) &&
                 (shouldSetTextFilter ? (t.Title.ToLower().Contains(titleFilter)) : true) &&
                 (shouldSetPriorityFilter ? t.Priority.ToString().ToLower().Contains(priorityFilter) : true) &&
@@ -137,6 +217,31 @@ namespace TestCaseManagerCore.ViewModels
 
             this.SharedStepsCount = filteredList.Count.ToString();
         }
+
+        /// <summary>
+        /// Filters the test cases.
+        /// </summary>
+        /// <returns>filtered test cases</returns>
+        public List<TestCase> FilterTestCases()
+        {
+            bool shouldSetTextFilter = this.InitialViewFiltersTestCases.IsTitleTextSet && !string.IsNullOrEmpty(this.InitialViewFiltersTestCases.TitleFilter);
+            string titleFilter = this.InitialViewFiltersTestCases.TitleFilter.ToLower();
+            bool shouldSetSuiteFilter = InitialViewFiltersTestCases.IsSuiteTextSet && !string.IsNullOrEmpty(this.InitialViewFiltersTestCases.SuiteFilter);
+            string suiteFilter = this.InitialViewFiltersTestCases.SuiteFilter.ToLower();
+            if (this.InitialTestCaseCollection == null)
+            {
+                return null;
+            }
+            var filteredList = this.InitialTestCaseCollection.Where(t =>
+                (t.ITestCase != null) &&
+                (shouldSetTextFilter ? (t.ITestCase.Title.ToLower().Contains(titleFilter)) : true) &&
+                (this.FilterTestCasesBySuite(shouldSetSuiteFilter, suiteFilter, t))
+                ).ToList();
+        
+            this.TestCasesCount = filteredList.Count.ToString();
+
+            return filteredList;
+        }  
 
         /// <summary>
         /// Refreshes the shared steps
@@ -156,11 +261,34 @@ namespace TestCaseManagerCore.ViewModels
         /// <param name="sharedSteps">The shared steps.</param>
         public void InitializeInitialTestCaseCollection(ICollection<SharedStep> sharedSteps)
         {
-            this.InitialTestCaseCollection.Clear();
+            this.InitialSharedStepsCollection.Clear();
             foreach (var currentTestCase in sharedSteps)
             {
-                this.InitialTestCaseCollection.Add(currentTestCase);
+                this.InitialSharedStepsCollection.Add(currentTestCase);
             }
-        }     
+        }
+
+        /// <summary>
+        /// Filters the test cases by suite.
+        /// </summary>
+        /// <param name="shouldSetSuiteFilter">if set to <c>true</c> [should set suite filter].</param>
+        /// <param name="suiteFilter">The suite filter.</param>
+        /// <param name="testCase">The test case.</param>
+        /// <returns>should the test case be in</returns>
+        private bool FilterTestCasesBySuite(bool shouldSetSuiteFilter, string suiteFilter, TestCase testCase)
+        {
+            if (!shouldSetSuiteFilter)
+            {
+                return true;
+            }
+            else if (testCase.ITestSuiteBase != null)
+            {
+                return testCase.ITestSuiteBase.Title.ToLower().Contains(suiteFilter);
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 }
