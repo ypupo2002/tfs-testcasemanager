@@ -112,7 +112,7 @@
                             </Style>
                         </DataGridTextColumn.HeaderStyle>
                     </DataGridTextColumn>
-                    <DataGridTextColumn Header="New Shared Step ID" Binding="{Binding NewSharedStepId}" Width="*">
+                    <DataGridTextColumn Header="New Shared Step ID" Binding="{Binding NewSharedStepIds}" Width="*">
                         <DataGridTextColumn.HeaderStyle>
                             <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource {x:Type DataGridColumnHeader}}">
                                 <Setter Property="HorizontalContentAlignment" Value="Left"/>

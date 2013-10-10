@@ -67,7 +67,7 @@ namespace TestCaseManagerCore.Helpers
             // - the mouse is no longer over the popup
             // - the cbo's IsMouseDirectlyOver returns true (which, albeit strange, is true
             //   when the mouse is neither over the popup NOR the cbo itself
-            if (cbo.IsDropDownOpen && !p.IsMouseOver && cbo.IsMouseDirectlyOver)
+            if (cbo.IsDropDownOpen && !p.IsMouseOver && cbo.IsMouseDirectlyOver && ExecutionContext.SettingsViewModel.HoverBehaviorDropDown)
             {
                 cbo.IsDropDownOpen = false;
             }

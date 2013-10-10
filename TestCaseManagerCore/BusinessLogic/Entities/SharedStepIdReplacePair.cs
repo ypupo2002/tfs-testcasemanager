@@ -29,6 +29,6 @@ namespace TestCaseManagerCore.BusinessLogic.Entities
         /// <value>
         /// The new shared step unique identifier.
         /// </value>
-        public int NewSharedStepId { get; set; }
+        public string NewSharedStepIds { get; set; }
     }
 }

@@ -96,6 +96,11 @@ namespace TestCaseManagerApp.Views
                 return;
             }
             this.ShowProgressBar();
+            this.InitializeInternal();
+        }
+
+        private void InitializeInternal()
+        {            
             Task t = Task.Factory.StartNew(() =>
             {
                 if (this.TestCasesBatchDuplicateViewModel != null)
@@ -349,25 +354,37 @@ namespace TestCaseManagerApp.Views
         /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void btnBatchDuplicate_Click(object sender, RoutedEventArgs e)
         {
+            if (!this.TestCasesBatchDuplicateViewModel.AreAllSharedStepIdsValid())
+            {
+                this.ShowNotCorrectSharedStepIdMessageBox();
+                return;
+            }
             this.InitializeCurrentSelectedTestCases();
             string newSuiteTitle = cbSuite.Text;
             List<TextReplacePair> textReplacePairsList = this.TestCasesBatchDuplicateViewModel.ReplaceContext.ObservableTextReplacePairs.ToList();
             List<SharedStepIdReplacePair> sharedStepIdReplacePairList = this.TestCasesBatchDuplicateViewModel.ReplaceContext.ObservableSharedStepIdReplacePairs.ToList();
             int duplicatedCount = 0;
-            ShowProgressBar();
+            this.ShowProgressBar();
             Task t = Task.Factory.StartNew(() =>
             {
                 duplicatedCount = this.TestCasesBatchDuplicateViewModel.DuplicateTestCase();
-                this.TestCasesBatchDuplicateViewModel.FilterTestCases();
             });
-            t.ContinueWith(antecedent =>
+            Task t1 = t.ContinueWith(antecedent =>
             {
-                this.TestCasesBatchDuplicateViewModel.InitializeTestCases();
-                this.DataContext = this.TestCasesBatchDuplicateViewModel;
-                this.TestCasesBatchDuplicateViewModel.FilterTestCases();
-                HideProgressBar();
-                ModernDialog.ShowMessage(string.Format("{0} test cases duplicated.", duplicatedCount), "Success!", MessageBoxButton.OK);
+                this.InitializeInternal();               
             }, TaskScheduler.FromCurrentSynchronizationContext());
+            t1.ContinueWith(antecedent =>
+            {
+                ModernDialog.ShowMessage(string.Format("{0} test cases duplicated.", duplicatedCount), "Success!", MessageBoxButton.OK);
+            }, TaskScheduler.FromCurrentSynchronizationContext());            
+        }
+
+        /// <summary>
+        /// Shows the not correct shared step unique identifier message box.
+        /// </summary>
+        private void ShowNotCorrectSharedStepIdMessageBox()
+        {
+            ModernDialog.ShowMessage("Some of the provided shared step ids is incorrect.", "Success!", MessageBoxButton.OK);
         }
 
         /// <summary>
@@ -377,6 +394,11 @@ namespace TestCaseManagerApp.Views
         /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void btnFindAndReplace_Click(object sender, RoutedEventArgs e)
         {
+            if (!this.TestCasesBatchDuplicateViewModel.AreAllSharedStepIdsValid())
+            {
+                this.ShowNotCorrectSharedStepIdMessageBox();
+                return;
+            }
             this.InitializeCurrentSelectedTestCases();
             List<TextReplacePair> textReplacePairsList = this.TestCasesBatchDuplicateViewModel.ReplaceContext.ObservableTextReplacePairs.ToList();
             List<SharedStepIdReplacePair> sharedStepIdReplacePairList = this.TestCasesBatchDuplicateViewModel.ReplaceContext.ObservableSharedStepIdReplacePairs.ToList();
@@ -386,14 +408,14 @@ namespace TestCaseManagerApp.Views
             {
                 replacedCount = this.TestCasesBatchDuplicateViewModel.FindAndReplaceInTestCase();              
             });
-            t.ContinueWith(antecedent =>
+            Task t1 = t.ContinueWith(antecedent =>
             {
-                this.TestCasesBatchDuplicateViewModel.InitializeTestCases();
-                this.DataContext = this.TestCasesBatchDuplicateViewModel; 
-                this.TestCasesBatchDuplicateViewModel.FilterTestCases();
-                HideProgressBar();
+                this.InitializeInternal();
+            }, TaskScheduler.FromCurrentSynchronizationContext());
+            t1.ContinueWith(antecedent =>
+            {
                 ModernDialog.ShowMessage(string.Format("{0} test cases replaced.", replacedCount), "Success!", MessageBoxButton.OK);
-            }, TaskScheduler.FromCurrentSynchronizationContext());           
+            }, TaskScheduler.FromCurrentSynchronizationContext());              
         }
 
         /// <summary>

@@ -8,6 +8,7 @@ namespace TestCaseManagerCore.ViewModels
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.Linq;
+    using System.Text.RegularExpressions;
     using System.Windows.Documents;
     using Microsoft.TeamFoundation.Framework.Client;
     using Microsoft.TeamFoundation.Framework.Common;
@@ -236,25 +237,29 @@ namespace TestCaseManagerCore.ViewModels
             currentTestCase.ITestCase.Area = testCaseToBeDuplicated.ITestCase.Area;
             if (this.ReplaceContext.ReplaceInTitles)
             {
-                currentTestCase.ITestCase.Title = testCaseToBeDuplicated.ITestCase.Title.ReplaceAll(this.ReplaceContext.ObservableTextReplacePairs);
+                this.ReplaceTestCaseTitle(currentTestCase);
             }
             else
             {
                 currentTestCase.ITestCase.Title = testCaseToBeDuplicated.ITestCase.Title;
             }
-            if (this.ReplaceContext.ChangePriorities)
-            {
-                currentTestCase.Priority = this.ReplaceContext.SelectedPriority;
-            }
-            if (this.ReplaceContext.ChangeOwner && this.ReplaceContext.SelectedTeamFoundationIdentityName != null)
-            {
-                currentTestCase.TeamFoundationIdentityName = this.ReplaceContext.SelectedTeamFoundationIdentityName;
-            }
+            this.ChangeTestCasePriority(currentTestCase);
+            this.ChangeTestCaseOwner(currentTestCase);
             currentTestCase.ITestCase.Priority = testCaseToBeDuplicated.ITestCase.Priority;
             this.ReplaceStepsInTestCase(currentTestCase, testSteps);
+
             currentTestCase.ITestCase.Flush();
             currentTestCase.ITestCase.Save();
 
+            this.AddTestCaseToSuite(currentTestCase);
+        }
+
+        /// <summary>
+        /// Adds the test case automatic suite.
+        /// </summary>
+        /// <param name="currentTestCase">The current test case.</param>
+        private void AddTestCaseToSuite(TestCase currentTestCase)
+        {
             var newSuite = TestSuiteManager.GetTestSuiteByName(this.ReplaceContext.SelectedSuite.Title);
             newSuite.AddTestCase(currentTestCase.ITestCase);
         }
@@ -268,25 +273,52 @@ namespace TestCaseManagerCore.ViewModels
             TestCase currentTestCase = testCaseToReplaceIn;
             currentTestCase.ITestCase = ExecutionContext.TestManagementTeamProject.TestCases.Find(testCaseToReplaceIn.ITestCase.Id);
             List<TestStep> testSteps = TestStepManager.GetTestStepsFromTestActions(currentTestCase.ITestCase.Actions.ToList());
-            if (this.ReplaceContext.ReplaceInTitles)
-            {
-                string newTitle = currentTestCase.ITestCase.Title.ReplaceAll(this.ReplaceContext.ObservableTextReplacePairs);
-                currentTestCase.ITestCase.Title = newTitle;
-            }
-            if (this.ReplaceContext.ChangePriorities)
-            {
-                currentTestCase.Priority = this.ReplaceContext.SelectedPriority;
-            }
-            if (this.ReplaceContext.ChangeOwner && this.ReplaceContext.SelectedTeamFoundationIdentityName != null)
-            {
-                currentTestCase.TeamFoundationIdentityName = this.ReplaceContext.SelectedTeamFoundationIdentityName;
-            }
+            this.ReplaceTestCaseTitle(currentTestCase);
+            this.ChangeTestCasePriority(currentTestCase);
+            this.ChangeTestCaseOwner(currentTestCase);
             this.ReplaceStepsInTestCase(currentTestCase,testSteps);
 
             currentTestCase.ITestCase.Flush();
             currentTestCase.ITestCase.Save();
         }
 
+        /// <summary>
+        /// Replaces the test case title.
+        /// </summary>
+        /// <param name="currentTestCase">The current test case.</param>
+        private void ReplaceTestCaseTitle(TestCase currentTestCase)
+        {
+            if (this.ReplaceContext.ReplaceInTitles)
+            {
+                string newTitle = currentTestCase.ITestCase.Title.ReplaceAll(this.ReplaceContext.ObservableTextReplacePairs);
+                currentTestCase.ITestCase.Title = newTitle;
+            }
+        }
+
+        /// <summary>
+        /// Changes the test case owner.
+        /// </summary>
+        /// <param name="currentTestCase">The current test case.</param>
+        private void ChangeTestCaseOwner(TestCase currentTestCase)
+        {
+            if (this.ReplaceContext.ChangeOwner && this.ReplaceContext.SelectedTeamFoundationIdentityName != null)
+            {
+                var identity = ExecutionContext.TestManagementTeamProject.TfsIdentityStore.FindByTeamFoundationId(this.ReplaceContext.SelectedTeamFoundationIdentityName.TeamFoundationId);
+                currentTestCase.ITestCase.Owner = identity;
+            }
+        }
+
+        /// <summary>
+        /// Changes the test case priority.
+        /// </summary>
+        /// <param name="currentTestCase">The current test case.</param>
+        private void ChangeTestCasePriority(TestCase currentTestCase)
+        {
+            if (this.ReplaceContext.ChangePriorities)
+            {
+                currentTestCase.ITestCase.Priority = (int)this.ReplaceContext.SelectedPriority;
+            }
+        }
 
         /// <summary>
         /// Initializes the test suite list.
@@ -371,16 +403,19 @@ namespace TestCaseManagerCore.ViewModels
                 {
                     if (currentStep.IsShared && !addedSharedStepGuids.Contains(currentStep.TestStepGuid) && this.ReplaceContext.ReplaceSharedSteps)
                     {
-                        int newSharedStepId = GetNewSharedStepId(currentStep.SharedStepId, this.ReplaceContext.ObservableSharedStepIdReplacePairs);
-                        if (!this.ReplaceContext.ReplaceSharedSteps)
+                       
+                        if (this.ReplaceContext.ReplaceSharedSteps)
                         {
-                            newSharedStepId = currentStep.SharedStepId;
+                            List<int> newSharedStepIds = GetNewSharedStepIds(currentStep.SharedStepId, this.ReplaceContext.ObservableSharedStepIdReplacePairs);
+                            foreach (int currentId in newSharedStepIds)
+                            {
+                                this.AddNewSharedStepInternal(testCase, addedSharedStepGuids, currentStep, currentId);
+                            }
                         }
-                        ISharedStep sharedStep = ExecutionContext.TestManagementTeamProject.SharedSteps.Find(newSharedStepId);
-                        ISharedStepReference sharedStepReferenceCore = testCase.ITestCase.CreateSharedStepReference();
-                        sharedStepReferenceCore.SharedStepId = sharedStep.Id;
-                        testCase.ITestCase.Actions.Add(sharedStepReferenceCore);
-                        addedSharedStepGuids.Add(currentStep.TestStepGuid);
+                        else
+                        {
+                            this.AddNewSharedStepInternal(testCase, addedSharedStepGuids, currentStep, currentStep.SharedStepId);
+                        }
                     }
                     else if (!currentStep.IsShared)
                     {
@@ -402,24 +437,85 @@ namespace TestCaseManagerCore.ViewModels
         }
 
         /// <summary>
+        /// Adds the new shared step internal.
+        /// </summary>
+        /// <param name="testCase">The test case.</param>
+        /// <param name="addedSharedStepGuids">The added shared step guids.</param>
+        /// <param name="currentStep">The current step.</param>
+        private void AddNewSharedStepInternal(TestCase testCase, List<Guid> addedSharedStepGuids, TestStep currentStep, int sharedStepId)
+        {
+            ISharedStep sharedStep = ExecutionContext.TestManagementTeamProject.SharedSteps.Find(sharedStepId);
+            ISharedStepReference sharedStepReferenceCore = testCase.ITestCase.CreateSharedStepReference();
+            sharedStepReferenceCore.SharedStepId = sharedStep.Id;
+            testCase.ITestCase.Actions.Add(sharedStepReferenceCore);
+            addedSharedStepGuids.Add(currentStep.TestStepGuid);
+        }
+
+        /// <summary>
+        /// Ares all shared step ids valid.
+        /// </summary>
+        /// <returns></returns>
+        public bool AreAllSharedStepIdsValid()
+        {
+            bool result = true;
+            string regexPattern = @"^[0-9,]$";
+            foreach (SharedStepIdReplacePair currentSharedStepIdReplacePair in this.ReplaceContext.ObservableSharedStepIdReplacePairs)
+            {
+                try
+                {
+                    if (currentSharedStepIdReplacePair.OldSharedStepId == 0 || Regex.IsMatch(currentSharedStepIdReplacePair.NewSharedStepIds, regexPattern))
+                    {
+                        continue;
+                    }
+                    ExecutionContext.TestManagementTeamProject.SharedSteps.Find(currentSharedStepIdReplacePair.OldSharedStepId);
+                    List<int> newSharedStepIds = GetNewSharedStepIdsFromString(currentSharedStepIdReplacePair.NewSharedStepIds);
+                    foreach (int currentId in newSharedStepIds)
+                    {
+                        ExecutionContext.TestManagementTeamProject.SharedSteps.Find(currentId);
+                    }                    
+                }
+                catch
+                {
+                    result = false;
+                    break;
+                }
+            }
+
+            return result;
+        }
+
+        /// <summary>
         /// Gets the new shared step unique identifier.
         /// </summary>
         /// <param name="currentSharedStepId">The current shared step unique identifier.</param>
         /// <param name="sharedStepIdReplacePairs">The shared steps replace pairs.</param>
         /// <returns>new shared step id</returns>
-        private int GetNewSharedStepId(int currentSharedStepId, ICollection<SharedStepIdReplacePair> sharedStepIdReplacePairs)
+        private List<int> GetNewSharedStepIds(int currentSharedStepId, ICollection<SharedStepIdReplacePair> sharedStepIdReplacePairs)
         {
-            int newSharedStepId = currentSharedStepId;
+            string newSharedStepIds = String.Empty;
             foreach (SharedStepIdReplacePair currentPair in sharedStepIdReplacePairs)
             {
                 if (currentSharedStepId.Equals(currentPair.OldSharedStepId))
                 {
-                    newSharedStepId = currentPair.NewSharedStepId;
+                    newSharedStepIds = currentPair.NewSharedStepIds;
                     break;
                 }
             }
+            List<int> sharedStepIds = this.GetNewSharedStepIdsFromString(newSharedStepIds);
 
-            return newSharedStepId;
+            return sharedStepIds;
+        }
+
+        private List<int> GetNewSharedStepIdsFromString(string newSharedStepIds)
+        {
+            string[] sharedStepIdsStrs = newSharedStepIds.Split(',');
+            List<int> sharedStepIds = new List<int>();
+            foreach (var current in sharedStepIdsStrs)
+            {
+                sharedStepIds.Add(int.Parse(current));
+            }
+
+            return sharedStepIds;
         }
 
         /// <summary>

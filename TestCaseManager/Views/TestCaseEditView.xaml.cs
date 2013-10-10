@@ -841,10 +841,6 @@ namespace TestCaseManagerApp.Views
             {
                 TestStepManager.EditTestStepActionTitle(currentTestStep, stepTitle);
                 TestStepManager.EditTestStepActionExpectedResult(currentTestStep, expectedResult);
-                //currentTestStep.ActionTitle = stepTitle;
-                //currentTestStep.ActionExpectedResult = expectedResult;
-                //currentTestStep.OriginalActionTitle = stepTitle;
-                //currentTestStep.OriginalActionExpectedResult = expectedResult;
             }
             this.editViewContext.CurrentEditedStepGuid = default(Guid);
             TestStepManager.UpdateGenericSharedSteps(this.TestCaseEditViewModel.ObservableTestSteps);
