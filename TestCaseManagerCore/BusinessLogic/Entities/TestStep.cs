@@ -7,6 +7,7 @@ namespace TestCaseManagerCore.BusinessLogic.Entities
     using System;
     using Microsoft.TeamFoundation.TestManagement.Client;
     using TestCaseManagerCore.BusinessLogic.Entities;
+    using TestCaseManagerCore.BusinessLogic.Managers;
 
     /// <summary>
     /// Contains Test Step object information properties
@@ -14,6 +15,11 @@ namespace TestCaseManagerCore.BusinessLogic.Entities
     [Serializable]
     public class TestStep : BaseNotifyPropertyChanged, ICloneable, IEquatable<TestStep>
     {
+        /// <summary>
+        /// The is initialized
+        /// </summary>
+        private bool isInitialized;
+
         /// <summary>
         /// The title
         /// </summary>
@@ -35,6 +41,16 @@ namespace TestCaseManagerCore.BusinessLogic.Entities
         private string actionExpectedResult;
 
         /// <summary>
+        /// The original action title
+        /// </summary>
+        private string originalActionTitle;
+
+        /// <summary>
+        /// The original action expected result
+        /// </summary>
+        private string originalActionExpectedResult;
+
+        /// <summary>
         /// The test step unique identifier
         /// </summary>
         private Guid testStepGuid;
@@ -52,6 +68,7 @@ namespace TestCaseManagerCore.BusinessLogic.Entities
             this.OriginalTitle = title;
             this.TestStepGuid = testStepGuid;
             this.IsPasteEnabled = false;
+            this.isInitialized = true;
         }
 
         /// <summary>
@@ -71,6 +88,7 @@ namespace TestCaseManagerCore.BusinessLogic.Entities
             this.ActionExpectedResult = actionExpectedResult;
             this.OriginalActionTitle = actionTitle;
             this.OriginalActionExpectedResult = actionExpectedResult;
+            this.isInitialized = true;
         }
 
         /// <summary>
@@ -88,6 +106,7 @@ namespace TestCaseManagerCore.BusinessLogic.Entities
             this.ActionExpectedResult = testStepCore.ExpectedResult.ToPlainText();
             this.OriginalActionTitle = testStepCore.Title.ToPlainText();
             this.OriginalActionExpectedResult = testStepCore.ExpectedResult.ToPlainText();
+            this.isInitialized = true;
         }
 
         /// <summary>
@@ -219,6 +238,10 @@ namespace TestCaseManagerCore.BusinessLogic.Entities
 
             set
             {
+                //if (this.isInitialized)
+                //{
+                //    UndoRedoManager.Instance().Push(t => this.ActionTitle = t, this.actionTitle, "Change the test step action title");
+                //} 
                 this.actionTitle = value;
                 this.NotifyPropertyChanged();
             }
@@ -239,6 +262,10 @@ namespace TestCaseManagerCore.BusinessLogic.Entities
 
             set
             {
+                //if (this.isInitialized)
+                //{
+                //    UndoRedoManager.Instance().Push(t => this.ActionExpectedResult = t, this.actionExpectedResult, "Change the testp step expected result");
+                //} 
                 this.actionExpectedResult = value;
                 this.NotifyPropertyChanged();
             }
@@ -250,7 +277,26 @@ namespace TestCaseManagerCore.BusinessLogic.Entities
         /// <value>
         /// The original title.
         /// </value>
-        public string OriginalTitle { get; set; }
+        public string OriginalTitle
+        {
+            get
+            {
+                return this.title;
+            }
+
+            set
+            {
+                if (this.isInitialized)
+                {
+                    UndoRedoManager.Instance().Push(t => { 
+                        this.OriginalTitle = t;
+                        this.Title = t;
+                    }, this.title, "Change the test step title");
+                }
+                this.actionTitle = value;
+                this.NotifyPropertyChanged();
+            }
+        }
 
         /// <summary>
         /// Gets or sets the original action title.
@@ -258,7 +304,27 @@ namespace TestCaseManagerCore.BusinessLogic.Entities
         /// <value>
         /// The original action title.
         /// </value>
-        public string OriginalActionTitle { get; set; }
+        public string OriginalActionTitle
+        {
+            get
+            {
+                return this.originalActionTitle;
+            }
+
+            set
+            {
+                //if (this.isInitialized)
+                //{
+                //    UndoRedoManager.Instance().Push(t =>
+                //        {
+                //            this.OriginalActionTitle = t;
+                //            this.ActionTitle = t;
+                //        }, this.originalActionTitle, "Change the test step original action title");
+                //}
+                this.originalActionTitle = value;
+                this.NotifyPropertyChanged();
+            }
+        }
 
         /// <summary>
         /// Gets or sets the original expected result.
@@ -266,7 +332,27 @@ namespace TestCaseManagerCore.BusinessLogic.Entities
         /// <value>
         /// The original expected result.
         /// </value>
-        public string OriginalActionExpectedResult { get; set; }
+        public string OriginalActionExpectedResult
+        {
+            get
+            {
+                return this.originalActionExpectedResult;
+            }
+
+            set
+            {
+                //if (this.isInitialized)
+                //{
+                //    UndoRedoManager.Instance().Push(t =>
+                //        {
+                //            this.OriginalActionExpectedResult = t;
+                //            this.ActionExpectedResult = t;
+                //        }, this.originalActionExpectedResult, "Change the test step original expected result");
+                //}
+                this.originalActionExpectedResult = value;
+                this.NotifyPropertyChanged();
+            }
+        }
 
         /// <summary>
         /// Creates a new object that is a copy of the current instance.

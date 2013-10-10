@@ -561,19 +561,20 @@ namespace TestCaseManagerCore.ViewModels
         /// </summary>
         /// <param name="currentSharedStep">The current shared step.</param>
         /// <param name="selectedIndex">Index of the selected test step.</param>
-        /// <returns>return the count of the insertedSteps</returns>
+        /// <returns>return the index of the last inserted step</returns>
         public int InsertSharedStep(SharedStep currentSharedStep, int selectedIndex)
         {
             List<TestStep> innerTestSteps = TestStepManager.GetAllTestStepsInSharedStep(currentSharedStep.ISharedStep);
           
             int j = 0;
+            int finalInsertedStepIndex = 0;
             for (int i = selectedIndex; i < innerTestSteps.Count + selectedIndex; i++)
             {
-                this.InsertTestStepInTestCase(innerTestSteps[j], i, false);
+                finalInsertedStepIndex = this.InsertTestStepInTestCase(innerTestSteps[j], i, false);
                 j++;
             }
 
-            return innerTestSteps.Count;
+            return finalInsertedStepIndex;
         }
 
         /// <summary>

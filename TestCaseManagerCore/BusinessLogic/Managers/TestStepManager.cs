@@ -363,5 +363,30 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
                 currentTestStep.SharedStepId = sharedStepCore.Id;
             }
         }
+
+        /// <summary>
+        /// Edits the test step action title.
+        /// </summary>
+        /// <param name="currentTestStep">The current test step.</param>
+        /// <param name="newActionTitle">The new action title.</param>
+        public static void EditTestStepActionTitle(TestStep currentTestStep, string newActionTitle)
+        {
+            UndoRedoManager.Instance().Push((step, t) => EditTestStepActionTitle(currentTestStep, t), currentTestStep, currentTestStep.OriginalActionTitle, "Change the test step action title");
+            currentTestStep.ActionTitle = newActionTitle;
+            currentTestStep.OriginalActionTitle = newActionTitle;             
+        }
+
+        /// <summary>
+        /// Edits the test step action expected result.
+        /// </summary>
+        /// <param name="currentTestStep">The current test step.</param>
+        /// <param name="newActionExpectedResult">The new action expected result.</param>
+        public static void EditTestStepActionExpectedResult(TestStep currentTestStep, string newActionExpectedResult)
+        {
+            UndoRedoManager.Instance().Push((step, t) => EditTestStepActionExpectedResult(currentTestStep, t), currentTestStep, currentTestStep.OriginalActionExpectedResult, "Change the test step expected result");
+            currentTestStep.ActionExpectedResult = newActionExpectedResult;
+            currentTestStep.OriginalActionExpectedResult = newActionExpectedResult;
+             
+        }
     }
 }
