@@ -184,8 +184,8 @@
                 <TextBlock Text="{Binding SharedStepsCount}" Margin="10,0,10,30" Height="25" Width="Auto" />
             </StackPanel>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Grid.Row="4" Grid.Column="2">
-                <TextBlock Text="Test Case Count:" Margin="10,30,10,0" Height="25" Width="Auto" FontWeight="Bold"/>
-                <TextBlock Name="tbTestCaseCount"  Text="{Binding TestCasesCount}" Margin="0,30,10,0" Height="25" Width="Auto" />
+                <TextBlock Text="Test Case Count:" Margin="10,0,10,30" Height="25" Width="Auto" FontWeight="Bold"/>
+                <TextBlock Name="tbTestCaseCount"  Text="{Binding TestCasesCount}" Margin="10,0,10,30" Height="25" Width="Auto" />
             </StackPanel>
         </Grid>
     </Grid>

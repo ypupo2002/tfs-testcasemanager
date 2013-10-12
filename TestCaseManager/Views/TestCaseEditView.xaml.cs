@@ -444,10 +444,13 @@ namespace TestCaseManagerApp.Views
             {
                 selectedTestSteps = new List<TestStep>();
             }
-            foreach (var item in dgTestSteps.SelectedItems)
+            if (dgTestSteps.SelectedItems != null)
             {
-                selectedTestSteps.Add(item as TestStep);
-            }
+                foreach (var item in dgTestSteps.SelectedItems)
+                {
+                    selectedTestSteps.Add(item as TestStep);
+                }
+            }       
 
             return selectedTestSteps;
         }
@@ -483,6 +486,7 @@ namespace TestCaseManagerApp.Views
                 {
                     int oldSelectedIndex = dgTestSteps.SelectedIndex;
                     List<TestStepFull> testStepsToBeRemoved = TestCaseEditViewModel.MarkInitialStepsToBeRemoved(dgTestSteps.SelectedItems.Cast<TestStep>().ToList());
+                    testStepsToBeRemoved.Sort();
                     this.TestCaseEditViewModel.RemoveTestSteps(testStepsToBeRemoved);
                     TestStepManager.UpdateGenericSharedSteps(this.TestCaseEditViewModel.ObservableTestSteps);
                     this.TestCaseEditViewModel.UpdateTestStepsGrid();
@@ -677,8 +681,11 @@ namespace TestCaseManagerApp.Views
             UndoRedoManager.Instance().Push((i, j) => this.ChangeSelectedIndexTestStepsDataGrid(i, j), oldIndex, newIndex);
             dgTestSteps.SelectedIndex = newIndex;
             dgTestSteps.UpdateLayout();
-            dgTestSteps.ScrollIntoView(dgTestSteps.SelectedItem);
-            dgTestSteps.Focus();
+            if (dgTestSteps.SelectedItem != null)
+            {
+                dgTestSteps.ScrollIntoView(dgTestSteps.SelectedItem);
+                dgTestSteps.Focus();
+            }          
         }
 
         /// <summary>

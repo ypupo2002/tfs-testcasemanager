@@ -13,7 +13,7 @@ namespace TestCaseManagerCore.BusinessLogic.Entities
     /// <summary>
     /// Extends the Test Step object- adds index
     /// </summary>
-    public class TestStepFull : TestStep, IEquatable<TestStepFull>
+    public class TestStepFull : TestStep, IEquatable<TestStepFull>, IComparable<TestStepFull>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="TestStepFull"/> class.
@@ -46,6 +46,18 @@ namespace TestCaseManagerCore.BusinessLogic.Entities
             bool result = base.Equals(other);
 
             return result;
+        }
+
+        /// <summary>
+        /// Compares the current object with another object of the same type.
+        /// </summary>
+        /// <param name="other">An object to compare with this object.</param>
+        /// <returns>
+        /// A value that indicates the relative order of the objects being compared. The return value has the following meanings: Value Meaning Less than zero This object is less than the <paramref name="other" /> parameter.Zero This object is equal to <paramref name="other" />. Greater than zero This object is greater than <paramref name="other" />.
+        /// </returns>
+        public int CompareTo(TestStepFull other)
+        {
+            return this.Index.CompareTo(other.Index);
         }
     }
 }

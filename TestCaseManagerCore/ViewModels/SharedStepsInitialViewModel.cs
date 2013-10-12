@@ -7,6 +7,7 @@ namespace TestCaseManagerCore.ViewModels
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.Linq;
+    using Microsoft.TeamFoundation.TestManagement.Client;
     using TestCaseManagerCore.BusinessLogic.Entities;
     using TestCaseManagerCore.BusinessLogic.Managers;
 
