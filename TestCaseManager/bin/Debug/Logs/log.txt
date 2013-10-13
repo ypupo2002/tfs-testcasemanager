@@ -1,0 +1,441 @@
+2013-10-13 17:58:19,133 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Theme to: FirstFloor.ModernUI.Presentation.Link 
+2013-10-13 17:58:19,181 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Color to: #FF0082AD 
+2013-10-13 17:58:19,659 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Load project info loaded from registry! 
+2013-10-13 17:58:19,767 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> TFS URI: https://aangelov.visualstudio.com/defaultcollection 
+2013-10-13 17:58:19,767 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> Test Project Name: AANGELOV 
+2013-10-13 17:58:19,825 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> TfsTeamProjectCollection: aangelov.visualstudio.com\DefaultCollection 
+2013-10-13 17:58:20,131 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - SET FullTeamProjectName to https://aangelov.visualstudio.com/defaultcollection/AANGELOV 
+2013-10-13 17:58:20,152 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> SelectedTestPlan: TEST TM 2012 
+2013-10-13 17:58:36,854 [aangelov-PC\aangelov] [5] INFO TestCaseManagerApp.Views.TestCasesInitialView - Load all test cases in the suite with id = 5 
+2013-10-13 18:06:15,670 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Theme to: FirstFloor.ModernUI.Presentation.Link 
+2013-10-13 18:06:15,714 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Color to: #FF0082AD 
+2013-10-13 18:06:16,231 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Load project info loaded from registry! 
+2013-10-13 18:06:16,332 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> TFS URI: https://aangelov.visualstudio.com/defaultcollection 
+2013-10-13 18:06:16,333 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> Test Project Name: AANGELOV 
+2013-10-13 18:06:16,379 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> TfsTeamProjectCollection: aangelov.visualstudio.com\DefaultCollection 
+2013-10-13 18:06:16,677 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - SET FullTeamProjectName to https://aangelov.visualstudio.com/defaultcollection/AANGELOV 
+2013-10-13 18:06:16,696 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> SelectedTestPlan: TEST TM 2012 
+2013-10-13 18:06:38,886 [aangelov-PC\aangelov] [5] ERROR TestCaseManagerCore.BusinessLogic.Managers.TestPlanManager - Getting all plans error. Microsoft.TeamFoundation.TeamFoundationServiceUnavailableException: TF400324: Team Foundation services are not available from server aangelov.visualstudio.com\DefaultCollection.
+Technical information (for administrator):
+  Unable to connect to the remote server ---> System.Net.WebException: Unable to connect to the remote server ---> System.Net.Sockets.SocketException: A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond 65.52.8.37:443
+   at System.Net.Sockets.Socket.DoConnect(EndPoint endPointSnapshot, SocketAddress socketAddress)
+   at System.Net.ServicePoint.ConnectSocketInternal(Boolean connectFailure, Socket s4, Socket s6, Socket& socket, IPAddress& address, ConnectSocketState state, IAsyncResult asyncResult, Exception& exception)
+   --- End of inner exception stack trace ---
+   at System.Net.HttpWebRequest.GetRequestStream(TransportContext& context)
+   at System.Net.HttpWebRequest.GetRequestStream()
+   at Microsoft.TeamFoundation.Client.Channels.TfsHttpWebRequest.SendRequestAndGetResponse(HttpWebRequest webRequest, WebException& webException)
+   --- End of inner exception stack trace ---
+   at Microsoft.TeamFoundation.Client.Channels.TfsHttpWebRequest.ReadResponse(HttpWebResponse webResponse, WebException webException)
+   at Microsoft.TeamFoundation.Client.Channels.TfsHttpWebRequest.IsAuthenticationChallenge(TfsMessage requestMessage, HttpWebResponse webResponse, WebException webException, TfsMessage& responseMessage)
+   at Microsoft.TeamFoundation.Client.Channels.TfsHttpWebRequest.SendRequest()
+   at Microsoft.TeamFoundation.Client.Channels.TfsHttpRequestChannel.Request(TfsMessage message, TimeSpan timeout)
+   at Microsoft.TeamFoundation.Client.Channels.TfsHttpClientBase.Invoke(TfsClientOperation operation, Object[] parameters, TimeSpan timeout, Object[]& outputs)
+   at Microsoft.TeamFoundation.TestManagement.Client.TestManagementWebService.QueryTestPlans(ResultsStoreQuery query)
+   at Microsoft.TeamFoundation.TestManagement.Client.TestPlanHelper.Query(String queryText)
+   at TestCaseManagerCore.BusinessLogic.Managers.TestPlanManager.GetAllTestPlans(ITestManagementTeamProject testManagementTeamProject) in d:\Projects\TestCaseManager\TestCaseManagerCore\BusinessLogic\Managers\TestPlanManager.cs:line 56
+
+2013-10-13 18:07:00,903 [aangelov-PC\aangelov] [5] ERROR TestCaseManagerCore.BusinessLogic.Managers.TestPlanManager - Getting all plans error. Microsoft.TeamFoundation.TeamFoundationServiceUnavailableException: TF400324: Team Foundation services are not available from server aangelov.visualstudio.com\DefaultCollection.
+Technical information (for administrator):
+  Unable to connect to the remote server ---> System.Net.WebException: Unable to connect to the remote server ---> System.Net.Sockets.SocketException: A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond 65.52.8.37:443
+   at System.Net.Sockets.Socket.DoConnect(EndPoint endPointSnapshot, SocketAddress socketAddress)
+   at System.Net.ServicePoint.ConnectSocketInternal(Boolean connectFailure, Socket s4, Socket s6, Socket& socket, IPAddress& address, ConnectSocketState state, IAsyncResult asyncResult, Exception& exception)
+   --- End of inner exception stack trace ---
+   at System.Net.HttpWebRequest.GetRequestStream(TransportContext& context)
+   at System.Net.HttpWebRequest.GetRequestStream()
+   at Microsoft.TeamFoundation.Client.Channels.TfsHttpWebRequest.SendRequestAndGetResponse(HttpWebRequest webRequest, WebException& webException)
+   --- End of inner exception stack trace ---
+   at Microsoft.TeamFoundation.Client.Channels.TfsHttpWebRequest.ReadResponse(HttpWebResponse webResponse, WebException webException)
+   at Microsoft.TeamFoundation.Client.Channels.TfsHttpWebRequest.IsAuthenticationChallenge(TfsMessage requestMessage, HttpWebResponse webResponse, WebException webException, TfsMessage& responseMessage)
+   at Microsoft.TeamFoundation.Client.Channels.TfsHttpWebRequest.SendRequest()
+   at Microsoft.TeamFoundation.Client.Channels.TfsHttpRequestChannel.Request(TfsMessage message, TimeSpan timeout)
+   at Microsoft.TeamFoundation.Client.Channels.TfsHttpClientBase.Invoke(TfsClientOperation operation, Object[] parameters, TimeSpan timeout, Object[]& outputs)
+   at Microsoft.TeamFoundation.TestManagement.Client.TestManagementWebService.QueryTestPlans(ResultsStoreQuery query)
+   at Microsoft.TeamFoundation.TestManagement.Client.TestPlanHelper.Query(String queryText)
+   at TestCaseManagerCore.BusinessLogic.Managers.TestPlanManager.GetAllTestPlans(ITestManagementTeamProject testManagementTeamProject) in d:\Projects\TestCaseManager\TestCaseManagerCore\BusinessLogic\Managers\TestPlanManager.cs:line 56
+
+2013-10-13 18:07:13,534 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Theme to: FirstFloor.ModernUI.Presentation.Link 
+2013-10-13 18:07:13,574 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Color to: #FF0082AD 
+2013-10-13 18:07:14,349 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Load project info loaded from registry! 
+2013-10-13 18:07:14,455 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> TFS URI: https://aangelov.visualstudio.com/defaultcollection 
+2013-10-13 18:07:14,455 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> Test Project Name: AANGELOV 
+2013-10-13 18:07:14,489 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> TfsTeamProjectCollection: aangelov.visualstudio.com\DefaultCollection 
+2013-10-13 18:07:14,827 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - SET FullTeamProjectName to https://aangelov.visualstudio.com/defaultcollection/AANGELOV 
+2013-10-13 18:07:14,845 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> SelectedTestPlan: TEST TM 2012 
+2013-10-13 18:07:26,005 [aangelov-PC\aangelov] [5] INFO TestCaseManagerApp.Views.TestCasesInitialView - Load all test cases in the suite with id = 5 
+2013-10-13 18:07:31,604 [aangelov-PC\aangelov] [1] INFO TestCaseManagerApp.Views.TestCasesInitialView - Preview test case with id: 14 and suite id 5 
+2013-10-13 18:07:31,900 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Get All Areas for Project= AANGELOV 
+2013-10-13 18:07:41,322 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Load Edit View with Context: TestCaseId= 14, TestSuiteId= 5, CreateNew= False, Duplicate= False, IsSharedStep= False, SharedStepId= 0, ComeFromTestCase = False, CurrentEditedStepGuid= 00000000-0000-0000-0000-000000000000  
+2013-10-13 18:11:30,250 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Theme to: FirstFloor.ModernUI.Presentation.Link 
+2013-10-13 18:11:30,290 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Color to: #FF0082AD 
+2013-10-13 18:11:30,746 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Load project info loaded from registry! 
+2013-10-13 18:11:30,904 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> TFS URI: https://aangelov.visualstudio.com/defaultcollection 
+2013-10-13 18:11:30,905 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> Test Project Name: AANGELOV 
+2013-10-13 18:11:30,948 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> TfsTeamProjectCollection: aangelov.visualstudio.com\DefaultCollection 
+2013-10-13 18:11:31,245 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - SET FullTeamProjectName to https://aangelov.visualstudio.com/defaultcollection/AANGELOV 
+2013-10-13 18:11:31,262 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> SelectedTestPlan: TEST TM 2012 
+2013-10-13 18:11:52,735 [aangelov-PC\aangelov] [5] ERROR TestCaseManagerCore.BusinessLogic.Managers.TestPlanManager - Getting all plans error. Microsoft.TeamFoundation.TeamFoundationServiceUnavailableException: TF400324: Team Foundation services are not available from server aangelov.visualstudio.com\DefaultCollection.
+Technical information (for administrator):
+  Unable to connect to the remote server ---> System.Net.WebException: Unable to connect to the remote server ---> System.Net.Sockets.SocketException: A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond 65.52.8.37:443
+   at System.Net.Sockets.Socket.DoConnect(EndPoint endPointSnapshot, SocketAddress socketAddress)
+   at System.Net.ServicePoint.ConnectSocketInternal(Boolean connectFailure, Socket s4, Socket s6, Socket& socket, IPAddress& address, ConnectSocketState state, IAsyncResult asyncResult, Exception& exception)
+   --- End of inner exception stack trace ---
+   at System.Net.HttpWebRequest.GetRequestStream(TransportContext& context)
+   at System.Net.HttpWebRequest.GetRequestStream()
+   at Microsoft.TeamFoundation.Client.Channels.TfsHttpWebRequest.SendRequestAndGetResponse(HttpWebRequest webRequest, WebException& webException)
+   --- End of inner exception stack trace ---
+   at Microsoft.TeamFoundation.Client.Channels.TfsHttpWebRequest.ReadResponse(HttpWebResponse webResponse, WebException webException)
+   at Microsoft.TeamFoundation.Client.Channels.TfsHttpWebRequest.IsAuthenticationChallenge(TfsMessage requestMessage, HttpWebResponse webResponse, WebException webException, TfsMessage& responseMessage)
+   at Microsoft.TeamFoundation.Client.Channels.TfsHttpWebRequest.SendRequest()
+   at Microsoft.TeamFoundation.Client.Channels.TfsHttpRequestChannel.Request(TfsMessage message, TimeSpan timeout)
+   at Microsoft.TeamFoundation.Client.Channels.TfsHttpClientBase.Invoke(TfsClientOperation operation, Object[] parameters, TimeSpan timeout, Object[]& outputs)
+   at Microsoft.TeamFoundation.TestManagement.Client.TestManagementWebService.QueryTestPlans(ResultsStoreQuery query)
+   at Microsoft.TeamFoundation.TestManagement.Client.TestPlanHelper.Query(String queryText)
+   at TestCaseManagerCore.BusinessLogic.Managers.TestPlanManager.GetAllTestPlans(ITestManagementTeamProject testManagementTeamProject) in d:\Projects\TestCaseManager\TestCaseManagerCore\BusinessLogic\Managers\TestPlanManager.cs:line 56
+
+2013-10-13 18:12:03,079 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Theme to: FirstFloor.ModernUI.Presentation.Link 
+2013-10-13 18:12:03,120 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Color to: #FF0082AD 
+2013-10-13 18:12:03,627 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Load project info loaded from registry! 
+2013-10-13 18:12:03,716 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> TFS URI: https://aangelov.visualstudio.com/defaultcollection 
+2013-10-13 18:12:03,717 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> Test Project Name: AANGELOV 
+2013-10-13 18:12:03,758 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> TfsTeamProjectCollection: aangelov.visualstudio.com\DefaultCollection 
+2013-10-13 18:12:04,083 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - SET FullTeamProjectName to https://aangelov.visualstudio.com/defaultcollection/AANGELOV 
+2013-10-13 18:12:04,101 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> SelectedTestPlan: TEST TM 2012 
+2013-10-13 18:12:15,274 [aangelov-PC\aangelov] [5] INFO TestCaseManagerApp.Views.TestCasesInitialView - Load all test cases in the suite with id = 5 
+2013-10-13 18:12:18,562 [aangelov-PC\aangelov] [1] INFO TestCaseManagerApp.Views.TestCasesInitialView - Preview test case with id: 14 and suite id 5 
+2013-10-13 18:12:18,822 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Get All Areas for Project= AANGELOV 
+2013-10-13 18:12:27,608 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Load Edit View with Context: TestCaseId= 14, TestSuiteId= 5, CreateNew= False, Duplicate= False, IsSharedStep= False, SharedStepId= 0, ComeFromTestCase = False, CurrentEditedStepGuid= 00000000-0000-0000-0000-000000000000  
+2013-10-13 18:14:56,487 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Theme to: FirstFloor.ModernUI.Presentation.Link 
+2013-10-13 18:14:56,527 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Color to: #FF0082AD 
+2013-10-13 18:14:57,012 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Load project info loaded from registry! 
+2013-10-13 18:14:57,123 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> TFS URI: https://aangelov.visualstudio.com/defaultcollection 
+2013-10-13 18:14:57,124 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> Test Project Name: AANGELOV 
+2013-10-13 18:14:57,164 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> TfsTeamProjectCollection: aangelov.visualstudio.com\DefaultCollection 
+2013-10-13 18:14:57,439 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - SET FullTeamProjectName to https://aangelov.visualstudio.com/defaultcollection/AANGELOV 
+2013-10-13 18:14:57,456 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> SelectedTestPlan: TEST TM 2012 
+2013-10-13 18:15:18,855 [aangelov-PC\aangelov] [5] ERROR TestCaseManagerCore.BusinessLogic.Managers.TestPlanManager - Getting all plans error. Microsoft.TeamFoundation.TeamFoundationServiceUnavailableException: TF400324: Team Foundation services are not available from server aangelov.visualstudio.com\DefaultCollection.
+Technical information (for administrator):
+  Unable to connect to the remote server ---> System.Net.WebException: Unable to connect to the remote server ---> System.Net.Sockets.SocketException: A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond 65.52.8.37:443
+   at System.Net.Sockets.Socket.DoConnect(EndPoint endPointSnapshot, SocketAddress socketAddress)
+   at System.Net.ServicePoint.ConnectSocketInternal(Boolean connectFailure, Socket s4, Socket s6, Socket& socket, IPAddress& address, ConnectSocketState state, IAsyncResult asyncResult, Exception& exception)
+   --- End of inner exception stack trace ---
+   at System.Net.HttpWebRequest.GetRequestStream(TransportContext& context)
+   at System.Net.HttpWebRequest.GetRequestStream()
+   at Microsoft.TeamFoundation.Client.Channels.TfsHttpWebRequest.SendRequestAndGetResponse(HttpWebRequest webRequest, WebException& webException)
+   --- End of inner exception stack trace ---
+   at Microsoft.TeamFoundation.Client.Channels.TfsHttpWebRequest.ReadResponse(HttpWebResponse webResponse, WebException webException)
+   at Microsoft.TeamFoundation.Client.Channels.TfsHttpWebRequest.IsAuthenticationChallenge(TfsMessage requestMessage, HttpWebResponse webResponse, WebException webException, TfsMessage& responseMessage)
+   at Microsoft.TeamFoundation.Client.Channels.TfsHttpWebRequest.SendRequest()
+   at Microsoft.TeamFoundation.Client.Channels.TfsHttpRequestChannel.Request(TfsMessage message, TimeSpan timeout)
+   at Microsoft.TeamFoundation.Client.Channels.TfsHttpClientBase.Invoke(TfsClientOperation operation, Object[] parameters, TimeSpan timeout, Object[]& outputs)
+   at Microsoft.TeamFoundation.TestManagement.Client.TestManagementWebService.QueryTestPlans(ResultsStoreQuery query)
+   at Microsoft.TeamFoundation.TestManagement.Client.TestPlanHelper.Query(String queryText)
+   at TestCaseManagerCore.BusinessLogic.Managers.TestPlanManager.GetAllTestPlans(ITestManagementTeamProject testManagementTeamProject) in d:\Projects\TestCaseManager\TestCaseManagerCore\BusinessLogic\Managers\TestPlanManager.cs:line 56
+
+2013-10-13 18:15:37,277 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Theme to: FirstFloor.ModernUI.Presentation.Link 
+2013-10-13 18:15:37,317 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Color to: #FF0082AD 
+2013-10-13 18:15:37,761 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Load project info loaded from registry! 
+2013-10-13 18:15:37,855 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> TFS URI: https://aangelov.visualstudio.com/defaultcollection 
+2013-10-13 18:15:37,856 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> Test Project Name: AANGELOV 
+2013-10-13 18:15:37,897 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> TfsTeamProjectCollection: aangelov.visualstudio.com\DefaultCollection 
+2013-10-13 18:15:38,182 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - SET FullTeamProjectName to https://aangelov.visualstudio.com/defaultcollection/AANGELOV 
+2013-10-13 18:15:38,200 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> SelectedTestPlan: TEST TM 2012 
+2013-10-13 18:15:48,318 [aangelov-PC\aangelov] [8] INFO TestCaseManagerApp.Views.TestCasesInitialView - Load all test cases in the suite with id = 5 
+2013-10-13 18:15:52,567 [aangelov-PC\aangelov] [1] INFO TestCaseManagerApp.Views.TestCasesInitialView - Preview test case with id: 14 and suite id 5 
+2013-10-13 18:15:52,825 [aangelov-PC\aangelov] [8] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Get All Areas for Project= AANGELOV 
+2013-10-13 18:16:01,363 [aangelov-PC\aangelov] [8] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Load Edit View with Context: TestCaseId= 14, TestSuiteId= 5, CreateNew= False, Duplicate= False, IsSharedStep= False, SharedStepId= 0, ComeFromTestCase = False, CurrentEditedStepGuid= 00000000-0000-0000-0000-000000000000  
+2013-10-13 18:16:46,023 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Theme to: FirstFloor.ModernUI.Presentation.Link 
+2013-10-13 18:16:46,063 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Color to: #FF0082AD 
+2013-10-13 18:16:46,497 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Load project info loaded from registry! 
+2013-10-13 18:16:46,591 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> TFS URI: https://aangelov.visualstudio.com/defaultcollection 
+2013-10-13 18:16:46,591 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> Test Project Name: AANGELOV 
+2013-10-13 18:16:46,631 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> TfsTeamProjectCollection: aangelov.visualstudio.com\DefaultCollection 
+2013-10-13 18:16:46,945 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - SET FullTeamProjectName to https://aangelov.visualstudio.com/defaultcollection/AANGELOV 
+2013-10-13 18:16:46,964 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> SelectedTestPlan: TEST TM 2012 
+2013-10-13 18:17:08,389 [aangelov-PC\aangelov] [5] ERROR TestCaseManagerCore.BusinessLogic.Managers.TestPlanManager - Getting all plans error. Microsoft.TeamFoundation.TeamFoundationServiceUnavailableException: TF400324: Team Foundation services are not available from server aangelov.visualstudio.com\DefaultCollection.
+Technical information (for administrator):
+  Unable to connect to the remote server ---> System.Net.WebException: Unable to connect to the remote server ---> System.Net.Sockets.SocketException: A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond 65.52.8.37:443
+   at System.Net.Sockets.Socket.DoConnect(EndPoint endPointSnapshot, SocketAddress socketAddress)
+   at System.Net.ServicePoint.ConnectSocketInternal(Boolean connectFailure, Socket s4, Socket s6, Socket& socket, IPAddress& address, ConnectSocketState state, IAsyncResult asyncResult, Exception& exception)
+   --- End of inner exception stack trace ---
+   at System.Net.HttpWebRequest.GetRequestStream(TransportContext& context)
+   at System.Net.HttpWebRequest.GetRequestStream()
+   at Microsoft.TeamFoundation.Client.Channels.TfsHttpWebRequest.SendRequestAndGetResponse(HttpWebRequest webRequest, WebException& webException)
+   --- End of inner exception stack trace ---
+   at Microsoft.TeamFoundation.Client.Channels.TfsHttpWebRequest.ReadResponse(HttpWebResponse webResponse, WebException webException)
+   at Microsoft.TeamFoundation.Client.Channels.TfsHttpWebRequest.IsAuthenticationChallenge(TfsMessage requestMessage, HttpWebResponse webResponse, WebException webException, TfsMessage& responseMessage)
+   at Microsoft.TeamFoundation.Client.Channels.TfsHttpWebRequest.SendRequest()
+   at Microsoft.TeamFoundation.Client.Channels.TfsHttpRequestChannel.Request(TfsMessage message, TimeSpan timeout)
+   at Microsoft.TeamFoundation.Client.Channels.TfsHttpClientBase.Invoke(TfsClientOperation operation, Object[] parameters, TimeSpan timeout, Object[]& outputs)
+   at Microsoft.TeamFoundation.TestManagement.Client.TestManagementWebService.QueryTestPlans(ResultsStoreQuery query)
+   at Microsoft.TeamFoundation.TestManagement.Client.TestPlanHelper.Query(String queryText)
+   at TestCaseManagerCore.BusinessLogic.Managers.TestPlanManager.GetAllTestPlans(ITestManagementTeamProject testManagementTeamProject) in d:\Projects\TestCaseManager\TestCaseManagerCore\BusinessLogic\Managers\TestPlanManager.cs:line 56
+
+2013-10-13 18:17:22,391 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Theme to: FirstFloor.ModernUI.Presentation.Link 
+2013-10-13 18:17:22,431 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Color to: #FF0082AD 
+2013-10-13 18:17:22,864 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Load project info loaded from registry! 
+2013-10-13 18:17:22,949 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> TFS URI: https://aangelov.visualstudio.com/defaultcollection 
+2013-10-13 18:17:22,950 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> Test Project Name: AANGELOV 
+2013-10-13 18:17:23,004 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> TfsTeamProjectCollection: aangelov.visualstudio.com\DefaultCollection 
+2013-10-13 18:17:23,284 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - SET FullTeamProjectName to https://aangelov.visualstudio.com/defaultcollection/AANGELOV 
+2013-10-13 18:17:23,302 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> SelectedTestPlan: TEST TM 2012 
+2013-10-13 18:17:35,064 [aangelov-PC\aangelov] [6] INFO TestCaseManagerApp.Views.TestCasesInitialView - Load all test cases in the suite with id = 5 
+2013-10-13 18:17:37,571 [aangelov-PC\aangelov] [1] INFO TestCaseManagerApp.Views.TestCasesInitialView - Preview test case with id: 14 and suite id 5 
+2013-10-13 18:17:37,838 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Get All Areas for Project= AANGELOV 
+2013-10-13 18:17:46,530 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Load Edit View with Context: TestCaseId= 14, TestSuiteId= 5, CreateNew= False, Duplicate= False, IsSharedStep= False, SharedStepId= 0, ComeFromTestCase = False, CurrentEditedStepGuid= 00000000-0000-0000-0000-000000000000  
+2013-10-13 18:21:23,018 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Theme to: FirstFloor.ModernUI.Presentation.Link 
+2013-10-13 18:21:23,059 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Color to: #FF0082AD 
+2013-10-13 18:21:23,634 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Load project info loaded from registry! 
+2013-10-13 18:21:23,721 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> TFS URI: https://aangelov.visualstudio.com/defaultcollection 
+2013-10-13 18:21:23,721 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> Test Project Name: AANGELOV 
+2013-10-13 18:21:23,757 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> TfsTeamProjectCollection: aangelov.visualstudio.com\DefaultCollection 
+2013-10-13 18:21:24,084 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - SET FullTeamProjectName to https://aangelov.visualstudio.com/defaultcollection/AANGELOV 
+2013-10-13 18:21:24,102 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> SelectedTestPlan: TEST TM 2012 
+2013-10-13 18:21:45,516 [aangelov-PC\aangelov] [5] ERROR TestCaseManagerCore.BusinessLogic.Managers.TestPlanManager - Getting all plans error. Microsoft.TeamFoundation.TeamFoundationServiceUnavailableException: TF400324: Team Foundation services are not available from server aangelov.visualstudio.com\DefaultCollection.
+Technical information (for administrator):
+  Unable to connect to the remote server ---> System.Net.WebException: Unable to connect to the remote server ---> System.Net.Sockets.SocketException: A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond 65.52.8.37:443
+   at System.Net.Sockets.Socket.DoConnect(EndPoint endPointSnapshot, SocketAddress socketAddress)
+   at System.Net.ServicePoint.ConnectSocketInternal(Boolean connectFailure, Socket s4, Socket s6, Socket& socket, IPAddress& address, ConnectSocketState state, IAsyncResult asyncResult, Exception& exception)
+   --- End of inner exception stack trace ---
+   at System.Net.HttpWebRequest.GetRequestStream(TransportContext& context)
+   at System.Net.HttpWebRequest.GetRequestStream()
+   at Microsoft.TeamFoundation.Client.Channels.TfsHttpWebRequest.SendRequestAndGetResponse(HttpWebRequest webRequest, WebException& webException)
+   --- End of inner exception stack trace ---
+   at Microsoft.TeamFoundation.Client.Channels.TfsHttpWebRequest.ReadResponse(HttpWebResponse webResponse, WebException webException)
+   at Microsoft.TeamFoundation.Client.Channels.TfsHttpWebRequest.IsAuthenticationChallenge(TfsMessage requestMessage, HttpWebResponse webResponse, WebException webException, TfsMessage& responseMessage)
+   at Microsoft.TeamFoundation.Client.Channels.TfsHttpWebRequest.SendRequest()
+   at Microsoft.TeamFoundation.Client.Channels.TfsHttpRequestChannel.Request(TfsMessage message, TimeSpan timeout)
+   at Microsoft.TeamFoundation.Client.Channels.TfsHttpClientBase.Invoke(TfsClientOperation operation, Object[] parameters, TimeSpan timeout, Object[]& outputs)
+   at Microsoft.TeamFoundation.TestManagement.Client.TestManagementWebService.QueryTestPlans(ResultsStoreQuery query)
+   at Microsoft.TeamFoundation.TestManagement.Client.TestPlanHelper.Query(String queryText)
+   at TestCaseManagerCore.BusinessLogic.Managers.TestPlanManager.GetAllTestPlans(ITestManagementTeamProject testManagementTeamProject) in d:\Projects\TestCaseManager\TestCaseManagerCore\BusinessLogic\Managers\TestPlanManager.cs:line 56
+
+2013-10-13 18:21:52,463 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Theme to: FirstFloor.ModernUI.Presentation.Link 
+2013-10-13 18:21:52,504 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Color to: #FF0082AD 
+2013-10-13 18:21:52,974 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Load project info loaded from registry! 
+2013-10-13 18:21:53,086 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> TFS URI: https://aangelov.visualstudio.com/defaultcollection 
+2013-10-13 18:21:53,087 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> Test Project Name: AANGELOV 
+2013-10-13 18:21:53,121 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> TfsTeamProjectCollection: aangelov.visualstudio.com\DefaultCollection 
+2013-10-13 18:21:53,457 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - SET FullTeamProjectName to https://aangelov.visualstudio.com/defaultcollection/AANGELOV 
+2013-10-13 18:21:53,474 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> SelectedTestPlan: TEST TM 2012 
+2013-10-13 18:22:03,865 [aangelov-PC\aangelov] [8] INFO TestCaseManagerApp.Views.TestCasesInitialView - Load all test cases in the suite with id = 5 
+2013-10-13 18:22:07,010 [aangelov-PC\aangelov] [1] INFO TestCaseManagerApp.Views.TestCasesInitialView - Preview test case with id: 14 and suite id 5 
+2013-10-13 18:22:07,273 [aangelov-PC\aangelov] [8] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Get All Areas for Project= AANGELOV 
+2013-10-13 18:22:15,720 [aangelov-PC\aangelov] [8] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Load Edit View with Context: TestCaseId= 14, TestSuiteId= 5, CreateNew= False, Duplicate= False, IsSharedStep= False, SharedStepId= 0, ComeFromTestCase = False, CurrentEditedStepGuid= 00000000-0000-0000-0000-000000000000  
+2013-10-13 18:27:08,547 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Theme to: FirstFloor.ModernUI.Presentation.Link 
+2013-10-13 18:27:08,588 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Color to: #FF0082AD 
+2013-10-13 18:27:09,076 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Load project info loaded from registry! 
+2013-10-13 18:27:09,174 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> TFS URI: https://aangelov.visualstudio.com/defaultcollection 
+2013-10-13 18:27:09,175 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> Test Project Name: AANGELOV 
+2013-10-13 18:27:09,237 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> TfsTeamProjectCollection: aangelov.visualstudio.com\DefaultCollection 
+2013-10-13 18:27:09,533 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - SET FullTeamProjectName to https://aangelov.visualstudio.com/defaultcollection/AANGELOV 
+2013-10-13 18:27:09,550 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> SelectedTestPlan: TEST TM 2012 
+2013-10-13 18:27:30,998 [aangelov-PC\aangelov] [5] ERROR TestCaseManagerCore.BusinessLogic.Managers.TestPlanManager - Getting all plans error. Microsoft.TeamFoundation.TeamFoundationServiceUnavailableException: TF400324: Team Foundation services are not available from server aangelov.visualstudio.com\DefaultCollection.
+Technical information (for administrator):
+  Unable to connect to the remote server ---> System.Net.WebException: Unable to connect to the remote server ---> System.Net.Sockets.SocketException: A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond 65.52.8.37:443
+   at System.Net.Sockets.Socket.DoConnect(EndPoint endPointSnapshot, SocketAddress socketAddress)
+   at System.Net.ServicePoint.ConnectSocketInternal(Boolean connectFailure, Socket s4, Socket s6, Socket& socket, IPAddress& address, ConnectSocketState state, IAsyncResult asyncResult, Exception& exception)
+   --- End of inner exception stack trace ---
+   at System.Net.HttpWebRequest.GetRequestStream(TransportContext& context)
+   at System.Net.HttpWebRequest.GetRequestStream()
+   at Microsoft.TeamFoundation.Client.Channels.TfsHttpWebRequest.SendRequestAndGetResponse(HttpWebRequest webRequest, WebException& webException)
+   --- End of inner exception stack trace ---
+   at Microsoft.TeamFoundation.Client.Channels.TfsHttpWebRequest.ReadResponse(HttpWebResponse webResponse, WebException webException)
+   at Microsoft.TeamFoundation.Client.Channels.TfsHttpWebRequest.IsAuthenticationChallenge(TfsMessage requestMessage, HttpWebResponse webResponse, WebException webException, TfsMessage& responseMessage)
+   at Microsoft.TeamFoundation.Client.Channels.TfsHttpWebRequest.SendRequest()
+   at Microsoft.TeamFoundation.Client.Channels.TfsHttpRequestChannel.Request(TfsMessage message, TimeSpan timeout)
+   at Microsoft.TeamFoundation.Client.Channels.TfsHttpClientBase.Invoke(TfsClientOperation operation, Object[] parameters, TimeSpan timeout, Object[]& outputs)
+   at Microsoft.TeamFoundation.TestManagement.Client.TestManagementWebService.QueryTestPlans(ResultsStoreQuery query)
+   at Microsoft.TeamFoundation.TestManagement.Client.TestPlanHelper.Query(String queryText)
+   at TestCaseManagerCore.BusinessLogic.Managers.TestPlanManager.GetAllTestPlans(ITestManagementTeamProject testManagementTeamProject) in d:\Projects\TestCaseManager\TestCaseManagerCore\BusinessLogic\Managers\TestPlanManager.cs:line 56
+
+2013-10-13 18:27:48,422 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Theme to: FirstFloor.ModernUI.Presentation.Link 
+2013-10-13 18:27:48,465 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Color to: #FF0082AD 
+2013-10-13 18:27:48,900 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Load project info loaded from registry! 
+2013-10-13 18:27:48,987 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> TFS URI: https://aangelov.visualstudio.com/defaultcollection 
+2013-10-13 18:27:48,988 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> Test Project Name: AANGELOV 
+2013-10-13 18:27:49,025 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> TfsTeamProjectCollection: aangelov.visualstudio.com\DefaultCollection 
+2013-10-13 18:27:49,304 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - SET FullTeamProjectName to https://aangelov.visualstudio.com/defaultcollection/AANGELOV 
+2013-10-13 18:27:49,321 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> SelectedTestPlan: TEST TM 2012 
+2013-10-13 18:28:01,283 [aangelov-PC\aangelov] [8] INFO TestCaseManagerApp.Views.TestCasesInitialView - Load all test cases in the suite with id = 5 
+2013-10-13 18:28:04,312 [aangelov-PC\aangelov] [1] INFO TestCaseManagerApp.Views.TestCasesInitialView - Preview test case with id: 14 and suite id 5 
+2013-10-13 18:28:04,588 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Get All Areas for Project= AANGELOV 
+2013-10-13 18:28:13,374 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Load Edit View with Context: TestCaseId= 14, TestSuiteId= 5, CreateNew= False, Duplicate= False, IsSharedStep= False, SharedStepId= 0, ComeFromTestCase = False, CurrentEditedStepGuid= 00000000-0000-0000-0000-000000000000  
+2013-10-13 18:32:07,321 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Theme to: FirstFloor.ModernUI.Presentation.Link 
+2013-10-13 18:32:07,364 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Color to: #FF0082AD 
+2013-10-13 18:32:07,808 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Load project info loaded from registry! 
+2013-10-13 18:32:07,864 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> TFS URI: https://aangelov.visualstudio.com/defaultcollection 
+2013-10-13 18:32:07,864 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> Test Project Name: AANGELOV 
+2013-10-13 18:32:07,888 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> TfsTeamProjectCollection: aangelov.visualstudio.com\DefaultCollection 
+2013-10-13 18:32:08,148 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - SET FullTeamProjectName to https://aangelov.visualstudio.com/defaultcollection/AANGELOV 
+2013-10-13 18:32:08,164 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> SelectedTestPlan: TEST TM 2012 
+2013-10-13 18:32:34,408 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Theme to: FirstFloor.ModernUI.Presentation.Link 
+2013-10-13 18:32:34,448 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Color to: #FF0082AD 
+2013-10-13 18:32:34,901 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Load project info loaded from registry! 
+2013-10-13 18:32:35,004 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> TFS URI: https://aangelov.visualstudio.com/defaultcollection 
+2013-10-13 18:32:35,004 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> Test Project Name: AANGELOV 
+2013-10-13 18:32:35,041 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> TfsTeamProjectCollection: aangelov.visualstudio.com\DefaultCollection 
+2013-10-13 18:32:35,306 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - SET FullTeamProjectName to https://aangelov.visualstudio.com/defaultcollection/AANGELOV 
+2013-10-13 18:32:35,343 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> SelectedTestPlan: TEST TM 2012 
+2013-10-13 18:32:45,819 [aangelov-PC\aangelov] [5] INFO TestCaseManagerApp.Views.TestCasesInitialView - Load all test cases in the suite with id = 5 
+2013-10-13 18:32:48,416 [aangelov-PC\aangelov] [1] INFO TestCaseManagerApp.Views.TestCasesInitialView - Preview test case with id: 14 and suite id 5 
+2013-10-13 18:32:48,674 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Get All Areas for Project= AANGELOV 
+2013-10-13 18:32:57,179 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Load Edit View with Context: TestCaseId= 14, TestSuiteId= 5, CreateNew= False, Duplicate= False, IsSharedStep= False, SharedStepId= 0, ComeFromTestCase = False, CurrentEditedStepGuid= 00000000-0000-0000-0000-000000000000  
+2013-10-13 18:41:52,322 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Theme to: FirstFloor.ModernUI.Presentation.Link 
+2013-10-13 18:41:52,361 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Color to: #FF0082AD 
+2013-10-13 18:41:52,830 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Load project info loaded from registry! 
+2013-10-13 18:41:52,924 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> TFS URI: https://aangelov.visualstudio.com/defaultcollection 
+2013-10-13 18:41:52,924 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> Test Project Name: AANGELOV 
+2013-10-13 18:41:52,970 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> TfsTeamProjectCollection: aangelov.visualstudio.com\DefaultCollection 
+2013-10-13 18:41:53,246 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - SET FullTeamProjectName to https://aangelov.visualstudio.com/defaultcollection/AANGELOV 
+2013-10-13 18:41:53,263 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> SelectedTestPlan: TEST TM 2012 
+2013-10-13 18:42:01,787 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Theme to: FirstFloor.ModernUI.Presentation.Link 
+2013-10-13 18:42:01,828 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Color to: #FF0082AD 
+2013-10-13 18:42:02,270 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Load project info loaded from registry! 
+2013-10-13 18:42:02,357 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> TFS URI: https://aangelov.visualstudio.com/defaultcollection 
+2013-10-13 18:42:02,358 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> Test Project Name: AANGELOV 
+2013-10-13 18:42:02,399 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> TfsTeamProjectCollection: aangelov.visualstudio.com\DefaultCollection 
+2013-10-13 18:42:02,681 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - SET FullTeamProjectName to https://aangelov.visualstudio.com/defaultcollection/AANGELOV 
+2013-10-13 18:42:02,700 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> SelectedTestPlan: TEST TM 2012 
+2013-10-13 18:42:14,422 [aangelov-PC\aangelov] [5] INFO TestCaseManagerApp.Views.TestCasesInitialView - Load all test cases in the suite with id = 5 
+2013-10-13 18:42:17,073 [aangelov-PC\aangelov] [1] INFO TestCaseManagerApp.Views.TestCasesInitialView - Preview test case with id: 14 and suite id 5 
+2013-10-13 18:42:17,328 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Get All Areas for Project= AANGELOV 
+2013-10-13 18:42:26,535 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Load Edit View with Context: TestCaseId= 14, TestSuiteId= 5, CreateNew= False, Duplicate= False, IsSharedStep= False, SharedStepId= 0, ComeFromTestCase = False, CurrentEditedStepGuid= 00000000-0000-0000-0000-000000000000  
+2013-10-13 18:51:28,493 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Theme to: FirstFloor.ModernUI.Presentation.Link 
+2013-10-13 18:51:28,537 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Color to: #FF0082AD 
+2013-10-13 18:51:28,994 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Load project info loaded from registry! 
+2013-10-13 18:51:29,105 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> TFS URI: https://aangelov.visualstudio.com/defaultcollection 
+2013-10-13 18:51:29,105 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> Test Project Name: AANGELOV 
+2013-10-13 18:51:29,142 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> TfsTeamProjectCollection: aangelov.visualstudio.com\DefaultCollection 
+2013-10-13 18:51:29,408 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - SET FullTeamProjectName to https://aangelov.visualstudio.com/defaultcollection/AANGELOV 
+2013-10-13 18:51:29,425 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> SelectedTestPlan: TEST TM 2012 
+2013-10-13 18:51:36,296 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Theme to: FirstFloor.ModernUI.Presentation.Link 
+2013-10-13 18:51:36,337 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Color to: #FF0082AD 
+2013-10-13 18:51:36,772 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Load project info loaded from registry! 
+2013-10-13 18:51:37,155 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> TFS URI: https://aangelov.visualstudio.com/defaultcollection 
+2013-10-13 18:51:37,155 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> Test Project Name: AANGELOV 
+2013-10-13 18:51:37,185 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> TfsTeamProjectCollection: aangelov.visualstudio.com\DefaultCollection 
+2013-10-13 18:51:37,502 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - SET FullTeamProjectName to https://aangelov.visualstudio.com/defaultcollection/AANGELOV 
+2013-10-13 18:51:37,519 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> SelectedTestPlan: TEST TM 2012 
+2013-10-13 18:51:49,212 [aangelov-PC\aangelov] [8] INFO TestCaseManagerApp.Views.TestCasesInitialView - Load all test cases in the suite with id = 5 
+2013-10-13 18:51:55,613 [aangelov-PC\aangelov] [1] INFO TestCaseManagerApp.Views.TestCasesInitialView - Preview test case with id: 14 and suite id 5 
+2013-10-13 18:51:55,870 [aangelov-PC\aangelov] [8] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Get All Areas for Project= AANGELOV 
+2013-10-13 18:52:04,423 [aangelov-PC\aangelov] [8] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Load Edit View with Context: TestCaseId= 14, TestSuiteId= 5, CreateNew= False, Duplicate= False, IsSharedStep= False, SharedStepId= 0, ComeFromTestCase = False, CurrentEditedStepGuid= 00000000-0000-0000-0000-000000000000  
+2013-10-13 18:53:01,930 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Theme to: FirstFloor.ModernUI.Presentation.Link 
+2013-10-13 18:53:01,971 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Color to: #FF0082AD 
+2013-10-13 18:53:02,429 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Load project info loaded from registry! 
+2013-10-13 18:53:02,526 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> TFS URI: https://aangelov.visualstudio.com/defaultcollection 
+2013-10-13 18:53:02,527 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> Test Project Name: AANGELOV 
+2013-10-13 18:53:02,574 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> TfsTeamProjectCollection: aangelov.visualstudio.com\DefaultCollection 
+2013-10-13 18:53:02,880 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - SET FullTeamProjectName to https://aangelov.visualstudio.com/defaultcollection/AANGELOV 
+2013-10-13 18:53:02,899 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> SelectedTestPlan: TEST TM 2012 
+2013-10-13 18:53:24,298 [aangelov-PC\aangelov] [5] ERROR TestCaseManagerCore.BusinessLogic.Managers.TestPlanManager - Getting all plans error. Microsoft.TeamFoundation.TeamFoundationServiceUnavailableException: TF400324: Team Foundation services are not available from server aangelov.visualstudio.com\DefaultCollection.
+Technical information (for administrator):
+  Unable to connect to the remote server ---> System.Net.WebException: Unable to connect to the remote server ---> System.Net.Sockets.SocketException: A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond 65.52.8.37:443
+   at System.Net.Sockets.Socket.DoConnect(EndPoint endPointSnapshot, SocketAddress socketAddress)
+   at System.Net.ServicePoint.ConnectSocketInternal(Boolean connectFailure, Socket s4, Socket s6, Socket& socket, IPAddress& address, ConnectSocketState state, IAsyncResult asyncResult, Exception& exception)
+   --- End of inner exception stack trace ---
+   at System.Net.HttpWebRequest.GetRequestStream(TransportContext& context)
+   at System.Net.HttpWebRequest.GetRequestStream()
+   at Microsoft.TeamFoundation.Client.Channels.TfsHttpWebRequest.SendRequestAndGetResponse(HttpWebRequest webRequest, WebException& webException)
+   --- End of inner exception stack trace ---
+   at Microsoft.TeamFoundation.Client.Channels.TfsHttpWebRequest.ReadResponse(HttpWebResponse webResponse, WebException webException)
+   at Microsoft.TeamFoundation.Client.Channels.TfsHttpWebRequest.IsAuthenticationChallenge(TfsMessage requestMessage, HttpWebResponse webResponse, WebException webException, TfsMessage& responseMessage)
+   at Microsoft.TeamFoundation.Client.Channels.TfsHttpWebRequest.SendRequest()
+   at Microsoft.TeamFoundation.Client.Channels.TfsHttpRequestChannel.Request(TfsMessage message, TimeSpan timeout)
+   at Microsoft.TeamFoundation.Client.Channels.TfsHttpClientBase.Invoke(TfsClientOperation operation, Object[] parameters, TimeSpan timeout, Object[]& outputs)
+   at Microsoft.TeamFoundation.TestManagement.Client.TestManagementWebService.QueryTestPlans(ResultsStoreQuery query)
+   at Microsoft.TeamFoundation.TestManagement.Client.TestPlanHelper.Query(String queryText)
+   at TestCaseManagerCore.BusinessLogic.Managers.TestPlanManager.GetAllTestPlans(ITestManagementTeamProject testManagementTeamProject) in d:\Projects\TestCaseManager\TestCaseManagerCore\BusinessLogic\Managers\TestPlanManager.cs:line 56
+
+2013-10-13 18:53:45,841 [aangelov-PC\aangelov] [5] ERROR TestCaseManagerCore.BusinessLogic.Managers.TestPlanManager - Getting all plans error. Microsoft.TeamFoundation.TeamFoundationServiceUnavailableException: TF400324: Team Foundation services are not available from server aangelov.visualstudio.com\DefaultCollection.
+Technical information (for administrator):
+  Unable to connect to the remote server ---> System.Net.WebException: Unable to connect to the remote server ---> System.Net.Sockets.SocketException: A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond 65.52.8.37:443
+   at System.Net.Sockets.Socket.DoConnect(EndPoint endPointSnapshot, SocketAddress socketAddress)
+   at System.Net.ServicePoint.ConnectSocketInternal(Boolean connectFailure, Socket s4, Socket s6, Socket& socket, IPAddress& address, ConnectSocketState state, IAsyncResult asyncResult, Exception& exception)
+   --- End of inner exception stack trace ---
+   at System.Net.HttpWebRequest.GetRequestStream(TransportContext& context)
+   at System.Net.HttpWebRequest.GetRequestStream()
+   at Microsoft.TeamFoundation.Client.Channels.TfsHttpWebRequest.SendRequestAndGetResponse(HttpWebRequest webRequest, WebException& webException)
+   --- End of inner exception stack trace ---
+   at Microsoft.TeamFoundation.Client.Channels.TfsHttpWebRequest.ReadResponse(HttpWebResponse webResponse, WebException webException)
+   at Microsoft.TeamFoundation.Client.Channels.TfsHttpWebRequest.IsAuthenticationChallenge(TfsMessage requestMessage, HttpWebResponse webResponse, WebException webException, TfsMessage& responseMessage)
+   at Microsoft.TeamFoundation.Client.Channels.TfsHttpWebRequest.SendRequest()
+   at Microsoft.TeamFoundation.Client.Channels.TfsHttpRequestChannel.Request(TfsMessage message, TimeSpan timeout)
+   at Microsoft.TeamFoundation.Client.Channels.TfsHttpClientBase.Invoke(TfsClientOperation operation, Object[] parameters, TimeSpan timeout, Object[]& outputs)
+   at Microsoft.TeamFoundation.TestManagement.Client.TestManagementWebService.QueryTestPlans(ResultsStoreQuery query)
+   at Microsoft.TeamFoundation.TestManagement.Client.TestPlanHelper.Query(String queryText)
+   at TestCaseManagerCore.BusinessLogic.Managers.TestPlanManager.GetAllTestPlans(ITestManagementTeamProject testManagementTeamProject) in d:\Projects\TestCaseManager\TestCaseManagerCore\BusinessLogic\Managers\TestPlanManager.cs:line 56
+
+2013-10-13 18:54:01,671 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Theme to: FirstFloor.ModernUI.Presentation.Link 
+2013-10-13 18:54:01,713 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Color to: #FF0082AD 
+2013-10-13 18:54:02,188 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Load project info loaded from registry! 
+2013-10-13 18:54:02,289 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> TFS URI: https://aangelov.visualstudio.com/defaultcollection 
+2013-10-13 18:54:02,289 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> Test Project Name: AANGELOV 
+2013-10-13 18:54:02,329 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> TfsTeamProjectCollection: aangelov.visualstudio.com\DefaultCollection 
+2013-10-13 18:54:02,654 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - SET FullTeamProjectName to https://aangelov.visualstudio.com/defaultcollection/AANGELOV 
+2013-10-13 18:54:02,671 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> SelectedTestPlan: TEST TM 2012 
+2013-10-13 18:54:12,926 [aangelov-PC\aangelov] [5] INFO TestCaseManagerApp.Views.TestCasesInitialView - Load all test cases in the suite with id = 5 
+2013-10-13 18:54:15,198 [aangelov-PC\aangelov] [1] INFO TestCaseManagerApp.Views.TestCasesInitialView - Preview test case with id: 14 and suite id 5 
+2013-10-13 18:54:15,482 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Get All Areas for Project= AANGELOV 
+2013-10-13 18:54:24,290 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Load Edit View with Context: TestCaseId= 14, TestSuiteId= 5, CreateNew= False, Duplicate= False, IsSharedStep= False, SharedStepId= 0, ComeFromTestCase = False, CurrentEditedStepGuid= 00000000-0000-0000-0000-000000000000  
+2013-10-13 18:57:19,433 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Theme to: FirstFloor.ModernUI.Presentation.Link 
+2013-10-13 18:57:19,476 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Color to: #FF0082AD 
+2013-10-13 18:57:19,926 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Load project info loaded from registry! 
+2013-10-13 18:57:20,032 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> TFS URI: https://aangelov.visualstudio.com/defaultcollection 
+2013-10-13 18:57:20,033 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> Test Project Name: AANGELOV 
+2013-10-13 18:57:20,070 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> TfsTeamProjectCollection: aangelov.visualstudio.com\DefaultCollection 
+2013-10-13 18:57:20,381 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - SET FullTeamProjectName to https://aangelov.visualstudio.com/defaultcollection/AANGELOV 
+2013-10-13 18:57:20,398 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> SelectedTestPlan: TEST TM 2012 
+2013-10-13 18:57:28,446 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Theme to: FirstFloor.ModernUI.Presentation.Link 
+2013-10-13 18:57:28,486 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Color to: #FF0082AD 
+2013-10-13 18:57:28,941 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Load project info loaded from registry! 
+2013-10-13 18:57:29,029 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> TFS URI: https://aangelov.visualstudio.com/defaultcollection 
+2013-10-13 18:57:29,030 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> Test Project Name: AANGELOV 
+2013-10-13 18:57:29,061 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> TfsTeamProjectCollection: aangelov.visualstudio.com\DefaultCollection 
+2013-10-13 18:57:29,390 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - SET FullTeamProjectName to https://aangelov.visualstudio.com/defaultcollection/AANGELOV 
+2013-10-13 18:57:29,407 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> SelectedTestPlan: TEST TM 2012 
+2013-10-13 18:57:40,423 [aangelov-PC\aangelov] [5] INFO TestCaseManagerApp.Views.TestCasesInitialView - Load all test cases in the suite with id = 5 
+2013-10-13 18:57:43,378 [aangelov-PC\aangelov] [1] INFO TestCaseManagerApp.Views.TestCasesInitialView - Preview test case with id: 14 and suite id 5 
+2013-10-13 18:57:43,637 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Get All Areas for Project= AANGELOV 
+2013-10-13 18:57:52,123 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Load Edit View with Context: TestCaseId= 14, TestSuiteId= 5, CreateNew= False, Duplicate= False, IsSharedStep= False, SharedStepId= 0, ComeFromTestCase = False, CurrentEditedStepGuid= 00000000-0000-0000-0000-000000000000  
+2013-10-13 18:59:30,168 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Theme to: FirstFloor.ModernUI.Presentation.Link 
+2013-10-13 18:59:30,209 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Color to: #FF0082AD 
+2013-10-13 18:59:30,685 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Load project info loaded from registry! 
+2013-10-13 18:59:30,769 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> TFS URI: https://aangelov.visualstudio.com/defaultcollection 
+2013-10-13 18:59:30,770 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> Test Project Name: AANGELOV 
+2013-10-13 18:59:30,816 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> TfsTeamProjectCollection: aangelov.visualstudio.com\DefaultCollection 
+2013-10-13 18:59:31,293 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - SET FullTeamProjectName to https://aangelov.visualstudio.com/defaultcollection/AANGELOV 
+2013-10-13 18:59:31,319 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> SelectedTestPlan: TEST TM 2012 
+2013-10-13 18:59:52,819 [aangelov-PC\aangelov] [5] ERROR TestCaseManagerCore.BusinessLogic.Managers.TestPlanManager - Getting all plans error. Microsoft.TeamFoundation.TeamFoundationServiceUnavailableException: TF400324: Team Foundation services are not available from server aangelov.visualstudio.com\DefaultCollection.
+Technical information (for administrator):
+  Unable to connect to the remote server ---> System.Net.WebException: Unable to connect to the remote server ---> System.Net.Sockets.SocketException: A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond 65.52.8.37:443
+   at System.Net.Sockets.Socket.DoConnect(EndPoint endPointSnapshot, SocketAddress socketAddress)
+   at System.Net.ServicePoint.ConnectSocketInternal(Boolean connectFailure, Socket s4, Socket s6, Socket& socket, IPAddress& address, ConnectSocketState state, IAsyncResult asyncResult, Exception& exception)
+   --- End of inner exception stack trace ---
+   at System.Net.HttpWebRequest.GetRequestStream(TransportContext& context)
+   at System.Net.HttpWebRequest.GetRequestStream()
+   at Microsoft.TeamFoundation.Client.Channels.TfsHttpWebRequest.SendRequestAndGetResponse(HttpWebRequest webRequest, WebException& webException)
+   --- End of inner exception stack trace ---
+   at Microsoft.TeamFoundation.Client.Channels.TfsHttpWebRequest.ReadResponse(HttpWebResponse webResponse, WebException webException)
+   at Microsoft.TeamFoundation.Client.Channels.TfsHttpWebRequest.IsAuthenticationChallenge(TfsMessage requestMessage, HttpWebResponse webResponse, WebException webException, TfsMessage& responseMessage)
+   at Microsoft.TeamFoundation.Client.Channels.TfsHttpWebRequest.SendRequest()
+   at Microsoft.TeamFoundation.Client.Channels.TfsHttpRequestChannel.Request(TfsMessage message, TimeSpan timeout)
+   at Microsoft.TeamFoundation.Client.Channels.TfsHttpClientBase.Invoke(TfsClientOperation operation, Object[] parameters, TimeSpan timeout, Object[]& outputs)
+   at Microsoft.TeamFoundation.TestManagement.Client.TestManagementWebService.QueryTestPlans(ResultsStoreQuery query)
+   at Microsoft.TeamFoundation.TestManagement.Client.TestPlanHelper.Query(String queryText)
+   at TestCaseManagerCore.BusinessLogic.Managers.TestPlanManager.GetAllTestPlans(ITestManagementTeamProject testManagementTeamProject) in d:\Projects\TestCaseManager\TestCaseManagerCore\BusinessLogic\Managers\TestPlanManager.cs:line 56
+
+2013-10-13 19:00:08,125 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Theme to: FirstFloor.ModernUI.Presentation.Link 
+2013-10-13 19:00:08,166 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Color to: #FF0082AD 
+2013-10-13 19:00:08,719 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Load project info loaded from registry! 
+2013-10-13 19:00:08,815 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> TFS URI: https://aangelov.visualstudio.com/defaultcollection 
+2013-10-13 19:00:08,815 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> Test Project Name: AANGELOV 
+2013-10-13 19:00:08,865 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> TfsTeamProjectCollection: aangelov.visualstudio.com\DefaultCollection 
+2013-10-13 19:00:09,160 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - SET FullTeamProjectName to https://aangelov.visualstudio.com/defaultcollection/AANGELOV 
+2013-10-13 19:00:09,181 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> SelectedTestPlan: TEST TM 2012 
+2013-10-13 19:00:21,323 [aangelov-PC\aangelov] [6] INFO TestCaseManagerApp.Views.TestCasesInitialView - Load all test cases in the suite with id = 5 
+2013-10-13 19:00:36,435 [aangelov-PC\aangelov] [1] INFO TestCaseManagerApp.Views.TestCasesInitialView - Preview test case with id: 14 and suite id 5 
+2013-10-13 19:00:36,699 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Get All Areas for Project= AANGELOV 
+2013-10-13 19:00:45,821 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Load Edit View with Context: TestCaseId= 14, TestSuiteId= 5, CreateNew= False, Duplicate= False, IsSharedStep= False, SharedStepId= 0, ComeFromTestCase = False, CurrentEditedStepGuid= 00000000-0000-0000-0000-000000000000  
+2013-10-13 19:01:48,132 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Get All Areas for Project= AANGELOV 
+2013-10-13 19:01:56,379 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Load Edit View with Context: TestCaseId= 14, TestSuiteId= 5, CreateNew= False, Duplicate= False, IsSharedStep= False, SharedStepId= 0, ComeFromTestCase = False, CurrentEditedStepGuid= 00000000-0000-0000-0000-000000000000  

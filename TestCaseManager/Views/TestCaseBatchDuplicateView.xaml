@@ -122,7 +122,7 @@
                 </DataGrid.Columns>
             </DataGrid>
 
-                <GridSplitter Height="5" ResizeDirection="Auto"  HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2"/>
+            <GridSplitter Height="5" ResizeDirection="Auto"  HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2"/>
 
             <DataGrid Name="dgTextsToBeReplaced" ItemsSource="{Binding ReplaceContext.ObservableTextReplacePairs}"  CanUserAddRows="True" AutoGenerateColumns="False" Grid.Row="5"   Grid.Column="0" Grid.ColumnSpan="2">
                 <DataGrid.Columns>
