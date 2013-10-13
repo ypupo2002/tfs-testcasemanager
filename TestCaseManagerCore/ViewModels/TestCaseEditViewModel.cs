@@ -12,6 +12,7 @@ namespace TestCaseManagerCore.ViewModels
     using System.Text.RegularExpressions;
     using System.Windows;
     using System.Xml;
+    using FirstFloor.ModernUI.Windows.Controls;
     using Microsoft.TeamFoundation.Server;
     using Microsoft.TeamFoundation.TestManagement.Client;
     using TestCaseManagerCore.BusinessLogic.Entities;
@@ -266,6 +267,128 @@ namespace TestCaseManagerCore.ViewModels
             {
                 this.TestCaseTestSteps.Add(currentTestStep);
             }
+        }
+
+        /// <summary>
+        /// Saves the changes dialog.
+        /// </summary>
+        /// <returns></returns>
+        public MessageBoxResult SaveChangesDialog()
+        {
+            MessageBoxResult messageBoxResult = MessageBoxResult.None;
+            if (UndoRedoManager.Instance().HasUndoOperations || UndoRedoManager.Instance().HasRedoOperations)
+            {
+                messageBoxResult = ModernDialog.ShowMessage("Do you want to save changes to the following item?", "Save Changes!", MessageBoxButton.YesNoCancel);
+                if (messageBoxResult == MessageBoxResult.Yes)
+                {
+                    this.SaveEntityInternal();
+                }
+            }
+
+            return messageBoxResult;
+        }
+
+        /// <summary>
+        /// Saves the entity internal.
+        /// </summary>
+        /// <returns>test base</returns>
+        public TestBase SaveEntityInternal()
+        {
+            TestBase currentBase;
+            if (!this.EditViewContext.IsSharedStep)
+            {
+                log.Info("Save test case.");
+                currentBase = this.SaveTestCaseInternal();
+            }
+            else
+            {
+                log.Info("Save shared step.");
+                currentBase = this.SaveSharedStepInternal();
+            }
+            UndoRedoManager.Instance().Clear();
+
+            return currentBase;
+        }
+
+        /// <summary>
+        /// Saves the test case internal.
+        /// </summary>
+        /// <returns>the saved test case</returns>
+        public TestCase SaveTestCaseInternal()
+        {
+            this.TestCase.Title = this.TestBase.Title;
+            this.TestCase.Area = this.TestBase.Area;
+            this.TestCase.Priority = this.TestBase.Priority;
+            this.TestCase.TeamFoundationIdentityName = this.TestBase.TeamFoundationIdentityName;
+            this.TestCase.TeamFoundationId = this.TestBase.TeamFoundationId;
+            this.TestCase.OwnerDisplayName = this.TestBase.OwnerDisplayName;
+            log.InfoFormat("Test Case Saved Info: Title= {0}, Area= {1}, Priority= {2}, OwnerDisplayName= {3}", this.TestCase.Title, this.TestCase.Area, this.TestCase.Priority, this.TestCase.OwnerDisplayName);
+            TestCase savedTestCase;
+            int? suiteId = this.TestCase.ITestSuiteBase != null ? this.TestCase.TestSuiteId : null;
+            if (String.IsNullOrEmpty(this.TestBase.Title))
+            {
+                ModernDialog.ShowMessage("Test case title cannot be empty!", "Warning", MessageBoxButton.OK);
+                return null;
+            }
+            if ((this.EditViewContext.CreateNew || this.EditViewContext.Duplicate) && !this.EditViewContext.IsAlreadyCreated)
+            {
+                log.Info("Save test case as new one.");
+                savedTestCase = this.TestCase.Save(true, suiteId, this.ObservableTestSteps);
+                this.TestCase = savedTestCase;
+                this.EditViewContext.IsAlreadyCreated = true;
+                this.EditViewContext.CreateNew = false;
+                this.EditViewContext.Duplicate = false;
+            }
+            else
+            {
+                log.InfoFormat("Save edited test case with id= {0}.", this.TestCase.Id);
+                savedTestCase = this.TestCase.Save(false, suiteId, this.ObservableTestSteps);
+            }
+            this.EditViewContext.TestCaseId = savedTestCase.ITestCase.Id;
+            this.TestCaseIdLabel = savedTestCase.ITestCase.Id.ToString();
+            //this.TestCaseEditViewModel.TestBase = savedTestCase;
+
+            return savedTestCase;
+        }
+
+        /// <summary>
+        /// Saves the shared step internal.
+        /// </summary>
+        /// <returns></returns>
+        public SharedStep SaveSharedStepInternal()
+        {
+            this.SharedStep.Title = this.TestBase.Title;
+            this.SharedStep.Area = this.TestBase.Area;
+            this.SharedStep.Priority = this.TestBase.Priority;
+            this.SharedStep.TeamFoundationIdentityName = this.TestBase.TeamFoundationIdentityName;
+            this.SharedStep.TeamFoundationId = this.TestBase.TeamFoundationId;
+            this.SharedStep.OwnerDisplayName = this.TestBase.OwnerDisplayName;
+            log.InfoFormat("Shared Step Saved Info: Title= {0}, Area= {1}, Priority= {2}, OwnerDisplayName= {3}", this.SharedStep.Title, this.SharedStep.Area, this.SharedStep.Priority, this.SharedStep.OwnerDisplayName);
+            SharedStep savedSharedStep;
+            if (String.IsNullOrEmpty(this.TestBase.Title))
+            {
+                ModernDialog.ShowMessage("Shared Step title cannot be empty!", "Warning", MessageBoxButton.OK);
+                return null;
+            }
+            if ((this.EditViewContext.CreateNew || this.EditViewContext.Duplicate) && !this.EditViewContext.IsAlreadyCreated)
+            {
+                log.Info("Save shared step as new one.");
+                savedSharedStep = this.SharedStep.Save(true, this.ObservableTestSteps);
+                this.SharedStep = savedSharedStep;
+                this.EditViewContext.IsAlreadyCreated = true;
+                this.EditViewContext.CreateNew = false;
+                this.EditViewContext.Duplicate = false;
+            }
+            else
+            {
+                log.InfoFormat("Save edited shared step with id= {0}.", this.SharedStep.Id);
+                savedSharedStep = this.SharedStep.Save(false, this.ObservableTestSteps);
+            }
+            this.EditViewContext.SharedStepId = savedSharedStep.ISharedStep.Id;
+            this.TestCaseIdLabel = this.EditViewContext.SharedStepId.ToString();
+            //this.TestCaseEditViewModel.TestBase = savedSharedStep;
+
+            return savedSharedStep;
         }
 
         /// <summary>

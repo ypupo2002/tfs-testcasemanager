@@ -84,6 +84,10 @@ namespace TestCaseManagerApp
 
         private void ModernWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
+            if (ExecutionContext.TestCaseEditViewModel != null)
+            {
+                ExecutionContext.TestCaseEditViewModel.SaveChangesDialog();
+            }           
             MessageBoxResult messageBoxResult = ModernDialog.ShowMessage("Are you sure you want to exit?", "Confirm Exit!", MessageBoxButton.YesNoCancel);
             if (messageBoxResult != MessageBoxResult.Yes)
             {

@@ -876,3 +876,27 @@ Technical information (for administrator):
 2013-10-13 20:35:25,994 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - SET FullTeamProjectName to https://aangelov.visualstudio.com/defaultcollection/AANGELOV 
 2013-10-13 20:35:26,011 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> SelectedTestPlan: TEST TM 2012 
 2013-10-13 20:35:35,975 [aangelov-PC\aangelov] [8] INFO TestCaseManagerApp.Views.TestCasesInitialView - Load all test cases in the suite with id = 5 
+2013-10-13 20:45:21,635 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Theme to: FirstFloor.ModernUI.Presentation.Link 
+2013-10-13 20:45:21,678 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Color to: #FF0082AD 
+2013-10-13 20:45:22,161 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Load project info loaded from registry! 
+2013-10-13 20:45:22,249 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> TFS URI: https://aangelov.visualstudio.com/defaultcollection 
+2013-10-13 20:45:22,250 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> Test Project Name: AANGELOV 
+2013-10-13 20:45:22,283 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> TfsTeamProjectCollection: aangelov.visualstudio.com\DefaultCollection 
+2013-10-13 20:45:22,640 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - SET FullTeamProjectName to https://aangelov.visualstudio.com/defaultcollection/AANGELOV 
+2013-10-13 20:45:22,658 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> SelectedTestPlan: TEST TM 2012 
+2013-10-13 20:46:20,100 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Theme to: FirstFloor.ModernUI.Presentation.Link 
+2013-10-13 20:46:20,146 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Color to: #FF0082AD 
+2013-10-13 20:46:20,622 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Load project info loaded from registry! 
+2013-10-13 20:46:20,720 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> TFS URI: https://aangelov.visualstudio.com/defaultcollection 
+2013-10-13 20:46:20,721 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> Test Project Name: AANGELOV 
+2013-10-13 20:46:20,763 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> TfsTeamProjectCollection: aangelov.visualstudio.com\DefaultCollection 
+2013-10-13 20:46:21,049 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - SET FullTeamProjectName to https://aangelov.visualstudio.com/defaultcollection/AANGELOV 
+2013-10-13 20:46:21,070 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> SelectedTestPlan: TEST TM 2012 
+2013-10-13 20:46:33,296 [aangelov-PC\aangelov] [6] INFO TestCaseManagerApp.Views.TestCasesInitialView - Load all test cases in the suite with id = 5 
+2013-10-13 20:46:36,692 [aangelov-PC\aangelov] [1] INFO TestCaseManagerApp.Views.TestCasesInitialView - Preview test case with id: 13 and suite id 5 
+2013-10-13 20:46:37,099 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Get All Areas for Project= AANGELOV 
+2013-10-13 20:46:44,683 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Load Edit View with Context: TestCaseId= 13, TestSuiteId= 5, CreateNew= False, Duplicate= False, IsSharedStep= False, SharedStepId= 0, ComeFromTestCase = False, CurrentEditedStepGuid= 00000000-0000-0000-0000-000000000000  
+2013-10-13 20:46:47,596 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Remove test step ActionTitle = Type Test Case Manager in the search text box, ExpectedResult=  
+2013-10-13 20:46:52,388 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Save test case. 
+2013-10-13 20:46:52,410 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Test Case Saved Info: Title= Search for Test Case Manager BING, Area= AANGELOV, Priority= VeryHigh, OwnerDisplayName= Anton Angelov 
+2013-10-13 20:46:52,410 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Save edited test case with id= 13. 
