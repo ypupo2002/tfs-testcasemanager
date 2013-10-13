@@ -72,7 +72,7 @@ namespace TestCaseManagerCore.BusinessLogic.Entities
             this.ObservableTextReplacePairs.Add(new TextReplacePair());
             this.ObservableSharedStepIdReplacePairs = new ObservableCollection<SharedStepIdReplacePair>();
             this.ObservableSharedStepIdReplacePairs.Add(new SharedStepIdReplacePair());
-            this.SelectedTestCases = new List<TestCase>();
+            this.SelectedEntities = new List<Object>();
         }
 
         /// <summary>
@@ -252,11 +252,11 @@ namespace TestCaseManagerCore.BusinessLogic.Entities
         public ObservableCollection<SharedStepIdReplacePair> ObservableSharedStepIdReplacePairs { get; set; }
 
         /// <summary>
-        /// Gets or sets the selected test cases.
+        /// Gets or sets the selected test cases/shared steps.
         /// </summary>
         /// <value>
-        /// The selected test cases.
+        /// The selected test cases/shared steps.
         /// </value>
-        public List<TestCase> SelectedTestCases { get; set; }
+        public List<Object> SelectedEntities { get; set; }
     }
 }

@@ -143,6 +143,7 @@
                 <DataGrid.ItemContainerStyle>
                     <Style TargetType="{x:Type DataGridRow}"  BasedOn="{StaticResource {x:Type DataGridRow}}">
                         <EventSetter Event="MouseDoubleClick" Handler="dgTestCases_MouseDoubleClick" />
+                        <EventSetter Event="PreviewKeyDown" Handler="dgTestCases_PreviewKeyDown" />
                     </Style>
                 </DataGrid.ItemContainerStyle>
 

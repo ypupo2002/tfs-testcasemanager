@@ -143,7 +143,7 @@ namespace TestCaseManagerApp.Views
                 if (this.TestCasesBatchDuplicateViewModel != null)
                 {
                     this.TestCasesBatchDuplicateViewModel = new TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel(this.TestCasesBatchDuplicateViewModel, this.loadTestCases, this.loadSpecificTestCases);
-                    this.TestCasesBatchDuplicateViewModel.FilterTestCases();
+                    this.TestCasesBatchDuplicateViewModel.FilterEntities();
                 }
                 else
                 {
@@ -154,10 +154,18 @@ namespace TestCaseManagerApp.Views
             {
                 if (dgTestCases.SelectedItems != null)
                 {
-                    this.TestCasesBatchDuplicateViewModel.SelectedTestCasesCount = dgTestCases.SelectedItems.Count.ToString();
+                    this.TestCasesBatchDuplicateViewModel.SelectedEntitiesCount = dgTestCases.SelectedItems.Count.ToString();
                 }
-             
+                
                 this.DataContext = this.TestCasesBatchDuplicateViewModel;
+                if(this.loadTestCases)
+                {
+                    dgTestCases.ItemsSource = this.TestCasesBatchDuplicateViewModel.ObservableTestCases;
+                }
+                else
+                {
+                    dgTestCases.ItemsSource = this.TestCasesBatchDuplicateViewModel.ObservableSharedSteps;
+                }
                 this.cbTeamFoundationIdentityNames.SelectedIndex = 0;
                 this.cbPriority.SelectedIndex = 0;
                 this.HideProgressBar();
@@ -251,7 +259,7 @@ namespace TestCaseManagerApp.Views
         /// <param name="e">The <see cref="KeyEventArgs"/> instance containing the event data.</param>
         private void tbAssignedToFilter_KeyUp(object sender, KeyEventArgs e)
         {
-            this.TestCasesBatchDuplicateViewModel.FilterTestCases();
+            this.TestCasesBatchDuplicateViewModel.FilterEntities();
         }
 
         /// <summary>
@@ -282,7 +290,7 @@ namespace TestCaseManagerApp.Views
         /// <param name="e">The <see cref="KeyEventArgs"/> instance containing the event data.</param>
         private void tbPriorityFilter_KeyUp(object sender, KeyEventArgs e)
         {
-            this.TestCasesBatchDuplicateViewModel.FilterTestCases();
+            this.TestCasesBatchDuplicateViewModel.FilterEntities();
         }    
 
         /// <summary>
@@ -292,7 +300,7 @@ namespace TestCaseManagerApp.Views
         /// <param name="e">The <see cref="KeyEventArgs"/> instance containing the event data.</param>
         private void tbIdFilter_KeyUp(object sender, KeyEventArgs e)
         {
-            this.TestCasesBatchDuplicateViewModel.FilterTestCases();
+            this.TestCasesBatchDuplicateViewModel.FilterEntities();
         }
 
         /// <summary>
@@ -302,7 +310,7 @@ namespace TestCaseManagerApp.Views
         /// <param name="e">The <see cref="KeyEventArgs"/> instance containing the event data.</param>
         private void tbTitleFilter_KeyUp(object sender, KeyEventArgs e)
         {
-            this.TestCasesBatchDuplicateViewModel.FilterTestCases();
+            this.TestCasesBatchDuplicateViewModel.FilterEntities();
         }
 
         /// <summary>
@@ -312,7 +320,7 @@ namespace TestCaseManagerApp.Views
         /// <param name="e">The <see cref="KeyEventArgs"/> instance containing the event data.</param>
         private void tbSuiteFilter_KeyUp(object sender, KeyEventArgs e)
         {
-            this.TestCasesBatchDuplicateViewModel.FilterTestCases();
+            this.TestCasesBatchDuplicateViewModel.FilterEntities();
         }
 
         /// <summary>
@@ -399,7 +407,7 @@ namespace TestCaseManagerApp.Views
                 this.ShowNotCorrectSharedStepIdMessageBox();
                 return;
             }
-            this.InitializeCurrentSelectedTestCases();
+            this.InitializeCurrentSelectedEntities();
             string newSuiteTitle = cbSuite.Text;
             List<TextReplacePair> textReplacePairsList = this.TestCasesBatchDuplicateViewModel.ReplaceContext.ObservableTextReplacePairs.ToList();
             List<SharedStepIdReplacePair> sharedStepIdReplacePairList = this.TestCasesBatchDuplicateViewModel.ReplaceContext.ObservableSharedStepIdReplacePairs.ToList();
@@ -407,7 +415,7 @@ namespace TestCaseManagerApp.Views
             this.ShowProgressBar();
             Task t = Task.Factory.StartNew(() =>
             {
-                duplicatedCount = this.TestCasesBatchDuplicateViewModel.DuplicateTestCase();
+                duplicatedCount = this.TestCasesBatchDuplicateViewModel.DuplicateEntity();
             });
             Task t1 = t.ContinueWith(antecedent =>
             {
@@ -439,14 +447,14 @@ namespace TestCaseManagerApp.Views
                 this.ShowNotCorrectSharedStepIdMessageBox();
                 return;
             }
-            this.InitializeCurrentSelectedTestCases();
+            this.InitializeCurrentSelectedEntities();
             List<TextReplacePair> textReplacePairsList = this.TestCasesBatchDuplicateViewModel.ReplaceContext.ObservableTextReplacePairs.ToList();
             List<SharedStepIdReplacePair> sharedStepIdReplacePairList = this.TestCasesBatchDuplicateViewModel.ReplaceContext.ObservableSharedStepIdReplacePairs.ToList();
             int replacedCount = 0;
             ShowProgressBar();
             Task t = Task.Factory.StartNew(() =>
             {
-                replacedCount = this.TestCasesBatchDuplicateViewModel.FindAndReplaceInTestCase();              
+                replacedCount = this.TestCasesBatchDuplicateViewModel.FindAndReplaceInEntities();              
             });
             Task t1 = t.ContinueWith(antecedent =>
             {
@@ -461,18 +469,78 @@ namespace TestCaseManagerApp.Views
         /// <summary>
         /// Initializes the current selected test cases.
         /// </summary>
-        private void InitializeCurrentSelectedTestCases()
+        private void InitializeCurrentSelectedEntities()
         {
-            this.TestCasesBatchDuplicateViewModel.ReplaceContext.SelectedTestCases.Clear();
-            foreach (TestCase currentSelectedItem in dgTestCases.SelectedItems)
+            this.TestCasesBatchDuplicateViewModel.ReplaceContext.SelectedEntities.Clear();
+            foreach (Object currentSelectedItem in dgTestCases.SelectedItems)
             {
-                this.TestCasesBatchDuplicateViewModel.ReplaceContext.SelectedTestCases.Add(currentSelectedItem);
+                this.TestCasesBatchDuplicateViewModel.ReplaceContext.SelectedEntities.Add(currentSelectedItem);
             }
         }
 
+        /// <summary>
+        /// Handles the SelectedCellsChanged event of the dgTestCases control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="SelectedCellsChangedEventArgs"/> instance containing the event data.</param>
         private void dgTestCases_SelectedCellsChanged(object sender, SelectedCellsChangedEventArgs e)
         {
-            this.TestCasesBatchDuplicateViewModel.SelectedTestCasesCount = this.dgTestCases.SelectedItems.Count.ToString();
+            this.TestCasesBatchDuplicateViewModel.SelectedEntitiesCount = this.dgTestCases.SelectedItems.Count.ToString();
+        }
+
+        /// <summary>
+        /// Handles the MouseDoubleClick event of the dgTestCases control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="MouseButtonEventArgs"/> instance containing the event data.</param>
+        private void dgTestCases_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            this.EditCurrentEntityInternal();
+        }
+
+        /// <summary>
+        /// Edits the current entity internal.
+        /// </summary>
+        private void EditCurrentEntityInternal()
+        {
+            if (dgTestCases.SelectedItem == null)
+            {
+                return;
+            }
+
+            if (dgTestCases.SelectedItem is TestCase)
+            {
+                TestCase currentTestCase = dgTestCases.SelectedItem as TestCase;
+                if (currentTestCase.ITestSuiteBase != null)
+                {
+                    log.InfoFormat("Edit test case with id: {0} and suite id {1}", currentTestCase.ITestCase.Id, currentTestCase.ITestSuiteBase.Id);
+                    this.NavigateToTestCasesEditView(currentTestCase.ITestCase.Id, currentTestCase.ITestSuiteBase.Id);
+                }
+                else
+                {
+                    log.InfoFormat("Edit test case with id: {0}", currentTestCase.ITestCase.Id);
+                    this.NavigateToTestCasesEditView(currentTestCase.ITestCase.Id, -1);
+                }
+            }
+            else
+            {
+                SharedStep currentSharedStep = dgTestCases.SelectedItem as SharedStep;
+                log.InfoFormat("Edit Shared Step with id: {0} ", currentSharedStep.ISharedStep.Id);
+                this.NavigateToTestCasesEditView(true, currentSharedStep.ISharedStep.Id);
+            }
+        }
+
+        /// <summary>
+        /// Handles the PreviewKeyDown event of the dgTestCases control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="KeyEventArgs"/> instance containing the event data.</param>
+        private void dgTestCases_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (Keyboard.IsKeyDown(Key.Enter))
+            {
+                this.EditCurrentEntityInternal();
+            }
         }              
     }
 }

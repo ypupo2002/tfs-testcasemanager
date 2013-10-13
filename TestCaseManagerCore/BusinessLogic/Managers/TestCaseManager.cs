@@ -89,7 +89,7 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
                     testCases.Add(testCaseToAdd);
                 }                        
             }
-
+            log.InfoFormat("Load all test cases in the suite with Title= \"{0}\" id = \"{1}\"", currentSuite.Title, currentSuite.Id);
             return testCases;
         }
 

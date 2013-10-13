@@ -226,6 +226,10 @@ namespace TestCaseManagerApp.Views
                 UndoRedoManager.Instance().UndoStackStatusChanged += new UndoRedoManager.OnStackStatusChanged(UndoStackStatusChanged);
                 List<TestStep> selectedTestSteps = this.AddMissedSelectedSharedSteps();
                 this.UpdateSelectedTestSteps(selectedTestSteps);
+                btnSaveTestStep.IsEnabled = false;
+                btnCancelEdit.IsEnabled = false;
+                btnEdit.IsEnabled = true;
+                btnInsertStep.IsEnabled = true;
                 this.HideProgressBar();
                 this.editViewContext.IsInitialized = true;
             }, TaskScheduler.FromCurrentSynchronizationContext());
@@ -237,7 +241,13 @@ namespace TestCaseManagerApp.Views
         /// <param name="hasItems">if set to <c>true</c> [has items].</param>
         private void UndoStackStatusChanged(bool hasItems)
         {
-            btnUndo.IsEnabled = hasItems;
+            try
+            {
+                btnUndo.IsEnabled = hasItems;
+            }
+            catch
+            {
+            }           
         }
 
         /// <summary>
@@ -246,7 +256,13 @@ namespace TestCaseManagerApp.Views
         /// <param name="hasItems">if set to <c>true</c> [has items].</param>
         private void RedoStackStatusChanged(bool hasItems)
         {
-            btnRedo.IsEnabled = hasItems;
+            try
+            {
+                btnRedo.IsEnabled = hasItems;
+            }
+            catch
+            {
+            }
         }     
 
         /// <summary>

@@ -128,7 +128,7 @@ namespace TestCaseManagerApp.Views
                     if (showTfsServerUnavailableException)
                     {
                         ModernDialog.ShowMessage("Team Foundation services are unavailable and no test plans can be populated. Please try again after few seconds.", "Warning", MessageBoxButton.OK);
-                        HideProgressBar();
+                        Application.Current.Shutdown();
                     }
                     else
                     {
@@ -227,11 +227,18 @@ namespace TestCaseManagerApp.Views
             l3.Source = u3;
             lg.Links.Add(l3);
 
-            Uri u2 = new Uri("/Views/TestCaseBatchDuplicateView.xaml", UriKind.Relative);
+            Uri u2 = new Uri("/Views/TestCaseBatchDuplicateView.xaml#loadTestCases=true&loadSpecificTestCases=false", UriKind.Relative);
             Link l2 = new Link();
-            l2.DisplayName = "Find/Replace/Duplicate";
+            l2.DisplayName = "Change|Duplicate Test Cases";
             l2.Source = u2;
             lg.Links.Add(l2);
+
+            Uri u4 = new Uri("/Views/TestCaseBatchDuplicateView.xaml#loadTestCases=false&loadSpecificTestCases=false", UriKind.Relative);
+            Link l4 = new Link();
+            l4.DisplayName = "Change|Duplicate Shared Steps";
+            l4.Source = u4;
+            lg.Links.Add(l4);
+
             mw.MenuLinkGroups.Add(lg);
         }
 

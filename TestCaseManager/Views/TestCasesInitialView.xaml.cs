@@ -555,7 +555,7 @@ namespace TestCaseManagerApp.Views
                 if (selectedSuiteId != -1)
                 {
                     suiteTestCaseCollection = TestCaseManager.GetAllTestCaseFromSuite(selectedSuiteId);
-                    log.InfoFormat("Load all test cases in the suite with id = {0}", selectedSuiteId);
+                  
                 }
                 else if (isInitialized)
                 {

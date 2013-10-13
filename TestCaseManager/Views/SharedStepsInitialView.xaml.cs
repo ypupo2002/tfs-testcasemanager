@@ -385,8 +385,12 @@ namespace TestCaseManagerApp.Views
         private void tbTestCaseTitleFilter_KeyUp(object sender, System.Windows.Input.KeyEventArgs e)
         {
             List<TestCase> filteredList= this.SharedStepsInitialViewModel.FilterTestCases();
-            this.SharedStepsInitialViewModel.ObservableTestCases.Clear();
-            filteredList.ForEach(x => this.SharedStepsInitialViewModel.ObservableTestCases.Add(x));
+            if (filteredList != null)
+            {
+                this.SharedStepsInitialViewModel.ObservableTestCases.Clear();
+                filteredList.ForEach(x => this.SharedStepsInitialViewModel.ObservableTestCases.Add(x));
+            }
+          
         }
 
         /// <summary>
@@ -417,8 +421,11 @@ namespace TestCaseManagerApp.Views
         private void tbTestCaseSuiteFilter_KeyUp(object sender, System.Windows.Input.KeyEventArgs e)
         {
             List<TestCase> filteredList = this.SharedStepsInitialViewModel.FilterTestCases();
-            this.SharedStepsInitialViewModel.ObservableTestCases.Clear();
-            filteredList.ForEach(x => this.SharedStepsInitialViewModel.ObservableTestCases.Add(x));
+            if (filteredList != null)
+            {
+                this.SharedStepsInitialViewModel.ObservableTestCases.Clear();
+                filteredList.ForEach(x => this.SharedStepsInitialViewModel.ObservableTestCases.Add(x));
+            }
         }
 
         /// <summary>
@@ -428,12 +435,20 @@ namespace TestCaseManagerApp.Views
         /// <param name="e">The <see cref="MouseButtonEventArgs"/> instance containing the event data.</param>
         private void dgSharedSteps_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
+            this.EditTestCaseInternal();      
+        }
+
+        /// <summary>
+        /// Edits the test case internal.
+        /// </summary>
+        private void EditTestCaseInternal()
+        {
             if (dgSharedSteps.SelectedItem != null)
             {
                 SharedStep currentSharedStep = dgSharedSteps.SelectedItem as SharedStep;
                 log.InfoFormat("Edit Shared Step with id: {0} ", currentSharedStep.ISharedStep.Id);
                 this.NavigateToTestCasesEditView(true, currentSharedStep.ISharedStep.Id);
-            }          
+            }
         }
 
         /// <summary>
@@ -531,15 +546,7 @@ namespace TestCaseManagerApp.Views
             TestCase currentTestCase = dgTestCases.SelectedItem as TestCase;
             if (currentTestCase.ITestSuiteBase != null)
             {
-                if (currentTestCase.ITestSuiteBase != null)
-                {
-                    log.InfoFormat("Edit test case with id: {0} and suite id {1}", currentTestCase.ITestCase.Id, currentTestCase.ITestSuiteBase.Id);
-                }
-                else
-                {
-                   
-                }
-               
+                log.InfoFormat("Edit test case with id: {0} and suite id {1}", currentTestCase.ITestCase.Id, currentTestCase.ITestSuiteBase.Id);               
                 this.NavigateToTestCasesEditView(currentTestCase.ITestCase.Id, currentTestCase.ITestSuiteBase.Id);
             }
             else
@@ -569,6 +576,19 @@ namespace TestCaseManagerApp.Views
                 }
                 log.Info("Navigate to TestCaseBatchDuplicateView initialized with selected test cases.");
                 this.NavigateToTestCaseBatchDuplicateView(true, true);
+            }
+        }
+
+        /// <summary>
+        /// Handles the PreviewKeyDown event of the dgTestCases control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.Windows.Input.KeyEventArgs"/> instance containing the event data.</param>
+        private void dgTestCases_PreviewKeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            if (Keyboard.IsKeyDown(Key.Enter))
+            {
+                this.EditTestCaseInternal();   
             }
         }   
     }
