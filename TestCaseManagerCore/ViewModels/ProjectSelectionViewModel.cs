@@ -11,6 +11,7 @@ namespace TestCaseManagerCore.ViewModels
     using System.Windows;
     using System.Windows.Forms;
     using FirstFloor.ModernUI.Windows.Controls;
+    using log4net;
     using Microsoft.TeamFoundation.Client;
     using Microsoft.TeamFoundation.TestManagement.Client;
     using TestCaseManagerCore.BusinessLogic.Entities;
@@ -21,6 +22,11 @@ namespace TestCaseManagerCore.ViewModels
     /// </summary>
     public class ProjectSelectionViewModel : BaseNotifyPropertyChanged
     {
+        /// <summary>
+        /// The log
+        /// </summary>
+       private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
         /// <summary>
         /// The full team project name
         /// </summary>
@@ -94,7 +100,7 @@ namespace TestCaseManagerCore.ViewModels
         {
             ExecutionContext.Preferences.TfsUri = null;
             ExecutionContext.Preferences.TestProjectName = null;
-
+            log.Info("Load project info depending on the user choice from project picker!");
             try
             {
                 using (projectPicker)
@@ -109,20 +115,26 @@ namespace TestCaseManagerCore.ViewModels
                     if (projectPicker.SelectedTeamProjectCollection != null)
                     {
                         ExecutionContext.Preferences.TfsUri = projectPicker.SelectedTeamProjectCollection.Uri;
+                        log.InfoFormat("Picker: TFS URI: {0}", ExecutionContext.Preferences.TfsUri);
                         ExecutionContext.Preferences.TestProjectName = projectPicker.SelectedProjects[0].Name;
+                        log.InfoFormat("Picker: Test Project Name: {0}", ExecutionContext.Preferences.TestProjectName);
                         ExecutionContext.TfsTeamProjectCollection = projectPicker.SelectedTeamProjectCollection;
+                        log.InfoFormat("Picker: TfsTeamProjectCollection: {0}", ExecutionContext.TfsTeamProjectCollection);
                         this.TestService = (ITestManagementService)ExecutionContext.TfsTeamProjectCollection.GetService(typeof(ITestManagementService));
                         this.InitializeTestProjectByName(this.TestService, ExecutionContext.Preferences.TestProjectName);
                     }
                     this.FullTeamProjectName = this.GenerateFullTeamProjectName();
                    
                     RegistryManager.WriteCurrentTeamProjectName(ExecutionContext.Preferences.TestProjectName);
+                    log.InfoFormat("Test Project Name: {0}", ExecutionContext.Preferences.TestProjectName);
                     RegistryManager.WriteCurrentTeamProjectUri(ExecutionContext.Preferences.TfsUri.ToString());
+                    log.InfoFormat("TFS URI: {0}", ExecutionContext.Preferences.TfsUri);
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 ModernDialog.ShowMessage("Error selecting team project.", "Warning", MessageBoxButton.OK);
+                log.Error("Project info not selected.", ex);
             }
         }
 
@@ -131,31 +143,37 @@ namespace TestCaseManagerCore.ViewModels
         /// </summary>
         public void LoadProjectSettingsFromRegistry()
         {
+            log.Info("Load project info loaded from registry!");
             string teamProjectUri = RegistryManager.GetTeamProjectUri();
             string teamProjectName = RegistryManager.GetTeamProjectName();
             string projectDllPath = RegistryManager.GetProjectDllPath();
             if (!string.IsNullOrEmpty(teamProjectUri) && !string.IsNullOrEmpty(teamProjectName))
             {
                 ExecutionContext.Preferences.TfsUri = new Uri(teamProjectUri);
+                log.InfoFormat("Registry> TFS URI: {0}", ExecutionContext.Preferences.TfsUri);
                 ExecutionContext.Preferences.TestProjectName = teamProjectName;
+                log.InfoFormat("Registry> Test Project Name: {0}", ExecutionContext.Preferences.TestProjectName);
                 ExecutionContext.TfsTeamProjectCollection = new TfsTeamProjectCollection(ExecutionContext.Preferences.TfsUri);
+                log.InfoFormat("Registry> TfsTeamProjectCollection: {0}", ExecutionContext.TfsTeamProjectCollection);
                 this.TestService = (ITestManagementService)ExecutionContext.TfsTeamProjectCollection.GetService(typeof(ITestManagementService));
                 this.InitializeTestProjectByName(this.TestService, ExecutionContext.Preferences.TestProjectName);
                 try
                 {
-                    this.FullTeamProjectName = this.GenerateFullTeamProjectName();                   
+                    this.FullTeamProjectName = this.GenerateFullTeamProjectName();
+                    log.InfoFormat("SET FullTeamProjectName to {0}", this.FullTeamProjectName);
                 }
-                catch (SocketException)
+                catch (SocketException ex)
                 {
-                    // TODO: Add exception logging
+                    log.Error("SocketException during connecting to TFS.", ex);
                     return;
                 }
-                catch (WebException)
+                catch (WebException ex)
                 {
-                    // TODO: Add exception logging
+                    log.Error("WebExceptionduring connecting to TFS.", ex);
                     return;
                 }
                 this.SelectedTestPlan = RegistryManager.GetTestPlan();
+                log.InfoFormat("Registry> SelectedTestPlan: {0}", this.SelectedTestPlan);
                 if (!string.IsNullOrEmpty(this.SelectedTestPlan))
                 {
                     this.IsInitializedFromRegistry = true;

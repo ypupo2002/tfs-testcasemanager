@@ -120,6 +120,11 @@ namespace TestCaseManagerApp.Views
         public static RoutedCommand EditTestStepCommand = new RoutedCommand();
 
         /// <summary>
+        /// The log
+        /// </summary>
+        private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
+        /// <summary>
         /// The edit view context
         /// </summary>
         private EditViewContext editViewContext;
@@ -374,10 +379,12 @@ namespace TestCaseManagerApp.Views
             TestStep testStepToInsert = null;
             if (!this.editViewContext.IsSharedStep)
             {
+                log.InfoFormat("Add new test step to test case with Title= {0}, id= {1}, ActionTitle= {2}, ExpectedResult= {3}", TestCaseEditViewModel.TestCase.ITestCase.Title, TestCaseEditViewModel.TestCase.ITestCase.Id, stepTitle, expectedResult);
                 testStepToInsert = TestStepManager.CreateNewTestStep(TestCaseEditViewModel.TestCase.ITestCase, stepTitle, expectedResult, default(Guid));
             }
             else
             {
+                log.InfoFormat("Add new test step to sharedStep with Title= {0}, id= {1}, ActionTitle= {2}, ExpectedResult= {3}", TestCaseEditViewModel.SharedStep.ISharedStep.Title, TestCaseEditViewModel.SharedStep.ISharedStep.Id, stepTitle, expectedResult);
                 testStepToInsert = TestStepManager.CreateNewTestStep(TestCaseEditViewModel.SharedStep.ISharedStep, stepTitle, expectedResult, default(Guid));
             }
             int newSelectedIndex = this.TestCaseEditViewModel.InsertTestStepInTestCase(testStepToInsert, selectedIndex, false);
@@ -424,8 +431,7 @@ namespace TestCaseManagerApp.Views
                 {
                     ModernDialog.ShowMessage("Shared steps cannon be shared again!", "Warning", MessageBoxButton.OK);
                     return;
-                }
-
+                }                
                 ISharedStep sharedStepCore = this.TestCaseEditViewModel.TestCase.CreateNewSharedStep(newTitle, selectedTestSteps);
                 sharedStepCore.Refresh();
                 this.TestCaseEditViewModel.ObservableSharedSteps.Add(new SharedStep(sharedStepCore));
@@ -773,7 +779,7 @@ namespace TestCaseManagerApp.Views
                 this.editViewContext.IsInitialized = false;
                 this.editViewContext.IsSharedStep = true;
                 this.editViewContext.ComeFromTestCase = true;
-                this.editViewContext.SharedStepId = sharedStepId;
+                this.editViewContext.SharedStepId = sharedStepId;                
                 this.InitializeInternal();
             }
             else if (messageBoxResult == MessageBoxResult.No || messageBoxResult == MessageBoxResult.None)
@@ -784,6 +790,7 @@ namespace TestCaseManagerApp.Views
                 this.editViewContext.SharedStepId = sharedStepId;
                 this.InitializeInternal();
             }
+            log.InfoFormat("Reinitialize edit mode to edit shared step with id= {1}", this.editViewContext.SharedStepId);
         }
 
         /// <summary>
@@ -892,6 +899,7 @@ namespace TestCaseManagerApp.Views
             this.editViewContext.IsInitialized = false;
             this.editViewContext.CreateNew = true;
             this.editViewContext.Duplicate = true;
+            log.Info("Reinitialize edit mode to duplicate.");
             this.InitializeInternal();       
         }
 
@@ -920,6 +928,7 @@ namespace TestCaseManagerApp.Views
                 result = this.SaveChangesDialog();
                 if (result != MessageBoxResult.Cancel && !isFromNavigation)
                 {
+                    log.Info("Navigate to all Test Cases View.");
                     this.NavigateToTestCasesInitialView();
                 }
                 else
@@ -932,6 +941,7 @@ namespace TestCaseManagerApp.Views
                 result = this.SaveChangesDialog();
                 if (result != MessageBoxResult.Cancel && !isFromNavigation)
                 {
+                    log.Info("Navigate to all Shared Steps View.");
                     this.NavigateToSharedStepsInitialView();
                 }
                 else
@@ -945,6 +955,7 @@ namespace TestCaseManagerApp.Views
                 if (result != MessageBoxResult.Cancel || result == MessageBoxResult.None)
                 {
                     result = MessageBoxResult.Cancel;
+                    log.Info("Navigate back to test case edit mode.");
                     this.editViewContext.IsSharedStep = false;
                     this.editViewContext.ComeFromTestCase = false;
                     this.editViewContext.IsInitialized = false;
@@ -966,7 +977,8 @@ namespace TestCaseManagerApp.Views
         /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void btnSaveTestCase_Click(object sender, RoutedEventArgs e)
         {
-            this.SaveEntityInternal();        
+            this.SaveEntityInternal();
+            log.Info("Save entity without close.");
         }
 
         /// <summary>
@@ -978,10 +990,12 @@ namespace TestCaseManagerApp.Views
             TestBase currentBase;
             if (!this.editViewContext.IsSharedStep)
             {
+                log.Info("Save test case.");
                 currentBase = this.SaveTestCaseInternal();
             }
             else
             {
+                log.Info("Save shared step.");
                 currentBase = this.SaveSharedStepInternal();
             }
             UndoRedoManager.Instance().Clear();            
@@ -1001,6 +1015,7 @@ namespace TestCaseManagerApp.Views
             this.TestCaseEditViewModel.TestCase.TeamFoundationIdentityName = this.TestCaseEditViewModel.TestBase.TeamFoundationIdentityName;
             this.TestCaseEditViewModel.TestCase.TeamFoundationId = this.TestCaseEditViewModel.TestBase.TeamFoundationId;
             this.TestCaseEditViewModel.TestCase.OwnerDisplayName = this.TestCaseEditViewModel.TestBase.OwnerDisplayName;
+            log.InfoFormat("Test Case Saved Info: Title= {0}, Area= {1}, Priority= {2}, OwnerDisplayName= {3}", this.TestCaseEditViewModel.TestCase.Title, this.TestCaseEditViewModel.TestCase.Area, this.TestCaseEditViewModel.TestCase.Priority, this.TestCaseEditViewModel.TestCase.OwnerDisplayName);
             TestCase savedTestCase;
             int? suiteId = this.TestCaseEditViewModel.TestCase.ITestSuiteBase != null ? this.TestCaseEditViewModel.TestCase.TestSuiteId : null;
             if (String.IsNullOrEmpty(this.TestCaseEditViewModel.TestBase.Title))
@@ -1009,7 +1024,8 @@ namespace TestCaseManagerApp.Views
                 return null;
             }
             if ((this.editViewContext.CreateNew || this.editViewContext.Duplicate) && !this.editViewContext.IsAlreadyCreated)
-            {               
+            {
+                log.Info("Save test case as new one.");
                 savedTestCase = this.TestCaseEditViewModel.TestCase.Save(true, suiteId, this.TestCaseEditViewModel.ObservableTestSteps);
                 this.TestCaseEditViewModel.TestCase = savedTestCase;
                 this.editViewContext.IsAlreadyCreated = true;
@@ -1019,6 +1035,7 @@ namespace TestCaseManagerApp.Views
             }
             else
             {
+                log.InfoFormat("Save edited test case with id= {0}.", this.TestCaseEditViewModel.TestCase.Id);
                 savedTestCase = this.TestCaseEditViewModel.TestCase.Save(false, suiteId, this.TestCaseEditViewModel.ObservableTestSteps);
             }
             this.editViewContext.TestCaseId = savedTestCase.ITestCase.Id;
@@ -1040,6 +1057,7 @@ namespace TestCaseManagerApp.Views
             this.TestCaseEditViewModel.SharedStep.TeamFoundationIdentityName = this.TestCaseEditViewModel.TestBase.TeamFoundationIdentityName;
             this.TestCaseEditViewModel.SharedStep.TeamFoundationId = this.TestCaseEditViewModel.TestBase.TeamFoundationId;
             this.TestCaseEditViewModel.SharedStep.OwnerDisplayName = this.TestCaseEditViewModel.TestBase.OwnerDisplayName;
+            log.InfoFormat("Shared Step Saved Info: Title= {0}, Area= {1}, Priority= {2}, OwnerDisplayName= {3}", this.TestCaseEditViewModel.SharedStep.Title, this.TestCaseEditViewModel.SharedStep.Area, this.TestCaseEditViewModel.SharedStep.Priority, this.TestCaseEditViewModel.SharedStep.OwnerDisplayName);
             SharedStep savedSharedStep;
             if (String.IsNullOrEmpty(this.TestCaseEditViewModel.TestBase.Title))
             {
@@ -1047,7 +1065,8 @@ namespace TestCaseManagerApp.Views
                 return null;
             }
             if ((this.editViewContext.CreateNew || this.editViewContext.Duplicate) && !this.editViewContext.IsAlreadyCreated)
-            {               
+            {
+                log.Info("Save shared step as new one.");
                 savedSharedStep = this.TestCaseEditViewModel.SharedStep.Save(true, this.TestCaseEditViewModel.ObservableTestSteps);
                 this.TestCaseEditViewModel.SharedStep = savedSharedStep;
                 this.editViewContext.IsAlreadyCreated = true;
@@ -1057,6 +1076,7 @@ namespace TestCaseManagerApp.Views
             }
             else
             {
+                log.InfoFormat("Save edited shared step with id= {0}.", this.TestCaseEditViewModel.SharedStep.Id);
                 savedSharedStep = this.TestCaseEditViewModel.SharedStep.Save(false, this.TestCaseEditViewModel.ObservableTestSteps);
             }
             this.editViewContext.SharedStepId = savedSharedStep.ISharedStep.Id;
@@ -1075,7 +1095,9 @@ namespace TestCaseManagerApp.Views
         {
             if (UndoRedoManager.Instance().HasUndoOperations)
             {
+                log.Info("Perform Undo.");
                 UndoRedoManager.Instance().Undo();
+                log.Info("End Undo.");
             }
         }
 
@@ -1088,7 +1110,9 @@ namespace TestCaseManagerApp.Views
         {
             if (UndoRedoManager.Instance().HasRedoOperations)
             {
+                log.Info("Perform Redo.");
                 UndoRedoManager.Instance().Redo();
+                log.Info("End Redo.");
             }
         }
 
@@ -1101,10 +1125,12 @@ namespace TestCaseManagerApp.Views
         {
             if (this.editViewContext.ComeFromTestCase || !this.editViewContext.IsSharedStep)
             {
+                log.Info("Navigate to all test cases view.");
                 this.NavigateToTestCasesInitialView();
             }
             else
             {
+                log.Info("Navigate to all shared steps view.");
                 this.NavigateToSharedStepsInitialView();
             }
         }
@@ -1118,6 +1144,7 @@ namespace TestCaseManagerApp.Views
         {
             e.Handled = true;
             List<TestStep> selectedTestSteps = this.GetAllSelectedTestSteps();
+            log.InfoFormat("Copy {0} test steps.", selectedTestSteps.Count);
             TestStepManager.CopyToClipboardTestSteps(true, selectedTestSteps);
         }
 
@@ -1130,6 +1157,7 @@ namespace TestCaseManagerApp.Views
         {
             e.Handled = true;
             SharedStep currentSharedStep = dgSharedSteps.SelectedItem as SharedStep;
+            log.InfoFormat("Edit shared step with id= {0}", currentSharedStep.ISharedStep.Id);
             this.EditSharedStepInternal(currentSharedStep.ISharedStep.Id);
         }
 
@@ -1167,13 +1195,16 @@ namespace TestCaseManagerApp.Views
         {
             e.Handled = true;
             List<TestStep> selectedTestSteps = this.GetAllSelectedTestSteps();
+            log.InfoFormat("Cut {0} test steps.", selectedTestSteps.Count);
             TestStepManager.CopyToClipboardTestSteps(false, selectedTestSteps);
             ClipBoardTestStep clipBoardTestStep = TestStepManager.GetFromClipboardTestSteps();
             if (clipBoardTestStep != null && clipBoardTestStep.TestSteps != null)
             {
                 using (new UndoTransaction("Delete cut steps"))
                 {
+                    log.Info("Start Deleting cut test steps.");
                     this.TestCaseEditViewModel.DeleteCutTestSteps(clipBoardTestStep.TestSteps);
+                    log.Info("End Deleting cut test steps.");
                     this.TestCaseEditViewModel.UpdateTestStepsGrid();
                     TestStepManager.UpdateGenericSharedSteps(this.TestCaseEditViewModel.ObservableTestSteps);                   
                 }
@@ -1198,8 +1229,9 @@ namespace TestCaseManagerApp.Views
             }
             int oldSelectedIndex = dgTestSteps.SelectedIndex;
             int newSelectedIndex = dgTestSteps.SelectedIndex;
-            using (new UndoTransaction("Copies previously selected test steps"))
+            using (new UndoTransaction("Pastes previously selected test steps"))
             {
+                log.Info("Start Pasting previously pasted test steps.");
                 foreach (TestStep copiedTestStep in clipBoardTestStep.TestSteps)
                 {
                     TestStep testStepToBeInserted = (TestStep)copiedTestStep.Clone();
@@ -1226,6 +1258,7 @@ namespace TestCaseManagerApp.Views
                 this.TestCaseEditViewModel.UpdateTestStepsGrid();
                 TestStepManager.UpdateGenericSharedSteps(this.TestCaseEditViewModel.ObservableTestSteps);
                 this.ChangeSelectedIndexTestStepsDataGrid(newSelectedIndex, oldSelectedIndex);
+                log.Info("End Pasting previously pasted test steps.");
             }
         }    
 
@@ -1250,6 +1283,7 @@ namespace TestCaseManagerApp.Views
             rtbAction.ClearDefaultContent(ref this.TestCaseEditViewModel.IsActionTextSet);
             rtbExpectedResult.ClearDefaultContent(ref this.TestCaseEditViewModel.IsExpectedResultTextSet);
             TestStep currentTestStep = this.GetSelectedTestStep();
+            log.InfoFormat("Perform change operation to test step with ActionTitle= {0}, ActionExpectedResult= {1}.", currentTestStep.ActionTitle, currentTestStep.ActionExpectedResult);
             rtbAction.SetText(currentTestStep.ActionTitle);
             rtbExpectedResult.SetText(currentTestStep.ActionExpectedResult);
         }   
@@ -1415,7 +1449,17 @@ namespace TestCaseManagerApp.Views
                 TestCase currentTestCase = this.SaveTestCaseInternal();
                 if (currentTestCase != null)
                 {
-                     this.NavigateToAssociateAutomationView(currentTestCase.ITestCase.Id, currentTestCase.ITestSuiteBase.Id, this.editViewContext.CreateNew, this.editViewContext.Duplicate);
+                    if (currentTestCase.ITestSuiteBase.Id != null)
+                    {
+                        log.InfoFormat("Navigate to AssociateAutomation, test case id= {0}, suite id= {1}, CreateNew= {2}, Duplicate= {3}.", currentTestCase.ITestCase.Id, currentTestCase.ITestSuiteBase.Id, this.editViewContext.CreateNew, this.editViewContext.Duplicate);
+                        this.NavigateToAssociateAutomationView(currentTestCase.ITestCase.Id, currentTestCase.ITestSuiteBase.Id, this.editViewContext.CreateNew, this.editViewContext.Duplicate);
+                    }
+                    else
+                    {
+                        log.InfoFormat("Navigate to AssociateAutomation, test case id= {0}, suite id= {1}, CreateNew= {2}, Duplicate= {3}.", currentTestCase.ITestCase.Id, -1, this.editViewContext.CreateNew, this.editViewContext.Duplicate);
+                        this.NavigateToAssociateAutomationView(currentTestCase.ITestCase.Id, -1, this.editViewContext.CreateNew, this.editViewContext.Duplicate);
+                    }
+                   
                 }
             }
         }

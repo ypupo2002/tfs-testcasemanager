@@ -18,6 +18,11 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
     public static class TestSuiteManager
     {
         /// <summary>
+        /// The log
+        /// </summary>
+        private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
+        /// <summary>
         /// Gets all suites.
         /// </summary>
         /// <param name="subSuitesCore">The sub suites core.</param>
@@ -76,6 +81,7 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
         public static void RenameSuite(int suiteId, string newName)
         {
             ITestSuiteBase currentSuite = ExecutionContext.TestManagementTeamProject.TestSuites.Find(suiteId);
+            log.InfoFormat("Change Suite title from {0} to {1}, Suite Id = {2}", currentSuite.Title, newName, currentSuite.Id);
             currentSuite.Title = newName;
             ExecutionContext.Preferences.TestPlan.Save();          
         }
@@ -115,7 +121,7 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
             {
                 ExecutionContext.Preferences.TestPlan.RootSuite.Entries.Add(staticSuite);
             }
-
+            log.InfoFormat("Add child suite to suite with Title= {0}, Id = {1}, child suite title= {2}", parentSuite.Title, parentSuite.Id, title);
             ExecutionContext.Preferences.TestPlan.Save();
 
             return staticSuite.Id;
@@ -138,7 +144,7 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
             }
             catch(TestManagementValidationException ex)
             {
-                // TODO: Add to log
+                log.Error(ex);
             }
             try
             {
@@ -146,7 +152,7 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
             }
             catch (TestManagementValidationException ex)
             {
-                // TODO: Add to log
+                log.Error(ex);
             }
           
             IStaticTestSuite oldParent = suiteToAdd.Parent;
@@ -158,7 +164,8 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
             if (parentSuite != null && parentSuite is IStaticTestSuite && parentSuiteId != -1)
             {
                 IStaticTestSuite parentSuiteStatic = parentSuite as IStaticTestSuite;
-                parentSuiteStatic.Entries.Add(suiteToAdd); 
+                parentSuiteStatic.Entries.Add(suiteToAdd);
+                log.InfoFormat("Add child suite to suite with Title= {0}, Id = {1}, child suite title= {2}, id= {3}", parentSuite.Title, parentSuite.Id, suiteToAdd.Title, suiteToAdd.Id);
             }
             else
             {
@@ -267,16 +274,19 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
             // Remove the parent child relation. This is the only way to delete the suite.
             if (parent != null)
             {
+                log.InfoFormat("Remove suite Title= {0}, id= {1} from suite Title= {2}, id= {3}", currentSuite.Title, currentSuite.Id, parent.Title, parent.Id);
                 parent.Entries.Remove(currentSuite);
             }
             else if (currentSuite.Parent != null)
             {
+                log.InfoFormat("Remove suite Title= {0}, id= {1} from suite Title= {2}, id= {3}", currentSuite.Title, currentSuite.Id, parent.Title, parent.Id);
                 currentSuite.Parent.Entries.Remove(currentSuite);
             }
             else
             {
                 // If it's initial suite, remove it from the test plan.
                 ExecutionContext.Preferences.TestPlan.RootSuite.Entries.Remove(currentSuite);
+                log.Info("Remove suite Title= {0}, id= {1} from test plan.");
             }
 
             // Apply changes to the suites
@@ -435,6 +445,7 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
         {
             if (currentSuite != null)
             {
+                log.InfoFormat("Remove Test Case with id= {0}, Title = {1} from Suite with id= {2}, Title= {3}", testCaseToRemove.Id, testCaseToRemove.Title, currentSuite.Id, currentSuite.Title);
                 if (currentSuite is IRequirementTestSuite)
                 {
                     IRequirementTestSuite suite = currentSuite as IRequirementTestSuite;

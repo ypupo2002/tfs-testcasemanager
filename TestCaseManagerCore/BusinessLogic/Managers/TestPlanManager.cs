@@ -4,6 +4,8 @@
 // <author>Anton Angelov</author>
 namespace TestCaseManagerCore.BusinessLogic.Managers
 {
+    using System;
+    using System.Threading;
     using Microsoft.TeamFoundation.TestManagement.Client;
 
     /// <summary>
@@ -12,6 +14,11 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
     public static class TestPlanManager
     {
         /// <summary>
+        /// The log
+        /// </summary>
+        private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
+        /// <summary>
         /// Gets TestPlan by name.
         /// </summary>
         /// <param name="testManagementTeamProject">TFS team project</param>
@@ -19,7 +26,7 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
         /// <returns>the found test plan</returns>
         public static ITestPlan GetTestPlanByName(ITestManagementTeamProject testManagementTeamProject, string testPlanName)
         {
-            ITestPlanCollection testPlans = GetAllTestPlans(ExecutionContext.TestManagementTeamProject);
+            ITestPlanCollection testPlans = GetAllTestPlans(TestCaseManagerCore.ExecutionContext.TestManagementTeamProject);
             ITestPlan testPlan = default(ITestPlan);
             foreach (ITestPlan currentTestPlan in testPlans)
             {
@@ -40,7 +47,25 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
         /// <returns>collection of all test plans</returns>
         public static ITestPlanCollection GetAllTestPlans(ITestManagementTeamProject testManagementTeamProject)
         {
-            return testManagementTeamProject.TestPlans.Query("SELECT * FROM TestPlan");
+            ITestPlanCollection testPlanCollection = null;
+            int retryCount = 0;
+            do
+            {
+                try
+                {
+                    testPlanCollection = testManagementTeamProject.TestPlans.Query("SELECT * FROM TestPlan");
+                    break;
+                }
+                catch (Exception ex)
+                {
+                    log.Error("Getting all plans error.", ex);
+                    Thread.Sleep(500);
+                    retryCount++;
+                }
+            }
+            while(retryCount < 10);        
+
+            return testPlanCollection;
         }
     }
 }

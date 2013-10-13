@@ -98,5 +98,10 @@ namespace TestCaseManagerCore.BusinessLogic.Entities
         ///   <c>true</c> if [come from test case]; otherwise, <c>false</c>.
         /// </value>
         public bool ComeFromTestCase { get; set; }
+
+        public override string ToString()
+        {
+            return String.Format("TestCaseId= {0}, TestSuiteId= {1}, CreateNew= {2}, Duplicate= {3}, IsSharedStep= {4}, SharedStepId= {5}, ComeFromTestCase = {6}, CurrentEditedStepGuid= {7}", this.TestCaseId, this.TestSuiteId, this.CreateNew, this.Duplicate, this.IsSharedStep, this.SharedStepId, this.ComeFromTestCase, this.CurrentEditedStepGuid);
+        }
     }
 }

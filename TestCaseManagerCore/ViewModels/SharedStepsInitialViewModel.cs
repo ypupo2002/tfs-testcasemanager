@@ -17,6 +17,11 @@ namespace TestCaseManagerCore.ViewModels
     public class SharedStepsInitialViewModel : BaseNotifyPropertyChanged
     {
         /// <summary>
+        /// The log
+        /// </summary>
+        private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
+        /// <summary>
         /// The test cases count after filtering
         /// </summary>
         private string sharedStepsCount;
@@ -174,6 +179,7 @@ namespace TestCaseManagerCore.ViewModels
             set
             {
                 this.selectedSharedStep = value;
+                log.InfoFormat("Change SelectedSharedStep: {0}", this.selectedSharedStep.Title);
                 this.NotifyPropertyChanged();
             }
         }

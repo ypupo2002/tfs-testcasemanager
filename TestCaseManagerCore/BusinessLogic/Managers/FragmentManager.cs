@@ -16,6 +16,11 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
     public class FragmentManager
     {
         /// <summary>
+        /// The log
+        /// </summary>
+        private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="FragmentManager"/> class.
         /// </summary>
         /// <param name="fragment">The fragment.</param>
@@ -47,7 +52,6 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
             }
             catch (KeyNotFoundException)
             {
-                // TODO: Log the KeyNotFoundException
             }
 
             return value;

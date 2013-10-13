@@ -20,7 +20,12 @@ namespace TestCaseManagerCore.ViewModels
     /// Contains methods and properties related to the TestCasesBatchDuplicate View
     /// </summary>
     public class TestCasesBatchDuplicateViewModel : BaseNotifyPropertyChanged
-    { 
+    {
+        /// <summary>
+        /// The log
+        /// </summary>
+        private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
         /// <summary>
         /// The test cases count after filtering
         /// </summary>
@@ -233,7 +238,7 @@ namespace TestCaseManagerCore.ViewModels
             List<TestStep> testSteps = TestStepManager.GetTestStepsFromTestActions(testCaseToBeDuplicated.ITestCase.Actions.ToList());
             ITestCase testCaseCore = ExecutionContext.TestManagementTeamProject.TestCases.Create();
             TestCase currentTestCase = new TestCase(testCaseCore, testCaseToBeDuplicated.ITestSuiteBase);
-
+            log.InfoFormat("Duplicate test case with Title= {0} id= {1}", currentTestCase.Title, currentTestCase.Id);
             currentTestCase.ITestCase.Area = testCaseToBeDuplicated.ITestCase.Area;
             if (this.ReplaceContext.ReplaceInTitles)
             {
@@ -272,6 +277,7 @@ namespace TestCaseManagerCore.ViewModels
         {
             TestCase currentTestCase = testCaseToReplaceIn;
             currentTestCase.ITestCase = ExecutionContext.TestManagementTeamProject.TestCases.Find(testCaseToReplaceIn.ITestCase.Id);
+            log.InfoFormat("Find and Replace in test case with Title= {0} id= {1}", currentTestCase.Title, currentTestCase.Id);
             List<TestStep> testSteps = TestStepManager.GetTestStepsFromTestActions(currentTestCase.ITestCase.Actions.ToList());
             this.ReplaceTestCaseTitle(currentTestCase);
             this.ChangeTestCasePriority(currentTestCase);
@@ -289,8 +295,9 @@ namespace TestCaseManagerCore.ViewModels
         private void ReplaceTestCaseTitle(TestCase currentTestCase)
         {
             if (this.ReplaceContext.ReplaceInTitles)
-            {
+            {               
                 string newTitle = currentTestCase.ITestCase.Title.ReplaceAll(this.ReplaceContext.ObservableTextReplacePairs);
+                log.InfoFormat("Change Title from {0} to {1}", currentTestCase.ITestCase.Title, newTitle);
                 currentTestCase.ITestCase.Title = newTitle;
             }
         }
@@ -304,6 +311,7 @@ namespace TestCaseManagerCore.ViewModels
             if (this.ReplaceContext.ChangeOwner && this.ReplaceContext.SelectedTeamFoundationIdentityName != null)
             {
                 var identity = ExecutionContext.TestManagementTeamProject.TfsIdentityStore.FindByTeamFoundationId(this.ReplaceContext.SelectedTeamFoundationIdentityName.TeamFoundationId);
+                log.InfoFormat("Change Owner from {0} to {1}", currentTestCase.ITestCase.Owner.DisplayName, identity.DisplayName);
                 currentTestCase.ITestCase.Owner = identity;
             }
         }
@@ -316,6 +324,7 @@ namespace TestCaseManagerCore.ViewModels
         {
             if (this.ReplaceContext.ChangePriorities)
             {
+                log.InfoFormat("Change Priority from {0} to {1}", currentTestCase.ITestCase.Priority, (int)this.ReplaceContext.SelectedPriority);
                 currentTestCase.ITestCase.Priority = (int)this.ReplaceContext.SelectedPriority;
             }
         }
@@ -402,18 +411,25 @@ namespace TestCaseManagerCore.ViewModels
                 foreach (TestStep currentStep in testSteps)
                 {
                     if (currentStep.IsShared && !addedSharedStepGuids.Contains(currentStep.TestStepGuid) && this.ReplaceContext.ReplaceSharedSteps)
-                    {
-                       
+                    {                       
                         if (this.ReplaceContext.ReplaceSharedSteps)
                         {
                             List<int> newSharedStepIds = GetNewSharedStepIds(currentStep.SharedStepId, this.ReplaceContext.ObservableSharedStepIdReplacePairs);
                             foreach (int currentId in newSharedStepIds)
                             {
-                                this.AddNewSharedStepInternal(testCase, addedSharedStepGuids, currentStep, currentId);
+                                if (currentId != 0)
+                                {
+                                    log.InfoFormat("Replace shared step with title= {0}, id {1} to {2}", currentStep.Title, currentStep.SharedStepId, currentId);
+                                    this.AddNewSharedStepInternal(testCase, addedSharedStepGuids, currentStep, currentId);
+                                }
+                                else
+                                {
+                                    log.InfoFormat("Remove shared step with title= {0}, id {1}", currentStep.Title, currentStep.SharedStepId);
+                                }
                             }
                         }
                         else
-                        {
+                        {                            
                             this.AddNewSharedStepInternal(testCase, addedSharedStepGuids, currentStep, currentStep.SharedStepId);
                         }
                     }
@@ -422,8 +438,12 @@ namespace TestCaseManagerCore.ViewModels
                         ITestStep testStepCore = testCase.ITestCase.CreateTestStep();
                         if (this.ReplaceContext.ReplaceInTestSteps)
                         {
-                            testStepCore.Title = currentStep.ActionTitle.ToString().ReplaceAll(this.ReplaceContext.ObservableTextReplacePairs);
-                            testStepCore.ExpectedResult = currentStep.ActionExpectedResult.ToString().ReplaceAll(this.ReplaceContext.ObservableTextReplacePairs);
+                            string newActionTitle = currentStep.ActionTitle.ToString().ReplaceAll(this.ReplaceContext.ObservableTextReplacePairs);
+                            log.InfoFormat("Change Test step action title from {0} to {1}", currentStep.ActionTitle, newActionTitle);
+                            testStepCore.Title = newActionTitle;
+                            string newActionexpectedResult = currentStep.ActionExpectedResult.ToString().ReplaceAll(this.ReplaceContext.ObservableTextReplacePairs);
+                            log.InfoFormat("Change Test step action expected result from {0} to {1}", currentStep.ActionExpectedResult, newActionexpectedResult);
+                            testStepCore.ExpectedResult = newActionexpectedResult;
                         }
                         else
                         {
@@ -471,7 +491,10 @@ namespace TestCaseManagerCore.ViewModels
                     List<int> newSharedStepIds = GetNewSharedStepIdsFromString(currentSharedStepIdReplacePair.NewSharedStepIds);
                     foreach (int currentId in newSharedStepIds)
                     {
-                        ExecutionContext.TestManagementTeamProject.SharedSteps.Find(currentId);
+                        if (currentId > 0)
+                        {
+                            ExecutionContext.TestManagementTeamProject.SharedSteps.Find(currentId);
+                        }                        
                     }                    
                 }
                 catch

@@ -27,6 +27,11 @@ namespace TestCaseManagerApp.Views
     public partial class TestCasesInitialView : System.Windows.Controls.UserControl, IContent
     {
         /// <summary>
+        /// The log
+        /// </summary>
+        private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
+        /// <summary>
         /// The edit command
         /// </summary>
         public static RoutedCommand EditCommand = new RoutedCommand();
@@ -248,10 +253,12 @@ namespace TestCaseManagerApp.Views
                 TestCase currentTestCase = dgTestCases.SelectedItem as TestCase;
                 if (currentTestCase.ITestSuiteBase != null)
                 {
+                    log.InfoFormat("Preview test case with id: {0} and suite id {1}", currentTestCase.ITestCase.Id, currentTestCase.ITestSuiteBase.Id);
                     this.NavigateToTestCasesDetailedView(currentTestCase.ITestCase.Id, currentTestCase.ITestSuiteBase.Id);
                 }
                 else
                 {
+                    log.InfoFormat("Preview test case with id: {0} and suite id {1}", currentTestCase.ITestCase.Id, -1);
                     this.NavigateToTestCasesDetailedView(currentTestCase.ITestCase.Id, -1);
                 }
                
@@ -294,10 +301,12 @@ namespace TestCaseManagerApp.Views
                 TestCase currentTestCase = dgTestCases.SelectedItem as TestCase;
                 if (currentTestCase.ITestSuiteBase != null)
                 {
+                    log.InfoFormat("Preview test case with id: {0} and suite id {1}", currentTestCase.ITestCase.Id, currentTestCase.ITestSuiteBase.Id);
                     this.NavigateToTestCasesEditView(currentTestCase.ITestCase.Id, currentTestCase.ITestSuiteBase.Id);
                 }
                 else
                 {
+                    log.InfoFormat("Preview test case with id: {0} and suite id {1}", currentTestCase.ITestCase.Id, -1);
                     this.NavigateToTestCasesEditView(currentTestCase.ITestCase.Id, -1);
                 }
             });
@@ -315,10 +324,12 @@ namespace TestCaseManagerApp.Views
                 TestCase currentTestCase = dgTestCases.SelectedItem as TestCase;
                 if (currentTestCase.ITestSuiteBase != null)
                 {
+                    log.InfoFormat("Preview test case with id: {0} and suite id {1}", currentTestCase.ITestCase.Id, currentTestCase.ITestSuiteBase.Id);
                     this.NavigateToTestCasesEditView(currentTestCase.ITestCase.Id, currentTestCase.ITestSuiteBase.Id, true, true);
                 }
                 else
                 {
+                    log.InfoFormat("Preview test case with id: {0} and suite id {1}", currentTestCase.ITestCase.Id, -1);
                     this.NavigateToTestCasesEditView(currentTestCase.ITestCase.Id, -1, true, true);
                 }                
             });
@@ -332,6 +343,7 @@ namespace TestCaseManagerApp.Views
         private void btnNew_Click(object sender, RoutedEventArgs e)
         {
             int selectedSuiteId = RegistryManager.GetSelectedSuiteId();
+            log.InfoFormat("Navigate to Create New Test Case, Suite Id: {0}", selectedSuiteId);
             this.NavigateToTestCasesEditView(selectedSuiteId, true, false);
         }
 
@@ -502,10 +514,12 @@ namespace TestCaseManagerApp.Views
                 TestCase currentTestCase = dgTestCases.SelectedItem as TestCase;
                 if (currentTestCase.ITestSuiteBase != null)
                 {
+                    log.InfoFormat("Edit test case with id: {0} and suite id {1}", currentTestCase.ITestCase.Id, currentTestCase.ITestSuiteBase.Id);
                     this.NavigateToTestCasesEditView(currentTestCase.ITestCase.Id, currentTestCase.ITestSuiteBase.Id);
                 }
                 else
                 {
+                    log.InfoFormat("Edit test case with id: {0} and suite id {1}", currentTestCase.ITestCase.Id, -1);
                     this.NavigateToTestCasesEditView(currentTestCase.ITestCase.Id, -1);
                 }                
             }
@@ -541,10 +555,12 @@ namespace TestCaseManagerApp.Views
                 if (selectedSuiteId != -1)
                 {
                     suiteTestCaseCollection = TestCaseManager.GetAllTestCaseFromSuite(selectedSuiteId);
+                    log.InfoFormat("Load all test cases in the suite with id = {0}", selectedSuiteId);
                 }
                 else if (isInitialized)
                 {
                     suiteTestCaseCollection = TestCaseManager.GetAllTestCasesInTestPlan(true);
+                    log.InfoFormat("Load all test cases in the test plan.");
                 }
             });
             t.ContinueWith(antecedent =>

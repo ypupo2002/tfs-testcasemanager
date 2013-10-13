@@ -25,6 +25,11 @@ namespace TestCaseManagerApp.Views
     public partial class TestCaseBatchDuplicateView : UserControl, IContent
     {
         /// <summary>
+        /// The log
+        /// </summary>
+        private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
+        /// <summary>
         /// Indicates if the view model is already initialized
         /// </summary>
         private static bool isInitialized;
@@ -116,8 +121,6 @@ namespace TestCaseManagerApp.Views
             t.ContinueWith(antecedent =>
             {
                 this.DataContext = this.TestCasesBatchDuplicateViewModel;
-
-                // TODO: Fix to be initialized from XAML
                 this.cbTeamFoundationIdentityNames.SelectedIndex = 0;
                 this.cbPriority.SelectedIndex = 0;
                 this.HideProgressBar();

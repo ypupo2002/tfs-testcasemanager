@@ -17,6 +17,11 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
     public class RegistryManager
     {
         /// <summary>
+        /// The log
+        /// </summary>
+        private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
+        /// <summary>
         /// The main registry sub key name
         /// </summary>
         private static string mainRegistrySubKeyName = "TestCaseManager";
@@ -303,9 +308,9 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
                     ata.Close();
                 }
             }
-            catch
-            { 
-                // TODO: Add Exception Logging
+            catch(Exception ex)
+            {
+                log.Error(ex);
             }
             return teamProjectUri;
         }
@@ -331,9 +336,9 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
                     ata.Close();
                 }
             }
-            catch
-            { 
-                // TODO: Add Exception Logging
+            catch (Exception ex)
+            {
+                log.Error(ex);
             }
 
             return teamProjectName;
@@ -360,9 +365,9 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
                     ata.Close();
                 }
             }
-            catch
+            catch(Exception ex)
             {
-                // TODO: Add Exception Logging
+                log.Error(ex);
             }
 
             return projectDllPath;
@@ -389,9 +394,9 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
                     ata.Close();
                 }
             }
-            catch
+            catch (Exception ex)
             {
-                // TODO: Add Exception Logging
+                log.Error(ex);
             }
 
             return testPlan;
@@ -418,9 +423,9 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
                     ata.Close();
                 }
             }
-            catch
+            catch (Exception ex)
             {
-                // TODO: Add Exception Logging
+                log.Error(ex);
             }
 
             return title;
@@ -448,9 +453,9 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
                     ata.Close();
                 }
             }
-            catch
+            catch (Exception ex)
             {
-                // TODO: Add Exception Logging
+                log.Error(ex);
             }
 
             return isCanceled;
@@ -482,9 +487,9 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
                     colorsStr = colors.Split('&');
                 }
             }
-            catch
+            catch (Exception ex)
             {
-                // TODO: Add Exception Logging
+                log.Error(ex);
             }
 
             return colorsStr;
@@ -511,9 +516,9 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
                     ata.Close();
                 }
             }
-            catch
+            catch (Exception ex)
             {
-                // TODO: Add Exception Logging
+                log.Error(ex);
             }
 
             return theme;
@@ -540,9 +545,9 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
                     ata.Close();
                 }
             }
-            catch
+            catch (Exception ex)
             {
-                // TODO: Add Exception Logging
+                log.Error(ex);
             }
 
             return shouldOpenDropDownOnHover;
@@ -571,9 +576,9 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
                     ata.Close();
                 }
             }
-            catch
+            catch (Exception ex)
             {
-                // TODO: Add Exception Logging
+                log.Error(ex);
             }
 
             return suiteFilter;
@@ -605,7 +610,7 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
             }
             catch (Exception ex)
             {
-                // TODO: Add Exception Logging
+                log.Error(ex);
             }
 
             return selectedSuiteId;

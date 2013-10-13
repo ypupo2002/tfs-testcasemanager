@@ -214,3 +214,6 @@ D:\Projects\TestCaseManager\TestCaseManager\obj\Release\TestCaseManagerApp.Prope
 D:\Projects\TestCaseManager\TestCaseManager\obj\Release\TestCaseManager.csproj.GenerateResource.Cache
 D:\Projects\TestCaseManager\TestCaseManager\obj\Release\TestCaseManager.exe
 D:\Projects\TestCaseManager\TestCaseManager\obj\Release\TestCaseManager.pdb
+D:\Projects\TestCaseManager\TestCaseManager\bin\Release\log4net.dll
+D:\Projects\TestCaseManager\TestCaseManager\bin\Release\log4net.xml
+D:\Projects\TestCaseManager\TestCaseManager\bin\Release\Log4Net.config

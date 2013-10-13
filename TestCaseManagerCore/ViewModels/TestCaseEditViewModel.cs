@@ -53,6 +53,11 @@ namespace TestCaseManagerCore.ViewModels
         public bool IsSharedStepSearchTextSet;
 
         /// <summary>
+        /// The log
+        /// </summary>
+        private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
+        /// <summary>
         /// The page title
         /// </summary>
         private string pageTitle;
@@ -101,7 +106,7 @@ namespace TestCaseManagerCore.ViewModels
                 this.TestBase = this.TestCase;
             }
             else
-            {
+            {                
                 if (this.EditViewContext.CreateNew && !this.EditViewContext.Duplicate)
                 {
                     ISharedStep currentSharedStepCore = ExecutionContext.TestManagementTeamProject.SharedSteps.Create();
@@ -122,7 +127,7 @@ namespace TestCaseManagerCore.ViewModels
             }
             this.InitializeIdLabelFromTestBase(this.EditViewContext.CreateNew, this.EditViewContext.Duplicate);
             this.InitializePageTitle();
-
+            log.InfoFormat("Load Edit View with Context: {0} ", editViewContext);
 
             TestStepManager.UpdateGenericSharedSteps(this.ObservableTestSteps);
         }      
@@ -407,15 +412,18 @@ namespace TestCaseManagerCore.ViewModels
             // If you delete first step and call redo operation, the step should be inserted at the beginning
             if (selectedIndex == -2)
             {
+                log.InfoFormat("Insert test step ActionTitle= {0}, ActionExpectedResult= {1}, index= {2}", testStepToInsert.ActionTitle, testStepToInsert.ActionExpectedResult, 0);
                 this.ObservableTestSteps.Insert(0, testStepToInsert);
             }
             else if (selectedIndex != -1)
             {
                 this.ObservableTestSteps.Insert(selectedIndex + 1, testStepToInsert);
+                log.InfoFormat("Insert test step ActionTitle= {0}, ActionExpectedResult= {1}, index= {2}", testStepToInsert.ActionTitle, testStepToInsert.ActionExpectedResult, selectedIndex + 1);
             }
             else
             {
-                this.ObservableTestSteps.Add(testStepToInsert);                 
+                this.ObservableTestSteps.Add(testStepToInsert);
+                log.InfoFormat("Insert test step ActionTitle= {0}, ActionExpectedResult= {1}, end of test case", testStepToInsert.ActionTitle, testStepToInsert.ActionExpectedResult);
             }
             UndoRedoManager.Instance().Push((r, i) => this.RemoveTestStepFromObservableCollection(r, i), testStepToInsert, selectedIndex);
             TestStepManager.UpdateGenericSharedSteps(this.ObservableTestSteps);
@@ -481,6 +489,7 @@ namespace TestCaseManagerCore.ViewModels
         public void RemoveTestStepFromObservableCollection(TestStep testStepToBeRemoved, int selectedIndex)
         {
             this.ObservableTestSteps.Remove(testStepToBeRemoved);
+            log.InfoFormat("Remove test step ActionTitle = {0}, ExpectedResult= {1}", testStepToBeRemoved.ActionTitle, testStepToBeRemoved.ActionExpectedResult);
             UndoRedoManager.Instance().Push((r, i) => this.InsertTestStepInTestCase(r, i), testStepToBeRemoved, selectedIndex, "remove Test Step");
             TestStepManager.UpdateGenericSharedSteps(this.ObservableTestSteps);
         }
@@ -565,7 +574,7 @@ namespace TestCaseManagerCore.ViewModels
         public int InsertSharedStep(SharedStep currentSharedStep, int selectedIndex)
         {
             List<TestStep> innerTestSteps = TestStepManager.GetAllTestStepsInSharedStep(currentSharedStep.ISharedStep);
-          
+            log.InfoFormat("Insert Shared Step Title= {0}, SelectedIndex= {1}", currentSharedStep.Title, selectedIndex);
             int j = 0;
             int finalInsertedStepIndex = 0;
             for (int i = selectedIndex; i < innerTestSteps.Count + selectedIndex; i++)
@@ -671,6 +680,7 @@ namespace TestCaseManagerCore.ViewModels
         {
             List<string> areas = new List<string>();
             ICommonStructureService css = (ICommonStructureService)ExecutionContext.TfsTeamProjectCollection.GetService(typeof(ICommonStructureService));
+            log.InfoFormat("Get All Areas for Project= {0}", ExecutionContext.Preferences.TestProjectName);
             ProjectInfo projectInfo = css.GetProjectFromName(ExecutionContext.Preferences.TestProjectName);
             NodeInfo[] nodes = css.ListStructures(projectInfo.Uri);
             foreach (NodeInfo currentNode in nodes)

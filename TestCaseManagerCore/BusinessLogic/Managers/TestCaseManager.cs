@@ -18,6 +18,11 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
     public static class TestCaseManager
     {
         /// <summary>
+        /// The log
+        /// </summary>
+        private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
+        /// <summary>
         /// Gets all test cases from all test suites.d
         /// </summary>
         /// <param name="suiteEntries">The test suite collection.</param>
@@ -118,12 +123,13 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
         {
             try
             {
+                log.InfoFormat("Associate test case with title= {0}, id= {1} to test: {2}, test type= {3}", testCase.Title, testCase.Id, testForAssociation, testType);
                 ITmiTestImplementation imp = ExecutionContext.TestManagementTeamProject.CreateTmiTestImplementation(testForAssociation.FullName, testType, testForAssociation.ClassName, testForAssociation.MethodId);
                 testCase.Implementation = imp;
             }
-            catch (NullReferenceException)
+            catch (NullReferenceException ex)
             {
-                // TODO: add exception handling
+                log.Error(ex);
             }
         }
 

@@ -22,6 +22,11 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
     public static class TestStepManager
     {
         /// <summary>
+        /// The log
+        /// </summary>
+        private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
+        /// <summary>
         /// Gets the test steps from test actions.
         /// </summary>
         /// <param name="testActions">The test actions.</param>
@@ -202,6 +207,7 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
         /// <returns>the shared step core object</returns>
         public static ISharedStep CreateNewSharedStep(this TestCase testCase, string sharedStepTitle, List<TestStep> selectedTestSteps)
         {
+            log.InfoFormat("Create New Shared Step with Title= {0}", sharedStepTitle);
             ISharedStep sharedStepCore = ExecutionContext.TestManagementTeamProject.SharedSteps.Create();
             sharedStepCore.Title = sharedStepTitle;
 
@@ -372,6 +378,7 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
         public static void EditTestStepActionTitle(TestStep currentTestStep, string newActionTitle)
         {
             UndoRedoManager.Instance().Push((step, t) => EditTestStepActionTitle(currentTestStep, t), currentTestStep, currentTestStep.OriginalActionTitle, "Change the test step action title");
+            log.InfoFormat("Change ActionTitle from {0} to {1}", currentTestStep.ActionTitle, newActionTitle);
             currentTestStep.ActionTitle = newActionTitle;
             currentTestStep.OriginalActionTitle = newActionTitle;             
         }
@@ -384,6 +391,7 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
         public static void EditTestStepActionExpectedResult(TestStep currentTestStep, string newActionExpectedResult)
         {
             UndoRedoManager.Instance().Push((step, t) => EditTestStepActionExpectedResult(currentTestStep, t), currentTestStep, currentTestStep.OriginalActionExpectedResult, "Change the test step expected result");
+            log.InfoFormat("Change ActionTitle from {0} to {1}", currentTestStep.ActionExpectedResult, newActionExpectedResult);
             currentTestStep.ActionExpectedResult = newActionExpectedResult;
             currentTestStep.OriginalActionExpectedResult = newActionExpectedResult;
              

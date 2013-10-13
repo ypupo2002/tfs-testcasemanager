@@ -17,6 +17,11 @@ namespace TestCaseManagerCore.ViewModels
     public class SettingsViewModel : NotifyPropertyChanged
     {
         /// <summary>
+        /// The log
+        /// </summary>
+        private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
+        /// <summary>
         /// The selected accent color
         /// </summary>
         private Color selectedAccentColor;
@@ -112,6 +117,7 @@ namespace TestCaseManagerCore.ViewModels
                 if (this.hoverBehaviorDropDown != value)
                 {
                     this.hoverBehaviorDropDown = value;
+                    log.InfoFormat("Change HoverBehaviorDropDownto: {0}", this.hoverBehaviorDropDown);
                     RegistryManager.WriteDropDownBehavior(value);
                     this.OnPropertyChanged("HoverBehaviorDropDown");
                 }
@@ -165,8 +171,9 @@ namespace TestCaseManagerCore.ViewModels
                 {
                     this.selectedTheme = value;
                     this.OnPropertyChanged("SelectedTheme");
+                    log.InfoFormat("Change Selected Theme to: {0}", this.selectedTheme);
                     RegistryManager.WriteCurrentTheme(value.DisplayName);
-
+                    
                     // and update the actual theme
                     AppearanceManager.Current.ThemeSource = value.Source;
                 }
@@ -192,6 +199,7 @@ namespace TestCaseManagerCore.ViewModels
                 {
                     this.selectedAccentColor = value;
                     this.OnPropertyChanged("SelectedAccentColor");
+                    log.InfoFormat("Change Selected Color to: {0}", this.selectedAccentColor);
                     RegistryManager.WriteCurrentColors(value.R, value.G, value.B);
                     AppearanceManager.Current.AccentColor = value;
                 }

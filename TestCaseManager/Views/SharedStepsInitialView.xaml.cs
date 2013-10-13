@@ -50,6 +50,11 @@ namespace TestCaseManagerApp.Views
         private static bool isInitialized;
 
         /// <summary>
+        /// The log
+        /// </summary>
+        private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="TestCasesInitialView"/> class.
         /// </summary>
         public SharedStepsInitialView()
@@ -199,6 +204,7 @@ namespace TestCaseManagerApp.Views
             this.ValidateSharedStepsSelection(() =>
             {
                 SharedStep currentSharedStep = dgSharedSteps.SelectedItem as SharedStep;
+                log.InfoFormat("Edit Shared Step with id: {0} ", currentSharedStep.ISharedStep.Id);
                 this.NavigateToTestCasesEditView(true, currentSharedStep.ISharedStep.Id);
             });
         }
@@ -213,6 +219,7 @@ namespace TestCaseManagerApp.Views
             this.ValidateSharedStepsSelection(() =>
             {
                 SharedStep currentSharedStep = dgSharedSteps.SelectedItem as SharedStep;
+                log.InfoFormat("Duplicate Shared Step with id: {0} ", currentSharedStep.ISharedStep.Id);
                 this.NavigateToTestCasesEditView(true, currentSharedStep.ISharedStep.Id, true, true);
             });
         }
@@ -224,6 +231,7 @@ namespace TestCaseManagerApp.Views
         /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void btnNew_Click(object sender, RoutedEventArgs e)
         {
+            log.Info("Navigate to Create New Shared Step");
             this.NavigateToTestCasesEditView(true, true, false);
         }
 
@@ -355,8 +363,7 @@ namespace TestCaseManagerApp.Views
         /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void tbTestCaseTitleFilter_GotFocus(object sender, RoutedEventArgs e)
         {
-            tbTestCaseTitleFilter.ClearDefaultContent(ref SharedStepsInitialViewModel.InitialViewFiltersTestCases.IsTitleTextSet);
-           
+            tbTestCaseTitleFilter.ClearDefaultContent(ref SharedStepsInitialViewModel.InitialViewFiltersTestCases.IsTitleTextSet);           
         }
 
         /// <summary>
@@ -423,6 +430,7 @@ namespace TestCaseManagerApp.Views
             if (dgSharedSteps.SelectedItem != null)
             {
                 SharedStep currentSharedStep = dgSharedSteps.SelectedItem as SharedStep;
+                log.InfoFormat("Edit Shared Step with id: {0} ", currentSharedStep.ISharedStep.Id);
                 this.NavigateToTestCasesEditView(true, currentSharedStep.ISharedStep.Id);
             }          
         }
@@ -493,6 +501,7 @@ namespace TestCaseManagerApp.Views
             List<TestCase> filteredTestCases = new List<TestCase>();
             Task t = Task.Factory.StartNew(() =>
             {
+                log.InfoFormat("Find all reference Test Cases for Shared Step with id: {0} ", this.SharedStepsInitialViewModel.SelectedSharedStep.Id);
                 filteredTestCases = TestCaseManager.FindAllReferenceTestCasesForShareStep(this.SharedStepsInitialViewModel.SelectedSharedStep.Id);
                 this.SharedStepsInitialViewModel.InitialTestCaseCollection = filteredTestCases;
             });
@@ -521,10 +530,20 @@ namespace TestCaseManagerApp.Views
             TestCase currentTestCase = dgTestCases.SelectedItem as TestCase;
             if (currentTestCase.ITestSuiteBase != null)
             {
+                if (currentTestCase.ITestSuiteBase != null)
+                {
+                    log.InfoFormat("Edit test case with id: {0} and suite id {1}", currentTestCase.ITestCase.Id, currentTestCase.ITestSuiteBase.Id);
+                }
+                else
+                {
+                   
+                }
+               
                 this.NavigateToTestCasesEditView(currentTestCase.ITestCase.Id, currentTestCase.ITestSuiteBase.Id);
             }
             else
             {
+                 log.InfoFormat("Edit test case with id: {0}", currentTestCase.ITestCase.Id);
                 this.NavigateToTestCasesEditView(currentTestCase.ITestCase.Id, -1);
             }
         }     

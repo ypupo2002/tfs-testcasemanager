@@ -1,0 +1,155 @@
+2013-10-13 17:38:08,938 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Theme to: FirstFloor.ModernUI.Presentation.Link 
+2013-10-13 17:38:09,094 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Color to: #FF0082AD 
+2013-10-13 17:38:14,774 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Load project info loaded from registry! 
+2013-10-13 17:38:14,920 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> TFS URI: https://aangelov.visualstudio.com/defaultcollection 
+2013-10-13 17:38:14,921 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> Test Project Name: AANGELOV 
+2013-10-13 17:38:16,048 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> TfsTeamProjectCollection: aangelov.visualstudio.com\DefaultCollection 
+2013-10-13 17:38:17,142 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - SET FullTeamProjectName to https://aangelov.visualstudio.com/defaultcollection/AANGELOV 
+2013-10-13 17:38:17,159 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> SelectedTestPlan: TEST TM 2012 
+2013-10-13 17:38:29,658 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.BusinessLogic.Entities.InitialViewFilters - Change IdFilter: ID 
+2013-10-13 17:38:29,659 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.BusinessLogic.Entities.InitialViewFilters - Change TitleFilter: Title 
+2013-10-13 17:38:29,659 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.BusinessLogic.Entities.InitialViewFilters - Change SuiteFilter: Suite 
+2013-10-13 17:38:29,660 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.BusinessLogic.Entities.InitialViewFilters - Change PriorityFilter: Priority 
+2013-10-13 17:38:29,660 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.BusinessLogic.Entities.InitialViewFilters - Change AssignedToFilter: Assigned To 
+2013-10-13 17:38:38,882 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.BusinessLogic.Entities.InitialViewFilters - Change TitleFilter:  
+2013-10-13 17:38:43,967 [aangelov-PC\aangelov] [1] INFO TestCaseManagerApp.Views.TestCasesInitialView - Load all test cases in the test plan. 
+2013-10-13 17:38:48,433 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.BusinessLogic.Entities.InitialViewFilters - Change TitleFilter: Title 
+2013-10-13 17:38:53,423 [aangelov-PC\aangelov] [1] INFO TestCaseManagerApp.Views.TestCasesInitialView - Preview test case with id: 17 and suite id 5 
+2013-10-13 17:38:53,639 [aangelov-PC\aangelov] [1] ERROR TestCaseManagerCore.BusinessLogic.Managers.FragmentManager - System.Collections.Generic.KeyNotFoundException: The given key was not present in the dictionary.
+   at System.Collections.Generic.Dictionary`2.get_Item(TKey key)
+   at TestCaseManagerCore.BusinessLogic.Managers.FragmentManager.Get(String queryParameterName) in d:\Projects\TestCaseManager\TestCaseManagerCore\BusinessLogic\Managers\FragmentManager.cs:line 51 
+2013-10-13 17:38:53,693 [aangelov-PC\aangelov] [1] ERROR TestCaseManagerCore.BusinessLogic.Managers.FragmentManager - System.Collections.Generic.KeyNotFoundException: The given key was not present in the dictionary.
+   at System.Collections.Generic.Dictionary`2.get_Item(TKey key)
+   at TestCaseManagerCore.BusinessLogic.Managers.FragmentManager.Get(String queryParameterName) in d:\Projects\TestCaseManager\TestCaseManagerCore\BusinessLogic\Managers\FragmentManager.cs:line 51 
+2013-10-13 17:38:53,706 [aangelov-PC\aangelov] [1] ERROR TestCaseManagerCore.BusinessLogic.Managers.FragmentManager - System.Collections.Generic.KeyNotFoundException: The given key was not present in the dictionary.
+   at System.Collections.Generic.Dictionary`2.get_Item(TKey key)
+   at TestCaseManagerCore.BusinessLogic.Managers.FragmentManager.Get(String queryParameterName) in d:\Projects\TestCaseManager\TestCaseManagerCore\BusinessLogic\Managers\FragmentManager.cs:line 51 
+2013-10-13 17:38:53,719 [aangelov-PC\aangelov] [1] ERROR TestCaseManagerCore.BusinessLogic.Managers.FragmentManager - System.Collections.Generic.KeyNotFoundException: The given key was not present in the dictionary.
+   at System.Collections.Generic.Dictionary`2.get_Item(TKey key)
+   at TestCaseManagerCore.BusinessLogic.Managers.FragmentManager.Get(String queryParameterName) in d:\Projects\TestCaseManager\TestCaseManagerCore\BusinessLogic\Managers\FragmentManager.cs:line 51 
+2013-10-13 17:38:53,917 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Get All Areas for Project= AANGELOV 
+2013-10-13 17:39:03,300 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Load Edit View with Context: TestCaseId= 17, TestSuiteId= 5, CreateNew= False, Duplicate= False, IsSharedStep= False, SharedStepId= 0, ComeFromTestCase = False, CurrentEditedStepGuid= 00000000-0000-0000-0000-000000000000  
+2013-10-13 17:39:14,222 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Insert Shared Step Title= Backend.Common : Navigate Sitefinity, SelectedIndex= -1 
+2013-10-13 17:39:14,225 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Insert test step ActionTitle= Go to http://{environment}.lean.telerik.com/sitefinity, ActionExpectedResult= , end of test case 
+2013-10-13 17:39:16,237 [aangelov-PC\aangelov] [1] INFO TestCaseManagerApp.Views.TestCaseEditView - Save test case. 
+2013-10-13 17:39:16,240 [aangelov-PC\aangelov] [1] INFO TestCaseManagerApp.Views.TestCaseEditView - Test Case Saved Info: Title= Search Test Case Manager HITBG, Area= AANGELOV, Priority= Low, OwnerDisplayName= Anton Angelov 
+2013-10-13 17:39:16,241 [aangelov-PC\aangelov] [1] INFO TestCaseManagerApp.Views.TestCaseEditView - Save edited test case with id= 17. 
+2013-10-13 17:39:22,555 [aangelov-PC\aangelov] [1] INFO TestCaseManagerApp.Views.TestCaseEditView - Save entity without close. 
+2013-10-13 17:39:25,030 [aangelov-PC\aangelov] [1] INFO TestCaseManagerApp.Views.TestCaseEditView - <log4net.Error>Exception during StringFormat: Index (zero based) must be greater than or equal to zero and less than the size of the argument list. <format>Reinitialize edit mode to edit shared step with id= {1}</format><args>{162}</args></log4net.Error> 
+2013-10-13 17:39:25,030 [aangelov-PC\aangelov] [9] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Get All Areas for Project= AANGELOV 
+2013-10-13 17:39:25,793 [aangelov-PC\aangelov] [9] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Load Edit View with Context: TestCaseId= 17, TestSuiteId= 5, CreateNew= False, Duplicate= False, IsSharedStep= True, SharedStepId= 162, ComeFromTestCase = True, CurrentEditedStepGuid= 00000000-0000-0000-0000-000000000000  
+2013-10-13 17:39:30,294 [aangelov-PC\aangelov] [1] INFO TestCaseManagerApp.Views.TestCaseEditView - Save shared step. 
+2013-10-13 17:39:30,296 [aangelov-PC\aangelov] [1] INFO TestCaseManagerApp.Views.TestCaseEditView - Shared Step Saved Info: Title= Backend.Common : Navigate Sitefinity, Area= AANGELOV, Priority= High, OwnerDisplayName= Valentin 
+2013-10-13 17:39:30,296 [aangelov-PC\aangelov] [1] INFO TestCaseManagerApp.Views.TestCaseEditView - Save edited shared step with id= 162. 
+2013-10-13 17:39:31,179 [aangelov-PC\aangelov] [1] INFO TestCaseManagerApp.Views.TestCaseEditView - Navigate back to test case edit mode. 
+2013-10-13 17:39:31,188 [aangelov-PC\aangelov] [9] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Get All Areas for Project= AANGELOV 
+2013-10-13 17:39:39,374 [aangelov-PC\aangelov] [9] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Load Edit View with Context: TestCaseId= 17, TestSuiteId= 5, CreateNew= False, Duplicate= False, IsSharedStep= False, SharedStepId= 162, ComeFromTestCase = False, CurrentEditedStepGuid= 00000000-0000-0000-0000-000000000000  
+2013-10-13 17:39:41,041 [aangelov-PC\aangelov] [9] INFO TestCaseManagerCore.BusinessLogic.Entities.InitialViewFilters - Change IdFilter: ID 
+2013-10-13 17:39:41,041 [aangelov-PC\aangelov] [9] INFO TestCaseManagerCore.BusinessLogic.Entities.InitialViewFilters - Change TitleFilter: Title 
+2013-10-13 17:39:41,041 [aangelov-PC\aangelov] [9] INFO TestCaseManagerCore.BusinessLogic.Entities.InitialViewFilters - Change SuiteFilter: Suite 
+2013-10-13 17:39:41,041 [aangelov-PC\aangelov] [9] INFO TestCaseManagerCore.BusinessLogic.Entities.InitialViewFilters - Change PriorityFilter: Priority 
+2013-10-13 17:39:41,041 [aangelov-PC\aangelov] [9] INFO TestCaseManagerCore.BusinessLogic.Entities.InitialViewFilters - Change AssignedToFilter: Assigned To 
+2013-10-13 17:39:47,969 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.BusinessLogic.Entities.InitialViewFilters - Change TitleFilter:  
+2013-10-13 17:39:51,653 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.BusinessLogic.Entities.InitialViewFilters - Change TitleFilter: Title 
+2013-10-13 17:39:55,788 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.BusinessLogic.Entities.InitialViewFilters - Change TitleFilter:  
+2013-10-13 17:39:58,503 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.BusinessLogic.Entities.InitialViewFilters - Change TitleFilter: Search Test Case Manager HITBG 
+2013-10-13 17:40:09,433 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.BusinessLogic.Entities.InitialViewFilters - Change TitleFilter:  
+2013-10-13 17:40:10,436 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.BusinessLogic.Entities.InitialViewFilters - Change TitleFilter: Search Test Case Manager HITBG 
+2013-10-13 17:40:11,116 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.BusinessLogic.Entities.InitialViewFilters - Change TitleFilter: Search Test Case Manager HITB 
+2013-10-13 17:40:11,431 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.BusinessLogic.Entities.InitialViewFilters - Change TitleFilter: Search Test Case Manager HIT 
+2013-10-13 17:40:11,929 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.BusinessLogic.Entities.InitialViewFilters - Change TitleFilter: Search Test Case Manager HI 
+2013-10-13 17:40:11,962 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.BusinessLogic.Entities.InitialViewFilters - Change TitleFilter: Search Test Case Manager H 
+2013-10-13 17:40:11,995 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.BusinessLogic.Entities.InitialViewFilters - Change TitleFilter: Search Test Case Manager  
+2013-10-13 17:40:12,028 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.BusinessLogic.Entities.InitialViewFilters - Change TitleFilter: Search Test Case Manager 
+2013-10-13 17:40:12,062 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.BusinessLogic.Entities.InitialViewFilters - Change TitleFilter: Search Test Case Manage 
+2013-10-13 17:40:12,094 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.BusinessLogic.Entities.InitialViewFilters - Change TitleFilter: Search Test Case Manag 
+2013-10-13 17:40:12,128 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.BusinessLogic.Entities.InitialViewFilters - Change TitleFilter: Search Test Case Mana 
+2013-10-13 17:40:12,161 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.BusinessLogic.Entities.InitialViewFilters - Change TitleFilter: Search Test Case Man 
+2013-10-13 17:40:12,193 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.BusinessLogic.Entities.InitialViewFilters - Change TitleFilter: Search Test Case Ma 
+2013-10-13 17:40:12,226 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.BusinessLogic.Entities.InitialViewFilters - Change TitleFilter: Search Test Case M 
+2013-10-13 17:40:12,259 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.BusinessLogic.Entities.InitialViewFilters - Change TitleFilter: Search Test Case  
+2013-10-13 17:40:12,292 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.BusinessLogic.Entities.InitialViewFilters - Change TitleFilter: Search Test Case 
+2013-10-13 17:40:12,325 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.BusinessLogic.Entities.InitialViewFilters - Change TitleFilter: Search Test Cas 
+2013-10-13 17:40:12,358 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.BusinessLogic.Entities.InitialViewFilters - Change TitleFilter: Search Test Ca 
+2013-10-13 17:40:12,391 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.BusinessLogic.Entities.InitialViewFilters - Change TitleFilter: Search Test C 
+2013-10-13 17:40:12,424 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.BusinessLogic.Entities.InitialViewFilters - Change TitleFilter: Search Test  
+2013-10-13 17:40:12,459 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.BusinessLogic.Entities.InitialViewFilters - Change TitleFilter: Search Test 
+2013-10-13 17:40:12,490 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.BusinessLogic.Entities.InitialViewFilters - Change TitleFilter: Search Tes 
+2013-10-13 17:40:12,523 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.BusinessLogic.Entities.InitialViewFilters - Change TitleFilter: Search Te 
+2013-10-13 17:40:12,556 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.BusinessLogic.Entities.InitialViewFilters - Change TitleFilter: Search T 
+2013-10-13 17:40:12,589 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.BusinessLogic.Entities.InitialViewFilters - Change TitleFilter: Search  
+2013-10-13 17:40:12,623 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.BusinessLogic.Entities.InitialViewFilters - Change TitleFilter: Search 
+2013-10-13 17:40:12,655 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.BusinessLogic.Entities.InitialViewFilters - Change TitleFilter: Searc 
+2013-10-13 17:40:12,688 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.BusinessLogic.Entities.InitialViewFilters - Change TitleFilter: Sear 
+2013-10-13 17:40:12,721 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.BusinessLogic.Entities.InitialViewFilters - Change TitleFilter: Sea 
+2013-10-13 17:40:12,754 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.BusinessLogic.Entities.InitialViewFilters - Change TitleFilter: Se 
+2013-10-13 17:40:12,788 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.BusinessLogic.Entities.InitialViewFilters - Change TitleFilter: S 
+2013-10-13 17:40:12,820 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.BusinessLogic.Entities.InitialViewFilters - Change TitleFilter:  
+2013-10-13 17:40:18,049 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.BusinessLogic.Entities.InitialViewFilters - Change TitleFilter: Search Test Case Manager HITBG 
+2013-10-13 17:40:48,196 [aangelov-PC\aangelov] [9] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Find and Replace in test case with Title= Search Test Case Manager HITBG id= 17 
+2013-10-13 17:40:48,876 [aangelov-PC\aangelov] [9] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Change Priority from 4 to 3 
+2013-10-13 17:40:48,879 [aangelov-PC\aangelov] [9] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Remove shared step with title= Backend.Common : Navigate Sitefinity, id 162 
+2013-10-13 17:40:49,314 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.BusinessLogic.Entities.InitialViewFilters - Change IdFilter: ID 
+2013-10-13 17:40:49,315 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.BusinessLogic.Entities.InitialViewFilters - Change TitleFilter: Title 
+2013-10-13 17:40:49,315 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.BusinessLogic.Entities.InitialViewFilters - Change SuiteFilter: Suite 
+2013-10-13 17:40:49,315 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.BusinessLogic.Entities.InitialViewFilters - Change PriorityFilter: Priority 
+2013-10-13 17:40:49,315 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.BusinessLogic.Entities.InitialViewFilters - Change AssignedToFilter: Assigned To 
+2013-10-13 17:41:03,199 [aangelov-PC\aangelov] [9] INFO TestCaseManagerCore.BusinessLogic.Entities.InitialViewFilters - Change IdFilter: ID 
+2013-10-13 17:41:03,200 [aangelov-PC\aangelov] [9] INFO TestCaseManagerCore.BusinessLogic.Entities.InitialViewFilters - Change TitleFilter: Title 
+2013-10-13 17:41:03,200 [aangelov-PC\aangelov] [9] INFO TestCaseManagerCore.BusinessLogic.Entities.InitialViewFilters - Change SuiteFilter: Suite 
+2013-10-13 17:41:03,200 [aangelov-PC\aangelov] [9] INFO TestCaseManagerCore.BusinessLogic.Entities.InitialViewFilters - Change PriorityFilter: Priority 
+2013-10-13 17:41:03,200 [aangelov-PC\aangelov] [9] INFO TestCaseManagerCore.BusinessLogic.Entities.InitialViewFilters - Change AssignedToFilter: Assigned To 
+2013-10-13 17:41:08,725 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.BusinessLogic.Entities.InitialViewFilters - Change TitleFilter:  
+2013-10-13 17:41:13,392 [aangelov-PC\aangelov] [1] INFO TestCaseManagerApp.Views.TestCasesInitialView - Load all test cases in the test plan. 
+2013-10-13 17:41:14,740 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.BusinessLogic.Entities.InitialViewFilters - Change TitleFilter: Title 
+2013-10-13 17:41:14,741 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.BusinessLogic.Entities.InitialViewFilters - Change IdFilter: ID 
+2013-10-13 17:41:14,741 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.BusinessLogic.Entities.InitialViewFilters - Change TitleFilter: Title 
+2013-10-13 17:41:14,742 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.BusinessLogic.Entities.InitialViewFilters - Change SuiteFilter: Suite 
+2013-10-13 17:41:14,742 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.BusinessLogic.Entities.InitialViewFilters - Change PriorityFilter: Priority 
+2013-10-13 17:41:14,742 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.BusinessLogic.Entities.InitialViewFilters - Change AssignedToFilter: Assigned To 
+2013-10-13 17:41:15,891 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCasesInitialView - Load all test cases in the suite with id = 5 
+2013-10-13 17:41:20,172 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.BusinessLogic.Entities.InitialViewFilters - Change TitleFilter:  
+2013-10-13 17:41:22,831 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.BusinessLogic.Entities.InitialViewFilters - Change TitleFilter: H 
+2013-10-13 17:41:23,040 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.BusinessLogic.Entities.InitialViewFilters - Change TitleFilter: HI 
+2013-10-13 17:41:30,758 [aangelov-PC\aangelov] [1] INFO TestCaseManagerApp.Views.TestCasesInitialView - Preview test case with id: 17 and suite id 5 
+2013-10-13 17:41:30,820 [aangelov-PC\aangelov] [1] ERROR TestCaseManagerCore.BusinessLogic.Managers.FragmentManager - System.Collections.Generic.KeyNotFoundException: The given key was not present in the dictionary.
+   at System.Collections.Generic.Dictionary`2.get_Item(TKey key)
+   at TestCaseManagerCore.BusinessLogic.Managers.FragmentManager.Get(String queryParameterName) in d:\Projects\TestCaseManager\TestCaseManagerCore\BusinessLogic\Managers\FragmentManager.cs:line 51 
+2013-10-13 17:41:30,840 [aangelov-PC\aangelov] [1] ERROR TestCaseManagerCore.BusinessLogic.Managers.FragmentManager - System.Collections.Generic.KeyNotFoundException: The given key was not present in the dictionary.
+   at System.Collections.Generic.Dictionary`2.get_Item(TKey key)
+   at TestCaseManagerCore.BusinessLogic.Managers.FragmentManager.Get(String queryParameterName) in d:\Projects\TestCaseManager\TestCaseManagerCore\BusinessLogic\Managers\FragmentManager.cs:line 51 
+2013-10-13 17:41:30,861 [aangelov-PC\aangelov] [1] ERROR TestCaseManagerCore.BusinessLogic.Managers.FragmentManager - System.Collections.Generic.KeyNotFoundException: The given key was not present in the dictionary.
+   at System.Collections.Generic.Dictionary`2.get_Item(TKey key)
+   at TestCaseManagerCore.BusinessLogic.Managers.FragmentManager.Get(String queryParameterName) in d:\Projects\TestCaseManager\TestCaseManagerCore\BusinessLogic\Managers\FragmentManager.cs:line 51 
+2013-10-13 17:41:30,882 [aangelov-PC\aangelov] [1] ERROR TestCaseManagerCore.BusinessLogic.Managers.FragmentManager - System.Collections.Generic.KeyNotFoundException: The given key was not present in the dictionary.
+   at System.Collections.Generic.Dictionary`2.get_Item(TKey key)
+   at TestCaseManagerCore.BusinessLogic.Managers.FragmentManager.Get(String queryParameterName) in d:\Projects\TestCaseManager\TestCaseManagerCore\BusinessLogic\Managers\FragmentManager.cs:line 51 
+2013-10-13 17:41:30,946 [aangelov-PC\aangelov] [9] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Get All Areas for Project= AANGELOV 
+2013-10-13 17:41:38,062 [aangelov-PC\aangelov] [9] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Load Edit View with Context: TestCaseId= 17, TestSuiteId= 5, CreateNew= False, Duplicate= False, IsSharedStep= False, SharedStepId= 0, ComeFromTestCase = False, CurrentEditedStepGuid= 00000000-0000-0000-0000-000000000000  
+2013-10-13 17:41:42,766 [aangelov-PC\aangelov] [9] INFO TestCaseManagerCore.BusinessLogic.Entities.InitialViewFilters - Change IdFilter: ID 
+2013-10-13 17:41:42,766 [aangelov-PC\aangelov] [9] INFO TestCaseManagerCore.BusinessLogic.Entities.InitialViewFilters - Change TitleFilter: Title 
+2013-10-13 17:41:42,767 [aangelov-PC\aangelov] [9] INFO TestCaseManagerCore.BusinessLogic.Entities.InitialViewFilters - Change SuiteFilter: Suite 
+2013-10-13 17:41:42,767 [aangelov-PC\aangelov] [9] INFO TestCaseManagerCore.BusinessLogic.Entities.InitialViewFilters - Change PriorityFilter: Priority 
+2013-10-13 17:41:42,767 [aangelov-PC\aangelov] [9] INFO TestCaseManagerCore.BusinessLogic.Entities.InitialViewFilters - Change AssignedToFilter: Assigned To 
+2013-10-13 17:41:46,502 [aangelov-PC\aangelov] [5] INFO TestCaseManagerApp.Views.TestCasesInitialView - Load all test cases in the suite with id = 5 
+2013-10-13 17:41:49,891 [aangelov-PC\aangelov] [1] INFO TestCaseManagerApp.Views.TestCasesInitialView - Preview test case with id: 18 and suite id 5 
+2013-10-13 17:41:49,952 [aangelov-PC\aangelov] [1] ERROR TestCaseManagerCore.BusinessLogic.Managers.FragmentManager - System.Collections.Generic.KeyNotFoundException: The given key was not present in the dictionary.
+   at System.Collections.Generic.Dictionary`2.get_Item(TKey key)
+   at TestCaseManagerCore.BusinessLogic.Managers.FragmentManager.Get(String queryParameterName) in d:\Projects\TestCaseManager\TestCaseManagerCore\BusinessLogic\Managers\FragmentManager.cs:line 51 
+2013-10-13 17:41:49,973 [aangelov-PC\aangelov] [1] ERROR TestCaseManagerCore.BusinessLogic.Managers.FragmentManager - System.Collections.Generic.KeyNotFoundException: The given key was not present in the dictionary.
+   at System.Collections.Generic.Dictionary`2.get_Item(TKey key)
+   at TestCaseManagerCore.BusinessLogic.Managers.FragmentManager.Get(String queryParameterName) in d:\Projects\TestCaseManager\TestCaseManagerCore\BusinessLogic\Managers\FragmentManager.cs:line 51 
+2013-10-13 17:41:49,994 [aangelov-PC\aangelov] [1] ERROR TestCaseManagerCore.BusinessLogic.Managers.FragmentManager - System.Collections.Generic.KeyNotFoundException: The given key was not present in the dictionary.
+   at System.Collections.Generic.Dictionary`2.get_Item(TKey key)
+   at TestCaseManagerCore.BusinessLogic.Managers.FragmentManager.Get(String queryParameterName) in d:\Projects\TestCaseManager\TestCaseManagerCore\BusinessLogic\Managers\FragmentManager.cs:line 51 
+2013-10-13 17:41:50,014 [aangelov-PC\aangelov] [1] ERROR TestCaseManagerCore.BusinessLogic.Managers.FragmentManager - System.Collections.Generic.KeyNotFoundException: The given key was not present in the dictionary.
+   at System.Collections.Generic.Dictionary`2.get_Item(TKey key)
+   at TestCaseManagerCore.BusinessLogic.Managers.FragmentManager.Get(String queryParameterName) in d:\Projects\TestCaseManager\TestCaseManagerCore\BusinessLogic\Managers\FragmentManager.cs:line 51 
+2013-10-13 17:41:50,078 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Get All Areas for Project= AANGELOV 
+2013-10-13 17:41:57,254 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Load Edit View with Context: TestCaseId= 18, TestSuiteId= 5, CreateNew= False, Duplicate= False, IsSharedStep= False, SharedStepId= 0, ComeFromTestCase = False, CurrentEditedStepGuid= 00000000-0000-0000-0000-000000000000  
+2013-10-13 17:42:06,916 [aangelov-PC\aangelov] [9] INFO TestCaseManagerCore.BusinessLogic.Entities.InitialViewFilters - Change IdFilter: ID 
+2013-10-13 17:42:06,916 [aangelov-PC\aangelov] [9] INFO TestCaseManagerCore.BusinessLogic.Entities.InitialViewFilters - Change TitleFilter: Title 
+2013-10-13 17:42:06,916 [aangelov-PC\aangelov] [9] INFO TestCaseManagerCore.BusinessLogic.Entities.InitialViewFilters - Change SuiteFilter: Suite 
+2013-10-13 17:42:06,917 [aangelov-PC\aangelov] [9] INFO TestCaseManagerCore.BusinessLogic.Entities.InitialViewFilters - Change PriorityFilter: Priority 
+2013-10-13 17:42:06,917 [aangelov-PC\aangelov] [9] INFO TestCaseManagerCore.BusinessLogic.Entities.InitialViewFilters - Change AssignedToFilter: Assigned To 
+2013-10-13 17:42:10,635 [aangelov-PC\aangelov] [6] INFO TestCaseManagerApp.Views.TestCasesInitialView - Load all test cases in the suite with id = 5 

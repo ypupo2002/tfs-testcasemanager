@@ -25,4 +25,5 @@ D:\Projects\TestCaseManager\TestCaseManagerCore\bin\Release\FirstFloor.ModernUI.
 D:\Projects\TestCaseManager\TestCaseManagerCore\bin\Release\Microsoft.WITDataStore.dll
 D:\Projects\TestCaseManager\TestCaseManagerCore\obj\Release\TestCaseManagerCore.dll
 D:\Projects\TestCaseManager\TestCaseManagerCore\obj\Release\TestCaseManagerCore.pdb
-D:\Projects\TestCaseManager\TestCaseManagerCore\obj\Release\TestCaseManagerCore.csprojResolveAssemblyReference.cache
+D:\Projects\TestCaseManager\TestCaseManagerCore\bin\Release\log4net.dll
+D:\Projects\TestCaseManager\TestCaseManagerCore\bin\Release\log4net.xml

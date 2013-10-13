@@ -51,5 +51,16 @@ namespace TestCaseManagerCore.BusinessLogic.Entities
         /// The method unique identifier.
         /// </value>
         public Guid MethodId { get; set; }
+
+        /// <summary>
+        /// Returns a <see cref="System.String" /> that represents this instance.
+        /// </summary>
+        /// <returns>
+        /// A <see cref="System.String" /> that represents this instance.
+        /// </returns>
+        public override string ToString()
+        {
+            return String.Format("{0}, {1}, {2}", this.FullName, this.ClassName, this.MethodId);
+        }
     }
 }

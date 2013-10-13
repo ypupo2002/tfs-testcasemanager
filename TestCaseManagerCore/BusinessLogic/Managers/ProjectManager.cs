@@ -26,6 +26,11 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
         private static HashAlgorithm cryptoServiceProvider = new SHA1CryptoServiceProvider();
 
         /// <summary>
+        /// The log
+        /// </summary>
+        private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
+        /// <summary>
         /// Gets the test project test methods.
         /// </summary>
         /// <param name="assemblyFullPath">The assembly full path.</param>
@@ -40,7 +45,7 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
             }
             catch (ReflectionTypeLoadException ex)
             {
-                // TODO: Log the ReflectionTypeLoadException
+                log.Error(ex);
                 StringBuilder sb = new StringBuilder();
                 foreach (Exception subException in ex.LoaderExceptions)
                 {

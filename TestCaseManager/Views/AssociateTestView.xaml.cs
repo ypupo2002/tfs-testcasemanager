@@ -22,6 +22,11 @@ namespace TestCaseManagerApp.Views
     public partial class AssociateTestView : System.Windows.Controls.UserControl, IContent
     {
         /// <summary>
+        /// The log
+        /// </summary>
+        private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="AssociateTestView"/> class.
         /// </summary>
         public AssociateTestView()
@@ -204,12 +209,10 @@ namespace TestCaseManagerApp.Views
         {
             Test currentSelectedTest = dgTests.SelectedItem as Test;
             string testType = cbTestType.Text;
-            AssociateTestViewModel.AssociateTestCaseToTest(currentSelectedTest, testType);
+            this.AssociateTestViewModel.AssociateTestCaseToTest(currentSelectedTest, testType);
 
-            // ModernDialog.ShowMessage("Test Associated.", "Success", MessageBoxButton.OK);
+            log.InfoFormat("Navigate to Edit Test Case with id= {0}, test suite id= {1}, CreateNew= {2}, Duplicate= {3}", AssociateTestViewModel.TestCaseId, AssociateTestViewModel.TestSuiteId, AssociateTestViewModel.CreateNew, AssociateTestViewModel.Duplicate);
             this.NavigateToTestCasesEditView(AssociateTestViewModel.TestCaseId, AssociateTestViewModel.TestSuiteId, AssociateTestViewModel.CreateNew, AssociateTestViewModel.Duplicate);
-            
-            // this.NavigateToTestCasesEditViewFromAssociatedAutomation();
         }        
     }
 }

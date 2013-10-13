@@ -24,6 +24,11 @@ namespace TestCaseManagerCore.ViewModels
     public class TestCasesInitialViewModel : BaseNotifyPropertyChanged
     {
         /// <summary>
+        /// The log
+        /// </summary>
+        private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
+        /// <summary>
         /// The selected suite unique identifier
         /// </summary>
         private int selectedSuiteId;
@@ -62,8 +67,7 @@ namespace TestCaseManagerCore.ViewModels
                 }
                 catch(NullReferenceException ex)
                 {
-                    // No such suite in current test project
-                    // TODO: log the exception
+                    log.Error(ex);
                     if (subSuites.Count > 0)
                     {
                         suiteTestCaseCollection = TestCaseManager.GetAllTestCaseFromSuite(subSuites[0].Id);
@@ -268,7 +272,6 @@ namespace TestCaseManagerCore.ViewModels
             string priorityFilter = this.InitialViewFilters.PriorityFilter.ToLower();
             bool shouldSetAssignedToFilter = InitialViewFilters.IsAssignedToTextSet && !string.IsNullOrEmpty(this.InitialViewFilters.AssignedToFilter);
             string assignedToFilter = this.InitialViewFilters.AssignedToFilter.ToLower();
-
             var filteredList = this.InitialTestCaseCollection.Where(t =>
                 (t.ITestCase != null) &&
                 (shouldSetIdFilter ? (t.ITestCase.Id.ToString().Contains(idFilter)) : true) &&
@@ -443,12 +446,11 @@ namespace TestCaseManagerCore.ViewModels
             }
             catch (TestManagementValidationException ex)
             {
+                log.Error(ex);
                 if (ex.Message.Equals("This item has already been added. A test suite cannot contain a duplicate test case or test suite."))
                 {
                     ModernDialog.ShowMessage(ex.Message, "Warrning!", MessageBoxButton.OK);
                     return;
-
-                    // TODO: Log the exception
                 }
             }
             Suite suiteToBePasted = (Suite)clipboardSuite.Clone();

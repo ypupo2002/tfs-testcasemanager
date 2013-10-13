@@ -23,6 +23,11 @@ namespace TestCaseManagerCore.ViewModels
     public class AssociateTestViewModel
     {
         /// <summary>
+        /// The log
+        /// </summary>
+        private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="AssociateTestViewModel"/> class.
         /// </summary>
         /// <param name="testCaseId">The test case unique identifier.</param>
