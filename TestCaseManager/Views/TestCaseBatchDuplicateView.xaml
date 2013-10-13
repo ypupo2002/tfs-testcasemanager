@@ -200,9 +200,9 @@
             </StackPanel>
            
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Grid.Row="6" Grid.Column="2">
-                <TextBlock Text="Selected Test Cases Count:" Margin="0,20,10,0" Height="25" Width="Auto" FontWeight="Bold"/>
+                <TextBlock Text="Selected Count:" Margin="0,20,10,0" Height="25" Width="Auto" FontWeight="Bold"/>
                 <TextBlock Name="tbSelectedTestCaseCount" Text="{Binding SelectedTestCasesCount}"  Margin="10,20,30,0" Height="25" Width="Auto" />
-                <TextBlock Text="Test Cases Count:" Margin="0,20,10,0" Height="25" Width="Auto" FontWeight="Bold"/>
+                <TextBlock Text="Count:" Margin="0,20,10,0" Height="25" Width="Auto" FontWeight="Bold"/>
                 <TextBlock Name="tbTestCaseCount" Text="{Binding TestCasesCount}"  Margin="10,20,10,0" Height="25" Width="Auto" />
             </StackPanel>
         </Grid>

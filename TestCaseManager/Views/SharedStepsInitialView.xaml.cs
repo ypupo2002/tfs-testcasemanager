@@ -16,6 +16,7 @@ using TestCaseManagerCore.ViewModels;
 using TestCaseManagerCore;
 using System.Collections.Generic;
 using TestCaseManagerCore.BusinessLogic.Managers;
+using System.Text;
 
 namespace TestCaseManagerApp.Views
 {
@@ -546,6 +547,29 @@ namespace TestCaseManagerApp.Views
                  log.InfoFormat("Edit test case with id: {0}", currentTestCase.ITestCase.Id);
                 this.NavigateToTestCasesEditView(currentTestCase.ITestCase.Id, -1);
             }
-        }     
+        }
+
+        /// <summary>
+        /// Handles the Click event of the btnChangeTestCases control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
+        private void btnChangeTestCases_Click(object sender, RoutedEventArgs e)
+        {
+            if (dgTestCases.SelectedItems.Count == 0)
+            {
+                ModernDialog.ShowMessage("No test cases selected.", "Warning", MessageBoxButton.OK);
+            }
+            else
+            {
+                ExecutionContext.SelectedTestCasesForChange = new List<TestCase>();
+                foreach (TestCase currentTestCase in dgTestCases.SelectedItems)
+                {
+                    ExecutionContext.SelectedTestCasesForChange.Add(currentTestCase);
+                }
+                log.Info("Navigate to TestCaseBatchDuplicateView initialized with selected test cases.");
+                this.NavigateToTestCaseBatchDuplicateView(true, true);
+            }
+        }   
     }
 }

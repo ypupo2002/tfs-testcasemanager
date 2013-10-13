@@ -106,10 +106,18 @@ namespace TestCaseManagerApp.Views
             }
             this.ShowProgressBar();
             this.ProjectSelectionViewModel = new ProjectSelectionViewModel();
+            bool showTfsServerUnavailableException = false;
             Task t = Task.Factory.StartNew(() =>
             {
                 this.ProjectSelectionViewModel.LoadProjectSettingsFromRegistry();
-                ProjectSelectionViewModel.InitializeTestPlans(ExecutionContext.TestManagementTeamProject);
+                try
+                {
+                    ProjectSelectionViewModel.InitializeTestPlans(ExecutionContext.TestManagementTeamProject);
+                }
+                catch(Exception)
+                {
+                    showTfsServerUnavailableException = true;
+                }
             });
             t.ContinueWith(antecedent =>
             {
@@ -117,11 +125,22 @@ namespace TestCaseManagerApp.Views
                 isInitialized = true;
                 if (this.ProjectSelectionViewModel.IsInitializedFromRegistry && !this.skipAutoLoad)
                 {
-                    ExecutionContext.Preferences.TestPlan = TestPlanManager.GetTestPlanByName(ExecutionContext.TestManagementTeamProject,     this.ProjectSelectionViewModel.SelectedTestPlan);
-                    this.AddNewLinksToWindow();
+                    if (showTfsServerUnavailableException)
+                    {
+                        ModernDialog.ShowMessage("Team Foundation services are unavailable and no test plans can be populated. Please try again after few seconds.", "Warning", MessageBoxButton.OK);
+                        HideProgressBar();
+                    }
+                    else
+                    {
+                        if (this.ProjectSelectionViewModel.SelectedTestPlan != null)
+                        {
+                            ExecutionContext.Preferences.TestPlan = TestPlanManager.GetTestPlanByName(ExecutionContext.TestManagementTeamProject, this.ProjectSelectionViewModel.SelectedTestPlan);
+                        }
+                        this.AddNewLinksToWindow();
+                    }                 
                 }
                 else
-                {
+                {                   
                     HideProgressBar();
                 }
             }, TaskScheduler.FromCurrentSynchronizationContext());
@@ -176,7 +195,14 @@ namespace TestCaseManagerApp.Views
                 return;
             }
             RegistryManager.WriteCurrentTestPlan(this.ProjectSelectionViewModel.SelectedTestPlan);
-            ExecutionContext.Preferences.TestPlan = TestPlanManager.GetTestPlanByName(ExecutionContext.TestManagementTeamProject, this.ProjectSelectionViewModel.SelectedTestPlan);
+            try
+            {
+                ExecutionContext.Preferences.TestPlan = TestPlanManager.GetTestPlanByName(ExecutionContext.TestManagementTeamProject, this.ProjectSelectionViewModel.SelectedTestPlan);
+            }
+            catch (Exception)
+            {
+                ModernDialog.ShowMessage("Team Foundation services are unavailable and no test plans can be populated. Please try again after few seconds.", "Warning", MessageBoxButton.OK);
+            }
             this.AddNewLinksToWindow();
         }
 

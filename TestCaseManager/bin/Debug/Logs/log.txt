@@ -439,3 +439,440 @@ Technical information (for administrator):
 2013-10-13 19:00:45,821 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Load Edit View with Context: TestCaseId= 14, TestSuiteId= 5, CreateNew= False, Duplicate= False, IsSharedStep= False, SharedStepId= 0, ComeFromTestCase = False, CurrentEditedStepGuid= 00000000-0000-0000-0000-000000000000  
 2013-10-13 19:01:48,132 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Get All Areas for Project= AANGELOV 
 2013-10-13 19:01:56,379 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Load Edit View with Context: TestCaseId= 14, TestSuiteId= 5, CreateNew= False, Duplicate= False, IsSharedStep= False, SharedStepId= 0, ComeFromTestCase = False, CurrentEditedStepGuid= 00000000-0000-0000-0000-000000000000  
+2013-10-13 19:33:00,727 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Theme to: FirstFloor.ModernUI.Presentation.Link 
+2013-10-13 19:33:00,929 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Color to: #FF0082AD 
+2013-10-13 19:33:05,898 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Load project info loaded from registry! 
+2013-10-13 19:33:05,952 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> TFS URI: https://aangelov.visualstudio.com/defaultcollection 
+2013-10-13 19:33:05,953 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> Test Project Name: AANGELOV 
+2013-10-13 19:33:06,783 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> TfsTeamProjectCollection: aangelov.visualstudio.com\DefaultCollection 
+2013-10-13 19:33:09,374 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - SET FullTeamProjectName to https://aangelov.visualstudio.com/defaultcollection/AANGELOV 
+2013-10-13 19:33:09,391 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> SelectedTestPlan: TEST TM 2012 
+2013-10-13 19:33:40,833 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Theme to: FirstFloor.ModernUI.Presentation.Link 
+2013-10-13 19:33:40,873 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Color to: #FF0082AD 
+2013-10-13 19:33:41,338 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Load project info loaded from registry! 
+2013-10-13 19:33:41,423 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> TFS URI: https://aangelov.visualstudio.com/defaultcollection 
+2013-10-13 19:33:41,423 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> Test Project Name: AANGELOV 
+2013-10-13 19:33:41,527 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> TfsTeamProjectCollection: aangelov.visualstudio.com\DefaultCollection 
+2013-10-13 19:33:41,827 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - SET FullTeamProjectName to https://aangelov.visualstudio.com/defaultcollection/AANGELOV 
+2013-10-13 19:33:41,848 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> SelectedTestPlan: TEST TM 2012 
+2013-10-13 19:34:01,830 [aangelov-PC\aangelov] [6] INFO TestCaseManagerApp.Views.TestCasesInitialView - Load all test cases in the suite with id = 5 
+2013-10-13 19:34:14,917 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.SharedStepsInitialViewModel - Change SelectedSharedStep: Navigate To Google.ru 
+2013-10-13 19:34:17,452 [aangelov-PC\aangelov] [5] INFO TestCaseManagerApp.Views.SharedStepsInitialView - Find all reference Test Cases for Shared Step with id: 29  
+2013-10-13 19:48:55,474 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Theme to: FirstFloor.ModernUI.Presentation.Link 
+2013-10-13 19:48:55,517 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Color to: #FF0082AD 
+2013-10-13 19:48:55,952 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Load project info loaded from registry! 
+2013-10-13 19:48:56,045 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> TFS URI: https://aangelov.visualstudio.com/defaultcollection 
+2013-10-13 19:48:56,046 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> Test Project Name: AANGELOV 
+2013-10-13 19:48:56,090 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> TfsTeamProjectCollection: aangelov.visualstudio.com\DefaultCollection 
+2013-10-13 19:48:56,398 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - SET FullTeamProjectName to https://aangelov.visualstudio.com/defaultcollection/AANGELOV 
+2013-10-13 19:48:56,418 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> SelectedTestPlan: TEST TM 2012 
+2013-10-13 19:49:17,986 [aangelov-PC\aangelov] [5] ERROR TestCaseManagerCore.BusinessLogic.Managers.TestPlanManager - Getting all plans error. Microsoft.TeamFoundation.TeamFoundationServiceUnavailableException: TF400324: Team Foundation services are not available from server aangelov.visualstudio.com\DefaultCollection.
+Technical information (for administrator):
+  Unable to connect to the remote server ---> System.Net.WebException: Unable to connect to the remote server ---> System.Net.Sockets.SocketException: A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond 65.52.8.37:443
+   at System.Net.Sockets.Socket.DoConnect(EndPoint endPointSnapshot, SocketAddress socketAddress)
+   at System.Net.ServicePoint.ConnectSocketInternal(Boolean connectFailure, Socket s4, Socket s6, Socket& socket, IPAddress& address, ConnectSocketState state, IAsyncResult asyncResult, Exception& exception)
+   --- End of inner exception stack trace ---
+   at System.Net.HttpWebRequest.GetRequestStream(TransportContext& context)
+   at System.Net.HttpWebRequest.GetRequestStream()
+   at Microsoft.TeamFoundation.Client.Channels.TfsHttpWebRequest.SendRequestAndGetResponse(HttpWebRequest webRequest, WebException& webException)
+   --- End of inner exception stack trace ---
+   at Microsoft.TeamFoundation.Client.Channels.TfsHttpWebRequest.ReadResponse(HttpWebResponse webResponse, WebException webException)
+   at Microsoft.TeamFoundation.Client.Channels.TfsHttpWebRequest.IsAuthenticationChallenge(TfsMessage requestMessage, HttpWebResponse webResponse, WebException webException, TfsMessage& responseMessage)
+   at Microsoft.TeamFoundation.Client.Channels.TfsHttpWebRequest.SendRequest()
+   at Microsoft.TeamFoundation.Client.Channels.TfsHttpRequestChannel.Request(TfsMessage message, TimeSpan timeout)
+   at Microsoft.TeamFoundation.Client.Channels.TfsHttpClientBase.Invoke(TfsClientOperation operation, Object[] parameters, TimeSpan timeout, Object[]& outputs)
+   at Microsoft.TeamFoundation.TestManagement.Client.TestManagementWebService.QueryTestPlans(ResultsStoreQuery query)
+   at Microsoft.TeamFoundation.TestManagement.Client.TestPlanHelper.Query(String queryText)
+   at TestCaseManagerCore.BusinessLogic.Managers.TestPlanManager.GetAllTestPlans(ITestManagementTeamProject testManagementTeamProject) in d:\Projects\TestCaseManager\TestCaseManagerCore\BusinessLogic\Managers\TestPlanManager.cs:line 56
+
+2013-10-13 19:49:39,943 [aangelov-PC\aangelov] [5] ERROR TestCaseManagerCore.BusinessLogic.Managers.TestPlanManager - Getting all plans error. Microsoft.TeamFoundation.TeamFoundationServiceUnavailableException: TF400324: Team Foundation services are not available from server aangelov.visualstudio.com\DefaultCollection.
+Technical information (for administrator):
+  Unable to connect to the remote server ---> System.Net.WebException: Unable to connect to the remote server ---> System.Net.Sockets.SocketException: A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond 65.52.8.37:443
+   at System.Net.Sockets.Socket.DoConnect(EndPoint endPointSnapshot, SocketAddress socketAddress)
+   at System.Net.ServicePoint.ConnectSocketInternal(Boolean connectFailure, Socket s4, Socket s6, Socket& socket, IPAddress& address, ConnectSocketState state, IAsyncResult asyncResult, Exception& exception)
+   --- End of inner exception stack trace ---
+   at System.Net.HttpWebRequest.GetRequestStream(TransportContext& context)
+   at System.Net.HttpWebRequest.GetRequestStream()
+   at Microsoft.TeamFoundation.Client.Channels.TfsHttpWebRequest.SendRequestAndGetResponse(HttpWebRequest webRequest, WebException& webException)
+   --- End of inner exception stack trace ---
+   at Microsoft.TeamFoundation.Client.Channels.TfsHttpWebRequest.ReadResponse(HttpWebResponse webResponse, WebException webException)
+   at Microsoft.TeamFoundation.Client.Channels.TfsHttpWebRequest.IsAuthenticationChallenge(TfsMessage requestMessage, HttpWebResponse webResponse, WebException webException, TfsMessage& responseMessage)
+   at Microsoft.TeamFoundation.Client.Channels.TfsHttpWebRequest.SendRequest()
+   at Microsoft.TeamFoundation.Client.Channels.TfsHttpRequestChannel.Request(TfsMessage message, TimeSpan timeout)
+   at Microsoft.TeamFoundation.Client.Channels.TfsHttpClientBase.Invoke(TfsClientOperation operation, Object[] parameters, TimeSpan timeout, Object[]& outputs)
+   at Microsoft.TeamFoundation.TestManagement.Client.TestManagementWebService.QueryTestPlans(ResultsStoreQuery query)
+   at Microsoft.TeamFoundation.TestManagement.Client.TestPlanHelper.Query(String queryText)
+   at TestCaseManagerCore.BusinessLogic.Managers.TestPlanManager.GetAllTestPlans(ITestManagementTeamProject testManagementTeamProject) in d:\Projects\TestCaseManager\TestCaseManagerCore\BusinessLogic\Managers\TestPlanManager.cs:line 56
+
+2013-10-13 19:50:01,897 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Theme to: FirstFloor.ModernUI.Presentation.Link 
+2013-10-13 19:50:01,938 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Color to: #FF0082AD 
+2013-10-13 19:50:02,386 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Load project info loaded from registry! 
+2013-10-13 19:50:02,469 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> TFS URI: https://aangelov.visualstudio.com/defaultcollection 
+2013-10-13 19:50:02,470 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> Test Project Name: AANGELOV 
+2013-10-13 19:50:02,507 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> TfsTeamProjectCollection: aangelov.visualstudio.com\DefaultCollection 
+2013-10-13 19:50:02,850 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - SET FullTeamProjectName to https://aangelov.visualstudio.com/defaultcollection/AANGELOV 
+2013-10-13 19:50:02,869 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> SelectedTestPlan: TEST TM 2012 
+2013-10-13 19:50:14,976 [aangelov-PC\aangelov] [6] INFO TestCaseManagerApp.Views.TestCasesInitialView - Load all test cases in the suite with id = 5 
+2013-10-13 19:50:26,893 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.SharedStepsInitialViewModel - Change SelectedSharedStep: Navigate To Google.ru 
+2013-10-13 19:50:28,695 [aangelov-PC\aangelov] [8] INFO TestCaseManagerApp.Views.SharedStepsInitialView - Find all reference Test Cases for Shared Step with id: 29  
+2013-10-13 19:51:26,174 [aangelov-PC\aangelov] [8] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Find and Replace in test case with Title= Search for Test Case Manager YAHOO id= 14 
+2013-10-13 19:51:27,585 [aangelov-PC\aangelov] [8] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Change Priority from 4 to 3 
+2013-10-13 19:51:31,137 [aangelov-PC\aangelov] [8] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Find and Replace in test case with Title= Search for Kosmos in google.ru id= 47 
+2013-10-13 19:51:31,961 [aangelov-PC\aangelov] [8] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Change Priority from 4 to 3 
+2013-10-13 19:51:32,416 [aangelov-PC\aangelov] [8] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Find and Replace in test case with Title= Search for Test Case Manager Pocket id= 37 
+2013-10-13 19:51:35,226 [aangelov-PC\aangelov] [8] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Change Priority from 1 to 3 
+2013-10-13 19:51:35,698 [aangelov-PC\aangelov] [8] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Find and Replace in test case with Title= Search for Test Case Manager Borch id= 38 
+2013-10-13 19:51:38,831 [aangelov-PC\aangelov] [8] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Change Priority from 1 to 3 
+2013-10-13 19:51:39,277 [aangelov-PC\aangelov] [8] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Find and Replace in test case with Title= aaaaaaaaaaaaa id= 64 
+2013-10-13 19:51:41,031 [aangelov-PC\aangelov] [8] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Change Priority from 1 to 3 
+2013-10-13 19:51:41,455 [aangelov-PC\aangelov] [8] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Find and Replace in test case with Title= .aaaaaaaaaaaa id= 65 
+2013-10-13 19:51:42,462 [aangelov-PC\aangelov] [8] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Change Priority from 1 to 3 
+2013-10-13 19:51:42,891 [aangelov-PC\aangelov] [8] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Find and Replace in test case with Title= . id= 66 
+2013-10-13 19:51:44,112 [aangelov-PC\aangelov] [8] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Change Priority from 1 to 3 
+2013-10-13 19:51:44,569 [aangelov-PC\aangelov] [8] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Find and Replace in test case with Title= ; id= 67 
+2013-10-13 19:51:46,536 [aangelov-PC\aangelov] [8] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Change Priority from 1 to 3 
+2013-10-13 19:51:46,957 [aangelov-PC\aangelov] [8] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Find and Replace in test case with Title= poipoi id= 75 
+2013-10-13 19:51:48,601 [aangelov-PC\aangelov] [8] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Change Priority from 1 to 3 
+2013-10-13 19:51:49,045 [aangelov-PC\aangelov] [8] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Find and Replace in test case with Title= ppppp id= 78 
+2013-10-13 19:51:51,226 [aangelov-PC\aangelov] [8] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Change Priority from 1 to 3 
+2013-10-13 19:51:51,662 [aangelov-PC\aangelov] [8] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Find and Replace in test case with Title= 12w3123213 id= 104 
+2013-10-13 19:51:52,620 [aangelov-PC\aangelov] [8] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Change Priority from 1 to 3 
+2013-10-13 19:52:21,567 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Find and Replace in test case with Title= Search for Test Case Manager YAHOO id= 14 
+2013-10-13 19:52:23,021 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Change Priority from 3 to 3 
+2013-10-13 19:52:24,045 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Find and Replace in test case with Title= Search for Kosmos in google.ru id= 47 
+2013-10-13 19:52:24,899 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Change Priority from 3 to 3 
+2013-10-13 19:52:25,085 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Find and Replace in test case with Title= Search for Test Case Manager Pocket id= 37 
+2013-10-13 19:52:27,907 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Change Priority from 3 to 3 
+2013-10-13 19:52:28,352 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Find and Replace in test case with Title= Search for Test Case Manager Borch id= 38 
+2013-10-13 19:52:31,538 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Change Priority from 3 to 3 
+2013-10-13 19:52:31,723 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Find and Replace in test case with Title= aaaaaaaaaaaaa id= 64 
+2013-10-13 19:52:33,458 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Change Priority from 3 to 3 
+2013-10-13 19:52:33,641 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Find and Replace in test case with Title= .aaaaaaaaaaaa id= 65 
+2013-10-13 19:52:34,664 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Change Priority from 3 to 3 
+2013-10-13 19:52:34,861 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Find and Replace in test case with Title= . id= 66 
+2013-10-13 19:52:36,137 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Change Priority from 3 to 3 
+2013-10-13 19:52:36,345 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Find and Replace in test case with Title= ; id= 67 
+2013-10-13 19:52:38,354 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Change Priority from 3 to 3 
+2013-10-13 19:52:38,537 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Find and Replace in test case with Title= poipoi id= 75 
+2013-10-13 19:52:40,001 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Change Priority from 3 to 3 
+2013-10-13 19:52:40,180 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Find and Replace in test case with Title= ppppp id= 78 
+2013-10-13 19:52:42,351 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Change Priority from 3 to 3 
+2013-10-13 19:52:42,565 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Find and Replace in test case with Title= 12w3123213 id= 104 
+2013-10-13 19:52:43,555 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Change Priority from 3 to 3 
+2013-10-13 19:53:06,236 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.SharedStepsInitialViewModel - Change SelectedSharedStep: Navigate To Google.ru 
+2013-10-13 19:53:09,634 [aangelov-PC\aangelov] [1] INFO TestCaseManagerApp.Views.SharedStepsInitialView - Edit test case with id: 14 and suite id 5 
+2013-10-13 19:53:11,264 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Get All Areas for Project= AANGELOV 
+2013-10-13 19:53:20,183 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Load Edit View with Context: TestCaseId= 14, TestSuiteId= 5, CreateNew= False, Duplicate= False, IsSharedStep= False, SharedStepId= 0, ComeFromTestCase = False, CurrentEditedStepGuid= 00000000-0000-0000-0000-000000000000  
+2013-10-13 20:00:36,224 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Theme to: FirstFloor.ModernUI.Presentation.Link 
+2013-10-13 20:00:36,265 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Color to: #FF0082AD 
+2013-10-13 20:00:36,720 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Load project info loaded from registry! 
+2013-10-13 20:00:36,806 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> TFS URI: https://aangelov.visualstudio.com/defaultcollection 
+2013-10-13 20:00:36,808 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> Test Project Name: AANGELOV 
+2013-10-13 20:00:36,841 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> TfsTeamProjectCollection: aangelov.visualstudio.com\DefaultCollection 
+2013-10-13 20:00:37,156 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - SET FullTeamProjectName to https://aangelov.visualstudio.com/defaultcollection/AANGELOV 
+2013-10-13 20:00:37,195 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> SelectedTestPlan: TEST TM 2012 
+2013-10-13 20:00:48,887 [aangelov-PC\aangelov] [5] INFO TestCaseManagerApp.Views.TestCasesInitialView - Load all test cases in the suite with id = 5 
+2013-10-13 20:01:09,525 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Find and Replace in test case with Title= Search for Test Case Manager YAHOO id= 14 
+2013-10-13 20:01:10,965 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Change Priority from 3 to 1 
+2013-10-13 20:01:11,492 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Find and Replace in test case with Title= Search Test Case Manager HITBG id= 17 
+2013-10-13 20:01:11,492 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Change Priority from 3 to 1 
+2013-10-13 20:01:11,922 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Find and Replace in test case with Title= Search for test case manager HITBG id= 18 
+2013-10-13 20:01:11,984 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Change Priority from 4 to 1 
+2013-10-13 20:01:12,509 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Find and Replace in test case with Title= Search for test case manager HITBG Duplicated id= 19 
+2013-10-13 20:01:12,569 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Change Priority from 4 to 1 
+2013-10-13 20:01:13,287 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Find and Replace in test case with Title= Search for Test Case Manager BING id= 13 
+2013-10-13 20:01:13,417 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Change Priority from 4 to 1 
+2013-10-13 20:01:13,841 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Find and Replace in test case with Title= Search Test Case Manager HITBG id= 16 
+2013-10-13 20:01:14,072 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Change Priority from 4 to 1 
+2013-10-13 20:01:14,518 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Find and Replace in test case with Title= Search for Test Case Manager NOTEPAD id= 34 
+2013-10-13 20:01:14,518 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Change Priority from 4 to 1 
+2013-10-13 20:01:14,953 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Find and Replace in test case with Title= Search for Test Case Manager Notepad++ id= 35 
+2013-10-13 20:01:14,953 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Change Priority from 4 to 1 
+2013-10-13 20:01:15,407 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Find and Replace in test case with Title= Search for Test Case Manager TreePad Pro Version id= 36 
+2013-10-13 20:01:16,352 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Change Priority from 4 to 1 
+2013-10-13 20:01:16,815 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Find and Replace in test case with Title= Search for Test Case Manager Google id= 12 
+2013-10-13 20:01:17,750 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Change Priority from 4 to 1 
+2013-10-13 20:01:18,286 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Find and Replace in test case with Title= Search for test case manager in google.org id= 22 
+2013-10-13 20:01:19,422 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Change Priority from 4 to 1 
+2013-10-13 20:01:19,950 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Find and Replace in test case with Title= Exploritory tesing no internet id= 5 
+2013-10-13 20:01:20,302 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Change Priority from 4 to 1 
+2013-10-13 20:15:27,788 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Theme to: FirstFloor.ModernUI.Presentation.Link 
+2013-10-13 20:15:27,834 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Color to: #FF0082AD 
+2013-10-13 20:15:28,308 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Load project info loaded from registry! 
+2013-10-13 20:15:28,402 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> TFS URI: https://aangelov.visualstudio.com/defaultcollection 
+2013-10-13 20:15:28,403 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> Test Project Name: AANGELOV 
+2013-10-13 20:15:28,440 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> TfsTeamProjectCollection: aangelov.visualstudio.com\DefaultCollection 
+2013-10-13 20:15:28,746 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - SET FullTeamProjectName to https://aangelov.visualstudio.com/defaultcollection/AANGELOV 
+2013-10-13 20:15:28,765 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> SelectedTestPlan: TEST TM 2012 
+2013-10-13 20:15:50,346 [aangelov-PC\aangelov] [5] ERROR TestCaseManagerCore.BusinessLogic.Managers.TestPlanManager - Getting all plans error. Microsoft.TeamFoundation.TeamFoundationServiceUnavailableException: TF400324: Team Foundation services are not available from server aangelov.visualstudio.com\DefaultCollection.
+Technical information (for administrator):
+  Unable to connect to the remote server ---> System.Net.WebException: Unable to connect to the remote server ---> System.Net.Sockets.SocketException: A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond 65.52.8.37:443
+   at System.Net.Sockets.Socket.DoConnect(EndPoint endPointSnapshot, SocketAddress socketAddress)
+   at System.Net.ServicePoint.ConnectSocketInternal(Boolean connectFailure, Socket s4, Socket s6, Socket& socket, IPAddress& address, ConnectSocketState state, IAsyncResult asyncResult, Exception& exception)
+   --- End of inner exception stack trace ---
+   at System.Net.HttpWebRequest.GetRequestStream(TransportContext& context)
+   at System.Net.HttpWebRequest.GetRequestStream()
+   at Microsoft.TeamFoundation.Client.Channels.TfsHttpWebRequest.SendRequestAndGetResponse(HttpWebRequest webRequest, WebException& webException)
+   --- End of inner exception stack trace ---
+   at Microsoft.TeamFoundation.Client.Channels.TfsHttpWebRequest.ReadResponse(HttpWebResponse webResponse, WebException webException)
+   at Microsoft.TeamFoundation.Client.Channels.TfsHttpWebRequest.IsAuthenticationChallenge(TfsMessage requestMessage, HttpWebResponse webResponse, WebException webException, TfsMessage& responseMessage)
+   at Microsoft.TeamFoundation.Client.Channels.TfsHttpWebRequest.SendRequest()
+   at Microsoft.TeamFoundation.Client.Channels.TfsHttpRequestChannel.Request(TfsMessage message, TimeSpan timeout)
+   at Microsoft.TeamFoundation.Client.Channels.TfsHttpClientBase.Invoke(TfsClientOperation operation, Object[] parameters, TimeSpan timeout, Object[]& outputs)
+   at Microsoft.TeamFoundation.TestManagement.Client.TestManagementWebService.QueryTestPlans(ResultsStoreQuery query)
+   at Microsoft.TeamFoundation.TestManagement.Client.TestPlanHelper.Query(String queryText)
+   at TestCaseManagerCore.BusinessLogic.Managers.TestPlanManager.GetAllTestPlans(ITestManagementTeamProject testManagementTeamProject) in d:\Projects\TestCaseManager\TestCaseManagerCore\BusinessLogic\Managers\TestPlanManager.cs:line 59
+
+2013-10-13 20:16:11,615 [aangelov-PC\aangelov] [5] ERROR TestCaseManagerCore.BusinessLogic.Managers.TestPlanManager - Getting all plans error. Microsoft.TeamFoundation.TeamFoundationServiceUnavailableException: TF400324: Team Foundation services are not available from server aangelov.visualstudio.com\DefaultCollection.
+Technical information (for administrator):
+  Unable to connect to the remote server ---> System.Net.WebException: Unable to connect to the remote server ---> System.Net.Sockets.SocketException: A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond 65.52.8.37:443
+   at System.Net.Sockets.Socket.DoConnect(EndPoint endPointSnapshot, SocketAddress socketAddress)
+   at System.Net.ServicePoint.ConnectSocketInternal(Boolean connectFailure, Socket s4, Socket s6, Socket& socket, IPAddress& address, ConnectSocketState state, IAsyncResult asyncResult, Exception& exception)
+   --- End of inner exception stack trace ---
+   at System.Net.HttpWebRequest.GetRequestStream(TransportContext& context)
+   at System.Net.HttpWebRequest.GetRequestStream()
+   at Microsoft.TeamFoundation.Client.Channels.TfsHttpWebRequest.SendRequestAndGetResponse(HttpWebRequest webRequest, WebException& webException)
+   --- End of inner exception stack trace ---
+   at Microsoft.TeamFoundation.Client.Channels.TfsHttpWebRequest.ReadResponse(HttpWebResponse webResponse, WebException webException)
+   at Microsoft.TeamFoundation.Client.Channels.TfsHttpWebRequest.IsAuthenticationChallenge(TfsMessage requestMessage, HttpWebResponse webResponse, WebException webException, TfsMessage& responseMessage)
+   at Microsoft.TeamFoundation.Client.Channels.TfsHttpWebRequest.SendRequest()
+   at Microsoft.TeamFoundation.Client.Channels.TfsHttpRequestChannel.Request(TfsMessage message, TimeSpan timeout)
+   at Microsoft.TeamFoundation.Client.Channels.TfsHttpClientBase.Invoke(TfsClientOperation operation, Object[] parameters, TimeSpan timeout, Object[]& outputs)
+   at Microsoft.TeamFoundation.TestManagement.Client.TestManagementWebService.QueryTestPlans(ResultsStoreQuery query)
+   at Microsoft.TeamFoundation.TestManagement.Client.TestPlanHelper.Query(String queryText)
+   at TestCaseManagerCore.BusinessLogic.Managers.TestPlanManager.GetAllTestPlans(ITestManagementTeamProject testManagementTeamProject) in d:\Projects\TestCaseManager\TestCaseManagerCore\BusinessLogic\Managers\TestPlanManager.cs:line 59
+
+2013-10-13 20:16:32,760 [aangelov-PC\aangelov] [5] ERROR TestCaseManagerCore.BusinessLogic.Managers.TestPlanManager - Getting all plans error. Microsoft.TeamFoundation.TeamFoundationServiceUnavailableException: TF400324: Team Foundation services are not available from server aangelov.visualstudio.com\DefaultCollection.
+Technical information (for administrator):
+  Unable to connect to the remote server ---> System.Net.WebException: Unable to connect to the remote server ---> System.Net.Sockets.SocketException: A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond 65.52.8.37:443
+   at System.Net.Sockets.Socket.DoConnect(EndPoint endPointSnapshot, SocketAddress socketAddress)
+   at System.Net.ServicePoint.ConnectSocketInternal(Boolean connectFailure, Socket s4, Socket s6, Socket& socket, IPAddress& address, ConnectSocketState state, IAsyncResult asyncResult, Exception& exception)
+   --- End of inner exception stack trace ---
+   at System.Net.HttpWebRequest.GetRequestStream(TransportContext& context)
+   at System.Net.HttpWebRequest.GetRequestStream()
+   at Microsoft.TeamFoundation.Client.Channels.TfsHttpWebRequest.SendRequestAndGetResponse(HttpWebRequest webRequest, WebException& webException)
+   --- End of inner exception stack trace ---
+   at Microsoft.TeamFoundation.Client.Channels.TfsHttpWebRequest.ReadResponse(HttpWebResponse webResponse, WebException webException)
+   at Microsoft.TeamFoundation.Client.Channels.TfsHttpWebRequest.IsAuthenticationChallenge(TfsMessage requestMessage, HttpWebResponse webResponse, WebException webException, TfsMessage& responseMessage)
+   at Microsoft.TeamFoundation.Client.Channels.TfsHttpWebRequest.SendRequest()
+   at Microsoft.TeamFoundation.Client.Channels.TfsHttpRequestChannel.Request(TfsMessage message, TimeSpan timeout)
+   at Microsoft.TeamFoundation.Client.Channels.TfsHttpClientBase.Invoke(TfsClientOperation operation, Object[] parameters, TimeSpan timeout, Object[]& outputs)
+   at Microsoft.TeamFoundation.TestManagement.Client.TestManagementWebService.QueryTestPlans(ResultsStoreQuery query)
+   at Microsoft.TeamFoundation.TestManagement.Client.TestPlanHelper.Query(String queryText)
+   at TestCaseManagerCore.BusinessLogic.Managers.TestPlanManager.GetAllTestPlans(ITestManagementTeamProject testManagementTeamProject) in d:\Projects\TestCaseManager\TestCaseManagerCore\BusinessLogic\Managers\TestPlanManager.cs:line 59
+
+2013-10-13 20:16:47,806 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Theme to: FirstFloor.ModernUI.Presentation.Link 
+2013-10-13 20:16:47,846 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Color to: #FF0082AD 
+2013-10-13 20:16:48,314 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Load project info loaded from registry! 
+2013-10-13 20:16:48,398 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> TFS URI: https://aangelov.visualstudio.com/defaultcollection 
+2013-10-13 20:16:48,399 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> Test Project Name: AANGELOV 
+2013-10-13 20:16:48,457 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> TfsTeamProjectCollection: aangelov.visualstudio.com\DefaultCollection 
+2013-10-13 20:16:48,762 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - SET FullTeamProjectName to https://aangelov.visualstudio.com/defaultcollection/AANGELOV 
+2013-10-13 20:16:48,780 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> SelectedTestPlan: TEST TM 2012 
+2013-10-13 20:17:09,964 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Theme to: FirstFloor.ModernUI.Presentation.Link 
+2013-10-13 20:17:10,006 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Color to: #FF0082AD 
+2013-10-13 20:17:10,459 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Load project info loaded from registry! 
+2013-10-13 20:17:10,546 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> TFS URI: https://aangelov.visualstudio.com/defaultcollection 
+2013-10-13 20:17:10,547 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> Test Project Name: AANGELOV 
+2013-10-13 20:17:10,581 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> TfsTeamProjectCollection: aangelov.visualstudio.com\DefaultCollection 
+2013-10-13 20:17:10,860 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - SET FullTeamProjectName to https://aangelov.visualstudio.com/defaultcollection/AANGELOV 
+2013-10-13 20:17:10,895 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> SelectedTestPlan: TEST TM 2012 
+2013-10-13 20:17:36,221 [aangelov-PC\aangelov] [8] INFO TestCaseManagerApp.Views.TestCasesInitialView - Load all test cases in the suite with id = 5 
+2013-10-13 20:17:47,221 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Theme to: FirstFloor.ModernUI.Presentation.Link 
+2013-10-13 20:17:47,264 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Color to: #FF0082AD 
+2013-10-13 20:17:47,695 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Load project info loaded from registry! 
+2013-10-13 20:17:47,781 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> TFS URI: https://aangelov.visualstudio.com/defaultcollection 
+2013-10-13 20:17:47,781 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> Test Project Name: AANGELOV 
+2013-10-13 20:17:47,824 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> TfsTeamProjectCollection: aangelov.visualstudio.com\DefaultCollection 
+2013-10-13 20:17:48,168 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - SET FullTeamProjectName to https://aangelov.visualstudio.com/defaultcollection/AANGELOV 
+2013-10-13 20:17:48,184 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> SelectedTestPlan: TEST TM 2012 
+2013-10-13 20:18:11,202 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Theme to: FirstFloor.ModernUI.Presentation.Link 
+2013-10-13 20:18:11,244 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Color to: #FF0082AD 
+2013-10-13 20:18:11,682 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Load project info loaded from registry! 
+2013-10-13 20:18:11,764 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> TFS URI: https://aangelov.visualstudio.com/defaultcollection 
+2013-10-13 20:18:11,764 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> Test Project Name: AANGELOV 
+2013-10-13 20:18:11,814 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> TfsTeamProjectCollection: aangelov.visualstudio.com\DefaultCollection 
+2013-10-13 20:18:12,082 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - SET FullTeamProjectName to https://aangelov.visualstudio.com/defaultcollection/AANGELOV 
+2013-10-13 20:18:12,101 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> SelectedTestPlan: TEST TM 2012 
+2013-10-13 20:18:33,491 [aangelov-PC\aangelov] [5] ERROR TestCaseManagerCore.BusinessLogic.Managers.TestPlanManager - Getting all plans error. Microsoft.TeamFoundation.TeamFoundationServiceUnavailableException: TF400324: Team Foundation services are not available from server aangelov.visualstudio.com\DefaultCollection.
+Technical information (for administrator):
+  Unable to connect to the remote server ---> System.Net.WebException: Unable to connect to the remote server ---> System.Net.Sockets.SocketException: A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond 65.52.8.37:443
+   at System.Net.Sockets.Socket.DoConnect(EndPoint endPointSnapshot, SocketAddress socketAddress)
+   at System.Net.ServicePoint.ConnectSocketInternal(Boolean connectFailure, Socket s4, Socket s6, Socket& socket, IPAddress& address, ConnectSocketState state, IAsyncResult asyncResult, Exception& exception)
+   --- End of inner exception stack trace ---
+   at System.Net.HttpWebRequest.GetRequestStream(TransportContext& context)
+   at System.Net.HttpWebRequest.GetRequestStream()
+   at Microsoft.TeamFoundation.Client.Channels.TfsHttpWebRequest.SendRequestAndGetResponse(HttpWebRequest webRequest, WebException& webException)
+   --- End of inner exception stack trace ---
+   at Microsoft.TeamFoundation.Client.Channels.TfsHttpWebRequest.ReadResponse(HttpWebResponse webResponse, WebException webException)
+   at Microsoft.TeamFoundation.Client.Channels.TfsHttpWebRequest.IsAuthenticationChallenge(TfsMessage requestMessage, HttpWebResponse webResponse, WebException webException, TfsMessage& responseMessage)
+   at Microsoft.TeamFoundation.Client.Channels.TfsHttpWebRequest.SendRequest()
+   at Microsoft.TeamFoundation.Client.Channels.TfsHttpRequestChannel.Request(TfsMessage message, TimeSpan timeout)
+   at Microsoft.TeamFoundation.Client.Channels.TfsHttpClientBase.Invoke(TfsClientOperation operation, Object[] parameters, TimeSpan timeout, Object[]& outputs)
+   at Microsoft.TeamFoundation.TestManagement.Client.TestManagementWebService.QueryTestPlans(ResultsStoreQuery query)
+   at Microsoft.TeamFoundation.TestManagement.Client.TestPlanHelper.Query(String queryText)
+   at TestCaseManagerCore.BusinessLogic.Managers.TestPlanManager.GetAllTestPlans(ITestManagementTeamProject testManagementTeamProject) in d:\Projects\TestCaseManager\TestCaseManagerCore\BusinessLogic\Managers\TestPlanManager.cs:line 59
+
+2013-10-13 20:18:57,368 [aangelov-PC\aangelov] [5] ERROR TestCaseManagerCore.BusinessLogic.Managers.TestPlanManager - Getting all plans error. Microsoft.TeamFoundation.TeamFoundationServiceUnavailableException: TF400324: Team Foundation services are not available from server aangelov.visualstudio.com\DefaultCollection.
+Technical information (for administrator):
+  Unable to connect to the remote server ---> System.Net.WebException: Unable to connect to the remote server ---> System.Net.Sockets.SocketException: A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond 65.52.8.37:443
+   at System.Net.Sockets.Socket.DoConnect(EndPoint endPointSnapshot, SocketAddress socketAddress)
+   at System.Net.ServicePoint.ConnectSocketInternal(Boolean connectFailure, Socket s4, Socket s6, Socket& socket, IPAddress& address, ConnectSocketState state, IAsyncResult asyncResult, Exception& exception)
+   --- End of inner exception stack trace ---
+   at System.Net.HttpWebRequest.GetRequestStream(TransportContext& context)
+   at System.Net.HttpWebRequest.GetRequestStream()
+   at Microsoft.TeamFoundation.Client.Channels.TfsHttpWebRequest.SendRequestAndGetResponse(HttpWebRequest webRequest, WebException& webException)
+   --- End of inner exception stack trace ---
+   at Microsoft.TeamFoundation.Client.Channels.TfsHttpWebRequest.ReadResponse(HttpWebResponse webResponse, WebException webException)
+   at Microsoft.TeamFoundation.Client.Channels.TfsHttpWebRequest.IsAuthenticationChallenge(TfsMessage requestMessage, HttpWebResponse webResponse, WebException webException, TfsMessage& responseMessage)
+   at Microsoft.TeamFoundation.Client.Channels.TfsHttpWebRequest.SendRequest()
+   at Microsoft.TeamFoundation.Client.Channels.TfsHttpRequestChannel.Request(TfsMessage message, TimeSpan timeout)
+   at Microsoft.TeamFoundation.Client.Channels.TfsHttpClientBase.Invoke(TfsClientOperation operation, Object[] parameters, TimeSpan timeout, Object[]& outputs)
+   at Microsoft.TeamFoundation.TestManagement.Client.TestManagementWebService.QueryTestPlans(ResultsStoreQuery query)
+   at Microsoft.TeamFoundation.TestManagement.Client.TestPlanHelper.Query(String queryText)
+   at TestCaseManagerCore.BusinessLogic.Managers.TestPlanManager.GetAllTestPlans(ITestManagementTeamProject testManagementTeamProject) in d:\Projects\TestCaseManager\TestCaseManagerCore\BusinessLogic\Managers\TestPlanManager.cs:line 59
+
+2013-10-13 20:24:08,009 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Theme to: FirstFloor.ModernUI.Presentation.Link 
+2013-10-13 20:24:08,051 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Color to: #FF0082AD 
+2013-10-13 20:24:08,492 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Load project info loaded from registry! 
+2013-10-13 20:24:08,589 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> TFS URI: https://aangelov.visualstudio.com/defaultcollection 
+2013-10-13 20:24:08,589 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> Test Project Name: AANGELOV 
+2013-10-13 20:24:08,627 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> TfsTeamProjectCollection: aangelov.visualstudio.com\DefaultCollection 
+2013-10-13 20:24:08,905 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - SET FullTeamProjectName to https://aangelov.visualstudio.com/defaultcollection/AANGELOV 
+2013-10-13 20:24:08,923 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> SelectedTestPlan: TEST TM 2012 
+2013-10-13 20:24:33,730 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Theme to: FirstFloor.ModernUI.Presentation.Link 
+2013-10-13 20:24:33,772 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Color to: #FF0082AD 
+2013-10-13 20:24:34,250 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Load project info loaded from registry! 
+2013-10-13 20:24:34,354 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> TFS URI: https://aangelov.visualstudio.com/defaultcollection 
+2013-10-13 20:24:34,354 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> Test Project Name: AANGELOV 
+2013-10-13 20:24:34,401 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> TfsTeamProjectCollection: aangelov.visualstudio.com\DefaultCollection 
+2013-10-13 20:24:34,720 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - SET FullTeamProjectName to https://aangelov.visualstudio.com/defaultcollection/AANGELOV 
+2013-10-13 20:24:34,737 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> SelectedTestPlan: TEST TM 2012 
+2013-10-13 20:24:59,345 [aangelov-PC\aangelov] [5] ERROR TestCaseManagerCore.BusinessLogic.Managers.TestPlanManager - Getting all plans error. Microsoft.TeamFoundation.TeamFoundationServiceUnavailableException: TF400324: Team Foundation services are not available from server aangelov.visualstudio.com\DefaultCollection.
+Technical information (for administrator):
+  Unable to connect to the remote server ---> System.Net.WebException: Unable to connect to the remote server ---> System.Net.Sockets.SocketException: A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond 65.52.8.37:443
+   at System.Net.Sockets.Socket.DoConnect(EndPoint endPointSnapshot, SocketAddress socketAddress)
+   at System.Net.ServicePoint.ConnectSocketInternal(Boolean connectFailure, Socket s4, Socket s6, Socket& socket, IPAddress& address, ConnectSocketState state, IAsyncResult asyncResult, Exception& exception)
+   --- End of inner exception stack trace ---
+   at System.Net.HttpWebRequest.GetRequestStream(TransportContext& context)
+   at System.Net.HttpWebRequest.GetRequestStream()
+   at Microsoft.TeamFoundation.Client.Channels.TfsHttpWebRequest.SendRequestAndGetResponse(HttpWebRequest webRequest, WebException& webException)
+   --- End of inner exception stack trace ---
+   at Microsoft.TeamFoundation.Client.Channels.TfsHttpWebRequest.ReadResponse(HttpWebResponse webResponse, WebException webException)
+   at Microsoft.TeamFoundation.Client.Channels.TfsHttpWebRequest.IsAuthenticationChallenge(TfsMessage requestMessage, HttpWebResponse webResponse, WebException webException, TfsMessage& responseMessage)
+   at Microsoft.TeamFoundation.Client.Channels.TfsHttpWebRequest.SendRequest()
+   at Microsoft.TeamFoundation.Client.Channels.TfsHttpRequestChannel.Request(TfsMessage message, TimeSpan timeout)
+   at Microsoft.TeamFoundation.Client.Channels.TfsHttpClientBase.Invoke(TfsClientOperation operation, Object[] parameters, TimeSpan timeout, Object[]& outputs)
+   at Microsoft.TeamFoundation.TestManagement.Client.TestManagementWebService.QueryTestPlans(ResultsStoreQuery query)
+   at Microsoft.TeamFoundation.TestManagement.Client.TestPlanHelper.Query(String queryText)
+   at TestCaseManagerCore.BusinessLogic.Managers.TestPlanManager.GetAllTestPlans(ITestManagementTeamProject testManagementTeamProject) in d:\Projects\TestCaseManager\TestCaseManagerCore\BusinessLogic\Managers\TestPlanManager.cs:line 59
+
+2013-10-13 20:25:22,294 [aangelov-PC\aangelov] [5] ERROR TestCaseManagerCore.BusinessLogic.Managers.TestPlanManager - Getting all plans error. Microsoft.TeamFoundation.TeamFoundationServiceUnavailableException: TF400324: Team Foundation services are not available from server aangelov.visualstudio.com\DefaultCollection.
+Technical information (for administrator):
+  Unable to connect to the remote server ---> System.Net.WebException: Unable to connect to the remote server ---> System.Net.Sockets.SocketException: A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond 65.52.8.37:443
+   at System.Net.Sockets.Socket.DoConnect(EndPoint endPointSnapshot, SocketAddress socketAddress)
+   at System.Net.ServicePoint.ConnectSocketInternal(Boolean connectFailure, Socket s4, Socket s6, Socket& socket, IPAddress& address, ConnectSocketState state, IAsyncResult asyncResult, Exception& exception)
+   --- End of inner exception stack trace ---
+   at System.Net.HttpWebRequest.GetRequestStream(TransportContext& context)
+   at System.Net.HttpWebRequest.GetRequestStream()
+   at Microsoft.TeamFoundation.Client.Channels.TfsHttpWebRequest.SendRequestAndGetResponse(HttpWebRequest webRequest, WebException& webException)
+   --- End of inner exception stack trace ---
+   at Microsoft.TeamFoundation.Client.Channels.TfsHttpWebRequest.ReadResponse(HttpWebResponse webResponse, WebException webException)
+   at Microsoft.TeamFoundation.Client.Channels.TfsHttpWebRequest.IsAuthenticationChallenge(TfsMessage requestMessage, HttpWebResponse webResponse, WebException webException, TfsMessage& responseMessage)
+   at Microsoft.TeamFoundation.Client.Channels.TfsHttpWebRequest.SendRequest()
+   at Microsoft.TeamFoundation.Client.Channels.TfsHttpRequestChannel.Request(TfsMessage message, TimeSpan timeout)
+   at Microsoft.TeamFoundation.Client.Channels.TfsHttpClientBase.Invoke(TfsClientOperation operation, Object[] parameters, TimeSpan timeout, Object[]& outputs)
+   at Microsoft.TeamFoundation.TestManagement.Client.TestManagementWebService.QueryTestPlans(ResultsStoreQuery query)
+   at Microsoft.TeamFoundation.TestManagement.Client.TestPlanHelper.Query(String queryText)
+   at TestCaseManagerCore.BusinessLogic.Managers.TestPlanManager.GetAllTestPlans(ITestManagementTeamProject testManagementTeamProject) in d:\Projects\TestCaseManager\TestCaseManagerCore\BusinessLogic\Managers\TestPlanManager.cs:line 59
+
+2013-10-13 20:25:46,190 [aangelov-PC\aangelov] [1] ERROR TestCaseManagerCore.BusinessLogic.Managers.TestPlanManager - Getting all plans error. Microsoft.TeamFoundation.TeamFoundationServiceUnavailableException: TF400324: Team Foundation services are not available from server aangelov.visualstudio.com\DefaultCollection.
+Technical information (for administrator):
+  Unable to connect to the remote server ---> System.Net.WebException: Unable to connect to the remote server ---> System.Net.Sockets.SocketException: A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond 65.52.8.37:443
+   at System.Net.Sockets.Socket.DoConnect(EndPoint endPointSnapshot, SocketAddress socketAddress)
+   at System.Net.ServicePoint.ConnectSocketInternal(Boolean connectFailure, Socket s4, Socket s6, Socket& socket, IPAddress& address, ConnectSocketState state, IAsyncResult asyncResult, Exception& exception)
+   --- End of inner exception stack trace ---
+   at System.Net.HttpWebRequest.GetRequestStream(TransportContext& context)
+   at System.Net.HttpWebRequest.GetRequestStream()
+   at Microsoft.TeamFoundation.Client.Channels.TfsHttpWebRequest.SendRequestAndGetResponse(HttpWebRequest webRequest, WebException& webException)
+   --- End of inner exception stack trace ---
+   at Microsoft.TeamFoundation.Client.Channels.TfsHttpWebRequest.ReadResponse(HttpWebResponse webResponse, WebException webException)
+   at Microsoft.TeamFoundation.Client.Channels.TfsHttpWebRequest.IsAuthenticationChallenge(TfsMessage requestMessage, HttpWebResponse webResponse, WebException webException, TfsMessage& responseMessage)
+   at Microsoft.TeamFoundation.Client.Channels.TfsHttpWebRequest.SendRequest()
+   at Microsoft.TeamFoundation.Client.Channels.TfsHttpRequestChannel.Request(TfsMessage message, TimeSpan timeout)
+   at Microsoft.TeamFoundation.Client.Channels.TfsHttpClientBase.Invoke(TfsClientOperation operation, Object[] parameters, TimeSpan timeout, Object[]& outputs)
+   at Microsoft.TeamFoundation.TestManagement.Client.TestManagementWebService.QueryTestPlans(ResultsStoreQuery query)
+   at Microsoft.TeamFoundation.TestManagement.Client.TestPlanHelper.Query(String queryText)
+   at TestCaseManagerCore.BusinessLogic.Managers.TestPlanManager.GetAllTestPlans(ITestManagementTeamProject testManagementTeamProject) in d:\Projects\TestCaseManager\TestCaseManagerCore\BusinessLogic\Managers\TestPlanManager.cs:line 59
+
+2013-10-13 20:30:23,234 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Theme to: FirstFloor.ModernUI.Presentation.Link 
+2013-10-13 20:30:23,273 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Color to: #FF0082AD 
+2013-10-13 20:30:23,737 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Load project info loaded from registry! 
+2013-10-13 20:30:23,833 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> TFS URI: https://aangelov.visualstudio.com/defaultcollection 
+2013-10-13 20:30:23,834 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> Test Project Name: AANGELOV 
+2013-10-13 20:30:23,871 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> TfsTeamProjectCollection: aangelov.visualstudio.com\DefaultCollection 
+2013-10-13 20:30:24,207 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - SET FullTeamProjectName to https://aangelov.visualstudio.com/defaultcollection/AANGELOV 
+2013-10-13 20:30:24,225 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> SelectedTestPlan: TEST TM 2012 
+2013-10-13 20:30:35,991 [aangelov-PC\aangelov] [6] INFO TestCaseManagerApp.Views.TestCasesInitialView - Load all test cases in the suite with id = 5 
+2013-10-13 20:30:40,815 [aangelov-PC\aangelov] [8] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Load project info loaded from registry! 
+2013-10-13 20:30:40,868 [aangelov-PC\aangelov] [8] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> TFS URI: https://aangelov.visualstudio.com/defaultcollection 
+2013-10-13 20:30:40,869 [aangelov-PC\aangelov] [8] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> Test Project Name: AANGELOV 
+2013-10-13 20:30:40,880 [aangelov-PC\aangelov] [8] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> TfsTeamProjectCollection: aangelov.visualstudio.com\DefaultCollection 
+2013-10-13 20:30:41,159 [aangelov-PC\aangelov] [8] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - SET FullTeamProjectName to https://aangelov.visualstudio.com/defaultcollection/AANGELOV 
+2013-10-13 20:30:41,177 [aangelov-PC\aangelov] [8] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> SelectedTestPlan: TEST TM 2012 
+2013-10-13 20:33:50,104 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Theme to: FirstFloor.ModernUI.Presentation.Link 
+2013-10-13 20:33:50,147 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Color to: #FF0082AD 
+2013-10-13 20:33:50,585 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Load project info loaded from registry! 
+2013-10-13 20:33:50,669 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> TFS URI: https://aangelov.visualstudio.com/defaultcollection 
+2013-10-13 20:33:50,670 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> Test Project Name: AANGELOV 
+2013-10-13 20:33:50,710 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> TfsTeamProjectCollection: aangelov.visualstudio.com\DefaultCollection 
+2013-10-13 20:33:51,015 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - SET FullTeamProjectName to https://aangelov.visualstudio.com/defaultcollection/AANGELOV 
+2013-10-13 20:33:51,033 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> SelectedTestPlan: TEST TM 2012 
+2013-10-13 20:34:12,414 [aangelov-PC\aangelov] [5] ERROR TestCaseManagerCore.BusinessLogic.Managers.TestPlanManager - Getting all plans error. Microsoft.TeamFoundation.TeamFoundationServiceUnavailableException: TF400324: Team Foundation services are not available from server aangelov.visualstudio.com\DefaultCollection.
+Technical information (for administrator):
+  Unable to connect to the remote server ---> System.Net.WebException: Unable to connect to the remote server ---> System.Net.Sockets.SocketException: A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond 65.52.8.37:443
+   at System.Net.Sockets.Socket.DoConnect(EndPoint endPointSnapshot, SocketAddress socketAddress)
+   at System.Net.ServicePoint.ConnectSocketInternal(Boolean connectFailure, Socket s4, Socket s6, Socket& socket, IPAddress& address, ConnectSocketState state, IAsyncResult asyncResult, Exception& exception)
+   --- End of inner exception stack trace ---
+   at System.Net.HttpWebRequest.GetRequestStream(TransportContext& context)
+   at System.Net.HttpWebRequest.GetRequestStream()
+   at Microsoft.TeamFoundation.Client.Channels.TfsHttpWebRequest.SendRequestAndGetResponse(HttpWebRequest webRequest, WebException& webException)
+   --- End of inner exception stack trace ---
+   at Microsoft.TeamFoundation.Client.Channels.TfsHttpWebRequest.ReadResponse(HttpWebResponse webResponse, WebException webException)
+   at Microsoft.TeamFoundation.Client.Channels.TfsHttpWebRequest.IsAuthenticationChallenge(TfsMessage requestMessage, HttpWebResponse webResponse, WebException webException, TfsMessage& responseMessage)
+   at Microsoft.TeamFoundation.Client.Channels.TfsHttpWebRequest.SendRequest()
+   at Microsoft.TeamFoundation.Client.Channels.TfsHttpRequestChannel.Request(TfsMessage message, TimeSpan timeout)
+   at Microsoft.TeamFoundation.Client.Channels.TfsHttpClientBase.Invoke(TfsClientOperation operation, Object[] parameters, TimeSpan timeout, Object[]& outputs)
+   at Microsoft.TeamFoundation.TestManagement.Client.TestManagementWebService.QueryTestPlans(ResultsStoreQuery query)
+   at Microsoft.TeamFoundation.TestManagement.Client.TestPlanHelper.Query(String queryText)
+   at TestCaseManagerCore.BusinessLogic.Managers.TestPlanManager.GetAllTestPlans(ITestManagementTeamProject testManagementTeamProject) in d:\Projects\TestCaseManager\TestCaseManagerCore\BusinessLogic\Managers\TestPlanManager.cs:line 59
+
+2013-10-13 20:34:17,350 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Load project info depending on the user choice from project picker! 
+2013-10-13 20:34:56,005 [aangelov-PC\aangelov] [1] ERROR TestCaseManagerCore.BusinessLogic.Managers.TestPlanManager - Getting all plans error. Microsoft.TeamFoundation.TeamFoundationServiceUnavailableException: TF400324: Team Foundation services are not available from server aangelov.visualstudio.com\DefaultCollection.
+Technical information (for administrator):
+  Unable to connect to the remote server ---> System.Net.WebException: Unable to connect to the remote server ---> System.Net.Sockets.SocketException: A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond 65.52.8.37:443
+   at System.Net.Sockets.Socket.DoConnect(EndPoint endPointSnapshot, SocketAddress socketAddress)
+   at System.Net.ServicePoint.ConnectSocketInternal(Boolean connectFailure, Socket s4, Socket s6, Socket& socket, IPAddress& address, ConnectSocketState state, IAsyncResult asyncResult, Exception& exception)
+   --- End of inner exception stack trace ---
+   at System.Net.HttpWebRequest.GetRequestStream(TransportContext& context)
+   at System.Net.HttpWebRequest.GetRequestStream()
+   at Microsoft.TeamFoundation.Client.Channels.TfsHttpWebRequest.SendRequestAndGetResponse(HttpWebRequest webRequest, WebException& webException)
+   --- End of inner exception stack trace ---
+   at Microsoft.TeamFoundation.Client.Channels.TfsHttpWebRequest.ReadResponse(HttpWebResponse webResponse, WebException webException)
+   at Microsoft.TeamFoundation.Client.Channels.TfsHttpWebRequest.IsAuthenticationChallenge(TfsMessage requestMessage, HttpWebResponse webResponse, WebException webException, TfsMessage& responseMessage)
+   at Microsoft.TeamFoundation.Client.Channels.TfsHttpWebRequest.SendRequest()
+   at Microsoft.TeamFoundation.Client.Channels.TfsHttpRequestChannel.Request(TfsMessage message, TimeSpan timeout)
+   at Microsoft.TeamFoundation.Client.Channels.TfsHttpClientBase.Invoke(TfsClientOperation operation, Object[] parameters, TimeSpan timeout, Object[]& outputs)
+   at Microsoft.TeamFoundation.TestManagement.Client.TestManagementWebService.QueryTestPlans(ResultsStoreQuery query)
+   at Microsoft.TeamFoundation.TestManagement.Client.TestPlanHelper.Query(String queryText)
+   at TestCaseManagerCore.BusinessLogic.Managers.TestPlanManager.GetAllTestPlans(ITestManagementTeamProject testManagementTeamProject) in d:\Projects\TestCaseManager\TestCaseManagerCore\BusinessLogic\Managers\TestPlanManager.cs:line 59
+
+2013-10-13 20:35:25,089 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Theme to: FirstFloor.ModernUI.Presentation.Link 
+2013-10-13 20:35:25,129 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Color to: #FF0082AD 
+2013-10-13 20:35:25,573 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Load project info loaded from registry! 
+2013-10-13 20:35:25,655 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> TFS URI: https://aangelov.visualstudio.com/defaultcollection 
+2013-10-13 20:35:25,656 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> Test Project Name: AANGELOV 
+2013-10-13 20:35:25,700 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> TfsTeamProjectCollection: aangelov.visualstudio.com\DefaultCollection 
+2013-10-13 20:35:25,994 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - SET FullTeamProjectName to https://aangelov.visualstudio.com/defaultcollection/AANGELOV 
+2013-10-13 20:35:26,011 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> SelectedTestPlan: TEST TM 2012 
+2013-10-13 20:35:35,975 [aangelov-PC\aangelov] [8] INFO TestCaseManagerApp.Views.TestCasesInitialView - Load all test cases in the suite with id = 5 

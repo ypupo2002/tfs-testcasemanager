@@ -39,10 +39,18 @@ namespace TestCaseManagerCore.ViewModels
         /// <summary>
         /// Initializes a new instance of the <see cref="TestCasesBatchDuplicateViewModel"/> class.
         /// </summary>
-        public TestCasesBatchDuplicateViewModel()
+        public TestCasesBatchDuplicateViewModel(bool loadTestCases, bool loadSpecificTestCases)
         {
             this.InitializeInnerCollections();
-            this.InitializeTestCases();
+            if (!loadSpecificTestCases)
+            {
+                 this.InitializeTestCases();
+            }
+            else
+            {
+                this.InitializeTestCasesFromSpecificSelectedTestCases();
+            }            
+           
             this.InitializeInitialTestCaseCollection();
             this.InitializeTestSuiteList();
             this.InitializeTeamFoundationIdentityNames();
@@ -54,13 +62,14 @@ namespace TestCaseManagerCore.ViewModels
                 this.ReplaceContext.SelectedTeamFoundationIdentityName = this.ObservableTeamFoundationIdentityNames[0];
             }            
             this.SelectedTestCasesCount = "0";   
-        }
+        }     
 
         /// <summary>
         /// Initializes a new instance of the <see cref="TestCasesBatchDuplicateViewModel"/> class.
         /// </summary>
         /// <param name="viewModel">The old view model.</param>
-        public TestCasesBatchDuplicateViewModel(TestCasesBatchDuplicateViewModel viewModel) : this()
+        public TestCasesBatchDuplicateViewModel(TestCasesBatchDuplicateViewModel viewModel, bool loadTestCases, bool loadSpecificTestCases)
+            : this(loadTestCases, loadSpecificTestCases)
         {
             this.InitialViewFilters = viewModel.InitialViewFilters;
             this.ReplaceContext = viewModel.ReplaceContext;
@@ -172,6 +181,15 @@ namespace TestCaseManagerCore.ViewModels
         }
 
         /// <summary>
+        /// Initializes the test cases from specific selected test cases.
+        /// </summary>
+        public void InitializeTestCasesFromSpecificSelectedTestCases()
+        {
+            this.ObservableTestCases = new ObservableCollection<TestCase>();
+            ExecutionContext.SelectedTestCasesForChange.ForEach(t => this.ObservableTestCases.Add(t));
+        }
+
+        /// <summary>
         /// Filters the test cases.
         /// </summary>
         public void FilterTestCases()
@@ -230,6 +248,24 @@ namespace TestCaseManagerCore.ViewModels
         }
 
         /// <summary>
+        /// Gets the test case ids.
+        /// </summary>
+        /// <param name="testCaseIdsStr">The test case ids string.</param>
+        /// <returns></returns>
+        private List<int> GetTestCaseIds(string testCaseIdsStr)
+        {
+            string[] testCaseIdsSplitted = testCaseIdsStr.Split(',');
+            List<int> testCaseIds = new List<int>();
+
+            foreach (var currentTestCaseIdStr in testCaseIdsSplitted)
+            {
+                testCaseIds.Add(int.Parse(currentTestCaseIdStr));
+            }
+
+            return testCaseIds;
+        }
+
+        /// <summary>
         /// Duplicates the test case.
         /// </summary>
         /// <param name="testCaseToBeDuplicated">The test case to be duplicated.</param>
@@ -238,7 +274,7 @@ namespace TestCaseManagerCore.ViewModels
             List<TestStep> testSteps = TestStepManager.GetTestStepsFromTestActions(testCaseToBeDuplicated.ITestCase.Actions.ToList());
             ITestCase testCaseCore = ExecutionContext.TestManagementTeamProject.TestCases.Create();
             TestCase currentTestCase = new TestCase(testCaseCore, testCaseToBeDuplicated.ITestSuiteBase);
-            log.InfoFormat("Duplicate test case with Title= {0} id= {1}", currentTestCase.Title, currentTestCase.Id);
+            log.InfoFormat("Duplicate test case with Title= \"{0}\" id= \"{1}\"", currentTestCase.Title, currentTestCase.Id);
             currentTestCase.ITestCase.Area = testCaseToBeDuplicated.ITestCase.Area;
             if (this.ReplaceContext.ReplaceInTitles)
             {
@@ -277,7 +313,7 @@ namespace TestCaseManagerCore.ViewModels
         {
             TestCase currentTestCase = testCaseToReplaceIn;
             currentTestCase.ITestCase = ExecutionContext.TestManagementTeamProject.TestCases.Find(testCaseToReplaceIn.ITestCase.Id);
-            log.InfoFormat("Find and Replace in test case with Title= {0} id= {1}", currentTestCase.Title, currentTestCase.Id);
+            log.InfoFormat("Find and Replace in test case with Title= \"{0}\" id= \"{1}\"", currentTestCase.Title, currentTestCase.Id);
             List<TestStep> testSteps = TestStepManager.GetTestStepsFromTestActions(currentTestCase.ITestCase.Actions.ToList());
             this.ReplaceTestCaseTitle(currentTestCase);
             this.ChangeTestCasePriority(currentTestCase);
@@ -297,8 +333,9 @@ namespace TestCaseManagerCore.ViewModels
             if (this.ReplaceContext.ReplaceInTitles)
             {               
                 string newTitle = currentTestCase.ITestCase.Title.ReplaceAll(this.ReplaceContext.ObservableTextReplacePairs);
-                log.InfoFormat("Change Title from {0} to {1}", currentTestCase.ITestCase.Title, newTitle);
+                log.InfoFormat("Change Title from \"{0}\" to \"{1}\"", currentTestCase.ITestCase.Title, newTitle);
                 currentTestCase.ITestCase.Title = newTitle;
+                currentTestCase.Title = newTitle;
             }
         }
 
@@ -311,8 +348,9 @@ namespace TestCaseManagerCore.ViewModels
             if (this.ReplaceContext.ChangeOwner && this.ReplaceContext.SelectedTeamFoundationIdentityName != null)
             {
                 var identity = ExecutionContext.TestManagementTeamProject.TfsIdentityStore.FindByTeamFoundationId(this.ReplaceContext.SelectedTeamFoundationIdentityName.TeamFoundationId);
-                log.InfoFormat("Change Owner from {0} to {1}", currentTestCase.ITestCase.Owner.DisplayName, identity.DisplayName);
+                log.InfoFormat("Change Owner from \"{0}\" to \"{1}\"", currentTestCase.ITestCase.Owner.DisplayName, identity.DisplayName);
                 currentTestCase.ITestCase.Owner = identity;
+                currentTestCase.TeamFoundationIdentityName = new TeamFoundationIdentityName(identity.TeamFoundationId, identity.DisplayName);
             }
         }
 
@@ -324,8 +362,9 @@ namespace TestCaseManagerCore.ViewModels
         {
             if (this.ReplaceContext.ChangePriorities)
             {
-                log.InfoFormat("Change Priority from {0} to {1}", currentTestCase.ITestCase.Priority, (int)this.ReplaceContext.SelectedPriority);
+                log.InfoFormat("Change Priority from \"{0}\" to \"{1}\"", currentTestCase.ITestCase.Priority, (int)this.ReplaceContext.SelectedPriority);
                 currentTestCase.ITestCase.Priority = (int)this.ReplaceContext.SelectedPriority;
+                currentTestCase.Priority = this.ReplaceContext.SelectedPriority;
             }
         }
 
@@ -419,12 +458,12 @@ namespace TestCaseManagerCore.ViewModels
                             {
                                 if (currentId != 0)
                                 {
-                                    log.InfoFormat("Replace shared step with title= {0}, id {1} to {2}", currentStep.Title, currentStep.SharedStepId, currentId);
+                                    log.InfoFormat("Replace shared step with title= \"{0}\", id= \"{1}\" to \"{2}\"", currentStep.Title, currentStep.SharedStepId, currentId);
                                     this.AddNewSharedStepInternal(testCase, addedSharedStepGuids, currentStep, currentId);
                                 }
                                 else
                                 {
-                                    log.InfoFormat("Remove shared step with title= {0}, id {1}", currentStep.Title, currentStep.SharedStepId);
+                                    log.InfoFormat("Remove shared step with title= \"{0}\", id= \"{1}\"", currentStep.Title, currentStep.SharedStepId);
                                 }
                             }
                         }
@@ -439,10 +478,10 @@ namespace TestCaseManagerCore.ViewModels
                         if (this.ReplaceContext.ReplaceInTestSteps)
                         {
                             string newActionTitle = currentStep.ActionTitle.ToString().ReplaceAll(this.ReplaceContext.ObservableTextReplacePairs);
-                            log.InfoFormat("Change Test step action title from {0} to {1}", currentStep.ActionTitle, newActionTitle);
+                            log.InfoFormat("Change Test step action title from \"{0}\" to \"{1}\"", currentStep.ActionTitle, newActionTitle);
                             testStepCore.Title = newActionTitle;
                             string newActionexpectedResult = currentStep.ActionExpectedResult.ToString().ReplaceAll(this.ReplaceContext.ObservableTextReplacePairs);
-                            log.InfoFormat("Change Test step action expected result from {0} to {1}", currentStep.ActionExpectedResult, newActionexpectedResult);
+                            log.InfoFormat("Change Test step action expected result from \"{0}\" to \"{1}\"", currentStep.ActionExpectedResult, newActionexpectedResult);
                             testStepCore.ExpectedResult = newActionexpectedResult;
                         }
                         else

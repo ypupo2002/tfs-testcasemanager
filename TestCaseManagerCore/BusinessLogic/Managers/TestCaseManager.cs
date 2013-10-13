@@ -283,13 +283,17 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
             List<TestCase> allTestCases = GetAllTestCasesInTestPlan(true);
             foreach (var currentTestCase in allTestCases)
             {
-                List<TestStep> testSteps = TestStepManager.GetTestStepsFromTestActions(currentTestCase.ITestCase.Actions);
-                foreach (TestStep currentTestStep in testSteps)
+                //List<TestStep> testSteps = TestStepManager.GetTestStepsFromTestActions(currentTestCase.ITestCase.Actions);
+                foreach (var currentAction in currentTestCase.ITestCase.Actions)
                 {
-                    if (currentTestStep.SharedStepId.Equals(sharedStepId))
+                    if (currentAction is ISharedStepReference)
                     {
-                        filteredTestCases.Add(currentTestCase);
-                        break;
+                        ISharedStepReference currentSharedStepReference = currentAction as ISharedStepReference;
+                        if (currentSharedStepReference.SharedStepId.Equals(sharedStepId))
+                        {
+                            filteredTestCases.Add(currentTestCase);
+                            break;
+                        }
                     }
                 }
             }

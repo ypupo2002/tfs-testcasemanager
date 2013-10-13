@@ -27,13 +27,16 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
         public static ITestPlan GetTestPlanByName(ITestManagementTeamProject testManagementTeamProject, string testPlanName)
         {
             ITestPlanCollection testPlans = GetAllTestPlans(TestCaseManagerCore.ExecutionContext.TestManagementTeamProject);
-            ITestPlan testPlan = default(ITestPlan);
-            foreach (ITestPlan currentTestPlan in testPlans)
+            ITestPlan testPlan = null;
+            if (testPlans != null)
             {
-                if (currentTestPlan.Name.Equals(testPlanName))
+                foreach (ITestPlan currentTestPlan in testPlans)
                 {
-                    testPlan = currentTestPlan;
-                    break;
+                    if (currentTestPlan.Name.Equals(testPlanName))
+                    {
+                        testPlan = currentTestPlan;
+                        break;
+                    }
                 }
             }
 
@@ -59,11 +62,11 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
                 catch (Exception ex)
                 {
                     log.Error("Getting all plans error.", ex);
-                    Thread.Sleep(500);
                     retryCount++;
+                    throw ex;
                 }
             }
-            while(retryCount < 10);        
+            while(retryCount < 5);        
 
             return testPlanCollection;
         }

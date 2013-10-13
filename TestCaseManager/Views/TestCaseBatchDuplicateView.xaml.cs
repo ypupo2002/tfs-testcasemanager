@@ -12,8 +12,10 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using FirstFloor.ModernUI.Windows;
 using FirstFloor.ModernUI.Windows.Controls;
+using FirstFloor.ModernUI.Windows.Navigation;
 using TestCaseManagerCore;
 using TestCaseManagerCore.BusinessLogic.Entities;
+using TestCaseManagerCore.BusinessLogic.Managers;
 using TestCaseManagerCore.Helpers;
 using TestCaseManagerCore.ViewModels;
 
@@ -33,6 +35,16 @@ namespace TestCaseManagerApp.Views
         /// Indicates if the view model is already initialized
         /// </summary>
         private static bool isInitialized;
+
+        /// <summary>
+        /// The load test cases
+        /// </summary>
+        private bool loadTestCases;
+
+        /// <summary>
+        /// The load specific test cases
+        /// </summary>
+        private bool loadSpecificTestCases;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="TestCaseBatchDuplicateView"/> class.
@@ -56,6 +68,7 @@ namespace TestCaseManagerApp.Views
         /// <param name="e">An object that contains the navigation data.</param>
         public void OnFragmentNavigation(FirstFloor.ModernUI.Windows.Navigation.FragmentNavigationEventArgs e)
         {
+            this.InitializeUrlParameters(e);
         }
 
         /// <summary>
@@ -90,6 +103,25 @@ namespace TestCaseManagerApp.Views
         }
 
         /// <summary>
+        /// Initializes the URL parameters.
+        /// </summary>
+        /// <param name="e">The <see cref="FragmentNavigationEventArgs"/> instance containing the event data.</param>
+        private void InitializeUrlParameters(FragmentNavigationEventArgs e)
+        {
+            FragmentManager fm = new FragmentManager(e.Fragment);
+            string loadTestCasesStr = fm.Get("loadTestCases");
+            if (!string.IsNullOrEmpty(loadTestCasesStr))
+            {
+                this.loadTestCases = bool.Parse(loadTestCasesStr);
+            }
+            string loadSpecificTestCasesStr = fm.Get("loadSpecificTestCases");
+            if (!string.IsNullOrEmpty(loadSpecificTestCasesStr))
+            {
+                this.loadSpecificTestCases = bool.Parse(loadSpecificTestCasesStr);
+            }       
+        }
+
+        /// <summary>
         /// Handles the Loaded event of the UserControl control.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
@@ -110,16 +142,21 @@ namespace TestCaseManagerApp.Views
             {
                 if (this.TestCasesBatchDuplicateViewModel != null)
                 {
-                    this.TestCasesBatchDuplicateViewModel = new TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel(this.TestCasesBatchDuplicateViewModel);
+                    this.TestCasesBatchDuplicateViewModel = new TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel(this.TestCasesBatchDuplicateViewModel, this.loadTestCases, this.loadSpecificTestCases);
                     this.TestCasesBatchDuplicateViewModel.FilterTestCases();
                 }
                 else
                 {
-                    this.TestCasesBatchDuplicateViewModel = new TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel();
+                    this.TestCasesBatchDuplicateViewModel = new TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel(this.loadTestCases, this.loadSpecificTestCases);
                 }
             });
             t.ContinueWith(antecedent =>
             {
+                if (dgTestCases.SelectedItems != null)
+                {
+                    this.TestCasesBatchDuplicateViewModel.SelectedTestCasesCount = dgTestCases.SelectedItems.Count.ToString();
+                }
+             
                 this.DataContext = this.TestCasesBatchDuplicateViewModel;
                 this.cbTeamFoundationIdentityNames.SelectedIndex = 0;
                 this.cbPriority.SelectedIndex = 0;

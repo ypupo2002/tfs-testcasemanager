@@ -4,8 +4,10 @@
 // <author>Anton Angelov</author>
 namespace TestCaseManagerCore
 {
+    using System.Collections.Generic;
     using Microsoft.TeamFoundation.Client;
     using Microsoft.TeamFoundation.TestManagement.Client;
+    using TestCaseManagerCore.BusinessLogic.Entities;
     using TestCaseManagerCore.ViewModels;
 
     /// <summary>
@@ -92,5 +94,21 @@ namespace TestCaseManagerCore
         /// The settings view model.
         /// </value>
         public static SettingsViewModel SettingsViewModel { get; set; }
+
+        /// <summary>
+        /// Gets or sets the test case edit view model.
+        /// </summary>
+        /// <value>
+        /// The test case edit view model.
+        /// </value>
+        public static TestCaseEditViewModel TestCaseEditViewModel { get; set; }
+
+        /// <summary>
+        /// Gets or sets the selected test cases for change.
+        /// </summary>
+        /// <value>
+        /// The selected test cases for change.
+        /// </value>
+        public static List<TestCase> SelectedTestCasesForChange { get; set; }
     }
 }

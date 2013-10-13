@@ -177,6 +177,19 @@ namespace TestCaseManagerCore
         }
 
         /// <summary>
+        /// Navigates the automatic test case batch duplicate view.
+        /// </summary>
+        /// <param name="source">The source.</param>
+        /// <param name="loadTestCases">if set to <c>true</c> [load test cases].</param>
+        /// <param name="testCaseIds">The test case ids.</param>
+        public static void NavigateToTestCaseBatchDuplicateView(this FrameworkElement source, bool loadTestCases, bool loadSpecificTestCases)
+        {
+            string url = string.Format("/Views/TestCaseBatchDuplicateView.xaml#loadTestCases={0}&loadSpecificTestCases={1}", loadTestCases, loadSpecificTestCases);
+
+            source.Navigate(url);
+        }
+
+        /// <summary>
         /// Navigates to test cases edit view from associated automation.
         /// </summary>
         /// <param name="source">The source.</param>
