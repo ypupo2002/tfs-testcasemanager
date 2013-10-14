@@ -30,6 +30,8 @@
 	<ItemGroup>
 	</ItemGroup>
 	<ItemGroup>
+	</ItemGroup>
+	<ItemGroup>
 		<ProjectReference Include="..\TestCaseManager\TestCaseManager.csproj">
 			<Name>TestCaseManager</Name>
 			<Project>{E842718A-6C49-482A-9131-630A62CD9616}</Project>

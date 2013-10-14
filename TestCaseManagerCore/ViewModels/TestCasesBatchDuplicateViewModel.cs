@@ -423,7 +423,11 @@ namespace TestCaseManagerCore.ViewModels
                 this.ChangeTestCaseOwner(currentTestCase);
                 this.ReplaceStepsInTestCase(currentTestCase, testSteps);
 
+                currentTestCase.ITestCase.Actions.Add(currentTestCase.ITestCase.CreateTestStep());
                 currentTestCase.ITestCase.Flush();
+                currentTestCase.ITestCase.Save();
+
+                currentTestCase.ITestCase.Actions.RemoveAt(currentTestCase.ITestCase.Actions.Count - 1);
                 currentTestCase.ITestCase.Save();
             }
             else
@@ -437,7 +441,10 @@ namespace TestCaseManagerCore.ViewModels
                 this.ChangeSharedStepOwner(currentSharedStep);
                 this.ReplaceStepsInSharedStep(currentSharedStep, testSteps);
 
+                currentSharedStep.ISharedStep.Actions.Add(currentSharedStep.ISharedStep.CreateTestStep());
                 currentSharedStep.ISharedStep.Flush();
+                currentSharedStep.ISharedStep.Save();
+                currentSharedStep.ISharedStep.Actions.RemoveAt(currentSharedStep.ISharedStep.Actions.Count - 1);
                 currentSharedStep.ISharedStep.Save();
             }   
         }
@@ -748,15 +755,22 @@ namespace TestCaseManagerCore.ViewModels
         private List<int> GetNewSharedStepIds(int currentSharedStepId, ICollection<SharedStepIdReplacePair> sharedStepIdReplacePairs)
         {
             string newSharedStepIds = String.Empty;
+            List<int> sharedStepIds = new List<int>();
+            bool isAdded = false;
             foreach (SharedStepIdReplacePair currentPair in sharedStepIdReplacePairs)
             {
                 if (currentSharedStepId.Equals(currentPair.OldSharedStepId))
                 {
                     newSharedStepIds = currentPair.NewSharedStepIds;
+                    sharedStepIds = this.GetNewSharedStepIdsFromString(newSharedStepIds);
+                    isAdded = true;
                     break;
                 }
             }
-            List<int> sharedStepIds = this.GetNewSharedStepIdsFromString(newSharedStepIds);
+            if (!isAdded)
+            {
+                sharedStepIds.Add(currentSharedStepId);
+            }
 
             return sharedStepIds;
         }

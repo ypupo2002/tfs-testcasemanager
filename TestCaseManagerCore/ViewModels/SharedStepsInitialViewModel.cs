@@ -179,7 +179,10 @@ namespace TestCaseManagerCore.ViewModels
             set
             {
                 this.selectedSharedStep = value;
-                log.InfoFormat("Change SelectedSharedStep: {0}", this.selectedSharedStep.Title);
+                if (this.selectedSharedStep != null)
+                {
+                    log.InfoFormat("Change SelectedSharedStep: {0}", this.selectedSharedStep.Title);
+                }                
                 this.NotifyPropertyChanged();
             }
         }

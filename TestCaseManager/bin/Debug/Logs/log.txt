@@ -560,3 +560,595 @@ EXPECTED, index= 1
 2013-10-14 01:58:56,665 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Save test case. 
 2013-10-14 01:58:56,666 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Test Case Saved Info: Title= Search for Test Case Manager YAHOO, Area= AANGELOV, Priority= VeryHigh, OwnerDisplayName= Anton Angelov 
 2013-10-14 01:58:56,666 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Save edited test case with id= 14. 
+2013-10-14 02:07:03,915 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Theme to: FirstFloor.ModernUI.Presentation.Link 
+2013-10-14 02:07:03,953 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Color to: #FF1BA1E2 
+2013-10-14 02:07:03,955 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Color to: #FFFF4500 
+2013-10-14 02:07:04,763 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Load project info loaded from registry! 
+2013-10-14 02:07:04,765 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> TFS URI: https://aangelov.visualstudio.com/defaultcollection 
+2013-10-14 02:07:04,765 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> Test Project Name: AANGELOV 
+2013-10-14 02:07:04,825 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> TfsTeamProjectCollection: aangelov.visualstudio.com\DefaultCollection 
+2013-10-14 02:07:04,947 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - SET FullTeamProjectName to https://aangelov.visualstudio.com/defaultcollection/AANGELOV 
+2013-10-14 02:07:04,948 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> SelectedTestPlan: TEST TM 2012 
+2013-10-14 02:07:27,237 [aangelov-PC\aangelov] [5] ERROR TestCaseManagerCore.BusinessLogic.Managers.TestPlanManager - Getting all plans error. Microsoft.TeamFoundation.TeamFoundationServiceUnavailableException: TF400324: Team Foundation services are not available from server aangelov.visualstudio.com\DefaultCollection.
+Technical information (for administrator):
+  Unable to connect to the remote server ---> System.Net.WebException: Unable to connect to the remote server ---> System.Net.Sockets.SocketException: A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond 65.52.8.37:443
+   at System.Net.Sockets.Socket.DoConnect(EndPoint endPointSnapshot, SocketAddress socketAddress)
+   at System.Net.ServicePoint.ConnectSocketInternal(Boolean connectFailure, Socket s4, Socket s6, Socket& socket, IPAddress& address, ConnectSocketState state, IAsyncResult asyncResult, Exception& exception)
+   --- End of inner exception stack trace ---
+   at System.Net.HttpWebRequest.GetRequestStream(TransportContext& context)
+   at System.Net.HttpWebRequest.GetRequestStream()
+   at Microsoft.TeamFoundation.Client.Channels.TfsHttpWebRequest.SendRequestAndGetResponse(HttpWebRequest webRequest, WebException& webException)
+   --- End of inner exception stack trace ---
+   at Microsoft.TeamFoundation.Client.Channels.TfsHttpWebRequest.ReadResponse(HttpWebResponse webResponse, WebException webException)
+   at Microsoft.TeamFoundation.Client.Channels.TfsHttpWebRequest.IsAuthenticationChallenge(TfsMessage requestMessage, HttpWebResponse webResponse, WebException webException, TfsMessage& responseMessage)
+   at Microsoft.TeamFoundation.Client.Channels.TfsHttpWebRequest.SendRequest()
+   at Microsoft.TeamFoundation.Client.Channels.TfsHttpRequestChannel.Request(TfsMessage message, TimeSpan timeout)
+   at Microsoft.TeamFoundation.Client.Channels.TfsHttpClientBase.Invoke(TfsClientOperation operation, Object[] parameters, TimeSpan timeout, Object[]& outputs)
+   at Microsoft.TeamFoundation.TestManagement.Client.TestManagementWebService.QueryTestPlans(ResultsStoreQuery query)
+   at Microsoft.TeamFoundation.TestManagement.Client.TestPlanHelper.Query(String queryText)
+   at TestCaseManagerCore.BusinessLogic.Managers.TestPlanManager.GetAllTestPlans(ITestManagementTeamProject testManagementTeamProject) in d:\Projects\TestCaseManager\TestCaseManagerCore\BusinessLogic\Managers\TestPlanManager.cs:line 59
+
+2013-10-14 21:34:55,647 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Theme to: FirstFloor.ModernUI.Presentation.Link 
+2013-10-14 21:34:55,731 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Color to: #FF1BA1E2 
+2013-10-14 21:34:55,764 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Color to: #FFFF4500 
+2013-10-14 21:35:00,430 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Load project info loaded from registry! 
+2013-10-14 21:35:00,494 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> TFS URI: https://aangelov.visualstudio.com/defaultcollection 
+2013-10-14 21:35:00,495 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> Test Project Name: AANGELOV 
+2013-10-14 21:35:01,075 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> TfsTeamProjectCollection: aangelov.visualstudio.com\DefaultCollection 
+2013-10-14 21:35:02,384 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - SET FullTeamProjectName to https://aangelov.visualstudio.com/defaultcollection/AANGELOV 
+2013-10-14 21:35:02,399 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> SelectedTestPlan: TEST TM 2012 
+2013-10-14 21:35:35,224 [aangelov-PC\aangelov] [1] INFO TestCaseManagerApp.Views.TestCasesInitialView - Load all test cases in the test plan. 
+2013-10-14 21:36:00,170 [aangelov-PC\aangelov] [1] INFO TestCaseManagerApp.Views.TestCasesInitialView - Load all test cases in the test plan. 
+2013-10-14 21:36:03,323 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.BusinessLogic.Managers.TestCaseManager - Load all test cases in the suite with Title= "Navigate Public Sites" id = "5" 
+2013-10-14 21:36:11,739 [aangelov-PC\aangelov] [1] INFO TestCaseManagerApp.Views.TestCasesInitialView - Preview test case with id: 48 and suite id 5 
+2013-10-14 21:36:12,041 [aangelov-PC\aangelov] [9] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Get All Areas for Project= AANGELOV 
+2013-10-14 21:36:22,907 [aangelov-PC\aangelov] [9] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Load Edit View with Context: TestCaseId= 48, TestSuiteId= 5, CreateNew= False, Duplicate= False, IsSharedStep= False, SharedStepId= 0, ComeFromTestCase = False, CurrentEditedStepGuid= 00000000-0000-0000-0000-000000000000  
+2013-10-14 21:36:25,296 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Get All Areas for Project= AANGELOV 
+2013-10-14 21:36:25,296 [aangelov-PC\aangelov] [1] INFO TestCaseManagerApp.Views.TestCaseEditView - <log4net.Error>Exception during StringFormat: Index (zero based) must be greater than or equal to zero and less than the size of the argument list. <format>Reinitialize edit mode to edit shared step with id= {1}</format><args>{42}</args></log4net.Error> 
+2013-10-14 21:36:26,297 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Load Edit View with Context: TestCaseId= 48, TestSuiteId= 5, CreateNew= False, Duplicate= False, IsSharedStep= True, SharedStepId= 42, ComeFromTestCase = True, CurrentEditedStepGuid= 00000000-0000-0000-0000-000000000000  
+2013-10-14 21:36:27,664 [aangelov-PC\aangelov] [1] INFO TestCaseManagerApp.Views.TestCaseEditView - Navigate back to test case edit mode. 
+2013-10-14 21:36:27,674 [aangelov-PC\aangelov] [9] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Get All Areas for Project= AANGELOV 
+2013-10-14 21:36:36,644 [aangelov-PC\aangelov] [9] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Load Edit View with Context: TestCaseId= 48, TestSuiteId= 5, CreateNew= False, Duplicate= False, IsSharedStep= False, SharedStepId= 42, ComeFromTestCase = False, CurrentEditedStepGuid= 00000000-0000-0000-0000-000000000000  
+2013-10-14 21:36:43,110 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Insert Shared Step Title= Navigate1 TO bing.com, SelectedIndex= 0 
+2013-10-14 21:36:43,112 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Insert test step ActionTitle= Navigate1 to www.bing.com, ActionExpectedResult= verify that the site is opened, index= 4 
+2013-10-14 21:36:44,359 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Insert Shared Step Title= Navigate HIT.bg, SelectedIndex= 4 
+2013-10-14 21:36:44,360 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Insert test step ActionTitle= search for test case manger in hit.bg, ActionExpectedResult= , index= 5 
+2013-10-14 21:36:45,390 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Insert Shared Step Title= Load Test Googl, SelectedIndex= 5 
+2013-10-14 21:36:45,391 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Insert test step ActionTitle= Navigate to www.google.com, ActionExpectedResult= verify that the page is opened, index= 6 
+2013-10-14 21:36:45,392 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Insert test step ActionTitle= Navigate to www.google.com, ActionExpectedResult= verify that the page is opened, index= 7 
+2013-10-14 21:36:45,393 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Insert test step ActionTitle= Navigate to www.google.com, ActionExpectedResult= verify that the page is opened, index= 8 
+2013-10-14 21:36:45,393 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Insert test step ActionTitle= Navigate to www.google.com, ActionExpectedResult= verify that the page is opened, index= 9 
+2013-10-14 21:36:46,815 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Insert Shared Step Title= Shared Step With Multiple Test Steps, SelectedIndex= -1 
+2013-10-14 21:36:46,816 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Insert test step ActionTitle= Open Outlook, ActionExpectedResult= Verify that the program doesn't crash, index= 4 
+2013-10-14 21:36:46,817 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Insert test step ActionTitle= Open Word, ActionExpectedResult= Verify that the program doesn't crash, index= 4 
+2013-10-14 21:36:46,819 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Insert test step ActionTitle= Open Powerpoint, ActionExpectedResult= Verify that the program doesn't crash, index= 4 
+2013-10-14 21:36:46,824 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Insert test step ActionTitle= Open Need For Speed, ActionExpectedResult= Verify that the program doesn't crash, index= 4 
+2013-10-14 21:36:46,826 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Insert test step ActionTitle= Open Photoshop 12, ActionExpectedResult= Verify that the program doesn't crash, index= 4 
+2013-10-14 21:36:46,827 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Insert test step ActionTitle= Open Outlook, ActionExpectedResult= Verify that the program doesn't crash, index= 9 
+2013-10-14 21:36:46,829 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Insert test step ActionTitle= Open Word, ActionExpectedResult= Verify that the program doesn't crash, index= 10 
+2013-10-14 21:36:46,830 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Insert test step ActionTitle= Open Powerpoint, ActionExpectedResult= Verify that the program doesn't crash, index= 11 
+2013-10-14 21:36:46,832 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Insert test step ActionTitle= Open Need For Speed, ActionExpectedResult= Verify that the program doesn't crash, index= 12 
+2013-10-14 21:36:46,833 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Insert test step ActionTitle= Open Photoshop 12, ActionExpectedResult= Verify that the program doesn't crash, index= 13 
+2013-10-14 21:36:49,852 [aangelov-PC\aangelov] [1] INFO TestCaseManagerApp.Views.TestCaseEditView - Perform Undo. 
+2013-10-14 21:36:49,884 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Remove test step ActionTitle = Open Photoshop 12, ExpectedResult= Verify that the program doesn't crash 
+2013-10-14 21:36:49,897 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Remove test step ActionTitle = Open Need For Speed, ExpectedResult= Verify that the program doesn't crash 
+2013-10-14 21:36:49,910 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Remove test step ActionTitle = Open Powerpoint, ExpectedResult= Verify that the program doesn't crash 
+2013-10-14 21:36:49,923 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Remove test step ActionTitle = Open Word, ExpectedResult= Verify that the program doesn't crash 
+2013-10-14 21:36:49,935 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Remove test step ActionTitle = Open Outlook, ExpectedResult= Verify that the program doesn't crash 
+2013-10-14 21:36:49,948 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Remove test step ActionTitle = Open Photoshop 12, ExpectedResult= Verify that the program doesn't crash 
+2013-10-14 21:36:49,962 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Remove test step ActionTitle = Open Need For Speed, ExpectedResult= Verify that the program doesn't crash 
+2013-10-14 21:36:49,977 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Remove test step ActionTitle = Open Powerpoint, ExpectedResult= Verify that the program doesn't crash 
+2013-10-14 21:36:49,990 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Remove test step ActionTitle = Open Word, ExpectedResult= Verify that the program doesn't crash 
+2013-10-14 21:36:50,001 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Remove test step ActionTitle = Open Outlook, ExpectedResult= Verify that the program doesn't crash 
+2013-10-14 21:36:50,003 [aangelov-PC\aangelov] [1] INFO TestCaseManagerApp.Views.TestCaseEditView - End Undo. 
+2013-10-14 21:36:52,247 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Insert Shared Step Title= Google> Click Seach Button, SelectedIndex= -1 
+2013-10-14 21:36:52,248 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Insert test step ActionTitle= Click search button, ActionExpectedResult= verify that results are displayed, index= 4 
+2013-10-14 21:37:05,259 [aangelov-PC\aangelov] [1] INFO TestCaseManagerApp.Views.TestCaseEditView - Add new test step to test case with Title= Load Test Google, id= 48, ActionTitle= Insert new step, ExpectedResult= new expected 
+2013-10-14 21:37:05,357 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Insert test step ActionTitle= Insert new step, ActionExpectedResult= new expected, index= 4 
+2013-10-14 21:37:10,983 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Save test case. 
+2013-10-14 21:37:10,986 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Test Case Saved Info: Title= Load Test Google, Area= AANGELOV, Priority= Low, OwnerDisplayName= Anton Angelov 
+2013-10-14 21:37:10,986 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Save edited test case with id= 48. 
+2013-10-14 21:37:18,433 [aangelov-PC\aangelov] [1] INFO TestCaseManagerApp.Views.TestCaseEditView - Navigate to all Test Cases View. 
+2013-10-14 21:37:21,611 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.BusinessLogic.Managers.TestCaseManager - Load all test cases in the suite with Title= "Navigate Public Sites" id = "5" 
+2013-10-14 21:37:22,764 [aangelov-PC\aangelov] [8] INFO TestCaseManagerCore.BusinessLogic.Managers.TestCaseManager - Load all test cases in the suite with Title= "Navigate Public Sites" id = "5" 
+2013-10-14 21:37:27,624 [aangelov-PC\aangelov] [1] INFO TestCaseManagerApp.Views.TestCasesInitialView - Preview test case with id: 48 and suite id 5 
+2013-10-14 21:37:27,824 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Get All Areas for Project= AANGELOV 
+2013-10-14 21:37:38,814 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Load Edit View with Context: TestCaseId= 48, TestSuiteId= 5, CreateNew= False, Duplicate= False, IsSharedStep= False, SharedStepId= 0, ComeFromTestCase = False, CurrentEditedStepGuid= 00000000-0000-0000-0000-000000000000  
+2013-10-14 21:37:42,397 [aangelov-PC\aangelov] [1] INFO TestCaseManagerApp.Views.TestCaseEditView - <log4net.Error>Exception during StringFormat: Index (zero based) must be greater than or equal to zero and less than the size of the argument list. <format>Reinitialize edit mode to edit shared step with id= {1}</format><args>{42}</args></log4net.Error> 
+2013-10-14 21:37:42,397 [aangelov-PC\aangelov] [8] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Get All Areas for Project= AANGELOV 
+2013-10-14 21:37:43,746 [aangelov-PC\aangelov] [8] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Load Edit View with Context: TestCaseId= 48, TestSuiteId= 5, CreateNew= False, Duplicate= False, IsSharedStep= True, SharedStepId= 42, ComeFromTestCase = True, CurrentEditedStepGuid= 00000000-0000-0000-0000-000000000000  
+2013-10-14 21:37:48,302 [aangelov-PC\aangelov] [1] INFO TestCaseManagerApp.Views.TestCaseEditView - Navigate back to test case edit mode. 
+2013-10-14 21:37:48,312 [aangelov-PC\aangelov] [8] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Get All Areas for Project= AANGELOV 
+2013-10-14 21:37:59,014 [aangelov-PC\aangelov] [8] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Load Edit View with Context: TestCaseId= 48, TestSuiteId= 5, CreateNew= False, Duplicate= False, IsSharedStep= False, SharedStepId= 42, ComeFromTestCase = False, CurrentEditedStepGuid= 00000000-0000-0000-0000-000000000000  
+2013-10-14 21:38:42,063 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.SharedStepsInitialViewModel - Change SelectedSharedStep: Load Test Bing 
+2013-10-14 21:38:42,465 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.SharedStepsInitialViewModel - Change SelectedSharedStep: Bing> Click Search Button 
+2013-10-14 21:38:42,866 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.SharedStepsInitialViewModel - Change SelectedSharedStep: Navigate1 To Google.ru 
+2013-10-14 21:38:43,233 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.SharedStepsInitialViewModel - Change SelectedSharedStep: Navigate1 To Google.jp 
+2013-10-14 21:40:01,298 [aangelov-PC\aangelov] [8] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Find and Replace in test case with Title= "Load Test Google" id= "48" 
+2013-10-14 21:41:36,140 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Theme to: FirstFloor.ModernUI.Presentation.Link 
+2013-10-14 21:41:36,180 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Color to: #FF1BA1E2 
+2013-10-14 21:41:36,210 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Color to: #FFFF4500 
+2013-10-14 21:41:36,647 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Load project info loaded from registry! 
+2013-10-14 21:41:36,733 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> TFS URI: https://aangelov.visualstudio.com/defaultcollection 
+2013-10-14 21:41:36,742 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> Test Project Name: AANGELOV 
+2013-10-14 21:41:36,773 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> TfsTeamProjectCollection: aangelov.visualstudio.com\DefaultCollection 
+2013-10-14 21:41:37,083 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - SET FullTeamProjectName to https://aangelov.visualstudio.com/defaultcollection/AANGELOV 
+2013-10-14 21:41:37,101 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> SelectedTestPlan: TEST TM 2012 
+2013-10-14 21:41:58,711 [aangelov-PC\aangelov] [5] ERROR TestCaseManagerCore.BusinessLogic.Managers.TestPlanManager - Getting all plans error. Microsoft.TeamFoundation.TeamFoundationServiceUnavailableException: TF400324: Team Foundation services are not available from server aangelov.visualstudio.com\DefaultCollection.
+Technical information (for administrator):
+  Unable to connect to the remote server ---> System.Net.WebException: Unable to connect to the remote server ---> System.Net.Sockets.SocketException: A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond 65.52.8.37:443
+   at System.Net.Sockets.Socket.DoConnect(EndPoint endPointSnapshot, SocketAddress socketAddress)
+   at System.Net.ServicePoint.ConnectSocketInternal(Boolean connectFailure, Socket s4, Socket s6, Socket& socket, IPAddress& address, ConnectSocketState state, IAsyncResult asyncResult, Exception& exception)
+   --- End of inner exception stack trace ---
+   at System.Net.HttpWebRequest.GetRequestStream(TransportContext& context)
+   at System.Net.HttpWebRequest.GetRequestStream()
+   at Microsoft.TeamFoundation.Client.Channels.TfsHttpWebRequest.SendRequestAndGetResponse(HttpWebRequest webRequest, WebException& webException)
+   --- End of inner exception stack trace ---
+   at Microsoft.TeamFoundation.Client.Channels.TfsHttpWebRequest.ReadResponse(HttpWebResponse webResponse, WebException webException)
+   at Microsoft.TeamFoundation.Client.Channels.TfsHttpWebRequest.IsAuthenticationChallenge(TfsMessage requestMessage, HttpWebResponse webResponse, WebException webException, TfsMessage& responseMessage)
+   at Microsoft.TeamFoundation.Client.Channels.TfsHttpWebRequest.SendRequest()
+   at Microsoft.TeamFoundation.Client.Channels.TfsHttpRequestChannel.Request(TfsMessage message, TimeSpan timeout)
+   at Microsoft.TeamFoundation.Client.Channels.TfsHttpClientBase.Invoke(TfsClientOperation operation, Object[] parameters, TimeSpan timeout, Object[]& outputs)
+   at Microsoft.TeamFoundation.TestManagement.Client.TestManagementWebService.QueryTestPlans(ResultsStoreQuery query)
+   at Microsoft.TeamFoundation.TestManagement.Client.TestPlanHelper.Query(String queryText)
+   at TestCaseManagerCore.BusinessLogic.Managers.TestPlanManager.GetAllTestPlans(ITestManagementTeamProject testManagementTeamProject) in d:\Projects\TestCaseManager\TestCaseManagerCore\BusinessLogic\Managers\TestPlanManager.cs:line 59
+
+2013-10-14 21:42:15,974 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Theme to: FirstFloor.ModernUI.Presentation.Link 
+2013-10-14 21:42:16,016 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Color to: #FF1BA1E2 
+2013-10-14 21:42:16,047 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Color to: #FFFF4500 
+2013-10-14 21:42:17,431 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Load project info loaded from registry! 
+2013-10-14 21:42:17,517 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> TFS URI: https://aangelov.visualstudio.com/defaultcollection 
+2013-10-14 21:42:17,518 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> Test Project Name: AANGELOV 
+2013-10-14 21:42:17,851 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> TfsTeamProjectCollection: aangelov.visualstudio.com\DefaultCollection 
+2013-10-14 21:42:18,142 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - SET FullTeamProjectName to https://aangelov.visualstudio.com/defaultcollection/AANGELOV 
+2013-10-14 21:42:18,160 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> SelectedTestPlan: TEST TM 2012 
+2013-10-14 21:42:29,325 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.BusinessLogic.Managers.TestCaseManager - Load all test cases in the suite with Title= "Navigate Public Sites" id = "5" 
+2013-10-14 21:42:30,503 [aangelov-PC\aangelov] [8] INFO TestCaseManagerCore.BusinessLogic.Managers.TestCaseManager - Load all test cases in the suite with Title= "Navigate Public Sites" id = "5" 
+2013-10-14 21:44:12,187 [aangelov-PC\aangelov] [8] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Find and Replace in test case with Title= "Load Test Google" id= "48" 
+2013-10-14 21:44:14,596 [aangelov-PC\aangelov] [8] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Change Title from "Load Test Google" to "Load Test Google" 
+2013-10-14 21:44:14,599 [aangelov-PC\aangelov] [8] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Change Priority from "4" to "3" 
+2013-10-14 21:44:28,316 [aangelov-PC\aangelov] [8] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Replace shared step with title= "Load Test Googl", id= "42" to "27" 
+2013-10-14 21:44:28,995 [aangelov-PC\aangelov] [8] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Change Test step action title from "Insert new step" to "Insert old step" 
+2013-10-14 21:44:29,002 [aangelov-PC\aangelov] [8] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Change Test step action expected result from "new expected" to "old expected" 
+2013-10-14 21:45:04,109 [aangelov-PC\aangelov] [8] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Replace shared step with title= "Google> Click Seach Button", id= "57" to "57" 
+2013-10-14 21:45:13,655 [aangelov-PC\aangelov] [8] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Replace shared step with title= "Navigate1 TO bing.com", id= "30" to "30" 
+2013-10-14 21:45:14,309 [aangelov-PC\aangelov] [8] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Replace shared step with title= "Navigate HIT.bg", id= "32" to "32" 
+2013-10-14 21:45:14,886 [aangelov-PC\aangelov] [8] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Replace shared step with title= "Load Test Googl", id= "42" to "27" 
+2013-10-14 21:45:38,224 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Find and Replace in test case with Title= "Load Test Google" id= "48" 
+2013-10-14 21:45:40,328 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Change Title from "Load Test Google" to "Load Test Google" 
+2013-10-14 21:45:40,328 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Change Priority from "3" to "1" 
+2013-10-14 21:45:40,329 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Replace shared step with title= "Navigate1 TO Google.co,uk", id= "27" to "27" 
+2013-10-14 21:45:40,931 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Change Test step action title from "Insert old step" to "Insert old step" 
+2013-10-14 21:45:40,937 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Change Test step action expected result from "old expected" to "old expected" 
+2013-10-14 21:45:40,957 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Replace shared step with title= "Google> Click Seach Button", id= "57" to "57" 
+2013-10-14 21:45:41,522 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Replace shared step with title= "Navigate1 TO bing.com", id= "30" to "30" 
+2013-10-14 21:45:42,085 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Replace shared step with title= "Navigate HIT.bg", id= "32" to "32" 
+2013-10-14 21:45:42,687 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Replace shared step with title= "Navigate1 TO Google.co,uk", id= "27" to "27" 
+2013-10-14 21:45:57,770 [aangelov-PC\aangelov] [1] INFO TestCaseManagerApp.Views.TestCaseBatchDuplicateView - Edit test case with id: 48 and suite id 5 
+2013-10-14 21:45:57,973 [aangelov-PC\aangelov] [8] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Get All Areas for Project= AANGELOV 
+2013-10-14 21:46:09,505 [aangelov-PC\aangelov] [8] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Load Edit View with Context: TestCaseId= 48, TestSuiteId= 5, CreateNew= False, Duplicate= False, IsSharedStep= False, SharedStepId= 0, ComeFromTestCase = False, CurrentEditedStepGuid= 00000000-0000-0000-0000-000000000000  
+2013-10-14 21:46:41,153 [aangelov-PC\aangelov] [1] INFO TestCaseManagerApp.Views.TestCaseEditView - <log4net.Error>Exception during StringFormat: Index (zero based) must be greater than or equal to zero and less than the size of the argument list. <format>Reinitialize edit mode to edit shared step with id= {1}</format><args>{57}</args></log4net.Error> 
+2013-10-14 21:46:41,153 [aangelov-PC\aangelov] [8] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Get All Areas for Project= AANGELOV 
+2013-10-14 21:46:41,859 [aangelov-PC\aangelov] [8] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Load Edit View with Context: TestCaseId= 48, TestSuiteId= 5, CreateNew= False, Duplicate= False, IsSharedStep= True, SharedStepId= 57, ComeFromTestCase = True, CurrentEditedStepGuid= 00000000-0000-0000-0000-000000000000  
+2013-10-14 21:46:51,434 [aangelov-PC\aangelov] [1] INFO TestCaseManagerApp.Views.TestCaseEditView - Navigate back to test case edit mode. 
+2013-10-14 21:46:51,446 [aangelov-PC\aangelov] [8] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Get All Areas for Project= AANGELOV 
+2013-10-14 21:47:01,838 [aangelov-PC\aangelov] [8] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Load Edit View with Context: TestCaseId= 48, TestSuiteId= 5, CreateNew= False, Duplicate= False, IsSharedStep= False, SharedStepId= 57, ComeFromTestCase = False, CurrentEditedStepGuid= 00000000-0000-0000-0000-000000000000  
+2013-10-14 21:47:07,225 [aangelov-PC\aangelov] [8] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Get All Areas for Project= AANGELOV 
+2013-10-14 21:47:07,225 [aangelov-PC\aangelov] [1] INFO TestCaseManagerApp.Views.TestCaseEditView - <log4net.Error>Exception during StringFormat: Index (zero based) must be greater than or equal to zero and less than the size of the argument list. <format>Reinitialize edit mode to edit shared step with id= {1}</format><args>{27}</args></log4net.Error> 
+2013-10-14 21:47:08,121 [aangelov-PC\aangelov] [8] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Load Edit View with Context: TestCaseId= 48, TestSuiteId= 5, CreateNew= False, Duplicate= False, IsSharedStep= True, SharedStepId= 27, ComeFromTestCase = True, CurrentEditedStepGuid= 00000000-0000-0000-0000-000000000000  
+2013-10-14 21:47:10,367 [aangelov-PC\aangelov] [1] INFO TestCaseManagerApp.Views.TestCaseEditView - Navigate back to test case edit mode. 
+2013-10-14 21:47:10,379 [aangelov-PC\aangelov] [8] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Get All Areas for Project= AANGELOV 
+2013-10-14 21:47:22,207 [aangelov-PC\aangelov] [8] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Load Edit View with Context: TestCaseId= 48, TestSuiteId= 5, CreateNew= False, Duplicate= False, IsSharedStep= False, SharedStepId= 27, ComeFromTestCase = False, CurrentEditedStepGuid= 00000000-0000-0000-0000-000000000000  
+2013-10-14 21:47:49,856 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Find and Replace in test case with Title= "Load Test Google" id= "48" 
+2013-10-14 21:47:52,060 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Change Title from "Load Test Google" to "Load Test Google" 
+2013-10-14 21:47:52,136 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Change Priority from "1" to "2" 
+2013-10-14 21:47:52,253 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Remove shared step with title= "Navigate1 TO Google.co,uk", id= "27" 
+2013-10-14 21:47:52,254 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Remove shared step with title= "Navigate1 TO Google.co,uk", id= "27" 
+2013-10-14 21:47:52,254 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Remove shared step with title= "Navigate1 TO Google.co,uk", id= "27" 
+2013-10-14 21:47:52,254 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Change Test step action title from "Insert old step" to "Insert 111 step" 
+2013-10-14 21:47:52,261 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Change Test step action expected result from "old expected" to "111 expected" 
+2013-10-14 21:47:52,282 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Replace shared step with title= "Google> Click Seach Button", id= "57" to "57" 
+2013-10-14 21:47:52,862 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Replace shared step with title= "Navigate1 TO bing.com", id= "30" to "30" 
+2013-10-14 21:47:53,411 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Replace shared step with title= "Navigate HIT.bg", id= "32" to "32" 
+2013-10-14 21:47:53,956 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Remove shared step with title= "Navigate1 TO Google.co,uk", id= "27" 
+2013-10-14 21:47:53,956 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Remove shared step with title= "Navigate1 TO Google.co,uk", id= "27" 
+2013-10-14 21:47:53,956 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Remove shared step with title= "Navigate1 TO Google.co,uk", id= "27" 
+2013-10-14 21:48:07,409 [aangelov-PC\aangelov] [1] INFO TestCaseManagerApp.Views.TestCaseBatchDuplicateView - Edit test case with id: 48 and suite id 5 
+2013-10-14 21:48:07,658 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Get All Areas for Project= AANGELOV 
+2013-10-14 21:48:18,066 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Load Edit View with Context: TestCaseId= 48, TestSuiteId= 5, CreateNew= False, Duplicate= False, IsSharedStep= False, SharedStepId= 0, ComeFromTestCase = False, CurrentEditedStepGuid= 00000000-0000-0000-0000-000000000000  
+2013-10-14 21:48:23,844 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Get All Areas for Project= AANGELOV 
+2013-10-14 21:48:23,844 [aangelov-PC\aangelov] [1] INFO TestCaseManagerApp.Views.TestCaseEditView - <log4net.Error>Exception during StringFormat: Index (zero based) must be greater than or equal to zero and less than the size of the argument list. <format>Reinitialize edit mode to edit shared step with id= {1}</format><args>{30}</args></log4net.Error> 
+2013-10-14 21:48:24,501 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Load Edit View with Context: TestCaseId= 48, TestSuiteId= 5, CreateNew= False, Duplicate= False, IsSharedStep= True, SharedStepId= 30, ComeFromTestCase = True, CurrentEditedStepGuid= 00000000-0000-0000-0000-000000000000  
+2013-10-14 21:48:28,324 [aangelov-PC\aangelov] [1] INFO TestCaseManagerApp.Views.TestCaseEditView - Navigate back to test case edit mode. 
+2013-10-14 21:48:28,335 [aangelov-PC\aangelov] [9] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Get All Areas for Project= AANGELOV 
+2013-10-14 21:48:38,074 [aangelov-PC\aangelov] [9] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Load Edit View with Context: TestCaseId= 48, TestSuiteId= 5, CreateNew= False, Duplicate= False, IsSharedStep= False, SharedStepId= 30, ComeFromTestCase = False, CurrentEditedStepGuid= 00000000-0000-0000-0000-000000000000  
+2013-10-14 21:49:36,569 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Find and Replace in test case with Title= "Load Test Google" id= "48" 
+2013-10-14 21:49:38,047 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Change Title from "Load Test Google" to "Load Test Google" 
+2013-10-14 21:49:38,184 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Change Priority from "2" to "1" 
+2013-10-14 21:49:38,302 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Change Owner from "Anton Angelov" to "Anton Angelov" 
+2013-10-14 21:49:38,416 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Change Test step action title from "Insert 111 step" to "Insert 111 step" 
+2013-10-14 21:49:38,422 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Change Test step action expected result from "111 expected" to "111 expected" 
+2013-10-14 21:49:38,463 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Replace shared step with title= "Google> Click Seach Button", id= "57" to "57" 
+2013-10-14 21:49:39,091 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Replace shared step with title= "Navigate1 TO bing.com", id= "30" to "30" 
+2013-10-14 21:49:39,706 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Replace shared step with title= "Navigate1 TO bing.com", id= "30" to "42" 
+2013-10-14 21:49:40,396 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Replace shared step with title= "Navigate1 TO bing.com", id= "30" to "27" 
+2013-10-14 21:49:41,024 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Replace shared step with title= "Navigate1 TO bing.com", id= "30" to "42" 
+2013-10-14 21:49:41,268 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Replace shared step with title= "Navigate HIT.bg", id= "32" to "32" 
+2013-10-14 21:50:02,010 [aangelov-PC\aangelov] [1] INFO TestCaseManagerApp.Views.TestCaseBatchDuplicateView - Edit test case with id: 48 and suite id 5 
+2013-10-14 21:50:02,187 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Get All Areas for Project= AANGELOV 
+2013-10-14 21:50:14,179 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Load Edit View with Context: TestCaseId= 48, TestSuiteId= 5, CreateNew= False, Duplicate= False, IsSharedStep= False, SharedStepId= 0, ComeFromTestCase = False, CurrentEditedStepGuid= 00000000-0000-0000-0000-000000000000  
+2013-10-14 21:50:27,458 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Get All Areas for Project= AANGELOV 
+2013-10-14 21:50:27,458 [aangelov-PC\aangelov] [1] INFO TestCaseManagerApp.Views.TestCaseEditView - <log4net.Error>Exception during StringFormat: Index (zero based) must be greater than or equal to zero and less than the size of the argument list. <format>Reinitialize edit mode to edit shared step with id= {1}</format><args>{42}</args></log4net.Error> 
+2013-10-14 21:50:28,454 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Load Edit View with Context: TestCaseId= 48, TestSuiteId= 5, CreateNew= False, Duplicate= False, IsSharedStep= True, SharedStepId= 42, ComeFromTestCase = True, CurrentEditedStepGuid= 00000000-0000-0000-0000-000000000000  
+2013-10-14 21:50:30,958 [aangelov-PC\aangelov] [1] INFO TestCaseManagerApp.Views.TestCaseEditView - Navigate back to test case edit mode. 
+2013-10-14 21:50:30,967 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Get All Areas for Project= AANGELOV 
+2013-10-14 21:50:42,011 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Load Edit View with Context: TestCaseId= 48, TestSuiteId= 5, CreateNew= False, Duplicate= False, IsSharedStep= False, SharedStepId= 42, ComeFromTestCase = False, CurrentEditedStepGuid= 00000000-0000-0000-0000-000000000000  
+2013-10-14 21:51:30,505 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Find and Replace in shared step with Title= "Load Test Googl" id= "42" 
+2013-10-14 21:51:30,751 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Change Title from "Load Test Googl" to "Load Test Googl" 
+2013-10-14 21:51:31,091 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Find and Replace in shared step with Title= "Load Test Bing" id= "46" 
+2013-10-14 21:51:31,399 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Change Title from "Load Test Bing" to "Load Test Bing" 
+2013-10-14 21:51:31,740 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Find and Replace in shared step with Title= "Load Test Google1" id= "166" 
+2013-10-14 21:51:32,064 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Change Title from "Load Test Google1" to "Load Test Google1" 
+2013-10-14 21:51:32,405 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Find and Replace in shared step with Title= "Load Test Google New1" id= "167" 
+2013-10-14 21:51:32,405 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Change Title from "Load Test Google New1" to "Load Test Google New1" 
+2013-10-14 21:51:32,785 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Find and Replace in shared step with Title= "Load Test Google New2" id= "168" 
+2013-10-14 21:51:32,785 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Change Title from "Load Test Google New2" to "Load Test Google New2" 
+2013-10-14 21:51:33,186 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Find and Replace in shared step with Title= "Load Test Google New1" id= "174" 
+2013-10-14 21:51:33,187 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Change Title from "Load Test Google New1" to "Load Test Google New1" 
+2013-10-14 21:51:33,564 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Find and Replace in shared step with Title= "Load Test DUPLICATED" id= "175" 
+2013-10-14 21:51:33,938 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Change Title from "Load Test DUPLICATED" to "Load Test DUPLICATED" 
+2013-10-14 21:51:34,289 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Find and Replace in shared step with Title= "Load Test Google New1 duplicated" id= "176" 
+2013-10-14 21:51:34,289 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Change Title from "Load Test Google New1 duplicated" to "Load Test Google New1 duplicated" 
+2013-10-14 21:51:52,454 [aangelov-PC\aangelov] [1] INFO TestCaseManagerApp.Views.TestCaseBatchDuplicateView - Edit Shared Step with id: 174  
+2013-10-14 21:51:52,664 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Get All Areas for Project= AANGELOV 
+2013-10-14 21:51:53,188 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Load Edit View with Context: TestCaseId= 0, TestSuiteId= 0, CreateNew= False, Duplicate= False, IsSharedStep= True, SharedStepId= 174, ComeFromTestCase = False, CurrentEditedStepGuid= 00000000-0000-0000-0000-000000000000  
+2013-10-14 21:52:46,961 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Find and Replace in test case with Title= "Load Test Google" id= "48" 
+2013-10-14 21:52:49,716 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Change Title from "Load Test Google" to "Load Test Google" 
+2013-10-14 21:53:05,159 [aangelov-PC\aangelov] [1] INFO TestCaseManagerApp.Views.TestCaseBatchDuplicateView - Edit test case with id: 48 and suite id 5 
+2013-10-14 21:53:05,312 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Get All Areas for Project= AANGELOV 
+2013-10-14 21:53:17,342 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Load Edit View with Context: TestCaseId= 48, TestSuiteId= 5, CreateNew= False, Duplicate= False, IsSharedStep= False, SharedStepId= 0, ComeFromTestCase = False, CurrentEditedStepGuid= 00000000-0000-0000-0000-000000000000  
+2013-10-14 21:55:00,325 [aangelov-PC\aangelov] [1] INFO TestCaseManagerApp.Views.TestCaseBatchDuplicateView - Edit Shared Step with id: 167  
+2013-10-14 21:55:00,537 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Get All Areas for Project= AANGELOV 
+2013-10-14 21:55:01,098 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Load Edit View with Context: TestCaseId= 0, TestSuiteId= 0, CreateNew= False, Duplicate= False, IsSharedStep= True, SharedStepId= 167, ComeFromTestCase = False, CurrentEditedStepGuid= 00000000-0000-0000-0000-000000000000  
+2013-10-14 21:55:11,517 [aangelov-PC\aangelov] [1] INFO TestCaseManagerApp.Views.TestCaseEditView - Add new test step to sharedStep with Title= Load Test Google New1, id= 167, ActionTitle= new test step, ExpectedResult= new expected result 
+2013-10-14 21:55:11,618 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Insert test step ActionTitle= new test step, ActionExpectedResult= new expected result, end of test case 
+2013-10-14 21:55:11,798 [aangelov-PC\aangelov] [1] INFO TestCaseManagerApp.Views.TestCaseEditView - Add new test step to sharedStep with Title= Load Test Google New1, id= 167, ActionTitle= new test step, ExpectedResult= new expected result 
+2013-10-14 21:55:11,893 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Insert test step ActionTitle= new test step, ActionExpectedResult= new expected result, index= 1 
+2013-10-14 21:55:11,971 [aangelov-PC\aangelov] [1] INFO TestCaseManagerApp.Views.TestCaseEditView - Add new test step to sharedStep with Title= Load Test Google New1, id= 167, ActionTitle= new test step, ExpectedResult= new expected result 
+2013-10-14 21:55:12,068 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Insert test step ActionTitle= new test step, ActionExpectedResult= new expected result, index= 2 
+2013-10-14 21:55:12,128 [aangelov-PC\aangelov] [1] INFO TestCaseManagerApp.Views.TestCaseEditView - Add new test step to sharedStep with Title= Load Test Google New1, id= 167, ActionTitle= new test step, ExpectedResult= new expected result 
+2013-10-14 21:55:12,230 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Insert test step ActionTitle= new test step, ActionExpectedResult= new expected result, index= 3 
+2013-10-14 21:55:12,276 [aangelov-PC\aangelov] [1] INFO TestCaseManagerApp.Views.TestCaseEditView - Add new test step to sharedStep with Title= Load Test Google New1, id= 167, ActionTitle= new test step, ExpectedResult= new expected result 
+2013-10-14 21:55:12,371 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Insert test step ActionTitle= new test step, ActionExpectedResult= new expected result, index= 4 
+2013-10-14 21:55:12,428 [aangelov-PC\aangelov] [1] INFO TestCaseManagerApp.Views.TestCaseEditView - Add new test step to sharedStep with Title= Load Test Google New1, id= 167, ActionTitle= new test step, ExpectedResult= new expected result 
+2013-10-14 21:55:12,525 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Insert test step ActionTitle= new test step, ActionExpectedResult= new expected result, index= 5 
+2013-10-14 21:55:12,638 [aangelov-PC\aangelov] [1] INFO TestCaseManagerApp.Views.TestCaseEditView - Add new test step to sharedStep with Title= Load Test Google New1, id= 167, ActionTitle= new test step, ExpectedResult= new expected result 
+2013-10-14 21:55:12,733 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Insert test step ActionTitle= new test step, ActionExpectedResult= new expected result, index= 6 
+2013-10-14 21:55:12,832 [aangelov-PC\aangelov] [1] INFO TestCaseManagerApp.Views.TestCaseEditView - Add new test step to sharedStep with Title= Load Test Google New1, id= 167, ActionTitle= new test step, ExpectedResult= new expected result 
+2013-10-14 21:55:12,929 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Insert test step ActionTitle= new test step, ActionExpectedResult= new expected result, index= 7 
+2013-10-14 21:55:28,472 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Save shared step. 
+2013-10-14 21:55:28,513 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Shared Step Saved Info: Title= Load Test Google New1, Area= AANGELOV, Priority= VeryHigh, OwnerDisplayName= Anton Angelov 
+2013-10-14 21:55:28,513 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Save edited shared step with id= 167. 
+2013-10-14 21:56:23,303 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Find and Replace in shared step with Title= "Load Test Google New1" id= "167" 
+2013-10-14 21:56:23,817 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Change Test step action title from "new test step" to "old test step" 
+2013-10-14 21:56:23,824 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Change Test step action expected result from "new expected result" to "old expected result" 
+2013-10-14 21:56:23,843 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Change Test step action title from "new test step" to "old test step" 
+2013-10-14 21:56:23,849 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Change Test step action expected result from "new expected result" to "old expected result" 
+2013-10-14 21:56:23,869 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Change Test step action title from "new test step" to "old test step" 
+2013-10-14 21:56:23,875 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Change Test step action expected result from "new expected result" to "old expected result" 
+2013-10-14 21:56:23,896 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Change Test step action title from "new test step" to "old test step" 
+2013-10-14 21:56:23,902 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Change Test step action expected result from "new expected result" to "old expected result" 
+2013-10-14 21:56:23,921 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Change Test step action title from "new test step" to "old test step" 
+2013-10-14 21:56:23,927 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Change Test step action expected result from "new expected result" to "old expected result" 
+2013-10-14 21:56:23,947 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Change Test step action title from "new test step" to "old test step" 
+2013-10-14 21:56:23,953 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Change Test step action expected result from "new expected result" to "old expected result" 
+2013-10-14 21:56:23,974 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Change Test step action title from "new test step" to "old test step" 
+2013-10-14 21:56:23,980 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Change Test step action expected result from "new expected result" to "old expected result" 
+2013-10-14 21:56:23,999 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Change Test step action title from "new test step" to "old test step" 
+2013-10-14 21:56:24,005 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Change Test step action expected result from "new expected result" to "old expected result" 
+2013-10-14 21:56:24,575 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Find and Replace in shared step with Title= "Load Test Google New1" id= "174" 
+2013-10-14 21:56:24,753 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Find and Replace in shared step with Title= "Load Test Google New1 duplicated" id= "176" 
+2013-10-14 21:56:39,675 [aangelov-PC\aangelov] [1] INFO TestCaseManagerApp.Views.TestCaseBatchDuplicateView - Edit Shared Step with id: 167  
+2013-10-14 21:56:39,840 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Get All Areas for Project= AANGELOV 
+2013-10-14 21:56:41,329 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Load Edit View with Context: TestCaseId= 0, TestSuiteId= 0, CreateNew= False, Duplicate= False, IsSharedStep= True, SharedStepId= 167, ComeFromTestCase = False, CurrentEditedStepGuid= 00000000-0000-0000-0000-000000000000  
+2013-10-14 21:57:18,119 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Find and Replace in shared step with Title= "Load Test Google New1" id= "167" 
+2013-10-14 21:57:18,615 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Change Title from "Load Test Google New1" to "Load2 Test Google New1" 
+2013-10-14 21:57:18,825 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Change Test step action title from "old test step" to "new test step" 
+2013-10-14 21:57:18,830 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Change Test step action expected result from "old expected result" to "new expected result" 
+2013-10-14 21:57:18,851 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Change Test step action title from "old test step" to "new test step" 
+2013-10-14 21:57:18,857 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Change Test step action expected result from "old expected result" to "new expected result" 
+2013-10-14 21:57:18,880 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Change Test step action title from "old test step" to "new test step" 
+2013-10-14 21:57:18,886 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Change Test step action expected result from "old expected result" to "new expected result" 
+2013-10-14 21:57:18,906 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Change Test step action title from "old test step" to "new test step" 
+2013-10-14 21:57:18,912 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Change Test step action expected result from "old expected result" to "new expected result" 
+2013-10-14 21:57:18,932 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Change Test step action title from "old test step" to "new test step" 
+2013-10-14 21:57:18,938 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Change Test step action expected result from "old expected result" to "new expected result" 
+2013-10-14 21:57:18,958 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Change Test step action title from "old test step" to "new test step" 
+2013-10-14 21:57:18,965 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Change Test step action expected result from "old expected result" to "new expected result" 
+2013-10-14 21:57:18,985 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Change Test step action title from "old test step" to "new test step" 
+2013-10-14 21:57:18,990 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Change Test step action expected result from "old expected result" to "new expected result" 
+2013-10-14 21:57:19,010 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Change Test step action title from "old test step" to "new test step" 
+2013-10-14 21:57:19,016 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Change Test step action expected result from "old expected result" to "new expected result" 
+2013-10-14 21:57:19,555 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Find and Replace in shared step with Title= "Load Test Google New1" id= "174" 
+2013-10-14 21:57:19,556 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Change Title from "Load Test Google New1" to "Load2 Test Google New1" 
+2013-10-14 21:57:20,233 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Find and Replace in shared step with Title= "Load Test Google New1 duplicated" id= "176" 
+2013-10-14 21:57:20,234 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Change Title from "Load Test Google New1 duplicated" to "Load2 Test Google New1 duplicated" 
+2013-10-14 21:57:46,151 [aangelov-PC\aangelov] [1] INFO TestCaseManagerApp.Views.TestCaseBatchDuplicateView - Edit Shared Step with id: 167  
+2013-10-14 21:57:46,333 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Get All Areas for Project= AANGELOV 
+2013-10-14 21:57:48,441 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Load Edit View with Context: TestCaseId= 0, TestSuiteId= 0, CreateNew= False, Duplicate= False, IsSharedStep= True, SharedStepId= 167, ComeFromTestCase = False, CurrentEditedStepGuid= 00000000-0000-0000-0000-000000000000  
+2013-10-14 21:58:25,074 [aangelov-PC\aangelov] [1] INFO TestCaseManagerApp.Views.TestCaseBatchDuplicateView - Edit Shared Step with id: 30  
+2013-10-14 21:58:25,336 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Get All Areas for Project= AANGELOV 
+2013-10-14 21:58:25,977 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Load Edit View with Context: TestCaseId= 0, TestSuiteId= 0, CreateNew= False, Duplicate= False, IsSharedStep= True, SharedStepId= 30, ComeFromTestCase = False, CurrentEditedStepGuid= 00000000-0000-0000-0000-000000000000  
+2013-10-14 21:59:14,317 [aangelov-PC\aangelov] [8] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Find and Replace in shared step with Title= "Navigate1 TO bing.com" id= "30" 
+2013-10-14 21:59:14,384 [aangelov-PC\aangelov] [8] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Change Title from "Navigate1 TO bing.com" to "NAVIGATE TO bing.com" 
+2013-10-14 22:00:09,249 [aangelov-PC\aangelov] [8] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Find and Replace in shared step with Title= "NAVIGATE TO bing.com" id= "30" 
+2013-10-14 22:00:09,313 [aangelov-PC\aangelov] [8] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Change Title from "NAVIGATE TO bing.com" to "TEST RE TO bing.com" 
+2013-10-14 22:01:58,316 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Find and Replace in shared step with Title= "TEST RE TO bing.com" id= "30" 
+2013-10-14 22:01:58,383 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Change Title from "TEST RE TO bing.com" to "TEST RE TO bing.com" 
+2013-10-14 22:01:58,731 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Change Priority from "1" to "4" 
+2013-10-14 22:01:58,997 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Change Test step action title from "Navigate1 to www.bing.com" to "TEST to www.bing.com" 
+2013-10-14 22:01:59,003 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Change Test step action expected result from "verify that the site is opened" to "verify that the site is opened" 
+2013-10-14 22:02:15,922 [aangelov-PC\aangelov] [1] INFO TestCaseManagerApp.Views.TestCaseBatchDuplicateView - Edit Shared Step with id: 30  
+2013-10-14 22:02:16,075 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Get All Areas for Project= AANGELOV 
+2013-10-14 22:02:16,758 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Load Edit View with Context: TestCaseId= 0, TestSuiteId= 0, CreateNew= False, Duplicate= False, IsSharedStep= True, SharedStepId= 30, ComeFromTestCase = False, CurrentEditedStepGuid= 00000000-0000-0000-0000-000000000000  
+2013-10-14 22:03:35,164 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Find and Replace in shared step with Title= "Navigate1 To Google.ru" id= "29" 
+2013-10-14 22:03:35,298 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Change Title from "Navigate1 To Google.ru" to "TEST to To Google.ru" 
+2013-10-14 22:03:35,576 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Change Priority from "1" to "4" 
+2013-10-14 22:03:38,164 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Find and Replace in shared step with Title= "Navigate1 To Google.jp" id= "28" 
+2013-10-14 22:03:38,228 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Change Title from "Navigate1 To Google.jp" to "TEST to To Google.jp" 
+2013-10-14 22:03:38,571 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Change Priority from "1" to "4" 
+2013-10-14 22:04:13,513 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Save shared step. 
+2013-10-14 22:04:13,514 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Shared Step Saved Info: Title= TEST RE TO bing.com, Area= AANGELOV, Priority= Low, OwnerDisplayName= Anton Angelov 
+2013-10-14 22:04:13,514 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Save edited shared step with id= 30. 
+2013-10-14 22:04:49,112 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Theme to: FirstFloor.ModernUI.Presentation.Link 
+2013-10-14 22:04:49,155 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Color to: #FF1BA1E2 
+2013-10-14 22:04:49,188 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Color to: #FFFF4500 
+2013-10-14 22:04:50,589 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Load project info loaded from registry! 
+2013-10-14 22:04:50,643 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> TFS URI: https://aangelov.visualstudio.com/defaultcollection 
+2013-10-14 22:04:50,643 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> Test Project Name: AANGELOV 
+2013-10-14 22:04:50,818 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> TfsTeamProjectCollection: aangelov.visualstudio.com\DefaultCollection 
+2013-10-14 22:04:51,440 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - SET FullTeamProjectName to https://aangelov.visualstudio.com/defaultcollection/AANGELOV 
+2013-10-14 22:04:51,457 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> SelectedTestPlan: TEST TM 2012 
+2013-10-14 22:05:06,032 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.BusinessLogic.Managers.TestCaseManager - Load all test cases in the suite with Title= "Navigate Public Sites" id = "5" 
+2013-10-14 22:05:07,310 [aangelov-PC\aangelov] [8] INFO TestCaseManagerCore.BusinessLogic.Managers.TestCaseManager - Load all test cases in the suite with Title= "Navigate Public Sites" id = "5" 
+2013-10-14 22:05:51,878 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Find and Replace in shared step with Title= "TEST to To Google.jp" id= "28" 
+2013-10-14 22:05:51,940 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Change Title from "TEST to To Google.jp" to "test to To Google.jp" 
+2013-10-14 22:05:55,233 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Find and Replace in shared step with Title= "TEST to To Google.ru" id= "29" 
+2013-10-14 22:05:55,348 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Change Title from "TEST to To Google.ru" to "test to To Google.ru" 
+2013-10-14 22:05:56,158 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Find and Replace in shared step with Title= "TEST RE TO bing.com" id= "30" 
+2013-10-14 22:05:56,218 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Change Title from "TEST RE TO bing.com" to "test RE TO bing.com" 
+2013-10-14 22:31:27,345 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Theme to: FirstFloor.ModernUI.Presentation.Link 
+2013-10-14 22:31:27,419 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Color to: #FF1BA1E2 
+2013-10-14 22:31:27,453 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Color to: #FFFF4500 
+2013-10-14 22:31:31,107 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Load project info loaded from registry! 
+2013-10-14 22:31:31,267 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> TFS URI: https://aangelov.visualstudio.com/defaultcollection 
+2013-10-14 22:31:31,268 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> Test Project Name: AANGELOV 
+2013-10-14 22:31:32,692 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> TfsTeamProjectCollection: aangelov.visualstudio.com\DefaultCollection 
+2013-10-14 22:31:33,870 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - SET FullTeamProjectName to https://aangelov.visualstudio.com/defaultcollection/AANGELOV 
+2013-10-14 22:31:33,885 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> SelectedTestPlan: TEST TM 2012 
+2013-10-14 22:31:58,102 [aangelov-PC\aangelov] [5] ERROR TestCaseManagerCore.BusinessLogic.Managers.TestPlanManager - Getting all plans error. Microsoft.TeamFoundation.TeamFoundationServiceUnavailableException: TF400324: Team Foundation services are not available from server aangelov.visualstudio.com\DefaultCollection.
+Technical information (for administrator):
+  Unable to connect to the remote server ---> System.Net.WebException: Unable to connect to the remote server ---> System.Net.Sockets.SocketException: A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond 65.52.8.37:443
+   at System.Net.Sockets.Socket.DoConnect(EndPoint endPointSnapshot, SocketAddress socketAddress)
+   at System.Net.ServicePoint.ConnectSocketInternal(Boolean connectFailure, Socket s4, Socket s6, Socket& socket, IPAddress& address, ConnectSocketState state, IAsyncResult asyncResult, Exception& exception)
+   --- End of inner exception stack trace ---
+   at System.Net.HttpWebRequest.GetRequestStream(TransportContext& context)
+   at System.Net.HttpWebRequest.GetRequestStream()
+   at Microsoft.TeamFoundation.Client.Channels.TfsHttpWebRequest.SendRequestAndGetResponse(HttpWebRequest webRequest, WebException& webException)
+   --- End of inner exception stack trace ---
+   at Microsoft.TeamFoundation.Client.Channels.TfsHttpWebRequest.ReadResponse(HttpWebResponse webResponse, WebException webException)
+   at Microsoft.TeamFoundation.Client.Channels.TfsHttpWebRequest.IsAuthenticationChallenge(TfsMessage requestMessage, HttpWebResponse webResponse, WebException webException, TfsMessage& responseMessage)
+   at Microsoft.TeamFoundation.Client.Channels.TfsHttpWebRequest.SendRequest()
+   at Microsoft.TeamFoundation.Client.Channels.TfsHttpRequestChannel.Request(TfsMessage message, TimeSpan timeout)
+   at Microsoft.TeamFoundation.Client.Channels.TfsHttpClientBase.Invoke(TfsClientOperation operation, Object[] parameters, TimeSpan timeout, Object[]& outputs)
+   at Microsoft.TeamFoundation.TestManagement.Client.TestManagementWebService.QueryTestPlans(ResultsStoreQuery query)
+   at Microsoft.TeamFoundation.TestManagement.Client.TestPlanHelper.Query(String queryText)
+   at TestCaseManagerCore.BusinessLogic.Managers.TestPlanManager.GetAllTestPlans(ITestManagementTeamProject testManagementTeamProject) in d:\Projects\TestCaseManager\TestCaseManagerCore\BusinessLogic\Managers\TestPlanManager.cs:line 59
+
+2013-10-14 22:37:01,101 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Theme to: FirstFloor.ModernUI.Presentation.Link 
+2013-10-14 22:37:01,147 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Color to: #FF1BA1E2 
+2013-10-14 22:37:01,195 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Color to: #FFFF4500 
+2013-10-14 22:37:01,975 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Load project info loaded from registry! 
+2013-10-14 22:37:02,055 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> TFS URI: https://aangelov.visualstudio.com/defaultcollection 
+2013-10-14 22:37:02,056 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> Test Project Name: AANGELOV 
+2013-10-14 22:37:02,233 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> TfsTeamProjectCollection: aangelov.visualstudio.com\DefaultCollection 
+2013-10-14 22:37:02,548 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - SET FullTeamProjectName to https://aangelov.visualstudio.com/defaultcollection/AANGELOV 
+2013-10-14 22:37:02,565 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> SelectedTestPlan: TEST TM 2012 
+2013-10-14 22:37:24,155 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.BusinessLogic.Managers.TestCaseManager - Load all test cases in the suite with Title= "Navigate Public Sites" id = "5" 
+2013-10-14 22:37:25,307 [aangelov-PC\aangelov] [8] INFO TestCaseManagerCore.BusinessLogic.Managers.TestCaseManager - Load all test cases in the suite with Title= "Navigate Public Sites" id = "5" 
+2013-10-14 22:37:43,430 [aangelov-PC\aangelov] [1] INFO TestCaseManagerApp.Views.TestCaseBatchDuplicateView - Edit Shared Step with id: 28  
+2013-10-14 22:37:43,738 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Get All Areas for Project= AANGELOV 
+2013-10-14 22:37:44,928 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Load Edit View with Context: TestCaseId= 0, TestSuiteId= 0, CreateNew= False, Duplicate= False, IsSharedStep= True, SharedStepId= 28, ComeFromTestCase = False, CurrentEditedStepGuid= 00000000-0000-0000-0000-000000000000  
+2013-10-14 22:37:55,781 [aangelov-PC\aangelov] [1] INFO TestCaseManagerApp.Views.TestCaseEditView - Add new test step to sharedStep with Title= test to To Google.jp, id= 28, ActionTitle= JAPAN, ExpectedResult= JAPAN EXPECTED 
+2013-10-14 22:37:55,878 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Insert test step ActionTitle= JAPAN, ActionExpectedResult= JAPAN EXPECTED, index= 1 
+2013-10-14 22:37:58,584 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Save shared step. 
+2013-10-14 22:37:58,586 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Shared Step Saved Info: Title= test to To Google.jp, Area= AANGELOV, Priority= Low, OwnerDisplayName= Anton Angelov 
+2013-10-14 22:37:58,586 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Save edited shared step with id= 28. 
+2013-10-14 22:38:00,949 [aangelov-PC\aangelov] [1] INFO TestCaseManagerApp.Views.TestCaseEditView - Navigate to all Shared Steps View. 
+2013-10-14 22:38:43,860 [aangelov-PC\aangelov] [8] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Find and Replace in shared step with Title= "test to To Google.jp" id= "28" 
+2013-10-14 22:38:43,986 [aangelov-PC\aangelov] [8] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Change Title from "test to To Google.jp" to "TEST to To Google.jp" 
+2013-10-14 22:39:02,403 [aangelov-PC\aangelov] [1] INFO TestCaseManagerApp.Views.TestCaseBatchDuplicateView - Edit Shared Step with id: 28  
+2013-10-14 22:39:02,620 [aangelov-PC\aangelov] [8] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Get All Areas for Project= AANGELOV 
+2013-10-14 22:39:03,396 [aangelov-PC\aangelov] [8] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Load Edit View with Context: TestCaseId= 0, TestSuiteId= 0, CreateNew= False, Duplicate= False, IsSharedStep= True, SharedStepId= 28, ComeFromTestCase = False, CurrentEditedStepGuid= 00000000-0000-0000-0000-000000000000  
+2013-10-14 22:48:14,705 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Theme to: FirstFloor.ModernUI.Presentation.Link 
+2013-10-14 22:48:14,826 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Color to: #FF1BA1E2 
+2013-10-14 22:48:14,857 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Color to: #FFFF4500 
+2013-10-14 22:48:20,103 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Load project info loaded from registry! 
+2013-10-14 22:48:20,171 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> TFS URI: https://aangelov.visualstudio.com/defaultcollection 
+2013-10-14 22:48:20,171 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> Test Project Name: AANGELOV 
+2013-10-14 22:48:22,214 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> TfsTeamProjectCollection: aangelov.visualstudio.com\DefaultCollection 
+2013-10-14 22:48:24,406 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - SET FullTeamProjectName to https://aangelov.visualstudio.com/defaultcollection/AANGELOV 
+2013-10-14 22:48:24,422 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> SelectedTestPlan: TEST TM 2012 
+2013-10-14 22:48:51,265 [aangelov-PC\aangelov] [5] ERROR TestCaseManagerCore.BusinessLogic.Managers.TestPlanManager - Getting all plans error. Microsoft.TeamFoundation.TeamFoundationServiceUnavailableException: TF400324: Team Foundation services are not available from server aangelov.visualstudio.com\DefaultCollection.
+Technical information (for administrator):
+  Unable to connect to the remote server ---> System.Net.WebException: Unable to connect to the remote server ---> System.Net.Sockets.SocketException: A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond 65.52.8.37:443
+   at System.Net.Sockets.Socket.DoConnect(EndPoint endPointSnapshot, SocketAddress socketAddress)
+   at System.Net.ServicePoint.ConnectSocketInternal(Boolean connectFailure, Socket s4, Socket s6, Socket& socket, IPAddress& address, ConnectSocketState state, IAsyncResult asyncResult, Exception& exception)
+   --- End of inner exception stack trace ---
+   at System.Net.HttpWebRequest.GetRequestStream(TransportContext& context)
+   at System.Net.HttpWebRequest.GetRequestStream()
+   at Microsoft.TeamFoundation.Client.Channels.TfsHttpWebRequest.SendRequestAndGetResponse(HttpWebRequest webRequest, WebException& webException)
+   --- End of inner exception stack trace ---
+   at Microsoft.TeamFoundation.Client.Channels.TfsHttpWebRequest.ReadResponse(HttpWebResponse webResponse, WebException webException)
+   at Microsoft.TeamFoundation.Client.Channels.TfsHttpWebRequest.IsAuthenticationChallenge(TfsMessage requestMessage, HttpWebResponse webResponse, WebException webException, TfsMessage& responseMessage)
+   at Microsoft.TeamFoundation.Client.Channels.TfsHttpWebRequest.SendRequest()
+   at Microsoft.TeamFoundation.Client.Channels.TfsHttpRequestChannel.Request(TfsMessage message, TimeSpan timeout)
+   at Microsoft.TeamFoundation.Client.Channels.TfsHttpClientBase.Invoke(TfsClientOperation operation, Object[] parameters, TimeSpan timeout, Object[]& outputs)
+   at Microsoft.TeamFoundation.TestManagement.Client.TestManagementWebService.QueryTestPlans(ResultsStoreQuery query)
+   at Microsoft.TeamFoundation.TestManagement.Client.TestPlanHelper.Query(String queryText)
+   at TestCaseManagerCore.BusinessLogic.Managers.TestPlanManager.GetAllTestPlans(ITestManagementTeamProject testManagementTeamProject) in d:\Projects\TestCaseManager\TestCaseManagerCore\BusinessLogic\Managers\TestPlanManager.cs:line 59
+
+2013-10-14 22:48:59,880 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Theme to: FirstFloor.ModernUI.Presentation.Link 
+2013-10-14 22:48:59,922 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Color to: #FF1BA1E2 
+2013-10-14 22:48:59,953 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Color to: #FFFF4500 
+2013-10-14 22:49:00,402 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Load project info loaded from registry! 
+2013-10-14 22:49:00,487 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> TFS URI: https://aangelov.visualstudio.com/defaultcollection 
+2013-10-14 22:49:00,488 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> Test Project Name: AANGELOV 
+2013-10-14 22:49:00,552 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> TfsTeamProjectCollection: aangelov.visualstudio.com\DefaultCollection 
+2013-10-14 22:49:00,855 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - SET FullTeamProjectName to https://aangelov.visualstudio.com/defaultcollection/AANGELOV 
+2013-10-14 22:49:00,873 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> SelectedTestPlan: TEST TM 2012 
+2013-10-14 22:49:15,494 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.BusinessLogic.Managers.TestCaseManager - Load all test cases in the suite with Title= "Navigate Public Sites" id = "5" 
+2013-10-14 22:49:16,803 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.BusinessLogic.Managers.TestCaseManager - Load all test cases in the suite with Title= "Navigate Public Sites" id = "5" 
+2013-10-14 22:49:26,314 [aangelov-PC\aangelov] [1] INFO TestCaseManagerApp.Views.TestCasesInitialView - Preview test case with id: 34 and suite id 5 
+2013-10-14 22:49:26,454 [aangelov-PC\aangelov] [6] INFO TestCaseManagerApp.Views.TestCaseDetailedView - Preview test case with id: 34 and suite id 5 
+2013-10-14 22:49:32,673 [aangelov-PC\aangelov] [8] INFO TestCaseManagerCore.BusinessLogic.Managers.TestCaseManager - Load all test cases in the suite with Title= "Navigate Public Sites" id = "5" 
+2013-10-14 22:49:33,855 [aangelov-PC\aangelov] [8] INFO TestCaseManagerCore.BusinessLogic.Managers.TestCaseManager - Load all test cases in the suite with Title= "Navigate Public Sites" id = "5" 
+2013-10-14 22:49:35,290 [aangelov-PC\aangelov] [1] INFO TestCaseManagerApp.Views.TestCasesInitialView - Preview test case with id: 14 and suite id 5 
+2013-10-14 22:49:35,399 [aangelov-PC\aangelov] [8] INFO TestCaseManagerApp.Views.TestCaseDetailedView - Preview test case with id: 14 and suite id 5 
+2013-10-14 22:50:48,234 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Find and Replace in test case with Title= "Search Test Case Manager HITBG" id= "165" 
+2013-10-14 22:50:48,235 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Change Title from "Search Test Case Manager HITBG" to "Search Test Case Manager hitbg" 
+2013-10-14 22:50:51,895 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Find and Replace in test case with Title= "Search Test Case Manager HITBG" id= "16" 
+2013-10-14 22:50:52,135 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.TestCasesBatchDuplicateViewModel - Change Title from "Search Test Case Manager HITBG" to "Search Test Case Manager hitbg" 
+2013-10-14 22:51:50,837 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Color to: #FF339933 
+2013-10-14 22:51:52,528 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Theme to: FirstFloor.ModernUI.Presentation.Link 
+2013-10-14 22:51:54,470 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Color to: #FFAA00FF 
+2013-10-14 22:51:56,171 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Color to: #FFE3C800 
+2013-10-14 22:51:56,593 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Color to: #FF6D8764 
+2013-10-14 22:51:57,761 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Color to: #FF76608A 
+2013-10-14 22:51:58,355 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Color to: #FF87794E 
+2013-10-14 22:51:59,139 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Color to: #FF6A00FF 
+2013-10-14 22:51:59,773 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Color to: #FF0050EF 
+2013-10-14 22:52:00,093 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Color to: #FF1BA1E2 
+2013-10-14 22:52:00,485 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Color to: #FF008A00 
+2013-10-14 22:52:01,941 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Color to: #FF339933 
+2013-10-14 22:52:02,349 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Color to: #FF00ABA9 
+2013-10-14 22:52:02,851 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Color to: #FF339933 
+2013-10-14 22:59:08,034 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Theme to: FirstFloor.ModernUI.Presentation.Link 
+2013-10-14 22:59:08,087 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Color to: #FF1BA1E2 
+2013-10-14 22:59:08,121 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Color to: #FF339933 
+2013-10-14 22:59:09,644 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Load project info loaded from registry! 
+2013-10-14 22:59:09,706 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> TFS URI: https://aangelov.visualstudio.com/defaultcollection 
+2013-10-14 22:59:09,706 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> Test Project Name: AANGELOV 
+2013-10-14 22:59:10,266 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> TfsTeamProjectCollection: aangelov.visualstudio.com\DefaultCollection 
+2013-10-14 22:59:11,481 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - SET FullTeamProjectName to https://aangelov.visualstudio.com/defaultcollection/AANGELOV 
+2013-10-14 22:59:11,498 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> SelectedTestPlan: TEST TM 2012 
+2013-10-14 22:59:35,284 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.BusinessLogic.Managers.TestCaseManager - Load all test cases in the suite with Title= "Navigate Public Sites" id = "5" 
+2013-10-14 22:59:36,439 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.BusinessLogic.Managers.TestCaseManager - Load all test cases in the suite with Title= "Navigate Public Sites" id = "5" 
+2013-10-14 23:02:37,578 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Theme to: FirstFloor.ModernUI.Presentation.Link 
+2013-10-14 23:02:37,621 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Color to: #FF1BA1E2 
+2013-10-14 23:02:37,652 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Color to: #FF339933 
+2013-10-14 23:02:38,060 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Load project info loaded from registry! 
+2013-10-14 23:02:38,166 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> TFS URI: https://aangelov.visualstudio.com/defaultcollection 
+2013-10-14 23:02:38,175 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> Test Project Name: AANGELOV 
+2013-10-14 23:02:38,246 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> TfsTeamProjectCollection: aangelov.visualstudio.com\DefaultCollection 
+2013-10-14 23:02:38,536 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - SET FullTeamProjectName to https://aangelov.visualstudio.com/defaultcollection/AANGELOV 
+2013-10-14 23:02:38,554 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> SelectedTestPlan: TEST TM 2012 
+2013-10-14 23:02:59,019 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Theme to: FirstFloor.ModernUI.Presentation.Link 
+2013-10-14 23:02:59,059 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Color to: #FF1BA1E2 
+2013-10-14 23:02:59,091 [aangelov-PC\aangelov] [1] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Color to: #FF339933 
+2013-10-14 23:02:59,496 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Load project info loaded from registry! 
+2013-10-14 23:02:59,584 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> TFS URI: https://aangelov.visualstudio.com/defaultcollection 
+2013-10-14 23:02:59,585 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> Test Project Name: AANGELOV 
+2013-10-14 23:02:59,632 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> TfsTeamProjectCollection: aangelov.visualstudio.com\DefaultCollection 
+2013-10-14 23:02:59,928 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - SET FullTeamProjectName to https://aangelov.visualstudio.com/defaultcollection/AANGELOV 
+2013-10-14 23:02:59,946 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> SelectedTestPlan: TEST TM 2012 
+2013-10-14 23:03:13,917 [aangelov-PC\aangelov] [5] INFO TestCaseManagerCore.BusinessLogic.Managers.TestCaseManager - Load all test cases in the suite with Title= "Navigate Public Sites" id = "5" 
+2013-10-14 23:03:15,060 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.BusinessLogic.Managers.TestCaseManager - Load all test cases in the suite with Title= "Navigate Public Sites" id = "5" 
+2013-10-14 23:47:27,892 [aangelov-PC\aangelov] [9] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Theme to: FirstFloor.ModernUI.Presentation.Link 
+2013-10-14 23:47:28,017 [aangelov-PC\aangelov] [9] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Color to: #FF1BA1E2 
+2013-10-14 23:47:28,052 [aangelov-PC\aangelov] [9] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Color to: #FF339933 
+2013-10-14 23:47:30,062 [aangelov-PC\aangelov] [11] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Load project info loaded from registry! 
+2013-10-14 23:47:30,174 [aangelov-PC\aangelov] [11] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> TFS URI: https://aangelov.visualstudio.com/defaultcollection 
+2013-10-14 23:47:30,175 [aangelov-PC\aangelov] [11] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> Test Project Name: AANGELOV 
+2013-10-14 23:47:30,483 [aangelov-PC\aangelov] [11] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> TfsTeamProjectCollection: aangelov.visualstudio.com\DefaultCollection 
+2013-10-14 23:47:31,297 [aangelov-PC\aangelov] [11] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - SET FullTeamProjectName to https://aangelov.visualstudio.com/defaultcollection/AANGELOV 
+2013-10-14 23:47:31,315 [aangelov-PC\aangelov] [11] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> SelectedTestPlan: TEST TM 2012 
+2013-10-14 23:47:43,392 [aangelov-PC\aangelov] [12] INFO TestCaseManagerCore.BusinessLogic.Managers.TestCaseManager - Load all test cases in the suite with Title= "Navigate Public Sites" id = "5" 
+2013-10-14 23:47:48,631 [aangelov-PC\aangelov] [14] INFO TestCaseManagerCore.BusinessLogic.Managers.TestCaseManager - Load all test cases in the suite with Title= "Navigate Public Sites" id = "5" 
+2013-10-15 00:02:06,856 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Theme to: FirstFloor.ModernUI.Presentation.Link 
+2013-10-15 00:02:07,022 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Color to: #FF1BA1E2 
+2013-10-15 00:02:07,058 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Color to: #FF339933 
+2013-10-15 00:02:11,532 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Load project info loaded from registry! 
+2013-10-15 00:02:11,630 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> TFS URI: https://aangelov.visualstudio.com/defaultcollection 
+2013-10-15 00:02:11,631 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> Test Project Name: AANGELOV 
+2013-10-15 00:02:12,211 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> TfsTeamProjectCollection: aangelov.visualstudio.com\DefaultCollection 
+2013-10-15 00:02:13,106 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - SET FullTeamProjectName to https://aangelov.visualstudio.com/defaultcollection/AANGELOV 
+2013-10-15 00:02:13,124 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> SelectedTestPlan: TEST TM 2012 
+2013-10-15 00:02:36,778 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Theme to: FirstFloor.ModernUI.Presentation.Link 
+2013-10-15 00:02:36,822 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Color to: #FF1BA1E2 
+2013-10-15 00:02:36,857 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Color to: #FF339933 
+2013-10-15 00:02:37,266 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Load project info loaded from registry! 
+2013-10-15 00:02:37,361 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> TFS URI: https://aangelov.visualstudio.com/defaultcollection 
+2013-10-15 00:02:37,361 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> Test Project Name: AANGELOV 
+2013-10-15 00:02:37,400 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> TfsTeamProjectCollection: aangelov.visualstudio.com\DefaultCollection 
+2013-10-15 00:02:37,680 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - SET FullTeamProjectName to https://aangelov.visualstudio.com/defaultcollection/AANGELOV 
+2013-10-15 00:02:37,699 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> SelectedTestPlan: TEST TM 2012 
+2013-10-15 00:02:45,143 [aangelov-PC\aangelov] [13] INFO TestCaseManagerCore.BusinessLogic.Managers.TestCaseManager - Load all test cases in the suite with Title= "Navigate Public Sites" id = "5" 
+2013-10-15 00:02:46,677 [aangelov-PC\aangelov] [13] INFO TestCaseManagerCore.BusinessLogic.Managers.TestCaseManager - Load all test cases in the suite with Title= "Navigate Public Sites" id = "5" 
+2013-10-15 00:25:32,836 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Theme to: FirstFloor.ModernUI.Presentation.Link 
+2013-10-15 00:25:32,892 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Color to: #FF1BA1E2 
+2013-10-15 00:25:32,926 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Color to: #FF339933 
+2013-10-15 00:25:33,504 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Load project info loaded from registry! 
+2013-10-15 00:25:33,615 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> TFS URI: https://aangelov.visualstudio.com/defaultcollection 
+2013-10-15 00:25:33,616 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> Test Project Name: AANGELOV 
+2013-10-15 00:25:33,736 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> TfsTeamProjectCollection: aangelov.visualstudio.com\DefaultCollection 
+2013-10-15 00:25:34,151 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - SET FullTeamProjectName to https://aangelov.visualstudio.com/defaultcollection/AANGELOV 
+2013-10-15 00:25:34,171 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> SelectedTestPlan: TEST TM 2012 
+2013-10-15 00:25:43,664 [aangelov-PC\aangelov] [13] INFO TestCaseManagerCore.BusinessLogic.Managers.TestCaseManager - Load all test cases in the suite with Title= "Navigate Public Sites" id = "5" 
+2013-10-15 00:25:44,870 [aangelov-PC\aangelov] [13] INFO TestCaseManagerCore.BusinessLogic.Managers.TestCaseManager - Load all test cases in the suite with Title= "Navigate Public Sites" id = "5" 
+2013-10-15 00:25:57,093 [aangelov-PC\aangelov] [15] INFO TestCaseManagerCore.BusinessLogic.Managers.TestCaseManager - Load all test cases in the suite with Title= "Login Public Sites" id = "51" 
+2013-10-15 00:36:27,472 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Theme to: FirstFloor.ModernUI.Presentation.Link 
+2013-10-15 00:36:27,546 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Color to: #FF1BA1E2 
+2013-10-15 00:36:27,582 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Color to: #FF339933 
+2013-10-15 00:36:29,447 [aangelov-PC\aangelov] [12] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Load project info loaded from registry! 
+2013-10-15 00:36:29,579 [aangelov-PC\aangelov] [12] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> TFS URI: https://aangelov.visualstudio.com/defaultcollection 
+2013-10-15 00:36:29,579 [aangelov-PC\aangelov] [12] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> Test Project Name: AANGELOV 
+2013-10-15 00:36:29,817 [aangelov-PC\aangelov] [12] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> TfsTeamProjectCollection: aangelov.visualstudio.com\DefaultCollection 
+2013-10-15 00:36:30,261 [aangelov-PC\aangelov] [12] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - SET FullTeamProjectName to https://aangelov.visualstudio.com/defaultcollection/AANGELOV 
+2013-10-15 00:36:30,279 [aangelov-PC\aangelov] [12] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> SelectedTestPlan: TEST TM 2012 
+2013-10-15 00:36:42,821 [aangelov-PC\aangelov] [12] INFO TestCaseManagerCore.BusinessLogic.Managers.TestCaseManager - Load all test cases in the suite with Title= "Login Public Sites" id = "51" 
+2013-10-15 00:36:43,951 [aangelov-PC\aangelov] [13] INFO TestCaseManagerCore.BusinessLogic.Managers.TestCaseManager - Load all test cases in the suite with Title= "Login Public Sites" id = "51" 
+2013-10-15 00:40:33,405 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Theme to: FirstFloor.ModernUI.Presentation.Link 
+2013-10-15 00:40:33,460 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Color to: #FF1BA1E2 
+2013-10-15 00:40:33,503 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Color to: #FF339933 
+2013-10-15 00:40:34,920 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Load project info loaded from registry! 
+2013-10-15 00:40:35,008 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> TFS URI: https://aangelov.visualstudio.com/defaultcollection 
+2013-10-15 00:40:35,009 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> Test Project Name: AANGELOV 
+2013-10-15 00:40:35,369 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> TfsTeamProjectCollection: aangelov.visualstudio.com\DefaultCollection 
+2013-10-15 00:40:35,714 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - SET FullTeamProjectName to https://aangelov.visualstudio.com/defaultcollection/AANGELOV 
+2013-10-15 00:40:35,731 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> SelectedTestPlan: TEST TM 2012 
+2013-10-15 00:40:49,980 [aangelov-PC\aangelov] [13] INFO TestCaseManagerCore.BusinessLogic.Managers.TestCaseManager - Load all test cases in the suite with Title= "Login Public Sites" id = "51" 
+2013-10-15 00:40:51,320 [aangelov-PC\aangelov] [13] INFO TestCaseManagerCore.BusinessLogic.Managers.TestCaseManager - Load all test cases in the suite with Title= "Login Public Sites" id = "51" 
+2013-10-15 00:43:09,477 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Theme to: FirstFloor.ModernUI.Presentation.Link 
+2013-10-15 00:43:09,521 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Color to: #FF1BA1E2 
+2013-10-15 00:43:09,555 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Color to: #FF339933 
+2013-10-15 00:43:10,669 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Load project info loaded from registry! 
+2013-10-15 00:43:10,784 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> TFS URI: https://aangelov.visualstudio.com/defaultcollection 
+2013-10-15 00:43:10,784 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> Test Project Name: AANGELOV 
+2013-10-15 00:43:11,016 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> TfsTeamProjectCollection: aangelov.visualstudio.com\DefaultCollection 
+2013-10-15 00:43:11,659 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - SET FullTeamProjectName to https://aangelov.visualstudio.com/defaultcollection/AANGELOV 
+2013-10-15 00:43:11,676 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> SelectedTestPlan: TEST TM 2012 
+2013-10-15 00:43:24,858 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.BusinessLogic.Managers.TestCaseManager - Load all test cases in the suite with Title= "Login Public Sites" id = "51" 
+2013-10-15 00:43:25,979 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.BusinessLogic.Managers.TestCaseManager - Load all test cases in the suite with Title= "Login Public Sites" id = "51" 
+2013-10-15 00:43:34,194 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCasesInitialView - Navigate to Create New Test Case, Suite Id: 51 
+2013-10-15 00:43:34,443 [aangelov-PC\aangelov] [13] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Get All Areas for Project= AANGELOV 
+2013-10-15 00:43:43,940 [aangelov-PC\aangelov] [13] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Load Edit View with Context: TestCaseId= 0, TestSuiteId= 51, CreateNew= True, Duplicate= False, IsSharedStep= False, SharedStepId= 0, ComeFromTestCase = False, CurrentEditedStepGuid= 00000000-0000-0000-0000-000000000000  
+2013-10-15 00:43:49,800 [aangelov-PC\aangelov] [15] INFO TestCaseManagerCore.BusinessLogic.Managers.TestCaseManager - Load all test cases in the suite with Title= "Login Public Sites" id = "51" 
+2013-10-15 00:43:50,919 [aangelov-PC\aangelov] [13] INFO TestCaseManagerCore.BusinessLogic.Managers.TestCaseManager - Load all test cases in the suite with Title= "Login Public Sites" id = "51" 
+2013-10-15 00:43:56,699 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCasesInitialView - Navigate to Create New Test Case, Suite Id: 51 
+2013-10-15 00:43:56,849 [aangelov-PC\aangelov] [15] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Get All Areas for Project= AANGELOV 
+2013-10-15 00:44:03,468 [aangelov-PC\aangelov] [13] INFO TestCaseManagerCore.BusinessLogic.Managers.TestCaseManager - Load all test cases in the suite with Title= "Login Public Sites" id = "51" 
+2013-10-15 00:44:05,074 [aangelov-PC\aangelov] [13] INFO TestCaseManagerCore.BusinessLogic.Managers.TestCaseManager - Load all test cases in the suite with Title= "Login Public Sites" id = "51" 
+2013-10-15 00:44:06,494 [aangelov-PC\aangelov] [15] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Load Edit View with Context: TestCaseId= 0, TestSuiteId= 51, CreateNew= True, Duplicate= False, IsSharedStep= False, SharedStepId= 0, ComeFromTestCase = False, CurrentEditedStepGuid= 00000000-0000-0000-0000-000000000000  
+2013-10-15 00:46:26,186 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Save test case. 
+2013-10-15 00:46:26,189 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Test Case Saved Info: Title= , Area= AANGELOV, Priority= VeryHigh, OwnerDisplayName= Anton Angelov 

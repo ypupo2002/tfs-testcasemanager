@@ -238,7 +238,7 @@ namespace TestCaseManagerApp.Views
             l4.DisplayName = "Change|Duplicate Shared Steps";
             l4.Source = u4;
             lg.Links.Add(l4);
-
+            //mw.MenuLinkGroups[2].Links[0].
             mw.MenuLinkGroups.Add(lg);
         }
 

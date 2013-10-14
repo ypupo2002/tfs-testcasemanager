@@ -27,7 +27,10 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
             string newText = textToReplace ?? string.Empty;
             foreach (TextReplacePair currentPair in textReplacePairs)
             {
-                newText = newText.Replace(currentPair.OldText, currentPair.NewText);
+                if (currentPair.OldText != null && currentPair.NewText != null)
+                {
+                    newText = newText.Replace(currentPair.OldText, currentPair.NewText);
+                }              
             }
 
             return newText;

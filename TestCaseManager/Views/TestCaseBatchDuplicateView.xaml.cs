@@ -69,6 +69,11 @@ namespace TestCaseManagerApp.Views
         public void OnFragmentNavigation(FirstFloor.ModernUI.Windows.Navigation.FragmentNavigationEventArgs e)
         {
             this.InitializeUrlParameters(e);
+            if (isInitialized)
+            {
+                this.ShowProgressBar();
+                this.InitializeInternal();
+            }         
         }
 
         /// <summary>
@@ -402,6 +407,11 @@ namespace TestCaseManagerApp.Views
         /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void btnBatchDuplicate_Click(object sender, RoutedEventArgs e)
         {
+            if(dgTestCases.SelectedItems.Count == 0)
+            {
+                ModernDialog.ShowMessage("No test cases are selected.", "Warrning!", MessageBoxButton.OK);
+                return;
+            }
             if (!this.TestCasesBatchDuplicateViewModel.AreAllSharedStepIdsValid())
             {
                 this.ShowNotCorrectSharedStepIdMessageBox();
@@ -442,6 +452,11 @@ namespace TestCaseManagerApp.Views
         /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void btnFindAndReplace_Click(object sender, RoutedEventArgs e)
         {
+            if (dgTestCases.SelectedItems.Count == 0)
+            {
+                ModernDialog.ShowMessage("No test cases are selected.", "Warrning!", MessageBoxButton.OK);
+                return;
+            }
             if (!this.TestCasesBatchDuplicateViewModel.AreAllSharedStepIdsValid())
             {
                 this.ShowNotCorrectSharedStepIdMessageBox();

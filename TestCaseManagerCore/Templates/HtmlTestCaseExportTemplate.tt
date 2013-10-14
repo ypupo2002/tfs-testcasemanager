@@ -12,38 +12,193 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=windows-1251" />
 	<style type="text/css">
-		.testCaseProps{display:block;}
-		.testCaseProps > span {font-size: 1.2em; font-weight:bold;}
-		.noTestStepsTable th {text-align:left}
-		hr{height:3px; color: #339933; background-color: #339933; border-width:0; margin-bottom:30px; margin-top:30px; }
-		body{background-color: #fff; color: #000;}
-		th, td{border:1px solid #000; padding:1%;}
-		table{margin-top:10px; border-collapse:collapse; width:100%;}
-		th:first-child, td:first-child{width:5%;}
-		th:nth-child(2), td:nth-child(2){width:40%;}
-		th:nth-child(3), td:nth-child(3){width:40%;}
-	</style>
+        html, body, button, ul, li, span, table, thead, tbody, tr, th, td, hr {
+            margin: 0;
+            padding: 0;
+        }
+
+        .testCaseProps {
+            display: block;
+        }
+
+            .testCaseProps > span {
+                font-size: 1.2em;
+                font-weight: bold;
+            }
+
+        .noTestStepsTable th {
+            text-align: left;
+        }
+
+        hr {
+            height: 3px;
+            color: #339933;
+            background-color: #339933;
+            border-width: 0;
+            margin-bottom: 30px;
+            margin-top: 30px;
+        }
+
+        body {
+            background-color: #fff;
+            color: #000;
+        }
+
+        th, td {
+            border: 1px solid #000;
+            padding: 1%;
+        }
+
+        table {
+            margin-top: 10px;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th:first-child, td:first-child {
+            width: 5%;
+        }
+
+        th:nth-child(2), td:nth-child(2) {
+            width: 40%;
+        }
+
+        th:nth-child(3), td:nth-child(3) {
+            width: 40%;
+        }
+
+        .expanded {
+            display: block;
+        }
+
+        .collapsed {
+            display: none;
+        }
+
+        ul {
+            margin-top: 20px;
+            margin-left: 20px;
+            list-style-type: none;
+        }
+
+        button {
+            padding: 1px 5px;
+            margin-top: 5px;
+            background-color: #fff;
+            border: 2px solid #339933;
+            color: #339933;
+            font-weight: 900;
+        }
+		
+		 button:hover {
+                background-color: #339933;
+                color: #fff;
+            }
+
+        #expandAll, #collapseAll {
+            position: absolute;
+            top: 20px;
+            position: fixed;
+        }
+
+        #expandAll {
+            right: 180px;
+        }
+
+        #collapseAll {
+            right: 20px;
+        }
+    </style>
 </head>
 <body>
-
+<button id="expandAll">Expand All</button>
+<button id="collapseAll">Collapse All</button>
+<ul>
 <#
 	BuildBody();
 #>
+</ul>
 
+<script>
+(function () {
+    var liItems = document.getElementsByTagName("li");
+    var expandAllButton = document.getElementById("expandAll");
+    var collapseAllButton = document.getElementById("collapseAll");
+
+    // initialize li items, by giving a class name and inserting a button(each button gets event for click) for each li item
+    for (var i = 0; i < liItems.length; i++) {
+        var currTable = liItems[i].getElementsByTagName("TABLE")[0];
+        currTable.className = "collapsed";
+        liItems[i].innerHTML = liItems[i].innerHTML + "<button name='collapsed'> + </button> <span>Show steps</span> <hr />";
+        var currentLiButton = liItems[i].getElementsByTagName("BUTTON")[0];
+        currentLiButton.addEventListener("click", expandCollapseTestCase, false);
+    }
+
+    function expandCollapseTestCase(event) {
+        if (this.name === "collapsed") {
+            var currentTable = event.target.parentElement.getElementsByTagName("TABLE")[0];
+            currentTable.className = "expanded";
+            this.name = "expanded";
+            this.innerHTML = " - ";
+            this.nextElementSibling.innerHTML = "Hide steps";
+        } else {
+            var currentTable = event.target.parentElement.getElementsByTagName("TABLE")[0];
+            currentTable.className = "collapsed";
+            this.name = "collapsed";
+            this.innerHTML = " + ";
+            this.nextElementSibling.innerHTML = "Show steps";
+        }
+    }
+
+    function expandAll() {
+        for (var i = 0; i < liItems.length; i++) {
+            var currentTable = liItems[i].getElementsByTagName("TABLE")[0];
+            currentTable.className = "expanded";
+            var expandButton = liItems[i].getElementsByTagName("Button")[0];
+            expandButton.innerHTML = " - ";
+            expandButton.name = "expanded";
+            var showHideLabel = expandButton.nextElementSibling;
+            showHideLabel.innerHTML = "Hide steps"
+        }
+    }
+
+    function collapseAll() {
+        for (var i = 0; i < liItems.length; i++) {
+            var currentTable = liItems[i].getElementsByTagName("TABLE")[0];
+            currentTable.className = "collapsed";
+            var collapsedButton = liItems[i].getElementsByTagName("Button")[0];
+            collapsedButton.innerHTML = " + ";
+            collapsedButton.name = "collapsed";
+            var showHideLabel = collapsedButton.nextElementSibling;
+            showHideLabel.innerHTML = "Show steps"
+        }
+    }
+
+    expandAllButton.addEventListener("click", expandAll, false);
+    collapseAllButton.addEventListener("click", collapseAll, false);
+
+})();
+
+
+
+    </script>
+</body>
+</html>
 <#+
 public void BuildBody()
 {
 	foreach (TestCaseFull currentFullTestCase in FullTestCases)
 	{
 		PushIndent("\t");
-		BuildTestCaseProperties(currentFullTestCase.TestCase);
+		BuildTestCaseProperties(currentFullTestCase.TestCase, currentFullTestCase.MostRecentResult);
 		BuildTestCaseTestStepsTable(currentFullTestCase.TestSteps);
 		PopIndent();
 	} 
 }
 
-public void BuildTestCaseProperties(TestCase testCase)
+public void BuildTestCaseProperties(TestCase testCase, string status)
 {	
+	WriteLine(@"<li>");
 	WriteLine(@"<span class=""testCaseProps""><span>Title: </span>");
 	WriteLine(testCase.ITestCase.Title);
 	WriteLine(@"</span>");
@@ -69,6 +224,9 @@ public void BuildTestCaseProperties(TestCase testCase)
 	WriteLine(@"<span class=""testCaseProps""><span>Assigned To: </span>");
 	WriteLine(testCase.OwnerDisplayName);
 	WriteLine(@"</span>");	
+    WriteLine(@"<span class=""testCaseProps""><span>Status: </span>");
+	WriteLine(status);
+	WriteLine(@"</span>");	
 }
 
 public void BuildTestCaseTestStepsTable(List<TestStep> testSteps)
@@ -87,6 +245,7 @@ public void BuildTestCaseTestStepsTable(List<TestStep> testSteps)
 		WriteLine(@"<th>Expected Results</th>");
 		PopIndent();
 		WriteLine(@"</tr>");
+		WriteLine(@"</thead>");
 		WriteLine(@"<tbody>");
 		PushIndent("\t");
 
@@ -103,7 +262,7 @@ public void BuildTestCaseTestStepsTable(List<TestStep> testSteps)
     {
 		WriteLine(@"<table cellpadding=""0"" cellspacing=""0"">");
 		PushIndent("\t");
-		WriteLine(@"<thead>");
+		WriteLine(@"<tbody>");
 		PushIndent("\t");
 		WriteLine(@"<tr>");
 		PushIndent("\t");
@@ -114,9 +273,7 @@ public void BuildTestCaseTestStepsTable(List<TestStep> testSteps)
 	PopIndent();
 	WriteLine(@"</tbody>");
 	PopIndent();
-	WriteLine(@"</thead>");
-	PopIndent();
 	WriteLine(@"</table>");
-	WriteLine(@"<hr/>");
+	WriteLine(@"</li>");
 }
 #>

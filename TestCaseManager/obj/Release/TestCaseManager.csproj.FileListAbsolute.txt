@@ -148,13 +148,15 @@ D:\TestCaseManager\TestCaseManager\obj\Release\TestCaseManagerApp.Properties.Res
 D:\TestCaseManager\TestCaseManager\obj\Release\TestCaseManager.csproj.GenerateResource.Cache
 D:\TestCaseManager\TestCaseManager\obj\Release\TestCaseManager.exe
 D:\TestCaseManager\TestCaseManager\obj\Release\TestCaseManager.pdb
-D:\Projects\TestCaseManager\TestCaseManager\bin\Release\TestCaseManager.exe.config
 D:\Projects\TestCaseManager\TestCaseManager\bin\Release\Licenses\TestCaseManager.License.rtf
+D:\Projects\TestCaseManager\TestCaseManager\bin\Release\Log4Net.config
 D:\Projects\TestCaseManager\TestCaseManager\bin\Release\Registration.ico
+D:\Projects\TestCaseManager\TestCaseManager\bin\Release\TestCaseManager.exe.config
 D:\Projects\TestCaseManager\TestCaseManager\bin\Release\TestCaseManager.exe
 D:\Projects\TestCaseManager\TestCaseManager\bin\Release\TestCaseManager.pdb
 D:\Projects\TestCaseManager\TestCaseManager\bin\Release\Accessibility.dll
 D:\Projects\TestCaseManager\TestCaseManager\bin\Release\FirstFloor.ModernUI.dll
+D:\Projects\TestCaseManager\TestCaseManager\bin\Release\log4net.dll
 D:\Projects\TestCaseManager\TestCaseManager\bin\Release\Microsoft.CSharp.dll
 D:\Projects\TestCaseManager\TestCaseManager\bin\Release\PresentationCore.dll
 D:\Projects\TestCaseManager\TestCaseManager\bin\Release\PresentationFramework.dll
@@ -176,6 +178,7 @@ D:\Projects\TestCaseManager\TestCaseManager\bin\Release\WindowsBase.dll
 D:\Projects\TestCaseManager\TestCaseManager\bin\Release\Microsoft.TeamFoundation.WorkItemTracking.Client.DataStoreLoader.dll
 D:\Projects\TestCaseManager\TestCaseManager\bin\Release\TestCaseManagerCore.pdb
 D:\Projects\TestCaseManager\TestCaseManager\bin\Release\FirstFloor.ModernUI.xml
+D:\Projects\TestCaseManager\TestCaseManager\bin\Release\log4net.xml
 D:\Projects\TestCaseManager\TestCaseManager\bin\Release\Microsoft.WITDataStore.dll
 D:\Projects\TestCaseManager\TestCaseManager\obj\Release\TestCaseManager.csprojResolveAssemblyReference.cache
 D:\Projects\TestCaseManager\TestCaseManager\obj\Release\Assets\ModernUI.HelloKitty.baml
@@ -214,6 +217,4 @@ D:\Projects\TestCaseManager\TestCaseManager\obj\Release\TestCaseManagerApp.Prope
 D:\Projects\TestCaseManager\TestCaseManager\obj\Release\TestCaseManager.csproj.GenerateResource.Cache
 D:\Projects\TestCaseManager\TestCaseManager\obj\Release\TestCaseManager.exe
 D:\Projects\TestCaseManager\TestCaseManager\obj\Release\TestCaseManager.pdb
-D:\Projects\TestCaseManager\TestCaseManager\bin\Release\log4net.dll
-D:\Projects\TestCaseManager\TestCaseManager\bin\Release\log4net.xml
-D:\Projects\TestCaseManager\TestCaseManager\bin\Release\Log4Net.config
+D:\Projects\TestCaseManager\TestCaseManager\obj\Release\TestCaseManager_Content.g.cs

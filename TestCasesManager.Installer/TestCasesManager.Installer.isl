@@ -340,10 +340,11 @@
 		<col def="S0">ISDotNetInstallerArgsCommit</col>
 		<col def="S0">ISDotNetInstallerArgsUninstall</col>
 		<col def="S0">ISDotNetInstallerArgsRollback</col>
-		<row><td>ISO19770_LocalTag</td><td>{1C18252F-D76E-4790-B18C-CEA5C904DC0D}</td><td>INSTALLDIR</td><td>2</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 		<row><td>ISO19770_SystemTag</td><td>{3DFAC033-3338-4274-8894-2ECC26FF15C3}</td><td>CommonAppDataFolder</td><td>2</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>ISX_DEFAULTCOMPONENT</td><td>{B525771B-DF31-44DF-BCCE-4A507ECE0825}</td><td>INSTALLDIR</td><td>2</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 		<row><td>NewComponent1</td><td>{1C123103-E13F-4100-9405-5A7F648A38EA}</td><td>INSTALLDIR</td><td>2</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
-		<row><td>TestCaseManager.Primary_output</td><td>{B97B7623-DB50-4F7D-930F-4CE7ED6D1532}</td><td>INSTALLDIR</td><td>2</td><td/><td>testcasemanager.primary_outp</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>NewComponent2</td><td>{8079713E-55AB-4572-8232-11BD69EF251E}</td><td>INSTALLDIR</td><td>2</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>TestCaseManager.Primary_output</td><td>{11F1CCC3-19D7-4181-882C-3F21E56D123F}</td><td>INSTALLDIR</td><td>2</td><td/><td>testcasemanager.primary_outp</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 	</table>
 
 	<table name="Condition">
@@ -1052,7 +1053,9 @@
 	<table name="CreateFolder">
 		<col key="yes" def="s72">Directory_</col>
 		<col key="yes" def="s72">Component_</col>
+		<row><td>INSTALLDIR</td><td>ISX_DEFAULTCOMPONENT</td></row>
 		<row><td>INSTALLDIR</td><td>NewComponent1</td></row>
+		<row><td>INSTALLDIR</td><td>NewComponent2</td></row>
 	</table>
 
 	<table name="CustomAction">
@@ -1171,9 +1174,8 @@
 		<row><td>USERPROFILE</td><td>TARGETDIR</td><td>.:USERPR~1|UserProfile</td><td/><td>0</td><td/></row>
 		<row><td>WindowsFolder</td><td>TARGETDIR</td><td>.:Windows</td><td/><td>0</td><td/></row>
 		<row><td>WindowsVolume</td><td>TARGETDIR</td><td>.:WinRoot</td><td/><td>0</td><td/></row>
-		<row><td>telerik</td><td>ProgramMenuFolder</td><td>Telerik</td><td/><td>1</td><td/></row>
-		<row><td>test_cases_manager_1.04</td><td>telerik</td><td>TESTCA~1.04|test cases manager 1.04</td><td/><td>1</td><td/></row>
-		<row><td>testca_1.ins_testcasesmanager.installer</td><td>telerik</td><td>TESTCA~1.INS|TestCasesManager.Installer</td><td/><td>1</td><td/></row>
+		<row><td>codeplex</td><td>ProgramMenuFolder</td><td>CodePlex</td><td/><td>1</td><td/></row>
+		<row><td>testca_1.5_test_cases_manager_1.0.7.5</td><td>codeplex</td><td>TESTCA~1.5|Test Cases Manager 1.0.7.5</td><td/><td>1</td><td/></row>
 	</table>
 
 	<table name="DrLocator">
@@ -1865,7 +1867,9 @@
 	<table name="FeatureComponents">
 		<col key="yes" def="s38">Feature_</col>
 		<col key="yes" def="s72">Component_</col>
+		<row><td>AlwaysInstall</td><td>ISX_DEFAULTCOMPONENT</td></row>
 		<row><td>AlwaysInstall</td><td>NewComponent1</td></row>
+		<row><td>AlwaysInstall</td><td>NewComponent2</td></row>
 		<row><td>AlwaysInstall</td><td>TestCaseManager.Primary_output</td></row>
 	</table>
 
@@ -1882,7 +1886,6 @@
 		<col def="I4">ISAttributes</col>
 		<col def="S72">ISComponentSubFolder_</col>
 		<row><td>regid.2013_09.com.telerik.ww</td><td>ISO19770_SystemTag</td><td>REGID2~1.SWI|regid.2013-09.com.telerik.www_0E9085DB-D2D5-4BAB-8A4C-1B589791E706.swidtag</td><td>0</td><td/><td/><td/><td>1</td><td>D:\Projects\TestCaseManager\TestCasesManager.Installer\TestCasesManager.Installer\Express\Interm\regid.2013-09.com.telerik.www_0E9085DB-D2D5-4BAB-8A4C-1B589791E706.swidtag</td><td>1</td><td/></row>
-		<row><td>regid.2013_09.com.telerik.ww1</td><td>ISO19770_LocalTag</td><td>REGID2~1.SWI|regid.2013-09.com.telerik.www_0E9085DB-D2D5-4BAB-8A4C-1B589791E706.swidtag</td><td>0</td><td/><td/><td/><td>1</td><td>D:\Projects\TestCaseManager\TestCasesManager.Installer\TestCasesManager.Installer\Express\Interm\regid.2013-09.com.telerik.www_0E9085DB-D2D5-4BAB-8A4C-1B589791E706.swidtag</td><td>1</td><td/></row>
 		<row><td>testcasemanager.primary_outp</td><td>TestCaseManager.Primary_output</td><td>TestCaseManager.Primary output</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;TestCaseManager&gt;|Built</td><td>3</td><td/></row>
 	</table>
 
@@ -2140,10 +2143,11 @@
 		<col def="S0">FTPLocation</col>
 		<col def="S0">HTTPLocation</col>
 		<col def="S0">Miscellaneous</col>
-		<row><td>ISO19770_LocalTag</td><td/><td/><td>_1F7AB9DB_AF21_41F1_9E7C_34F70A07EC4D_FILTER</td><td/><td/><td/><td/></row>
 		<row><td>ISO19770_SystemTag</td><td/><td/><td>_C70DFF2F_C3CC_4EEF_B668_E2A8765716FE_FILTER</td><td/><td/><td/><td/></row>
+		<row><td>ISX_DEFAULTCOMPONENT</td><td/><td/><td>_262FE2C1_5BA3_4057_B0F9_F5489B419659_FILTER</td><td/><td/><td/><td/></row>
 		<row><td>NewComponent1</td><td/><td/><td>_A5464E60_6904_49A6_9DCE_00ED22EBB8BB_FILTER</td><td/><td/><td/><td/></row>
-		<row><td>TestCaseManager.Primary_output</td><td/><td/><td>_2DA1D427_5D6E_48F9_9BEA_D88FC3B8D924_FILTER</td><td/><td/><td/><td/></row>
+		<row><td>NewComponent2</td><td/><td/><td>_EF295887_EA63_4E98_B82D_E9BC262E9856_FILTER</td><td/><td/><td/><td/></row>
+		<row><td>TestCaseManager.Primary_output</td><td/><td/><td>_FE9F4FC7_63EA_4829_82E6_17694B039FDB_FILTER</td><td/><td/><td/><td/></row>
 	</table>
 
 	<table name="ISCustomActionReference">
@@ -3586,6 +3590,7 @@
 		<row><td>IDS_SETUPEXE_EXPIRE_MSG</td><td>1033</td><td>This setup works until %s. The setup will now exit.</td><td>0</td><td/><td>2082544425</td></row>
 		<row><td>IDS_SHORTCUT_DISPLAY_NAME1</td><td>1033</td><td>Launch |Built</td><td>0</td><td/><td>2082573161</td></row>
 		<row><td>IDS_SHORTCUT_DISPLAY_NAME2</td><td>1033</td><td>TestCaseManager</td><td>0</td><td/><td>2082549161</td></row>
+		<row><td>IDS_SHORTCUT_DISPLAY_NAME3</td><td>1033</td><td>LAUNCH~1.EXE|Launch TestCaseManager.exe</td><td>0</td><td/><td>1965099714</td></row>
 		<row><td>IDS_SQLBROWSE_INTRO</td><td>1033</td><td>From the list of servers below, select the database server you would like to target.</td><td>0</td><td/><td>2082544425</td></row>
 		<row><td>IDS_SQLBROWSE_INTRO_DB</td><td>1033</td><td>From the list of catalog names below, select the database catalog you would like to target.</td><td>0</td><td/><td>2082544425</td></row>
 		<row><td>IDS_SQLBROWSE_INTRO_TEMPLATE</td><td>1033</td><td>[IS_SQLBROWSE_INTRO]</td><td>0</td><td/><td>2082544425</td></row>
@@ -3875,6 +3880,7 @@
 		<row><td>IDS__TargetReq_DESC_RAM</td><td>1033</td><td>The amount of RAM is not adequate for running [ProductName].</td><td>0</td><td/><td>2082544425</td></row>
 		<row><td>IDS__TargetReq_DESC_RESOLUTION</td><td>1033</td><td>The screen resolution is not adequate for running [ProductName].</td><td>0</td><td/><td>2082544425</td></row>
 		<row><td>ID_STRING1</td><td>1033</td><td/><td>0</td><td/><td>2082546473</td></row>
+		<row><td>ID_STRING10</td><td>1033</td><td>TESTCA~1|Test Case Manager</td><td>0</td><td/><td>1965124994</td></row>
 		<row><td>ID_STRING2</td><td>1033</td><td>https://testcasemanager.codeplex.com/</td><td>0</td><td/><td>-593400458</td></row>
 		<row><td>ID_STRING3</td><td>1033</td><td>CodePlex</td><td>0</td><td/><td>-593422986</td></row>
 		<row><td>ID_STRING4</td><td>1033</td><td>Launch |Built</td><td>0</td><td/><td>2082577257</td></row>
@@ -3882,6 +3888,7 @@
 		<row><td>ID_STRING6</td><td>1033</td><td>angelov.st.anton@gmail.com</td><td>0</td><td/><td>1017196950</td></row>
 		<row><td>ID_STRING7</td><td>1033</td><td>https://testcasemanager.codeplex.com/workitem/list/basic</td><td>0</td><td/><td>-593400458</td></row>
 		<row><td>ID_STRING8</td><td>1033</td><td>https://testcasemanager.codeplex.com/releases</td><td>0</td><td/><td>1017207222</td></row>
+		<row><td>ID_STRING9</td><td>1033</td><td/><td>0</td><td/><td>1965153570</td></row>
 		<row><td>IIDS_UITEXT_FeatureUninstalled</td><td>1033</td><td>This feature will remain uninstalled.</td><td>0</td><td/><td>2082544425</td></row>
 	</table>
 
@@ -3997,7 +4004,7 @@
 		<col def="S255">ISBuildSourcePath</col>
 		<col def="I2">ISIconIndex</col>
 		<row><td>ARPPRODUCTICON.exe</td><td/><td>&lt;ISProjectFolder&gt;..\TestCaseManager\Registration.ico</td><td>0</td></row>
-		<row><td>UNINST_Uninstall_T_8A6874553B234AF69B08F3765FBDB516.exe</td><td/><td>C:\Program Files (x86)\InstallShield\2012SpringLE\Redist\Language Independent\OS Independent\uninstall.ico</td><td>0</td></row>
+		<row><td>TestCaseManager.ex_DB7F710C4EF64220B547012522A1EDC3.exe</td><td/><td>D:\Projects\TestCaseManager\TestCaseManager\bin\Release\TestCaseManager.exe</td><td>0</td></row>
 	</table>
 
 	<table name="IniFile">
@@ -4130,7 +4137,7 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<row><td>ISTheme</td><td>InstallShield Blue.theme</td></row>
 		<row><td>ISUSLock</td><td>{F0416266-1612-453E-BD1E-F4BBE22A2E7F}</td></row>
 		<row><td>ISUSSignature</td><td>{A8FBE3CD-3C8E-4EBC-8C5C-8CE09D2F7945}</td></row>
-		<row><td>ISVisitedViews</td><td>viewAssistant,viewISToday,viewAppV,viewRealSetupDesign,viewSetupDesign,viewAppFiles,viewFeatureFiles,viewDependencies,viewCE,viewProject,viewSetupTypes,viewUpdateService,viewUI,viewBillboards,viewTextMessages,viewSystemSearch,viewInstallScriptStd,viewCustomActions,viewSupportFiles,viewRelease,viewDesignPatches,viewFileExtensions,viewUpgradePaths,viewObjects</td></row>
+		<row><td>ISVisitedViews</td><td>viewAssistant,viewISToday,viewAppV,viewRealSetupDesign,viewSetupDesign,viewAppFiles,viewFeatureFiles,viewDependencies,viewCE,viewProject,viewSetupTypes,viewUpdateService,viewUI,viewBillboards,viewTextMessages,viewSystemSearch,viewInstallScriptStd,viewCustomActions,viewSupportFiles,viewRelease,viewDesignPatches,viewFileExtensions,viewUpgradePaths,viewObjects,viewShortcuts</td></row>
 		<row><td>Limited</td><td>1</td></row>
 		<row><td>LockPermissionMode</td><td>1</td></row>
 		<row><td>MsiExecCmdLineOptions</td><td/></row>
@@ -4143,7 +4150,7 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<row><td>SccEnabled</td><td>0</td></row>
 		<row><td>SccPath</td><td/></row>
 		<row><td>SchemaVersion</td><td>773</td></row>
-		<row><td>SwidtagLocalComponent</td><td>ISO19770_LocalTag</td></row>
+		<row><td>SwidtagLocalComponent</td><td/></row>
 		<row><td>SwidtagSystemComponent</td><td>ISO19770_SystemTag</td></row>
 		<row><td>Type</td><td>MSIE</td></row>
 	</table>
@@ -4589,8 +4596,6 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<col def="L255">FileName</col>
 		<col def="s72">DirProperty</col>
 		<col def="i2">InstallMode</col>
-		<row><td>UNINST_Uninstall_Test_Cases_Manager_1.04</td><td>NewComponent1</td><td/><td>test_cases_manager_1.04</td><td>2</td></row>
-		<row><td>_Built</td><td>TestCaseManager.Primary_output</td><td/><td>testca_1.ins_testcasesmanager.installer</td><td>2</td></row>
 	</table>
 
 	<table name="RemoveIniFile">
@@ -4676,9 +4681,6 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<col def="S255">ISComments</col>
 		<col def="S255">ISShortcutName</col>
 		<col def="I4">ISAttributes</col>
-		<row><td>UNINST_Uninstall_Test_Cases_Manager_1.04</td><td>test_cases_manager_1.04</td><td>UNINST|Uninstall Test Cases Manager 1.04</td><td>NewComponent1</td><td>[SystemFolder]msiexec.exe</td><td>/x {717296F4-160E-4CF6-82BA-0213015BFE96}</td><td/><td/><td>UNINST_Uninstall_T_8A6874553B234AF69B08F3765FBDB516.exe</td><td>0</td><td>1</td><td/><td/><td/><td/><td/><td/><td/><td/></row>
-		<row><td>_Built</td><td>testca_1.ins_testcasesmanager.installer</td><td>##IDS_SHORTCUT_DISPLAY_NAME2##</td><td>TestCaseManager.Primary_output</td><td>AlwaysInstall</td><td/><td/><td/><td/><td/><td>1</td><td/><td/><td/><td/><td/><td/><td/><td/></row>
-		<row><td>_Built1</td><td>DesktopFolder</td><td>##IDS_SHORTCUT_DISPLAY_NAME2##</td><td>TestCaseManager.Primary_output</td><td>AlwaysInstall</td><td/><td/><td/><td/><td/><td>1</td><td/><td/><td/><td/><td/><td/><td/><td/></row>
 	</table>
 
 	<table name="Signature">

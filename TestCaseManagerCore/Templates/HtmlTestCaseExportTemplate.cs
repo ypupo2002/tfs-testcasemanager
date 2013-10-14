@@ -28,35 +28,78 @@ namespace TestCaseManagerCore.Templates
         /// </summary>
         public virtual string TransformText()
         {
-            this.Write(@"<!DOCTYPE html>
-<html>
-<head>
-	<meta http-equiv=""Content-Type"" content=""text/html; charset=windows-1251"" />
-	<style type=""text/css"">
-		.testCaseProps{display:block;}
-		.testCaseProps > span {font-size: 1.2em; font-weight:bold;}
-		.noTestStepsTable th {text-align:left}
-		hr{height:3px; color: #339933; background-color: #339933; border-width:0; margin-bottom:30px; margin-top:30px; }
-		body{background-color: #fff; color: #000;}
-		th, td{border:1px solid #000; padding:1%;}
-		table{margin-top:10px; border-collapse:collapse; width:100%;}
-		th:first-child, td:first-child{width:5%;}
-		th:nth-child(2), td:nth-child(2){width:40%;}
-		th:nth-child(3), td:nth-child(3){width:40%;}
-	</style>
-</head>
-<body>
-
-");
+            this.Write("<!DOCTYPE html>\r\n<html>\r\n<head>\r\n\t<meta http-equiv=\"Content-Type\" content=\"text/h" +
+                    "tml; charset=windows-1251\" />\r\n\t<style type=\"text/css\">\r\n        html, body, but" +
+                    "ton, ul, li, span, table, thead, tbody, tr, th, td, hr {\r\n            margin: 0;" +
+                    "\r\n            padding: 0;\r\n        }\r\n\r\n        .testCaseProps {\r\n            di" +
+                    "splay: block;\r\n        }\r\n\r\n            .testCaseProps > span {\r\n               " +
+                    " font-size: 1.2em;\r\n                font-weight: bold;\r\n            }\r\n\r\n       " +
+                    " .noTestStepsTable th {\r\n            text-align: left;\r\n        }\r\n\r\n        hr " +
+                    "{\r\n            height: 3px;\r\n            color: #339933;\r\n            background" +
+                    "-color: #339933;\r\n            border-width: 0;\r\n            margin-bottom: 30px;" +
+                    "\r\n            margin-top: 30px;\r\n        }\r\n\r\n        body {\r\n            backgr" +
+                    "ound-color: #fff;\r\n            color: #000;\r\n        }\r\n\r\n        th, td {\r\n    " +
+                    "        border: 1px solid #000;\r\n            padding: 1%;\r\n        }\r\n\r\n        " +
+                    "table {\r\n            margin-top: 10px;\r\n            border-collapse: collapse;\r\n" +
+                    "            width: 100%;\r\n        }\r\n\r\n        th:first-child, td:first-child {\r" +
+                    "\n            width: 5%;\r\n        }\r\n\r\n        th:nth-child(2), td:nth-child(2) {" +
+                    "\r\n            width: 40%;\r\n        }\r\n\r\n        th:nth-child(3), td:nth-child(3)" +
+                    " {\r\n            width: 40%;\r\n        }\r\n\r\n        .expanded {\r\n            displ" +
+                    "ay: block;\r\n        }\r\n\r\n        .collapsed {\r\n            display: none;\r\n     " +
+                    "   }\r\n\r\n        ul {\r\n            margin-top: 20px;\r\n            margin-left: 20" +
+                    "px;\r\n            list-style-type: none;\r\n        }\r\n\r\n        button {\r\n        " +
+                    "    padding: 1px 5px;\r\n            margin-top: 5px;\r\n            background-colo" +
+                    "r: #fff;\r\n            border: 2px solid #339933;\r\n            color: #339933;\r\n " +
+                    "           font-weight: 900;\r\n        }\r\n\t\t\r\n\t\t button:hover {\r\n                " +
+                    "background-color: #339933;\r\n                color: #fff;\r\n            }\r\n\r\n     " +
+                    "   #expandAll, #collapseAll {\r\n            position: absolute;\r\n            top:" +
+                    " 20px;\r\n            position: fixed;\r\n        }\r\n\r\n        #expandAll {\r\n       " +
+                    "     right: 180px;\r\n        }\r\n\r\n        #collapseAll {\r\n            right: 20px" +
+                    ";\r\n        }\r\n    </style>\r\n</head>\r\n<body>\r\n<button id=\"expandAll\">Expand All</" +
+                    "button>\r\n<button id=\"collapseAll\">Collapse All</button>\r\n<ul>\r\n");
             
-            #line 29 "D:\Projects\TestCaseManager\TestCaseManagerCore\Templates\HtmlTestCaseExportTemplate.tt"
+            #line 117 "D:\Projects\TestCaseManager\TestCaseManagerCore\Templates\HtmlTestCaseExportTemplate.tt"
 
 	BuildBody();
 
             
             #line default
             #line hidden
-            this.Write("\r\n");
+            this.Write("</ul>\r\n\r\n<script>\r\n(function () {\r\n    var liItems = document.getElementsByTagNam" +
+                    "e(\"li\");\r\n    var expandAllButton = document.getElementById(\"expandAll\");\r\n    v" +
+                    "ar collapseAllButton = document.getElementById(\"collapseAll\");\r\n\r\n    // initial" +
+                    "ize li items, by giving a class name and inserting a button(each button gets eve" +
+                    "nt for click) for each li item\r\n    for (var i = 0; i < liItems.length; i++) {\r\n" +
+                    "        var currTable = liItems[i].getElementsByTagName(\"TABLE\")[0];\r\n        cu" +
+                    "rrTable.className = \"collapsed\";\r\n        liItems[i].innerHTML = liItems[i].inne" +
+                    "rHTML + \"<button name=\'collapsed\'> + </button> <span>Show steps</span> <hr />\";\r" +
+                    "\n        var currentLiButton = liItems[i].getElementsByTagName(\"BUTTON\")[0];\r\n  " +
+                    "      currentLiButton.addEventListener(\"click\", expandCollapseTestCase, false);\r" +
+                    "\n    }\r\n\r\n    function expandCollapseTestCase(event) {\r\n        if (this.name ==" +
+                    "= \"collapsed\") {\r\n            var currentTable = event.target.parentElement.getE" +
+                    "lementsByTagName(\"TABLE\")[0];\r\n            currentTable.className = \"expanded\";\r" +
+                    "\n            this.name = \"expanded\";\r\n            this.innerHTML = \" - \";\r\n     " +
+                    "       this.nextElementSibling.innerHTML = \"Hide steps\";\r\n        } else {\r\n    " +
+                    "        var currentTable = event.target.parentElement.getElementsByTagName(\"TABL" +
+                    "E\")[0];\r\n            currentTable.className = \"collapsed\";\r\n            this.nam" +
+                    "e = \"collapsed\";\r\n            this.innerHTML = \" + \";\r\n            this.nextElem" +
+                    "entSibling.innerHTML = \"Show steps\";\r\n        }\r\n    }\r\n\r\n    function expandAll" +
+                    "() {\r\n        for (var i = 0; i < liItems.length; i++) {\r\n            var curren" +
+                    "tTable = liItems[i].getElementsByTagName(\"TABLE\")[0];\r\n            currentTable." +
+                    "className = \"expanded\";\r\n            var expandButton = liItems[i].getElementsBy" +
+                    "TagName(\"Button\")[0];\r\n            expandButton.innerHTML = \" - \";\r\n            " +
+                    "expandButton.name = \"expanded\";\r\n            var showHideLabel = expandButton.ne" +
+                    "xtElementSibling;\r\n            showHideLabel.innerHTML = \"Hide steps\"\r\n        }" +
+                    "\r\n    }\r\n\r\n    function collapseAll() {\r\n        for (var i = 0; i < liItems.len" +
+                    "gth; i++) {\r\n            var currentTable = liItems[i].getElementsByTagName(\"TAB" +
+                    "LE\")[0];\r\n            currentTable.className = \"collapsed\";\r\n            var col" +
+                    "lapsedButton = liItems[i].getElementsByTagName(\"Button\")[0];\r\n            collap" +
+                    "sedButton.innerHTML = \" + \";\r\n            collapsedButton.name = \"collapsed\";\r\n " +
+                    "           var showHideLabel = collapsedButton.nextElementSibling;\r\n            " +
+                    "showHideLabel.innerHTML = \"Show steps\"\r\n        }\r\n    }\r\n\r\n    expandAllButton." +
+                    "addEventListener(\"click\", expandAll, false);\r\n    collapseAllButton.addEventList" +
+                    "ener(\"click\", collapseAll, false);\r\n\r\n})();\r\n\r\n\r\n\r\n    </script>\r\n</body>\r\n</htm" +
+                    "l>\r\n");
             return this.GenerationEnvironment.ToString();
         }
         private global::Microsoft.VisualStudio.TextTemplating.ITextTemplatingEngineHost hostValue;
@@ -75,21 +118,22 @@ namespace TestCaseManagerCore.Templates
             }
         }
         
-        #line 33 "D:\Projects\TestCaseManager\TestCaseManagerCore\Templates\HtmlTestCaseExportTemplate.tt"
+        #line 187 "D:\Projects\TestCaseManager\TestCaseManagerCore\Templates\HtmlTestCaseExportTemplate.tt"
 
 public void BuildBody()
 {
 	foreach (TestCaseFull currentFullTestCase in FullTestCases)
 	{
 		PushIndent("\t");
-		BuildTestCaseProperties(currentFullTestCase.TestCase);
+		BuildTestCaseProperties(currentFullTestCase.TestCase, currentFullTestCase.MostRecentResult);
 		BuildTestCaseTestStepsTable(currentFullTestCase.TestSteps);
 		PopIndent();
 	} 
 }
 
-public void BuildTestCaseProperties(TestCase testCase)
+public void BuildTestCaseProperties(TestCase testCase, string status)
 {	
+	WriteLine(@"<li>");
 	WriteLine(@"<span class=""testCaseProps""><span>Title: </span>");
 	WriteLine(testCase.ITestCase.Title);
 	WriteLine(@"</span>");
@@ -115,6 +159,9 @@ public void BuildTestCaseProperties(TestCase testCase)
 	WriteLine(@"<span class=""testCaseProps""><span>Assigned To: </span>");
 	WriteLine(testCase.OwnerDisplayName);
 	WriteLine(@"</span>");	
+    WriteLine(@"<span class=""testCaseProps""><span>Status: </span>");
+	WriteLine(status);
+	WriteLine(@"</span>");	
 }
 
 public void BuildTestCaseTestStepsTable(List<TestStep> testSteps)
@@ -133,6 +180,7 @@ public void BuildTestCaseTestStepsTable(List<TestStep> testSteps)
 		WriteLine(@"<th>Expected Results</th>");
 		PopIndent();
 		WriteLine(@"</tr>");
+		WriteLine(@"</thead>");
 		WriteLine(@"<tbody>");
 		PushIndent("\t");
 
@@ -149,7 +197,7 @@ public void BuildTestCaseTestStepsTable(List<TestStep> testSteps)
     {
 		WriteLine(@"<table cellpadding=""0"" cellspacing=""0"">");
 		PushIndent("\t");
-		WriteLine(@"<thead>");
+		WriteLine(@"<tbody>");
 		PushIndent("\t");
 		WriteLine(@"<tr>");
 		PushIndent("\t");
@@ -160,10 +208,8 @@ public void BuildTestCaseTestStepsTable(List<TestStep> testSteps)
 	PopIndent();
 	WriteLine(@"</tbody>");
 	PopIndent();
-	WriteLine(@"</thead>");
-	PopIndent();
 	WriteLine(@"</table>");
-	WriteLine(@"<hr/>");
+	WriteLine(@"</li>");
 }
 
         

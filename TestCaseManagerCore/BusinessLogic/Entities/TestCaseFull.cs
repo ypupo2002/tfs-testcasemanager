@@ -18,10 +18,11 @@ namespace TestCaseManagerCore.BusinessLogic.Entities
         /// </summary>
         /// <param name="testCase">The test case.</param>
         /// <param name="testSteps">The test steps.</param>
-        public TestCaseFull(TestCase testCase, List<TestStep> testSteps)
+        public TestCaseFull(TestCase testCase, List<TestStep> testSteps, string mostRecentResult)
         {
             this.TestCase = testCase;
             this.TestSteps = testSteps;
+            this.MostRecentResult = mostRecentResult;
         }
 
         /// <summary>
@@ -39,5 +40,13 @@ namespace TestCaseManagerCore.BusinessLogic.Entities
         /// The test steps.
         /// </value>
         public List<TestStep> TestSteps { get; set; }
+
+        /// <summary>
+        /// Gets or sets the most recent result.
+        /// </summary>
+        /// <value>
+        /// The most recent result.
+        /// </value>
+        public string MostRecentResult { get; set; }
     }
 }
