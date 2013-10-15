@@ -4,7 +4,7 @@
   <description asmv2:iconFile="Registration.ico" xmlns="urn:schemas-microsoft-com:asm.v1" />
   <application />
   <entryPoint>
-    <assemblyIdentity name="TestCaseManager" version="1.0.7.6" language="neutral" processorArchitecture="x86" />
+    <assemblyIdentity name="TestCaseManager" version="1.0.7.7" language="neutral" processorArchitecture="x86" />
     <commandLine file="TestCaseManager.exe" parameters="" />
   </entryPoint>
   <trustInfo>
@@ -173,13 +173,13 @@
   </dependency>
   <dependency>
     <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="TestCaseManager.exe" size="997376">
-      <assemblyIdentity name="TestCaseManager" version="1.0.7.6" language="neutral" processorArchitecture="x86" />
+      <assemblyIdentity name="TestCaseManager" version="1.0.7.7" language="neutral" processorArchitecture="x86" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>KuiVMrjHD3j4eFwqtZFvUjc4sp80ilshJ3MwDkbN+K8=</dsig:DigestValue>
+        <dsig:DigestValue>FWd8bFEsXxWaX8/nUZmFtDekv2UXM9lQojCNYBQyfmA=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

@@ -1152,3 +1152,956 @@ Technical information (for administrator):
 2013-10-15 00:44:06,494 [aangelov-PC\aangelov] [15] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Load Edit View with Context: TestCaseId= 0, TestSuiteId= 51, CreateNew= True, Duplicate= False, IsSharedStep= False, SharedStepId= 0, ComeFromTestCase = False, CurrentEditedStepGuid= 00000000-0000-0000-0000-000000000000  
 2013-10-15 00:46:26,186 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Save test case. 
 2013-10-15 00:46:26,189 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Test Case Saved Info: Title= , Area= AANGELOV, Priority= VeryHigh, OwnerDisplayName= Anton Angelov 
+2013-10-15 21:13:14,037 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Theme to: FirstFloor.ModernUI.Presentation.Link 
+2013-10-15 21:13:14,198 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Color to: #FF1BA1E2 
+2013-10-15 21:13:14,264 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Color to: #FF339933 
+2013-10-15 21:13:18,521 [aangelov-PC\aangelov] [12] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Load project info loaded from registry! 
+2013-10-15 21:13:18,709 [aangelov-PC\aangelov] [12] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> TFS URI: https://aangelov.visualstudio.com/defaultcollection 
+2013-10-15 21:13:18,710 [aangelov-PC\aangelov] [12] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> Test Project Name: AANGELOV 
+2013-10-15 21:13:19,197 [aangelov-PC\aangelov] [12] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> TfsTeamProjectCollection: aangelov.visualstudio.com\DefaultCollection 
+2013-10-15 21:13:20,004 [aangelov-PC\aangelov] [12] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - SET FullTeamProjectName to https://aangelov.visualstudio.com/defaultcollection/AANGELOV 
+2013-10-15 21:13:20,027 [aangelov-PC\aangelov] [12] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> SelectedTestPlan: TEST TM 2012 
+2013-10-15 21:13:36,220 [aangelov-PC\aangelov] [13] INFO TestCaseManagerCore.BusinessLogic.Managers.TestCaseManager - Load all test cases in the suite with Title= "Login Public Sites" id = "51" 
+2013-10-15 21:13:37,870 [aangelov-PC\aangelov] [15] INFO TestCaseManagerCore.BusinessLogic.Managers.TestCaseManager - Load all test cases in the suite with Title= "Login Public Sites" id = "51" 
+2013-10-15 22:06:54,472 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Theme to: FirstFloor.ModernUI.Presentation.Link 
+2013-10-15 22:06:54,597 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Color to: #FF1BA1E2 
+2013-10-15 22:06:54,671 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Color to: #FF339933 
+2013-10-15 22:06:57,411 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Load project info loaded from registry! 
+2013-10-15 22:06:57,477 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> TFS URI: https://aangelov.visualstudio.com/defaultcollection 
+2013-10-15 22:06:57,477 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> Test Project Name: AANGELOV 
+2013-10-15 22:06:58,737 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> TfsTeamProjectCollection: aangelov.visualstudio.com\DefaultCollection 
+2013-10-15 22:07:00,636 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - SET FullTeamProjectName to https://aangelov.visualstudio.com/defaultcollection/AANGELOV 
+2013-10-15 22:07:00,656 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> SelectedTestPlan: TEST TM 2012 
+2013-10-15 22:07:13,409 [aangelov-PC\aangelov] [13] INFO TestCaseManagerCore.BusinessLogic.Managers.TestCaseManager - Load all test cases in the suite with Title= "Login Public Sites" id = "51" 
+2013-10-15 22:07:14,558 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.BusinessLogic.Managers.TestCaseManager - Load all test cases in the suite with Title= "Login Public Sites" id = "51" 
+2013-10-15 22:07:32,142 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCaseBatchDuplicateView - Edit Shared Step with id: 45  
+2013-10-15 22:07:32,642 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Get All Areas for Project= AANGELOV 
+2013-10-15 22:07:34,100 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Load Edit View with Context: TestCaseId= 0, TestSuiteId= 0, CreateNew= False, Duplicate= False, IsSharedStep= True, SharedStepId= 45, ComeFromTestCase = False, CurrentEditedStepGuid= 00000000-0000-0000-0000-000000000000  
+2013-10-15 22:08:18,637 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCaseBatchDuplicateView - Edit Shared Step with id: 113  
+2013-10-15 22:08:18,868 [aangelov-PC\aangelov] [16] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Get All Areas for Project= AANGELOV 
+2013-10-15 22:08:19,520 [aangelov-PC\aangelov] [16] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Load Edit View with Context: TestCaseId= 0, TestSuiteId= 0, CreateNew= False, Duplicate= False, IsSharedStep= True, SharedStepId= 113, ComeFromTestCase = False, CurrentEditedStepGuid= 00000000-0000-0000-0000-000000000000  
+2013-10-15 22:09:25,842 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCaseBatchDuplicateView - Edit Shared Step with id: 113  
+2013-10-15 22:09:25,995 [aangelov-PC\aangelov] [16] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Get All Areas for Project= AANGELOV 
+2013-10-15 22:09:26,718 [aangelov-PC\aangelov] [16] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Load Edit View with Context: TestCaseId= 0, TestSuiteId= 0, CreateNew= False, Duplicate= False, IsSharedStep= True, SharedStepId= 113, ComeFromTestCase = False, CurrentEditedStepGuid= 00000000-0000-0000-0000-000000000000  
+2013-10-15 22:09:35,607 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Save shared step. 
+2013-10-15 22:09:35,611 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Shared Step Saved Info: Title= Press "OK", Area= AANGELOV, Priority= High, OwnerDisplayName= Valentin 
+2013-10-15 22:09:35,611 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Save edited shared step with id= 113. 
+2013-10-15 22:09:39,374 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCaseEditView - Navigate to all Shared Steps View. 
+2013-10-15 22:10:17,787 [aangelov-PC\aangelov] [17] INFO TestCaseManagerCore.BusinessLogic.Managers.TestCaseManager - Load all test cases in the suite with Title= "Login Public Sites" id = "51" 
+2013-10-15 22:10:19,022 [aangelov-PC\aangelov] [17] INFO TestCaseManagerCore.BusinessLogic.Managers.TestCaseManager - Load all test cases in the suite with Title= "Login Public Sites" id = "51" 
+2013-10-15 22:10:27,806 [aangelov-PC\aangelov] [17] INFO TestCaseManagerApp.Views.TestCasesInitialView - Load all test cases in the test plan. 
+2013-10-15 22:10:38,984 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCasesInitialView - Preview test case with id: 106 and suite id -1 
+2013-10-15 22:10:39,250 [aangelov-PC\aangelov] [17] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Get All Areas for Project= AANGELOV 
+2013-10-15 22:10:52,311 [aangelov-PC\aangelov] [17] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Load Edit View with Context: TestCaseId= 106, TestSuiteId= -1, CreateNew= False, Duplicate= False, IsSharedStep= False, SharedStepId= 0, ComeFromTestCase = False, CurrentEditedStepGuid= 00000000-0000-0000-0000-000000000000  
+2013-10-15 22:11:11,474 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCaseEditView - Copy 2 test steps. 
+2013-10-15 22:11:14,491 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCaseEditView - Start Pasting previously pasted test steps. 
+2013-10-15 22:11:14,493 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Insert test step ActionTitle= Click Create Industry; button, ActionExpectedResult= Verify that Industry; button is clicked, index= 16 
+2013-10-15 22:11:14,496 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Insert test step ActionTitle= Click Create Industry; button, ActionExpectedResult= Verify that button Industry; is clicked, index= 17 
+2013-10-15 22:11:14,604 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCaseEditView - End Pasting previously pasted test steps. 
+2013-10-15 22:11:18,492 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCaseEditView - Copy 1 test steps. 
+2013-10-15 22:11:21,750 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCaseEditView - Start Pasting previously pasted test steps. 
+2013-10-15 22:11:21,750 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Insert test step ActionTitle= Classification(T) = Industry;, ActionExpectedResult= , index= 16 
+2013-10-15 22:11:21,877 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCaseEditView - End Pasting previously pasted test steps. 
+2013-10-15 22:11:29,265 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.BusinessLogic.Managers.TestStepManager - Change ActionTitle from Classification(T) = Industry; to Classification(T) = BEROE; 
+2013-10-15 22:11:29,266 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.BusinessLogic.Managers.TestStepManager - Change ActionTitle from  to  
+2013-10-15 22:11:47,892 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Remove test step ActionTitle = Classification(T) = BEROE;, ExpectedResult=  
+2013-10-15 22:11:51,318 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCaseEditView - Add new test step to test case with Title= Test Generic Option, id= 106, ActionTitle= Classification(T) = BEROE;, ExpectedResult=  
+2013-10-15 22:11:51,429 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Insert test step ActionTitle= Classification(T) = BEROE;, ActionExpectedResult= , index= 16 
+2013-10-15 22:12:34,316 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.BusinessLogic.Managers.TestStepManager - Change ActionTitle from Classification(T) = Industry; to Classification(T) = http://uni20.ogame.org/game/index.php?page=overview; 
+2013-10-15 22:12:34,316 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.BusinessLogic.Managers.TestStepManager - Change ActionTitle from  to  
+2013-10-15 22:13:17,338 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Remove test step ActionTitle = Navigate to https://mui.codeplex.com/, ExpectedResult= verify that the page is opened 
+2013-10-15 22:13:17,342 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Remove test step ActionTitle = Navigate to www.google.org, ExpectedResult= verify that the page is opened 
+2013-10-15 22:13:17,345 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Remove test step ActionTitle = JAPAN, ExpectedResult= JAPAN EXPECTED 
+2013-10-15 22:13:17,348 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Remove test step ActionTitle = Navigate1 to www.google.jp, ExpectedResult= verify that the page is opened 
+2013-10-15 22:13:17,350 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Remove test step ActionTitle = Type Test Case Manager in the search, ExpectedResult= 1. Verify that loading panel is displayed
+2. Verify that the test case manager icon is displayed 
+2013-10-15 22:13:17,352 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Remove test step ActionTitle = Click Create Category;
+Classification(P) = OOP; button, ExpectedResult= Verify that (P) label 
+2013-10-15 22:13:17,355 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Remove test step ActionTitle = Click Create Category;
+Classification(P) = OOP; button, ExpectedResult= Verify that (P) label 
+2013-10-15 22:13:25,194 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Remove test step ActionTitle = Click Create Category;
+Classification(P) = OOP; button, ExpectedResult= Verify that (P) label 
+2013-10-15 22:13:25,210 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Remove test step ActionTitle = Click search button, ExpectedResult=  
+2013-10-15 22:13:25,213 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Remove test step ActionTitle = Click Create Category;
+Classification(P) = OOP; button, ExpectedResult= Verify that button Category;
+Classification(P) = OOP; is clicked 
+2013-10-15 22:13:25,214 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Remove test step ActionTitle = Click Create Category;
+Classification(P) = OOP; button, ExpectedResult= Verify that Category;
+Classification(P) = OOP; button is clicked 
+2013-10-15 22:13:25,217 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Remove test step ActionTitle = Classification(T) = Category;
+Classification(P) = OOP;, ExpectedResult=  
+2013-10-15 22:13:25,219 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Remove test step ActionTitle = JAPAN, ExpectedResult= JAPAN EXPECTED 
+2013-10-15 22:13:25,221 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Remove test step ActionTitle = Navigate1 to www.google.jp, ExpectedResult= verify that the page is opened 
+2013-10-15 22:13:32,131 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Save test case. 
+2013-10-15 22:13:32,172 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Test Case Saved Info: Title= Test Generic Option, Area= AANGELOV, Priority= VeryHigh, OwnerDisplayName= Valentin 
+2013-10-15 22:13:32,172 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Save edited test case with id= 106. 
+2013-10-15 22:13:36,798 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCaseEditView - Save entity without close. 
+2013-10-15 23:15:57,161 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Theme to: FirstFloor.ModernUI.Presentation.Link 
+2013-10-15 23:15:57,204 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Color to: #FF1BA1E2 
+2013-10-15 23:15:57,238 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Color to: #FF339933 
+2013-10-15 23:15:58,698 [aangelov-PC\aangelov] [7] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Load project info loaded from registry! 
+2013-10-15 23:15:58,783 [aangelov-PC\aangelov] [7] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> TFS URI: https://aangelov.visualstudio.com/defaultcollection 
+2013-10-15 23:15:58,783 [aangelov-PC\aangelov] [7] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> Test Project Name: AANGELOV 
+2013-10-15 23:15:58,991 [aangelov-PC\aangelov] [7] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> TfsTeamProjectCollection: aangelov.visualstudio.com\DefaultCollection 
+2013-10-15 23:15:59,324 [aangelov-PC\aangelov] [7] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - SET FullTeamProjectName to https://aangelov.visualstudio.com/defaultcollection/AANGELOV 
+2013-10-15 23:15:59,342 [aangelov-PC\aangelov] [7] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> SelectedTestPlan: TEST TM 2012 
+2013-10-15 23:16:24,278 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCasesInitialView - Load all test cases in the test plan. 
+2013-10-15 23:16:32,889 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCasesInitialView - Preview test case with id: 106 and suite id -1 
+2013-10-15 23:16:33,021 [aangelov-PC\aangelov] [15] INFO TestCaseManagerApp.Views.TestCaseDetailedView - Preview test case with id: 106 and suite id -1 
+2013-10-15 23:16:42,788 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCaseDetailedView - Edit test case with id: 106 
+2013-10-15 23:16:43,049 [aangelov-PC\aangelov] [15] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Get All Areas for Project= AANGELOV 
+2013-10-15 23:16:53,953 [aangelov-PC\aangelov] [15] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Load Edit View with Context: TestCaseId= 106, TestSuiteId= -1, CreateNew= False, Duplicate= False, IsSharedStep= False, SharedStepId= 0, ComeFromTestCase = False, CurrentEditedStepGuid= 00000000-0000-0000-0000-000000000000  
+2013-10-15 23:17:10,107 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.BusinessLogic.Managers.TestStepManager - Change ActionTitle from Classification(T) = BEROE; to Classification(T) = BEROE55; 
+2013-10-15 23:17:35,424 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.BusinessLogic.Managers.TestStepManager - Change ActionTitle from  to  
+2013-10-15 23:19:42,822 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCaseEditView - Copy 2 test steps. 
+2013-10-15 23:19:44,357 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCaseEditView - Start Pasting previously pasted test steps. 
+2013-10-15 23:19:44,359 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Insert test step ActionTitle= Click Create BEROE55 button, ActionExpectedResult= Verify that BEROE55 button is clicked, index= 8 
+2013-10-15 23:19:46,680 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Insert test step ActionTitle= Click Create BEROE55 button, ActionExpectedResult= Verify that button BEROE55 is clicked, index= 8 
+2013-10-15 23:19:48,335 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCaseEditView - End Pasting previously pasted test steps. 
+2013-10-15 23:19:53,134 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCaseEditView - Copy 1 test steps. 
+2013-10-15 23:19:55,705 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCaseEditView - Start Pasting previously pasted test steps. 
+2013-10-15 23:19:55,705 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Insert test step ActionTitle= Classification(T) = BEROE55;, ActionExpectedResult= , index= 8 
+2013-10-15 23:20:03,973 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCaseEditView - End Pasting previously pasted test steps. 
+2013-10-15 23:20:18,359 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.BusinessLogic.Managers.TestStepManager - Change ActionTitle from Classification(T) = BEROE55; to Classification(T) = BEROE66666; 
+2013-10-15 23:20:23,045 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.BusinessLogic.Managers.TestStepManager - Change ActionTitle from  to  
+2013-10-15 23:22:06,983 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Insert Shared Step Title= Backend.Classification(T) : Click Create (T) button, SelectedIndex= 8 
+2013-10-15 23:22:06,984 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Insert test step ActionTitle= Click Create (T) button, ActionExpectedResult= Verify that (T) button is clicked, index= 9 
+2013-10-15 23:22:09,408 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Insert test step ActionTitle= Click Create (T) button, ActionExpectedResult= Verify that button (T) is clicked, index= 10 
+2013-10-15 23:22:20,177 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Save test case. 
+2013-10-15 23:22:20,179 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Test Case Saved Info: Title= Test Generic Option, Area= AANGELOV, Priority= VeryHigh, OwnerDisplayName= Valentin 
+2013-10-15 23:22:20,180 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Save edited test case with id= 106. 
+2013-10-15 23:23:55,156 [aangelov-PC\aangelov] [9] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Theme to: FirstFloor.ModernUI.Presentation.Link 
+2013-10-15 23:23:55,201 [aangelov-PC\aangelov] [9] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Color to: #FF1BA1E2 
+2013-10-15 23:23:55,236 [aangelov-PC\aangelov] [9] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Color to: #FF339933 
+2013-10-15 23:23:55,618 [aangelov-PC\aangelov] [12] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Load project info loaded from registry! 
+2013-10-15 23:23:55,708 [aangelov-PC\aangelov] [12] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> TFS URI: https://aangelov.visualstudio.com/defaultcollection 
+2013-10-15 23:23:55,709 [aangelov-PC\aangelov] [12] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> Test Project Name: AANGELOV 
+2013-10-15 23:23:55,765 [aangelov-PC\aangelov] [12] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> TfsTeamProjectCollection: aangelov.visualstudio.com\DefaultCollection 
+2013-10-15 23:23:56,042 [aangelov-PC\aangelov] [12] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - SET FullTeamProjectName to https://aangelov.visualstudio.com/defaultcollection/AANGELOV 
+2013-10-15 23:23:56,062 [aangelov-PC\aangelov] [12] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> SelectedTestPlan: TEST TM 2012 
+2013-10-15 23:24:15,540 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCasesInitialView - Load all test cases in the test plan. 
+2013-10-15 23:24:33,454 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCasesInitialView - Preview test case with id: 106 and suite id -1 
+2013-10-15 23:24:33,668 [aangelov-PC\aangelov] [12] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Get All Areas for Project= AANGELOV 
+2013-10-15 23:24:46,351 [aangelov-PC\aangelov] [12] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Load Edit View with Context: TestCaseId= 106, TestSuiteId= -1, CreateNew= False, Duplicate= False, IsSharedStep= False, SharedStepId= 0, ComeFromTestCase = False, CurrentEditedStepGuid= 00000000-0000-0000-0000-000000000000  
+2013-10-15 23:25:01,160 [aangelov-PC\aangelov] [9] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Remove test step ActionTitle = Click Create BEROE66666 button, ExpectedResult= Verify that button BEROE66666 is clicked 
+2013-10-15 23:25:03,251 [aangelov-PC\aangelov] [9] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Remove test step ActionTitle = Click Create BEROE66666 button, ExpectedResult= Verify that BEROE66666 button is clicked 
+2013-10-15 23:25:03,254 [aangelov-PC\aangelov] [9] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Remove test step ActionTitle = Click Create BEROE66666 button, ExpectedResult= Verify that button BEROE66666 is clicked 
+2013-10-15 23:25:03,257 [aangelov-PC\aangelov] [9] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Remove test step ActionTitle = Click Create BEROE66666 button, ExpectedResult= Verify that BEROE66666 button is clicked 
+2013-10-15 23:25:08,800 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCaseEditView - Copy 2 test steps. 
+2013-10-15 23:26:49,718 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCaseEditView - Start Pasting previously pasted test steps. 
+2013-10-15 23:29:32,804 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Theme to: FirstFloor.ModernUI.Presentation.Link 
+2013-10-15 23:29:32,849 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Color to: #FF1BA1E2 
+2013-10-15 23:29:32,885 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Color to: #FF339933 
+2013-10-15 23:29:33,455 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Load project info loaded from registry! 
+2013-10-15 23:29:33,585 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> TFS URI: https://aangelov.visualstudio.com/defaultcollection 
+2013-10-15 23:29:33,586 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> Test Project Name: AANGELOV 
+2013-10-15 23:29:33,624 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> TfsTeamProjectCollection: aangelov.visualstudio.com\DefaultCollection 
+2013-10-15 23:29:33,933 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - SET FullTeamProjectName to https://aangelov.visualstudio.com/defaultcollection/AANGELOV 
+2013-10-15 23:29:33,952 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> SelectedTestPlan: TEST TM 2012 
+2013-10-15 23:29:53,166 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCasesInitialView - Load all test cases in the test plan. 
+2013-10-15 23:29:59,433 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCasesInitialView - Preview test case with id: 106 and suite id -1 
+2013-10-15 23:29:59,670 [aangelov-PC\aangelov] [13] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Get All Areas for Project= AANGELOV 
+2013-10-15 23:30:11,253 [aangelov-PC\aangelov] [13] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Load Edit View with Context: TestCaseId= 106, TestSuiteId= -1, CreateNew= False, Duplicate= False, IsSharedStep= False, SharedStepId= 0, ComeFromTestCase = False, CurrentEditedStepGuid= 00000000-0000-0000-0000-000000000000  
+2013-10-15 23:30:18,370 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCaseEditView - Cut 2 test steps. 
+2013-10-15 23:30:23,297 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCaseEditView - Start Deleting cut test steps. 
+2013-10-15 23:30:23,301 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Remove test step ActionTitle = Click Create BEROE66666 button, ExpectedResult= Verify that BEROE66666 button is clicked 
+2013-10-15 23:30:23,309 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Remove test step ActionTitle = Click Create BEROE66666 button, ExpectedResult= Verify that button BEROE66666 is clicked 
+2013-10-15 23:30:23,312 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCaseEditView - End Deleting cut test steps. 
+2013-10-15 23:30:29,963 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCaseEditView - Start Pasting previously pasted test steps. 
+2013-10-15 23:30:29,965 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Insert test step ActionTitle= Click Create BEROE66666 button, ActionExpectedResult= Verify that BEROE66666 button is clicked, index= 8 
+2013-10-15 23:30:29,967 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Insert test step ActionTitle= Click Create BEROE66666 button, ActionExpectedResult= Verify that button BEROE66666 is clicked, index= 9 
+2013-10-15 23:30:30,078 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCaseEditView - End Pasting previously pasted test steps. 
+2013-10-15 23:30:35,389 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCaseEditView - Copy 2 test steps. 
+2013-10-15 23:30:37,752 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCaseEditView - Start Pasting previously pasted test steps. 
+2013-10-15 23:30:37,752 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Insert test step ActionTitle= Click Create BEROE55 button, ActionExpectedResult= Verify that BEROE55 button is clicked, index= 13 
+2013-10-15 23:30:37,754 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Insert test step ActionTitle= Click Create BEROE55 button, ActionExpectedResult= Verify that button BEROE55 is clicked, index= 14 
+2013-10-15 23:30:37,843 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCaseEditView - End Pasting previously pasted test steps. 
+2013-10-15 23:30:56,026 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.BusinessLogic.Managers.TestStepManager - Change ActionTitle from Classification(T) = BEROE66666; to Classification(T) = *()_-Opa9012; 
+2013-10-15 23:30:56,027 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.BusinessLogic.Managers.TestStepManager - Change ActionTitle from  to  
+2013-10-15 23:31:14,704 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.BusinessLogic.Managers.TestStepManager - Change ActionTitle from Classification(T) = *()_-Opa9012; to Classification(T) = *()_-Opa90;;;;12; 
+2013-10-15 23:31:14,704 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.BusinessLogic.Managers.TestStepManager - Change ActionTitle from  to  
+2013-10-15 23:32:19,058 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Remove test step ActionTitle = Classification(T) = *()_-Opa90;;;;12;, ExpectedResult=  
+2013-10-15 23:39:52,011 [aangelov-PC\aangelov] [9] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Theme to: FirstFloor.ModernUI.Presentation.Link 
+2013-10-15 23:39:52,058 [aangelov-PC\aangelov] [9] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Color to: #FF1BA1E2 
+2013-10-15 23:39:52,094 [aangelov-PC\aangelov] [9] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Color to: #FF339933 
+2013-10-15 23:39:52,506 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Load project info loaded from registry! 
+2013-10-15 23:39:52,603 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> TFS URI: https://aangelov.visualstudio.com/defaultcollection 
+2013-10-15 23:39:52,604 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> Test Project Name: AANGELOV 
+2013-10-15 23:39:52,660 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> TfsTeamProjectCollection: aangelov.visualstudio.com\DefaultCollection 
+2013-10-15 23:39:52,979 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - SET FullTeamProjectName to https://aangelov.visualstudio.com/defaultcollection/AANGELOV 
+2013-10-15 23:39:53,020 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> SelectedTestPlan: TEST TM 2012 
+2013-10-15 23:40:13,048 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCasesInitialView - Load all test cases in the test plan. 
+2013-10-15 23:40:18,826 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCasesInitialView - Preview test case with id: 106 and suite id -1 
+2013-10-15 23:40:19,035 [aangelov-PC\aangelov] [14] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Get All Areas for Project= AANGELOV 
+2013-10-15 23:40:31,154 [aangelov-PC\aangelov] [14] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Load Edit View with Context: TestCaseId= 106, TestSuiteId= -1, CreateNew= False, Duplicate= False, IsSharedStep= False, SharedStepId= 0, ComeFromTestCase = False, CurrentEditedStepGuid= 00000000-0000-0000-0000-000000000000  
+2013-10-15 23:40:37,736 [aangelov-PC\aangelov] [9] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Remove test step ActionTitle = Classification(T) = BEROE55;, ExpectedResult=  
+2013-10-15 23:41:03,385 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCasesInitialView - Load all test cases in the test plan. 
+2013-10-15 23:41:06,725 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCasesInitialView - Preview test case with id: 106 and suite id -1 
+2013-10-15 23:41:06,934 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Get All Areas for Project= AANGELOV 
+2013-10-15 23:41:18,354 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Load Edit View with Context: TestCaseId= 106, TestSuiteId= -1, CreateNew= False, Duplicate= False, IsSharedStep= False, SharedStepId= 0, ComeFromTestCase = False, CurrentEditedStepGuid= 00000000-0000-0000-0000-000000000000  
+2013-10-15 23:41:21,775 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCaseEditView - Add new test step to test case with Title= "Test Generic Option", id= "106", ActionTitle= "", ExpectedResult= "" 
+2013-10-15 23:41:21,889 [aangelov-PC\aangelov] [9] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Insert test step ActionTitle= , ActionExpectedResult= , index= 1 
+2013-10-15 23:41:24,698 [aangelov-PC\aangelov] [9] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Remove test step ActionTitle = , ExpectedResult=  
+2013-10-15 23:41:29,828 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCaseEditView - Add new test step to test case with Title= "Test Generic Option", id= "106", ActionTitle= "", ExpectedResult= "" 
+2013-10-15 23:41:29,936 [aangelov-PC\aangelov] [9] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Insert test step ActionTitle= , ActionExpectedResult= , index= 13 
+2013-10-15 23:41:41,750 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCaseEditView - Perform Undo. 
+2013-10-15 23:41:41,797 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCaseEditView - End Undo. 
+2013-10-15 23:41:45,046 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCaseEditView - Perform Redo. 
+2013-10-15 23:41:45,063 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCaseEditView - End Redo. 
+2013-10-15 23:41:46,279 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCaseEditView - Perform Undo. 
+2013-10-15 23:41:46,297 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCaseEditView - End Undo. 
+2013-10-15 23:41:46,952 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCaseEditView - Perform Redo. 
+2013-10-15 23:41:46,969 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCaseEditView - End Redo. 
+2013-10-15 23:41:47,470 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCaseEditView - Perform Undo. 
+2013-10-15 23:41:47,486 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCaseEditView - End Undo. 
+2013-10-15 23:41:47,904 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCaseEditView - Perform Redo. 
+2013-10-15 23:41:47,921 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCaseEditView - End Redo. 
+2013-10-15 23:41:48,917 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCaseEditView - Perform Undo. 
+2013-10-15 23:41:48,933 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCaseEditView - End Undo. 
+2013-10-15 23:41:49,260 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCaseEditView - Perform Redo. 
+2013-10-15 23:41:49,276 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCaseEditView - End Redo. 
+2013-10-15 23:41:49,604 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCaseEditView - Perform Undo. 
+2013-10-15 23:41:49,621 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCaseEditView - End Undo. 
+2013-10-15 23:41:50,404 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCaseEditView - Perform Redo. 
+2013-10-15 23:41:50,420 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCaseEditView - End Redo. 
+2013-10-15 23:41:50,911 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCaseEditView - Perform Undo. 
+2013-10-15 23:41:50,927 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCaseEditView - End Undo. 
+2013-10-15 23:41:52,016 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCaseEditView - Perform Undo. 
+2013-10-15 23:41:52,030 [aangelov-PC\aangelov] [9] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Remove test step ActionTitle = , ExpectedResult=  
+2013-10-15 23:41:52,031 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCaseEditView - End Undo. 
+2013-10-15 23:41:52,223 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCaseEditView - Perform Undo. 
+2013-10-15 23:41:52,253 [aangelov-PC\aangelov] [9] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Insert test step ActionTitle= , ActionExpectedResult= , index= 1 
+2013-10-15 23:41:52,255 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCaseEditView - End Undo. 
+2013-10-15 23:41:53,476 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCaseEditView - Perform Redo. 
+2013-10-15 23:41:53,489 [aangelov-PC\aangelov] [9] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Remove test step ActionTitle = , ExpectedResult=  
+2013-10-15 23:41:53,510 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCaseEditView - End Redo. 
+2013-10-15 23:41:53,666 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCaseEditView - Perform Redo. 
+2013-10-15 23:41:53,678 [aangelov-PC\aangelov] [9] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Insert test step ActionTitle= , ActionExpectedResult= , index= 13 
+2013-10-15 23:41:53,680 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCaseEditView - End Redo. 
+2013-10-15 23:41:53,845 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCaseEditView - Perform Redo. 
+2013-10-15 23:41:53,861 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCaseEditView - End Redo. 
+2013-10-15 23:41:57,906 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCaseEditView - Perform Undo. 
+2013-10-15 23:41:57,922 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCaseEditView - End Undo. 
+2013-10-15 23:42:26,026 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCaseEditView - Add new test step to test case with Title= "Test Generic Option", id= "106", ActionTitle= "", ExpectedResult= "" 
+2013-10-15 23:42:26,137 [aangelov-PC\aangelov] [9] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Insert test step ActionTitle= , ActionExpectedResult= , index= 14 
+2013-10-15 23:42:31,040 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCaseEditView - Perform Undo. 
+2013-10-15 23:42:31,055 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCaseEditView - End Undo. 
+2013-10-15 23:42:33,160 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCaseEditView - Perform Undo. 
+2013-10-15 23:42:33,173 [aangelov-PC\aangelov] [9] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Remove test step ActionTitle = , ExpectedResult=  
+2013-10-15 23:42:33,175 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCaseEditView - End Undo. 
+2013-10-15 23:42:33,723 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCaseEditView - Perform Undo. 
+2013-10-15 23:42:33,737 [aangelov-PC\aangelov] [9] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Remove test step ActionTitle = , ExpectedResult=  
+2013-10-15 23:42:33,739 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCaseEditView - End Undo. 
+2013-10-15 23:42:33,927 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCaseEditView - Perform Undo. 
+2013-10-15 23:42:33,955 [aangelov-PC\aangelov] [9] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Insert test step ActionTitle= , ActionExpectedResult= , index= 1 
+2013-10-15 23:42:33,957 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCaseEditView - End Undo. 
+2013-10-15 23:42:40,975 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCaseEditView - Add new test step to test case with Title= "Test Generic Option", id= "106", ActionTitle= "", ExpectedResult= "" 
+2013-10-15 23:42:41,080 [aangelov-PC\aangelov] [9] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Insert test step ActionTitle= , ActionExpectedResult= , index= 12 
+2013-10-15 23:42:43,167 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCaseEditView - Perform Undo. 
+2013-10-15 23:42:43,183 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCaseEditView - End Undo. 
+2013-10-15 23:42:45,839 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCaseEditView - Perform Undo. 
+2013-10-15 23:42:45,854 [aangelov-PC\aangelov] [9] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Remove test step ActionTitle = , ExpectedResult=  
+2013-10-15 23:42:45,856 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCaseEditView - End Undo. 
+2013-10-15 23:42:49,173 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCaseEditView - Perform Redo. 
+2013-10-15 23:42:49,184 [aangelov-PC\aangelov] [9] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Insert test step ActionTitle= , ActionExpectedResult= , index= 12 
+2013-10-15 23:42:49,186 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCaseEditView - End Redo. 
+2013-10-15 23:42:51,111 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCaseEditView - Perform Undo. 
+2013-10-15 23:42:51,123 [aangelov-PC\aangelov] [9] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Remove test step ActionTitle = , ExpectedResult=  
+2013-10-15 23:42:51,125 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCaseEditView - End Undo. 
+2013-10-15 23:42:52,546 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCaseEditView - Perform Redo. 
+2013-10-15 23:42:52,558 [aangelov-PC\aangelov] [9] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Insert test step ActionTitle= , ActionExpectedResult= , index= 12 
+2013-10-15 23:42:52,560 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCaseEditView - End Redo. 
+2013-10-15 23:42:53,067 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCaseEditView - Perform Redo. 
+2013-10-15 23:42:53,084 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCaseEditView - End Redo. 
+2013-10-15 23:42:54,185 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCaseEditView - Perform Undo. 
+2013-10-15 23:42:54,202 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCaseEditView - End Undo. 
+2013-10-15 23:42:55,334 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCaseEditView - Perform Undo. 
+2013-10-15 23:42:55,347 [aangelov-PC\aangelov] [9] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Remove test step ActionTitle = , ExpectedResult=  
+2013-10-15 23:42:55,349 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCaseEditView - End Undo. 
+2013-10-15 23:42:59,771 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCaseEditView - Add new test step to test case with Title= "Test Generic Option", id= "106", ActionTitle= "", ExpectedResult= "" 
+2013-10-15 23:42:59,880 [aangelov-PC\aangelov] [9] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Insert test step ActionTitle= , ActionExpectedResult= , index= 14 
+2013-10-15 23:43:02,329 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCaseEditView - Perform Undo. 
+2013-10-15 23:43:02,346 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCaseEditView - End Undo. 
+2013-10-15 23:43:05,019 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCaseEditView - Perform Undo. 
+2013-10-15 23:43:05,032 [aangelov-PC\aangelov] [9] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Remove test step ActionTitle = , ExpectedResult=  
+2013-10-15 23:43:05,035 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCaseEditView - End Undo. 
+2013-10-15 23:45:28,145 [aangelov-PC\aangelov] [9] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Theme to: FirstFloor.ModernUI.Presentation.Link 
+2013-10-15 23:45:28,192 [aangelov-PC\aangelov] [9] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Color to: #FF1BA1E2 
+2013-10-15 23:45:28,226 [aangelov-PC\aangelov] [9] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Color to: #FF339933 
+2013-10-15 23:45:28,632 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Load project info loaded from registry! 
+2013-10-15 23:45:28,721 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> TFS URI: https://aangelov.visualstudio.com/defaultcollection 
+2013-10-15 23:45:28,721 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> Test Project Name: AANGELOV 
+2013-10-15 23:45:28,744 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> TfsTeamProjectCollection: aangelov.visualstudio.com\DefaultCollection 
+2013-10-15 23:45:29,040 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - SET FullTeamProjectName to https://aangelov.visualstudio.com/defaultcollection/AANGELOV 
+2013-10-15 23:45:29,059 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> SelectedTestPlan: TEST TM 2012 
+2013-10-15 23:45:49,729 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCasesInitialView - Load all test cases in the test plan. 
+2013-10-15 23:46:06,683 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCasesInitialView - Preview test case with id: 106 and suite id -1 
+2013-10-15 23:46:06,900 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Get All Areas for Project= AANGELOV 
+2013-10-15 23:46:18,378 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Load Edit View with Context: TestCaseId= 106, TestSuiteId= -1, CreateNew= False, Duplicate= False, IsSharedStep= False, SharedStepId= 0, ComeFromTestCase = False, CurrentEditedStepGuid= 00000000-0000-0000-0000-000000000000  
+2013-10-15 23:46:23,470 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCaseEditView - Add new test step to test case with Title= "Test Generic Option", id= "106", ActionTitle= "", ExpectedResult= "" 
+2013-10-15 23:46:23,583 [aangelov-PC\aangelov] [9] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Insert test step ActionTitle= , ActionExpectedResult= , index= 13 
+2013-10-15 23:46:25,456 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCaseEditView - Perform Undo. 
+2013-10-15 23:46:25,494 [aangelov-PC\aangelov] [9] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Remove test step ActionTitle = , ExpectedResult=  
+2013-10-15 23:46:25,496 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCaseEditView - End Undo. 
+2013-10-15 23:47:05,664 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCaseEditView - Perform Redo. 
+2013-10-15 23:47:05,678 [aangelov-PC\aangelov] [9] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Insert test step ActionTitle= , ActionExpectedResult= , index= 13 
+2013-10-15 23:47:05,700 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCaseEditView - End Redo. 
+2013-10-15 23:47:07,252 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCaseEditView - Perform Undo. 
+2013-10-15 23:47:07,281 [aangelov-PC\aangelov] [9] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Remove test step ActionTitle = , ExpectedResult=  
+2013-10-15 23:47:07,283 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCaseEditView - End Undo. 
+2013-10-15 23:47:16,270 [aangelov-PC\aangelov] [9] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Save test case. 
+2013-10-15 23:47:16,273 [aangelov-PC\aangelov] [9] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Test Case Saved Info: Title= Test Generic Option, Area= AANGELOV, Priority= VeryHigh, OwnerDisplayName= Valentin 
+2013-10-15 23:47:16,273 [aangelov-PC\aangelov] [9] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Save edited test case with id= 106. 
+2013-10-15 23:50:42,765 [aangelov-PC\aangelov] [9] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Theme to: FirstFloor.ModernUI.Presentation.Link 
+2013-10-15 23:50:42,812 [aangelov-PC\aangelov] [9] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Color to: #FF1BA1E2 
+2013-10-15 23:50:42,849 [aangelov-PC\aangelov] [9] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Color to: #FF339933 
+2013-10-15 23:50:43,283 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Load project info loaded from registry! 
+2013-10-15 23:50:43,388 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> TFS URI: https://aangelov.visualstudio.com/defaultcollection 
+2013-10-15 23:50:43,389 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> Test Project Name: AANGELOV 
+2013-10-15 23:50:43,412 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> TfsTeamProjectCollection: aangelov.visualstudio.com\DefaultCollection 
+2013-10-15 23:50:43,754 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - SET FullTeamProjectName to https://aangelov.visualstudio.com/defaultcollection/AANGELOV 
+2013-10-15 23:50:43,772 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> SelectedTestPlan: TEST TM 2012 
+2013-10-15 23:51:03,727 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCasesInitialView - Load all test cases in the test plan. 
+2013-10-15 23:51:12,437 [aangelov-PC\aangelov] [14] INFO TestCaseManagerCore.BusinessLogic.Managers.TestCaseManager - Load all test cases in the suite with Title= "Navigate Public Sites" id = "5" 
+2013-10-15 23:51:14,328 [aangelov-PC\aangelov] [14] INFO TestCaseManagerCore.BusinessLogic.Managers.TestCaseManager - Load all test cases in the suite with Title= "Your Account" id = "52" 
+2013-10-15 23:51:18,690 [aangelov-PC\aangelov] [14] INFO TestCaseManagerCore.BusinessLogic.Managers.TestCaseManager - Load all test cases in the suite with Title= "Navigate Public Sites" id = "5" 
+2013-10-15 23:51:27,180 [aangelov-PC\aangelov] [14] INFO TestCaseManagerApp.Views.TestCasesInitialView - Load all test cases in the test plan. 
+2013-10-15 23:51:29,057 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCasesInitialView - Preview test case with id: 106 and suite id -1 
+2013-10-15 23:51:29,166 [aangelov-PC\aangelov] [12] INFO TestCaseManagerApp.Views.TestCaseDetailedView - Preview test case with id: 106 and suite id -1 
+2013-10-15 23:51:33,657 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCaseDetailedView - Edit test case with id: 106 
+2013-10-15 23:51:33,881 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Get All Areas for Project= AANGELOV 
+2013-10-15 23:51:45,579 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Load Edit View with Context: TestCaseId= 106, TestSuiteId= -1, CreateNew= False, Duplicate= False, IsSharedStep= False, SharedStepId= 0, ComeFromTestCase = False, CurrentEditedStepGuid= 00000000-0000-0000-0000-000000000000  
+2013-10-15 23:51:50,644 [aangelov-PC\aangelov] [9] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Remove test step ActionTitle = Classification(T) = BEROE55;, ExpectedResult=  
+2013-10-15 23:51:52,887 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCaseEditView - Perform Undo. 
+2013-10-15 23:51:52,930 [aangelov-PC\aangelov] [9] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Insert test step ActionTitle= Classification(T) = BEROE55;, ActionExpectedResult= , index= 5 
+2013-10-15 23:51:52,932 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCaseEditView - End Undo. 
+2013-10-15 23:52:02,295 [aangelov-PC\aangelov] [9] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Remove test step ActionTitle = Classification(T) = BEROE55;, ExpectedResult=  
+2013-10-15 23:52:04,693 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCaseEditView - Perform Undo. 
+2013-10-15 23:52:04,723 [aangelov-PC\aangelov] [9] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Insert test step ActionTitle= Classification(T) = BEROE55;, ActionExpectedResult= , index= 5 
+2013-10-15 23:52:04,725 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCaseEditView - End Undo. 
+2013-10-15 23:52:12,240 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCaseEditView - Add new test step to test case with Title= "Test Generic Option", id= "106", ActionTitle= "", ExpectedResult= "" 
+2013-10-15 23:52:12,350 [aangelov-PC\aangelov] [9] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Insert test step ActionTitle= , ActionExpectedResult= , index= 11 
+2013-10-15 23:52:14,203 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCaseEditView - Perform Undo. 
+2013-10-15 23:52:14,233 [aangelov-PC\aangelov] [9] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Remove test step ActionTitle = , ExpectedResult=  
+2013-10-15 23:52:14,235 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCaseEditView - End Undo. 
+2013-10-15 23:52:19,786 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCaseEditView - Perform Redo. 
+2013-10-15 23:52:19,799 [aangelov-PC\aangelov] [9] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Insert test step ActionTitle= , ActionExpectedResult= , index= 11 
+2013-10-15 23:52:19,827 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCaseEditView - End Redo. 
+2013-10-15 23:52:21,231 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCaseEditView - Perform Undo. 
+2013-10-15 23:52:21,265 [aangelov-PC\aangelov] [9] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Remove test step ActionTitle = , ExpectedResult=  
+2013-10-15 23:52:21,268 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCaseEditView - End Undo. 
+2013-10-15 23:52:25,638 [aangelov-PC\aangelov] [9] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Insert Shared Step Title= Navigate HIT.bg, SelectedIndex= 8 
+2013-10-15 23:52:25,638 [aangelov-PC\aangelov] [9] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Insert test step ActionTitle= search for test case manger in hit.bg, ActionExpectedResult= , index= 9 
+2013-10-15 23:52:32,461 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCaseEditView - Perform Undo. 
+2013-10-15 23:52:32,489 [aangelov-PC\aangelov] [9] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Remove test step ActionTitle = search for test case manger in hit.bg, ExpectedResult=  
+2013-10-15 23:52:32,491 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCaseEditView - End Undo. 
+2013-10-15 23:52:36,319 [aangelov-PC\aangelov] [9] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Insert Shared Step Title= Navigate HIT.bg, SelectedIndex= 7 
+2013-10-15 23:52:36,319 [aangelov-PC\aangelov] [9] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Insert test step ActionTitle= search for test case manger in hit.bg, ActionExpectedResult= , index= 8 
+2013-10-15 23:52:38,077 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCaseEditView - Perform Undo. 
+2013-10-15 23:52:38,107 [aangelov-PC\aangelov] [9] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Remove test step ActionTitle = search for test case manger in hit.bg, ExpectedResult=  
+2013-10-15 23:52:38,109 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCaseEditView - End Undo. 
+2013-10-15 23:52:51,272 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCaseEditView - Perform Undo. 
+2013-10-15 23:52:51,310 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCaseEditView - End Undo. 
+2013-10-15 23:52:59,767 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCaseEditView - Perform Undo. 
+2013-10-15 23:52:59,804 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCaseEditView - End Undo. 
+2013-10-15 23:53:14,897 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCaseEditView - Add new test step to test case with Title= "Test Generic Option", id= "106", ActionTitle= "", ExpectedResult= "" 
+2013-10-15 23:53:15,008 [aangelov-PC\aangelov] [9] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Insert test step ActionTitle= , ActionExpectedResult= , index= 11 
+2013-10-15 23:53:15,123 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCaseEditView - Add new test step to test case with Title= "Test Generic Option", id= "106", ActionTitle= "", ExpectedResult= "" 
+2013-10-15 23:53:15,237 [aangelov-PC\aangelov] [9] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Insert test step ActionTitle= , ActionExpectedResult= , index= 12 
+2013-10-15 23:53:16,525 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCaseEditView - Perform Undo. 
+2013-10-15 23:53:16,554 [aangelov-PC\aangelov] [9] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Remove test step ActionTitle = , ExpectedResult=  
+2013-10-15 23:53:16,557 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCaseEditView - End Undo. 
+2013-10-15 23:53:17,063 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCaseEditView - Perform Undo. 
+2013-10-15 23:53:17,095 [aangelov-PC\aangelov] [9] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Remove test step ActionTitle = , ExpectedResult=  
+2013-10-15 23:53:17,097 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCaseEditView - End Undo. 
+2013-10-15 23:53:18,878 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCaseEditView - Perform Redo. 
+2013-10-15 23:53:18,889 [aangelov-PC\aangelov] [9] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Insert test step ActionTitle= , ActionExpectedResult= , index= 11 
+2013-10-15 23:53:18,915 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCaseEditView - End Redo. 
+2013-10-15 23:53:19,496 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCaseEditView - Perform Redo. 
+2013-10-15 23:53:19,508 [aangelov-PC\aangelov] [9] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Insert test step ActionTitle= , ActionExpectedResult= , index= 12 
+2013-10-15 23:53:19,532 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCaseEditView - End Redo. 
+2013-10-15 23:53:23,951 [aangelov-PC\aangelov] [9] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Remove test step ActionTitle = Click Create http://uni20.ogame.org/game/index.php?page=overview button, ExpectedResult= Verify that button http://uni20.ogame.org/game/index.php?page=overview is clicked 
+2013-10-15 23:53:23,954 [aangelov-PC\aangelov] [9] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Remove test step ActionTitle = Click Create http://uni20.ogame.org/game/index.php?page=overview button, ExpectedResult= Verify that http://uni20.ogame.org/game/index.php?page=overview button is clicked 
+2013-10-15 23:53:25,673 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCaseEditView - Perform Undo. 
+2013-10-15 23:53:25,701 [aangelov-PC\aangelov] [9] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Insert test step ActionTitle= Click Create http://uni20.ogame.org/game/index.php?page=overview button, ActionExpectedResult= Verify that http://uni20.ogame.org/game/index.php?page=overview button is clicked, index= 1 
+2013-10-15 23:53:25,715 [aangelov-PC\aangelov] [9] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Insert test step ActionTitle= Click Create http://uni20.ogame.org/game/index.php?page=overview button, ActionExpectedResult= Verify that button http://uni20.ogame.org/game/index.php?page=overview is clicked, index= 2 
+2013-10-15 23:53:25,717 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCaseEditView - End Undo. 
+2013-10-15 23:53:47,179 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCaseEditView - Add new test step to test case with Title= "Test Generic Option", id= "106", ActionTitle= "", ExpectedResult= "" 
+2013-10-15 23:53:47,287 [aangelov-PC\aangelov] [9] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Insert test step ActionTitle= , ActionExpectedResult= , index= 6 
+2013-10-15 23:53:47,409 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCaseEditView - Add new test step to test case with Title= "Test Generic Option", id= "106", ActionTitle= "", ExpectedResult= "" 
+2013-10-15 23:53:47,521 [aangelov-PC\aangelov] [9] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Insert test step ActionTitle= , ActionExpectedResult= , index= 7 
+2013-10-15 23:53:47,651 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCaseEditView - Add new test step to test case with Title= "Test Generic Option", id= "106", ActionTitle= "", ExpectedResult= "" 
+2013-10-15 23:53:47,759 [aangelov-PC\aangelov] [9] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Insert test step ActionTitle= , ActionExpectedResult= , index= 8 
+2013-10-15 23:53:47,893 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCaseEditView - Add new test step to test case with Title= "Test Generic Option", id= "106", ActionTitle= "", ExpectedResult= "" 
+2013-10-15 23:53:48,001 [aangelov-PC\aangelov] [9] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Insert test step ActionTitle= , ActionExpectedResult= , index= 9 
+2013-10-15 23:53:48,148 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCaseEditView - Add new test step to test case with Title= "Test Generic Option", id= "106", ActionTitle= "", ExpectedResult= "" 
+2013-10-15 23:53:48,255 [aangelov-PC\aangelov] [9] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Insert test step ActionTitle= , ActionExpectedResult= , index= 10 
+2013-10-15 23:53:48,386 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCaseEditView - Add new test step to test case with Title= "Test Generic Option", id= "106", ActionTitle= "", ExpectedResult= "" 
+2013-10-15 23:53:48,493 [aangelov-PC\aangelov] [9] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Insert test step ActionTitle= , ActionExpectedResult= , index= 11 
+2013-10-15 23:53:48,648 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCaseEditView - Add new test step to test case with Title= "Test Generic Option", id= "106", ActionTitle= "", ExpectedResult= "" 
+2013-10-15 23:53:48,758 [aangelov-PC\aangelov] [9] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Insert test step ActionTitle= , ActionExpectedResult= , index= 12 
+2013-10-15 23:53:48,920 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCaseEditView - Add new test step to test case with Title= "Test Generic Option", id= "106", ActionTitle= "", ExpectedResult= "" 
+2013-10-15 23:53:49,030 [aangelov-PC\aangelov] [9] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Insert test step ActionTitle= , ActionExpectedResult= , index= 13 
+2013-10-15 23:53:49,168 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCaseEditView - Add new test step to test case with Title= "Test Generic Option", id= "106", ActionTitle= "", ExpectedResult= "" 
+2013-10-15 23:53:49,277 [aangelov-PC\aangelov] [9] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Insert test step ActionTitle= , ActionExpectedResult= , index= 14 
+2013-10-15 23:53:51,980 [aangelov-PC\aangelov] [9] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Remove test step ActionTitle = , ExpectedResult=  
+2013-10-15 23:53:53,725 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCaseEditView - Perform Undo. 
+2013-10-15 23:53:53,753 [aangelov-PC\aangelov] [9] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Insert test step ActionTitle= , ActionExpectedResult= , index= 6 
+2013-10-15 23:53:53,770 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCaseEditView - End Undo. 
+2013-10-15 23:53:57,330 [aangelov-PC\aangelov] [9] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Save test case. 
+2013-10-15 23:53:57,361 [aangelov-PC\aangelov] [9] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Test Case Saved Info: Title= Test Generic Option, Area= AANGELOV, Priority= VeryHigh, OwnerDisplayName= Valentin 
+2013-10-15 23:53:57,361 [aangelov-PC\aangelov] [9] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Save edited test case with id= 106. 
+2013-10-15 23:54:43,975 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Theme to: FirstFloor.ModernUI.Presentation.Link 
+2013-10-15 23:54:44,020 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Color to: #FF1BA1E2 
+2013-10-15 23:54:44,057 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Color to: #FF339933 
+2013-10-15 23:54:44,483 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Load project info loaded from registry! 
+2013-10-15 23:54:44,570 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> TFS URI: https://aangelov.visualstudio.com/defaultcollection 
+2013-10-15 23:54:44,571 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> Test Project Name: AANGELOV 
+2013-10-15 23:54:44,593 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> TfsTeamProjectCollection: aangelov.visualstudio.com\DefaultCollection 
+2013-10-15 23:54:44,891 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - SET FullTeamProjectName to https://aangelov.visualstudio.com/defaultcollection/AANGELOV 
+2013-10-15 23:54:44,911 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> SelectedTestPlan: TEST TM 2012 
+2013-10-15 23:55:03,554 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCasesInitialView - Load all test cases in the test plan. 
+2013-10-15 23:55:45,031 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCasesInitialView - Preview test case with id: 106 and suite id -1 
+2013-10-15 23:55:45,245 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Get All Areas for Project= AANGELOV 
+2013-10-15 23:55:57,391 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Load Edit View with Context: TestCaseId= 106, TestSuiteId= -1, CreateNew= False, Duplicate= False, IsSharedStep= False, SharedStepId= 0, ComeFromTestCase = False, CurrentEditedStepGuid= 00000000-0000-0000-0000-000000000000  
+2013-10-15 23:56:01,409 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Remove test step ActionTitle = , ExpectedResult=  
+2013-10-15 23:56:05,382 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Remove test step ActionTitle = , ExpectedResult=  
+2013-10-15 23:56:08,005 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Remove test step ActionTitle = , ExpectedResult=  
+2013-10-15 23:56:10,636 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCaseEditView - Perform Undo. 
+2013-10-15 23:56:10,674 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Insert test step ActionTitle= , ActionExpectedResult= , index= 7 
+2013-10-15 23:56:10,677 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCaseEditView - End Undo. 
+2013-10-15 23:56:11,816 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCaseEditView - Perform Undo. 
+2013-10-15 23:56:11,845 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Insert test step ActionTitle= , ActionExpectedResult= , index= 7 
+2013-10-15 23:56:11,847 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCaseEditView - End Undo. 
+2013-10-15 23:56:12,864 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCaseEditView - Perform Undo. 
+2013-10-15 23:56:12,896 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Insert test step ActionTitle= , ActionExpectedResult= , index= 7 
+2013-10-15 23:56:12,898 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCaseEditView - End Undo. 
+2013-10-15 23:56:18,061 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCaseEditView - Perform Redo. 
+2013-10-15 23:56:18,075 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Remove test step ActionTitle = , ExpectedResult=  
+2013-10-15 23:56:18,097 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCaseEditView - End Redo. 
+2013-10-15 23:56:23,215 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Remove test step ActionTitle = , ExpectedResult=  
+2013-10-15 23:58:26,881 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Theme to: FirstFloor.ModernUI.Presentation.Link 
+2013-10-15 23:58:26,930 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Color to: #FF1BA1E2 
+2013-10-15 23:58:26,965 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Color to: #FF339933 
+2013-10-15 23:58:27,401 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Load project info loaded from registry! 
+2013-10-15 23:58:27,509 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> TFS URI: https://aangelov.visualstudio.com/defaultcollection 
+2013-10-15 23:58:27,510 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> Test Project Name: AANGELOV 
+2013-10-15 23:58:27,538 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> TfsTeamProjectCollection: aangelov.visualstudio.com\DefaultCollection 
+2013-10-15 23:58:27,917 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - SET FullTeamProjectName to https://aangelov.visualstudio.com/defaultcollection/AANGELOV 
+2013-10-15 23:58:27,936 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> SelectedTestPlan: TEST TM 2012 
+2013-10-15 23:58:47,206 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCasesInitialView - Load all test cases in the test plan. 
+2013-10-15 23:58:55,725 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCasesInitialView - Preview test case with id: 106 and suite id -1 
+2013-10-15 23:58:55,949 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Get All Areas for Project= AANGELOV 
+2013-10-15 23:59:08,553 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Load Edit View with Context: TestCaseId= 106, TestSuiteId= -1, CreateNew= False, Duplicate= False, IsSharedStep= False, SharedStepId= 0, ComeFromTestCase = False, CurrentEditedStepGuid= 00000000-0000-0000-0000-000000000000  
+2013-10-15 23:59:11,835 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Remove test step ActionTitle = , ExpectedResult=  
+2013-10-15 23:59:13,606 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCaseEditView - Perform Undo. 
+2013-10-15 23:59:13,644 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Insert test step ActionTitle= , ActionExpectedResult= , index= 6 
+2013-10-15 23:59:13,646 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCaseEditView - End Undo. 
+2013-10-15 23:59:30,800 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCaseEditView - Perform Redo. 
+2013-10-15 23:59:30,814 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Remove test step ActionTitle = , ExpectedResult=  
+2013-10-15 23:59:30,836 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCaseEditView - End Redo. 
+2013-10-15 23:59:42,197 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Remove test step ActionTitle = , ExpectedResult=  
+2013-10-16 00:01:13,977 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Remove test step ActionTitle = , ExpectedResult=  
+2013-10-16 00:01:15,999 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCaseEditView - Perform Undo. 
+2013-10-16 00:01:16,030 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Insert test step ActionTitle= , ActionExpectedResult= , index= 7 
+2013-10-16 00:01:16,032 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCaseEditView - End Undo. 
+2013-10-16 00:01:27,678 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCaseEditView - Perform Redo. 
+2013-10-16 00:01:27,694 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Remove test step ActionTitle = , ExpectedResult=  
+2013-10-16 00:01:27,716 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCaseEditView - End Redo. 
+2013-10-16 00:01:41,549 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Remove test step ActionTitle = , ExpectedResult=  
+2013-10-16 00:01:48,297 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Remove test step ActionTitle = , ExpectedResult=  
+2013-10-16 00:01:54,826 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Remove test step ActionTitle = , ExpectedResult=  
+2013-10-16 00:01:57,397 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCaseEditView - Perform Undo. 
+2013-10-16 00:01:57,427 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Insert test step ActionTitle= , ActionExpectedResult= , index= 6 
+2013-10-16 00:01:57,429 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCaseEditView - End Undo. 
+2013-10-16 00:01:57,984 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCaseEditView - Perform Undo. 
+2013-10-16 00:01:58,009 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Insert test step ActionTitle= , ActionExpectedResult= , index= 7 
+2013-10-16 00:01:58,012 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCaseEditView - End Undo. 
+2013-10-16 00:01:58,233 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCaseEditView - Perform Undo. 
+2013-10-16 00:01:58,262 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Insert test step ActionTitle= , ActionExpectedResult= , index= 7 
+2013-10-16 00:01:58,264 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCaseEditView - End Undo. 
+2013-10-16 00:01:58,440 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCaseEditView - Perform Undo. 
+2013-10-16 00:01:58,465 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Insert test step ActionTitle= , ActionExpectedResult= , index= 7 
+2013-10-16 00:01:58,468 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCaseEditView - End Undo. 
+2013-10-16 00:01:58,625 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCaseEditView - Perform Undo. 
+2013-10-16 00:01:58,653 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Insert test step ActionTitle= , ActionExpectedResult= , index= 7 
+2013-10-16 00:01:58,655 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCaseEditView - End Undo. 
+2013-10-16 00:01:58,820 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCaseEditView - Perform Undo. 
+2013-10-16 00:01:58,851 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Insert test step ActionTitle= , ActionExpectedResult= , index= 6 
+2013-10-16 00:01:58,854 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCaseEditView - End Undo. 
+2013-10-16 00:02:09,782 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Get All Areas for Project= AANGELOV 
+2013-10-16 00:02:24,353 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Load Edit View with Context: TestCaseId= 106, TestSuiteId= -1, CreateNew= False, Duplicate= False, IsSharedStep= False, SharedStepId= 0, ComeFromTestCase = False, CurrentEditedStepGuid= 00000000-0000-0000-0000-000000000000  
+2013-10-16 00:02:32,569 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Remove test step ActionTitle = , ExpectedResult=  
+2013-10-16 00:02:36,190 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Remove test step ActionTitle = , ExpectedResult=  
+2013-10-16 00:02:39,741 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Remove test step ActionTitle = , ExpectedResult=  
+2013-10-16 00:02:43,748 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCaseEditView - Perform Undo. 
+2013-10-16 00:02:43,778 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Insert test step ActionTitle= , ActionExpectedResult= , index= 6 
+2013-10-16 00:02:43,780 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCaseEditView - End Undo. 
+2013-10-16 00:02:59,944 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCaseEditView - Perform Undo. 
+2013-10-16 00:02:59,970 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Insert test step ActionTitle= , ActionExpectedResult= , index= 7 
+2013-10-16 00:02:59,972 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCaseEditView - End Undo. 
+2013-10-16 00:03:38,010 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Save test case. 
+2013-10-16 00:03:38,013 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Test Case Saved Info: Title= Test Generic Option, Area= AANGELOV, Priority= VeryHigh, OwnerDisplayName= Valentin 
+2013-10-16 00:03:38,013 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Save edited test case with id= 106. 
+2013-10-16 00:05:11,727 [aangelov-PC\aangelov] [9] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Theme to: FirstFloor.ModernUI.Presentation.Link 
+2013-10-16 00:05:11,774 [aangelov-PC\aangelov] [9] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Color to: #FF1BA1E2 
+2013-10-16 00:05:11,810 [aangelov-PC\aangelov] [9] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Color to: #FF339933 
+2013-10-16 00:05:12,230 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Load project info loaded from registry! 
+2013-10-16 00:05:12,323 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> TFS URI: https://aangelov.visualstudio.com/defaultcollection 
+2013-10-16 00:05:12,324 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> Test Project Name: AANGELOV 
+2013-10-16 00:05:12,354 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> TfsTeamProjectCollection: aangelov.visualstudio.com\DefaultCollection 
+2013-10-16 00:05:12,697 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - SET FullTeamProjectName to https://aangelov.visualstudio.com/defaultcollection/AANGELOV 
+2013-10-16 00:05:12,717 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> SelectedTestPlan: TEST TM 2012 
+2013-10-16 00:05:31,724 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCasesInitialView - Load all test cases in the test plan. 
+2013-10-16 00:05:42,811 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCasesInitialView - Preview test case with id: 106 and suite id -1 
+2013-10-16 00:05:43,017 [aangelov-PC\aangelov] [12] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Get All Areas for Project= AANGELOV 
+2013-10-16 00:05:55,195 [aangelov-PC\aangelov] [12] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Load Edit View with Context: TestCaseId= 106, TestSuiteId= -1, CreateNew= False, Duplicate= False, IsSharedStep= False, SharedStepId= 0, ComeFromTestCase = False, CurrentEditedStepGuid= 00000000-0000-0000-0000-000000000000  
+2013-10-16 00:06:00,462 [aangelov-PC\aangelov] [9] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Remove test step ActionTitle = , ExpectedResult=  
+2013-10-16 00:07:10,603 [aangelov-PC\aangelov] [9] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Remove test step ActionTitle = , ExpectedResult=  
+2013-10-16 00:07:16,973 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCaseEditView - Perform Undo. 
+2013-10-16 00:07:26,211 [aangelov-PC\aangelov] [9] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Insert test step ActionTitle= , ActionExpectedResult= , index= 6 
+2013-10-16 00:07:26,214 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCaseEditView - End Undo. 
+2013-10-16 00:07:36,045 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCaseEditView - Perform Undo. 
+2013-10-16 00:07:39,971 [aangelov-PC\aangelov] [9] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Insert test step ActionTitle= , ActionExpectedResult= , index= 7 
+2013-10-16 00:07:39,973 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCaseEditView - End Undo. 
+2013-10-16 00:07:45,664 [aangelov-PC\aangelov] [9] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Save test case. 
+2013-10-16 00:07:45,667 [aangelov-PC\aangelov] [9] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Test Case Saved Info: Title= Test Generic Option, Area= AANGELOV, Priority= VeryHigh, OwnerDisplayName= Valentin 
+2013-10-16 00:07:45,667 [aangelov-PC\aangelov] [9] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Save edited test case with id= 106. 
+2013-10-16 00:08:59,077 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Theme to: FirstFloor.ModernUI.Presentation.Link 
+2013-10-16 00:08:59,122 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Color to: #FF1BA1E2 
+2013-10-16 00:08:59,162 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Color to: #FF339933 
+2013-10-16 00:08:59,553 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Load project info loaded from registry! 
+2013-10-16 00:08:59,647 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> TFS URI: https://aangelov.visualstudio.com/defaultcollection 
+2013-10-16 00:08:59,648 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> Test Project Name: AANGELOV 
+2013-10-16 00:08:59,670 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> TfsTeamProjectCollection: aangelov.visualstudio.com\DefaultCollection 
+2013-10-16 00:08:59,991 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - SET FullTeamProjectName to https://aangelov.visualstudio.com/defaultcollection/AANGELOV 
+2013-10-16 00:09:00,038 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> SelectedTestPlan: TEST TM 2012 
+2013-10-16 00:09:19,456 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCasesInitialView - Load all test cases in the test plan. 
+2013-10-16 00:09:27,826 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCasesInitialView - Preview test case with id: 106 and suite id -1 
+2013-10-16 00:09:28,044 [aangelov-PC\aangelov] [13] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Get All Areas for Project= AANGELOV 
+2013-10-16 00:09:40,469 [aangelov-PC\aangelov] [13] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Load Edit View with Context: TestCaseId= 106, TestSuiteId= -1, CreateNew= False, Duplicate= False, IsSharedStep= False, SharedStepId= 0, ComeFromTestCase = False, CurrentEditedStepGuid= 00000000-0000-0000-0000-000000000000  
+2013-10-16 00:09:44,324 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Remove test step ActionTitle = , ExpectedResult=  
+2013-10-16 00:09:51,561 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCaseEditView - Perform Undo. 
+2013-10-16 00:09:51,599 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Insert test step ActionTitle= , ActionExpectedResult= , index= 7 
+2013-10-16 00:09:51,607 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCaseEditView - End Undo. 
+2013-10-16 00:09:53,790 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCaseEditView - Perform Redo. 
+2013-10-16 00:09:53,804 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Remove test step ActionTitle = , ExpectedResult=  
+2013-10-16 00:09:53,825 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCaseEditView - End Redo. 
+2013-10-16 00:09:55,315 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCaseEditView - Perform Undo. 
+2013-10-16 00:09:55,343 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Insert test step ActionTitle= , ActionExpectedResult= , index= 7 
+2013-10-16 00:09:55,345 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCaseEditView - End Undo. 
+2013-10-16 00:09:59,404 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCaseEditView - Perform Redo. 
+2013-10-16 00:09:59,418 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Remove test step ActionTitle = , ExpectedResult=  
+2013-10-16 00:09:59,438 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCaseEditView - End Redo. 
+2013-10-16 00:10:01,564 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCaseEditView - Perform Undo. 
+2013-10-16 00:10:01,592 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Insert test step ActionTitle= , ActionExpectedResult= , index= 7 
+2013-10-16 00:10:01,596 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCaseEditView - End Undo. 
+2013-10-16 00:10:04,370 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Remove test step ActionTitle = , ExpectedResult=  
+2013-10-16 00:10:07,896 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCaseEditView - Perform Undo. 
+2013-10-16 00:10:07,924 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Insert test step ActionTitle= , ActionExpectedResult= , index= 6 
+2013-10-16 00:10:07,927 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCaseEditView - End Undo. 
+2013-10-16 00:10:20,512 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCaseEditView - Perform Redo. 
+2013-10-16 00:10:20,525 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Remove test step ActionTitle = , ExpectedResult=  
+2013-10-16 00:10:20,547 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCaseEditView - End Redo. 
+2013-10-16 00:10:27,009 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCaseEditView - Perform Undo. 
+2013-10-16 00:10:27,037 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Insert test step ActionTitle= , ActionExpectedResult= , index= 6 
+2013-10-16 00:10:27,039 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCaseEditView - End Undo. 
+2013-10-16 00:10:34,174 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCaseEditView - Perform Redo. 
+2013-10-16 00:10:34,186 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Remove test step ActionTitle = , ExpectedResult=  
+2013-10-16 00:10:34,206 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCaseEditView - End Redo. 
+2013-10-16 00:10:42,194 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCaseEditView - Perform Undo. 
+2013-10-16 00:10:42,223 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Insert test step ActionTitle= , ActionExpectedResult= , index= 6 
+2013-10-16 00:10:42,225 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCaseEditView - End Undo. 
+2013-10-16 00:10:54,317 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCaseEditView - Add new test step to test case with Title= "Test Generic Option", id= "106", ActionTitle= "", ExpectedResult= "" 
+2013-10-16 00:10:54,424 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Insert test step ActionTitle= , ActionExpectedResult= , index= 8 
+2013-10-16 00:10:59,250 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCaseEditView - Perform Undo. 
+2013-10-16 00:10:59,280 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Remove test step ActionTitle = , ExpectedResult=  
+2013-10-16 00:10:59,282 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCaseEditView - End Undo. 
+2013-10-16 00:11:01,260 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCaseEditView - Perform Redo. 
+2013-10-16 00:11:01,272 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Insert test step ActionTitle= , ActionExpectedResult= , index= 8 
+2013-10-16 00:11:01,296 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCaseEditView - End Redo. 
+2013-10-16 00:11:11,767 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCaseEditView - Perform Undo. 
+2013-10-16 00:11:11,796 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Remove test step ActionTitle = , ExpectedResult=  
+2013-10-16 00:11:11,798 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCaseEditView - End Undo. 
+2013-10-16 00:11:14,747 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCaseEditView - Perform Redo. 
+2013-10-16 00:11:14,759 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Insert test step ActionTitle= , ActionExpectedResult= , index= 8 
+2013-10-16 00:11:14,783 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCaseEditView - End Redo. 
+2013-10-16 00:11:17,344 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCaseEditView - Perform Undo. 
+2013-10-16 00:11:17,373 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Remove test step ActionTitle = , ExpectedResult=  
+2013-10-16 00:11:17,376 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCaseEditView - End Undo. 
+2013-10-16 00:11:18,324 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCaseEditView - Perform Redo. 
+2013-10-16 00:11:18,337 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Insert test step ActionTitle= , ActionExpectedResult= , index= 8 
+2013-10-16 00:11:18,362 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCaseEditView - End Redo. 
+2013-10-16 00:11:19,042 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCaseEditView - Perform Undo. 
+2013-10-16 00:11:19,072 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Remove test step ActionTitle = , ExpectedResult=  
+2013-10-16 00:11:19,077 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCaseEditView - End Undo. 
+2013-10-16 00:11:19,840 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCaseEditView - Perform Redo. 
+2013-10-16 00:11:19,852 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Insert test step ActionTitle= , ActionExpectedResult= , index= 8 
+2013-10-16 00:11:19,876 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCaseEditView - End Redo. 
+2013-10-16 00:11:23,477 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Remove test step ActionTitle = , ExpectedResult=  
+2013-10-16 00:11:26,421 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCaseEditView - Perform Undo. 
+2013-10-16 00:11:26,450 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Insert test step ActionTitle= , ActionExpectedResult= , index= 6 
+2013-10-16 00:11:26,453 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCaseEditView - End Undo. 
+2013-10-16 00:11:32,469 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Remove test step ActionTitle = , ExpectedResult=  
+2013-10-16 00:11:39,265 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Remove test step ActionTitle = , ExpectedResult=  
+2013-10-16 00:11:42,291 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Remove test step ActionTitle = , ExpectedResult=  
+2013-10-16 00:11:44,343 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCaseEditView - Perform Undo. 
+2013-10-16 00:11:44,373 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Insert test step ActionTitle= , ActionExpectedResult= , index= 7 
+2013-10-16 00:11:44,381 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCaseEditView - End Undo. 
+2013-10-16 00:11:51,359 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCaseEditView - Perform Undo. 
+2013-10-16 00:11:51,385 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Insert test step ActionTitle= , ActionExpectedResult= , index= 8 
+2013-10-16 00:11:51,388 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCaseEditView - End Undo. 
+2013-10-16 00:11:54,224 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCaseEditView - Perform Undo. 
+2013-10-16 00:11:54,252 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Insert test step ActionTitle= , ActionExpectedResult= , index= 6 
+2013-10-16 00:11:54,255 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCaseEditView - End Undo. 
+2013-10-16 00:11:56,873 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCaseEditView - Perform Undo. 
+2013-10-16 00:11:56,900 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Remove test step ActionTitle = , ExpectedResult=  
+2013-10-16 00:11:56,903 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCaseEditView - End Undo. 
+2013-10-16 00:11:58,545 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCaseEditView - Perform Redo. 
+2013-10-16 00:11:58,557 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Insert test step ActionTitle= , ActionExpectedResult= , index= 8 
+2013-10-16 00:11:58,582 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCaseEditView - End Redo. 
+2013-10-16 00:11:58,749 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCaseEditView - Perform Redo. 
+2013-10-16 00:11:58,762 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Remove test step ActionTitle = , ExpectedResult=  
+2013-10-16 00:11:58,782 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCaseEditView - End Redo. 
+2013-10-16 00:11:58,953 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCaseEditView - Perform Redo. 
+2013-10-16 00:11:58,965 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Remove test step ActionTitle = , ExpectedResult=  
+2013-10-16 00:11:58,987 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCaseEditView - End Redo. 
+2013-10-16 00:11:59,151 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCaseEditView - Perform Redo. 
+2013-10-16 00:11:59,166 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Remove test step ActionTitle = , ExpectedResult=  
+2013-10-16 00:11:59,188 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCaseEditView - End Redo. 
+2013-10-16 00:12:04,436 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Insert Shared Step Title= Windows> Click Start Button, SelectedIndex= 6 
+2013-10-16 00:12:04,437 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Insert test step ActionTitle= Click start button, ActionExpectedResult= , index= 7 
+2013-10-16 00:12:06,202 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCaseEditView - Perform Undo. 
+2013-10-16 00:12:06,233 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Remove test step ActionTitle = Click start button, ExpectedResult=  
+2013-10-16 00:12:06,245 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCaseEditView - End Undo. 
+2013-10-16 00:12:08,445 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCaseEditView - Perform Redo. 
+2013-10-16 00:12:08,456 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Insert test step ActionTitle= Click start button, ActionExpectedResult= , index= 7 
+2013-10-16 00:12:08,480 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCaseEditView - End Redo. 
+2013-10-16 00:12:09,477 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCaseEditView - Perform Undo. 
+2013-10-16 00:12:09,506 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Remove test step ActionTitle = Click start button, ExpectedResult=  
+2013-10-16 00:12:09,511 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCaseEditView - End Undo. 
+2013-10-16 00:12:11,415 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Remove test step ActionTitle = , ExpectedResult=  
+2013-10-16 00:12:13,223 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCaseEditView - Perform Undo. 
+2013-10-16 00:12:13,252 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Insert test step ActionTitle= , ActionExpectedResult= , index= 7 
+2013-10-16 00:12:13,254 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCaseEditView - End Undo. 
+2013-10-16 00:12:21,609 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Remove test step ActionTitle = Click Create http://uni20.ogame.org/game/index.php?page=overview button, ExpectedResult= Verify that button http://uni20.ogame.org/game/index.php?page=overview is clicked 
+2013-10-16 00:12:21,613 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Remove test step ActionTitle = Click Create http://uni20.ogame.org/game/index.php?page=overview button, ExpectedResult= Verify that http://uni20.ogame.org/game/index.php?page=overview button is clicked 
+2013-10-16 00:12:26,292 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Remove test step ActionTitle = Click Create http://uni20.ogame.org/game/index.php?page=overview button, ExpectedResult= Verify that button http://uni20.ogame.org/game/index.php?page=overview is clicked 
+2013-10-16 00:12:26,295 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Remove test step ActionTitle = Click Create http://uni20.ogame.org/game/index.php?page=overview button, ExpectedResult= Verify that http://uni20.ogame.org/game/index.php?page=overview button is clicked 
+2013-10-16 00:12:35,478 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.BusinessLogic.Managers.TestStepManager - Change ActionTitle from  to 1 
+2013-10-16 00:12:35,479 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.BusinessLogic.Managers.TestStepManager - Change ActionTitle from  to  
+2013-10-16 00:12:45,073 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.BusinessLogic.Managers.TestStepManager - Change ActionTitle from  to 2 
+2013-10-16 00:12:45,074 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.BusinessLogic.Managers.TestStepManager - Change ActionTitle from  to  
+2013-10-16 00:12:49,157 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.BusinessLogic.Managers.TestStepManager - Change ActionTitle from  to 3 
+2013-10-16 00:12:49,157 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.BusinessLogic.Managers.TestStepManager - Change ActionTitle from  to  
+2013-10-16 00:12:53,530 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.BusinessLogic.Managers.TestStepManager - Change ActionTitle from  to 4 
+2013-10-16 00:12:53,531 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.BusinessLogic.Managers.TestStepManager - Change ActionTitle from  to  
+2013-10-16 00:12:58,199 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.BusinessLogic.Managers.TestStepManager - Change ActionTitle from  to 5 
+2013-10-16 00:12:58,200 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.BusinessLogic.Managers.TestStepManager - Change ActionTitle from  to  
+2013-10-16 00:13:01,733 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.BusinessLogic.Managers.TestStepManager - Change ActionTitle from  to 6 
+2013-10-16 00:13:01,734 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.BusinessLogic.Managers.TestStepManager - Change ActionTitle from  to  
+2013-10-16 00:13:06,980 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Remove test step ActionTitle = 3, ExpectedResult=  
+2013-10-16 00:13:09,832 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCaseEditView - Perform Undo. 
+2013-10-16 00:13:09,860 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Insert test step ActionTitle= 3, ActionExpectedResult= , index= 4 
+2013-10-16 00:13:09,862 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCaseEditView - End Undo. 
+2013-10-16 00:13:31,185 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCaseEditView - Perform Redo. 
+2013-10-16 00:13:31,198 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Remove test step ActionTitle = 3, ExpectedResult=  
+2013-10-16 00:13:31,216 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCaseEditView - End Redo. 
+2013-10-16 00:13:35,417 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCaseEditView - Perform Undo. 
+2013-10-16 00:13:35,444 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Insert test step ActionTitle= 3, ActionExpectedResult= , index= 4 
+2013-10-16 00:13:35,446 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCaseEditView - End Undo. 
+2013-10-16 00:13:54,120 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCaseEditView - Add new test step to test case with Title= "Test Generic Option", id= "106", ActionTitle= "6", ExpectedResult= "" 
+2013-10-16 00:13:54,231 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Insert test step ActionTitle= 6, ActionExpectedResult= , index= 6 
+2013-10-16 00:14:06,874 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCaseEditView - Perform Undo. 
+2013-10-16 00:14:06,903 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Remove test step ActionTitle = 6, ExpectedResult=  
+2013-10-16 00:14:06,905 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCaseEditView - End Undo. 
+2013-10-16 00:14:09,314 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCaseEditView - Perform Redo. 
+2013-10-16 00:14:09,326 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Insert test step ActionTitle= 6, ActionExpectedResult= , index= 6 
+2013-10-16 00:14:09,347 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCaseEditView - End Redo. 
+2013-10-16 00:14:10,427 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCaseEditView - Perform Undo. 
+2013-10-16 00:14:10,455 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Remove test step ActionTitle = 6, ExpectedResult=  
+2013-10-16 00:14:10,456 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCaseEditView - End Undo. 
+2013-10-16 00:14:10,924 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCaseEditView - Perform Redo. 
+2013-10-16 00:14:10,936 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Insert test step ActionTitle= 6, ActionExpectedResult= , index= 6 
+2013-10-16 00:14:10,958 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCaseEditView - End Redo. 
+2013-10-16 00:14:13,188 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Remove test step ActionTitle = 6, ExpectedResult=  
+2013-10-16 00:14:14,849 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCaseEditView - Perform Undo. 
+2013-10-16 00:14:14,879 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Insert test step ActionTitle= 6, ActionExpectedResult= , index= 6 
+2013-10-16 00:14:14,886 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCaseEditView - End Undo. 
+2013-10-16 00:14:22,562 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Remove test step ActionTitle = 6, ExpectedResult=  
+2013-10-16 00:14:26,057 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Remove test step ActionTitle = 4, ExpectedResult=  
+2013-10-16 00:14:28,540 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCaseEditView - Perform Undo. 
+2013-10-16 00:14:28,568 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Insert test step ActionTitle= 4, ActionExpectedResult= , index= 5 
+2013-10-16 00:14:28,570 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCaseEditView - End Undo. 
+2013-10-16 00:14:38,830 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Save test case. 
+2013-10-16 00:14:38,857 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Test Case Saved Info: Title= Test Generic Option, Area= AANGELOV, Priority= VeryHigh, OwnerDisplayName= Valentin 
+2013-10-16 00:14:38,857 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Save edited test case with id= 106. 
+2013-10-16 00:15:34,216 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Theme to: FirstFloor.ModernUI.Presentation.Link 
+2013-10-16 00:15:34,264 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Color to: #FF1BA1E2 
+2013-10-16 00:15:34,300 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Color to: #FF339933 
+2013-10-16 00:15:34,703 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Load project info loaded from registry! 
+2013-10-16 00:15:34,797 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> TFS URI: https://aangelov.visualstudio.com/defaultcollection 
+2013-10-16 00:15:34,797 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> Test Project Name: AANGELOV 
+2013-10-16 00:15:34,823 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> TfsTeamProjectCollection: aangelov.visualstudio.com\DefaultCollection 
+2013-10-16 00:15:35,165 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - SET FullTeamProjectName to https://aangelov.visualstudio.com/defaultcollection/AANGELOV 
+2013-10-16 00:15:35,183 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> SelectedTestPlan: TEST TM 2012 
+2013-10-16 00:15:54,222 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCasesInitialView - Load all test cases in the test plan. 
+2013-10-16 00:15:59,982 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCasesInitialView - Preview test case with id: 106 and suite id -1 
+2013-10-16 00:16:00,197 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Get All Areas for Project= AANGELOV 
+2013-10-16 00:16:11,735 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Load Edit View with Context: TestCaseId= 106, TestSuiteId= -1, CreateNew= False, Duplicate= False, IsSharedStep= False, SharedStepId= 0, ComeFromTestCase = False, CurrentEditedStepGuid= 00000000-0000-0000-0000-000000000000  
+2013-10-16 00:16:16,373 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Remove test step ActionTitle = 3, ExpectedResult=  
+2013-10-16 00:16:17,818 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCaseEditView - Perform Undo. 
+2013-10-16 00:16:17,857 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Insert test step ActionTitle= 3, ActionExpectedResult= , index= 4 
+2013-10-16 00:16:17,858 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCaseEditView - End Undo. 
+2013-10-16 00:16:25,256 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Remove test step ActionTitle = 3, ExpectedResult=  
+2013-10-16 00:16:26,941 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCaseEditView - Perform Undo. 
+2013-10-16 00:16:26,970 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Insert test step ActionTitle= 3, ActionExpectedResult= , index= 4 
+2013-10-16 00:16:26,971 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCaseEditView - End Undo. 
+2013-10-16 00:16:40,243 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCaseEditView - Perform Redo. 
+2013-10-16 00:16:40,257 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Remove test step ActionTitle = 3, ExpectedResult=  
+2013-10-16 00:16:40,277 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCaseEditView - End Redo. 
+2013-10-16 00:16:46,482 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCaseEditView - Perform Undo. 
+2013-10-16 00:16:46,511 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Insert test step ActionTitle= 3, ActionExpectedResult= , index= 4 
+2013-10-16 00:16:46,512 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCaseEditView - End Undo. 
+2013-10-16 00:19:11,264 [aangelov-PC\aangelov] [9] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Theme to: FirstFloor.ModernUI.Presentation.Link 
+2013-10-16 00:19:11,313 [aangelov-PC\aangelov] [9] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Color to: #FF1BA1E2 
+2013-10-16 00:19:11,350 [aangelov-PC\aangelov] [9] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Color to: #FF339933 
+2013-10-16 00:19:11,773 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Load project info loaded from registry! 
+2013-10-16 00:19:11,908 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> TFS URI: https://aangelov.visualstudio.com/defaultcollection 
+2013-10-16 00:19:11,918 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> Test Project Name: AANGELOV 
+2013-10-16 00:19:11,945 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> TfsTeamProjectCollection: aangelov.visualstudio.com\DefaultCollection 
+2013-10-16 00:19:12,295 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - SET FullTeamProjectName to https://aangelov.visualstudio.com/defaultcollection/AANGELOV 
+2013-10-16 00:19:12,334 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> SelectedTestPlan: TEST TM 2012 
+2013-10-16 00:19:30,145 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCasesInitialView - Load all test cases in the test plan. 
+2013-10-16 00:19:36,333 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCasesInitialView - Preview test case with id: 106 and suite id -1 
+2013-10-16 00:19:36,552 [aangelov-PC\aangelov] [12] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Get All Areas for Project= AANGELOV 
+2013-10-16 00:19:48,002 [aangelov-PC\aangelov] [12] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Load Edit View with Context: TestCaseId= 106, TestSuiteId= -1, CreateNew= False, Duplicate= False, IsSharedStep= False, SharedStepId= 0, ComeFromTestCase = False, CurrentEditedStepGuid= 00000000-0000-0000-0000-000000000000  
+2013-10-16 00:19:52,245 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCaseEditView - Copy 2 test steps. 
+2013-10-16 00:19:53,941 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCaseEditView - Start Pasting previously pasted test steps. 
+2013-10-16 00:19:53,943 [aangelov-PC\aangelov] [9] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Insert test step ActionTitle= Click Create BEROE55 button, ActionExpectedResult= Verify that BEROE55 button is clicked, index= 6 
+2013-10-16 00:19:53,947 [aangelov-PC\aangelov] [9] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Insert test step ActionTitle= Click Create BEROE55 button, ActionExpectedResult= Verify that button BEROE55 is clicked, index= 7 
+2013-10-16 00:19:54,068 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCaseEditView - End Pasting previously pasted test steps. 
+2013-10-16 00:19:56,316 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCaseEditView - Perform Undo. 
+2013-10-16 00:19:56,356 [aangelov-PC\aangelov] [9] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Remove test step ActionTitle = Click Create BEROE55 button, ExpectedResult= Verify that button BEROE55 is clicked 
+2013-10-16 00:19:56,370 [aangelov-PC\aangelov] [9] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Remove test step ActionTitle = Click Create BEROE55 button, ExpectedResult= Verify that BEROE55 button is clicked 
+2013-10-16 00:19:56,371 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCaseEditView - End Undo. 
+2013-10-16 00:20:04,087 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCaseEditView - Copy 2 test steps. 
+2013-10-16 00:20:05,816 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCaseEditView - Start Pasting previously pasted test steps. 
+2013-10-16 00:20:05,816 [aangelov-PC\aangelov] [9] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Insert test step ActionTitle= Click Create BEROE55 button, ActionExpectedResult= Verify that BEROE55 button is clicked, index= 6 
+2013-10-16 00:20:05,818 [aangelov-PC\aangelov] [9] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Insert test step ActionTitle= Click Create BEROE55 button, ActionExpectedResult= Verify that button BEROE55 is clicked, index= 7 
+2013-10-16 00:20:05,924 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCaseEditView - End Pasting previously pasted test steps. 
+2013-10-16 00:20:07,408 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCaseEditView - Perform Undo. 
+2013-10-16 00:20:07,437 [aangelov-PC\aangelov] [9] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Remove test step ActionTitle = Click Create BEROE55 button, ExpectedResult= Verify that button BEROE55 is clicked 
+2013-10-16 00:20:07,451 [aangelov-PC\aangelov] [9] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Remove test step ActionTitle = Click Create BEROE55 button, ExpectedResult= Verify that BEROE55 button is clicked 
+2013-10-16 00:20:07,453 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCaseEditView - End Undo. 
+2013-10-16 00:20:08,799 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCaseEditView - Perform Redo. 
+2013-10-16 00:20:08,813 [aangelov-PC\aangelov] [9] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Insert test step ActionTitle= Click Create BEROE55 button, ActionExpectedResult= Verify that BEROE55 button is clicked, index= 6 
+2013-10-16 00:20:08,825 [aangelov-PC\aangelov] [9] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Insert test step ActionTitle= Click Create BEROE55 button, ActionExpectedResult= Verify that button BEROE55 is clicked, index= 7 
+2013-10-16 00:20:08,850 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCaseEditView - End Redo. 
+2013-10-16 00:20:09,957 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCaseEditView - Perform Undo. 
+2013-10-16 00:20:09,996 [aangelov-PC\aangelov] [9] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Remove test step ActionTitle = Click Create BEROE55 button, ExpectedResult= Verify that button BEROE55 is clicked 
+2013-10-16 00:20:10,009 [aangelov-PC\aangelov] [9] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Remove test step ActionTitle = Click Create BEROE55 button, ExpectedResult= Verify that BEROE55 button is clicked 
+2013-10-16 00:20:10,011 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCaseEditView - End Undo. 
+2013-10-16 00:20:13,438 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCaseEditView - Start Pasting previously pasted test steps. 
+2013-10-16 00:20:13,439 [aangelov-PC\aangelov] [9] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Insert test step ActionTitle= Click Create BEROE55 button, ActionExpectedResult= Verify that BEROE55 button is clicked, index= 3 
+2013-10-16 00:20:13,440 [aangelov-PC\aangelov] [9] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Insert test step ActionTitle= Click Create BEROE55 button, ActionExpectedResult= Verify that button BEROE55 is clicked, index= 4 
+2013-10-16 00:20:13,552 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCaseEditView - End Pasting previously pasted test steps. 
+2013-10-16 00:20:15,795 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCaseEditView - Perform Undo. 
+2013-10-16 00:20:15,825 [aangelov-PC\aangelov] [9] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Remove test step ActionTitle = Click Create BEROE55 button, ExpectedResult= Verify that button BEROE55 is clicked 
+2013-10-16 00:20:15,840 [aangelov-PC\aangelov] [9] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Remove test step ActionTitle = Click Create BEROE55 button, ExpectedResult= Verify that BEROE55 button is clicked 
+2013-10-16 00:20:15,842 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCaseEditView - End Undo. 
+2013-10-16 00:20:21,576 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCaseEditView - Cut 2 test steps. 
+2013-10-16 00:20:21,578 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCaseEditView - Start Deleting cut test steps. 
+2013-10-16 00:20:21,580 [aangelov-PC\aangelov] [9] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Remove test step ActionTitle = Click Create BEROE55 button, ExpectedResult= Verify that BEROE55 button is clicked 
+2013-10-16 00:20:21,585 [aangelov-PC\aangelov] [9] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Remove test step ActionTitle = Click Create BEROE55 button, ExpectedResult= Verify that button BEROE55 is clicked 
+2013-10-16 00:20:21,586 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCaseEditView - End Deleting cut test steps. 
+2013-10-16 00:20:24,865 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCaseEditView - Start Pasting previously pasted test steps. 
+2013-10-16 00:20:24,866 [aangelov-PC\aangelov] [9] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Insert test step ActionTitle= Click Create BEROE55 button, ActionExpectedResult= Verify that BEROE55 button is clicked, index= 15 
+2013-10-16 00:20:24,867 [aangelov-PC\aangelov] [9] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Insert test step ActionTitle= Click Create BEROE55 button, ActionExpectedResult= Verify that button BEROE55 is clicked, index= 16 
+2013-10-16 00:20:24,963 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCaseEditView - End Pasting previously pasted test steps. 
+2013-10-16 00:20:34,731 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCaseEditView - Cut 1 test steps. 
+2013-10-16 00:20:34,732 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCaseEditView - Start Deleting cut test steps. 
+2013-10-16 00:20:34,735 [aangelov-PC\aangelov] [9] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Remove test step ActionTitle = , ExpectedResult=  
+2013-10-16 00:20:34,737 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCaseEditView - End Deleting cut test steps. 
+2013-10-16 00:20:38,467 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCaseEditView - Start Pasting previously pasted test steps. 
+2013-10-16 00:20:38,468 [aangelov-PC\aangelov] [9] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Insert test step ActionTitle= , ActionExpectedResult= , index= 16 
+2013-10-16 00:20:38,575 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCaseEditView - End Pasting previously pasted test steps. 
+2013-10-16 00:20:41,154 [aangelov-PC\aangelov] [9] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Remove test step ActionTitle = , ExpectedResult=  
+2013-10-16 00:20:51,537 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCaseEditView - Perform Undo. 
+2013-10-16 00:20:51,564 [aangelov-PC\aangelov] [9] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Insert test step ActionTitle= , ActionExpectedResult= , index= 16 
+2013-10-16 00:20:51,566 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCaseEditView - End Undo. 
+2013-10-16 00:20:53,798 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCaseEditView - Perform Undo. 
+2013-10-16 00:20:53,827 [aangelov-PC\aangelov] [9] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Remove test step ActionTitle = , ExpectedResult=  
+2013-10-16 00:20:53,829 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCaseEditView - End Undo. 
+2013-10-16 00:20:55,663 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCaseEditView - Perform Redo. 
+2013-10-16 00:20:55,674 [aangelov-PC\aangelov] [9] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Insert test step ActionTitle= , ActionExpectedResult= , index= 16 
+2013-10-16 00:20:55,695 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCaseEditView - End Redo. 
+2013-10-16 00:20:58,474 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCaseEditView - Perform Undo. 
+2013-10-16 00:20:58,509 [aangelov-PC\aangelov] [9] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Remove test step ActionTitle = , ExpectedResult=  
+2013-10-16 00:20:58,511 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCaseEditView - End Undo. 
+2013-10-16 00:21:01,467 [aangelov-PC\aangelov] [9] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Remove test step ActionTitle = , ExpectedResult=  
+2013-10-16 00:21:03,379 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCaseEditView - Perform Undo. 
+2013-10-16 00:21:03,410 [aangelov-PC\aangelov] [9] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Insert test step ActionTitle= , ActionExpectedResult= , index= 11 
+2013-10-16 00:21:03,412 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCaseEditView - End Undo. 
+2013-10-16 00:21:10,513 [aangelov-PC\aangelov] [9] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Remove test step ActionTitle = 4, ExpectedResult=  
+2013-10-16 00:21:12,205 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCaseEditView - Perform Undo. 
+2013-10-16 00:21:12,234 [aangelov-PC\aangelov] [9] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Insert test step ActionTitle= 4, ActionExpectedResult= , index= 5 
+2013-10-16 00:21:12,235 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCaseEditView - End Undo. 
+2013-10-16 00:21:17,157 [aangelov-PC\aangelov] [9] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Remove test step ActionTitle = Classification(T) = http://uni20.ogame.org/game/index.php?page=overview;, ExpectedResult=  
+2013-10-16 00:21:18,871 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCaseEditView - Perform Undo. 
+2013-10-16 00:21:18,897 [aangelov-PC\aangelov] [9] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Insert test step ActionTitle= Classification(T) = http://uni20.ogame.org/game/index.php?page=overview;, ActionExpectedResult= , index= 0 
+2013-10-16 00:21:18,899 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCaseEditView - End Undo. 
+2013-10-16 00:21:25,034 [aangelov-PC\aangelov] [9] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Remove test step ActionTitle = 2, ExpectedResult=  
+2013-10-16 00:21:26,430 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCaseEditView - Perform Undo. 
+2013-10-16 00:21:26,458 [aangelov-PC\aangelov] [9] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Insert test step ActionTitle= 2, ActionExpectedResult= , index= 3 
+2013-10-16 00:21:26,460 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCaseEditView - End Undo. 
+2013-10-16 00:21:29,760 [aangelov-PC\aangelov] [9] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Remove test step ActionTitle = Classification(T) = http://uni20.ogame.org/game/index.php?page=overview;, ExpectedResult=  
+2013-10-16 00:21:31,347 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCaseEditView - Perform Undo. 
+2013-10-16 00:21:31,374 [aangelov-PC\aangelov] [9] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Insert test step ActionTitle= Classification(T) = http://uni20.ogame.org/game/index.php?page=overview;, ActionExpectedResult= , index= 0 
+2013-10-16 00:21:31,375 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCaseEditView - End Undo. 
+2013-10-16 00:21:35,010 [aangelov-PC\aangelov] [9] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Remove test step ActionTitle = 1, ExpectedResult=  
+2013-10-16 00:21:36,194 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCaseEditView - Perform Undo. 
+2013-10-16 00:21:36,221 [aangelov-PC\aangelov] [9] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Insert test step ActionTitle= 1, ActionExpectedResult= , index= 2 
+2013-10-16 00:21:36,223 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCaseEditView - End Undo. 
+2013-10-16 00:21:41,794 [aangelov-PC\aangelov] [9] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Remove test step ActionTitle = 1, ExpectedResult=  
+2013-10-16 00:21:42,879 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCaseEditView - Perform Undo. 
+2013-10-16 00:21:42,909 [aangelov-PC\aangelov] [9] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Insert test step ActionTitle= 1, ActionExpectedResult= , index= 2 
+2013-10-16 00:21:42,911 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCaseEditView - End Undo. 
+2013-10-16 00:21:45,025 [aangelov-PC\aangelov] [9] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Remove test step ActionTitle = Classification(T) = http://uni20.ogame.org/game/index.php?page=overview;, ExpectedResult=  
+2013-10-16 00:21:46,316 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCaseEditView - Perform Undo. 
+2013-10-16 00:21:46,342 [aangelov-PC\aangelov] [9] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Insert test step ActionTitle= Classification(T) = http://uni20.ogame.org/game/index.php?page=overview;, ActionExpectedResult= , index= 0 
+2013-10-16 00:21:46,344 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCaseEditView - End Undo. 
+2013-10-16 00:21:48,948 [aangelov-PC\aangelov] [9] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Remove test step ActionTitle = 6, ExpectedResult=  
+2013-10-16 00:21:50,248 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCaseEditView - Perform Undo. 
+2013-10-16 00:21:50,276 [aangelov-PC\aangelov] [9] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Insert test step ActionTitle= 6, ActionExpectedResult= , index= 7 
+2013-10-16 00:21:50,278 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCaseEditView - End Undo. 
+2013-10-16 00:21:53,544 [aangelov-PC\aangelov] [9] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Remove test step ActionTitle = 5, ExpectedResult=  
+2013-10-16 00:21:55,400 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCaseEditView - Perform Undo. 
+2013-10-16 00:21:55,429 [aangelov-PC\aangelov] [9] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Insert test step ActionTitle= 5, ActionExpectedResult= , index= 6 
+2013-10-16 00:21:55,430 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCaseEditView - End Undo. 
+2013-10-16 00:22:51,824 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCaseEditView - Cut 2 test steps. 
+2013-10-16 00:22:51,825 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCaseEditView - Start Deleting cut test steps. 
+2013-10-16 00:22:51,828 [aangelov-PC\aangelov] [9] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Remove test step ActionTitle = Click Create BEROE66666 button, ExpectedResult= Verify that button BEROE66666 is clicked 
+2013-10-16 00:22:51,844 [aangelov-PC\aangelov] [9] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Remove test step ActionTitle = Click Create BEROE66666 button, ExpectedResult= Verify that BEROE66666 button is clicked 
+2013-10-16 00:22:51,845 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCaseEditView - End Deleting cut test steps. 
+2013-10-16 00:22:53,436 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCaseEditView - Start Pasting previously pasted test steps. 
+2013-10-16 00:22:53,437 [aangelov-PC\aangelov] [9] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Insert test step ActionTitle= Click Create BEROE66666 button, ActionExpectedResult= Verify that button BEROE66666 is clicked, index= 6 
+2013-10-16 00:22:53,453 [aangelov-PC\aangelov] [9] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Insert test step ActionTitle= Click Create BEROE66666 button, ActionExpectedResult= Verify that BEROE66666 button is clicked, index= 7 
+2013-10-16 00:22:53,547 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCaseEditView - End Pasting previously pasted test steps. 
+2013-10-16 00:23:33,902 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Theme to: FirstFloor.ModernUI.Presentation.Link 
+2013-10-16 00:23:33,958 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Color to: #FF1BA1E2 
+2013-10-16 00:23:33,996 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Color to: #FF339933 
+2013-10-16 00:23:34,410 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Load project info loaded from registry! 
+2013-10-16 00:23:34,514 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> TFS URI: https://aangelov.visualstudio.com/defaultcollection 
+2013-10-16 00:23:34,514 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> Test Project Name: AANGELOV 
+2013-10-16 00:23:34,548 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> TfsTeamProjectCollection: aangelov.visualstudio.com\DefaultCollection 
+2013-10-16 00:23:34,851 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - SET FullTeamProjectName to https://aangelov.visualstudio.com/defaultcollection/AANGELOV 
+2013-10-16 00:23:34,870 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> SelectedTestPlan: TEST TM 2012 
+2013-10-16 00:23:55,422 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCasesInitialView - Load all test cases in the test plan. 
+2013-10-16 00:24:02,372 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCasesInitialView - Preview test case with id: 106 and suite id -1 
+2013-10-16 00:24:02,591 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Get All Areas for Project= AANGELOV 
+2013-10-16 00:24:13,940 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Load Edit View with Context: TestCaseId= 106, TestSuiteId= -1, CreateNew= False, Duplicate= False, IsSharedStep= False, SharedStepId= 0, ComeFromTestCase = False, CurrentEditedStepGuid= 00000000-0000-0000-0000-000000000000  
+2013-10-16 00:24:18,429 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCaseEditView - Cut 2 test steps. 
+2013-10-16 00:24:18,435 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCaseEditView - Start Deleting cut test steps. 
+2013-10-16 00:24:18,439 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Remove test step ActionTitle = Click Create BEROE55 button, ExpectedResult= Verify that BEROE55 button is clicked 
+2013-10-16 00:24:18,445 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Remove test step ActionTitle = Click Create BEROE55 button, ExpectedResult= Verify that button BEROE55 is clicked 
+2013-10-16 00:24:18,446 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCaseEditView - End Deleting cut test steps. 
+2013-10-16 00:24:19,993 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCaseEditView - Start Pasting previously pasted test steps. 
+2013-10-16 00:24:19,995 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Insert test step ActionTitle= Click Create BEROE55 button, ActionExpectedResult= Verify that BEROE55 button is clicked, index= 5 
+2013-10-16 00:24:19,996 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Insert test step ActionTitle= Click Create BEROE55 button, ActionExpectedResult= Verify that button BEROE55 is clicked, index= 6 
+2013-10-16 00:24:20,096 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCaseEditView - End Pasting previously pasted test steps. 
+2013-10-16 00:24:34,923 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCaseEditView - Copy 2 test steps. 
+2013-10-16 00:24:36,542 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCaseEditView - Start Pasting previously pasted test steps. 
+2013-10-16 00:24:36,542 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Insert test step ActionTitle= Click Create BEROE55 button, ActionExpectedResult= Verify that BEROE55 button is clicked, index= 9 
+2013-10-16 00:24:36,544 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Insert test step ActionTitle= Click Create BEROE55 button, ActionExpectedResult= Verify that button BEROE55 is clicked, index= 10 
+2013-10-16 00:24:36,663 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCaseEditView - End Pasting previously pasted test steps. 
+2013-10-16 00:25:11,168 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Theme to: FirstFloor.ModernUI.Presentation.Link 
+2013-10-16 00:25:11,214 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Color to: #FF1BA1E2 
+2013-10-16 00:25:11,250 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Color to: #FF339933 
+2013-10-16 00:25:11,649 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Load project info loaded from registry! 
+2013-10-16 00:25:11,745 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> TFS URI: https://aangelov.visualstudio.com/defaultcollection 
+2013-10-16 00:25:11,746 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> Test Project Name: AANGELOV 
+2013-10-16 00:25:11,787 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> TfsTeamProjectCollection: aangelov.visualstudio.com\DefaultCollection 
+2013-10-16 00:25:12,098 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - SET FullTeamProjectName to https://aangelov.visualstudio.com/defaultcollection/AANGELOV 
+2013-10-16 00:25:12,116 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> SelectedTestPlan: TEST TM 2012 
+2013-10-16 00:25:31,696 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCasesInitialView - Load all test cases in the test plan. 
+2013-10-16 00:25:56,479 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCasesInitialView - Preview test case with id: 106 and suite id -1 
+2013-10-16 00:25:56,700 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Get All Areas for Project= AANGELOV 
+2013-10-16 00:26:08,141 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Load Edit View with Context: TestCaseId= 106, TestSuiteId= -1, CreateNew= False, Duplicate= False, IsSharedStep= False, SharedStepId= 0, ComeFromTestCase = False, CurrentEditedStepGuid= 00000000-0000-0000-0000-000000000000  
+2013-10-16 00:26:17,367 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCaseEditView - Copy 2 test steps. 
+2013-10-16 00:26:19,556 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCaseEditView - Start Pasting previously pasted test steps. 
+2013-10-16 00:26:19,558 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Insert test step ActionTitle= Click Create BEROE55 button, ActionExpectedResult= Verify that BEROE55 button is clicked, index= 6 
+2013-10-16 00:26:19,562 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Insert test step ActionTitle= Click Create BEROE55 button, ActionExpectedResult= Verify that button BEROE55 is clicked, index= 7 
+2013-10-16 00:26:19,690 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCaseEditView - End Pasting previously pasted test steps. 
+2013-10-16 00:26:24,925 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCaseEditView - Cut 2 test steps. 
+2013-10-16 00:26:24,927 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCaseEditView - Start Deleting cut test steps. 
+2013-10-16 00:26:24,930 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Remove test step ActionTitle = Click Create BEROE55 button, ExpectedResult= Verify that BEROE55 button is clicked 
+2013-10-16 00:26:24,936 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Remove test step ActionTitle = Click Create BEROE55 button, ExpectedResult= Verify that button BEROE55 is clicked 
+2013-10-16 00:26:24,938 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCaseEditView - End Deleting cut test steps. 
+2013-10-16 00:26:29,591 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCaseEditView - Start Pasting previously pasted test steps. 
+2013-10-16 00:26:29,592 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Insert test step ActionTitle= Click Create BEROE55 button, ActionExpectedResult= Verify that BEROE55 button is clicked, index= 13 
+2013-10-16 00:26:29,594 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Insert test step ActionTitle= Click Create BEROE55 button, ActionExpectedResult= Verify that button BEROE55 is clicked, index= 14 
+2013-10-16 00:26:29,706 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCaseEditView - End Pasting previously pasted test steps. 
+2013-10-16 00:26:32,725 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCaseEditView - Cut 1 test steps. 
+2013-10-16 00:26:32,726 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCaseEditView - Start Deleting cut test steps. 
+2013-10-16 00:26:32,730 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Remove test step ActionTitle = , ExpectedResult=  
+2013-10-16 00:26:32,733 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCaseEditView - End Deleting cut test steps. 
+2013-10-16 00:26:34,117 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCaseEditView - Start Pasting previously pasted test steps. 
+2013-10-16 00:26:34,117 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Insert test step ActionTitle= , ActionExpectedResult= , index= 10 
+2013-10-16 00:26:34,260 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCaseEditView - End Pasting previously pasted test steps. 
+2013-10-16 00:26:38,426 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Remove test step ActionTitle = 6, ExpectedResult=  
+2013-10-16 00:26:42,760 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCaseEditView - Perform Undo. 
+2013-10-16 00:26:42,799 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Insert test step ActionTitle= 6, ActionExpectedResult= , index= 7 
+2013-10-16 00:26:42,801 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCaseEditView - End Undo. 
+2013-10-16 00:28:13,831 [aangelov-PC\aangelov] [9] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Theme to: FirstFloor.ModernUI.Presentation.Link 
+2013-10-16 00:28:13,878 [aangelov-PC\aangelov] [9] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Color to: #FF1BA1E2 
+2013-10-16 00:28:13,915 [aangelov-PC\aangelov] [9] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Color to: #FF339933 
+2013-10-16 00:28:14,342 [aangelov-PC\aangelov] [12] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Load project info loaded from registry! 
+2013-10-16 00:28:14,432 [aangelov-PC\aangelov] [12] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> TFS URI: https://aangelov.visualstudio.com/defaultcollection 
+2013-10-16 00:28:14,433 [aangelov-PC\aangelov] [12] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> Test Project Name: AANGELOV 
+2013-10-16 00:28:14,467 [aangelov-PC\aangelov] [12] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> TfsTeamProjectCollection: aangelov.visualstudio.com\DefaultCollection 
+2013-10-16 00:28:14,788 [aangelov-PC\aangelov] [12] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - SET FullTeamProjectName to https://aangelov.visualstudio.com/defaultcollection/AANGELOV 
+2013-10-16 00:28:14,808 [aangelov-PC\aangelov] [12] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> SelectedTestPlan: TEST TM 2012 
+2013-10-16 00:28:32,612 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCasesInitialView - Load all test cases in the test plan. 
+2013-10-16 00:28:38,447 [aangelov-PC\aangelov] [9] INFO TestCaseManagerApp.Views.TestCasesInitialView - Preview test case with id: 106 and suite id -1 
+2013-10-16 00:28:38,664 [aangelov-PC\aangelov] [12] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Get All Areas for Project= AANGELOV 
+2013-10-16 00:28:50,113 [aangelov-PC\aangelov] [12] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Load Edit View with Context: TestCaseId= 106, TestSuiteId= -1, CreateNew= False, Duplicate= False, IsSharedStep= False, SharedStepId= 0, ComeFromTestCase = False, CurrentEditedStepGuid= 00000000-0000-0000-0000-000000000000  
+2013-10-16 00:30:05,361 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Theme to: FirstFloor.ModernUI.Presentation.Link 
+2013-10-16 00:30:05,406 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Color to: #FF1BA1E2 
+2013-10-16 00:30:05,442 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Color to: #FF339933 
+2013-10-16 00:30:05,843 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Load project info loaded from registry! 
+2013-10-16 00:30:05,936 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> TFS URI: https://aangelov.visualstudio.com/defaultcollection 
+2013-10-16 00:30:05,937 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> Test Project Name: AANGELOV 
+2013-10-16 00:30:05,967 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> TfsTeamProjectCollection: aangelov.visualstudio.com\DefaultCollection 
+2013-10-16 00:30:06,297 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - SET FullTeamProjectName to https://aangelov.visualstudio.com/defaultcollection/AANGELOV 
+2013-10-16 00:30:06,317 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> SelectedTestPlan: TEST TM 2012 
+2013-10-16 00:30:27,110 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCasesInitialView - Load all test cases in the test plan. 
+2013-10-16 00:30:34,379 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCasesInitialView - Preview test case with id: 106 and suite id -1 
+2013-10-16 00:30:34,592 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Get All Areas for Project= AANGELOV 
+2013-10-16 00:30:46,469 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Load Edit View with Context: TestCaseId= 106, TestSuiteId= -1, CreateNew= False, Duplicate= False, IsSharedStep= False, SharedStepId= 0, ComeFromTestCase = False, CurrentEditedStepGuid= 00000000-0000-0000-0000-000000000000  
+2013-10-16 00:30:49,902 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Remove test step ActionTitle = 1, ExpectedResult=  
+2013-10-16 00:30:51,442 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCaseEditView - Perform Undo. 
+2013-10-16 00:30:51,480 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Insert test step ActionTitle= 1, ActionExpectedResult= , index= 2 
+2013-10-16 00:30:51,482 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCaseEditView - End Undo. 
+2013-10-16 00:31:02,081 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCaseEditView - Perform Redo. 
+2013-10-16 00:31:02,095 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Remove test step ActionTitle = 1, ExpectedResult=  
+2013-10-16 00:31:02,117 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCaseEditView - End Redo. 
+2013-10-16 00:31:05,915 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCaseEditView - Perform Undo. 
+2013-10-16 00:31:05,944 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Insert test step ActionTitle= 1, ActionExpectedResult= , index= 2 
+2013-10-16 00:31:05,946 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCaseEditView - End Undo. 
+2013-10-16 00:31:09,125 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Save test case. 
+2013-10-16 00:31:09,128 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Test Case Saved Info: Title= Test Generic Option, Area= AANGELOV, Priority= VeryHigh, OwnerDisplayName= Valentin 
+2013-10-16 00:31:09,129 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Save edited test case with id= 106. 
+2013-10-16 00:35:18,789 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Theme to: FirstFloor.ModernUI.Presentation.Link 
+2013-10-16 00:35:18,836 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Color to: #FF1BA1E2 
+2013-10-16 00:35:18,871 [aangelov-PC\aangelov] [10] INFO TestCaseManagerCore.ViewModels.SettingsViewModel - Change Selected Color to: #FF339933 
+2013-10-16 00:35:19,282 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Load project info loaded from registry! 
+2013-10-16 00:35:19,381 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> TFS URI: https://aangelov.visualstudio.com/defaultcollection 
+2013-10-16 00:35:19,381 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> Test Project Name: AANGELOV 
+2013-10-16 00:35:19,414 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> TfsTeamProjectCollection: aangelov.visualstudio.com\DefaultCollection 
+2013-10-16 00:35:19,743 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - SET FullTeamProjectName to https://aangelov.visualstudio.com/defaultcollection/AANGELOV 
+2013-10-16 00:35:19,782 [aangelov-PC\aangelov] [6] INFO TestCaseManagerCore.ViewModels.ProjectSelectionViewModel - Registry> SelectedTestPlan: TEST TM 2012 
+2013-10-16 00:35:39,200 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCasesInitialView - Load all test cases in the test plan. 
+2013-10-16 00:35:44,564 [aangelov-PC\aangelov] [10] INFO TestCaseManagerApp.Views.TestCasesInitialView - Preview test case with id: 106 and suite id -1 
+2013-10-16 00:35:44,773 [aangelov-PC\aangelov] [13] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Get All Areas for Project= AANGELOV 
+2013-10-16 00:35:56,188 [aangelov-PC\aangelov] [13] INFO TestCaseManagerCore.ViewModels.TestCaseEditViewModel - Load Edit View with Context: TestCaseId= 106, TestSuiteId= -1, CreateNew= False, Duplicate= False, IsSharedStep= False, SharedStepId= 0, ComeFromTestCase = False, CurrentEditedStepGuid= 00000000-0000-0000-0000-000000000000  

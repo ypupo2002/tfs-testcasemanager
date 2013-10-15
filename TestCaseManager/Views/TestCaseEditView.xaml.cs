@@ -396,18 +396,20 @@ namespace TestCaseManagerApp.Views
             TestStep testStepToInsert = null;
             if (!this.editViewContext.IsSharedStep)
             {
-                log.InfoFormat("Add new test step to test case with Title= {0}, id= {1}, ActionTitle= {2}, ExpectedResult= {3}", TestCaseEditViewModel.TestCase.ITestCase.Title, TestCaseEditViewModel.TestCase.ITestCase.Id, stepTitle, expectedResult);
+                log.InfoFormat("Add new test step to test case with Title= \"{0}\", id= \"{1}\", ActionTitle= \"{2}\", ExpectedResult= \"{3}\"", TestCaseEditViewModel.TestCase.ITestCase.Title, TestCaseEditViewModel.TestCase.ITestCase.Id, stepTitle, expectedResult);
                 testStepToInsert = TestStepManager.CreateNewTestStep(TestCaseEditViewModel.TestCase.ITestCase, stepTitle, expectedResult, default(Guid));
             }
             else
             {
-                log.InfoFormat("Add new test step to sharedStep with Title= {0}, id= {1}, ActionTitle= {2}, ExpectedResult= {3}", TestCaseEditViewModel.SharedStep.ISharedStep.Title, TestCaseEditViewModel.SharedStep.ISharedStep.Id, stepTitle, expectedResult);
+                log.InfoFormat("Add new test step to sharedStep with Title= \"{0}\", id= \"{1}\", ActionTitle= \"{2}\", ExpectedResult= \"{3}\"", TestCaseEditViewModel.SharedStep.ISharedStep.Title, TestCaseEditViewModel.SharedStep.ISharedStep.Id, stepTitle, expectedResult);
                 testStepToInsert = TestStepManager.CreateNewTestStep(TestCaseEditViewModel.SharedStep.ISharedStep, stepTitle, expectedResult, default(Guid));
             }
-            int newSelectedIndex = this.TestCaseEditViewModel.InsertTestStepInTestCase(testStepToInsert, selectedIndex, false);
-            this.TestCaseEditViewModel.UpdateTestStepsGrid();
-
-            this.ChangeSelectedIndexTestStepsDataGrid(newSelectedIndex + 1, oldSelectedIndex);
+            using (new UndoTransaction("Insert new step", false))
+            {
+                int newSelectedIndex = this.TestCaseEditViewModel.InsertTestStepInTestCase(testStepToInsert, selectedIndex, false);
+                this.TestCaseEditViewModel.UpdateTestStepsGrid();
+                this.ChangeSelectedIndexTestStepsDataGrid(newSelectedIndex + 1, oldSelectedIndex);
+            }
         }
 
         /// <summary>
@@ -519,6 +521,8 @@ namespace TestCaseManagerApp.Views
                         newSelectedIndex = 0;
                     }
                     this.ChangeSelectedIndexTestStepsDataGrid(newSelectedIndex, oldSelectedIndex);
+                    List<TestStep> selectedTestSteps = this.AddMissedSelectedSharedSteps();
+                    this.UpdateSelectedTestSteps(selectedTestSteps);
                 }
             }
         }
@@ -993,6 +997,8 @@ namespace TestCaseManagerApp.Views
                 log.Info("Perform Undo.");
                 UndoRedoManager.Instance().Undo();
                 log.Info("End Undo.");
+                List<TestStep> selectedTestSteps = this.AddMissedSelectedSharedSteps();
+                this.UpdateSelectedTestSteps(selectedTestSteps);            
             }
         }
 
@@ -1007,7 +1013,9 @@ namespace TestCaseManagerApp.Views
             {
                 log.Info("Perform Redo.");
                 UndoRedoManager.Instance().Redo();
-                log.Info("End Redo.");
+                log.Info("End Redo.");           
+                List<TestStep> selectedTestSteps = this.AddMissedSelectedSharedSteps();
+                this.UpdateSelectedTestSteps(selectedTestSteps);
             }
         }
 
@@ -1151,8 +1159,10 @@ namespace TestCaseManagerApp.Views
                     System.Windows.Forms.Clipboard.Clear();
                 }
                 this.TestCaseEditViewModel.UpdateTestStepsGrid();
-                TestStepManager.UpdateGenericSharedSteps(this.TestCaseEditViewModel.ObservableTestSteps);
+                TestStepManager.UpdateGenericSharedSteps(this.TestCaseEditViewModel.ObservableTestSteps);            
                 this.ChangeSelectedIndexTestStepsDataGrid(newSelectedIndex, oldSelectedIndex);
+                List<TestStep> selectedTestSteps = this.AddMissedSelectedSharedSteps();
+                this.UpdateSelectedTestSteps(selectedTestSteps);
                 log.Info("End Pasting previously pasted test steps.");
             }
         }    

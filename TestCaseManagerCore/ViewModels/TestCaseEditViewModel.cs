@@ -546,6 +546,7 @@ namespace TestCaseManagerCore.ViewModels
             else
             {
                 this.ObservableTestSteps.Add(testStepToInsert);
+                selectedIndex = this.ObservableTestSteps.Count - 1;
                 log.InfoFormat("Insert test step ActionTitle= {0}, ActionExpectedResult= {1}, end of test case", testStepToInsert.ActionTitle, testStepToInsert.ActionExpectedResult);
             }
             UndoRedoManager.Instance().Push((r, i) => this.RemoveTestStepFromObservableCollection(r, i), testStepToInsert, selectedIndex);
@@ -615,6 +616,7 @@ namespace TestCaseManagerCore.ViewModels
             log.InfoFormat("Remove test step ActionTitle = {0}, ExpectedResult= {1}", testStepToBeRemoved.ActionTitle, testStepToBeRemoved.ActionExpectedResult);
             UndoRedoManager.Instance().Push((r, i) => this.InsertTestStepInTestCase(r, i), testStepToBeRemoved, selectedIndex, "remove Test Step");
             TestStepManager.UpdateGenericSharedSteps(this.ObservableTestSteps);
+
         }
 
         /// <summary>

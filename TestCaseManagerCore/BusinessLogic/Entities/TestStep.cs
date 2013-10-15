@@ -131,6 +131,8 @@ namespace TestCaseManagerCore.BusinessLogic.Entities
             : this(otherTestStep.IsShared, otherTestStep.Title, otherTestStep.TestStepGuid, otherTestStep.TestStepId, otherTestStep.ActionTitle, otherTestStep.ActionExpectedResult)
         {
             this.SharedStepId = otherTestStep.SharedStepId;
+            this.OriginalActionTitle = otherTestStep.OriginalActionTitle;
+            this.OriginalActionExpectedResult = otherTestStep.OriginalActionExpectedResult;
         }
 
         /// <summary>

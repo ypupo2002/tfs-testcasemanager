@@ -248,25 +248,25 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
         /// <param name="genericParameters">The generic parameters.</param>
         private static void ExtractGenericParameteresFromNonSharedStep(TestStep currentTestStep, Dictionary<string, Dictionary<string, string>> genericParameters)
         {
-            string regexPattern = @"\s*(?<Namespace>[\w.]{1,})\((?<GenParam>[a-zA-Z]{1,})\)\s*=\s*(?<NewValue>[\w\s-]*);?\s*";
+            string regexPattern = @"\s*(?<Namespace>[\w.]{1,})\((?<GenParam>[a-zA-Z]{1,})\)\s*=\s*(?<NewValue>[\W\w\s]*);?\s*";
             Regex r = new Regex(regexPattern, RegexOptions.Multiline);
             for (Match m = r.Match(currentTestStep.ActionTitle); m.Success; m = m.NextMatch())
             {
                 if (!genericParameters.Keys.Contains(m.Groups["Namespace"].Value))
                 {
                     Dictionary<string, string> genericTypesDictionary = new Dictionary<string, string>();
-                    genericTypesDictionary.Add(m.Groups["GenParam"].Value, m.Groups["NewValue"].Value);
+                    genericTypesDictionary.Add(m.Groups["GenParam"].Value, m.Groups["NewValue"].Value.Trim().TrimEnd(';'));
                     genericParameters.Add(m.Groups["Namespace"].Value, genericTypesDictionary);
                 }
                 else
                 {
                     if (!genericParameters[m.Groups["Namespace"].Value].Keys.Contains(m.Groups["GenParam"].Value))
                     {
-                        genericParameters[m.Groups["Namespace"].Value].Add(m.Groups["GenParam"].Value, m.Groups["NewValue"].Value.Trim());
+                        genericParameters[m.Groups["Namespace"].Value].Add(m.Groups["GenParam"].Value, m.Groups["NewValue"].Value.Trim().TrimEnd(';'));
                     }
                     else
                     {
-                        genericParameters[m.Groups["Namespace"].Value][m.Groups["GenParam"].Value] = m.Groups["NewValue"].Value.Trim();
+                        genericParameters[m.Groups["Namespace"].Value][m.Groups["GenParam"].Value] = m.Groups["NewValue"].Value.Trim().TrimEnd(';');
                     }
                 }
             }
