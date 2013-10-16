@@ -82,8 +82,8 @@
                 
                 <TextBlock Text="ID" Margin="10,0,10,0" Height="25" FontWeight="Bold" HorizontalAlignment="Stretch" Grid.Row="0" Grid.Column="0"/>
                 <TextBox Text="{Binding TestCaseIdLabel}" Margin="10,0,10,0" Height="25" HorizontalAlignment="Left" Grid.Row="1" Grid.Column="0" IsReadOnly="True"/>
-                <TextBlock Text="Title" Margin="10,0,10,0" Height="25" FontWeight="Bold" HorizontalAlignment="Left" Grid.Row="0" Grid.Column="1"/>
-                <TextBox Name="tbTitle" Text="{Binding TestBase.Title}" HorizontalAlignment="Stretch" Margin="10,0,10,0" Height="25" Grid.Row="1" Grid.Column="1"/>
+                <TextBlock Text="Title" Margin="10,0,10,0" Height="25" FontWeight="Bold" HorizontalAlignment="Left" Grid.Row="0" Grid.Column="1" />
+                <TextBox Name="tbTitle" Text="{Binding TestBase.Title}" HorizontalAlignment="Stretch" Margin="10,0,10,0" Height="25" Grid.Row="1" Grid.Column="1" MaxLength="255"/>
                 <TextBlock IsEnabled="{Binding ShowTestCaseSpecificFields}" Text="Suite" Margin="10,0,10,0" Height="25" FontWeight="Bold" HorizontalAlignment="Left" Grid.Row="0" Grid.Column="2"/>
                 <TextBox IsEnabled="{Binding ShowTestCaseSpecificFields}" Text="{Binding TestCase.ITestSuiteBase.Title, Mode=OneWay}" Name="tbSuite"
                          Margin="10,0,10,0" Height="25" HorizontalAlignment="Stretch" Grid.Row="1" Grid.Column="2" IsReadOnly="True" />

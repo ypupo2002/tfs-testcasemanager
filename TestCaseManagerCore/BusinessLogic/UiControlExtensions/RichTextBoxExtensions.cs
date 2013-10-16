@@ -49,7 +49,7 @@ namespace TestCaseManagerCore
         /// <returns>the text from the rich text box</returns>
         public static string GetText(this RichTextBox richTextBox)
         {
-            string currentText = new TextRange(richTextBox.Document.ContentStart, richTextBox.Document.ContentEnd).Text.TrimEnd();
+            string currentText = new TextRange(richTextBox.Document.ContentStart, richTextBox.Document.ContentEnd).Text;
             return currentText;
         }
 

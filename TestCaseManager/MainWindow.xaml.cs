@@ -45,8 +45,7 @@ namespace TestCaseManagerApp
             this.InitializeComponent();
             ExecutionContext.Preferences = new Preferences();
             ExecutionContext.SettingsViewModel = new TestCaseManagerCore.ViewModels.SettingsViewModel();
-            BrowseBackCommand.InputGestures.Add(new KeyGesture(Key.Back, ModifierKeys.None));
-            
+            BrowseBackCommand.InputGestures.Add(new KeyGesture(Key.Back, ModifierKeys.None));            
         }
 
         /// <summary>

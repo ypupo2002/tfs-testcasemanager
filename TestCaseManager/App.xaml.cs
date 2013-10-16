@@ -26,6 +26,9 @@ namespace TestCaseManagerApp
         /// <param name="e">The <see cref="StartupEventArgs"/> instance containing the event data.</param>
         private void Application_Startup(object sender, StartupEventArgs e)
         {
+            //if(Folder)
+            //{
+            //}
         }
 
         /// <summary>

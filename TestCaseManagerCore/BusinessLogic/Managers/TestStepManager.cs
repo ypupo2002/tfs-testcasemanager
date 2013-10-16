@@ -27,6 +27,11 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         /// <summary>
+        /// The default unique identifier string
+        /// </summary>
+        private static readonly string DefaultGuidString = default(Guid).ToString();
+
+        /// <summary>
         /// Gets the test steps from test actions.
         /// </summary>
         /// <param name="testActions">The test actions.</param>
@@ -248,28 +253,78 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
         /// <param name="genericParameters">The generic parameters.</param>
         private static void ExtractGenericParameteresFromNonSharedStep(TestStep currentTestStep, Dictionary<string, Dictionary<string, string>> genericParameters)
         {
-            string regexPattern = @"\s*(?<Namespace>[\w.]{1,})\((?<GenParam>[a-zA-Z]{1,})\)\s*=\s*(?<NewValue>[\W\w\s]*);?\s*";
-            Regex r = new Regex(regexPattern, RegexOptions.Multiline);
-            for (Match m = r.Match(currentTestStep.ActionTitle); m.Success; m = m.NextMatch())
+            string regexPatternNamespaceInitializations = @"\s*(?<Namespace>[\w.]{1,})\((?<GenParam>[a-zA-Z]{1,})\)\s*=\s*(?<NewValue>[\W\w\s]*);{1}";
+            string regextPatternNoNamespaceInitializations = @"\s*\((?<GenParam>[a-zA-Z]{1,})\)\s*=\s*(?<NewValue>[\W\w\s]*);{1}";
+            Regex regexNamespaceInitializations = new Regex(regexPatternNamespaceInitializations, RegexOptions.None);
+            Regex regexNoNamespaceInitializations = new Regex(regextPatternNoNamespaceInitializations, RegexOptions.None);
+            string[] lines = currentTestStep.ActionTitle.Split(new string[] { Environment.NewLine }, StringSplitOptions.None);
+            foreach (string currentLine in lines)
             {
-                if (!genericParameters.Keys.Contains(m.Groups["Namespace"].Value))
+                Match m = regexNamespaceInitializations.Match(currentLine);
+                if (m.Success)
                 {
-                    Dictionary<string, string> genericTypesDictionary = new Dictionary<string, string>();
-                    genericTypesDictionary.Add(m.Groups["GenParam"].Value, m.Groups["NewValue"].Value.Trim().TrimEnd(';'));
-                    genericParameters.Add(m.Groups["Namespace"].Value, genericTypesDictionary);
-                }
-                else
-                {
-                    if (!genericParameters[m.Groups["Namespace"].Value].Keys.Contains(m.Groups["GenParam"].Value))
+                    if (!genericParameters.Keys.Contains(m.Groups["Namespace"].Value))
                     {
-                        genericParameters[m.Groups["Namespace"].Value].Add(m.Groups["GenParam"].Value, m.Groups["NewValue"].Value.Trim().TrimEnd(';'));
+                        Dictionary<string, string> genericTypesDictionary = new Dictionary<string, string>();
+                        genericTypesDictionary.Add(m.Groups["GenParam"].Value, m.Groups["NewValue"].Value.Trim().TrimEnd(';'));
+                        genericParameters.Add(m.Groups["Namespace"].Value, genericTypesDictionary);
                     }
                     else
                     {
-                        genericParameters[m.Groups["Namespace"].Value][m.Groups["GenParam"].Value] = m.Groups["NewValue"].Value.Trim().TrimEnd(';');
+                        if (!genericParameters[m.Groups["Namespace"].Value].Keys.Contains(m.Groups["GenParam"].Value))
+                        {
+                            genericParameters[m.Groups["Namespace"].Value].Add(m.Groups["GenParam"].Value, m.Groups["NewValue"].Value.Trim());
+                        }
+                        else
+                        {
+                            genericParameters[m.Groups["Namespace"].Value][m.Groups["GenParam"].Value] = m.Groups["NewValue"].Value.Trim();
+                        }
+                    }
+                }
+                else if (regexNoNamespaceInitializations.Match(currentLine).Success)
+                {
+                    Match matchNoNamespace = regexNoNamespaceInitializations.Match(currentLine);
+                    
+                    if (!genericParameters.Keys.Contains(default(Guid).ToString()))
+                    {
+                        Dictionary<string, string> genericTypesDictionary = new Dictionary<string, string>();
+                        genericTypesDictionary.Add(matchNoNamespace.Groups["GenParam"].Value, matchNoNamespace.Groups["NewValue"].Value.Trim());
+                        genericParameters.Add(DefaultGuidString, genericTypesDictionary);
+                    }
+                    else
+                    {
+                        if (!genericParameters[DefaultGuidString].Keys.Contains(matchNoNamespace.Groups["GenParam"].Value))
+                        {
+                            genericParameters[DefaultGuidString].Add(matchNoNamespace.Groups["GenParam"].Value, matchNoNamespace.Groups["NewValue"].Value.Trim());
+                        }
+                        else
+                        {
+                            genericParameters[DefaultGuidString][matchNoNamespace.Groups["GenParam"].Value] = matchNoNamespace.Groups["NewValue"].Value.Trim();
+                        }
                     }
                 }
             }
+
+            //for (Match m = r.Match(currentTestStep.ActionTitle); m.Success; m = m.NextMatch())
+            //{
+            //    if (!genericParameters.Keys.Contains(m.Groups["Namespace"].Value))
+            //    {
+            //        Dictionary<string, string> genericTypesDictionary = new Dictionary<string, string>();
+            //        genericTypesDictionary.Add(m.Groups["GenParam"].Value, m.Groups["NewValue"].Value.Trim().TrimEnd(';'));
+            //        genericParameters.Add(m.Groups["Namespace"].Value, genericTypesDictionary);
+            //    }
+            //    else
+            //    {
+            //        if (!genericParameters[m.Groups["Namespace"].Value].Keys.Contains(m.Groups["GenParam"].Value))
+            //        {
+            //            genericParameters[m.Groups["Namespace"].Value].Add(m.Groups["GenParam"].Value, m.Groups["NewValue"].Value.Trim().TrimEnd(';'));
+            //        }
+            //        else
+            //        {
+            //            genericParameters[m.Groups["Namespace"].Value][m.Groups["GenParam"].Value] = m.Groups["NewValue"].Value.Trim().TrimEnd(';');
+            //        }
+            //    }
+            //}
         }
 
         /// <summary>
@@ -286,6 +341,9 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
                 foreach (string currentNamespace in genericParameters.Keys)
                 {
                     Match currentMatch = r1.Match(currentTestStep.Title);
+                    string genParamsStr = currentMatch.Groups["GenParam"].Value;
+                    string[] genParams = genParamsStr.Split(',');
+                    bool reinitialized = false;
                     if (currentMatch.Success)
                     {
                         if (currentMatch.Groups["Namespace"].Value.EndsWith(currentNamespace))
@@ -293,18 +351,32 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
                             currentTestStep.ActionTitle = currentTestStep.OriginalActionTitle;
                             currentTestStep.ActionExpectedResult = currentTestStep.OriginalActionExpectedResult;
                             currentTestStep.Title = currentTestStep.OriginalTitle;
-
+                            reinitialized = true;
                             foreach (string currentKey in genericParameters[currentNamespace].Keys)
                             {
                                 string strToBeReplaced = String.Concat("(", currentKey, ")");
-                                //string newStr = String.Concat("(", genericParameters[currentNamespace][currentKey], ")");
-
                                 currentTestStep.ActionTitle = currentTestStep.ActionTitle.Replace(strToBeReplaced, genericParameters[currentNamespace][currentKey]);
                                 currentTestStep.ActionExpectedResult = currentTestStep.ActionExpectedResult.Replace(strToBeReplaced, genericParameters[currentNamespace][currentKey]);
-                                //currentTestStep.Title = currentTestStep.Title.Replace(strToBeReplaced, newStr);
                             }
-                            //ReplaceMultipleParamsTitleWithNewValues(currentTestStep, currentNamespace, genericParameters);
+                            foreach (string currentGenParam in genParams)
+                            {
+                                if (!genericParameters[currentNamespace].Keys.Contains(currentGenParam))
+                                {
+                                    if (!reinitialized)
+                                    {
+                                        currentTestStep.ActionTitle = currentTestStep.OriginalActionTitle;
+                                        currentTestStep.ActionExpectedResult = currentTestStep.OriginalActionExpectedResult;
+                                        currentTestStep.Title = currentTestStep.OriginalTitle;
+                                    }
+                                    string strToBeReplaced = String.Concat("(", currentGenParam, ")");
+
+                                    currentTestStep.ActionTitle = currentTestStep.ActionTitle.Replace(strToBeReplaced, genericParameters[DefaultGuidString][currentGenParam]);
+                                    currentTestStep.ActionExpectedResult = currentTestStep.ActionExpectedResult.Replace(strToBeReplaced, genericParameters[DefaultGuidString][currentGenParam]);
+                                }
+
+                            }
                         }
+                      
                     }
                 }
             }

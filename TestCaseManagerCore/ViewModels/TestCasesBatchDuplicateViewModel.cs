@@ -458,6 +458,10 @@ namespace TestCaseManagerCore.ViewModels
             if (this.ReplaceContext.ReplaceInTitles)
             {               
                 string newTitle = currentTestCase.ITestCase.Title.ReplaceAll(this.ReplaceContext.ObservableTextReplacePairs);
+                if (newTitle.Length > 255)
+                {
+                    return;
+                }
                 log.InfoFormat("Change Title from \"{0}\" to \"{1}\"", currentTestCase.ITestCase.Title, newTitle);
                 currentTestCase.ITestCase.Title = newTitle;
                 currentTestCase.Title = newTitle;
@@ -471,8 +475,12 @@ namespace TestCaseManagerCore.ViewModels
         private void ReplaceSharedStepTitle(SharedStep currentSharedStep)
         {
             if (this.ReplaceContext.ReplaceInTitles)
-            {
+            {             
                 string newTitle = currentSharedStep.ISharedStep.Title.ReplaceAll(this.ReplaceContext.ObservableTextReplacePairs);
+                if (newTitle.Length > 255)
+                {
+                    return;
+                }
                 log.InfoFormat("Change Title from \"{0}\" to \"{1}\"", currentSharedStep.ISharedStep.Title, newTitle);
                 currentSharedStep.ISharedStep.Title = newTitle;
                 currentSharedStep.Title = newTitle;
