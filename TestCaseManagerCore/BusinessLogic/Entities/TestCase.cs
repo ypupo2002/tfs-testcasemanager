@@ -7,6 +7,7 @@ namespace TestCaseManagerCore.BusinessLogic.Entities
     using System;
     using Microsoft.TeamFoundation.TestManagement.Client;
     using TestCaseManagerCore.BusinessLogic.Enums;
+    using TestCaseManagerCore.BusinessLogic.Managers;
 
     /// <summary>
     /// Contains Test Case object information properties
@@ -49,6 +50,8 @@ namespace TestCaseManagerCore.BusinessLogic.Entities
             this.TestSuiteId = (testSuiteBaseCore == null) ? null : (int?)testSuiteBaseCore.Id;
             base.isInitialized = true;
             this.Id = testCaseCore.Id;
+            string mostRecentResult = TestCaseManager.GetMostRecentTestCaseResult(this.Id);
+            this.LastExecutionOutcome = (TestCaseExecutionType)Enum.Parse(typeof(TestCaseExecutionType), mostRecentResult);
         }
 
         /// <summary>
@@ -66,7 +69,14 @@ namespace TestCaseManagerCore.BusinessLogic.Entities
         /// The test suite unique identifier.
         /// </value>
         public int? TestSuiteId { get; set; }
-       
+
+        /// <summary>
+        /// Gets or sets the last execution outcome.
+        /// </summary>
+        /// <value>
+        /// The last execution outcome.
+        /// </value>
+        public TestCaseExecutionType LastExecutionOutcome { get; set; }       
 
         /// <summary>
         /// Gets or sets the core test case object.

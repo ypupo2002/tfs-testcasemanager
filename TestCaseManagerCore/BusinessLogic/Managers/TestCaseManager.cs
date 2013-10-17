@@ -34,7 +34,7 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
                 alreadyCheckedSuitesIds = new List<int>();
             }
             List<TestCase> testCases = new List<TestCase>();
-            
+
             foreach (ITestSuiteBase currentSuite in suiteEntries)
             {
                 if (currentSuite != null && !alreadyCheckedSuitesIds.Contains(currentSuite.Id))
@@ -47,7 +47,7 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
                         if (!testCases.Contains(testCaseToAdd))
                         {
                             testCases.Add(testCaseToAdd);
-                        }                        
+                        }
                     }
 
                     if (currentSuite.TestSuiteType == TestSuiteType.StaticTestSuite)
@@ -61,13 +61,77 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
                                 if (!testCases.Contains(currentTestCase))
                                 {
                                     testCases.Add(currentTestCase);
-                                }   
+                                }
                             }
                         }
                     }
                 }
             }
             return testCases;
+        }
+
+        /// <summary>
+        /// Gets the most recent test case result.
+        /// </summary>
+        /// <param name="testCaseId">The test case unique identifier.</param>
+        /// <returns></returns>
+        public static string GetMostRecentTestCaseResult(int testCaseId)
+        {
+            var testPoints = ExecutionContext.Preferences.TestPlan.QueryTestPoints(string.Format("Select * from TestPoint where TestCaseId = {0} ", testCaseId));
+            ITestPoint lastTestPoint = testPoints.Last();
+            ITestCaseResult lastTestCaseResult = lastTestPoint.MostRecentResult;
+            string mostRecentResult = "Active";
+            if (lastTestCaseResult != null)
+            {
+                mostRecentResult = lastTestCaseResult.Outcome.ToString();
+            }
+
+            return mostRecentResult;
+        }
+
+        /// <summary>
+        /// Sets the new execution outcome.
+        /// </summary>
+        /// <param name="currentTestCase">The current test case.</param>
+        /// <param name="newExecutionOutcome">The new execution outcome.</param>
+        public static void SetNewExecutionOutcome(this TestCase currentTestCase, TestCaseExecutionType newExecutionOutcome)
+        {
+            if (currentTestCase.ITestCase.Owner == null)
+            {
+                return;
+            }
+            var testPoints = ExecutionContext.Preferences.TestPlan.QueryTestPoints(string.Format("Select * from TestPoint where TestCaseId = {0} ", currentTestCase.Id));
+            var testRun = ExecutionContext.Preferences.TestPlan.CreateTestRun(false);
+
+            testRun.DateStarted = DateTime.Now;
+            testRun.AddTestPoint(testPoints.Last(), currentTestCase.ITestCase.Owner);
+            testRun.DateCompleted = DateTime.Now;
+            testRun.Save();
+
+            var result = testRun.QueryResults()[0];
+            result.Owner = currentTestCase.ITestCase.Owner;
+            result.RunBy = currentTestCase.ITestCase.Owner;
+            result.State = TestResultState.Completed;
+            result.DateStarted = DateTime.Now;
+            result.Duration = new TimeSpan(0L);
+            result.DateCompleted = DateTime.Now.AddMinutes(0.0);
+            result.Comment = "Run from Test Case Manager";
+            switch (newExecutionOutcome)
+            {
+                case TestCaseExecutionType.Active:
+                    result.Outcome = TestOutcome.NotExecuted;
+                    break;
+                case TestCaseExecutionType.Passed:
+                    result.Outcome = TestOutcome.Passed;
+                    break;
+                case TestCaseExecutionType.Failed:
+                    result.Outcome = TestOutcome.Failed;
+                    break;
+                case TestCaseExecutionType.Blocked:
+                    result.Outcome = TestOutcome.Blocked;
+                    break;
+            }
+            result.Save();
         }
 
         /// <summary>
@@ -79,7 +143,7 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
         {
             List<TestCase> testCases = new List<TestCase>();
             ExecutionContext.Preferences.TestPlan.Refresh();
-            ITestSuiteBase currentSuite = ExecutionContext.Preferences.TestPlan.Project.TestSuites.Find(suiteId);         
+            ITestSuiteBase currentSuite = ExecutionContext.Preferences.TestPlan.Project.TestSuites.Find(suiteId);
             currentSuite.Refresh();
             foreach (var currentTestCase in currentSuite.TestCases)
             {
@@ -87,7 +151,7 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
                 if (!testCases.Contains(testCaseToAdd))
                 {
                     testCases.Add(testCaseToAdd);
-                }                        
+                }
             }
             log.InfoFormat("Load all test cases in the suite with Title= \"{0}\" id = \"{1}\"", currentSuite.Title, currentSuite.Id);
             return testCases;
@@ -162,7 +226,7 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
             }
 
             return testCasesList;
-        }      
+        }
 
         /// <summary>
         /// Saves the specified test case.
@@ -204,25 +268,25 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
                     currentTestCase.ITestCase.Actions.Add(testStepCore);
                 }
             }
-            
+
             if (suiteId != null)
             {
                 var newSuite = TestSuiteManager.GetTestSuiteById((int)suiteId);
                 testCase.ITestSuiteBase = newSuite;
-            }        
+            }
             currentTestCase.ITestCase.Flush();
             currentTestCase.ITestCase.Save();
             if (suiteId != null)
             {
                 SetTestCaseSuite((int)suiteId, currentTestCase);
-            } 
+            }
 
             currentTestCase.ITestCase.Flush();
             currentTestCase.ITestCase.Save();
 
             return currentTestCase;
         }
-    
+
         /// <summary>
         /// Copies the automatic clipboard.
         /// </summary>
@@ -251,7 +315,7 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
             else
             {
                 return null;
-            }            
+            }
         }
 
         /// <summary>
@@ -331,7 +395,7 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
             {
                 newSuite.AddTestCase(testCase.ITestCase);
                 testCase.ITestSuiteBase = newSuite;
-            }         
-        }        
+            }
+        }
     }
 }

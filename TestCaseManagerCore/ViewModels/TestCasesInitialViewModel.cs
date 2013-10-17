@@ -169,7 +169,7 @@ namespace TestCaseManagerCore.ViewModels
         /// <value>
         ///   <c>true</c> if [current option]; otherwise, <c>false</c>.
         /// </value>
-        public TestCaseExecutionType CurrentOption
+        public TestCaseExecutionType CurrentExecutionStatusOption
         {
             get
             {
@@ -304,7 +304,8 @@ namespace TestCaseManagerCore.ViewModels
                 (this.FilterTestCasesBySuite(shouldSetSuiteFilter, suiteFilter, t)) &&
                 (shouldSetPriorityFilter ? t.Priority.ToString().ToLower().Contains(priorityFilter) : true) &&
                 (t.TeamFoundationIdentityName != null && shouldSetAssignedToFilter ? t.TeamFoundationIdentityName.DisplayName.ToLower().Contains(assignedToFilter) : true) &&
-                (!this.HideAutomated.Equals(t.ITestCase.IsAutomated) || !this.HideAutomated)
+                (!this.HideAutomated.Equals(t.ITestCase.IsAutomated) || !this.HideAutomated) &&
+                (CurrentExecutionStatusOption.Equals(TestCaseExecutionType.All) || t.LastExecutionOutcome.Equals(CurrentExecutionStatusOption))
                 ).ToList();
             this.ObservableTestCases.Clear();
             filteredList.ForEach(x => this.ObservableTestCases.Add(x));
@@ -557,31 +558,12 @@ namespace TestCaseManagerCore.ViewModels
             List<TestCaseFull> fullTestCases = new List<TestCaseFull>();
             foreach (TestCase currentTestCase in this.ObservableTestCases)
             {
-                string mostRecentResult = this.GetMostRecentTestCaseResult(currentTestCase.Id);
+                string mostRecentResult = TestCaseManager.GetMostRecentTestCaseResult(currentTestCase.Id);
                 List<TestStep> currentTestSteps = TestStepManager.GetTestStepsFromTestActions(currentTestCase.ITestCase.Actions);
                 fullTestCases.Add(new TestCaseFull(currentTestCase, currentTestSteps, mostRecentResult));
             }
 
             return fullTestCases;
-        }
-
-        /// <summary>
-        /// Gets the most recent test case result.
-        /// </summary>
-        /// <param name="testCaseId">The test case unique identifier.</param>
-        /// <returns></returns>
-        private string GetMostRecentTestCaseResult(int testCaseId)
-        {
-            var testPoints = ExecutionContext.Preferences.TestPlan.QueryTestPoints(string.Format("Select * from TestPoint where TestCaseId = {0} ", testCaseId));
-            ITestPoint lastTestPoint = testPoints.Last();
-            ITestCaseResult lastTestCaseResult = lastTestPoint.MostRecentResult;
-            string mostRecentResult = "Active";
-            if (lastTestCaseResult != null)
-            {
-                mostRecentResult = lastTestCaseResult.Outcome.ToString();
-            }
-
-            return mostRecentResult;
         }
 
         /// <summary>

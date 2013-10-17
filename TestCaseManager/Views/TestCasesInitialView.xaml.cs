@@ -112,6 +112,26 @@ namespace TestCaseManagerApp.Views
         public static RoutedCommand ExportTestCasesCommand = new RoutedCommand();
 
         /// <summary>
+        /// The set active test cases command
+        /// </summary>
+        public static RoutedCommand SetActiveTestCasesCommand = new RoutedCommand();
+
+        /// <summary>
+        /// The set passed test cases command
+        /// </summary>
+        public static RoutedCommand SetPassedTestCasesCommand = new RoutedCommand();
+
+        /// <summary>
+        /// The set failed test cases command
+        /// </summary>
+        public static RoutedCommand SetFailedTestCasesCommand = new RoutedCommand();
+
+        /// <summary>
+        /// The set blocked test cases command
+        /// </summary>
+        public static RoutedCommand SetBlockedTestCasesCommand = new RoutedCommand();
+
+        /// <summary>
         /// Indicates if the view model is already initialized
         /// </summary>
         private static bool isInitialized;
@@ -253,12 +273,12 @@ namespace TestCaseManagerApp.Views
                 TestCase currentTestCase = dgTestCases.SelectedItem as TestCase;
                 if (currentTestCase.ITestSuiteBase != null)
                 {
-                    log.InfoFormat("Preview test case with id: {0} and suite id {1}", currentTestCase.ITestCase.Id, currentTestCase.ITestSuiteBase.Id);
+                    log.InfoFormat("Preview test case with id= \"{0}\" and suiteId= \"{1}\"", currentTestCase.ITestCase.Id, currentTestCase.ITestSuiteBase.Id);
                     this.NavigateToTestCasesDetailedView(currentTestCase.ITestCase.Id, currentTestCase.ITestSuiteBase.Id);
                 }
                 else
                 {
-                    log.InfoFormat("Preview test case with id: {0} and suite id {1}", currentTestCase.ITestCase.Id, -1);
+                    log.InfoFormat("Preview test case with id= \"{0}\" and suiteId= \"{1}\"", currentTestCase.ITestCase.Id, -1);
                     this.NavigateToTestCasesDetailedView(currentTestCase.ITestCase.Id, -1);
                 }
                
@@ -301,12 +321,12 @@ namespace TestCaseManagerApp.Views
                 TestCase currentTestCase = dgTestCases.SelectedItem as TestCase;
                 if (currentTestCase.ITestSuiteBase != null)
                 {
-                    log.InfoFormat("Preview test case with id: {0} and suite id {1}", currentTestCase.ITestCase.Id, currentTestCase.ITestSuiteBase.Id);
+                    log.InfoFormat("Preview test case with id= \"{0}\" and suiteId= \"{1}\"", currentTestCase.ITestCase.Id, currentTestCase.ITestSuiteBase.Id);
                     this.NavigateToTestCasesEditView(currentTestCase.ITestCase.Id, currentTestCase.ITestSuiteBase.Id);
                 }
                 else
                 {
-                    log.InfoFormat("Preview test case with id: {0} and suite id {1}", currentTestCase.ITestCase.Id, -1);
+                    log.InfoFormat("Preview test case with id= \"{0}\" and suiteId= \"{1}\"", currentTestCase.ITestCase.Id, -1);
                     this.NavigateToTestCasesEditView(currentTestCase.ITestCase.Id, -1);
                 }
             });
@@ -324,12 +344,12 @@ namespace TestCaseManagerApp.Views
                 TestCase currentTestCase = dgTestCases.SelectedItem as TestCase;
                 if (currentTestCase.ITestSuiteBase != null)
                 {
-                    log.InfoFormat("Preview test case with id: {0} and suite id {1}", currentTestCase.ITestCase.Id, currentTestCase.ITestSuiteBase.Id);
+                    log.InfoFormat("Preview test case with id= \"{0}\" and suiteId= \"{1}\"", currentTestCase.ITestCase.Id, currentTestCase.ITestSuiteBase.Id);
                     this.NavigateToTestCasesEditView(currentTestCase.ITestCase.Id, currentTestCase.ITestSuiteBase.Id, true, true);
                 }
                 else
                 {
-                    log.InfoFormat("Preview test case with id: {0} and suite id {1}", currentTestCase.ITestCase.Id, -1);
+                    log.InfoFormat("Preview test case with id= \"{0}\" and suiteId= \"{1}\"", currentTestCase.ITestCase.Id, -1);
                     this.NavigateToTestCasesEditView(currentTestCase.ITestCase.Id, -1, true, true);
                 }                
             });
@@ -343,7 +363,7 @@ namespace TestCaseManagerApp.Views
         private void btnNew_Click(object sender, RoutedEventArgs e)
         {
             int selectedSuiteId = RegistryManager.GetSelectedSuiteId();
-            log.InfoFormat("Navigate to Create New Test Case, Suite Id: {0}", selectedSuiteId);
+            log.InfoFormat("Navigate to Create New Test Case, steiId= \"{0}\"", selectedSuiteId);
             this.NavigateToTestCasesEditView(selectedSuiteId, true, false);
         }
 
@@ -1144,9 +1164,135 @@ namespace TestCaseManagerApp.Views
             }            
         }
 
+        /// <summary>
+        /// Handles the Checked event of the RadioButton control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void RadioButton_Checked(object sender, RoutedEventArgs e)
         {
+            this.TestCasesInitialViewModel.FilterTestCases();
+            this.UpdateExecutionStatusContectMenuItemsStatuses();
+        }
 
+        /// <summary>
+        /// Updates the execution status contect menu items statuses.
+        /// </summary>
+        private void UpdateExecutionStatusContectMenuItemsStatuses()
+        {
+            dgTestCaseContextItemPass.IsEnabled = true;
+            dgTestCaseContextItemBlock.IsEnabled = true;
+            dgTestCaseContextItemFail.IsEnabled = true;
+            dgTestCaseContextItemActive.IsEnabled = true;
+            dgTestCaseContextItemCopy.IsEnabled = true;
+            dgTestCaseContextItemCut.IsEnabled = true;
+            dgTestCaseContextItemPaste.IsEnabled = true;
+            dgTestCaseContextItemRemove.IsEnabled = true;
+            switch (this.TestCasesInitialViewModel.CurrentExecutionStatusOption)
+            {
+                case TestCaseExecutionType.All:
+                    dgTestCaseContextItemPass.IsEnabled = false;
+                    dgTestCaseContextItemBlock.IsEnabled = false;
+                    dgTestCaseContextItemFail.IsEnabled = false;
+                    dgTestCaseContextItemActive.IsEnabled = false;
+                    break;
+                case TestCaseExecutionType.Active:
+                    dgTestCaseContextItemActive.IsEnabled = false;
+                    dgTestCaseContextItemCopy.IsEnabled = false;
+                    dgTestCaseContextItemCut.IsEnabled = false;
+                    dgTestCaseContextItemPaste.IsEnabled = false;
+                    dgTestCaseContextItemRemove.IsEnabled = false;
+                    break;
+                case TestCaseExecutionType.Passed:
+                    dgTestCaseContextItemPass.IsEnabled = false;
+                    dgTestCaseContextItemCopy.IsEnabled = false;
+                    dgTestCaseContextItemCut.IsEnabled = false;
+                    dgTestCaseContextItemPaste.IsEnabled = false;
+                    dgTestCaseContextItemRemove.IsEnabled = false;
+                    break;
+                case TestCaseExecutionType.Failed:
+                    dgTestCaseContextItemFail.IsEnabled = false;
+                    dgTestCaseContextItemCopy.IsEnabled = false;
+                    dgTestCaseContextItemCut.IsEnabled = false;
+                    dgTestCaseContextItemPaste.IsEnabled = false;
+                    dgTestCaseContextItemRemove.IsEnabled = false;
+                    break;
+                case TestCaseExecutionType.Blocked:
+                    dgTestCaseContextItemBlock.IsEnabled = false;
+                    dgTestCaseContextItemCopy.IsEnabled = false;
+                    dgTestCaseContextItemCut.IsEnabled = false;
+                    dgTestCaseContextItemPaste.IsEnabled = false;
+                    dgTestCaseContextItemRemove.IsEnabled = false;
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        /// <summary>
+        /// Handles the Command event of the setPassed control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="ExecutedRoutedEventArgs"/> instance containing the event data.</param>
+        private void setPassed_Command(object sender, ExecutedRoutedEventArgs e)
+        {
+            e.Handled = true;
+            this.SetNewExecutionOutcomeInternal(TestCaseExecutionType.Passed);
+        }
+
+        /// <summary>
+        /// Sets the new execution outcome internal.
+        /// </summary>
+        private void SetNewExecutionOutcomeInternal(TestCaseExecutionType testCaseExecutionType)
+        {
+            this.ShowTestCasesProgressbar();
+            List<TestCase> selectedTestCases = this.GetSelectedTestCasesInternal();
+            Task t = Task.Factory.StartNew(() =>
+            {               
+                foreach (var currentTestCase in selectedTestCases)
+                {
+                    currentTestCase.SetNewExecutionOutcome(testCaseExecutionType);
+                    currentTestCase.LastExecutionOutcome = testCaseExecutionType;
+                }
+            });
+            t.ContinueWith(antecedent =>
+            {
+                this.HideTestCasesProgressbar();
+                this.TestCasesInitialViewModel.FilterTestCases();
+            }, TaskScheduler.FromCurrentSynchronizationContext());        
+        }
+
+        /// <summary>
+        /// Handles the Command event of the setActive control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="ExecutedRoutedEventArgs"/> instance containing the event data.</param>
+        private void setActive_Command(object sender, ExecutedRoutedEventArgs e)
+        {
+            e.Handled = true;
+            this.SetNewExecutionOutcomeInternal(TestCaseExecutionType.Active);
+        }
+
+        /// <summary>
+        /// Handles the Command event of the setFailed control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="ExecutedRoutedEventArgs"/> instance containing the event data.</param>
+        private void setFailed_Command(object sender, ExecutedRoutedEventArgs e)
+        {
+            e.Handled = true;
+            this.SetNewExecutionOutcomeInternal(TestCaseExecutionType.Failed);
+        }
+
+        /// <summary>
+        /// Handles the Command event of the setBlocked control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="ExecutedRoutedEventArgs"/> instance containing the event data.</param>
+        private void setBlocked_Command(object sender, ExecutedRoutedEventArgs e)
+        {
+            e.Handled = true;
+            this.SetNewExecutionOutcomeInternal(TestCaseExecutionType.Blocked);
         }
     }
 }

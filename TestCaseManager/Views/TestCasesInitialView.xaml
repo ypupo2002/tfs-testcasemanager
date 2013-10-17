@@ -29,6 +29,11 @@
             <CommandBinding Command="{x:Static local:TestCasesInitialView.CutSuiteCommand}" Executed="cutSuite_Command"/>
             <CommandBinding Command="{x:Static local:TestCasesInitialView.PasteSuiteCommand}" Executed="pasteSuite_Command"/>
             <CommandBinding Command="{x:Static local:TestCasesInitialView.ExportTestCasesCommand}" Executed="btnExport_Click"/>
+
+            <CommandBinding Command="{x:Static local:TestCasesInitialView.SetBlockedTestCasesCommand}" Executed="setBlocked_Command"/>
+            <CommandBinding Command="{x:Static local:TestCasesInitialView.SetFailedTestCasesCommand}" Executed="setFailed_Command"/>
+            <CommandBinding Command="{x:Static local:TestCasesInitialView.SetActiveTestCasesCommand}" Executed="setActive_Command"/>
+            <CommandBinding Command="{x:Static local:TestCasesInitialView.SetPassedTestCasesCommand}" Executed="setPassed_Command"/>
         </Grid.CommandBindings>
         <ProgressBar Name="progressBar" Minimum="0" Maximum="1" Height="16" IsIndeterminate="True" Margin="0,0,0,16" />
         
@@ -62,11 +67,11 @@
                 <StackPanel Orientation="Vertical" Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="3" Margin="10,0,0,15">
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,0,0,10">
 
-                        <RadioButton Content="All" Margin="20,0,10,0" FontWeight="Bold" FontSize="12" GroupName="Options1" IsChecked="{Binding Path=CurrentOption, Mode=TwoWay, Converter={StaticResource enumBooleanConverter}, ConverterParameter=All}" Checked="RadioButton_Checked" />
-                        <RadioButton Content="Active" Margin="15,0,10,0" FontWeight="Bold" FontSize="12" GroupName="Options2" IsChecked="{Binding Path=CurrentOption, Mode=TwoWay, Converter={StaticResource enumBooleanConverter}, ConverterParameter=Active}" Checked="RadioButton_Checked" />
-                        <RadioButton Content="Passed" Margin="15,0,10,0" FontWeight="Bold" FontSize="12" GroupName="Options3" IsChecked="{Binding Path=CurrentOption, Mode=TwoWay, Converter={StaticResource enumBooleanConverter}, ConverterParameter=Passed}" Checked="RadioButton_Checked" />
-                        <RadioButton Content="Failed" Margin="15,0,10,0" FontWeight="Bold" FontSize="12" GroupName="Options4" IsChecked="{Binding Path=CurrentOption, Mode=TwoWay, Converter={StaticResource enumBooleanConverter}, ConverterParameter=Failed}" Checked="RadioButton_Checked" />
-                        <RadioButton Content="Blocked" Margin="15,0,10,0" FontWeight="Bold" FontSize="12" GroupName="Options5" IsChecked="{Binding Path=CurrentOption, Mode=TwoWay, Converter={StaticResource enumBooleanConverter}, ConverterParameter=Blocked}" Checked="RadioButton_Checked" />
+                        <RadioButton Content="All" Margin="20,0,10,0" FontWeight="Bold" FontSize="12" GroupName="Options1" IsChecked="{Binding Path=CurrentExecutionStatusOption, Mode=TwoWay, Converter={StaticResource enumBooleanConverter}, ConverterParameter=All}" Checked="RadioButton_Checked" />
+                        <RadioButton Content="Active" Margin="15,0,10,0" FontWeight="Bold" FontSize="12" GroupName="Options2" IsChecked="{Binding Path=CurrentExecutionStatusOption, Mode=TwoWay, Converter={StaticResource enumBooleanConverter}, ConverterParameter=Active}" Checked="RadioButton_Checked" />
+                        <RadioButton Content="Passed" Margin="15,0,10,0" FontWeight="Bold" FontSize="12" GroupName="Options3" IsChecked="{Binding Path=CurrentExecutionStatusOption, Mode=TwoWay, Converter={StaticResource enumBooleanConverter}, ConverterParameter=Passed}" Checked="RadioButton_Checked" />
+                        <RadioButton Content="Failed" Margin="15,0,10,0" FontWeight="Bold" FontSize="12" GroupName="Options4" IsChecked="{Binding Path=CurrentExecutionStatusOption, Mode=TwoWay, Converter={StaticResource enumBooleanConverter}, ConverterParameter=Failed}" Checked="RadioButton_Checked" />
+                        <RadioButton Content="Blocked" Margin="15,0,10,0" FontWeight="Bold" FontSize="12" GroupName="Options5" IsChecked="{Binding Path=CurrentExecutionStatusOption, Mode=TwoWay, Converter={StaticResource enumBooleanConverter}, ConverterParameter=Blocked}" Checked="RadioButton_Checked" />
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
                         <Button Name="btnPreview1" Content="_Preview" Margin="20,0,10,0" Height="30" Width="90" VerticalAlignment="Center" Click="PreviewButton_Click"/>
@@ -154,18 +159,27 @@
                     <ContextMenu>
                         <MenuItem Name="dgTestCaseContextItemPreview" Command="{x:Static local:TestCasesInitialView.PreviewCommand}" Header="Preview"/>
                         <MenuItem Name="dgTestCaseContextItemEdit" Command="{x:Static local:TestCasesInitialView.EditCommand}" Header="Edit"/>
-                        <MenuItem Name="dgTestCaseContextItemDuplicate" Command="{x:Static local:TestCasesInitialView.DuplicateCommand}" Header="Duplicate"/>                                          
+                        <MenuItem Name="dgTestCaseContextItemDuplicate" Command="{x:Static local:TestCasesInitialView.DuplicateCommand}" Header="Duplicate"/>                   
                         <Separator />
                         <MenuItem Name="dgTestCaseContextItemCut" Command="{x:Static local:TestCasesInitialView.CutTestCasesCommand}" Header="Cut"/>
                         <MenuItem Name="dgTestCaseContextItemCopy" Command="{x:Static local:TestCasesInitialView.CopyTestCasesCommand}" Header="Copy"/>                     
                         <MenuItem Name="dgTestCaseContextItemPaste" Command="{x:Static local:TestCasesInitialView.PasteTestCasesCommand}" Header="Paste"/>
                         <MenuItem Name="dgTestCaseContextItemRemove" Command="{x:Static local:TestCasesInitialView.RemoveTestCaseFromSuiteCommand}" Header="Remove"/>
+                        <Separator />
+                        <MenuItem Name="dgTestCaseContextItemActive" Command="{x:Static local:TestCasesInitialView.SetActiveTestCasesCommand}" Header="Reset test to Active"/>
+                        <MenuItem Name="dgTestCaseContextItemPass" Command="{x:Static local:TestCasesInitialView.SetPassedTestCasesCommand}" Header="Pass test"/>
+                        <MenuItem Name="dgTestCaseContextItemFail" Command="{x:Static local:TestCasesInitialView.SetFailedTestCasesCommand}" Header="Fail test"/>
+                        <MenuItem Name="dgTestCaseContextItemBlock" Command="{x:Static local:TestCasesInitialView.SetBlockedTestCasesCommand}" Header="Block test"/>
                     </ContextMenu>
                 </DataGrid.ContextMenu>
                 <DataGrid.InputBindings>
                     <KeyBinding Key="C"  Modifiers="Ctrl"  Command="Copy"/>
                     <KeyBinding Key="V"  Modifiers="Ctrl"  Command="Paste"/>
                     <KeyBinding Key="X"  Modifiers="Ctrl"  Command="Cut"/>
+                    <KeyBinding Key="D1"  Modifiers="Alt"  Command="{x:Static local:TestCasesInitialView.SetActiveTestCasesCommand}"/>
+                    <KeyBinding Key="D2"  Modifiers="Alt"  Command="{x:Static local:TestCasesInitialView.SetPassedTestCasesCommand}"/>
+                    <KeyBinding Key="D3"  Modifiers="Alt"  Command="{x:Static local:TestCasesInitialView.SetFailedTestCasesCommand}"/>
+                    <KeyBinding Key="D4"  Modifiers="Alt"  Command="{x:Static local:TestCasesInitialView.SetBlockedTestCasesCommand}"/>
                 </DataGrid.InputBindings>
                 <DataGrid.CommandBindings>
                     <CommandBinding Command="Copy"  Executed="copyTestCases_Command"/>
