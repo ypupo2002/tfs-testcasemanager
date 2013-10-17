@@ -71,7 +71,7 @@
             </StackPanel>
 
             <DataGrid ItemsSource="{Binding Path=ObservableTestSteps}" AutoGenerateColumns="False" Name="dgTestSteps" Height="Auto" Grid.Row="1" Margin="0,0,0,30" IsReadOnly="True"
-                      LoadingRow="dgTestSteps_LoadingRow">
+                      LoadingRow="dgTestSteps_LoadingRow" VirtualizingPanel.ScrollUnit="Pixel">
                 <DataGrid.Columns>
                     <DataGridTemplateColumn   Header="Shared Step Name"  Width="150" MaxWidth="200" >
                         <DataGridTemplateColumn.HeaderStyle>

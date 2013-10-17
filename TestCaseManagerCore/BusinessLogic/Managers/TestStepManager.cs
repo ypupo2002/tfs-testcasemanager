@@ -304,27 +304,6 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
                     }
                 }
             }
-
-            //for (Match m = r.Match(currentTestStep.ActionTitle); m.Success; m = m.NextMatch())
-            //{
-            //    if (!genericParameters.Keys.Contains(m.Groups["Namespace"].Value))
-            //    {
-            //        Dictionary<string, string> genericTypesDictionary = new Dictionary<string, string>();
-            //        genericTypesDictionary.Add(m.Groups["GenParam"].Value, m.Groups["NewValue"].Value.Trim().TrimEnd(';'));
-            //        genericParameters.Add(m.Groups["Namespace"].Value, genericTypesDictionary);
-            //    }
-            //    else
-            //    {
-            //        if (!genericParameters[m.Groups["Namespace"].Value].Keys.Contains(m.Groups["GenParam"].Value))
-            //        {
-            //            genericParameters[m.Groups["Namespace"].Value].Add(m.Groups["GenParam"].Value, m.Groups["NewValue"].Value.Trim().TrimEnd(';'));
-            //        }
-            //        else
-            //        {
-            //            genericParameters[m.Groups["Namespace"].Value][m.Groups["GenParam"].Value] = m.Groups["NewValue"].Value.Trim().TrimEnd(';');
-            //        }
-            //    }
-            //}
         }
 
         /// <summary>
@@ -338,53 +317,94 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
             Regex r1 = new Regex(titleRegexPattern, RegexOptions.Singleline);
             if (genericParameters.Keys.Count > 0)
             {
+                Match currentMatch = r1.Match(currentTestStep.Title);
+                string genParamsStr = currentMatch.Groups["GenParam"].Value;
+                string[] genParams = genParamsStr.Split(',');
+                int initializeCount = genParams.Length;
+                bool reinitialized = false;
                 foreach (string currentNamespace in genericParameters.Keys)
                 {
-                    Match currentMatch = r1.Match(currentTestStep.Title);
-                    string genParamsStr = currentMatch.Groups["GenParam"].Value;
-                    string[] genParams = genParamsStr.Split(',');
-                    bool reinitialized = false;
                     if (currentMatch.Success)
                     {
                         if (currentMatch.Groups["Namespace"].Value.EndsWith(currentNamespace))
                         {
-                            currentTestStep.ActionTitle = currentTestStep.OriginalActionTitle;
-                            currentTestStep.ActionExpectedResult = currentTestStep.OriginalActionExpectedResult;
-                            currentTestStep.Title = currentTestStep.OriginalTitle;
-                            reinitialized = true;
+                            ReinitializeTestStep(currentTestStep, ref reinitialized);
                             foreach (string currentKey in genericParameters[currentNamespace].Keys)
                             {
-                                string strToBeReplaced = String.Concat("(", currentKey, ")");
+                                initializeCount--;
+                                string strToBeReplaced = AddParenthesesToParam(currentKey);
                                 currentTestStep.ActionTitle = currentTestStep.ActionTitle.Replace(strToBeReplaced, genericParameters[currentNamespace][currentKey]);
                                 currentTestStep.ActionExpectedResult = currentTestStep.ActionExpectedResult.Replace(strToBeReplaced, genericParameters[currentNamespace][currentKey]);
                             }
                             foreach (string currentGenParam in genParams)
                             {
-                                if (!genericParameters[currentNamespace].Keys.Contains(currentGenParam))
+                                if (!genericParameters[currentNamespace].Keys.Contains(currentGenParam) && genericParameters.Keys.Contains(DefaultGuidString) && genericParameters[DefaultGuidString].Keys.Contains(currentGenParam))
                                 {
-                                    if (!reinitialized)
-                                    {
-                                        currentTestStep.ActionTitle = currentTestStep.OriginalActionTitle;
-                                        currentTestStep.ActionExpectedResult = currentTestStep.OriginalActionExpectedResult;
-                                        currentTestStep.Title = currentTestStep.OriginalTitle;
-                                    }
-                                    string strToBeReplaced = String.Concat("(", currentGenParam, ")");
-
-                                    currentTestStep.ActionTitle = currentTestStep.ActionTitle.Replace(strToBeReplaced, genericParameters[DefaultGuidString][currentGenParam]);
-                                    currentTestStep.ActionExpectedResult = currentTestStep.ActionExpectedResult.Replace(strToBeReplaced, genericParameters[DefaultGuidString][currentGenParam]);
+                                    ReplaceCurrentNoNamespaceParameter(currentTestStep, genericParameters, ref initializeCount, ref reinitialized, currentGenParam);
                                 }
-
                             }
                         }
-                      
+                    }
+                }
+                if (initializeCount != 0)
+                {
+                    foreach (string currentGenParam in genParams)
+                    {
+                        if (genericParameters.Keys.Contains(DefaultGuidString) && genericParameters[DefaultGuidString].Keys.Contains(currentGenParam) && initializeCount != 0)
+                        {
+                            ReplaceCurrentNoNamespaceParameter(currentTestStep, genericParameters, ref initializeCount, ref reinitialized, currentGenParam);
+                        }
                     }
                 }
             }
             else
             {
-                   currentTestStep.ActionTitle = currentTestStep.OriginalActionTitle;
-                   currentTestStep.ActionExpectedResult = currentTestStep.OriginalActionExpectedResult;
+                currentTestStep.ActionTitle = currentTestStep.OriginalActionTitle;
+                currentTestStep.ActionExpectedResult = currentTestStep.OriginalActionExpectedResult;
             }
+        }
+
+        /// <summary>
+        /// Replaces the current no namespace parameter.
+        /// </summary>
+        /// <param name="currentTestStep">The current test step.</param>
+        /// <param name="genericParameters">The generic parameters.</param>
+        /// <param name="initializeCount">The initialize count.</param>
+        /// <param name="reinitialized">if set to <c>true</c> [reinitialized].</param>
+        /// <param name="currentGenParam">The current gen parameter.</param>
+        private static void ReplaceCurrentNoNamespaceParameter(TestStep currentTestStep, Dictionary<string, Dictionary<string, string>> genericParameters, ref int initializeCount, ref bool reinitialized, string currentGenParam)
+        {
+            ReinitializeTestStep(currentTestStep, ref reinitialized);
+            initializeCount--;
+            string strToBeReplaced = AddParenthesesToParam(currentGenParam);
+
+            currentTestStep.ActionTitle = currentTestStep.ActionTitle.Replace(strToBeReplaced, genericParameters[DefaultGuidString][currentGenParam]);
+            currentTestStep.ActionExpectedResult = currentTestStep.ActionExpectedResult.Replace(strToBeReplaced, genericParameters[DefaultGuidString][currentGenParam]);
+        }
+
+        /// <summary>
+        /// Adds the parentheses automatic parameter.
+        /// </summary>
+        /// <param name="param">The parameter.</param>
+        /// <returns></returns>
+        private static string AddParenthesesToParam(string param)
+        {
+            return String.Concat("(", param, ")");
+        }
+
+        /// <summary>
+        /// Reinitializes the test step.
+        /// </summary>
+        /// <param name="currentTestStep">The current test step.</param>
+        /// <param name="reinitialized">if set to <c>true</c> [reinitialized].</param>
+        private static void ReinitializeTestStep(TestStep currentTestStep, ref bool reinitialized)
+        {
+            if (!reinitialized)
+            {
+                reinitialized = true;
+            }
+            currentTestStep.ActionTitle = currentTestStep.OriginalActionTitle;
+            currentTestStep.ActionExpectedResult = currentTestStep.OriginalActionExpectedResult;
         }
 
         /// <summary>

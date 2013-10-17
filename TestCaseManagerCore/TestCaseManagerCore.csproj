@@ -119,6 +119,7 @@
     <Compile Include="BusinessLogic\Contracts\IClipBoard.cs" />
     <Compile Include="BusinessLogic\Contracts\IUndoRedoRecord.cs" />
     <Compile Include="BusinessLogic\Converters\TestStepPropertiesConverter.cs" />
+    <Compile Include="BusinessLogic\Converters\EnumMatchToBooleanConverter.cs" />
     <Compile Include="BusinessLogic\Core\ExecutionContext.cs" />
     <Compile Include="BusinessLogic\Core\Navigator.cs" />
     <Compile Include="BusinessLogic\Core\Preferences.cs" />
@@ -145,6 +146,7 @@
     <Compile Include="BusinessLogic\Entities\UndoTransaction.cs" />
     <Compile Include="BusinessLogic\Enums\ClipBoardCommand.cs" />
     <Compile Include="BusinessLogic\Enums\Priority.cs" />
+    <Compile Include="BusinessLogic\Enums\TestCaseExecutionType.cs" />
     <Compile Include="BusinessLogic\Managers\ClipBoardManager.cs" />
     <Compile Include="BusinessLogic\Managers\FragmentManager.cs" />
     <Compile Include="BusinessLogic\Managers\ProjectManager.cs" />

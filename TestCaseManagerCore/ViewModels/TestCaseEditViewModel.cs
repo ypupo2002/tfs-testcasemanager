@@ -421,7 +421,7 @@ namespace TestCaseManagerCore.ViewModels
         /// <returns>the test step title</returns>
         public string GetStepTitle(string stepTitle)
         {
-            string finalStepTitle = stepTitle;
+            string finalStepTitle = stepTitle.Trim();
             if (finalStepTitle.Equals(ActionDefaultText))
             {
                 finalStepTitle = string.Empty;
@@ -447,7 +447,7 @@ namespace TestCaseManagerCore.ViewModels
         /// <returns>the expected result</returns>
         public string GetExpectedResult(string expectedResult)
         {
-            string finalExpectedResult = expectedResult;
+            string finalExpectedResult = expectedResult.Trim();
             if (finalExpectedResult.Equals(ExpectedResultDefaultText))
             {
                 finalExpectedResult = string.Empty;

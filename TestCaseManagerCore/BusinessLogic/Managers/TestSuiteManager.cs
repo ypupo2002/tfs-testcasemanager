@@ -111,18 +111,18 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
             IStaticTestSuite staticSuite = ExecutionContext.TestManagementTeamProject.TestSuites.CreateStatic();
             canBeAdded = true;
             staticSuite.Title = title;
-            
+
             if (parentSuite != null && parentSuite is IStaticTestSuite && parentSuiteId != -1)
             {
                 IStaticTestSuite parentSuiteStatic = parentSuite as IStaticTestSuite;
                 parentSuiteStatic.Entries.Add(staticSuite);
+                log.InfoFormat("Add child suite to suite with Title= {0}, Id = {1}, child suite title= {2}", parentSuite.Title, parentSuite.Id, title);
             }
             else
             {
                 ExecutionContext.Preferences.TestPlan.RootSuite.Entries.Add(staticSuite);
+                log.InfoFormat("Add child suite with title= {0} to test plan", title);
             }
-            log.InfoFormat("Add child suite to suite with Title= {0}, Id = {1}, child suite title= {2}", parentSuite.Title, parentSuite.Id, title);
-            ExecutionContext.Preferences.TestPlan.Save();
 
             return staticSuite.Id;
         }
@@ -274,19 +274,19 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
             // Remove the parent child relation. This is the only way to delete the suite.
             if (parent != null)
             {
-                log.InfoFormat("Remove suite Title= {0}, id= {1} from suite Title= {2}, id= {3}", currentSuite.Title, currentSuite.Id, parent.Title, parent.Id);
+                log.InfoFormat("Remove suite Title= \"{0}\", id= \"{1}\" from suite Title= \"{2}\", id= \"{3}\"", currentSuite.Title, currentSuite.Id, parent.Title, parent.Id);
                 parent.Entries.Remove(currentSuite);
             }
             else if (currentSuite.Parent != null)
             {
-                log.InfoFormat("Remove suite Title= {0}, id= {1} from suite Title= {2}, id= {3}", currentSuite.Title, currentSuite.Id, parent.Title, parent.Id);
+                log.InfoFormat("Remove suite Title= \"{0}\", id= \"{1}\" from suite Title= \"{2}\", id= \"{3}\"", currentSuite.Title, currentSuite.Id, currentSuite.Parent.Title, currentSuite.Parent.Id);
                 currentSuite.Parent.Entries.Remove(currentSuite);
             }
             else
             {
                 // If it's initial suite, remove it from the test plan.
                 ExecutionContext.Preferences.TestPlan.RootSuite.Entries.Remove(currentSuite);
-                log.Info("Remove suite Title= {0}, id= {1} from test plan.");
+                log.Info("Remove suite Title= \"{0}\", id= \"{1}\" from test plan.");
             }
 
             // Apply changes to the suites

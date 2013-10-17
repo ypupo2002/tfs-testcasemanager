@@ -152,7 +152,7 @@
                     <DataGrid ItemsSource="{Binding ObservableTestSteps}" AutoGenerateColumns="False" Name="dgTestSteps" IsReadOnly="True"
                           IsSynchronizedWithCurrentItem="True" SelectionMode="Extended"  SelectionUnit="FullRow" HorizontalAlignment="Left" Grid.Column="0"  
                               MouseLeftButtonUp="dgTestSteps_MouseLeftButtonUp" PreviewMouseRightButtonDown="dgTestSteps_PreviewMouseRightButtonDown" 
-                              SelectedCellsChanged="dgTestSteps_SelectedCellsChanged" LoadingRow="dgTestSteps_LoadingRow" SelectedIndex="0">
+                              SelectedCellsChanged="dgTestSteps_SelectedCellsChanged" LoadingRow="dgTestSteps_LoadingRow" SelectedIndex="0" VirtualizingPanel.ScrollUnit="Pixel">
                         <DataGrid.InputBindings>
                             <KeyBinding Key="C"  Modifiers="Ctrl"  Command="Copy"/>
                             <KeyBinding Key="V"  Modifiers="Ctrl"  Command="Paste"/>

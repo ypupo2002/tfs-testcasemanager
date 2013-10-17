@@ -39,6 +39,11 @@ namespace TestCaseManagerCore.ViewModels
         private bool hideAutomated;
 
         /// <summary>
+        /// The current option
+        /// </summary>
+        private TestCaseExecutionType currentOption;
+
+        /// <summary>
         /// The test cases count after filtering
         /// </summary>
         private string testCasesCount;
@@ -157,6 +162,26 @@ namespace TestCaseManagerCore.ViewModels
         /// The initial view filters.
         /// </value>
         public InitialViewFilters InitialViewFilters { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether [current option].
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if [current option]; otherwise, <c>false</c>.
+        /// </value>
+        public TestCaseExecutionType CurrentOption
+        {
+            get
+            {
+                return this.currentOption;
+            }
+
+            set
+            {
+                this.currentOption = value;
+                this.NotifyPropertyChanged();
+            }
+        }
 
         /// <summary>
         /// Gets or sets a value indicating whether [the automated test cases should be displayed in the test cases grid].

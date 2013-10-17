@@ -1143,5 +1143,10 @@ namespace TestCaseManagerApp.Views
                 }, TaskScheduler.FromCurrentSynchronizationContext());                
             }            
         }
+
+        private void RadioButton_Checked(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

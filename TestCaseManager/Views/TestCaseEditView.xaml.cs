@@ -1188,9 +1188,9 @@ namespace TestCaseManagerApp.Views
             rtbAction.ClearDefaultContent(ref this.TestCaseEditViewModel.IsActionTextSet);
             rtbExpectedResult.ClearDefaultContent(ref this.TestCaseEditViewModel.IsExpectedResultTextSet);
             TestStep currentTestStep = this.GetSelectedTestStep();
-            log.InfoFormat("Perform change operation to test step with ActionTitle= {0}, ActionExpectedResult= {1}.", currentTestStep.ActionTitle, currentTestStep.ActionExpectedResult);
-            rtbAction.SetText(currentTestStep.ActionTitle);
-            rtbExpectedResult.SetText(currentTestStep.ActionExpectedResult);
+            log.InfoFormat("Perform change operation to test step with ActionTitle= \"{0}\", ActionExpectedResult= \"{1}\".", currentTestStep.ActionTitle, currentTestStep.ActionExpectedResult);
+            rtbAction.SetText(currentTestStep.OriginalActionTitle);
+            rtbExpectedResult.SetText(currentTestStep.OriginalActionExpectedResult);
         }   
 
         /// <summary>

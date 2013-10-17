@@ -5,9 +5,13 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:mui="http://firstfloorsoftware.com/ModernUI"
              xmlns:local="clr-namespace:TestCaseManagerApp.Views"
-             xmlns:entities="clr-namespace:TestCaseManagerCore.BusinessLogic.Entities;assembly=TestCaseManagerCore"       
+             xmlns:entities="clr-namespace:TestCaseManagerCore.BusinessLogic.Entities;assembly=TestCaseManagerCore"    
+              xmlns:convert="clr-namespace:TestCaseManagerCore.BusinessLogic.Converters;assembly=TestCaseManagerCore"
              mc:Ignorable="d" Loaded="TestCaseInitialView_Loaded">
     <Grid>
+        <Grid.Resources>
+            <convert:EnumMatchToBooleanConverter x:Key="enumBooleanConverter" />
+        </Grid.Resources>
         <Grid.CommandBindings>
             <CommandBinding Command="{x:Static local:TestCasesInitialView.EditCommand}" Executed="EditButton_Click"/>
             <CommandBinding Command="{x:Static local:TestCasesInitialView.DuplicateCommand}" Executed="DuplicateButton_Click"/>
@@ -56,6 +60,14 @@
 
             <StackPanel Orientation="Vertical" Grid.Row="1" Grid.Column="2">
                 <StackPanel Orientation="Vertical" Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="3" Margin="10,0,0,15">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,0,0,10">
+
+                        <RadioButton Content="All" Margin="20,0,10,0" FontWeight="Bold" FontSize="12" GroupName="Options1" IsChecked="{Binding Path=CurrentOption, Mode=TwoWay, Converter={StaticResource enumBooleanConverter}, ConverterParameter=All}" Checked="RadioButton_Checked" />
+                        <RadioButton Content="Active" Margin="15,0,10,0" FontWeight="Bold" FontSize="12" GroupName="Options2" IsChecked="{Binding Path=CurrentOption, Mode=TwoWay, Converter={StaticResource enumBooleanConverter}, ConverterParameter=Active}" Checked="RadioButton_Checked" />
+                        <RadioButton Content="Passed" Margin="15,0,10,0" FontWeight="Bold" FontSize="12" GroupName="Options3" IsChecked="{Binding Path=CurrentOption, Mode=TwoWay, Converter={StaticResource enumBooleanConverter}, ConverterParameter=Passed}" Checked="RadioButton_Checked" />
+                        <RadioButton Content="Failed" Margin="15,0,10,0" FontWeight="Bold" FontSize="12" GroupName="Options4" IsChecked="{Binding Path=CurrentOption, Mode=TwoWay, Converter={StaticResource enumBooleanConverter}, ConverterParameter=Failed}" Checked="RadioButton_Checked" />
+                        <RadioButton Content="Blocked" Margin="15,0,10,0" FontWeight="Bold" FontSize="12" GroupName="Options5" IsChecked="{Binding Path=CurrentOption, Mode=TwoWay, Converter={StaticResource enumBooleanConverter}, ConverterParameter=Blocked}" Checked="RadioButton_Checked" />
+                    </StackPanel>
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
                         <Button Name="btnPreview1" Content="_Preview" Margin="20,0,10,0" Height="30" Width="90" VerticalAlignment="Center" Click="PreviewButton_Click"/>
                         <Button Name="btnEdit1" Content="_Edit" Margin="15,0,10,0" Height="30" Width="90" VerticalAlignment="Center" Click="EditButton_Click"/>
