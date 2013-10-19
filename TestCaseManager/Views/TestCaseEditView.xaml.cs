@@ -115,6 +115,11 @@ namespace TestCaseManagerApp.Views
         public static RoutedCommand EditSharedStepCommand = new RoutedCommand();
 
         /// <summary>
+        /// The duplicate shared step command
+        /// </summary>
+        public static RoutedCommand DuplicateSharedStepCommand = new RoutedCommand();
+
+        /// <summary>
         /// The edit test step command
         /// </summary>
         public static RoutedCommand EditTestStepCommand = new RoutedCommand();
@@ -212,13 +217,13 @@ namespace TestCaseManagerApp.Views
             {
                 return;
             }
-
+            System.Windows.Threading.Dispatcher uiDispatcher = this.Dispatcher;
             this.ShowProgressBar();
             Task t = Task.Factory.StartNew(() =>
             {
                 TestCaseEditViewModel = new TestCaseEditViewModel(this.editViewContext);
             });
-            t.ContinueWith(antecedent =>
+            Task t2 = t.ContinueWith(antecedent =>
             {
                 ExecutionContext.TestCaseEditViewModel = this.TestCaseEditViewModel;
                 this.InitializeUiRelatedViewSettings();
@@ -233,6 +238,10 @@ namespace TestCaseManagerApp.Views
                 this.HideProgressBar();
                 this.editViewContext.IsInitialized = true;
             }, TaskScheduler.FromCurrentSynchronizationContext());
+            t2.ContinueWith(antecedent =>
+            {
+                this.TestCaseEditViewModel.RefreshSharedStepCollections(uiDispatcher);
+            });
         }
 
         /// <summary>
@@ -546,6 +555,26 @@ namespace TestCaseManagerApp.Views
         {
             this.MoveUpInternal();
             dgTestSteps.Focus();
+        }
+
+        /// <summary>
+        /// Handles the Command event of the duplicateSharedStep control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="ExecutedRoutedEventArgs"/> instance containing the event data.</param>
+        private void duplicateSharedStep_Command(object sender, ExecutedRoutedEventArgs e)
+        {
+            e.Handled = true;
+            SharedStep currentSharedStep = dgSharedSteps.SelectedItem as SharedStep;
+            this.TestCaseEditViewModel.SaveChangesDialog();
+            this.editViewContext.IsInitialized = false;
+            this.editViewContext.CreateNew = true;
+            this.editViewContext.Duplicate = true;
+            this.editViewContext.IsSharedStep = true;
+            this.editViewContext.ComeFromTestCase = true;
+            this.editViewContext.SharedStepId = currentSharedStep.Id;        
+            log.Info("Reinitialize edit mode to duplicate.");
+            this.InitializeInternal();    
         }
 
         /// <summary>

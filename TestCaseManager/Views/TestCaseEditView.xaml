@@ -32,6 +32,7 @@
             <CommandBinding Command="{x:Static local:TestCaseEditView.UndoCommand}" Executed="btnUndo_Click"/>
             <CommandBinding Command="{x:Static local:TestCaseEditView.RedoCommand}" Executed="btnRedo_Click"/>
             <CommandBinding Command="{x:Static local:TestCaseEditView.EditSharedStepCommand}" Executed="editSharedStep_Command"/>
+            <CommandBinding Command="{x:Static local:TestCaseEditView.DuplicateSharedStepCommand}" Executed="duplicateSharedStep_Command"/>
             <CommandBinding Command="{x:Static local:TestCaseEditView.EditTestStepCommand}" Executed="btnEdit_Click"/>
         </Grid.CommandBindings>
         <ProgressBar Name="progressBar" Minimum="0" Maximum="1" Height="16" IsIndeterminate="True" Margin="0,0,0,16" />
@@ -255,6 +256,7 @@
                                     <Setter.Value>
                                         <ContextMenu>
                                             <MenuItem Command="{x:Static local:TestCaseEditView.EditSharedStepCommand}" Header="Edit" IsEnabled="{Binding Path=IsAddEnabled}"/>
+                                            <MenuItem Command="{x:Static local:TestCaseEditView.DuplicateSharedStepCommand}" Header="Duplicate" IsEnabled="{Binding Path=IsAddEnabled}"/>
                                         </ContextMenu>
                                     </Setter.Value>
                                 </Setter>

@@ -52,21 +52,16 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
         {
             ITestPlanCollection testPlanCollection = null;
             int retryCount = 0;
-            do
+            try
             {
-                try
-                {
-                    testPlanCollection = testManagementTeamProject.TestPlans.Query("SELECT * FROM TestPlan");
-                    break;
-                }
-                catch (Exception ex)
-                {
-                    log.Error("Getting all plans error.", ex);
-                    retryCount++;
-                    throw ex;
-                }
+                testPlanCollection = testManagementTeamProject.TestPlans.Query("SELECT * FROM TestPlan");
             }
-            while(retryCount < 5);        
+            catch (Exception ex)
+            {
+                log.Error("Getting all plans error.", ex);
+                retryCount++;
+                throw ex;
+            }    
 
             return testPlanCollection;
         }

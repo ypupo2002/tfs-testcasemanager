@@ -4,7 +4,7 @@
   <description asmv2:iconFile="Registration.ico" xmlns="urn:schemas-microsoft-com:asm.v1" />
   <application />
   <entryPoint>
-    <assemblyIdentity name="TestCaseManager" version="1.0.7.9" language="neutral" processorArchitecture="x86" />
+    <assemblyIdentity name="TestCaseManager" version="1.0.8.0" language="neutral" processorArchitecture="x86" />
     <commandLine file="TestCaseManager.exe" parameters="" />
   </entryPoint>
   <trustInfo>
@@ -172,26 +172,26 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="TestCaseManager.exe" size="1003008">
-      <assemblyIdentity name="TestCaseManager" version="1.0.7.9" language="neutral" processorArchitecture="x86" />
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="TestCaseManager.exe" size="1003520">
+      <assemblyIdentity name="TestCaseManager" version="1.0.8.0" language="neutral" processorArchitecture="x86" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>l4gY356rpq4lxZBlbYUvOMRX6uPMkbMZqNxhrB9ZyGU=</dsig:DigestValue>
+        <dsig:DigestValue>m9UEy534+0apK4xHmCx+iLQpR7lyETPwjOFd5uoOIc0=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="TestCaseManagerCore.dll" size="160256">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="TestCaseManagerCore.dll" size="158720">
       <assemblyIdentity name="TestCaseManagerCore" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>TM6HzvyYfZZ9eTsbigUOayvARNBxbyE98We48esdT30=</dsig:DigestValue>
+        <dsig:DigestValue>b1gkBoH2recSkTILGsa8GicXsw1Mj1P6MJr1mSM5kHs=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

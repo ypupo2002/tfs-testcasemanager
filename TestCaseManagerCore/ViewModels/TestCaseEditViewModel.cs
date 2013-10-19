@@ -10,6 +10,7 @@ namespace TestCaseManagerCore.ViewModels
     using System.Linq;
     using System.Text;
     using System.Text.RegularExpressions;
+    using System.Threading;
     using System.Windows;
     using System.Xml;
     using FirstFloor.ModernUI.Windows.Controls;
@@ -91,12 +92,12 @@ namespace TestCaseManagerCore.ViewModels
                 }
                 if (this.EditViewContext.CreateNew && !this.EditViewContext.Duplicate)
                 {
-                    ITestCase newTestCase = ExecutionContext.TestManagementTeamProject.TestCases.Create();
+                    ITestCase newTestCase = TestCaseManagerCore.ExecutionContext.TestManagementTeamProject.TestCases.Create();
                     this.TestCase = new TestCase(newTestCase, testSuiteBaseCore);
                 }
                 else
                 {
-                    ITestCase testCaseCore = ExecutionContext.TestManagementTeamProject.TestCases.Find(this.EditViewContext.TestCaseId);
+                    ITestCase testCaseCore = TestCaseManagerCore.ExecutionContext.TestManagementTeamProject.TestCases.Find(this.EditViewContext.TestCaseId);
                     this.TestCase = new TestCase(testCaseCore, testSuiteBaseCore);
                 }
                 this.ObservableSharedSteps = new ObservableCollection<SharedStep>();
@@ -110,7 +111,7 @@ namespace TestCaseManagerCore.ViewModels
             {                
                 if (this.EditViewContext.CreateNew && !this.EditViewContext.Duplicate)
                 {
-                    ISharedStep currentSharedStepCore = ExecutionContext.TestManagementTeamProject.SharedSteps.Create();
+                    ISharedStep currentSharedStepCore = TestCaseManagerCore.ExecutionContext.TestManagementTeamProject.SharedSteps.Create();
                     this.SharedStep = new SharedStep(currentSharedStepCore);
                 }
                 else
@@ -691,6 +692,35 @@ namespace TestCaseManagerCore.ViewModels
         }
 
         /// <summary>
+        /// Refreshes the shared step collections.
+        /// </summary>
+        public void RefreshSharedStepCollections(System.Windows.Threading.Dispatcher uiDispatcher)
+        {
+            do
+            {
+                List<ISharedStep> sharedStepList = TestStepManager.GetAllSharedSteps();
+                List<SharedStep> sharedSteps = new List<BusinessLogic.Entities.SharedStep>();
+                sharedStepList.ForEach(s =>
+                {
+                    sharedSteps.Add(new SharedStep(s));
+                });
+                sharedSteps.Sort();
+                Action action = new Action(() =>
+                    {
+                        this.ObservableSharedSteps.Clear();
+                        sharedSteps.ForEach(s =>
+                        {
+                            this.ObservableSharedSteps.Add(s);
+                        });
+                    });
+                uiDispatcher.Invoke(action);
+                this.InitializeInitialSharedStepCollection();         
+                Thread.Sleep(30000);
+            }
+            while (true);
+        }
+
+        /// <summary>
         /// Inserts the new shared step.
         /// </summary>
         /// <param name="currentSharedStep">The current shared step.</param>
@@ -804,9 +834,9 @@ namespace TestCaseManagerCore.ViewModels
         private List<string> GetProjectAreas()
         {
             List<string> areas = new List<string>();
-            ICommonStructureService css = (ICommonStructureService)ExecutionContext.TfsTeamProjectCollection.GetService(typeof(ICommonStructureService));
-            log.InfoFormat("Get All Areas for Project= {0}", ExecutionContext.Preferences.TestProjectName);
-            ProjectInfo projectInfo = css.GetProjectFromName(ExecutionContext.Preferences.TestProjectName);
+            ICommonStructureService css = (ICommonStructureService)TestCaseManagerCore.ExecutionContext.TfsTeamProjectCollection.GetService(typeof(ICommonStructureService));
+            log.InfoFormat("Get All Areas for Project= {0}", TestCaseManagerCore.ExecutionContext.Preferences.TestProjectName);
+            ProjectInfo projectInfo = css.GetProjectFromName(TestCaseManagerCore.ExecutionContext.Preferences.TestProjectName);
             NodeInfo[] nodes = css.ListStructures(projectInfo.Uri);
             foreach (NodeInfo currentNode in nodes)
             {
@@ -854,7 +884,7 @@ namespace TestCaseManagerCore.ViewModels
             {
                 sharedSteps.Add(new SharedStep(s));
             });
-            sharedSteps.Sort();
+            sharedSteps.Sort();           
             sharedSteps.ForEach(s =>
             {
                 this.ObservableSharedSteps.Add(s);
