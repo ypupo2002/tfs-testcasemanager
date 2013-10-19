@@ -262,6 +262,7 @@ namespace TestCaseManagerCore.ViewModels
             ExecutionContext.Preferences.TestPlan.Refresh();
             ExecutionContext.Preferences.TestPlan.RootSuite.Refresh();
             List<SharedStep> sharedStepsList = SharedStepManager.GetAllSharedStepsInTestPlan();
+            sharedStepsList.Sort();
             sharedStepsList.ForEach(t => this.ObservableSharedSteps.Add(t));
         }
 

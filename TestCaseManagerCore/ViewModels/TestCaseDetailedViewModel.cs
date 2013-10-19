@@ -37,9 +37,10 @@ namespace TestCaseManagerCore.ViewModels
             this.TestActions = new List<ITestAction>();
             this.TestCase.ITestCase.Actions.ToList().ForEach(x => this.TestActions.Add(x));
             this.ObservableTestSteps = new ObservableCollection<TestStep>();
-            TestStepManager.GetTestStepsFromTestActions(this.TestActions).ForEach(x => this.ObservableTestSteps.Add(x));
+            List<TestStep> testSteps = TestStepManager.GetTestStepsFromTestActions(this.TestActions);
             this.AssociatedAutomation = TestCase.ITestCase.GetAssociatedAutomation();
-            TestStepManager.UpdateGenericSharedSteps(this.ObservableTestSteps);
+            TestStepManager.UpdateGenericSharedSteps(testSteps);
+            this.InitializeTestSteps(testSteps);
         }
 
         /// <summary>
@@ -73,5 +74,19 @@ namespace TestCaseManagerCore.ViewModels
         /// The associated automation.
         /// </value>
         public AssociatedAutomation AssociatedAutomation { get; set; }
+
+        /// <summary>
+        /// Filters the initialization test steps.
+        /// </summary>
+        private void InitializeTestSteps(List<TestStep> testSteps)
+        {
+            foreach (var curretTestStep in testSteps)
+            {
+                if (!TestStepManager.IsInitializationTestStep(curretTestStep))
+                {
+                    this.ObservableTestSteps.Add(curretTestStep);
+                }
+            }
+        }
     }
 }

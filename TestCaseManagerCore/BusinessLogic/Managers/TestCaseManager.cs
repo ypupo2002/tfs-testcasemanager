@@ -78,9 +78,17 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
         public static string GetMostRecentTestCaseResult(int testCaseId)
         {
             var testPoints = ExecutionContext.Preferences.TestPlan.QueryTestPoints(string.Format("Select * from TestPoint where TestCaseId = {0} ", testCaseId));
-            ITestPoint lastTestPoint = testPoints.Last();
-            ITestCaseResult lastTestCaseResult = lastTestPoint.MostRecentResult;
+            ITestPoint lastTestPoint = null;
+            if (testPoints.Count > 0)
+            {
+                lastTestPoint = testPoints.Last();
+            }
             string mostRecentResult = "Active";
+            ITestCaseResult lastTestCaseResult = null;
+            if (lastTestPoint != null)
+            {
+                lastTestCaseResult = lastTestPoint.MostRecentResult;
+            }
             if (lastTestCaseResult != null)
             {
                 mostRecentResult = lastTestCaseResult.Outcome.ToString();
@@ -132,6 +140,31 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
                     break;
             }
             result.Save();
+        }
+
+        /// <summary>
+        /// Gets the type of the test case execution.
+        /// </summary>
+        /// <param name="executionTypeStr">The execution type string.</param>
+        /// <returns></returns>
+        public static TestCaseExecutionType GetTestCaseExecutionType(string executionTypeStr)
+        {
+            TestCaseExecutionType testCaseExecutionType = (TestCaseExecutionType)Enum.Parse(typeof(TestCaseExecutionType), executionTypeStr);
+            switch (testCaseExecutionType)
+            {
+                case TestCaseExecutionType.All:
+                    break;
+                case TestCaseExecutionType.Active:
+                    break;
+                case TestCaseExecutionType.Passed:
+                    break;
+                case TestCaseExecutionType.Failed:
+                    break;
+                default:
+                    testCaseExecutionType = TestCaseExecutionType.Active;
+                    break;
+            }
+            return testCaseExecutionType;
         }
 
         /// <summary>

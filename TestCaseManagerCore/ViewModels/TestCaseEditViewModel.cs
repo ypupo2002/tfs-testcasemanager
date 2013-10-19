@@ -849,10 +849,15 @@ namespace TestCaseManagerCore.ViewModels
         private void InitializeObservableSharedSteps()
         {
             List<ISharedStep> sharedStepList = TestStepManager.GetAllSharedSteps();
-
+            List<SharedStep> sharedSteps = new List<BusinessLogic.Entities.SharedStep>();
             sharedStepList.ForEach(s =>
             {
-                this.ObservableSharedSteps.Add(new SharedStep(s));
+                sharedSteps.Add(new SharedStep(s));
+            });
+            sharedSteps.Sort();
+            sharedSteps.ForEach(s =>
+            {
+                this.ObservableSharedSteps.Add(s);
             });
         }
 

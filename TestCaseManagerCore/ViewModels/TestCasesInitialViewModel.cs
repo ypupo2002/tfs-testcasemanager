@@ -110,6 +110,7 @@ namespace TestCaseManagerCore.ViewModels
             this.SelectPreviouslySelectedSuite(this.Suites, this.selectedSuiteId);
             this.IsAfterInitialize = true;
             this.SelectedTestCasesCount = "0";
+            this.CurrentExecutionStatusOption = TestCaseExecutionType.All;
         }      
 
         /// <summary>
@@ -120,7 +121,8 @@ namespace TestCaseManagerCore.ViewModels
         {
             this.InitialViewFilters = viewModel.InitialViewFilters;
             this.HideAutomated = viewModel.HideAutomated;
-            this.UpdateSuites(viewModel.Suites, this.Suites);            
+            this.UpdateSuites(viewModel.Suites, this.Suites);
+            this.CurrentExecutionStatusOption = viewModel.CurrentExecutionStatusOption;
         }
 
         /// <summary>
@@ -268,6 +270,7 @@ namespace TestCaseManagerCore.ViewModels
             foreach (TestCaseFull currentFullTestCase in fullTestCases)
             {
                 TestStepManager.UpdateGenericSharedSteps(currentFullTestCase.TestSteps);
+                currentFullTestCase.TestSteps = InitializeTestStepsForExport(currentFullTestCase.TestSteps);
             }
             
             HtmlTestCaseExportTemplate htmlTestCaseExportTemplate = new HtmlTestCaseExportTemplate();
@@ -646,6 +649,25 @@ namespace TestCaseManagerCore.ViewModels
             {
                 return false;
             }
+        }
+
+        /// <summary>
+        /// Initializes the test steps for export.
+        /// </summary>
+        /// <param name="testSteps">The test steps.</param>
+        /// <returns>reinitialized test steps for export</returns>
+        private List<TestStep> InitializeTestStepsForExport(List<TestStep> testSteps)
+        {
+            List<TestStep> testStepsForExport = new List<TestStep>();
+            foreach (var curretTestStep in testSteps)
+            {
+                if (!TestStepManager.IsInitializationTestStep(curretTestStep))
+                {
+                    testStepsForExport.Add(curretTestStep);
+                }
+            }
+
+            return testStepsForExport;
         }
     }
 }

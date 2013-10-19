@@ -51,7 +51,7 @@ namespace TestCaseManagerCore.BusinessLogic.Entities
             base.isInitialized = true;
             this.Id = testCaseCore.Id;
             string mostRecentResult = TestCaseManager.GetMostRecentTestCaseResult(this.Id);
-            this.LastExecutionOutcome = (TestCaseExecutionType)Enum.Parse(typeof(TestCaseExecutionType), mostRecentResult);
+            this.LastExecutionOutcome = TestCaseManager.GetTestCaseExecutionType(mostRecentResult);
         }
 
         /// <summary>

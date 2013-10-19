@@ -45,7 +45,7 @@ namespace TestCaseManagerApp.Views
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
             PromptDialogViewModel = new PromptDialogViewModel();
-            this.DataContext = this.PromptDialogViewModel;
+            this.DataContext = this.PromptDialogViewModel;         
         }
 
         /// <summary>
@@ -88,6 +88,6 @@ namespace TestCaseManagerApp.Views
             {
                 btnOk.IsEnabled = false;
             }
-        }      
+        }   
     }
 }

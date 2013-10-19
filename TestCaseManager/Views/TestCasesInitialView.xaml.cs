@@ -1190,12 +1190,6 @@ namespace TestCaseManagerApp.Views
             dgTestCaseContextItemRemove.IsEnabled = true;
             switch (this.TestCasesInitialViewModel.CurrentExecutionStatusOption)
             {
-                case TestCaseExecutionType.All:
-                    dgTestCaseContextItemPass.IsEnabled = false;
-                    dgTestCaseContextItemBlock.IsEnabled = false;
-                    dgTestCaseContextItemFail.IsEnabled = false;
-                    dgTestCaseContextItemActive.IsEnabled = false;
-                    break;
                 case TestCaseExecutionType.Active:
                     dgTestCaseContextItemActive.IsEnabled = false;
                     dgTestCaseContextItemCopy.IsEnabled = false;
@@ -1293,6 +1287,22 @@ namespace TestCaseManagerApp.Views
         {
             e.Handled = true;
             this.SetNewExecutionOutcomeInternal(TestCaseExecutionType.Blocked);
+        }
+
+        /// <summary>
+        /// Handles the KeyDown event of the tvSuites control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.Windows.Input.KeyEventArgs"/> instance containing the event data.</param>
+        private void tvSuites_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            char keyPressedChar = (char)e.Key;
+            char f2Char = (char)91;
+            if ((System.Windows.Forms.Control.ModifierKeys == Keys.None) && ((keyPressedChar  & f2Char) != 0))
+            {
+                this.RenameSuiteInternal();
+                e.Handled = true;
+            }
         }
     }
 }

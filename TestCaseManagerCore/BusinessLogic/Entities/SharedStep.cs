@@ -4,6 +4,7 @@
 // <author>Anton Angelov</author>
 namespace TestCaseManagerCore.BusinessLogic.Entities
 {
+    using System;
     using System.Collections.Generic;
     using Microsoft.TeamFoundation.TestManagement.Client;
     using TestCaseManagerCore.BusinessLogic.Enums;
@@ -12,7 +13,7 @@ namespace TestCaseManagerCore.BusinessLogic.Entities
     /// <summary>
     /// Contains information about Shared Step object
     /// </summary>
-    public class SharedStep : TestBase
+    public class SharedStep : TestBase, IComparable<SharedStep>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="SharedStep"/> class.
@@ -48,5 +49,17 @@ namespace TestCaseManagerCore.BusinessLogic.Entities
         /// The shared steps tool tip.
         /// </value>
         public string StepsToolTip { get; set; }
+
+        /// <summary>
+        /// Compares the current object with another object of the same type.
+        /// </summary>
+        /// <param name="other">An object to compare with this object.</param>
+        /// <returns>
+        /// A value that indicates the relative order of the objects being compared. The return value has the following meanings: Value Meaning Less than zero This object is less than the <paramref name="other" /> parameter.Zero This object is equal to <paramref name="other" />. Greater than zero This object is greater than <paramref name="other" />.
+        /// </returns>
+        public int CompareTo(SharedStep other)
+        {
+            return this.Title.CompareTo(other.Title);
+        }
     }
 }

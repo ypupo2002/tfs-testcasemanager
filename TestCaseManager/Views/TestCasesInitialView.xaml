@@ -114,6 +114,7 @@
                         <Setter Property="IsExpanded" Value="{Binding Path=IsNodeExpanded, Mode=TwoWay}" />
                         <Setter Property="IsSelected" Value="{Binding Path=IsSelected, Mode=TwoWay}" />
                         <EventSetter Event="TreeViewItem.PreviewMouseRightButtonDown" Handler="TreeViewItem_PreviewMouseRightButtonDown"/>
+                        <EventSetter Event="TreeViewItem.KeyDown" Handler="tvSuites_KeyDown"/>
                         <EventSetter Event="TreeViewItem.Selected" Handler="treeViewItem_Selected"/>                       
                         <Setter Property="ContextMenu">
                             <Setter.Value>

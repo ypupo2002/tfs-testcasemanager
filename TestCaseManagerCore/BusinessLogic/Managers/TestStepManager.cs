@@ -32,6 +32,16 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
         private static readonly string DefaultGuidString = default(Guid).ToString();
 
         /// <summary>
+        /// The regex pattern namespace initializations
+        /// </summary>
+        private static string RegexPatternNamespaceInitializations = @"\s*(?<Namespace>[\w.]{1,})\((?<GenParam>[a-zA-Z]{1,})\)\s*=\s*(?<NewValue>[\W\w\s]*);{1}";
+
+        /// <summary>
+        /// The regext pattern no namespace initializations
+        /// </summary>
+        private static string RegextPatternNoNamespaceInitializations = @"\s*\((?<GenParam>[a-zA-Z]{1,})\)\s*=\s*(?<NewValue>[\W\w\s]*);{1}";
+
+        /// <summary>
         /// Gets the test steps from test actions.
         /// </summary>
         /// <param name="testActions">The test actions.</param>
@@ -253,10 +263,10 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
         /// <param name="genericParameters">The generic parameters.</param>
         private static void ExtractGenericParameteresFromNonSharedStep(TestStep currentTestStep, Dictionary<string, Dictionary<string, string>> genericParameters)
         {
-            string regexPatternNamespaceInitializations = @"\s*(?<Namespace>[\w.]{1,})\((?<GenParam>[a-zA-Z]{1,})\)\s*=\s*(?<NewValue>[\W\w\s]*);{1}";
-            string regextPatternNoNamespaceInitializations = @"\s*\((?<GenParam>[a-zA-Z]{1,})\)\s*=\s*(?<NewValue>[\W\w\s]*);{1}";
-            Regex regexNamespaceInitializations = new Regex(regexPatternNamespaceInitializations, RegexOptions.None);
-            Regex regexNoNamespaceInitializations = new Regex(regextPatternNoNamespaceInitializations, RegexOptions.None);
+            //string regexPatternNamespaceInitializations = @"\s*(?<Namespace>[\w.]{1,})\((?<GenParam>[a-zA-Z]{1,})\)\s*=\s*(?<NewValue>[\W\w\s]*);{1}";
+            //string regextPatternNoNamespaceInitializations = @"\s*\((?<GenParam>[a-zA-Z]{1,})\)\s*=\s*(?<NewValue>[\W\w\s]*);{1}";
+            Regex regexNamespaceInitializations = new Regex(RegexPatternNamespaceInitializations, RegexOptions.None);
+            Regex regexNoNamespaceInitializations = new Regex(RegextPatternNoNamespaceInitializations, RegexOptions.None);
             string[] lines = currentTestStep.ActionTitle.Split(new string[] { Environment.NewLine }, StringSplitOptions.None);
             foreach (string currentLine in lines)
             {
@@ -307,6 +317,40 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
         }
 
         /// <summary>
+        /// Determines whether [is initialization test step] [the specified current test step].
+        /// </summary>
+        /// <param name="currentTestStep">The current test step.</param>
+        /// <returns></returns>
+        public static bool IsInitializationTestStep(TestStep currentTestStep)
+        {
+            bool isInitializationTestStep = false;
+            if (currentTestStep.IsShared)
+            {
+                return isInitializationTestStep;
+            }
+            Regex regexNamespaceInitializations = new Regex(RegexPatternNamespaceInitializations, RegexOptions.None);
+            Regex regexNoNamespaceInitializations = new Regex(RegextPatternNoNamespaceInitializations, RegexOptions.None);
+            string[] lines = currentTestStep.ActionTitle.Split(new string[] { Environment.NewLine }, StringSplitOptions.None);
+            foreach (string currentLine in lines)
+            {
+                Match m = regexNamespaceInitializations.Match(currentLine);
+                if (m.Success)
+                {
+                    isInitializationTestStep = true;
+                    break;
+                }
+                else if (regexNoNamespaceInitializations.Match(currentLine).Success)
+                {
+                    Match matchNoNamespace = regexNoNamespaceInitializations.Match(currentLine);
+                    isInitializationTestStep = true;
+                    break;
+                }
+            }
+
+            return isInitializationTestStep;
+        }
+
+        /// <summary>
         /// Replaces the generic parameters with specified values.
         /// </summary>
         /// <param name="currentTestStep">The current test step.</param>
@@ -328,7 +372,8 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
                     {
                         if (currentMatch.Groups["Namespace"].Value.EndsWith(currentNamespace))
                         {
-                            ReinitializeTestStep(currentTestStep, ref reinitialized);
+                            ReinitializeTestStep(currentTestStep);
+                            reinitialized = true;
                             foreach (string currentKey in genericParameters[currentNamespace].Keys)
                             {
                                 initializeCount--;
@@ -359,8 +404,7 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
             }
             else
             {
-                currentTestStep.ActionTitle = currentTestStep.OriginalActionTitle;
-                currentTestStep.ActionExpectedResult = currentTestStep.OriginalActionExpectedResult;
+                ReinitializeTestStep(currentTestStep);
             }
         }
 
@@ -374,7 +418,11 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
         /// <param name="currentGenParam">The current gen parameter.</param>
         private static void ReplaceCurrentNoNamespaceParameter(TestStep currentTestStep, Dictionary<string, Dictionary<string, string>> genericParameters, ref int initializeCount, ref bool reinitialized, string currentGenParam)
         {
-            ReinitializeTestStep(currentTestStep, ref reinitialized);
+            if (!reinitialized)
+            {
+                ReinitializeTestStep(currentTestStep);
+                reinitialized = true;
+            }
             initializeCount--;
             string strToBeReplaced = AddParenthesesToParam(currentGenParam);
 
@@ -396,13 +444,8 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
         /// Reinitializes the test step.
         /// </summary>
         /// <param name="currentTestStep">The current test step.</param>
-        /// <param name="reinitialized">if set to <c>true</c> [reinitialized].</param>
-        private static void ReinitializeTestStep(TestStep currentTestStep, ref bool reinitialized)
-        {
-            if (!reinitialized)
-            {
-                reinitialized = true;
-            }
+        private static void ReinitializeTestStep(TestStep currentTestStep)
+        {            
             currentTestStep.ActionTitle = currentTestStep.OriginalActionTitle;
             currentTestStep.ActionExpectedResult = currentTestStep.OriginalActionExpectedResult;
         }
