@@ -1,0 +1,49 @@
+﻿<UserControl x:Class="TestCaseManagerApp.ReleaseNotesView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:mui="http://firstfloorsoftware.com/ModernUI"
+             mc:Ignorable="d">
+    <Grid>
+        <ScrollViewer>
+            <StackPanel >
+                <TextBlock Text="Release Notes" FontSize="26" Height="Auto" Margin="0,0,0,15"/>
+
+                <mui:BBCodeBlock BBCode="[b]Version[/b]: 1.0.8.0     [b]Date[/b]: 19.10.2013" Margin="0,0,10,15"/>
+                <mui:BBCodeBlock BBCode="-add shared step duplicate context menu option Test Case Edit Mode" Margin="0,0,0,15" />
+                <mui:BBCodeBlock BBCode="-add shard steps backgroud refresh on 30 secs Test Case Edit Mode" Margin="0,0,0,15" />
+                <mui:BBCodeBlock BBCode="-add suite rename on F2 key press" Margin="0,0,0,15" />
+                <mui:BBCodeBlock BBCode="-add shared steps sorting by title All Shared Steps" Margin="0,0,0,15" />
+                <mui:BBCodeBlock BBCode="-add shared steps sorting by title Edit Mode" Margin="0,0,0,15" />
+                <mui:BBCodeBlock BBCode="-remove initialization steps from test case export report" Margin="0,0,0,15" />
+                <mui:BBCodeBlock BBCode="-remove initialization steps from preview mode" Margin="0,0,0,15" />
+                <mui:BBCodeBlock BBCode="-add smooth scrolling to edit test steps grids Edit Test Case Mode" Margin="0,0,0,15" />
+                <mui:BBCodeBlock BBCode="-add smooth scrolling to test steps grids Preview Test Case Mode" Margin="0,0,0,15" />
+                <mui:BBCodeBlock BBCode="-add active,pass, blocked, failed context menus Intial View" Margin="0,0,0,15" />
+                <mui:BBCodeBlock BBCode="-add active,pass, blocked, failed fast commands Intial View" Margin="0,0,0,15" />
+                <mui:BBCodeBlock BBCode="-add active,pass, blocked, failed publish logic to TFS- new test runs" Margin="0,0,0,15" />
+                <mui:BBCodeBlock BBCode="-add title validation max 255 symbols" Margin="0,0,0,15" />
+                <mui:BBCodeBlock BBCode="-remove trim end spaces on save test step operation" Margin="0,0,0,15" />
+                <mui:BBCodeBlock BBCode="-change the default location of the test case manager log to be %USERPROFILE%\Documents\TestCaseManager folder" Margin="0,0,0,15" />
+                <mui:BBCodeBlock BBCode="-add non-namespace initialization option" Margin="0,0,0,15" />
+                <mui:BBCodeBlock BBCode="-add larger margin and height of the edit test case gridsplitter" Margin="0,0,0,15" />
+                <mui:BBCodeBlock BBCode="-select whole shared step after paste" Margin="0,0,0,15" />
+                <mui:BBCodeBlock BBCode="-fix bug not correct selction after delete insert" Margin="0,0,0,15" />
+                <mui:BBCodeBlock BBCode="-fix bug not correct selection after delete" Margin="0,0,0,15" />
+                <mui:BBCodeBlock BBCode="-fix bug original title, expected result lost after paste" Margin="0,0,0,15" />
+                <mui:BBCodeBlock BBCode="-fix bug not get variables with special symbols" Margin="0,0,0,15" />
+                <mui:BBCodeBlock BBCode="-fix bug not correct handling multiple params shared steps replacing" Margin="0,0,0,15" />
+                                
+                <mui:BBCodeBlock BBCode="[b]Version[/b]: 1.0.7.6     [b]Date[/b]: 14.10.2013" Margin="0,20,10,15"/>
+                <mui:BBCodeBlock BBCode="-add test case execution status to export" Margin="0,0,0,15" />
+                <mui:BBCodeBlock BBCode="-add new improved template for export testcases" Margin="0,0,0,15" />
+                <mui:BBCodeBlock BBCode="-add no test cases selected warning both change|duplicates views" Margin="0,0,0,15" />
+                <mui:BBCodeBlock BBCode="-add shared step name to Detailed view" Margin="0,0,0,15" />
+                <mui:BBCodeBlock BBCode="-fix bug NullReference exception if you leave rows in text replace pairs empty" Margin="0,0,0,15" />
+                <mui:BBCodeBlock BBCode="-fix bug not correct change shared steps" Margin="0,0,0,15" />
+                <mui:BBCodeBlock BBCode="-fix bug if you click another change|duplicate nothing happens" Margin="0,0,0,15" />               
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</UserControl>

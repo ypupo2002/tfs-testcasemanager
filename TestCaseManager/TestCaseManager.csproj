@@ -156,6 +156,9 @@
     <Compile Include="Views\AboutView.xaml.cs">
       <DependentUpon>AboutView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\ReleaseNotesView.xaml.cs">
+      <DependentUpon>ReleaseNotesView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\SharedStepsInitialView.xaml.cs">
       <DependentUpon>SharedStepsInitialView.xaml</DependentUpon>
     </Compile>
@@ -211,6 +214,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Views\AboutView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\ReleaseNotesView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
