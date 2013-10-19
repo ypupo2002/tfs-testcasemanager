@@ -1,4 +1,5 @@
-﻿// <copyright file="TestCaseDetailedView.xaml.cs" company="CodePlex">
+﻿using System;
+// <copyright file="TestCaseDetailedView.xaml.cs" company="CodePlex">
 // https://testcasemanager.codeplex.com/ All rights reserved.
 // </copyright>
 // <author>Anton Angelov</author>
@@ -9,6 +10,7 @@ using System.Windows.Input;
 using FirstFloor.ModernUI.Windows;
 using FirstFloor.ModernUI.Windows.Navigation;
 using TestCaseManagerCore;
+using TestCaseManagerCore.BusinessLogic.Enums;
 using TestCaseManagerCore.BusinessLogic.Managers;
 using TestCaseManagerCore.ViewModels;
 
@@ -203,6 +205,76 @@ namespace TestCaseManagerApp.Views
             // Adding 1 to make the row count start at 1 instead of 0
             // as pointed out by daub815
             e.Row.Header = (e.Row.GetIndex() + 1).ToString(); 
-        }   
+        }
+
+        /// <summary>
+        /// Sets the new execution outcome internal.
+        /// </summary>
+        private void SetNewExecutionOutcomeInternal(TestCaseExecutionType testCaseExecutionType)
+        {
+            bool shouldCommentWindowShow = RegistryManager.ReadShouldCommentWindowShow();
+            string comment = String.Empty;
+            bool isCanceled = false;
+            if (shouldCommentWindowShow && testCaseExecutionType != TestCaseExecutionType.Active)
+            {
+                RegistryManager.WriteTitleTitlePromtDialog(string.Empty);
+                var dialog = new PrompDialogRichTextBoxWindow();
+                dialog.ShowDialog();
+                Task t = Task.Factory.StartNew(() =>
+                {
+                    isCanceled = RegistryManager.GetIsCanceledPromtDialog();
+                    comment = RegistryManager.GetContentPromtDialog();
+                    while (string.IsNullOrEmpty(comment) && !isCanceled)
+                    {
+                    }
+                });
+                t.Wait();
+                isCanceled = RegistryManager.GetIsCanceledPromtDialog();
+                comment = RegistryManager.GetContentPromtDialog();
+            }
+
+            if (!isCanceled || !shouldCommentWindowShow)
+            {                
+                Task t1 = Task.Factory.StartNew(() =>
+                {
+                    this.TestCaseDetailedViewModel.TestCase.SetNewExecutionOutcome(testCaseExecutionType, comment);
+                    this.TestCaseDetailedViewModel.TestCase.LastExecutionOutcome = testCaseExecutionType;
+                });
+                t1.ContinueWith(antecedent =>
+                {
+                    this.NavigateToTestCasesInitialView();
+                }, TaskScheduler.FromCurrentSynchronizationContext());
+            }
+        }
+
+        /// <summary>
+        /// Handles the Click event of the btnPass control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
+        private void btnPass_Click(object sender, RoutedEventArgs e)
+        {
+            this.SetNewExecutionOutcomeInternal(TestCaseExecutionType.Passed);
+        }
+
+        /// <summary>
+        /// Handles the Click event of the btnFail control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
+        private void btnFail_Click(object sender, RoutedEventArgs e)
+        {
+            this.SetNewExecutionOutcomeInternal(TestCaseExecutionType.Failed);
+        }
+
+        /// <summary>
+        /// Handles the Click event of the btnBlock control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
+        private void btnBlock_Click(object sender, RoutedEventArgs e)
+        {
+            this.SetNewExecutionOutcomeInternal(TestCaseExecutionType.Blocked);
+        }
     }
 }

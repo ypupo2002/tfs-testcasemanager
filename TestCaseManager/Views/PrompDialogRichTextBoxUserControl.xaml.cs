@@ -1,4 +1,4 @@
-﻿// <copyright file="PrompDialogUserControl.xaml.cs" company="CodePlex">
+﻿// <copyright file="PrompDialogRichTextBoxUserControl.xaml.cs" company="CodePlex">
 // https://testcasemanager.codeplex.com/ All rights reserved.
 // </copyright>
 // <author>Anton Angelov</author>
@@ -17,6 +17,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using FirstFloor.ModernUI.Windows;
+using TestCaseManagerCore;
 using TestCaseManagerCore.ViewModels;
 
 namespace TestCaseManagerApp.Views
@@ -24,12 +25,12 @@ namespace TestCaseManagerApp.Views
     /// <summary>
     /// Contains logic related to the shared step name prompt dialog
     /// </summary>
-    public partial class PrompDialogUserControl : UserControl
+    public partial class PrompDialogRichTextBoxUserControl : UserControl
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="PrompDialogUserControl"/> class.
+        /// Initializes a new instance of the <see cref="PrompDialogRichTextBoxUserControl"/> class.
         /// </summary>
-        public PrompDialogUserControl()
+        public PrompDialogRichTextBoxUserControl()
         {
             this.InitializeComponent();            
         }
@@ -74,20 +75,13 @@ namespace TestCaseManagerApp.Views
         }
 
         /// <summary>
-        /// Handles the KeyUp event of the tbSharedStepTitle control.
+        /// Handles the KeyUp event of the rtbComment control.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="KeyEventArgs"/> instance containing the event data.</param>
-        private void tbTitle_KeyUp(object sender, KeyEventArgs e)
+        private void rtbComment_KeyUp(object sender, KeyEventArgs e)
         {
-            if (!string.IsNullOrEmpty(tbTitle.Text))
-            {
-                btnOk.IsEnabled = true;
-            }
-            else
-            {
-                btnOk.IsEnabled = false;
-            }
+            this.PromptDialogViewModel.Content = rtbComment.GetText();
         }   
     }
 }

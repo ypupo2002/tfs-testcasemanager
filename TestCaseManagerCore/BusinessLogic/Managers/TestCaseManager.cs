@@ -77,7 +77,7 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
         /// <returns></returns>
         public static string GetMostRecentTestCaseResult(int testCaseId)
         {
-            var testPoints = ExecutionContext.Preferences.TestPlan.QueryTestPoints(string.Format("Select * from TestPoint where TestCaseId = {0} ", testCaseId));
+            var testPoints = TestPointManager.GetTestPointsByTestCaseId(testCaseId);
             ITestPoint lastTestPoint = null;
             if (testPoints.Count > 0)
             {
@@ -98,11 +98,34 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
         }
 
         /// <summary>
+        /// Gets the most recent execution comment.
+        /// </summary>
+        /// <param name="testCaseId">The test case unique identifier.</param>
+        /// <returns></returns>
+        public static string GetMostRecentExecutionComment(int testCaseId)
+        {
+            var testPoints = TestPointManager.GetTestPointsByTestCaseId(testCaseId);
+            ITestPoint lastTestPoint = null;
+            if (testPoints.Count > 0)
+            {
+                lastTestPoint = testPoints.Last();
+            }
+            string mostRecentExecutionComment = String.Empty;
+            if (!String.IsNullOrEmpty(lastTestPoint.Comment))
+            {
+                mostRecentExecutionComment = lastTestPoint.Comment;
+            }
+
+            return mostRecentExecutionComment;
+        }
+
+        /// <summary>
         /// Sets the new execution outcome.
         /// </summary>
         /// <param name="currentTestCase">The current test case.</param>
         /// <param name="newExecutionOutcome">The new execution outcome.</param>
-        public static void SetNewExecutionOutcome(this TestCase currentTestCase, TestCaseExecutionType newExecutionOutcome)
+        /// <param name="comment">The comment.</param>
+        public static void SetNewExecutionOutcome(this TestCase currentTestCase, TestCaseExecutionType newExecutionOutcome, string comment)
         {
             if (currentTestCase.ITestCase.Owner == null)
             {
@@ -123,7 +146,7 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
             result.DateStarted = DateTime.Now;
             result.Duration = new TimeSpan(0L);
             result.DateCompleted = DateTime.Now.AddMinutes(0.0);
-            result.Comment = "Run from Test Case Manager";
+            result.Comment = comment;
             switch (newExecutionOutcome)
             {
                 case TestCaseExecutionType.Active:

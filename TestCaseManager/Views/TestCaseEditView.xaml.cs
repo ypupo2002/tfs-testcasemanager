@@ -440,15 +440,15 @@ namespace TestCaseManagerApp.Views
             string newTitle;
             Task t = Task.Factory.StartNew(() =>
             {
-                isCanceled = RegistryManager.GetIsCanceledTitlePromtDialog();
-                newTitle = RegistryManager.GetTitleTitlePromtDialog();
+                isCanceled = RegistryManager.GetIsCanceledPromtDialog();
+                newTitle = RegistryManager.GetContentPromtDialog();
                 while (string.IsNullOrEmpty(newTitle) && !isCanceled)
                 {
                 }
             });
             t.Wait();
-            isCanceled = RegistryManager.GetIsCanceledTitlePromtDialog();
-            newTitle = RegistryManager.GetTitleTitlePromtDialog();
+            isCanceled = RegistryManager.GetIsCanceledPromtDialog();
+            newTitle = RegistryManager.GetContentPromtDialog();
 
             if (!isCanceled)
             {

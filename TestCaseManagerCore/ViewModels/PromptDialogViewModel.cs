@@ -14,17 +14,18 @@ namespace TestCaseManagerCore.ViewModels
     using System.Windows.Media;
     using FirstFloor.ModernUI.Presentation;
     using Microsoft.TeamFoundation.TestManagement.Client;
+    using TestCaseManagerCore.BusinessLogic.Entities;
     using TestCaseManagerCore.BusinessLogic.Managers;
     
     /// <summary>
     /// Holds PromptDialogView Properties
     /// </summary>
-    public class PromptDialogViewModel : NotifyPropertyChanged
+    public class PromptDialogViewModel : BaseNotifyPropertyChanged
     {
         /// <summary>
-        /// The title
+        /// The content
         /// </summary>
-        private string title;
+        private string content;
 
         /// <summary>
         /// The is canceled
@@ -32,29 +33,29 @@ namespace TestCaseManagerCore.ViewModels
         private bool isCanceled;
 
         /// <summary>
-        /// Gets or sets the title.
+        /// Gets or sets the Content.
         /// </summary>
         /// <value>
-        /// The title.
+        /// The Content.
         /// </value>
-        public string Title
+        public string Content
         {
             get
             {
-                if (this.title == null)
+                if (this.content == null)
                 {
-                    this.title = RegistryManager.GetTitleTitlePromtDialog();
+                    this.content = RegistryManager.GetContentPromtDialog();
                 }
 
-                return this.title;
+                return this.content;
             }
 
             set
             {
                
-                this.title = value;
-                RegistryManager.WriteTitleTitlePromtDialog(this.title);
-                this.OnPropertyChanged("Title");
+                this.content = value;
+                RegistryManager.WriteTitleTitlePromtDialog(this.content);
+                this.NotifyPropertyChanged();
             }
         }
 
@@ -75,7 +76,7 @@ namespace TestCaseManagerCore.ViewModels
             {
                 this.isCanceled = value;
                 RegistryManager.WriteIsCanceledTitlePromtDialog(this.isCanceled);
-                this.OnPropertyChanged("IsCanceled");
+                this.NotifyPropertyChanged();
             }
         }
     }

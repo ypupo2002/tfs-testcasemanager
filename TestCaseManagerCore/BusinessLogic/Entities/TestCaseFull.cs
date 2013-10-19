@@ -14,15 +14,18 @@ namespace TestCaseManagerCore.BusinessLogic.Entities
     public class TestCaseFull
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="TestCaseFull"/> class.
+        /// Initializes a new instance of the <see cref="TestCaseFull" /> class.
         /// </summary>
         /// <param name="testCase">The test case.</param>
         /// <param name="testSteps">The test steps.</param>
-        public TestCaseFull(TestCase testCase, List<TestStep> testSteps, string mostRecentResult)
+        /// <param name="mostRecentResult">The most recent result.</param>
+        /// <param name="executionComment">The execution comment.</param>
+        public TestCaseFull(TestCase testCase, List<TestStep> testSteps, string mostRecentResult, string executionComment)
         {
             this.TestCase = testCase;
             this.TestSteps = testSteps;
             this.MostRecentResult = mostRecentResult;
+            this.ExecutionComment = executionComment;
         }
 
         /// <summary>
@@ -48,5 +51,13 @@ namespace TestCaseManagerCore.BusinessLogic.Entities
         /// The most recent result.
         /// </value>
         public string MostRecentResult { get; set; }
+
+        /// <summary>
+        /// Gets or sets the execution comment.
+        /// </summary>
+        /// <value>
+        /// The execution comment.
+        /// </value>
+        public string ExecutionComment { get; set; }
     }
 }

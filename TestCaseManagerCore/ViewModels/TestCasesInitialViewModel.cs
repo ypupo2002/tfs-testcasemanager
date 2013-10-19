@@ -314,7 +314,19 @@ namespace TestCaseManagerCore.ViewModels
             filteredList.ForEach(x => this.ObservableTestCases.Add(x));
        
             this.TestCasesCount = filteredList.Count.ToString();
-        }       
+        }
+
+        /// <summary>
+        /// Filters the test cases without suite.
+        /// </summary>
+        public void FilterTestCasesWithoutSuite()
+        {
+            var filteredList = this.InitialTestCaseCollection.Where(t => t.ITestSuiteBase == null).ToList();
+            this.ObservableTestCases.Clear();
+            filteredList.ForEach(x => this.ObservableTestCases.Add(x));
+
+            this.TestCasesCount = filteredList.Count.ToString();
+        }     
 
         /// <summary>
         /// Refreshes the test cases.
@@ -562,8 +574,9 @@ namespace TestCaseManagerCore.ViewModels
             foreach (TestCase currentTestCase in this.ObservableTestCases)
             {
                 string mostRecentResult = TestCaseManager.GetMostRecentTestCaseResult(currentTestCase.Id);
+                string executionComment = TestCaseManager.GetMostRecentExecutionComment(currentTestCase.Id);
                 List<TestStep> currentTestSteps = TestStepManager.GetTestStepsFromTestActions(currentTestCase.ITestCase.Actions);
-                fullTestCases.Add(new TestCaseFull(currentTestCase, currentTestSteps, mostRecentResult));
+                fullTestCases.Add(new TestCaseFull(currentTestCase, currentTestSteps, mostRecentResult, executionComment));
             }
 
             return fullTestCases;

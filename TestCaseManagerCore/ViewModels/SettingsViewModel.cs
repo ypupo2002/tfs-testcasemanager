@@ -9,12 +9,13 @@ namespace TestCaseManagerCore.ViewModels
     using System.Linq;
     using System.Windows.Media;
     using FirstFloor.ModernUI.Presentation;
+    using TestCaseManagerCore.BusinessLogic.Entities;
     using TestCaseManagerCore.BusinessLogic.Managers;
 
     /// <summary>
     /// Contains methods and properties related to the Settings View
     /// </summary>
-    public class SettingsViewModel : NotifyPropertyChanged
+    public class SettingsViewModel : BaseNotifyPropertyChanged
     {
         /// <summary>
         /// The log
@@ -40,6 +41,11 @@ namespace TestCaseManagerCore.ViewModels
         /// The hover behavior drop down- can the drop downs open on hover
         /// </summary>
         private bool hoverBehaviorDropDown;
+
+        /// <summary>
+        /// The should comment window show
+        /// </summary>
+        private bool shouldCommentWindowShow;
 
         /// <summary>
         /// The accent colors
@@ -119,7 +125,26 @@ namespace TestCaseManagerCore.ViewModels
                     this.hoverBehaviorDropDown = value;
                     log.InfoFormat("Change HoverBehaviorDropDownto: {0}", this.hoverBehaviorDropDown);
                     RegistryManager.WriteDropDownBehavior(value);
-                    this.OnPropertyChanged("HoverBehaviorDropDown");
+                    this.NotifyPropertyChanged();
+                }
+            }
+        }
+
+        public bool ShouldCommentWindowShow
+        {
+            get
+            {
+                return this.shouldCommentWindowShow;
+            }
+
+            set
+            {
+                if (this.shouldCommentWindowShow != value)
+                {
+                    this.shouldCommentWindowShow = value;
+                    log.InfoFormat("Change ShouldCommentWindowShow: {0}", this.shouldCommentWindowShow);
+                    RegistryManager.WriteShouldCommentWindowShow(value);
+                    this.NotifyPropertyChanged();
                 }
             }
         }
@@ -170,7 +195,7 @@ namespace TestCaseManagerCore.ViewModels
                 if (this.selectedTheme != value)
                 {
                     this.selectedTheme = value;
-                    this.OnPropertyChanged("SelectedTheme");
+                    this.NotifyPropertyChanged();
                     log.InfoFormat("Change Selected Theme to: {0}", this.selectedTheme);
                     RegistryManager.WriteCurrentTheme(value.DisplayName);
                     
@@ -198,7 +223,7 @@ namespace TestCaseManagerCore.ViewModels
                 if (this.selectedAccentColor != value)
                 {
                     this.selectedAccentColor = value;
-                    this.OnPropertyChanged("SelectedAccentColor");
+                    this.NotifyPropertyChanged();
                     log.InfoFormat("Change Selected Color to: {0}", this.selectedAccentColor);
                     RegistryManager.WriteCurrentColors(value.R, value.G, value.B);
                     AppearanceManager.Current.AccentColor = value;

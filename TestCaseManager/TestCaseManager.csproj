@@ -156,6 +156,12 @@
     <Compile Include="Views\AboutView.xaml.cs">
       <DependentUpon>AboutView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\PrompDialogRichTextBoxWindow.xaml.cs">
+      <DependentUpon>PrompDialogRichTextBoxWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\PrompDialogRichTextBoxUserControl.xaml.cs">
+      <DependentUpon>PrompDialogRichTextBoxUserControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\ReleaseNotesView.xaml.cs">
       <DependentUpon>ReleaseNotesView.xaml</DependentUpon>
     </Compile>
@@ -214,6 +220,14 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Views\AboutView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\PrompDialogRichTextBoxWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\PrompDialogRichTextBoxUserControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

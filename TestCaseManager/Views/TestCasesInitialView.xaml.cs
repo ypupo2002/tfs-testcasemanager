@@ -394,7 +394,7 @@ namespace TestCaseManagerApp.Views
         /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void tbTextSuiteFilter_GotFocus(object sender, RoutedEventArgs e)
         {
-            tbSuiteFilter.ClearDefaultContent(ref TestCasesInitialViewModel.InitialViewFilters.IsSuiteTextSet);
+            //tbSuiteFilter.ClearDefaultContent(ref TestCasesInitialViewModel.InitialViewFilters.IsSuiteTextSet);
         }
 
         /// <summary>
@@ -424,7 +424,7 @@ namespace TestCaseManagerApp.Views
         /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void tbSuiteFilter_LostFocus(object sender, RoutedEventArgs e)
         {
-            tbSuiteFilter.RestoreDefaultText(this.TestCasesInitialViewModel.InitialViewFilters.DetaultSuite, ref this.TestCasesInitialViewModel.InitialViewFilters.IsSuiteTextSet);
+            //tbSuiteFilter.RestoreDefaultText(this.TestCasesInitialViewModel.InitialViewFilters.DetaultSuite, ref this.TestCasesInitialViewModel.InitialViewFilters.IsSuiteTextSet);
         }
 
         /// <summary>
@@ -558,7 +558,8 @@ namespace TestCaseManagerApp.Views
         {
             e.Handled = true;
             int selectedSuiteId = (int)tvSuites.SelectedValue;
-                
+            btnShowTestCaseWithoutSuite.Visibility = System.Windows.Visibility.Hidden;
+            btnShowTestCaseWithoutSuite1.Visibility = System.Windows.Visibility.Hidden;
             if (selectedSuiteId.Equals(-1) && this.TestCasesInitialViewModel.IsThereSubnodeSelected(this.TestCasesInitialViewModel.Suites))
             {
                 return;
@@ -585,6 +586,11 @@ namespace TestCaseManagerApp.Views
             });
             t.ContinueWith(antecedent =>
             {
+                if (selectedSuiteId == -1)
+                {
+                    btnShowTestCaseWithoutSuite.Visibility = System.Windows.Visibility.Visible;
+                    btnShowTestCaseWithoutSuite1.Visibility = System.Windows.Visibility.Visible;
+                }
                 this.TestCasesInitialViewModel.InitializeInitialTestCaseCollection(suiteTestCaseCollection);
                 this.TestCasesInitialViewModel.FilterTestCases();
                 this.HideTestCasesProgressbar();
@@ -845,15 +851,15 @@ namespace TestCaseManagerApp.Views
             string newTitle;
             Task t = Task.Factory.StartNew(() =>
             {
-                isCanceled = RegistryManager.GetIsCanceledTitlePromtDialog();
-                newTitle = RegistryManager.GetTitleTitlePromtDialog();
+                isCanceled = RegistryManager.GetIsCanceledPromtDialog();
+                newTitle = RegistryManager.GetContentPromtDialog();
                 while (string.IsNullOrEmpty(newTitle) && !isCanceled)
                 {
                 }
             });
             t.Wait();
-            isCanceled = RegistryManager.GetIsCanceledTitlePromtDialog();
-            newTitle = RegistryManager.GetTitleTitlePromtDialog();
+            isCanceled = RegistryManager.GetIsCanceledPromtDialog();
+            newTitle = RegistryManager.GetContentPromtDialog();
             if (!isCanceled)
             {
                 int selectedSuiteId = RegistryManager.GetSelectedSuiteId();
@@ -880,15 +886,15 @@ namespace TestCaseManagerApp.Views
             string newTitle;
             Task t = Task.Factory.StartNew(() =>
             {
-                isCanceled = RegistryManager.GetIsCanceledTitlePromtDialog();
-                newTitle = RegistryManager.GetTitleTitlePromtDialog();
+                isCanceled = RegistryManager.GetIsCanceledPromtDialog();
+                newTitle = RegistryManager.GetContentPromtDialog();
                 while (string.IsNullOrEmpty(newTitle) && !isCanceled)
                 {
                 }
             });
             t.Wait();
-            isCanceled = RegistryManager.GetIsCanceledTitlePromtDialog();
-            newTitle = RegistryManager.GetTitleTitlePromtDialog();
+            isCanceled = RegistryManager.GetIsCanceledPromtDialog();
+            newTitle = RegistryManager.GetContentPromtDialog();
             if (!isCanceled)
             {
                 int selectedSuiteId = RegistryManager.GetSelectedSuiteId();
@@ -1239,21 +1245,45 @@ namespace TestCaseManagerApp.Views
         /// </summary>
         private void SetNewExecutionOutcomeInternal(TestCaseExecutionType testCaseExecutionType)
         {
-            this.ShowTestCasesProgressbar();
-            List<TestCase> selectedTestCases = this.GetSelectedTestCasesInternal();
-            Task t = Task.Factory.StartNew(() =>
-            {               
-                foreach (var currentTestCase in selectedTestCases)
-                {
-                    currentTestCase.SetNewExecutionOutcome(testCaseExecutionType);
-                    currentTestCase.LastExecutionOutcome = testCaseExecutionType;
-                }
-            });
-            t.ContinueWith(antecedent =>
+            bool shouldCommentWindowShow = RegistryManager.ReadShouldCommentWindowShow();
+            string comment = String.Empty;
+            bool isCanceled = false;
+            if (shouldCommentWindowShow && testCaseExecutionType != TestCaseExecutionType.Active)
             {
-                this.HideTestCasesProgressbar();
-                this.TestCasesInitialViewModel.FilterTestCases();
-            }, TaskScheduler.FromCurrentSynchronizationContext());        
+                RegistryManager.WriteTitleTitlePromtDialog(string.Empty);
+                var dialog = new PrompDialogRichTextBoxWindow();
+                dialog.ShowDialog();
+                Task t = Task.Factory.StartNew(() =>
+                {
+                    isCanceled = RegistryManager.GetIsCanceledPromtDialog();
+                    comment = RegistryManager.GetContentPromtDialog();
+                    while (string.IsNullOrEmpty(comment) && !isCanceled)
+                    {
+                    }
+                });
+                t.Wait();
+                isCanceled = RegistryManager.GetIsCanceledPromtDialog();
+                comment = RegistryManager.GetContentPromtDialog();
+            }
+
+            if (!isCanceled || !shouldCommentWindowShow)
+            {
+                this.ShowTestCasesProgressbar();
+                List<TestCase> selectedTestCases = this.GetSelectedTestCasesInternal();
+                Task t1 = Task.Factory.StartNew(() =>
+                {
+                    foreach (var currentTestCase in selectedTestCases)
+                    {
+                        currentTestCase.SetNewExecutionOutcome(testCaseExecutionType, comment);
+                        currentTestCase.LastExecutionOutcome = testCaseExecutionType;
+                    }
+                });
+                t1.ContinueWith(antecedent =>
+                {
+                    this.HideTestCasesProgressbar();
+                    this.TestCasesInitialViewModel.FilterTestCases();
+                }, TaskScheduler.FromCurrentSynchronizationContext());
+            }
         }
 
         /// <summary>
@@ -1303,6 +1333,16 @@ namespace TestCaseManagerApp.Views
                 this.RenameSuiteInternal();
                 e.Handled = true;
             }
+        }
+
+        /// <summary>
+        /// Handles the Click event of the btnShowTestCaseWithoutSuite control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
+        private void btnShowTestCaseWithoutSuite_Click(object sender, RoutedEventArgs e)
+        {
+            this.TestCasesInitialViewModel.FilterTestCasesWithoutSuite();
         }
     }
 }

@@ -41,7 +41,7 @@
                     <TextBlock Text="ID" Margin="10,0,10,0" Height="25" FontWeight="Bold" HorizontalAlignment="Left" Grid.Row="0" Grid.Column="0"/>
                     <TextBox Text="{Binding TestCase.ITestCase.Id, Mode=OneWay}" Margin="10,0,10,0" Height="25" HorizontalAlignment="Stretch" Grid.Row="1" Grid.Column="0" IsReadOnly="True"/>
                     <TextBlock Text="Title" Margin="10,0,10,0" Height="25" FontWeight="Bold" HorizontalAlignment="Left" Grid.Row="0" Grid.Column="1"/>
-                    <TextBox Text="{Binding TestCase.Title, Mode=OneWay}"  Margin="10,0,10,0" Height="25" HorizontalAlignment="Stretch" Grid.Row="1" Grid.Column="1" IsReadOnly="True"/>
+                    <TextBox Text="{Binding TestCase.Title, Mode=OneWay}" ToolTip="{Binding TestCase.Title, Mode=OneWay}" Margin="10,0,10,0" Height="25" HorizontalAlignment="Stretch" Grid.Row="1" Grid.Column="1" IsReadOnly="True"/>
                     <TextBlock Text="Suite" Margin="10,0,10,0" Height="25" FontWeight="Bold" HorizontalAlignment="Left" Grid.Row="0" Grid.Column="2"/>
                     <TextBox Text="{Binding TestCase.ITestSuiteBase.Title, Mode=OneWay}" Margin="10,0,10,0" Height="25" HorizontalAlignment="Stretch" Grid.Row="1" Grid.Column="2" IsReadOnly="True"/>
                     <TextBlock Text="Area" Margin="10,0,10,0" Height="25" FontWeight="Bold" HorizontalAlignment="Left" Grid.Row="0" Grid.Column="3"/>
@@ -115,7 +115,12 @@
             </DataGrid>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Grid.Row="2">
                 <Button Name="btnEdit" Margin="0,0,0,30" Height="30" Width="90" Content="_Edit" VerticalAlignment="Center" Click="EditButton_Click"/>
-                <Button Name="btnDuplicate" Margin="40,0,10,30" Height="30" Width="90" Content="_Duplicate" VerticalAlignment="Center" Click="DuplicateButton_Click"/>
+                <Button Name="btnDuplicate" Margin="40,0,10,30" Height="30" Width="90" Content="_Duplicate" VerticalAlignment="Center" Click="DuplicateButton_Click"/>              
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Row="2">
+                <Button Name="btnPass" Margin="40,0,10,30" Height="30" Width="90" Content="Pass test" VerticalAlignment="Center" Click="btnPass_Click"/>
+                <Button Name="btnFail" Margin="40,0,10,30" Height="30" Width="90" Content="Fail test" VerticalAlignment="Center" Click="btnFail_Click"/>
+                <Button Name="btnBlock" Margin="40,0,10,30" Height="30" Width="90" Content="Block test" VerticalAlignment="Center" Click="btnBlock_Click"/>
             </StackPanel>
         </Grid>
     </Grid>       

@@ -27,9 +27,14 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
         private static string mainRegistrySubKeyName = "TestCaseManager";
 
         /// <summary>
-        /// The data registry sub key name
+        /// The settings registry sub key name
         /// </summary>
-        private static string dataRegistrySubKeyName = "data";
+        private static string settingsRegistrySubKeyName = "settings";
+
+        /// <summary>
+        /// The should show comment window registry sub key name
+        /// </summary>
+        private static string shouldShowCommentWindowRegistrySubKeyName = "shouldShowCommentWindow";
 
         /// <summary>
         /// The appereance registry sub key name- main theme/color sub key
@@ -123,11 +128,49 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
         public static void WriteCurrentTheme(string theme)
         {
             RegistryKey ata = Registry.CurrentUser.CreateSubKey(mainRegistrySubKeyName);
-            RegistryKey dataR = ata.CreateSubKey(dataRegistrySubKeyName);
+            RegistryKey dataR = ata.CreateSubKey(settingsRegistrySubKeyName);
             RegistryKey appereanceR = dataR.CreateSubKey(appereanceRegistrySubKeyName);
             appereanceR.SetValue(themeRegistrySubKeyName, theme);
             appereanceR.Close();
             dataR.Close();
+            ata.Close();
+        }
+
+        /// <summary>
+        /// Writes the should comment window show.
+        /// </summary>
+        /// <param name="shouldCommentWindowShow">if set to <c>true</c> [should comment window show].</param>
+        public static void WriteShouldCommentWindowShow(bool shouldCommentWindowShow)
+        {
+            Write(shouldShowCommentWindowRegistrySubKeyName, shouldCommentWindowShow.ToString());
+        }
+
+        /// <summary>
+        /// Reads the should comment window show.
+        /// </summary>
+        /// <returns>should Comment Window Show</returns>
+        public static bool ReadShouldCommentWindowShow()
+        {
+            string resultStr = Read(shouldShowCommentWindowRegistrySubKeyName);
+            bool result = false;            
+            if(!String.IsNullOrEmpty(resultStr))
+            {
+                result = bool.Parse(resultStr);
+            }
+            return result;
+        }
+
+        /// <summary>
+        /// Writes the specified sub key name.
+        /// </summary>
+        /// <param name="subKeyName">Name of the sub key.</param>
+        /// <param name="value">The value.</param>
+        public static void Write(string subKeyName, string value)
+        {
+            RegistryKey ata = Registry.CurrentUser.CreateSubKey(mainRegistrySubKeyName);
+            RegistryKey settingsR = ata.CreateSubKey(settingsRegistrySubKeyName);
+            settingsR.SetValue(subKeyName, value);
+            settingsR.Close();
             ata.Close();
         }
 
@@ -138,7 +181,7 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
         public static void WriteDropDownBehavior(bool shouldOpenDropDownOnHover)
         {
             RegistryKey ata = Registry.CurrentUser.CreateSubKey(mainRegistrySubKeyName);
-            RegistryKey dataR = ata.CreateSubKey(dataRegistrySubKeyName);
+            RegistryKey dataR = ata.CreateSubKey(settingsRegistrySubKeyName);
             RegistryKey appereanceR = dataR.CreateSubKey(appereanceRegistrySubKeyName);
             appereanceR.SetValue(shouldOpenDropDownOnHoverRegistrySubKeyName, shouldOpenDropDownOnHover);
             appereanceR.Close();
@@ -153,7 +196,7 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
         public static void WriteSuiteFilter(string suiteFilter)
         {
             RegistryKey ata = Registry.CurrentUser.CreateSubKey(mainRegistrySubKeyName);
-            RegistryKey dataR = ata.CreateSubKey(dataRegistrySubKeyName);
+            RegistryKey dataR = ata.CreateSubKey(settingsRegistrySubKeyName);
             RegistryKey filtersR = dataR.CreateSubKey(filtersRegistrySubKeyName);
             RegistryKey initialFiltersR = filtersR.CreateSubKey(initialFiltersRegistrySubKeyName);
             initialFiltersR.SetValue(suiteFilterRegistrySubKeyName, suiteFilter);
@@ -170,7 +213,7 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
         public static void WriteSelectedSuiteId(int suiteId)
         {
             RegistryKey ata = Registry.CurrentUser.CreateSubKey(mainRegistrySubKeyName);
-            RegistryKey dataR = ata.CreateSubKey(dataRegistrySubKeyName);
+            RegistryKey dataR = ata.CreateSubKey(settingsRegistrySubKeyName);
             RegistryKey filtersR = dataR.CreateSubKey(filtersRegistrySubKeyName);
             RegistryKey initialFiltersR = filtersR.CreateSubKey(initialFiltersRegistrySubKeyName);
             initialFiltersR.SetValue(selectedSuiteIdFilterRegistrySubKeyName, suiteId.ToString());
@@ -187,7 +230,7 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
         public static void WriteCurrentTeamProjectUri(string teamProjectUri)
         {
             RegistryKey ata = Registry.CurrentUser.CreateSubKey(mainRegistrySubKeyName);
-            RegistryKey dataR = ata.CreateSubKey(dataRegistrySubKeyName);
+            RegistryKey dataR = ata.CreateSubKey(settingsRegistrySubKeyName);
             RegistryKey tfsSettingsR = dataR.CreateSubKey(tfsSettingsRegistrySubKeyName);
             tfsSettingsR.SetValue(teamProjectUriRegistrySubKeyName, teamProjectUri);
             tfsSettingsR.Close();
@@ -202,7 +245,7 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
         public static void WriteCurrentTeamProjectName(string teamProjectName)
         {
             RegistryKey ata = Registry.CurrentUser.CreateSubKey(mainRegistrySubKeyName);
-            RegistryKey dataR = ata.CreateSubKey(dataRegistrySubKeyName);
+            RegistryKey dataR = ata.CreateSubKey(settingsRegistrySubKeyName);
             RegistryKey tfsSettingsR = dataR.CreateSubKey(tfsSettingsRegistrySubKeyName);
             tfsSettingsR.SetValue(teamProjectNameRegistrySubKeyName, teamProjectName);
             tfsSettingsR.Close();
@@ -217,7 +260,7 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
         public static void WriteCurrentTestPlan(string testPlan)
         {
             RegistryKey ata = Registry.CurrentUser.CreateSubKey(mainRegistrySubKeyName);
-            RegistryKey dataR = ata.CreateSubKey(dataRegistrySubKeyName);
+            RegistryKey dataR = ata.CreateSubKey(settingsRegistrySubKeyName);
             RegistryKey tfsSettingsR = dataR.CreateSubKey(tfsSettingsRegistrySubKeyName);
             tfsSettingsR.SetValue(testPlanRegistrySubKeyName, testPlan);
             tfsSettingsR.Close();
@@ -232,7 +275,7 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
         public static void WriteCurrentProjectDllPath(string projectDllPath)
         {
             RegistryKey ata = Registry.CurrentUser.CreateSubKey(mainRegistrySubKeyName);
-            RegistryKey dataR = ata.CreateSubKey(dataRegistrySubKeyName);
+            RegistryKey dataR = ata.CreateSubKey(settingsRegistrySubKeyName);
             RegistryKey associatedAutomation = dataR.CreateSubKey(automationAssociationRegistrySubKeyName);
             associatedAutomation.SetValue(projectDllPathRegistrySubKeyName, projectDllPath);
             associatedAutomation.Close();
@@ -247,7 +290,7 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
         public static void WriteIsCanceledTitlePromtDialog(bool isCanceled)
         {
             RegistryKey ata = Registry.CurrentUser.CreateSubKey(mainRegistrySubKeyName);
-            RegistryKey dataR = ata.CreateSubKey(dataRegistrySubKeyName);
+            RegistryKey dataR = ata.CreateSubKey(settingsRegistrySubKeyName);
             RegistryKey titlePromtDialog = dataR.CreateSubKey(titlePromptDialogRegistrySubKeyName);
             titlePromtDialog.SetValue(isCanceledtitlePromptDialogRegistrySubKeyName, isCanceled.ToString());
             titlePromtDialog.Close();
@@ -262,7 +305,7 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
         public static void WriteTitleTitlePromtDialog(string title)
         {
             RegistryKey ata = Registry.CurrentUser.CreateSubKey(mainRegistrySubKeyName);
-            RegistryKey dataR = ata.CreateSubKey(dataRegistrySubKeyName);
+            RegistryKey dataR = ata.CreateSubKey(settingsRegistrySubKeyName);
             RegistryKey titlePromtDialog = dataR.CreateSubKey(titlePromptDialogRegistrySubKeyName);
             titlePromtDialog.SetValue(titleTitlePromptDialogIsCanceledRegistrySubKeyName, title);
             titlePromtDialog.Close();
@@ -279,7 +322,7 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
         public static void WriteCurrentColors(byte red, byte green, byte blue)
         {
             RegistryKey ata = Registry.CurrentUser.CreateSubKey(mainRegistrySubKeyName);
-            RegistryKey dataR = ata.CreateSubKey(dataRegistrySubKeyName);
+            RegistryKey dataR = ata.CreateSubKey(settingsRegistrySubKeyName);
             RegistryKey appereanceR = dataR.CreateSubKey(appereanceRegistrySubKeyName);
             appereanceR.SetValue(colorRegistrySubKeyName, string.Format("{0}&{1}&{2}", red, green, blue));
             appereanceR.Close();
@@ -297,7 +340,7 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
             try
             {
                 RegistryKey ata = Registry.CurrentUser.OpenSubKey(mainRegistrySubKeyName);
-                RegistryKey dataR = ata.OpenSubKey(dataRegistrySubKeyName);
+                RegistryKey dataR = ata.OpenSubKey(settingsRegistrySubKeyName);
                 RegistryKey tfsSettings = dataR.OpenSubKey(tfsSettingsRegistrySubKeyName);
 
                 if (tfsSettings != null && dataR != null && ata != null)
@@ -325,7 +368,7 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
             try
             {
                 RegistryKey ata = Registry.CurrentUser.OpenSubKey(mainRegistrySubKeyName);
-                RegistryKey dataR = ata.OpenSubKey(dataRegistrySubKeyName);
+                RegistryKey dataR = ata.OpenSubKey(settingsRegistrySubKeyName);
                 RegistryKey tfsSettings = dataR.OpenSubKey(tfsSettingsRegistrySubKeyName);
 
                 if (tfsSettings != null && dataR != null && ata != null)
@@ -354,7 +397,7 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
             try
             {
                 RegistryKey ata = Registry.CurrentUser.OpenSubKey(mainRegistrySubKeyName);
-                RegistryKey dataR = ata.OpenSubKey(dataRegistrySubKeyName);
+                RegistryKey dataR = ata.OpenSubKey(settingsRegistrySubKeyName);
                 RegistryKey associatedAutomation = dataR.OpenSubKey(automationAssociationRegistrySubKeyName);
 
                 if (associatedAutomation != null && dataR != null && ata != null)
@@ -383,7 +426,7 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
             try
             {
                 RegistryKey ata = Registry.CurrentUser.OpenSubKey(mainRegistrySubKeyName);
-                RegistryKey dataR = ata.OpenSubKey(dataRegistrySubKeyName);
+                RegistryKey dataR = ata.OpenSubKey(settingsRegistrySubKeyName);
                 RegistryKey tfsSettings = dataR.OpenSubKey(tfsSettingsRegistrySubKeyName);
 
                 if (tfsSettings != null && dataR != null && ata != null)
@@ -403,16 +446,44 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
         }
 
         /// <summary>
+        /// Reads the specified sub key.
+        /// </summary>
+        /// <param name="subKey">The sub key.</param>
+        /// <returns></returns>
+        public static string Read(string subKey)
+        {
+            string result = string.Empty;
+            try
+            {
+                RegistryKey ata = Registry.CurrentUser.OpenSubKey(mainRegistrySubKeyName);
+                RegistryKey settingsR = ata.OpenSubKey(settingsRegistrySubKeyName);
+
+                if (settingsR != null && ata != null)
+                {
+                    result = (string)settingsR.GetValue(subKey);
+                    settingsR.Close();
+                    ata.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex);
+            }
+
+            return result;
+        }
+
+        /// <summary>
         /// Gets the title in title promt dialog.
         /// </summary>
         /// <returns>the title</returns>
-        public static string GetTitleTitlePromtDialog()
+        public static string GetContentPromtDialog()
         {
             string title = string.Empty;
             try
             {
                 RegistryKey ata = Registry.CurrentUser.OpenSubKey(mainRegistrySubKeyName);
-                RegistryKey dataR = ata.OpenSubKey(dataRegistrySubKeyName);
+                RegistryKey dataR = ata.OpenSubKey(settingsRegistrySubKeyName);
                 RegistryKey titlePromtDialog = dataR.OpenSubKey(titlePromptDialogRegistrySubKeyName);
 
                 if (titlePromtDialog != null && dataR != null && ata != null)
@@ -435,13 +506,13 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
         /// Gets if the title promt dialog is canceled.
         /// </summary>
         /// <returns> if the title promt dialog was canceled</returns>
-        public static bool GetIsCanceledTitlePromtDialog()
+        public static bool GetIsCanceledPromtDialog()
         {
             bool isCanceled = true;
             try
             {
                 RegistryKey ata = Registry.CurrentUser.OpenSubKey(mainRegistrySubKeyName);
-                RegistryKey dataR = ata.OpenSubKey(dataRegistrySubKeyName);
+                RegistryKey dataR = ata.OpenSubKey(settingsRegistrySubKeyName);
                 RegistryKey titlePromtDialog = dataR.OpenSubKey(titlePromptDialogRegistrySubKeyName);
 
                 if (titlePromtDialog != null && dataR != null && ata != null)
@@ -471,7 +542,7 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
             try
             {
                 RegistryKey ata = Registry.CurrentUser.OpenSubKey(mainRegistrySubKeyName);
-                RegistryKey dataR = ata.OpenSubKey(dataRegistrySubKeyName);
+                RegistryKey dataR = ata.OpenSubKey(settingsRegistrySubKeyName);
                 RegistryKey appereanceR = dataR.OpenSubKey(appereanceRegistrySubKeyName);
                 string colors = string.Empty;
 
@@ -505,7 +576,7 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
             try
             {
                 RegistryKey ata = Registry.CurrentUser.OpenSubKey(mainRegistrySubKeyName);
-                RegistryKey dataR = ata.OpenSubKey(dataRegistrySubKeyName);
+                RegistryKey dataR = ata.OpenSubKey(settingsRegistrySubKeyName);
                 RegistryKey appereanceR = dataR.OpenSubKey(appereanceRegistrySubKeyName);
 
                 if (appereanceR != null && dataR != null && ata != null)
@@ -534,7 +605,7 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
             try
             {
                 RegistryKey ata = Registry.CurrentUser.OpenSubKey(mainRegistrySubKeyName);
-                RegistryKey dataR = ata.OpenSubKey(dataRegistrySubKeyName);
+                RegistryKey dataR = ata.OpenSubKey(settingsRegistrySubKeyName);
                 RegistryKey appereanceR = dataR.OpenSubKey(appereanceRegistrySubKeyName);
 
                 if (appereanceR != null && dataR != null && ata != null)
@@ -563,7 +634,7 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
             try
             {
                 RegistryKey ata = Registry.CurrentUser.OpenSubKey(mainRegistrySubKeyName);
-                RegistryKey dataR = ata.OpenSubKey(dataRegistrySubKeyName);
+                RegistryKey dataR = ata.OpenSubKey(settingsRegistrySubKeyName);
                 RegistryKey filtersR = dataR.OpenSubKey(filtersRegistrySubKeyName);
                 RegistryKey initialFiltersR = filtersR.OpenSubKey(initialFiltersRegistrySubKeyName);
 
@@ -594,7 +665,7 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
             try
             {
                 RegistryKey ata = Registry.CurrentUser.OpenSubKey(mainRegistrySubKeyName);
-                RegistryKey dataR = ata.OpenSubKey(dataRegistrySubKeyName);
+                RegistryKey dataR = ata.OpenSubKey(settingsRegistrySubKeyName);
                 RegistryKey filtersR = dataR.OpenSubKey(filtersRegistrySubKeyName);
                 RegistryKey initialFiltersR = filtersR.OpenSubKey(initialFiltersRegistrySubKeyName);
 
