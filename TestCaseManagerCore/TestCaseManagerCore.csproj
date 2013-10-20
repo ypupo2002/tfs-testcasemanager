@@ -128,6 +128,7 @@
     <Compile Include="BusinessLogic\Entities\BaseNotifyPropertyChanged.cs" />
     <Compile Include="BusinessLogic\Entities\ClipBoardTestCase.cs" />
     <Compile Include="BusinessLogic\Entities\ClipBoardTestStep.cs" />
+    <Compile Include="BusinessLogic\Entities\TestPlan.cs" />
     <Compile Include="BusinessLogic\Entities\EditViewContext.cs" />
     <Compile Include="BusinessLogic\Entities\InitialViewFilters.cs" />
     <Compile Include="BusinessLogic\Entities\ListStackExtensions.cs" />
@@ -170,6 +171,7 @@
       <DependentUpon>HtmlTestCaseExportTemplate.tt</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\AssociateTestViewModel.cs" />
+    <Compile Include="ViewModels\TestPlansEditViewModel.cs" />
     <Compile Include="ViewModels\TestCaseExecutionArrangmentViewModel.cs" />
     <Compile Include="ViewModels\ProjectSelectionViewModel.cs" />
     <Compile Include="ViewModels\PromptDialogViewModel.cs" />

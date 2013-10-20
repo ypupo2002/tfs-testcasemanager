@@ -52,21 +52,11 @@
             </Grid.ColumnDefinitions>
             <StackPanel Orientation="Horizontal" Grid.ColumnSpan="2">
                 <TextBlock Text="Search Test Cases" Margin="0,0,10,15" Height="Auto" Width="Auto" FontWeight="Bold" FontSize="26" HorizontalAlignment="Left" Grid.Row="0"/>
-                
-                <!--TODO: fix the logic of the refresh-->
-                <Button Name="btnRefresh" Margin="10,0,10,30" Height="30" Width="90" VerticalAlignment="Center" Click="btnRefresh_Click" Visibility="Hidden">
-                    <Button.Content>
-                        <TextBlock>
-                                  <Underline>R</Underline>efresh
-                        </TextBlock>
-                    </Button.Content>
-                </Button>
             </StackPanel>
 
             <StackPanel Orientation="Vertical" Grid.Row="1" Grid.Column="2">
                 <StackPanel Orientation="Vertical" Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="3" Margin="10,0,0,15">
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,0,0,10">
-
                         <RadioButton Content="All" Margin="20,0,10,0" FontWeight="Bold" FontSize="12" GroupName="Options1" IsChecked="{Binding Path=CurrentExecutionStatusOption, Mode=TwoWay, Converter={StaticResource enumBooleanConverter}, ConverterParameter=All}" Checked="RadioButton_Checked" />
                         <RadioButton Content="Active" Margin="15,0,10,0" FontWeight="Bold" FontSize="12" GroupName="Options2" IsChecked="{Binding Path=CurrentExecutionStatusOption, Mode=TwoWay, Converter={StaticResource enumBooleanConverter}, ConverterParameter=Active}" Checked="RadioButton_Checked" />
                         <RadioButton Content="Passed" Margin="15,0,10,0" FontWeight="Bold" FontSize="12" GroupName="Options3" IsChecked="{Binding Path=CurrentExecutionStatusOption, Mode=TwoWay, Converter={StaticResource enumBooleanConverter}, ConverterParameter=Passed}" Checked="RadioButton_Checked" />
@@ -81,9 +71,7 @@
                         <Button Name="btnRemoveTestCase1" Content="_Remove" Margin="15,0,10,0" Height="30" Width="90" VerticalAlignment="Center" Click="btnRemoveTestCase_Click"/>
                         <Button Name="btnExport" Content="_Export" Margin="15,0,10,0" Height="30" Width="90" VerticalAlignment="Center" Click="btnExport_Click"/>
                         <Button Name="btnArrange" Content="Arrange" Margin="15,0,10,0" Height="30" Width="Auto" VerticalAlignment="Center" Click="btnArrange_Click"/>
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                        <Button Name="btnShowTestCaseWithoutSuite" Content="Show Test Cases Without Suite" Margin="15,0,10,10" Height="30" Width="Auto" VerticalAlignment="Center" Click="btnShowTestCaseWithoutSuite_Click"/>
+                        <Button Name="btnShowTestCaseWithoutSuite" Content="Show Test Cases Without Suite" Margin="15,0,10,0" Height="30" Width="Auto" VerticalAlignment="Center" Click="btnShowTestCaseWithoutSuite_Click"/>
                     </StackPanel>
                 </StackPanel>
                 <Grid>
@@ -258,8 +246,6 @@
                     <Button Name="btnRemoveTestCase" Content="_Remove" Margin="15,0,10,0" Height="30" Width="90" VerticalAlignment="Center" Click="btnRemoveTestCase_Click"/>
                     <Button Name="btnExport1" Content="_Export" Margin="15,0,10,0" Height="30" Width="90" VerticalAlignment="Center" Click="btnExport_Click"/>
                     <Button Name="btnArrange1" Content="Arrange" Margin="15,0,10,0" Height="30" Width="Auto" VerticalAlignment="Center" Click="btnArrange_Click"/>
-                </StackPanel>
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="10,10,0,0">
                     <Button Name="btnShowTestCaseWithoutSuite1" Content="Show Test Cases Without Suite" Margin="15,0,10,0" Height="30" Width="Auto" VerticalAlignment="Center" Click="btnShowTestCaseWithoutSuite_Click"/>
                 </StackPanel>
             </StackPanel>

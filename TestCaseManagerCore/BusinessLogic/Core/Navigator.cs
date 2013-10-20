@@ -201,6 +201,28 @@ namespace TestCaseManagerCore
         }
 
         /// <summary>
+        /// Navigates the automatic project selection.
+        /// </summary>
+        /// <param name="source">The source.</param>
+        public static void NavigateToProjectSelection(this FrameworkElement source)
+        {
+            string url = "/Views/ProjectSelectionView.xaml#skipAutoLoad=true";
+
+            source.Navigate(url);
+        }
+
+        /// <summary>
+        /// Navigates the automatic test plans edit view.
+        /// </summary>
+        /// <param name="source">The source.</param>
+        public static void NavigateToTestPlansEdit(this FrameworkElement source)
+        {
+            string url = "/Views/TestPlansEditView.xaml";
+
+            source.Navigate(url);
+        }
+
+        /// <summary>
         /// Navigates the automatic test cases execution arrangement.
         /// </summary>
         /// <param name="source">The source.</param>

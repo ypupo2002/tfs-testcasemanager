@@ -30,7 +30,10 @@
             </StackPanel>
             <StackPanel Orientation="Vertical" Grid.Column="2"  Grid.Row="1">
                 <Button Content="Browse" Margin="10" Width="100" Height="24" Click="BrowseButton_Click" />
-                <Button Content="Display" Name="btnDisplay" Margin="10,100,10,10" Width="100" Height="50" Click="DisplayButton_Click" IsDefault="True"/>
+                <StackPanel Orientation="Horizontal">
+                    <Button Content="Edit Test Plans" Name="btnEditTestPlans" Margin="10,100,10,10" Width="Auto" Height="50" Click="btnEditTestPlans_Click"/>
+                    <Button Content="Display" Name="btnDisplay" Margin="10,100,10,10" Width="100" Height="50" Click="DisplayButton_Click" IsDefault="True"/>
+                </StackPanel>
             </StackPanel>
         </Grid>
     </Grid>

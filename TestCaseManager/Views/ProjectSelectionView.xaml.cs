@@ -251,5 +251,15 @@ namespace TestCaseManagerApp.Views
         {
              ComboBoxDropdownExtensions.cboMouseMove(sender, e);
         }
+
+        /// <summary>
+        /// Handles the Click event of the btnEditTestPlans control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
+        private void btnEditTestPlans_Click(object sender, RoutedEventArgs e)
+        {
+            this.NavigateToTestPlansEdit();
+        }
     }
 }

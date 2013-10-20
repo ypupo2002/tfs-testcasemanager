@@ -156,6 +156,9 @@
     <Compile Include="Views\AboutView.xaml.cs">
       <DependentUpon>AboutView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\TestPlansEditView.xaml.cs">
+      <DependentUpon>TestPlansEditView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\TestCaseExecutionArrangmentView.xaml.cs">
       <DependentUpon>TestCaseExecutionArrangmentView.xaml</DependentUpon>
     </Compile>
@@ -223,6 +226,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Views\AboutView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\TestPlansEditView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
