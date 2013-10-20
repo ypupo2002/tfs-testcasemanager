@@ -87,6 +87,23 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
         }
 
         /// <summary>
+        /// Determines whether [is static suite] [the specified suite unique identifier].
+        /// </summary>
+        /// <param name="suiteId">The suite unique identifier.</param>
+        /// <returns>is static suite</returns>
+        public static bool IsStaticSuite(int suiteId)
+        {
+            ITestSuiteBase currentSuite = ExecutionContext.TestManagementTeamProject.TestSuites.Find(suiteId);
+            bool isStaticSuite = false;
+            if (currentSuite is IStaticTestSuite)
+            {
+                isStaticSuite = true;
+            }
+
+            return isStaticSuite;
+        }
+
+        /// <summary>
         /// Adds the child suite.
         /// </summary>
         /// <param name="parentSuiteId">The parent suite unique identifier.</param>
@@ -123,7 +140,6 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
                 ExecutionContext.Preferences.TestPlan.RootSuite.Entries.Add(staticSuite);
                 log.InfoFormat("Add child suite with title= {0} to test plan", title);
             }
-
             return staticSuite.Id;
         }
 

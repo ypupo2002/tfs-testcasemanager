@@ -172,26 +172,26 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="TestCaseManager.exe" size="1015296">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="TestCaseManager.exe" size="1024000">
       <assemblyIdentity name="TestCaseManager" version="1.0.8.0" language="neutral" processorArchitecture="x86" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>MV0NDf7ni0s+98UNS7VFVm6CM/JUgMMU4RDTkKHieh8=</dsig:DigestValue>
+        <dsig:DigestValue>+LMYZvWZ76cCOs1uYZVHdKrMoHf+RDbQAk6jmjb1304=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="TestCaseManagerCore.dll" size="160256">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="TestCaseManagerCore.dll" size="163328">
       <assemblyIdentity name="TestCaseManagerCore" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>fukUPB0UFGPetSfByYnbLKLMaQfsbjYb5wkR6FvI4XM=</dsig:DigestValue>
+        <dsig:DigestValue>bYLgVRKXP5RulL6V+1OJN1tGMsfgPbLrbvng8CO7PIk=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

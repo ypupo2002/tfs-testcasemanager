@@ -170,6 +170,7 @@
       <DependentUpon>HtmlTestCaseExportTemplate.tt</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\AssociateTestViewModel.cs" />
+    <Compile Include="ViewModels\TestCaseExecutionArrangmentViewModel.cs" />
     <Compile Include="ViewModels\ProjectSelectionViewModel.cs" />
     <Compile Include="ViewModels\PromptDialogViewModel.cs" />
     <Compile Include="ViewModels\SettingsViewModel.cs" />

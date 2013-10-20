@@ -560,6 +560,13 @@ namespace TestCaseManagerApp.Views
             int selectedSuiteId = (int)tvSuites.SelectedValue;
             btnShowTestCaseWithoutSuite.Visibility = System.Windows.Visibility.Hidden;
             btnShowTestCaseWithoutSuite1.Visibility = System.Windows.Visibility.Hidden;
+            btnArrange.Visibility = System.Windows.Visibility.Visible;
+            btnArrange1.Visibility = System.Windows.Visibility.Visible;
+            if (selectedSuiteId == -1 || !TestSuiteManager.IsStaticSuite(selectedSuiteId))
+            {
+                btnArrange.Visibility = System.Windows.Visibility.Hidden;
+                btnArrange1.Visibility = System.Windows.Visibility.Hidden;
+            }
             if (selectedSuiteId.Equals(-1) && this.TestCasesInitialViewModel.IsThereSubnodeSelected(this.TestCasesInitialViewModel.Suites))
             {
                 return;
@@ -1343,6 +1350,20 @@ namespace TestCaseManagerApp.Views
         private void btnShowTestCaseWithoutSuite_Click(object sender, RoutedEventArgs e)
         {
             this.TestCasesInitialViewModel.FilterTestCasesWithoutSuite();
+        }
+
+        /// <summary>
+        /// Handles the Click event of the btnArrange control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
+        private void btnArrange_Click(object sender, RoutedEventArgs e)
+        {
+            int selectedSuiteId = (int)tvSuites.SelectedValue;
+            if (selectedSuiteId != -1)
+            {
+                this.NavigateToTestCasesExecutionArrangement(selectedSuiteId);
+            }
         }
     }
 }

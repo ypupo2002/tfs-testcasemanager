@@ -199,5 +199,16 @@ namespace TestCaseManagerCore
 
             source.Navigate(url);
         }
+
+        /// <summary>
+        /// Navigates the automatic test cases execution arrangement.
+        /// </summary>
+        /// <param name="source">The source.</param>
+        /// <param name="suiteId">The suite unique identifier.</param>
+        public static void NavigateToTestCasesExecutionArrangement(this FrameworkElement source, int suiteId)
+        {
+            string url = string.Format("/Views/TestCaseExecutionArrangmentView.xaml#suiteId={0}", suiteId);
+            source.Navigate(url);
+        }
     }
 }

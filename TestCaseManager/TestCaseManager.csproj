@@ -156,6 +156,9 @@
     <Compile Include="Views\AboutView.xaml.cs">
       <DependentUpon>AboutView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\TestCaseExecutionArrangmentView.xaml.cs">
+      <DependentUpon>TestCaseExecutionArrangmentView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\PrompDialogRichTextBoxWindow.xaml.cs">
       <DependentUpon>PrompDialogRichTextBoxWindow.xaml</DependentUpon>
     </Compile>
@@ -220,6 +223,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Views\AboutView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\TestCaseExecutionArrangmentView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

@@ -9,7 +9,12 @@
         <ScrollViewer>
             <StackPanel >
                 <TextBlock Text="Release Notes" FontSize="26" Height="Auto" Margin="0,0,0,15"/>
-
+                <mui:BBCodeBlock BBCode="[b]Version[/b]: 1.0.8.1     [b]Date[/b]: 20.10.2013" Margin="0,0,10,15"/>
+                <mui:BBCodeBlock BBCode="-add TestcaseArrangeView" Margin="0,0,0,15" />
+                <mui:BBCodeBlock BBCode="-add logic to change test cases order in static suite" Margin="0,0,0,15" />
+                <mui:BBCodeBlock BBCode="-add initial View test case arrange buttons" Margin="0,0,0,15" />
+                <mui:BBCodeBlock BBCode="-hide arrange buttons if All node is clicked or if the suite is not static" Margin="0,0,0,15" />
+                
                 <mui:BBCodeBlock BBCode="[b]Version[/b]: 1.0.8.0     [b]Date[/b]: 19.10.2013" Margin="0,0,10,15"/>
                 <mui:BBCodeBlock BBCode="-add shared step duplicate context menu option Test Case Edit Mode" Margin="0,0,0,15" />
                 <mui:BBCodeBlock BBCode="-add shard steps backgroud refresh on 30 secs Test Case Edit Mode" Margin="0,0,0,15" />
