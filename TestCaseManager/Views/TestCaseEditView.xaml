@@ -286,6 +286,7 @@
                 <Button Content="Cancel" Height="30" Width="90" Name="btnCancel" Margin="20,20,0,20" VerticalAlignment="Center" IsDefault="True" Click="btnCancel_Click" IsCancel="true"/>
                 <Button Content="_Duplicate" Height="30" Width="90" Name="btnDuplicate" Margin="20,20,0,20" VerticalAlignment="Center" IsDefault="True"
                             Click="btnDuplicate_Click" IsEnabled="{Binding ShowTestCaseSpecificFields}"/>
+                <mui:BBCodeBlock BBCode="[b][size=20]SAVED[/size][/b]"  Margin="20,20,0,20" HorizontalAlignment="Right" Visibility="Hidden" Name="lbSaved"/>
             </StackPanel>
 
         </Grid>      

@@ -21,6 +21,7 @@ using TestCaseManagerCore.Helpers;
 using TestCaseManagerCore.ViewModels;
 using TestCaseManagerCore;
 using System.Windows.Controls;
+using System.Threading;
 
 namespace TestCaseManagerApp.Views
 {
@@ -178,8 +179,8 @@ namespace TestCaseManagerApp.Views
             this.editViewContext = new EditViewContext();
             UndoRedoManager.Instance().Clear();   
             editViewContext.IsInitialized = false;
-            ComboBoxDropdownExtensions.SetOpenDropDownAutomatically(this.cbArea, ExecutionContext.SettingsViewModel.HoverBehaviorDropDown);
-            ComboBoxDropdownExtensions.SetOpenDropDownAutomatically(this.cbPriority, ExecutionContext.SettingsViewModel.HoverBehaviorDropDown);
+            ComboBoxDropdownExtensions.SetOpenDropDownAutomatically(this.cbArea, TestCaseManagerCore.ExecutionContext.SettingsViewModel.HoverBehaviorDropDown);
+            ComboBoxDropdownExtensions.SetOpenDropDownAutomatically(this.cbPriority, TestCaseManagerCore.ExecutionContext.SettingsViewModel.HoverBehaviorDropDown);
         }
 
         /// <summary>
@@ -225,7 +226,7 @@ namespace TestCaseManagerApp.Views
             });
             Task t2 = t.ContinueWith(antecedent =>
             {
-                ExecutionContext.TestCaseEditViewModel = this.TestCaseEditViewModel;
+                TestCaseManagerCore.ExecutionContext.TestCaseEditViewModel = this.TestCaseEditViewModel;
                 this.InitializeUiRelatedViewSettings();
                 UndoRedoManager.Instance().RedoStackStatusChanged += new UndoRedoManager.OnStackStatusChanged(RedoStackStatusChanged);
                 UndoRedoManager.Instance().UndoStackStatusChanged += new UndoRedoManager.OnStackStatusChanged(UndoStackStatusChanged);
@@ -841,7 +842,24 @@ namespace TestCaseManagerApp.Views
                 this.InitializeInternal();
             }
             log.InfoFormat("Reinitialize edit mode to edit shared step with id= {1}", this.editViewContext.SharedStepId);
-        }     
+        }
+
+        /// <summary>
+        /// Shows the saved label.
+        /// </summary>
+        private void ShowSavedLabel()
+        {
+            lbSaved.Visibility = System.Windows.Visibility.Visible;
+
+            Task t = Task.Factory.StartNew(() =>
+            {
+                Thread.Sleep(5000);
+            });
+            Task t2 = t.ContinueWith(antecedent =>
+            {
+                lbSaved.Visibility = System.Windows.Visibility.Hidden;
+            }, TaskScheduler.FromCurrentSynchronizationContext());
+        }
 
         /// <summary>
         /// Gets the selected test step.
@@ -961,10 +979,12 @@ namespace TestCaseManagerApp.Views
                 if (result != MessageBoxResult.Cancel && !isFromNavigation)
                 {
                     log.Info("Navigate to all Test Cases View.");
+                    UndoRedoManager.Instance().Clear();  
                     this.NavigateToTestCasesInitialView();
                 }
                 else
                 {
+                    UndoRedoManager.Instance().Clear();  
                     this.editViewContext.IsInitialized = true;
                 }
             }
@@ -974,10 +994,12 @@ namespace TestCaseManagerApp.Views
                 if (result != MessageBoxResult.Cancel && !isFromNavigation)
                 {
                     log.Info("Navigate to all Shared Steps View.");
+                    UndoRedoManager.Instance().Clear();  
                     this.NavigateToSharedStepsInitialView();
                 }
                 else
                 {
+                    UndoRedoManager.Instance().Clear();  
                     this.editViewContext.IsInitialized = true;
                 }
             }
@@ -991,10 +1013,12 @@ namespace TestCaseManagerApp.Views
                     this.editViewContext.IsSharedStep = false;
                     this.editViewContext.ComeFromTestCase = false;
                     this.editViewContext.IsInitialized = false;
+                    UndoRedoManager.Instance().Clear();  
                     this.InitializeInternal();
                 }
                 else
                 {
+                    UndoRedoManager.Instance().Clear();  
                     this.editViewContext.IsInitialized = true;                    
                 }              
             }
@@ -1010,6 +1034,7 @@ namespace TestCaseManagerApp.Views
         private void btnSaveTestCase_Click(object sender, RoutedEventArgs e)
         {
             this.TestCaseEditViewModel.SaveEntityInternal();
+            this.ShowSavedLabel();
             btnDuplicate.IsEnabled = true;
             log.Info("Save entity without close.");
         } 
@@ -1229,7 +1254,7 @@ namespace TestCaseManagerApp.Views
         /// <param name="e">The <see cref="System.Windows.Input.MouseEventArgs"/> instance containing the event data.</param>
         private void cbArea_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
         {
-            if (ExecutionContext.SettingsViewModel.HoverBehaviorDropDown)
+            if (TestCaseManagerCore.ExecutionContext.SettingsViewModel.HoverBehaviorDropDown)
             {
                 cbArea.IsDropDownOpen = true;
                 cbArea.Focus();
@@ -1243,7 +1268,7 @@ namespace TestCaseManagerApp.Views
         /// <param name="e">The <see cref="System.Windows.Input.MouseEventArgs"/> instance containing the event data.</param>
         private void cbPriority_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
         {
-            if (ExecutionContext.SettingsViewModel.HoverBehaviorDropDown)
+            if (TestCaseManagerCore.ExecutionContext.SettingsViewModel.HoverBehaviorDropDown)
             {
                 cbPriority.IsDropDownOpen = true;
                 cbPriority.Focus();

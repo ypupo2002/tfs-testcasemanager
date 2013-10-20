@@ -306,7 +306,7 @@ namespace TestCaseManagerCore.ViewModels
                 log.Info("Save shared step.");
                 currentBase = this.SaveSharedStepInternal();
             }
-            UndoRedoManager.Instance().Clear();
+            UndoRedoManager.Instance().Clear();            
 
             return currentBase;
         }
