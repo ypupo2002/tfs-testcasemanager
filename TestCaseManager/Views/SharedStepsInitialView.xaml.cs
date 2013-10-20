@@ -484,6 +484,8 @@ namespace TestCaseManagerApp.Views
             btnEdit.IsEnabled = true;
             btnDuplicate1.IsEnabled = true;
             btnEdit1.IsEnabled = true;
+            btnFindReferences.IsEnabled = true;
+            btnFindReferences1.IsEnabled = true;
             dgSharedStepsContextItemEdit.IsEnabled = true;
             dgSharedStepsContextItemPreview.IsEnabled = true;
             dgSharedStepsContextItemDuplicate.IsEnabled = true;
@@ -496,6 +498,8 @@ namespace TestCaseManagerApp.Views
                 dgSharedStepsContextItemEdit.IsEnabled = false;
                 dgSharedStepsContextItemPreview.IsEnabled = false;
                 dgSharedStepsContextItemDuplicate.IsEnabled = false;
+                btnFindReferences.IsEnabled = false;
+                btnFindReferences1.IsEnabled = false;
             }
         }
 
