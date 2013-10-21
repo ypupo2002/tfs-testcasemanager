@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <asmv1:assembly xsi:schemaLocation="urn:schemas-microsoft-com:asm.v1 assembly.adaptive.xsd" manifestVersion="1.0" xmlns:asmv1="urn:schemas-microsoft-com:asm.v1" xmlns="urn:schemas-microsoft-com:asm.v2" xmlns:asmv2="urn:schemas-microsoft-com:asm.v2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:co.v1="urn:schemas-microsoft-com:clickonce.v1" xmlns:asmv3="urn:schemas-microsoft-com:asm.v3" xmlns:dsig="http://www.w3.org/2000/09/xmldsig#" xmlns:co.v2="urn:schemas-microsoft-com:clickonce.v2">
-  <asmv1:assemblyIdentity name="TestCaseManager.exe" version="1.0.0.2" publicKeyToken="0000000000000000" language="neutral" processorArchitecture="x86" type="win32" />
+  <asmv1:assemblyIdentity name="TestCaseManager.exe" version="1.0.0.3" publicKeyToken="0000000000000000" language="neutral" processorArchitecture="x86" type="win32" />
   <description asmv2:iconFile="Registration.ico" xmlns="urn:schemas-microsoft-com:asm.v1" />
   <application />
   <entryPoint>
@@ -172,26 +172,26 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="TestCaseManager.exe" size="1032192">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="TestCaseManager.exe" size="1033728">
       <assemblyIdentity name="TestCaseManager" version="1.0.8.1" language="neutral" processorArchitecture="x86" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>9l2Mw6x99pttc0cdVDW3wl5F/PRroTgukjWbE0OZ2lM=</dsig:DigestValue>
+        <dsig:DigestValue>iScB94+UJD1Nwb22HRZTJ/i6utSSUZVcmMszfJwDx+g=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="TestCaseManagerCore.dll" size="164864">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="TestCaseManagerCore.dll" size="165376">
       <assemblyIdentity name="TestCaseManagerCore" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>Ymj2MneoLY1dXZA4woAgz5JaBL4X4rTs0lbNkck4ReU=</dsig:DigestValue>
+        <dsig:DigestValue>QIYyZ3z0UwVPGHedVdROsm2yJ/AxPM5ltjYiEGe8Bw4=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

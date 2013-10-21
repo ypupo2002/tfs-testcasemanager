@@ -150,7 +150,7 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
             switch (newExecutionOutcome)
             {
                 case TestCaseExecutionType.Active:
-                    result.Outcome = TestOutcome.NotExecuted;
+                    result.Outcome = TestOutcome.None;
                     break;
                 case TestCaseExecutionType.Passed:
                     result.Outcome = TestOutcome.Passed;
@@ -182,6 +182,8 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
                 case TestCaseExecutionType.Passed:
                     break;
                 case TestCaseExecutionType.Failed:
+                    break;
+                case TestCaseExecutionType.Blocked:
                     break;
                 default:
                     testCaseExecutionType = TestCaseExecutionType.Active;

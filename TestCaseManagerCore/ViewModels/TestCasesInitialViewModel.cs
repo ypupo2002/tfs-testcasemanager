@@ -264,9 +264,10 @@ namespace TestCaseManagerCore.ViewModels
         /// Exports the test cases.
         /// </summary>
         /// <param name="fileName">Name of the file.</param>
-        public void ExportTestCases(string fileName)
+        /// <param name="selectedTestCases">The selected test cases.</param>
+        public void ExportTestCases(string fileName, List<TestCase> selectedTestCases)
         {
-            List<TestCaseFull> fullTestCases = this.GetAllFullTestCasesForObservableTestCases();
+            List<TestCaseFull> fullTestCases = this.GetAllFullTestCasesForObservableTestCases(selectedTestCases);
             foreach (TestCaseFull currentFullTestCase in fullTestCases)
             {
                 TestStepManager.UpdateGenericSharedSteps(currentFullTestCase.TestSteps);
@@ -567,11 +568,12 @@ namespace TestCaseManagerCore.ViewModels
         /// <summary>
         /// Gets all full test cases for observable test cases.
         /// </summary>
-        /// <returns></returns>
-        private List<TestCaseFull> GetAllFullTestCasesForObservableTestCases()
+        /// <param name="selectedTestCases">The selected test cases.</param>
+        /// <returns>list of full test cases</returns>
+        private List<TestCaseFull> GetAllFullTestCasesForObservableTestCases(List<TestCase> selectedTestCases)
         {    
             List<TestCaseFull> fullTestCases = new List<TestCaseFull>();
-            foreach (TestCase currentTestCase in this.ObservableTestCases)
+            foreach (TestCase currentTestCase in selectedTestCases)
             {
                 string mostRecentResult = TestCaseManager.GetMostRecentTestCaseResult(currentTestCase.Id);
                 string executionComment = TestCaseManager.GetMostRecentExecutionComment(currentTestCase.Id);

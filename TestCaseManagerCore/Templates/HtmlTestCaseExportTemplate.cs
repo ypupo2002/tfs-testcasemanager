@@ -188,8 +188,10 @@ public void BuildTestCaseTestStepsTable(List<TestStep> testSteps)
 		{		
 			WriteLine(@"<tr>");
 			WriteLine(string.Format("<td>{0}</td>", count++));
-			WriteLine(string.Format("<td>{0}</td>", currentTestStep.ActionTitle));
-			WriteLine(string.Format("<td>{0}</td>", currentTestStep.ActionExpectedResult));
+			string currentTestStepActionTitle = currentTestStep.ActionTitle.Replace("\r\n","<br>"); 
+			string currentTestStepActionExpectedResult = currentTestStep.ActionExpectedResult.Replace("\r\n","<br>");
+			WriteLine(string.Format("<td>{0}</td>", currentTestStepActionTitle));
+			WriteLine(string.Format("<td>{0}</td>", currentTestStepActionExpectedResult));
 			WriteLine(@"</tr>");
 		}	
     }

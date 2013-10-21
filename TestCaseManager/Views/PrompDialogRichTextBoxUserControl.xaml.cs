@@ -17,7 +17,9 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using FirstFloor.ModernUI.Windows;
+using FirstFloor.ModernUI.Windows.Controls;
 using TestCaseManagerCore;
+using TestCaseManagerCore.BusinessLogic.Managers;
 using TestCaseManagerCore.ViewModels;
 
 namespace TestCaseManagerApp.Views
@@ -45,6 +47,7 @@ namespace TestCaseManagerApp.Views
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
+            RegistryManager.WriteIsWindowClosedFromX(true);
             PromptDialogViewModel = new PromptDialogViewModel();
             this.DataContext = this.PromptDialogViewModel;         
         }
@@ -55,8 +58,9 @@ namespace TestCaseManagerApp.Views
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void ButtonOk_Click(object sender, RoutedEventArgs e)
-        {
+        {          
             PromptDialogViewModel.IsCanceled = false;
+            RegistryManager.WriteIsWindowClosedFromX(false);
             Window window = Window.GetWindow(this);
             window.Close();
         }
@@ -69,6 +73,7 @@ namespace TestCaseManagerApp.Views
         private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
             PromptDialogViewModel.IsCanceled = true;
+            RegistryManager.WriteIsWindowClosedFromX(false);
             PromptDialogViewModel.Content = String.Empty;
             Window window = Window.GetWindow(this);
             window.Close();
@@ -82,6 +87,14 @@ namespace TestCaseManagerApp.Views
         private void rtbComment_KeyUp(object sender, KeyEventArgs e)
         {
             this.PromptDialogViewModel.Content = rtbComment.GetText();
+            if (!string.IsNullOrEmpty(this.PromptDialogViewModel.Content) && !string.IsNullOrWhiteSpace(this.PromptDialogViewModel.Content) && this.PromptDialogViewModel.Content != Environment.NewLine.ToString())
+            {
+                btnOk.IsEnabled = true;
+            }
+            else
+            {
+                btnOk.IsEnabled = false;
+            }
         }   
     }
 }

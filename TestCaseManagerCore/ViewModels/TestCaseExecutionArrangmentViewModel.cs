@@ -146,7 +146,7 @@ namespace TestCaseManagerCore.ViewModels
         /// </summary>
         public void SaveArrangement()
         {
-            int startIndex = 0;
+            int startIndex = -1;
             foreach (TestCase currentTestCase in this.ObservableTestCases)
             {
                 if (currentTestCase.ITestCase != null)

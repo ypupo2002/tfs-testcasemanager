@@ -1132,10 +1132,6 @@ namespace TestCaseManagerApp.Views
                 dgTestCaseContextItemCopy.IsEnabled = false;
                 dgTestCaseContextItemCut.IsEnabled = false;
                 dgTestCaseContextItemRemove.IsEnabled = false;
-            }
-
-            if (this.TestCasesInitialViewModel.ObservableTestCases.Count == 0)
-            {
                 btnExport.IsEnabled = false;
                 btnExport1.IsEnabled = false;
             }
@@ -1148,6 +1144,10 @@ namespace TestCaseManagerApp.Views
         /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void btnExport_Click(object sender, RoutedEventArgs e)
         {
+            if(dgTestCases.SelectedItems.Count == 0)
+            {
+                this.DisplayNonSelectionWarning();
+            }
             Microsoft.Win32.SaveFileDialog dlg = new Microsoft.Win32.SaveFileDialog();
 
             // Set filter for file extension and default file extension 
@@ -1163,10 +1163,10 @@ namespace TestCaseManagerApp.Views
                 // Open document 
                 string filename = dlg.FileName;
                 this.ShowTestCasesProgressbar();
-                List<TestCase> suiteTestCaseCollection = new List<TestCase>();
+                List<TestCase> selectedTestCases = this.GetSelectedTestCasesInternal();
                 Task t = Task.Factory.StartNew(() =>
                 {
-                    this.TestCasesInitialViewModel.ExportTestCases(filename);
+                    this.TestCasesInitialViewModel.ExportTestCases(filename, selectedTestCases);
                 });
                 t.ContinueWith(antecedent =>
                 {

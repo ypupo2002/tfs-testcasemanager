@@ -37,6 +37,11 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
         private static string shouldShowCommentWindowRegistrySubKeyName = "shouldShowCommentWindow";
 
         /// <summary>
+        /// The is window closed from executable sub key name
+        /// </summary>
+        private static string isWindowClosedFromXSubKeyName = "isWindowClosedFromX";
+
+        /// <summary>
         /// The appereance registry sub key name- main theme/color sub key
         /// </summary>
         private static string appereanceRegistrySubKeyName = "Appereance";
@@ -137,12 +142,36 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
         }
 
         /// <summary>
+        /// Writes the is window closed from executable.
+        /// </summary>
+        /// <param name="isWindowClosedFromX">if set to <c>true</c> [is window closed from executable].</param>
+        public static void WriteIsWindowClosedFromX(bool isWindowClosedFromX)
+        {
+            Write(isWindowClosedFromXSubKeyName, isWindowClosedFromX.ToString());
+        }
+
+        /// <summary>
         /// Writes the should comment window show.
         /// </summary>
         /// <param name="shouldCommentWindowShow">if set to <c>true</c> [should comment window show].</param>
         public static void WriteShouldCommentWindowShow(bool shouldCommentWindowShow)
         {
             Write(shouldShowCommentWindowRegistrySubKeyName, shouldCommentWindowShow.ToString());
+        }
+
+        /// <summary>
+        /// Reads the is window closed from executable.
+        /// </summary>
+        /// <returns></returns>
+        public static bool ReadIsWindowClosedFromX()
+        {
+            string resultStr = Read(isWindowClosedFromXSubKeyName);
+            bool result = false;
+            if (!String.IsNullOrEmpty(resultStr))
+            {
+                result = bool.Parse(resultStr);
+            }
+            return result;
         }
 
         /// <summary>

@@ -17,6 +17,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using FirstFloor.ModernUI.Windows;
+using FirstFloor.ModernUI.Windows.Controls;
+using TestCaseManagerCore.BusinessLogic.Managers;
 using TestCaseManagerCore.ViewModels;
 
 namespace TestCaseManagerApp.Views
@@ -44,6 +46,7 @@ namespace TestCaseManagerApp.Views
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
+            RegistryManager.WriteIsWindowClosedFromX(true);
             PromptDialogViewModel = new PromptDialogViewModel();
             this.DataContext = this.PromptDialogViewModel;         
         }
@@ -55,7 +58,12 @@ namespace TestCaseManagerApp.Views
         /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void ButtonOk_Click(object sender, RoutedEventArgs e)
         {
+            if (String.IsNullOrEmpty(this.PromptDialogViewModel.Content))
+            {
+                ModernDialog.ShowMessage("Content cannot be empty!", "Warrning!", MessageBoxButton.OK);
+            }
             PromptDialogViewModel.IsCanceled = false;
+            RegistryManager.WriteIsWindowClosedFromX(false);
             Window window = Window.GetWindow(this);
             window.Close();
         }
@@ -69,6 +77,7 @@ namespace TestCaseManagerApp.Views
         {
             PromptDialogViewModel.IsCanceled = true;
             PromptDialogViewModel.Content = String.Empty;
+            RegistryManager.WriteIsWindowClosedFromX(false);
             Window window = Window.GetWindow(this);
             window.Close();
         }

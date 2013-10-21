@@ -18,6 +18,7 @@ namespace TestCaseManagerApp.Views
     using System.Windows.Media.Imaging;
     using System.Windows.Shapes;
     using FirstFloor.ModernUI.Windows.Controls;
+    using TestCaseManagerCore.BusinessLogic.Managers;
 
     /// <summary>
     /// Initializes promo dialog window
@@ -30,6 +31,19 @@ namespace TestCaseManagerApp.Views
         public PrompDialogWindow()
         {
             this.InitializeComponent();
+        }
+
+        /// <summary>
+        /// Handles the Closing event of the ModernWindow control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.ComponentModel.CancelEventArgs"/> instance containing the event data.</param>
+        private void ModernWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            if(RegistryManager.ReadIsWindowClosedFromX())
+            {
+                RegistryManager.WriteIsCanceledTitlePromtDialog(true);
+            }
         }
     }
 }

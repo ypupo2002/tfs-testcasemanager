@@ -70,7 +70,7 @@
                 </Grid>
             </StackPanel>
 
-            <DataGrid ItemsSource="{Binding Path=ObservableTestSteps}" AutoGenerateColumns="False" Name="dgTestSteps" Height="Auto" Grid.Row="1" Margin="0,0,0,30" IsReadOnly="True"
+            <DataGrid ItemsSource="{Binding Path=ObservableTestSteps}" AutoGenerateColumns="False" Name="dgTestSteps" Height="Auto" Grid.Row="1" Margin="0,0,0,30" 
                       LoadingRow="dgTestSteps_LoadingRow" VirtualizingPanel.ScrollUnit="Pixel">
                 <DataGrid.Columns>
                     <DataGridTemplateColumn   Header="Shared Step Name"  Width="150" MaxWidth="200" >
@@ -81,7 +81,7 @@
                         </DataGridTemplateColumn.HeaderStyle>
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock Text="{Binding Title}" TextWrapping="Wrap" />
+                                <TextBox Text="{Binding Title}" TextWrapping="Wrap"/>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
@@ -93,7 +93,7 @@
                         </DataGridTemplateColumn.HeaderStyle>
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock Text="{Binding ActionTitle}" TextWrapping="Wrap" />
+                                <TextBox Text="{Binding ActionTitle}" TextWrapping="Wrap" />
                                 <!--<TextBlock Text="{Binding ITestStep.Title, Converter={StaticResource TestStepPropertiesConverter}}" TextWrapping="Wrap" />-->
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>                   
@@ -106,7 +106,7 @@
                         </DataGridTemplateColumn.HeaderStyle>
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock Text="{Binding ActionExpectedResult}" TextWrapping="Wrap" />
+                                <TextBox Text="{Binding ActionExpectedResult}" TextWrapping="Wrap" />
                                 <!--<TextBlock Text="{Binding ITestStep.ExpectedResult, Converter={StaticResource TestStepPropertiesConverter}}" TextWrapping="Wrap" />-->
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
