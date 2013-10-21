@@ -17,7 +17,18 @@
                 <mui:BBCodeBlock BBCode="-add Test Plans Edit view" Margin="0,0,0,15" />
                 <mui:BBCodeBlock BBCode="-add Test Plans Edit button ProjectSelectionView" Margin="0,0,0,15" />
                 <mui:BBCodeBlock BBCode="-add saved label TestCase/SharedStep Edit Mode" Margin="0,0,0,15" />
+                <mui:BBCodeBlock BBCode="-add validation message if the content in the prompt dialog is empty" Margin="0,0,0,15" />
+                <mui:BBCodeBlock BBCode="-change test case export to add only selected ones in the grid" Margin="0,0,0,15" />
+                <mui:BBCodeBlock BBCode="-hide Export button if no test cases are selected" Margin="0,0,0,15" />
+                <mui:BBCodeBlock BBCode="-make action title and expected result selectable TestCasePreview" Margin="0,0,0,15" />
                 <mui:BBCodeBlock BBCode="-fix bug if you click no save dialog option and try to exit the app the dialog is shown again if there are undo/redo operation Edit Mode" Margin="0,0,0,15" />
+                <mui:BBCodeBlock BBCode="-fix bug blocked test cases not refreshed" Margin="0,0,0,15" />
+                <mui:BBCodeBlock BBCode="-fix Object Reference exception on Save- Arrange View- Windows 8" Margin="0,0,0,15" />
+                <mui:BBCodeBlock BBCode="-fix bug app not responding if you enter empty comment" Margin="0,0,0,15" />
+                <mui:BBCodeBlock BBCode="-fix bug if you close promt dialog from x - app not responsive" Margin="0,0,0,15" />
+                <mui:BBCodeBlock BBCode="-fix bug if you enter empty content in promt dialog - app not responsive" Margin="0,0,0,15" />
+                <mui:BBCodeBlock BBCode="-fix bug in test case report- not correct displaying multiple rows" Margin="0,0,0,15" />
+                <mui:BBCodeBlock BBCode="-fix bug losing shared steps filtering after 30 secs refresh TestCaseEditView" Margin="0,0,0,15" />
                 
                 <mui:BBCodeBlock BBCode="[b]Version[/b]: 1.0.8.0     [b]Date[/b]: 19.10.2013" Margin="0,20,10,15"/>
                 <mui:BBCodeBlock BBCode="-add shared step duplicate context menu option Test Case Edit Mode" Margin="0,0,0,15" />

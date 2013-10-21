@@ -55,6 +55,11 @@ namespace TestCaseManagerCore.ViewModels
         public bool IsSharedStepSearchTextSet;
 
         /// <summary>
+        /// The shared steps filter
+        /// </summary>
+        public string sharedStepsFilter;
+
+        /// <summary>
         /// The log
         /// </summary>
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
@@ -70,7 +75,12 @@ namespace TestCaseManagerCore.ViewModels
         /// <value>
         /// The initial shared step collection.
         /// </value>
-        private ObservableCollection<SharedStep> initialSharedStepCollection;
+        public List<SharedStep> InitialSharedStepCollection;
+
+        /// <summary>
+        /// Occurs when [shared steps refresh event].
+        /// </summary>
+        public event EventHandler SharedStepsRefreshEvent;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="TestCaseEditViewModel"/> class.
@@ -259,6 +269,26 @@ namespace TestCaseManagerCore.ViewModels
         }
 
         /// <summary>
+        /// Gets or sets the shared steps filter.
+        /// </summary>
+        /// <value>
+        /// The shared steps filter.
+        /// </value>
+        public string SharedStepsFilter
+        {
+            get
+            {
+                return this.sharedStepsFilter;
+            }
+
+            set
+            {
+                this.sharedStepsFilter = value;
+                this.NotifyPropertyChanged();
+            }
+        }
+
+        /// <summary>
         /// Copies the current test steps automatic copy.
         /// </summary>
         public void CopyCurrentTestStepsToCopy()
@@ -287,6 +317,17 @@ namespace TestCaseManagerCore.ViewModels
             }
 
             return messageBoxResult;
+        }
+
+        /// <summary>
+        /// Filters the shared steps.
+        /// </summary>
+        public void FilterSharedSteps(string sharedStepsFilter)
+        {
+            var filteredList = this.InitialSharedStepCollection
+               .Where(t => (!string.IsNullOrEmpty(sharedStepsFilter) ? t.ISharedStep.Title.ToLower().Contains(sharedStepsFilter.ToLower()) : true)).ToList();
+            this.ObservableSharedSteps.Clear();
+            filteredList.ForEach(x => this.ObservableSharedSteps.Add(x));
         }
 
         /// <summary>
@@ -409,7 +450,7 @@ namespace TestCaseManagerCore.ViewModels
         public void ReinitializeSharedStepCollection()
         {
             this.ObservableSharedSteps.Clear();
-            foreach (var item in this.initialSharedStepCollection)
+            foreach (var item in this.InitialSharedStepCollection)
             {
                 this.ObservableSharedSteps.Add(item);
             }
@@ -712,9 +753,16 @@ namespace TestCaseManagerCore.ViewModels
                         {
                             this.ObservableSharedSteps.Add(s);
                         });
+                        this.InitialSharedStepCollection.Clear();
+                        sharedSteps.ForEach(s =>
+                        {
+                            this.InitialSharedStepCollection.Add(s);
+                        });
+                        this.InitializeInitialSharedStepCollection();
+                        this.SharedStepsRefreshEvent(this, EventArgs.Empty);                       
                     });
                 uiDispatcher.Invoke(action);
-                this.InitializeInitialSharedStepCollection();         
+
                 Thread.Sleep(30000);
             }
             while (true);
@@ -820,10 +868,10 @@ namespace TestCaseManagerCore.ViewModels
         /// </summary>
         private void InitializeInitialSharedStepCollection()
         {
-            this.initialSharedStepCollection = new ObservableCollection<SharedStep>();
+            this.InitialSharedStepCollection = new List<SharedStep>();
             foreach (var currentSharedStep in this.ObservableSharedSteps)
             {
-                this.initialSharedStepCollection.Add(currentSharedStep);
+                this.InitialSharedStepCollection.Add(currentSharedStep);
             }
         }
 

@@ -179,19 +179,19 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>iScB94+UJD1Nwb22HRZTJ/i6utSSUZVcmMszfJwDx+g=</dsig:DigestValue>
+        <dsig:DigestValue>PugJ4rxlVvoavzqoNuDpggKTPozgqjR/j4vqjQ0bFR0=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="TestCaseManagerCore.dll" size="165376">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="TestCaseManagerCore.dll" size="166400">
       <assemblyIdentity name="TestCaseManagerCore" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>QIYyZ3z0UwVPGHedVdROsm2yJ/AxPM5ltjYiEGe8Bw4=</dsig:DigestValue>
+        <dsig:DigestValue>pzr0AT7PrOWPwEA/Vyc0WKSIK4K6QWrSAuwATarwx0k=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

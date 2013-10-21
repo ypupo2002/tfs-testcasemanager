@@ -238,11 +238,22 @@ namespace TestCaseManagerApp.Views
                 btnInsertStep.IsEnabled = true;
                 this.HideProgressBar();
                 this.editViewContext.IsInitialized = true;
+                this.TestCaseEditViewModel.SharedStepsRefreshEvent += TestCaseEditViewModel_SharedStepsRefreshEvent;
             }, TaskScheduler.FromCurrentSynchronizationContext());
             t2.ContinueWith(antecedent =>
             {
                 this.TestCaseEditViewModel.RefreshSharedStepCollections(uiDispatcher);
             });
+        }
+
+        /// <summary>
+        /// Handles the SharedStepsRefreshEvent event of the TestCaseEditViewModel control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        private void TestCaseEditViewModel_SharedStepsRefreshEvent(object sender, EventArgs e)
+        {
+            this.TestCaseEditViewModel.FilterSharedSteps(tbSharedStepFilter.Text);
         }
 
         /// <summary>
@@ -1332,12 +1343,7 @@ namespace TestCaseManagerApp.Views
         /// <param name="e">The <see cref="System.Windows.Input.KeyEventArgs"/> instance containing the event data.</param>
         private void tbSharedStepFilter_KeyUp(object sender, System.Windows.Input.KeyEventArgs e)
         {
-            TestCaseEditViewModel.ReinitializeSharedStepCollection();
-            string sharedStepTitleFilter = tbSharedStepFilter.Text;
-            var filteredList = TestCaseEditViewModel.ObservableSharedSteps
-               .Where(t => (!string.IsNullOrEmpty(sharedStepTitleFilter) ? t.ISharedStep.Title.ToLower().Contains(sharedStepTitleFilter.ToLower()) : true)).ToList();
-            TestCaseEditViewModel.ObservableSharedSteps.Clear();
-            filteredList.ForEach(x => TestCaseEditViewModel.ObservableSharedSteps.Add(x));
+           this.TestCaseEditViewModel.FilterSharedSteps(tbSharedStepFilter.Text);
         }
 
         /// <summary>

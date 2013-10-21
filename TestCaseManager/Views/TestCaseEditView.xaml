@@ -242,7 +242,7 @@
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
-                    <TextBox Height="25" Margin="10,30,10,10" Name="tbSharedStepFilter" HorizontalAlignment="Stretch" Grid.Row="0" 
+                    <TextBox Height="25" Margin="10,30,10,10" Name="tbSharedStepFilter" HorizontalAlignment="Stretch" Grid.Row="0" Text="{Binding Path=SharedStepsFilter, Mode=TwoWay}"
                          GotFocus="tbSharedStepFilter_GotFocus" LostFocus="tbSharedStepFilter_LostFocus" KeyUp="tbSharedStepFilter_KeyUp" 
                          IsEnabled="{Binding ShowTestCaseSpecificFields}" />
                     <DataGrid ItemsSource="{Binding ObservableSharedSteps}" AutoGenerateColumns="False" Name="dgSharedSteps" HorizontalScrollBarVisibility="Disabled"
