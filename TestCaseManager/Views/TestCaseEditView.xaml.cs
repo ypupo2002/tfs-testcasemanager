@@ -126,6 +126,11 @@ namespace TestCaseManagerApp.Views
         public static RoutedCommand EditTestStepCommand = new RoutedCommand();
 
         /// <summary>
+        /// The preview command
+        /// </summary>
+        public static RoutedCommand PreviewCommand = new RoutedCommand();
+
+        /// <summary>
         /// The log
         /// </summary>
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
@@ -135,6 +140,10 @@ namespace TestCaseManagerApp.Views
         /// </summary>
         private EditViewContext editViewContext;
 
+        /// <summary>
+        /// The cancellation token source
+        /// </summary>
+        private CancellationTokenSource cancellationTokenSource;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="TestCaseEditView"/> class.
@@ -197,6 +206,10 @@ namespace TestCaseManagerApp.Views
             {
                 e.Cancel = true;
             }
+            else
+            {
+                cancellationTokenSource.Cancel();
+            }
         }
 
         /// <summary>
@@ -238,11 +251,15 @@ namespace TestCaseManagerApp.Views
                 btnInsertStep.IsEnabled = true;
                 this.HideProgressBar();
                 this.editViewContext.IsInitialized = true;
+                cancellationTokenSource = new CancellationTokenSource();
                 this.TestCaseEditViewModel.SharedStepsRefreshEvent += TestCaseEditViewModel_SharedStepsRefreshEvent;
             }, TaskScheduler.FromCurrentSynchronizationContext());
-            t2.ContinueWith(antecedent =>
+            Task sharedStepsRefreshTask = t2.ContinueWith(antecedent =>
             {
-                this.TestCaseEditViewModel.RefreshSharedStepCollections(uiDispatcher);
+                if(!this.editViewContext.IsSharedStep)
+                {
+                    this.TestCaseEditViewModel.RefreshSharedStepCollections(uiDispatcher, cancellationTokenSource.Token);
+                }
             });
         }
 
@@ -399,6 +416,7 @@ namespace TestCaseManagerApp.Views
             EditStepCommand.InputGestures.Add(new KeyGesture(Key.E, ModifierKeys.Alt));
             ChangeStepCommand.InputGestures.Add(new KeyGesture(Key.C, ModifierKeys.Alt));
             InsertStepCommand.InputGestures.Add(new KeyGesture(Key.I, ModifierKeys.Alt));
+            PreviewCommand.InputGestures.Add(new KeyGesture(Key.P, ModifierKeys.Alt));
             UndoCommand.InputGestures.Add(new KeyGesture(Key.Z, ModifierKeys.Control, "Ctrl + Z"));
             RedoCommand.InputGestures.Add(new KeyGesture(Key.Y, ModifierKeys.Control, "Ctrl + Y"));
         }
@@ -1343,7 +1361,7 @@ namespace TestCaseManagerApp.Views
         /// <param name="e">The <see cref="System.Windows.Input.KeyEventArgs"/> instance containing the event data.</param>
         private void tbSharedStepFilter_KeyUp(object sender, System.Windows.Input.KeyEventArgs e)
         {
-           this.TestCaseEditViewModel.FilterSharedSteps(tbSharedStepFilter.Text);
+            this.TestCaseEditViewModel.FilterSharedSteps(tbSharedStepFilter.Text);
         }
 
         /// <summary>
@@ -1457,7 +1475,7 @@ namespace TestCaseManagerApp.Views
 
             if (this.TestCaseEditViewModel.ObservableTestSteps.Count == 0 && isPasteEnabled)
             {
-                this.TestCaseEditViewModel.ObservableTestSteps.Add(new TestStep(false, String.Empty, default(Guid)));
+                this.TestCaseEditViewModel.ObservableTestSteps.Add(new TestStep(false, String.Empty, default(Guid), 0, String.Empty, String.Empty));
                 this.dgTestSteps.SelectedIndex = 0;
                 this.editViewContext.IsFakeItemInserted = true;
             }
@@ -1559,6 +1577,33 @@ namespace TestCaseManagerApp.Views
         private void dgTestSteps_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             this.EditCurrentTestStepInternal();
-        }     
+        }
+
+        /// <summary>
+        /// Handles the Click event of the PreviewButton control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
+        private void PreviewButton_Click(object sender, RoutedEventArgs e)
+        {
+            this.PreviewSelectedTestCase();
+        }
+
+        /// <summary>
+        /// Previews the selected test case.
+        /// </summary>
+        private void PreviewSelectedTestCase()
+        {          
+            if (this.TestCaseEditViewModel.TestCase.ITestSuiteBase != null)
+            {
+                log.InfoFormat("Preview test case with id= \"{0}\" and suiteId= \"{1}\"", this.TestCaseEditViewModel.TestCase.ITestCase.Id, this.TestCaseEditViewModel.TestCase.ITestSuiteBase.Id);
+                this.NavigateToTestCasesDetailedView(this.TestCaseEditViewModel.TestCase.ITestCase.Id, this.TestCaseEditViewModel.TestCase.ITestSuiteBase.Id);
+            }
+            else
+            {
+                log.InfoFormat("Preview test case with id= \"{0}\" and suiteId= \"{1}\"", this.TestCaseEditViewModel.TestCase.ITestCase.Id, -1);
+                this.NavigateToTestCasesDetailedView(this.TestCaseEditViewModel.TestCase.ITestCase.Id, -1);
+            }
+        }
     }
 }

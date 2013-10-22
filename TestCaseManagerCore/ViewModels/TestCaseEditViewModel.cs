@@ -153,6 +153,14 @@ namespace TestCaseManagerCore.ViewModels
         public TestCase TestCase { get; set; }
 
         /// <summary>
+        /// Gets or sets the cancellation token.
+        /// </summary>
+        /// <value>
+        /// The cancellation token.
+        /// </value>
+        public CancellationToken CancellationToken { get; set; }
+
+        /// <summary>
         /// Gets or sets the shared step.
         /// </summary>
         /// <value>
@@ -324,10 +332,15 @@ namespace TestCaseManagerCore.ViewModels
         /// </summary>
         public void FilterSharedSteps(string sharedStepsFilter)
         {
-            var filteredList = this.InitialSharedStepCollection
-               .Where(t => (!string.IsNullOrEmpty(sharedStepsFilter) ? t.ISharedStep.Title.ToLower().Contains(sharedStepsFilter.ToLower()) : true)).ToList();
-            this.ObservableSharedSteps.Clear();
-            filteredList.ForEach(x => this.ObservableSharedSteps.Add(x));
+            if (this.InitialSharedStepCollection != null && this.ObservableSharedSteps != null)
+            {
+                bool shouldSetSharedStepsFilter = this.IsSharedStepSearchTextSet && !string.IsNullOrEmpty(sharedStepsFilter);
+
+                var filteredList = this.InitialSharedStepCollection
+                   .Where(t => (shouldSetSharedStepsFilter ? t.ISharedStep.Title.ToLower().Contains(sharedStepsFilter.ToLower()) : true)).ToList();
+                this.ObservableSharedSteps.Clear();
+                filteredList.ForEach(x => this.ObservableSharedSteps.Add(x));
+            }     
         }
 
         /// <summary>
@@ -735,35 +748,55 @@ namespace TestCaseManagerCore.ViewModels
         /// <summary>
         /// Refreshes the shared step collections.
         /// </summary>
-        public void RefreshSharedStepCollections(System.Windows.Threading.Dispatcher uiDispatcher)
+        public void RefreshSharedStepCollections(System.Windows.Threading.Dispatcher uiDispatcher, CancellationToken cancellationToken)
         {
             do
             {
-                List<ISharedStep> sharedStepList = TestStepManager.GetAllSharedSteps();
-                List<SharedStep> sharedSteps = new List<BusinessLogic.Entities.SharedStep>();
-                sharedStepList.ForEach(s =>
+                if (cancellationToken != null && cancellationToken.IsCancellationRequested)
                 {
-                    sharedSteps.Add(new SharedStep(s));
-                });
-                sharedSteps.Sort();
-                Action action = new Action(() =>
+                    return;
+                }
+                if (this.EditViewContext.IsInitialized && !this.EditViewContext.IsSharedStep)
+                {
+                    List<ISharedStep> sharedStepList = TestStepManager.GetAllSharedSteps();
+                    List<SharedStep> sharedSteps = new List<BusinessLogic.Entities.SharedStep>();
+                    sharedStepList.ForEach(s =>
                     {
-                        this.ObservableSharedSteps.Clear();
-                        sharedSteps.ForEach(s =>
-                        {
-                            this.ObservableSharedSteps.Add(s);
-                        });
-                        this.InitialSharedStepCollection.Clear();
-                        sharedSteps.ForEach(s =>
-                        {
-                            this.InitialSharedStepCollection.Add(s);
-                        });
-                        this.InitializeInitialSharedStepCollection();
-                        this.SharedStepsRefreshEvent(this, EventArgs.Empty);                       
+                        sharedSteps.Add(new SharedStep(s));
                     });
-                uiDispatcher.Invoke(action);
-
-                Thread.Sleep(30000);
+                    sharedSteps.Sort();
+                    Action action = new Action(() =>
+                    {
+                        if (this.ObservableSharedSteps != null && this.InitialSharedStepCollection != null)
+                        {
+                            this.ObservableSharedSteps.Clear();
+                            sharedSteps.ForEach(s =>
+                            {
+                                this.ObservableSharedSteps.Add(s);
+                            });
+                            this.InitialSharedStepCollection.Clear();
+                            sharedSteps.ForEach(s =>
+                            {
+                                this.InitialSharedStepCollection.Add(s);
+                            });
+                            this.InitializeInitialSharedStepCollection();
+                            this.SharedStepsRefreshEvent(this, EventArgs.Empty);
+                        }
+                    });
+                    try
+                    {
+                        uiDispatcher.Invoke(action);
+                    }
+                    catch (AggregateException e)
+                    {
+                        log.Error(e);
+                        foreach (var innerException in e.InnerExceptions)
+                        {
+                            log.Error(innerException);
+                        }
+                    }                  
+                }
+                Thread.Sleep(30000);                
             }
             while (true);
         }

@@ -34,6 +34,7 @@
             <CommandBinding Command="{x:Static local:TestCaseEditView.EditSharedStepCommand}" Executed="editSharedStep_Command"/>
             <CommandBinding Command="{x:Static local:TestCaseEditView.DuplicateSharedStepCommand}" Executed="duplicateSharedStep_Command"/>
             <CommandBinding Command="{x:Static local:TestCaseEditView.EditTestStepCommand}" Executed="btnEdit_Click"/>
+            <CommandBinding Command="{x:Static local:TestCasesInitialView.PreviewCommand}" Executed="PreviewButton_Click"/>
         </Grid.CommandBindings>
         <ProgressBar Name="progressBar" Minimum="0" Maximum="1" Height="16" IsIndeterminate="True" Margin="0,0,0,16" />
         
@@ -286,6 +287,7 @@
                 <Button Content="Cancel" Height="30" Width="90" Name="btnCancel" Margin="20,20,0,20" VerticalAlignment="Center" IsDefault="True" Click="btnCancel_Click" IsCancel="true"/>
                 <Button Content="_Duplicate" Height="30" Width="90" Name="btnDuplicate" Margin="20,20,0,20" VerticalAlignment="Center" IsDefault="True"
                             Click="btnDuplicate_Click" IsEnabled="{Binding ShowTestCaseSpecificFields}"/>
+                <Button Name="btnPreview" Content="_Preview" Margin="20,0,10,0" Height="30" Width="90" VerticalAlignment="Center" Click="PreviewButton_Click" IsEnabled="{Binding ShowTestCaseSpecificFields}"/>
                 <mui:BBCodeBlock BBCode="[b][size=20]SAVED[/size][/b]"  Margin="20,20,0,20" HorizontalAlignment="Right" Visibility="Hidden" Name="lbSaved"/>
             </StackPanel>
 
