@@ -84,6 +84,7 @@
         button {
             padding: 1px 5px;
             margin-top: 5px;
+			margin-bottom: 5px;
             background-color: #fff;
             border: 2px solid #339933;
             color: #339933;
@@ -108,6 +109,32 @@
         #collapseAll {
             right: 20px;
         }
+		
+		.comment {
+			min-height: 100px;
+			min-width: 100px;
+			border: 2px solid #339933;
+		}
+
+		.active {
+			background-color: #bdd7ee;
+		}
+
+		.failed {
+			background-color: #ff0000;
+		}
+
+		.passed {
+			background-color: #92d050;
+		}
+
+		.blocked {
+			background-color: #ed7d31;
+		}
+
+		.status {
+		display: inline-block;
+		}
     </style>
 </head>
 <body>
@@ -125,14 +152,39 @@
     var expandAllButton = document.getElementById("expandAll");
     var collapseAllButton = document.getElementById("collapseAll");
 
+
     // initialize li items, by giving a class name and inserting a button(each button gets event for click) for each li item
     for (var i = 0; i < liItems.length; i++) {
         var currTable = liItems[i].getElementsByTagName("TABLE")[0];
         currTable.className = "collapsed";
-        liItems[i].innerHTML = liItems[i].innerHTML + "<button name='collapsed'> + </button> <span>Show steps</span> <hr />";
-        var currentLiButton = liItems[i].getElementsByTagName("BUTTON")[0];
+        
+		var currentLiButton = liItems[i].getElementsByTagName("BUTTON")[0];
         currentLiButton.addEventListener("click", expandCollapseTestCase, false);
+		
+		var commentButton = liItems[i].getElementsByTagName("BUTTON")[1];
+		commentButton.addEventListener("click", expandCollapseComment, false);
+
+		// get span and color it
+		var statusSpan = liItems[i].getElementsByClassName("status")[0];
+		var currentStatus = getStatus(statusSpan);
+	    statusBackgroundColorChange(currentStatus, statusSpan);
     }
+
+	function expandCollapseComment(event) {
+		if (this.className === "collapsedButton") {
+			var currentComment = event.target.parentElement.getElementsByClassName("comment collapsed")[0];
+			currentComment.className = "comment expanded";
+			this.innerText = " - ";
+			this.className = "expandedButton";
+			this.nextElementSibling.innerHTML = "Hide";
+		} else if (this.className === "expandedButton") {
+			var currentComment = event.target.parentElement.getElementsByClassName("comment expanded")[0];
+			currentComment.className = "comment collapsed";
+			this.innerText = " + ";
+			this.nextElementSibling.innerHTML = "Show";
+			this.className = "collapsedButton";
+		}
+	}
 
     function expandCollapseTestCase(event) {
         if (this.name === "collapsed") {
@@ -140,13 +192,13 @@
             currentTable.className = "expanded";
             this.name = "expanded";
             this.innerHTML = " - ";
-            this.nextElementSibling.innerHTML = "Hide steps";
+            this.nextElementSibling.innerHTML = "Hide ";
         } else {
             var currentTable = event.target.parentElement.getElementsByTagName("TABLE")[0];
             currentTable.className = "collapsed";
             this.name = "collapsed";
             this.innerHTML = " + ";
-            this.nextElementSibling.innerHTML = "Show steps";
+            this.nextElementSibling.innerHTML = "Show ";
         }
     }
 
@@ -158,7 +210,15 @@
             expandButton.innerHTML = " - ";
             expandButton.name = "expanded";
             var showHideLabel = expandButton.nextElementSibling;
-            showHideLabel.innerHTML = "Hide steps"
+            showHideLabel.innerHTML = "Hide "
+
+
+			var currentComment = event.target.parentElement.getElementsByClassName("comment collapsed")[0];
+			currentComment.className = "comment expanded";
+			var commentButton = liItems[i].getElementsByTagName("BUTTON")[1];
+			commentButton.innerText = " - ";
+			commentButton.className = "expandedButton";
+			commentButton.nextElementSibling.innerHTML = "Hide";
         }
     }
 
@@ -170,12 +230,38 @@
             collapsedButton.innerHTML = " + ";
             collapsedButton.name = "collapsed";
             var showHideLabel = collapsedButton.nextElementSibling;
-            showHideLabel.innerHTML = "Show steps"
+            showHideLabel.innerHTML = "Show "
+
+			var currentComment = event.target.parentElement.getElementsByClassName("comment expanded")[0];
+			currentComment.className = "comment collapsed";
+			var commentButton = liItems[i].getElementsByTagName("BUTTON")[1];
+			commentButton.innerText = " + ";
+			commentButton.nextElementSibling.innerHTML = "Show";
+			commentButton.className = "collapsedButton";
         }
+    }
+
+	    function statusBackgroundColorChange(status, statusSpan) {
+        if (status.indexOf("Active") != -1) {
+            statusSpan.className = "testCaseProps status active";
+            statusSpan.firstChild
+        } else if (status.indexOf("Passed") != -1) {
+            statusSpan.className = "testCaseProps status passed";
+        } else if (status.indexOf("Failed") != -1) {
+            statusSpan.className = "testCaseProps status failed";
+        } else if (status.indexOf("Blocked") != -1) {
+            statusSpan.className = "testCaseProps status blocked";
+        }
+    }
+
+    function getStatus(statusSpan) {
+        var innerText = String(statusSpan.innerText);
+        return innerText;
     }
 
     expandAllButton.addEventListener("click", expandAll, false);
     collapseAllButton.addEventListener("click", collapseAll, false);
+
 
 })();
 
@@ -190,13 +276,13 @@ public void BuildBody()
 	foreach (TestCaseFull currentFullTestCase in FullTestCases)
 	{
 		PushIndent("\t");
-		BuildTestCaseProperties(currentFullTestCase.TestCase, currentFullTestCase.MostRecentResult);
+		BuildTestCaseProperties(currentFullTestCase.TestCase, currentFullTestCase.ExecutionComment, currentFullTestCase.MostRecentResult);
 		BuildTestCaseTestStepsTable(currentFullTestCase.TestSteps);
 		PopIndent();
 	} 
 }
 
-public void BuildTestCaseProperties(TestCase testCase, string status)
+public void BuildTestCaseProperties(TestCase testCase, string comment, string status)
 {	
 	WriteLine(@"<li>");
 	WriteLine(@"<span class=""testCaseProps""><span>Title: </span>");
@@ -224,9 +310,12 @@ public void BuildTestCaseProperties(TestCase testCase, string status)
 	WriteLine(@"<span class=""testCaseProps""><span>Assigned To: </span>");
 	WriteLine(testCase.OwnerDisplayName);
 	WriteLine(@"</span>");	
-    WriteLine(@"<span class=""testCaseProps""><span>Status: </span>");
-	WriteLine(status);
-	WriteLine(@"</span>");	
+    WriteLine(@"<span class=""testCaseProps status"">Status: {0}</span>", status);
+	WriteLine(@"<br>");
+	WriteLine(@"<button name='collapsed'> + </button> <span>Show</span><span> steps</span>");
+	WriteLine(@"<br>");
+	WriteLine(@"<button class='collapsedButton'> + </button> <span>Show</span><span> comment</span>");
+	WriteLine(@"<div class='comment collapsed'>{0}</div>", comment);
 }
 
 public void BuildTestCaseTestStepsTable(List<TestStep> testSteps)
@@ -277,5 +366,6 @@ public void BuildTestCaseTestStepsTable(List<TestStep> testSteps)
 	PopIndent();
 	WriteLine(@"</table>");
 	WriteLine(@"</li>");
+	WriteLine(@"<hr />");
 }
 #>

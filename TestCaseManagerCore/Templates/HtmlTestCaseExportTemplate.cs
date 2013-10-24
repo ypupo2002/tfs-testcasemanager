@@ -48,17 +48,22 @@ namespace TestCaseManagerCore.Templates
                     "ay: block;\r\n        }\r\n\r\n        .collapsed {\r\n            display: none;\r\n     " +
                     "   }\r\n\r\n        ul {\r\n            margin-top: 20px;\r\n            margin-left: 20" +
                     "px;\r\n            list-style-type: none;\r\n        }\r\n\r\n        button {\r\n        " +
-                    "    padding: 1px 5px;\r\n            margin-top: 5px;\r\n            background-colo" +
-                    "r: #fff;\r\n            border: 2px solid #339933;\r\n            color: #339933;\r\n " +
-                    "           font-weight: 900;\r\n        }\r\n\t\t\r\n\t\t button:hover {\r\n                " +
-                    "background-color: #339933;\r\n                color: #fff;\r\n            }\r\n\r\n     " +
-                    "   #expandAll, #collapseAll {\r\n            position: absolute;\r\n            top:" +
-                    " 20px;\r\n            position: fixed;\r\n        }\r\n\r\n        #expandAll {\r\n       " +
-                    "     right: 180px;\r\n        }\r\n\r\n        #collapseAll {\r\n            right: 20px" +
-                    ";\r\n        }\r\n    </style>\r\n</head>\r\n<body>\r\n<button id=\"expandAll\">Expand All</" +
-                    "button>\r\n<button id=\"collapseAll\">Collapse All</button>\r\n<ul>\r\n");
+                    "    padding: 1px 5px;\r\n            margin-top: 5px;\r\n\t\t\tmargin-bottom: 5px;\r\n   " +
+                    "         background-color: #fff;\r\n            border: 2px solid #339933;\r\n      " +
+                    "      color: #339933;\r\n            font-weight: 900;\r\n        }\r\n\t\t\r\n\t\t button:h" +
+                    "over {\r\n                background-color: #339933;\r\n                color: #fff;" +
+                    "\r\n            }\r\n\r\n        #expandAll, #collapseAll {\r\n            position: abs" +
+                    "olute;\r\n            top: 20px;\r\n            position: fixed;\r\n        }\r\n\r\n     " +
+                    "   #expandAll {\r\n            right: 180px;\r\n        }\r\n\r\n        #collapseAll {\r" +
+                    "\n            right: 20px;\r\n        }\r\n\t\t\r\n\t\t.comment {\r\n\t\t\tmin-height: 100px;\r\n\t" +
+                    "\t\tmin-width: 100px;\r\n\t\t\tborder: 2px solid #339933;\r\n\t\t}\r\n\r\n\t\t.active {\r\n\t\t\tbackg" +
+                    "round-color: #bdd7ee;\r\n\t\t}\r\n\r\n\t\t.failed {\r\n\t\t\tbackground-color: #ff0000;\r\n\t\t}\r\n\r" +
+                    "\n\t\t.passed {\r\n\t\t\tbackground-color: #92d050;\r\n\t\t}\r\n\r\n\t\t.blocked {\r\n\t\t\tbackground-" +
+                    "color: #ed7d31;\r\n\t\t}\r\n\r\n\t\t.status {\r\n\t\tdisplay: inline-block;\r\n\t\t}\r\n    </style>" +
+                    "\r\n</head>\r\n<body>\r\n<button id=\"expandAll\">Expand All</button>\r\n<button id=\"colla" +
+                    "pseAll\">Collapse All</button>\r\n<ul>\r\n");
             
-            #line 117 "D:\Projects\TestCaseManager\TestCaseManagerCore\Templates\HtmlTestCaseExportTemplate.tt"
+            #line 144 "D:\Projects\TestCaseManager\TestCaseManagerCore\Templates\HtmlTestCaseExportTemplate.tt"
 
 	BuildBody();
 
@@ -67,39 +72,68 @@ namespace TestCaseManagerCore.Templates
             #line hidden
             this.Write("</ul>\r\n\r\n<script>\r\n(function () {\r\n    var liItems = document.getElementsByTagNam" +
                     "e(\"li\");\r\n    var expandAllButton = document.getElementById(\"expandAll\");\r\n    v" +
-                    "ar collapseAllButton = document.getElementById(\"collapseAll\");\r\n\r\n    // initial" +
-                    "ize li items, by giving a class name and inserting a button(each button gets eve" +
-                    "nt for click) for each li item\r\n    for (var i = 0; i < liItems.length; i++) {\r\n" +
-                    "        var currTable = liItems[i].getElementsByTagName(\"TABLE\")[0];\r\n        cu" +
-                    "rrTable.className = \"collapsed\";\r\n        liItems[i].innerHTML = liItems[i].inne" +
-                    "rHTML + \"<button name=\'collapsed\'> + </button> <span>Show steps</span> <hr />\";\r" +
-                    "\n        var currentLiButton = liItems[i].getElementsByTagName(\"BUTTON\")[0];\r\n  " +
-                    "      currentLiButton.addEventListener(\"click\", expandCollapseTestCase, false);\r" +
-                    "\n    }\r\n\r\n    function expandCollapseTestCase(event) {\r\n        if (this.name ==" +
-                    "= \"collapsed\") {\r\n            var currentTable = event.target.parentElement.getE" +
-                    "lementsByTagName(\"TABLE\")[0];\r\n            currentTable.className = \"expanded\";\r" +
-                    "\n            this.name = \"expanded\";\r\n            this.innerHTML = \" - \";\r\n     " +
-                    "       this.nextElementSibling.innerHTML = \"Hide steps\";\r\n        } else {\r\n    " +
-                    "        var currentTable = event.target.parentElement.getElementsByTagName(\"TABL" +
-                    "E\")[0];\r\n            currentTable.className = \"collapsed\";\r\n            this.nam" +
-                    "e = \"collapsed\";\r\n            this.innerHTML = \" + \";\r\n            this.nextElem" +
-                    "entSibling.innerHTML = \"Show steps\";\r\n        }\r\n    }\r\n\r\n    function expandAll" +
-                    "() {\r\n        for (var i = 0; i < liItems.length; i++) {\r\n            var curren" +
-                    "tTable = liItems[i].getElementsByTagName(\"TABLE\")[0];\r\n            currentTable." +
-                    "className = \"expanded\";\r\n            var expandButton = liItems[i].getElementsBy" +
-                    "TagName(\"Button\")[0];\r\n            expandButton.innerHTML = \" - \";\r\n            " +
-                    "expandButton.name = \"expanded\";\r\n            var showHideLabel = expandButton.ne" +
-                    "xtElementSibling;\r\n            showHideLabel.innerHTML = \"Hide steps\"\r\n        }" +
-                    "\r\n    }\r\n\r\n    function collapseAll() {\r\n        for (var i = 0; i < liItems.len" +
-                    "gth; i++) {\r\n            var currentTable = liItems[i].getElementsByTagName(\"TAB" +
-                    "LE\")[0];\r\n            currentTable.className = \"collapsed\";\r\n            var col" +
-                    "lapsedButton = liItems[i].getElementsByTagName(\"Button\")[0];\r\n            collap" +
-                    "sedButton.innerHTML = \" + \";\r\n            collapsedButton.name = \"collapsed\";\r\n " +
-                    "           var showHideLabel = collapsedButton.nextElementSibling;\r\n            " +
-                    "showHideLabel.innerHTML = \"Show steps\"\r\n        }\r\n    }\r\n\r\n    expandAllButton." +
-                    "addEventListener(\"click\", expandAll, false);\r\n    collapseAllButton.addEventList" +
-                    "ener(\"click\", collapseAll, false);\r\n\r\n})();\r\n\r\n\r\n\r\n    </script>\r\n</body>\r\n</htm" +
-                    "l>\r\n");
+                    "ar collapseAllButton = document.getElementById(\"collapseAll\");\r\n\r\n\r\n    // initi" +
+                    "alize li items, by giving a class name and inserting a button(each button gets e" +
+                    "vent for click) for each li item\r\n    for (var i = 0; i < liItems.length; i++) {" +
+                    "\r\n        var currTable = liItems[i].getElementsByTagName(\"TABLE\")[0];\r\n        " +
+                    "currTable.className = \"collapsed\";\r\n        \r\n\t\tvar currentLiButton = liItems[i]" +
+                    ".getElementsByTagName(\"BUTTON\")[0];\r\n        currentLiButton.addEventListener(\"c" +
+                    "lick\", expandCollapseTestCase, false);\r\n\t\t\r\n\t\tvar commentButton = liItems[i].get" +
+                    "ElementsByTagName(\"BUTTON\")[1];\r\n\t\tcommentButton.addEventListener(\"click\", expan" +
+                    "dCollapseComment, false);\r\n\r\n\t\t// get span and color it\r\n\t\tvar statusSpan = liIt" +
+                    "ems[i].getElementsByClassName(\"status\")[0];\r\n\t\tvar currentStatus = getStatus(sta" +
+                    "tusSpan);\r\n\t    statusBackgroundColorChange(currentStatus, statusSpan);\r\n    }\r\n" +
+                    "\r\n\tfunction expandCollapseComment(event) {\r\n\t\tif (this.className === \"collapsedB" +
+                    "utton\") {\r\n\t\t\tvar currentComment = event.target.parentElement.getElementsByClass" +
+                    "Name(\"comment collapsed\")[0];\r\n\t\t\tcurrentComment.className = \"comment expanded\";" +
+                    "\r\n\t\t\tthis.innerText = \" - \";\r\n\t\t\tthis.className = \"expandedButton\";\r\n\t\t\tthis.nex" +
+                    "tElementSibling.innerHTML = \"Hide\";\r\n\t\t} else if (this.className === \"expandedBu" +
+                    "tton\") {\r\n\t\t\tvar currentComment = event.target.parentElement.getElementsByClassN" +
+                    "ame(\"comment expanded\")[0];\r\n\t\t\tcurrentComment.className = \"comment collapsed\";\r" +
+                    "\n\t\t\tthis.innerText = \" + \";\r\n\t\t\tthis.nextElementSibling.innerHTML = \"Show\";\r\n\t\t\t" +
+                    "this.className = \"collapsedButton\";\r\n\t\t}\r\n\t}\r\n\r\n    function expandCollapseTestC" +
+                    "ase(event) {\r\n        if (this.name === \"collapsed\") {\r\n            var currentT" +
+                    "able = event.target.parentElement.getElementsByTagName(\"TABLE\")[0];\r\n           " +
+                    " currentTable.className = \"expanded\";\r\n            this.name = \"expanded\";\r\n    " +
+                    "        this.innerHTML = \" - \";\r\n            this.nextElementSibling.innerHTML =" +
+                    " \"Hide \";\r\n        } else {\r\n            var currentTable = event.target.parentE" +
+                    "lement.getElementsByTagName(\"TABLE\")[0];\r\n            currentTable.className = \"" +
+                    "collapsed\";\r\n            this.name = \"collapsed\";\r\n            this.innerHTML = " +
+                    "\" + \";\r\n            this.nextElementSibling.innerHTML = \"Show \";\r\n        }\r\n   " +
+                    " }\r\n\r\n    function expandAll() {\r\n        for (var i = 0; i < liItems.length; i+" +
+                    "+) {\r\n            var currentTable = liItems[i].getElementsByTagName(\"TABLE\")[0]" +
+                    ";\r\n            currentTable.className = \"expanded\";\r\n            var expandButto" +
+                    "n = liItems[i].getElementsByTagName(\"Button\")[0];\r\n            expandButton.inne" +
+                    "rHTML = \" - \";\r\n            expandButton.name = \"expanded\";\r\n            var sho" +
+                    "wHideLabel = expandButton.nextElementSibling;\r\n            showHideLabel.innerHT" +
+                    "ML = \"Hide \"\r\n\r\n\r\n\t\t\tvar currentComment = event.target.parentElement.getElements" +
+                    "ByClassName(\"comment collapsed\")[0];\r\n\t\t\tcurrentComment.className = \"comment exp" +
+                    "anded\";\r\n\t\t\tvar commentButton = liItems[i].getElementsByTagName(\"BUTTON\")[1];\r\n\t" +
+                    "\t\tcommentButton.innerText = \" - \";\r\n\t\t\tcommentButton.className = \"expandedButton" +
+                    "\";\r\n\t\t\tcommentButton.nextElementSibling.innerHTML = \"Hide\";\r\n        }\r\n    }\r\n\r" +
+                    "\n    function collapseAll() {\r\n        for (var i = 0; i < liItems.length; i++) " +
+                    "{\r\n            var currentTable = liItems[i].getElementsByTagName(\"TABLE\")[0];\r\n" +
+                    "            currentTable.className = \"collapsed\";\r\n            var collapsedButt" +
+                    "on = liItems[i].getElementsByTagName(\"Button\")[0];\r\n            collapsedButton." +
+                    "innerHTML = \" + \";\r\n            collapsedButton.name = \"collapsed\";\r\n           " +
+                    " var showHideLabel = collapsedButton.nextElementSibling;\r\n            showHideLa" +
+                    "bel.innerHTML = \"Show \"\r\n\r\n\t\t\tvar currentComment = event.target.parentElement.ge" +
+                    "tElementsByClassName(\"comment expanded\")[0];\r\n\t\t\tcurrentComment.className = \"com" +
+                    "ment collapsed\";\r\n\t\t\tvar commentButton = liItems[i].getElementsByTagName(\"BUTTON" +
+                    "\")[1];\r\n\t\t\tcommentButton.innerText = \" + \";\r\n\t\t\tcommentButton.nextElementSibling" +
+                    ".innerHTML = \"Show\";\r\n\t\t\tcommentButton.className = \"collapsedButton\";\r\n        }" +
+                    "\r\n    }\r\n\r\n\t    function statusBackgroundColorChange(status, statusSpan) {\r\n    " +
+                    "    if (status.indexOf(\"Active\") != -1) {\r\n            statusSpan.className = \"t" +
+                    "estCaseProps status active\";\r\n            statusSpan.firstChild\r\n        } else " +
+                    "if (status.indexOf(\"Passed\") != -1) {\r\n            statusSpan.className = \"testC" +
+                    "aseProps status passed\";\r\n        } else if (status.indexOf(\"Failed\") != -1) {\r\n" +
+                    "            statusSpan.className = \"testCaseProps status failed\";\r\n        } els" +
+                    "e if (status.indexOf(\"Blocked\") != -1) {\r\n            statusSpan.className = \"te" +
+                    "stCaseProps status blocked\";\r\n        }\r\n    }\r\n\r\n    function getStatus(statusS" +
+                    "pan) {\r\n        var innerText = String(statusSpan.innerText);\r\n        return in" +
+                    "nerText;\r\n    }\r\n\r\n    expandAllButton.addEventListener(\"click\", expandAll, fals" +
+                    "e);\r\n    collapseAllButton.addEventListener(\"click\", collapseAll, false);\r\n\r\n\r\n}" +
+                    ")();\r\n\r\n\r\n\r\n    </script>\r\n</body>\r\n</html>\r\n");
             return this.GenerationEnvironment.ToString();
         }
         private global::Microsoft.VisualStudio.TextTemplating.ITextTemplatingEngineHost hostValue;
@@ -118,20 +152,20 @@ namespace TestCaseManagerCore.Templates
             }
         }
         
-        #line 187 "D:\Projects\TestCaseManager\TestCaseManagerCore\Templates\HtmlTestCaseExportTemplate.tt"
+        #line 273 "D:\Projects\TestCaseManager\TestCaseManagerCore\Templates\HtmlTestCaseExportTemplate.tt"
 
 public void BuildBody()
 {
 	foreach (TestCaseFull currentFullTestCase in FullTestCases)
 	{
 		PushIndent("\t");
-		BuildTestCaseProperties(currentFullTestCase.TestCase, currentFullTestCase.MostRecentResult);
+		BuildTestCaseProperties(currentFullTestCase.TestCase, currentFullTestCase.ExecutionComment, currentFullTestCase.MostRecentResult);
 		BuildTestCaseTestStepsTable(currentFullTestCase.TestSteps);
 		PopIndent();
 	} 
 }
 
-public void BuildTestCaseProperties(TestCase testCase, string status)
+public void BuildTestCaseProperties(TestCase testCase, string comment, string status)
 {	
 	WriteLine(@"<li>");
 	WriteLine(@"<span class=""testCaseProps""><span>Title: </span>");
@@ -159,9 +193,12 @@ public void BuildTestCaseProperties(TestCase testCase, string status)
 	WriteLine(@"<span class=""testCaseProps""><span>Assigned To: </span>");
 	WriteLine(testCase.OwnerDisplayName);
 	WriteLine(@"</span>");	
-    WriteLine(@"<span class=""testCaseProps""><span>Status: </span>");
-	WriteLine(status);
-	WriteLine(@"</span>");	
+    WriteLine(@"<span class=""testCaseProps status"">Status: {0}</span>", status);
+	WriteLine(@"<br>");
+	WriteLine(@"<button name='collapsed'> + </button> <span>Show</span><span> steps</span>");
+	WriteLine(@"<br>");
+	WriteLine(@"<button class='collapsedButton'> + </button> <span>Show</span><span> comment</span>");
+	WriteLine(@"<div class='comment collapsed'>{0}</div>", comment);
 }
 
 public void BuildTestCaseTestStepsTable(List<TestStep> testSteps)
@@ -212,6 +249,7 @@ public void BuildTestCaseTestStepsTable(List<TestStep> testSteps)
 	PopIndent();
 	WriteLine(@"</table>");
 	WriteLine(@"</li>");
+	WriteLine(@"<hr />");
 }
 
         

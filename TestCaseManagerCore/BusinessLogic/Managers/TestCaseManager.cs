@@ -111,9 +111,10 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
                 lastTestPoint = testPoints.Last();
             }
             string mostRecentExecutionComment = String.Empty;
-            if (!String.IsNullOrEmpty(lastTestPoint.Comment))
+
+            if (lastTestPoint.MostRecentResult != null && !String.IsNullOrEmpty(lastTestPoint.MostRecentResult.Comment))
             {
-                mostRecentExecutionComment = lastTestPoint.Comment;
+                mostRecentExecutionComment = lastTestPoint.MostRecentResult.Comment;
             }
 
             return mostRecentExecutionComment;
