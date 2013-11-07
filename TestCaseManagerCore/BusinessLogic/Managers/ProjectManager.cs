@@ -37,7 +37,7 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
         /// <returns>array of method info objects</returns>
         public static MethodInfo[] GetProjectTestMethods(string assemblyFullPath)
         {
-            MethodInfo[] methods = null;  
+            MethodInfo[] methods = null;
             try
             {
                 Assembly assembly = Assembly.LoadFrom(assemblyFullPath);
@@ -65,7 +65,7 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
 
                 // Display or log the error based on your application.
             }
-            
+
             return methods;
         }
 
@@ -109,29 +109,39 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
         /// <returns>filtered method infos array</returns>
         private static MethodInfo[] GetMethodsWithTestMethodAttribute(Assembly assembly, MethodInfo[] methods)
         {
-            methods = assembly.GetTypes().SelectMany(t => t.GetMethods()
-                .Where(y =>
-                {
-                    var attributes = y.GetCustomAttributes(true).ToArray();
-                    if (attributes.Length == 0)
+            Type[] types;
+            try
+            {
+                types = assembly.GetTypes();
+            }
+            catch (ReflectionTypeLoadException ex)
+            {
+                types = ex.Types;
+            }
+            types = types.Where(t => t != null).ToArray();
+            methods = types.SelectMany(t =>
+                    t.GetMethods().Where(y =>
                     {
-                        return false;
-                    }
-                    else
-                    {
-                        bool result = false;
-                        foreach (var cAttribute in attributes)
+                        var attributes = y.GetCustomAttributes(true).ToArray();
+                        if (attributes.Length == 0)
                         {
-                            result = cAttribute.GetType().FullName.Equals(typeof(TestMethodAttribute).ToString());
-                            if (result)
-                            {
-                                break;
-                            }
+                            return false;
                         }
+                        else
+                        {
+                            bool result = false;
+                            foreach (var cAttribute in attributes)
+                            {
+                                result = cAttribute.GetType().FullName.Equals(typeof(TestMethodAttribute).ToString());
+                                if (result)
+                                {
+                                    break;
+                                }
+                            }
 
-                        return result;
-                    }
-                })).ToArray();
+                            return result;
+                        }
+                    })).ToArray();
 
             return methods;
         }
