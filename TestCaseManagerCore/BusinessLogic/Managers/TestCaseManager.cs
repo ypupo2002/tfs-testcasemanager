@@ -112,7 +112,7 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
             }
             string mostRecentExecutionComment = String.Empty;
 
-            if (lastTestPoint.MostRecentResult != null && !String.IsNullOrEmpty(lastTestPoint.MostRecentResult.Comment))
+            if (lastTestPoint != null && lastTestPoint.MostRecentResult != null && !String.IsNullOrEmpty(lastTestPoint.MostRecentResult.Comment))
             {
                 mostRecentExecutionComment = lastTestPoint.MostRecentResult.Comment;
             }
@@ -260,29 +260,29 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
         /// Gets all test cases in current test plan.
         /// </summary>
         /// <returns>list of all test cases</returns>
-        public static List<TestCase> GetAllTestCasesInTestPlan(bool includeSuites = true)
+        public static List<TestCase> GetAllTestCasesInTestPlan()
         {
             ExecutionContext.Preferences.TestPlan.Refresh();
             List<TestCase> testCasesList;
-            if (includeSuites)
+            //if (includeSuites)
+            //{
+            //    testCasesList = GetAllTestCasesFromSuiteCollection(ExecutionContext.Preferences.TestPlan.RootSuite.SubSuites);
+            //    AddTestCasesWithoutSuites(testCasesList);
+            //}
+            //else
+            //{
+            testCasesList = new List<TestCase>();
+            string queryText = "select [System.Id], [System.Title] from WorkItems where [System.WorkItemType] = 'Test Case'";
+            IEnumerable<ITestCase> allTestCases = ExecutionContext.TestManagementTeamProject.TestCases.Query(queryText);
+            foreach (var currentTestCase in allTestCases)
             {
-                testCasesList = GetAllTestCasesFromSuiteCollection(ExecutionContext.Preferences.TestPlan.RootSuite.SubSuites);
-                AddTestCasesWithoutSuites(testCasesList);
-            }
-            else
-            {
-                testCasesList = new List<TestCase>();
-                string queryText = "select [System.Id], [System.Title] from WorkItems where [System.WorkItemType] = 'Test Case'";
-                IEnumerable<ITestCase> allTestCases = ExecutionContext.TestManagementTeamProject.TestCases.Query(queryText);
-                foreach (var currentTestCase in allTestCases)
+                TestCase testCaseToAdd = new TestCase(currentTestCase, currentTestCase.TestSuiteEntry.ParentTestSuite);
+                if (!testCasesList.Contains(testCaseToAdd))
                 {
-                    TestCase testCaseToAdd = new TestCase(currentTestCase, currentTestCase.TestSuiteEntry.ParentTestSuite);
-                    if (!testCasesList.Contains(testCaseToAdd))
-                    {
-                        testCasesList.Add(testCaseToAdd);
-                    }
+                    testCasesList.Add(testCaseToAdd);
                 }
             }
+            //}
 
             return testCasesList;
         }
@@ -403,7 +403,7 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
         public static List<TestCase> FindAllReferenceTestCasesForShareStep(int sharedStepId)
         {
             List<TestCase> filteredTestCases = new List<TestCase>();
-            List<TestCase> allTestCases = GetAllTestCasesInTestPlan(true);
+            List<TestCase> allTestCases = GetAllTestCasesInTestPlan();
             foreach (var currentTestCase in allTestCases)
             {
                 //List<TestStep> testSteps = TestStepManager.GetTestStepsFromTestActions(currentTestCase.ITestCase.Actions);

@@ -558,8 +558,8 @@ namespace TestCaseManagerApp.Views
         {
             e.Handled = true;
             int selectedSuiteId = (int)tvSuites.SelectedValue;
-            btnShowTestCaseWithoutSuite.Visibility = System.Windows.Visibility.Hidden;
-            btnShowTestCaseWithoutSuite1.Visibility = System.Windows.Visibility.Hidden;
+            //btnShowTestCaseWithoutSuite.Visibility = System.Windows.Visibility.Hidden;
+            //btnShowTestCaseWithoutSuite1.Visibility = System.Windows.Visibility.Hidden;
             btnArrange.Visibility = System.Windows.Visibility.Visible;
             btnArrange1.Visibility = System.Windows.Visibility.Visible;
             if (selectedSuiteId == -1 || !TestSuiteManager.IsStaticSuite(selectedSuiteId))
@@ -587,17 +587,17 @@ namespace TestCaseManagerApp.Views
                 }
                 else if (isInitialized)
                 {
-                    suiteTestCaseCollection = TestCaseManager.GetAllTestCasesInTestPlan(true);
+                    suiteTestCaseCollection = TestCaseManager.GetAllTestCasesInTestPlan();
                     log.InfoFormat("Load all test cases in the test plan.");
                 }
             });
             t.ContinueWith(antecedent =>
             {
-                if (selectedSuiteId == -1)
-                {
-                    btnShowTestCaseWithoutSuite.Visibility = System.Windows.Visibility.Visible;
-                    btnShowTestCaseWithoutSuite1.Visibility = System.Windows.Visibility.Visible;
-                }
+                //if (selectedSuiteId == -1)
+                //{
+                //    btnShowTestCaseWithoutSuite.Visibility = System.Windows.Visibility.Visible;
+                //    btnShowTestCaseWithoutSuite1.Visibility = System.Windows.Visibility.Visible;
+                //}
                 this.TestCasesInitialViewModel.InitializeInitialTestCaseCollection(suiteTestCaseCollection);
                 this.TestCasesInitialViewModel.FilterTestCases();
                 this.HideTestCasesProgressbar();
@@ -1347,10 +1347,10 @@ namespace TestCaseManagerApp.Views
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
-        private void btnShowTestCaseWithoutSuite_Click(object sender, RoutedEventArgs e)
-        {
-            this.TestCasesInitialViewModel.FilterTestCasesWithoutSuite();
-        }
+        //private void btnShowTestCaseWithoutSuite_Click(object sender, RoutedEventArgs e)
+        //{
+        //    this.TestCasesInitialViewModel.FilterTestCasesWithoutSuite();
+        //}
 
         /// <summary>
         /// Handles the Click event of the btnArrange control.

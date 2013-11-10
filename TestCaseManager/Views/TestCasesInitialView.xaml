@@ -71,7 +71,7 @@
                         <Button Name="btnRemoveTestCase1" Content="_Remove" Margin="15,0,10,0" Height="30" Width="90" VerticalAlignment="Center" Click="btnRemoveTestCase_Click"/>
                         <Button Name="btnExport" Content="_Export" Margin="15,0,10,0" Height="30" Width="90" VerticalAlignment="Center" Click="btnExport_Click"/>
                         <Button Name="btnArrange" Content="Arrange" Margin="15,0,10,0" Height="30" Width="Auto" VerticalAlignment="Center" Click="btnArrange_Click"/>
-                        <Button Name="btnShowTestCaseWithoutSuite" Content="Show Test Cases Without Suite" Margin="15,0,10,0" Height="30" Width="Auto" VerticalAlignment="Center" Click="btnShowTestCaseWithoutSuite_Click"/>
+                        <!--<Button Name="btnShowTestCaseWithoutSuite" Content="Show Test Cases Without Suite" Margin="15,0,10,0" Height="30" Width="Auto" VerticalAlignment="Center" Click="btnShowTestCaseWithoutSuite_Click"/>-->
                     </StackPanel>
                 </StackPanel>
                 <Grid>
@@ -246,7 +246,7 @@
                     <Button Name="btnRemoveTestCase" Content="_Remove" Margin="15,0,10,0" Height="30" Width="90" VerticalAlignment="Center" Click="btnRemoveTestCase_Click"/>
                     <Button Name="btnExport1" Content="_Export" Margin="15,0,10,0" Height="30" Width="90" VerticalAlignment="Center" Click="btnExport_Click"/>
                     <Button Name="btnArrange1" Content="Arrange" Margin="15,0,10,0" Height="30" Width="Auto" VerticalAlignment="Center" Click="btnArrange_Click"/>
-                    <Button Name="btnShowTestCaseWithoutSuite1" Content="Show Test Cases Without Suite" Margin="15,0,10,0" Height="30" Width="Auto" VerticalAlignment="Center" Click="btnShowTestCaseWithoutSuite_Click"/>
+                    <!--<Button Name="btnShowTestCaseWithoutSuite1" Content="Show Test Cases Without Suite" Margin="15,0,10,0" Height="30" Width="Auto" VerticalAlignment="Center" Click="btnShowTestCaseWithoutSuite_Click"/>-->
                 </StackPanel>
             </StackPanel>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Grid.Row="4" Grid.Column="2" Grid.ColumnSpan="3">
