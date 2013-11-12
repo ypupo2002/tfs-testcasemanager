@@ -156,6 +156,12 @@
     <Compile Include="Views\AboutView.xaml.cs">
       <DependentUpon>AboutView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\PrompCheckboxListDialogControl.xaml.cs">
+      <DependentUpon>PrompCheckboxListDialogControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\PrompCheckboxListDialogWindow.xaml.cs">
+      <DependentUpon>PrompCheckboxListDialogWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\TestPlansEditView.xaml.cs">
       <DependentUpon>TestPlansEditView.xaml</DependentUpon>
     </Compile>
@@ -200,6 +206,7 @@
     </Compile>
     <Compile Include="Views\TestCasesInitialView.xaml.cs">
       <DependentUpon>TestCasesInitialView.xaml</DependentUpon>
+      <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
     </Compile>
     <Page Include="Assets\ModernUI.HelloKitty.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -226,6 +233,14 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Views\AboutView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\PrompCheckboxListDialogControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\PrompCheckboxListDialogWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

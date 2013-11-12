@@ -259,8 +259,11 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
         /// <summary>
         /// Gets all test cases in current test plan.
         /// </summary>
-        /// <returns>list of all test cases</returns>
-        public static List<TestCase> GetAllTestCasesInTestPlan()
+        /// <param name="initializeTestCaseStatus">if set to <c>true</c> [initialize test case status].</param>
+        /// <returns>
+        /// list of all test cases
+        /// </returns>
+        public static List<TestCase> GetAllTestCasesInTestPlan(bool initializeTestCaseStatus = true)
         {
             ExecutionContext.Preferences.TestPlan.Refresh();
             List<TestCase> testCasesList;
@@ -276,7 +279,7 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
             IEnumerable<ITestCase> allTestCases = ExecutionContext.TestManagementTeamProject.TestCases.Query(queryText);
             foreach (var currentTestCase in allTestCases)
             {
-                TestCase testCaseToAdd = new TestCase(currentTestCase, currentTestCase.TestSuiteEntry.ParentTestSuite);
+                TestCase testCaseToAdd = new TestCase(currentTestCase, currentTestCase.TestSuiteEntry.ParentTestSuite, initializeTestCaseStatus);
                 if (!testCasesList.Contains(testCaseToAdd))
                 {
                     testCasesList.Add(testCaseToAdd);

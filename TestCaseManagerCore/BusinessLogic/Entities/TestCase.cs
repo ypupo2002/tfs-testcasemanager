@@ -26,14 +26,15 @@ namespace TestCaseManagerCore.BusinessLogic.Entities
         /// </summary>
         [NonSerialized]
         private ITestSuiteBase testSuiteBaseCore;
-      
+
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="TestCase"/> class.
+        /// Initializes a new instance of the <see cref="TestCase" /> class.
         /// </summary>
         /// <param name="testCaseCore">The test case core object.</param>
         /// <param name="testSuiteBaseCore">The test suite base core object.</param>
-        public TestCase(ITestCase testCaseCore, ITestSuiteBase testSuiteBaseCore)
+        /// <param name="initializeStatus">if set to <c>true</c> [initialize status].</param>
+        public TestCase(ITestCase testCaseCore, ITestSuiteBase testSuiteBaseCore, bool initializeStatus = true)
         {
             this.ITestCase = testCaseCore;
             this.ITestSuiteBase = testSuiteBaseCore;
@@ -50,8 +51,11 @@ namespace TestCaseManagerCore.BusinessLogic.Entities
             this.TestSuiteId = (testSuiteBaseCore == null) ? null : (int?)testSuiteBaseCore.Id;
             base.isInitialized = true;
             this.Id = testCaseCore.Id;
-            string mostRecentResult = TestCaseManager.GetMostRecentTestCaseResult(this.Id);
-            this.LastExecutionOutcome = TestCaseManager.GetTestCaseExecutionType(mostRecentResult);
+            if (initializeStatus)
+            {
+                string mostRecentResult = TestCaseManager.GetMostRecentTestCaseResult(this.Id);
+                this.LastExecutionOutcome = TestCaseManager.GetTestCaseExecutionType(mostRecentResult);
+            }
         }
 
         /// <summary>

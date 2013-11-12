@@ -58,7 +58,7 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
                  
                     subSuites.Add(newSuite);
                 }             
-            } 
+            }
 
             return subSuites;
         }    
@@ -407,6 +407,8 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
         {
             if (childred != null)
             {
+                List<Suite> currentChildrens = childred.ToList();
+                currentChildrens.Sort();
                 foreach (Suite currentChild in childred)
                 {
                     currentChild.Parent = newSuite;

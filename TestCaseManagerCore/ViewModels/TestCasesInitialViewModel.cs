@@ -59,8 +59,8 @@ namespace TestCaseManagerCore.ViewModels
         public TestCasesInitialViewModel()
         {
             this.InitialViewFilters = new InitialViewFilters();
-            ObservableCollection<Suite> subSuites = TestSuiteManager.GetAllSuites(ExecutionContext.Preferences.TestPlan.RootSuite.SubSuites);
-
+            List<Suite> subSuites = TestSuiteManager.GetAllSuites(ExecutionContext.Preferences.TestPlan.RootSuite.SubSuites).ToList();
+            subSuites.Sort();
             // Load last selected suite in the treeview in order to selected it again
             this.selectedSuiteId = RegistryManager.GetSelectedSuiteId();
             List<TestCase> suiteTestCaseCollection = new List<TestCase>();
@@ -96,9 +96,10 @@ namespace TestCaseManagerCore.ViewModels
             this.TestCasesCount = this.ObservableTestCases.Count.ToString();
          
             this.Suites = new ObservableCollection<Suite>();
-
+            ObservableCollection<Suite> currentSubSuites = new ObservableCollection<Suite>();
+            subSuites.ForEach(s => currentSubSuites.Add(s));
             // Add a master node which will represnt all test cases in the plan. If selected all test cases will be displayed.
-            Suite masterSuite = new Suite("ALL", -1, subSuites);
+            Suite masterSuite = new Suite("ALL", -1, currentSubSuites);
             masterSuite.IsNodeExpanded = true;
             masterSuite.IsSelected = false;
             masterSuite.IsCopyEnabled = false;
@@ -279,7 +280,7 @@ namespace TestCaseManagerCore.ViewModels
             htmlTestCaseExportTemplate.Session.Add("FullTestCases", fullTestCases);
             htmlTestCaseExportTemplate.Initialize();
             string currentSvcFileContent = htmlTestCaseExportTemplate.TransformText();
-            StreamWriter writer = new StreamWriter(fileName);
+            StreamWriter writer = new StreamWriter(fileName, false, System.Text.Encoding.UTF8);
             using (writer)
             {
                 writer.WriteLine(currentSvcFileContent);

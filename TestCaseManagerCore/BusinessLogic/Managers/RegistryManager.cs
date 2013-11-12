@@ -117,6 +117,16 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
         private static string titlePromptDialogRegistrySubKeyName = "titlePromptDialog";
 
         /// <summary>
+        /// The checkbox prompt dialog is submitted registry sub key name
+        /// </summary>
+        private static string checkboxPromptDialogIsSubmittedRegistrySubKeyName = "checkboxPromptDialogIsSubmitted";
+
+        /// <summary>
+        /// The checked properties prompt dialog registry sub key name
+        /// </summary>
+        private static string checkedPropertiesPromptDialogRegistrySubKeyName = "checkedPropertiesPromptDialog";
+
+        /// <summary>
         /// The title prompt dialog is canceled registry sub key name
         /// </summary>
         private static string isCanceledtitlePromptDialogRegistrySubKeyName = "titlePromptDialogIsCanceled";
@@ -151,6 +161,24 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
         }
 
         /// <summary>
+        /// Writes the is checkbox dialog submitted.
+        /// </summary>
+        /// <param name="IsCheckboxDialogSubmitted">if set to <c>true</c> [is checkbox dialog submitted].</param>
+        public static void WriteIsCheckboxDialogSubmitted(bool IsCheckboxDialogSubmitted)
+        {
+            Write(checkboxPromptDialogIsSubmittedRegistrySubKeyName, IsCheckboxDialogSubmitted.ToString());
+        }
+
+        /// <summary>
+        /// Writes the checked properties automatic be exported.
+        /// </summary>
+        /// <param name="checkedPropertiesToBeExported">The checked properties automatic be exported.</param>
+        public static void WriteCheckedPropertiesToBeExported(string checkedPropertiesToBeExported)
+        {
+            Write(checkedPropertiesPromptDialogRegistrySubKeyName, checkedPropertiesToBeExported);
+        }
+
+        /// <summary>
         /// Writes the should comment window show.
         /// </summary>
         /// <param name="shouldCommentWindowShow">if set to <c>true</c> [should comment window show].</param>
@@ -172,6 +200,32 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
                 result = bool.Parse(resultStr);
             }
             return result;
+        }
+
+        /// <summary>
+        /// Reads the is checkbox dialog submitted.
+        /// </summary>
+        /// <returns>is checkbox dialog submitted</returns>
+        public static bool ReadIsCheckboxDialogSubmitted()
+        {
+            string resultStr = Read(checkboxPromptDialogIsSubmittedRegistrySubKeyName);
+            bool result = false;
+            if (!String.IsNullOrEmpty(resultStr))
+            {
+                result = bool.Parse(resultStr);
+            }
+            return result;
+        }
+
+        /// <summary>
+        /// Reads the checked properties automatic be exported.
+        /// </summary>
+        /// <returns>check properties to be exported</returns>
+        public static string ReadCheckedPropertiesToBeExported()
+        {
+            string resultStr = Read(checkedPropertiesPromptDialogRegistrySubKeyName);
+
+            return resultStr;
         }
 
         /// <summary>

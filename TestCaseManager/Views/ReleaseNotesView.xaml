@@ -9,6 +9,18 @@
         <ScrollViewer>
             <StackPanel >
                 <TextBlock Text="Release Notes" FontSize="26" Height="Auto" Margin="0,0,0,15"/>
+                <mui:BBCodeBlock BBCode="[b]Version[/b]: 1.0.8.5     [b]Date[/b]: 12.11.2013" Margin="0,0,10,15"/>
+                <mui:BBCodeBlock BBCode="-add export selection properties dialog" Margin="0,0,0,15" />
+                <mui:BBCodeBlock BBCode="-add new test cases export report v2.0" Margin="0,0,0,15" />
+                <mui:BBCodeBlock BBCode="-improve All Test Cases Performance" Margin="0,0,0,15" />
+                <mui:BBCodeBlock BBCode="-add alphabetically suites sorting" Margin="0,0,0,15" />
+                <mui:BBCodeBlock BBCode="-add possibility to use 1-9 and '-' symbols in the names of the parameteres of the parameterized shared steps" Margin="0,0,0,15" />
+                <mui:BBCodeBlock BBCode="-hide execution statuses radio buttons- All Test Cases" Margin="0,0,0,15" />
+                <mui:BBCodeBlock BBCode="-hide execution statuses context menu items- All Test Cases" Margin="0,0,0,15" />
+                <mui:BBCodeBlock BBCode="-hide 'Show Test Cases Without Suites' buttons- All Test Cases" Margin="0,0,0,15" />
+                <mui:BBCodeBlock BBCode="-fix export errors if some of the selected test cases was never executed" Margin="0,0,0,15" />
+                <mui:BBCodeBlock BBCode="-fix 'associate test case' bug if the tests dll has dependency dlls exceptions" Margin="0,0,0,15" />
+                
                 <mui:BBCodeBlock BBCode="[b]Version[/b]: 1.0.8.1     [b]Date[/b]: 20.10.2013" Margin="0,0,10,15"/>
                 <mui:BBCodeBlock BBCode="-add TestcaseArrangeView" Margin="0,0,0,15" />
                 <mui:BBCodeBlock BBCode="-add logic to change test cases order in static suite" Margin="0,0,0,15" />

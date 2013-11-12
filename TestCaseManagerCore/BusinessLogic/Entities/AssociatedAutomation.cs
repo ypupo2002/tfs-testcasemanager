@@ -59,5 +59,16 @@ namespace TestCaseManagerCore.BusinessLogic.Entities
         /// The name of the test.
         /// </value>
         public string TestName { get; set; }
+
+        /// <summary>
+        /// Returns a <see cref="System.String" /> that represents this instance.
+        /// </summary>
+        /// <returns>
+        /// A <see cref="System.String" /> that represents this instance.
+        /// </returns>
+        public override string ToString()
+        {
+            return string.Format("Type: {0} Assembly: {1} TestName: {2}", this.Type, this.Assembly, this.TestName);
+        }
     }
 }

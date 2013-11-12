@@ -578,6 +578,9 @@ namespace TestCaseManagerApp.Views
             this.TestCasesInitialViewModel.TestCasesCount = "...";
             this.ShowTestCasesProgressbar();
             List<TestCase> suiteTestCaseCollection = new List<TestCase>();
+            this.ShowAllExecutionStatusContextMenuItemsStatuses();
+            spExecutionStatuses.Visibility = System.Windows.Visibility.Visible;
+            bool shouldHideMenuItems = false;
             Task t = Task.Factory.StartNew(() =>
             {
                 if (selectedSuiteId != -1)
@@ -587,7 +590,8 @@ namespace TestCaseManagerApp.Views
                 }
                 else if (isInitialized)
                 {
-                    suiteTestCaseCollection = TestCaseManager.GetAllTestCasesInTestPlan();
+                    suiteTestCaseCollection = TestCaseManager.GetAllTestCasesInTestPlan(false);
+                    shouldHideMenuItems = true;
                     log.InfoFormat("Load all test cases in the test plan.");
                 }
             });
@@ -598,6 +602,12 @@ namespace TestCaseManagerApp.Views
                 //    btnShowTestCaseWithoutSuite.Visibility = System.Windows.Visibility.Visible;
                 //    btnShowTestCaseWithoutSuite1.Visibility = System.Windows.Visibility.Visible;
                 //}
+                if (shouldHideMenuItems)
+                {
+                    this.HideAllExecutionStatusContextMenuItemsStatuses();
+                    this.TestCasesInitialViewModel.CurrentExecutionStatusOption = TestCaseExecutionType.All;
+                    spExecutionStatuses.Visibility = System.Windows.Visibility.Hidden;
+                }
                 this.TestCasesInitialViewModel.InitializeInitialTestCaseCollection(suiteTestCaseCollection);
                 this.TestCasesInitialViewModel.FilterTestCases();
                 this.HideTestCasesProgressbar();
@@ -1144,37 +1154,54 @@ namespace TestCaseManagerApp.Views
         /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void btnExport_Click(object sender, RoutedEventArgs e)
         {
-            if(dgTestCases.SelectedItems.Count == 0)
+            if (dgTestCases.SelectedItems.Count == 0)
             {
                 this.DisplayNonSelectionWarning();
             }
-            Microsoft.Win32.SaveFileDialog dlg = new Microsoft.Win32.SaveFileDialog();
-
-            // Set filter for file extension and default file extension 
-            dlg.DefaultExt = ".html";
-            dlg.Filter = "Html Files (*.html)|*.html";
-
-            // Display OpenFileDialog by calling ShowDialog method 
-            bool? result = dlg.ShowDialog();
-
-            // Get the selected file name and display in a TextBox 
-            if (result == true)
+            var dialog = new PrompCheckboxListDialogWindow();
+            dialog.ShowDialog();
+            bool isCanceled;
+            bool isSubmitted;
+            Task t = Task.Factory.StartNew(() =>
             {
-                // Open document 
-                string filename = dlg.FileName;
-                this.ShowTestCasesProgressbar();
-                List<TestCase> selectedTestCases = this.GetSelectedTestCasesInternal();
-                Task t = Task.Factory.StartNew(() =>
+                isCanceled = RegistryManager.GetIsCanceledPromtDialog();
+                isSubmitted = RegistryManager.ReadIsCheckboxDialogSubmitted();
+                while (!isSubmitted && !isCanceled)
                 {
-                    this.TestCasesInitialViewModel.ExportTestCases(filename, selectedTestCases);
-                });
-                t.ContinueWith(antecedent =>
+                }
+            });
+            t.Wait();
+            isCanceled = RegistryManager.GetIsCanceledPromtDialog();
+            if (!isCanceled)
+            {
+                Microsoft.Win32.SaveFileDialog dlg = new Microsoft.Win32.SaveFileDialog();
+
+                // Set filter for file extension and default file extension 
+                dlg.DefaultExt = ".html";
+                dlg.Filter = "Html Files (*.html)|*.html";
+
+                // Display OpenFileDialog by calling ShowDialog method 
+                bool? result = dlg.ShowDialog();
+
+                // Get the selected file name and display in a TextBox 
+                if (result == true)
                 {
-                    this.HideTestCasesProgressbar();
-                    ModernDialog.ShowMessage("Test Cases Exported!", "Success!", MessageBoxButton.OK);
-                    System.Diagnostics.Process.Start(filename);
-                }, TaskScheduler.FromCurrentSynchronizationContext());                
-            }            
+                    // Open document 
+                    string filename = dlg.FileName;
+                    this.ShowTestCasesProgressbar();
+                    List<TestCase> selectedTestCases = this.GetSelectedTestCasesInternal();
+                    Task t1 = Task.Factory.StartNew(() =>
+                    {
+                        this.TestCasesInitialViewModel.ExportTestCases(filename, selectedTestCases);
+                    });
+                    t1.ContinueWith(antecedent =>
+                    {
+                        this.HideTestCasesProgressbar();
+                        ModernDialog.ShowMessage("Test Cases Exported!", "Success!", MessageBoxButton.OK);
+                        System.Diagnostics.Process.Start(filename);
+                    }, TaskScheduler.FromCurrentSynchronizationContext());
+                }           
+            }
         }
 
         /// <summary>
@@ -1193,14 +1220,7 @@ namespace TestCaseManagerApp.Views
         /// </summary>
         private void UpdateExecutionStatusContectMenuItemsStatuses()
         {
-            dgTestCaseContextItemPass.IsEnabled = true;
-            dgTestCaseContextItemBlock.IsEnabled = true;
-            dgTestCaseContextItemFail.IsEnabled = true;
-            dgTestCaseContextItemActive.IsEnabled = true;
-            dgTestCaseContextItemCopy.IsEnabled = true;
-            dgTestCaseContextItemCut.IsEnabled = true;
-            dgTestCaseContextItemPaste.IsEnabled = true;
-            dgTestCaseContextItemRemove.IsEnabled = true;
+            this.ShowAllExecutionStatusContextMenuItemsStatuses();
             switch (this.TestCasesInitialViewModel.CurrentExecutionStatusOption)
             {
                 case TestCaseExecutionType.Active:
@@ -1234,6 +1254,36 @@ namespace TestCaseManagerApp.Views
                 default:
                     break;
             }
+        }
+
+        /// <summary>
+        /// Shows all execution status context menu items statuses.
+        /// </summary>
+        private void ShowAllExecutionStatusContextMenuItemsStatuses()
+        {
+            dgTestCaseContextItemPass.IsEnabled = true;
+            dgTestCaseContextItemBlock.IsEnabled = true;
+            dgTestCaseContextItemFail.IsEnabled = true;
+            dgTestCaseContextItemActive.IsEnabled = true;
+            dgTestCaseContextItemCopy.IsEnabled = true;
+            dgTestCaseContextItemCut.IsEnabled = true;
+            dgTestCaseContextItemPaste.IsEnabled = true;
+            dgTestCaseContextItemRemove.IsEnabled = true;
+        }
+
+        /// <summary>
+        /// Hides all execution status context menu items statuses.
+        /// </summary>
+        private void HideAllExecutionStatusContextMenuItemsStatuses()
+        {
+            dgTestCaseContextItemPass.IsEnabled = false;
+            dgTestCaseContextItemBlock.IsEnabled = false;
+            dgTestCaseContextItemFail.IsEnabled = false;
+            dgTestCaseContextItemActive.IsEnabled = false;
+            dgTestCaseContextItemCopy.IsEnabled = false;
+            dgTestCaseContextItemCut.IsEnabled = false;
+            dgTestCaseContextItemPaste.IsEnabled = false;
+            dgTestCaseContextItemRemove.IsEnabled = false;
         }
 
         /// <summary>

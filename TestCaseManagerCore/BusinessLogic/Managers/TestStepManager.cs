@@ -34,12 +34,16 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
         /// <summary>
         /// The regex pattern namespace initializations
         /// </summary>
-        private static string RegexPatternNamespaceInitializations = @"\s*(?<Namespace>[\w.]{1,})\((?<GenParam>[a-zA-Z]{1,})\)\s*=\s*(?<NewValue>[\W\w\s]*);{1}";
-
+        private static string RegexPatternNamespaceInitializations = @"\s*(?<Namespace>[\w.]{1,})\((?<GenParam>[a-zA-Z1-9\-]{1,})\)\s*=\s*(?<NewValue>[\W\w\s]*);{1}";
         /// <summary>
         /// The regext pattern no namespace initializations
         /// </summary>
-        private static string RegextPatternNoNamespaceInitializations = @"\s*\((?<GenParam>[a-zA-Z]{1,})\)\s*=\s*(?<NewValue>[\W\w\s]*);{1}";
+        private static string RegextPatternNoNamespaceInitializations = @"\s*\((?<GenParam>[a-zA-Z1-9\-]{1,})\)\s*=\s*(?<NewValue>[\W\w\s]*);{1}";
+
+        /// <summary>
+        /// The regext pattern step title
+        /// </summary>
+        private static string RegextPatternStepTitle = @"\s*(?<Namespace>[\w.]{1,})\((?<GenParam>[a-zA-Z,1-9\-]{1,})\)\s*:\s*(?<ShareStepTitle>[\w\W]*)";
 
         /// <summary>
         /// Gets the test steps from test actions.
@@ -263,10 +267,8 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
         /// <param name="genericParameters">The generic parameters.</param>
         private static void ExtractGenericParameteresFromNonSharedStep(TestStep currentTestStep, Dictionary<string, Dictionary<string, string>> genericParameters)
         {
-            string regexPatternNamespaceInitializations = @"\s*(?<Namespace>[\w.]{1,})\((?<GenParam>[a-zA-Z]{1,})\)\s*=\s*(?<NewValue>[\W\w\s]*);{1}";
-            string regextPatternNoNamespaceInitializations = @"\s*\((?<GenParam>[a-zA-Z]{1,})\)\s*=\s*(?<NewValue>[\W\w\s]*);{1}";
-            Regex regexNamespaceInitializations = new Regex(regexPatternNamespaceInitializations, RegexOptions.None);
-            Regex regexNoNamespaceInitializations = new Regex(regextPatternNoNamespaceInitializations, RegexOptions.None);
+            Regex regexNamespaceInitializations = new Regex(RegexPatternNamespaceInitializations, RegexOptions.None);
+            Regex regexNoNamespaceInitializations = new Regex(RegextPatternNoNamespaceInitializations, RegexOptions.None);
             string[] lines = null;
             if (currentTestStep.ActionTitle != null)
             {
@@ -364,8 +366,7 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
         /// <param name="genericParameters">The generic parameters.</param>
         private static void ReplaceGenericParametersWithSpecifiedValues(TestStep currentTestStep, Dictionary<string, Dictionary<string, string>> genericParameters)
         {
-            string titleRegexPattern = @"\s*(?<Namespace>[\w.]{1,})\((?<GenParam>[a-zA-Z,]{1,})\)\s*:\s*(?<ShareStepTitle>[\w\W]*)";
-            Regex r1 = new Regex(titleRegexPattern, RegexOptions.Singleline);
+            Regex r1 = new Regex(RegextPatternStepTitle, RegexOptions.Singleline);
             if (genericParameters.Keys.Count > 0)
             {
                 Match currentMatch = r1.Match(currentTestStep.Title);

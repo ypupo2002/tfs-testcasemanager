@@ -126,6 +126,7 @@
     <Compile Include="BusinessLogic\Entities\AssociatedAutomation.cs" />
     <Compile Include="BusinessLogic\Entities\AssociateTestViewFilters.cs" />
     <Compile Include="BusinessLogic\Entities\BaseNotifyPropertyChanged.cs" />
+    <Compile Include="BusinessLogic\Entities\CheckedItem.cs" />
     <Compile Include="BusinessLogic\Entities\ClipBoardTestCase.cs" />
     <Compile Include="BusinessLogic\Entities\ClipBoardTestStep.cs" />
     <Compile Include="BusinessLogic\Entities\TestPlan.cs" />
@@ -148,6 +149,7 @@
     <Compile Include="BusinessLogic\Enums\ClipBoardCommand.cs" />
     <Compile Include="BusinessLogic\Enums\Priority.cs" />
     <Compile Include="BusinessLogic\Enums\TestCaseExecutionType.cs" />
+    <Compile Include="BusinessLogic\Managers\CheckedItemManager.cs" />
     <Compile Include="BusinessLogic\Managers\ClipBoardManager.cs" />
     <Compile Include="BusinessLogic\Managers\TestPointManager.cs" />
     <Compile Include="BusinessLogic\Managers\FragmentManager.cs" />
@@ -171,6 +173,7 @@
       <DependentUpon>HtmlTestCaseExportTemplate.tt</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\AssociateTestViewModel.cs" />
+    <Compile Include="ViewModels\PrompCheckboxListDialogViewModel.cs" />
     <Compile Include="ViewModels\TestPlansEditViewModel.cs" />
     <Compile Include="ViewModels\TestCaseExecutionArrangmentViewModel.cs" />
     <Compile Include="ViewModels\ProjectSelectionViewModel.cs" />
