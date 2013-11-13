@@ -87,28 +87,29 @@ namespace TestCaseManagerCore.Templates
                     "===========*/\r\n.TestCasePropertiesList {\r\n    margin-left: 2%;\r\n    margin-top: " +
                     "1%;\r\n}\r\n\r\n    .TestCasePropertiesList li {\r\n        margin-bottom: 0.5%;\r\n    }\r" +
                     "\n\r\n        .TestCasePropertiesList li > span:first-child {\r\n            font-wei" +
-                    "ght: bolder;\r\n        }\r\n\r\n/*======================================\r\n        TES" +
-                    "T CASE COMMENT STYLES\r\n======================================*/\r\n.TestCaseCommen" +
-                    "t {\r\n    margin-left: 2%;\r\n    background-color: #fff;\r\n    border: 2px solid #3" +
-                    "39933;\r\n    padding: 1%;\r\n    margin-top: 1%;\r\n}\r\n\r\n/*==========================" +
-                    "============\r\n        TEST CASE STEPS STYLES\r\n==================================" +
-                    "====*/\r\ntable {\r\n    vertical-align: middle;\r\n    text-align: center;\r\n    width" +
-                    ": 98%;\r\n}\r\n\r\ntd:first-child, th:first-child {\r\n    width: 3%;\r\n}\r\n\r\ntd:nth-child" +
-                    "(2), th:nth-child(2) {\r\n    width: 52%;\r\n}\r\n\r\ntd:nth-child(3), th:nth-child(3) {" +
-                    "\r\n    width: 45%;\r\n}\r\n\r\n.TestCaseSteps {\r\n    margin-left: 2%;\r\n    margin-top: " +
-                    "1%;\r\n}\r\n\r\ntd, th {\r\n    border: 2px solid #000;\r\n    padding: 1%;\r\n}\r\n\r\ntbody tr" +
-                    " {\r\n    background-color: #fff;\r\n}\r\n\r\n    tbody tr:nth-of-type(2n+1) {\r\n        " +
-                    "background-color: #bfe9bf;\r\n    }\r\n\r\nthead tr {\r\n    background-color: #339933;\r" +
-                    "\n    font-weight: bolder;\r\n}\r\n\r\n/*======================================\r\n      " +
-                    "STATUSES PREDEFINED COLORS\r\n======================================*/\r\n.Active {\r" +
-                    "\n    background-color: #397DD6;\r\n}\r\n\r\n.Passed {\r\n    background-color: #26C155;\r" +
-                    "\n}\r\n\r\n.Failed {\r\n    background-color: #ff0000;\r\n}\r\n\r\n.Blocked {\r\n    background" +
-                    "-color: #FF7510;\r\n}\r\n\r\n.NotApplicable {\r\n    background-color: #9B9B9B;\r\n}\r\n\r\n.D" +
-                    "efaultStatus {\r\n    background-color: #fff;\r\n}\r\n\r\n.Hidden {\r\n\tdisplay: none;\r\n}\r" +
-                    "\n/*======================================\r\n               STYLES END\r\n==========" +
-                    "============================*/\r\n\r\n    </style>\r\n</head>\r\n<body>\r\n\r\n");
+                    "ght: bolder;\r\n        }\r\n\r\n.AutomationInfo {\r\n\tmargin-left: 2%;\r\n}\r\n\r\n/*========" +
+                    "==============================\r\n        TEST CASE COMMENT STYLES\r\n==============" +
+                    "========================*/\r\n.TestCaseComment {\r\n    margin-left: 2%;\r\n    backgr" +
+                    "ound-color: #fff;\r\n    border: 2px solid #339933;\r\n    padding: 1%;\r\n    margin-" +
+                    "top: 1%;\r\n}\r\n\r\n/*======================================\r\n        TEST CASE STEPS" +
+                    " STYLES\r\n======================================*/\r\ntable {\r\n    vertical-align: " +
+                    "middle;\r\n    width: 98%;\r\n}\r\n\r\ntable thead {\r\n    text-align: center;\r\n}\r\n\r\ntd:f" +
+                    "irst-child, th:first-child {\r\n    width: 3%;\r\n}\r\n\r\ntd:nth-child(2), th:nth-child" +
+                    "(2) {\r\n    width: 52%;\r\n}\r\n\r\ntd:nth-child(3), th:nth-child(3) {\r\n    width: 45%;" +
+                    "\r\n}\r\n\r\n.TestCaseSteps {\r\n    margin-left: 2%;\r\n    margin-top: 1%;\r\n}\r\n\r\ntd, th " +
+                    "{\r\n    border: 2px solid #000;\r\n    padding: 1%;\r\n}\r\n\r\ntbody tr {\r\n    backgroun" +
+                    "d-color: #fff;\r\n}\r\n\r\n    tbody tr:nth-of-type(2n+1) {\r\n        background-color:" +
+                    " #bfe9bf;\r\n    }\r\n\r\nthead tr {\r\n    background-color: #339933;\r\n    font-weight:" +
+                    " bolder;\r\n}\r\n\r\n/*======================================\r\n      STATUSES PREDEFIN" +
+                    "ED COLORS\r\n======================================*/\r\n.Active {\r\n    background-c" +
+                    "olor: #397DD6;\r\n}\r\n\r\n.Passed {\r\n    background-color: #26C155;\r\n}\r\n\r\n.Failed {\r\n" +
+                    "    background-color: #ff0000;\r\n}\r\n\r\n.Blocked {\r\n    background-color: #FF7510;\r" +
+                    "\n}\r\n\r\n.NotApplicable {\r\n    background-color: #9B9B9B;\r\n}\r\n\r\n.DefaultStatus {\r\n " +
+                    "   background-color: #fff;\r\n}\r\n\r\n.Hidden {\r\n\tdisplay: none;\r\n}\r\n/*==============" +
+                    "========================\r\n               STYLES END\r\n===========================" +
+                    "===========*/\r\n\r\n    </style>\r\n</head>\r\n<body>\r\n\r\n");
             
-            #line 333 "D:\Projects\TestCaseManager\TestCaseManagerCore\Templates\HtmlTestCaseExportTemplate.tt"
+            #line 340 "D:\Projects\TestCaseManager\TestCaseManagerCore\Templates\HtmlTestCaseExportTemplate.tt"
 
 	string checkedProperties = RegistryManager.ReadCheckedPropertiesToBeExported();
 
@@ -174,95 +175,93 @@ namespace TestCaseManagerCore.Templates
                     "ction changeVisibilityCollapsedAll() {\r\n        var testCaseList = document.getE" +
                     "lementsByClassName(STATE_EXPANDED);\r\n        changeVisibilityEachItem(testCaseLi" +
                     "st);\r\n    }\r\n\r\n    // Gets the status state of a given test case\r\n    function g" +
-                    "etStatusState(testCase) {\r\n        return testCase.getElementsByClassName(\"Statu" +
-                    "s\")[0].getElementsByClassName(\"TestCasePropertyValue\")[0].innerHTML;\r\n    }\r\n\r\n " +
-                    "   function getPriorityState(testCase) {\r\n        return testCase.getElementsByC" +
-                    "lassName(\"Priority\")[0].getElementsByClassName(\"TestCasePropertyValue\")[0].inner" +
-                    "HTML;\r\n    }\r\n\r\n    function concatClassNameOfGivenElement(element, className) {" +
-                    "\r\n        element.className = element.className + className;\r\n    }\r\n\r\n    // Ch" +
-                    "ange the background color of the status <p> depending on the state\r\n    function" +
-                    " changeStatusPropertyBackgroundColor(testCase) {\r\n        var state = getStatusS" +
-                    "tate(testCase);\r\n        var statusLi = testCase.getElementsByClassName(\"Status\"" +
-                    ")[0];\r\n        var statusPropertyValue = statusLi.getElementsByClassName(\"TestCa" +
-                    "sePropertyValue\")[0];\r\n        var testCaseTitle = testCase.getElementsByClassNa" +
-                    "me(\"TestCaseTitle\")[0];\r\n        var testStatusIndicator = testCase.getElementsB" +
-                    "yClassName(\"TestStatusIndicator\")[0];\r\n\r\n        switch (state) {\r\n\r\n           " +
-                    " case STATUS_ACTIVE:\r\n                concatClassNameOfGivenElement(statusProper" +
-                    "tyValue, \" \" + STATUS_ACTIVE);\r\n                concatClassNameOfGivenElement(te" +
-                    "stStatusIndicator, \" \" + STATUS_ACTIVE);\r\n                return;\r\n\r\n           " +
-                    " case STATUS_PASSED:\r\n                concatClassNameOfGivenElement(statusProper" +
-                    "tyValue, \" \" + STATUS_PASSED);\r\n                concatClassNameOfGivenElement(te" +
-                    "stStatusIndicator, \" \" + STATUS_PASSED);\r\n                return;\r\n\r\n           " +
-                    " case STATUS_FAILED:\r\n                concatClassNameOfGivenElement(testStatusIn" +
-                    "dicator, \" \" + STATUS_FAILED);\r\n                concatClassNameOfGivenElement(st" +
-                    "atusPropertyValue, \" \" + STATUS_FAILED);\r\n                return;\r\n\r\n           " +
-                    " case STATUS_BLOCKED:\r\n                concatClassNameOfGivenElement(testStatusI" +
-                    "ndicator, \" \" + STATUS_BLOCKED);\r\n                concatClassNameOfGivenElement(" +
-                    "statusPropertyValue, \" \" + STATUS_BLOCKED);\r\n                return;\r\n\r\n        " +
-                    "    case STATUS_NOT_APPLICABLE:\r\n                concatClassNameOfGivenElement(t" +
-                    "estStatusIndicator, \" \" + STATUS_NOT_APPLICABLE);\r\n                concatClassNa" +
-                    "meOfGivenElement(statusPropertyValue, \" \" + STATUS_NOT_APPLICABLE);\r\n           " +
-                    "     return;\r\n\r\n            default:\r\n                concatClassNameOfGivenElem" +
-                    "ent(testStatusIndicator, \" \" + STATUS_DEFAULT);\r\n                concatClassName" +
-                    "OfGivenElement(statusPropertyValue, \" \" + STATUS_DEFAULT);\r\n                retu" +
-                    "rn;\r\n        }\r\n    }\r\n\r\n    function getFilterCriteria(event) {\r\n        var cl" +
-                    "ickedItem = event.target;\r\n        return clickedItem.innerHTML;\r\n    }\r\n\r\n    f" +
-                    "unction setTestCasesCounter() {\r\n        var testCasesListNotFiltered = document" +
-                    ".getElementsByClassName(STATE_NOT_FILTERED);\r\n        var testCaseCounter = docu" +
-                    "ment.getElementById(\"currentTestCaseCount\");\r\n        testCaseCounter.innerHTML " +
-                    "= testCasesListNotFiltered.length;\r\n    }\r\n\r\n    function resetTestCasesClass() " +
-                    "{\r\n        var testCaseListToClear = shallowCopy(document.getElementsByClassName" +
-                    "(\"TestCase\"));\r\n\r\n        for (var index = 0; index < testCaseListToClear.length" +
-                    "; index++) {\r\n            testCaseListToClear[index].className = \"TestCase NotFi" +
-                    "ltered\";\r\n        }\r\n    }\r\n\r\n    function setCurrentFilterLabels(userCriteriaCh" +
-                    "oice) {\r\n        var statusLabel = document.getElementById(\"currentFilterStatus\"" +
-                    ");\r\n        var priorityLabel = document.getElementById(\"currentFilterPriority\")" +
-                    ";\r\n\t\t\r\n\t\tif(statusLabel != null)\r\n\t\t{\r\n\t\t\tstatusLabel.innerHTML = \" \" + userCrit" +
-                    "eriaChoice.status;\r\n\t\t}\r\n\r\n\t\tif(priorityLabel != null)\r\n\t\t{\r\n\t\t\tpriorityLabel.in" +
-                    "nerHTML = \" \" + userCriteriaChoice.priority;\r\n\t\t}\r\n    }\r\n\r\n    function clearFi" +
-                    "lters() {\r\n        userCriteriaChoice = {\r\n            status: STATE_NONE,\r\n    " +
-                    "        priority: STATE_NONE\r\n        };\r\n        setCurrentFilterLabels(userCri" +
-                    "teriaChoice);\r\n        resetTestCasesClass();\r\n        setTestCasesCounter();\r\n " +
-                    "   }\r\n\r\n\r\n\r\n    function filter(event) {\r\n        resetTestCasesClass();\r\n\r\n    " +
-                    "    if (hasClassName(event.target, STATUS)) {\r\n            userCriteriaChoice.st" +
-                    "atus = getFilterCriteria(event);\r\n        } else if (hasClassName(event.target, " +
-                    "PRIORITY)) {\r\n            userCriteriaChoice.priority = getFilterCriteria(event)" +
-                    ";\r\n        }\r\n        setCurrentFilterLabels(userCriteriaChoice);\r\n        var t" +
-                    "estCaseListToFilter = shallowCopy(document.getElementsByClassName(STATE_NOT_FILT" +
-                    "ERED));\r\n\r\n        for (index = 0; index < testCaseListToFilter.length; index++)" +
-                    " {\r\n            var currentTestCase = testCaseListToFilter[index];\r\n\r\n          " +
-                    "  if (userCriteriaChoice.status != STATE_NONE) {\r\n                var currentTes" +
-                    "tCaseStatus = getStatusState(currentTestCase);\r\n                if (userCriteria" +
-                    "Choice.status != currentTestCaseStatus) {\r\n                    currentTestCase.c" +
-                    "lassName = String(currentTestCase.className).replace(STATE_NOT_FILTERED, STATE_F" +
-                    "ILTERED);\r\n                    concatClassNameOfGivenElement(currentTestCase, \" " +
-                    "\" + STATE_COLLAPSED);\r\n                }\r\n            }\r\n\r\n            if (userC" +
-                    "riteriaChoice.priority != STATE_NONE) {\r\n                var currentTestCasePrio" +
-                    "rity = getPriorityState(currentTestCase);\r\n                if (userCriteriaChoic" +
-                    "e.priority != currentTestCasePriority) {\r\n                    currentTestCase.cl" +
-                    "assName = String(currentTestCase.className).replace(STATE_NOT_FILTERED, STATE_FI" +
-                    "LTERED);\r\n                    concatClassNameOfGivenElement(currentTestCase, \" \"" +
-                    " + STATE_COLLAPSED);\r\n                }\r\n            }\r\n        }\r\n\r\n        set" +
-                    "TestCasesCounter();\r\n    }\r\n\r\n    function initialize() {\r\n        var testCaseL" +
-                    "ist = document.getElementsByClassName(\"TestCase\");\r\n\r\n        // iterates betwee" +
-                    "n the test cases and chage the background of the status and test case title\r\n   " +
-                    "     for (index = 0; index < testCaseList.length; index++) {\r\n            change" +
-                    "StatusPropertyBackgroundColor(testCaseList[index]);\r\n        }\r\n\r\n        setTes" +
-                    "tCasesCounter();\r\n\r\n        // attach events\r\n        var testCaseList = documen" +
-                    "t.getElementsByClassName(\"TestCaseList\")[0];\r\n        testCaseList.addEventListe" +
-                    "ner(\"click\", changeVisibilityClickedIem, false);\r\n\r\n        var expandAllButton " +
-                    "= document.getElementById(\"expandAll\");\r\n        expandAllButton.addEventListene" +
-                    "r(\"click\", changeVisibilityExpandedAll, false);\r\n\r\n        var collapseAllButton" +
-                    " = document.getElementById(\"collapseAll\");\r\n        collapseAllButton.addEventLi" +
-                    "stener(\"click\", changeVisibilityCollapsedAll, false);\r\n\r\n        var filterBySta" +
-                    "tusUL = document.getElementById(\"filterByStatus\");\r\n        if(filterByStatusUL " +
-                    "!= null)\r\n\t\t{\r\n\t\t\tfilterByStatusUL.addEventListener(\"click\", filter, false);\r\n\t\t" +
-                    "}\r\n\r\n        var filterByPriorityUL = document.getElementById(\"filterByPriority\"" +
-                    ");\r\n\t\tif(filterByPriorityUL != null)\r\n\t\t{\r\n\t\t\tfilterByPriorityUL.addEventListene" +
-                    "r(\"click\", filter, false);\r\n\t\t}\r\n\r\n        var clearFiltersButton = document.get" +
-                    "ElementById(\"clearFilters\");\r\n\t\tif(clearFiltersButton != null)\r\n\t\t{\r\n\t\t\tclearFil" +
-                    "tersButton.addEventListener(\"click\", clearFilters, false);\r\n\t\t}\r\n    }\r\n\r\n    in" +
-                    "itialize();\r\n}());\r\n    </script>\r\n</body>\r\n</html>\r\n");
+                    "etStatusState(testCase) {\r\n\t\tvar statusState = testCase.getElementsByClassName(\"" +
+                    "Status\")[0];\r\n\t\t\r\n\t\tif(statusState != null)\r\n\t\t{\r\n\t\t\tstatusState = statusState.g" +
+                    "etElementsByClassName(\"TestCasePropertyValue\")[0].innerHTML;\r\n\t\t}\r\n\r\n        ret" +
+                    "urn statusState;\r\n    }\r\n\r\n    function getPriorityState(testCase) {\r\n        re" +
+                    "turn testCase.getElementsByClassName(\"Priority\")[0].getElementsByClassName(\"Test" +
+                    "CasePropertyValue\")[0].innerHTML;\r\n    }\r\n\r\n    function concatClassNameOfGivenE" +
+                    "lement(element, className) {\r\n        element.className = element.className + cl" +
+                    "assName;\r\n    }\r\n\r\n    // Change the background color of the status <p> dependin" +
+                    "g on the state\r\n    function changeStatusPropertyBackgroundColor(testCase) {\r\n  " +
+                    "      var state = getStatusState(testCase);\r\n\r\n\t\tif(state != null)\r\n\t\t{\r\n\t\t\tvar " +
+                    "statusLi = testCase.getElementsByClassName(\"Status\")[0];\r\n\t\t\tvar statusPropertyV" +
+                    "alue = statusLi.getElementsByClassName(\"TestCasePropertyValue\")[0];\r\n\t\t\tvar test" +
+                    "CaseTitle = testCase.getElementsByClassName(\"TestCaseTitle\")[0];\r\n\t\t\tvar testSta" +
+                    "tusIndicator = testCase.getElementsByClassName(\"TestStatusIndicator\")[0];\r\n\r\n\t\t\t" +
+                    "switch (state) {\r\n\r\n\t\t\t\tcase STATUS_ACTIVE:\r\n\t\t\t\t\tconcatClassNameOfGivenElement(" +
+                    "statusPropertyValue, \" \" + STATUS_ACTIVE);\r\n\t\t\t\t\tconcatClassNameOfGivenElement(t" +
+                    "estStatusIndicator, \" \" + STATUS_ACTIVE);\r\n\t\t\t\t\treturn;\r\n\r\n\t\t\t\tcase STATUS_PASSE" +
+                    "D:\r\n\t\t\t\t\tconcatClassNameOfGivenElement(statusPropertyValue, \" \" + STATUS_PASSED)" +
+                    ";\r\n\t\t\t\t\tconcatClassNameOfGivenElement(testStatusIndicator, \" \" + STATUS_PASSED);" +
+                    "\r\n\t\t\t\t\treturn;\r\n\r\n\t\t\t\tcase STATUS_FAILED:\r\n\t\t\t\t\tconcatClassNameOfGivenElement(te" +
+                    "stStatusIndicator, \" \" + STATUS_FAILED);\r\n\t\t\t\t\tconcatClassNameOfGivenElement(sta" +
+                    "tusPropertyValue, \" \" + STATUS_FAILED);\r\n\t\t\t\t\treturn;\r\n\r\n\t\t\t\tcase STATUS_BLOCKED" +
+                    ":\r\n\t\t\t\t\tconcatClassNameOfGivenElement(testStatusIndicator, \" \" + STATUS_BLOCKED)" +
+                    ";\r\n\t\t\t\t\tconcatClassNameOfGivenElement(statusPropertyValue, \" \" + STATUS_BLOCKED)" +
+                    ";\r\n\t\t\t\t\treturn;\r\n\r\n\t\t\t\tcase STATUS_NOT_APPLICABLE:\r\n\t\t\t\t\tconcatClassNameOfGivenE" +
+                    "lement(testStatusIndicator, \" \" + STATUS_NOT_APPLICABLE);\r\n\t\t\t\t\tconcatClassNameO" +
+                    "fGivenElement(statusPropertyValue, \" \" + STATUS_NOT_APPLICABLE);\r\n\t\t\t\t\treturn;\r\n" +
+                    "\r\n\t\t\t\tdefault:\r\n\t\t\t\t\tconcatClassNameOfGivenElement(testStatusIndicator, \" \" + ST" +
+                    "ATUS_DEFAULT);\r\n\t\t\t\t\tconcatClassNameOfGivenElement(statusPropertyValue, \" \" + ST" +
+                    "ATUS_DEFAULT);\r\n\t\t\t\t\treturn;\r\n\t\t\t}\r\n\t\t}\r\n    }\r\n\r\n    function getFilterCriteria" +
+                    "(event) {\r\n        var clickedItem = event.target;\r\n        return clickedItem.i" +
+                    "nnerHTML;\r\n    }\r\n\r\n    function setTestCasesCounter() {\r\n        var testCasesL" +
+                    "istNotFiltered = document.getElementsByClassName(STATE_NOT_FILTERED);\r\n        v" +
+                    "ar testCaseCounter = document.getElementById(\"currentTestCaseCount\");\r\n        t" +
+                    "estCaseCounter.innerHTML = testCasesListNotFiltered.length;\r\n    }\r\n\r\n    functi" +
+                    "on resetTestCasesClass() {\r\n        var testCaseListToClear = shallowCopy(docume" +
+                    "nt.getElementsByClassName(\"TestCase\"));\r\n\r\n        for (var index = 0; index < t" +
+                    "estCaseListToClear.length; index++) {\r\n            testCaseListToClear[index].cl" +
+                    "assName = \"TestCase NotFiltered\";\r\n        }\r\n    }\r\n\r\n    function setCurrentFi" +
+                    "lterLabels(userCriteriaChoice) {\r\n        var statusLabel = document.getElementB" +
+                    "yId(\"currentFilterStatus\");\r\n        var priorityLabel = document.getElementById" +
+                    "(\"currentFilterPriority\");\r\n\t\t\r\n\t\tif(statusLabel != null)\r\n\t\t{\r\n\t\t\tstatusLabel.i" +
+                    "nnerHTML = \" \" + userCriteriaChoice.status;\r\n\t\t}\r\n\r\n\t\tif(priorityLabel != null)\r" +
+                    "\n\t\t{\r\n\t\t\tpriorityLabel.innerHTML = \" \" + userCriteriaChoice.priority;\r\n\t\t}\r\n    " +
+                    "}\r\n\r\n    function clearFilters() {\r\n        userCriteriaChoice = {\r\n            " +
+                    "status: STATE_NONE,\r\n            priority: STATE_NONE\r\n        };\r\n        setCu" +
+                    "rrentFilterLabels(userCriteriaChoice);\r\n        resetTestCasesClass();\r\n        " +
+                    "setTestCasesCounter();\r\n    }\r\n\r\n\r\n\r\n    function filter(event) {\r\n        reset" +
+                    "TestCasesClass();\r\n\r\n        if (hasClassName(event.target, STATUS)) {\r\n        " +
+                    "    userCriteriaChoice.status = getFilterCriteria(event);\r\n        } else if (ha" +
+                    "sClassName(event.target, PRIORITY)) {\r\n            userCriteriaChoice.priority =" +
+                    " getFilterCriteria(event);\r\n        }\r\n        setCurrentFilterLabels(userCriter" +
+                    "iaChoice);\r\n        var testCaseListToFilter = shallowCopy(document.getElementsB" +
+                    "yClassName(STATE_NOT_FILTERED));\r\n\r\n        for (index = 0; index < testCaseList" +
+                    "ToFilter.length; index++) {\r\n            var currentTestCase = testCaseListToFil" +
+                    "ter[index];\r\n\r\n            if (userCriteriaChoice.status != STATE_NONE) {\r\n     " +
+                    "           var currentTestCaseStatus = getStatusState(currentTestCase);\r\n       " +
+                    "         if (userCriteriaChoice.status != currentTestCaseStatus) {\r\n            " +
+                    "        currentTestCase.className = String(currentTestCase.className).replace(ST" +
+                    "ATE_NOT_FILTERED, STATE_FILTERED);\r\n                    concatClassNameOfGivenEl" +
+                    "ement(currentTestCase, \" \" + STATE_COLLAPSED);\r\n                }\r\n            }" +
+                    "\r\n\r\n            if (userCriteriaChoice.priority != STATE_NONE) {\r\n              " +
+                    "  var currentTestCasePriority = getPriorityState(currentTestCase);\r\n            " +
+                    "    if (userCriteriaChoice.priority != currentTestCasePriority) {\r\n             " +
+                    "       currentTestCase.className = String(currentTestCase.className).replace(STA" +
+                    "TE_NOT_FILTERED, STATE_FILTERED);\r\n                    concatClassNameOfGivenEle" +
+                    "ment(currentTestCase, \" \" + STATE_COLLAPSED);\r\n                }\r\n            }\r" +
+                    "\n        }\r\n\r\n        setTestCasesCounter();\r\n    }\r\n\r\n    function initialize()" +
+                    " {\r\n        var testCaseList = document.getElementsByClassName(\"TestCase\");\r\n\r\n " +
+                    "       // iterates between the test cases and chage the background of the status" +
+                    " and test case title\r\n        for (index = 0; index < testCaseList.length; index" +
+                    "++) {\r\n            changeStatusPropertyBackgroundColor(testCaseList[index]);\r\n  " +
+                    "      }\r\n\r\n        setTestCasesCounter();\r\n\r\n        // attach events\r\n        v" +
+                    "ar testCaseList = document.getElementsByClassName(\"TestCaseList\")[0];\r\n        t" +
+                    "estCaseList.addEventListener(\"click\", changeVisibilityClickedIem, false);\r\n\r\n   " +
+                    "     var expandAllButton = document.getElementById(\"expandAll\");\r\n        expand" +
+                    "AllButton.addEventListener(\"click\", changeVisibilityExpandedAll, false);\r\n\r\n    " +
+                    "    var collapseAllButton = document.getElementById(\"collapseAll\");\r\n        col" +
+                    "lapseAllButton.addEventListener(\"click\", changeVisibilityCollapsedAll, false);\r\n" +
+                    "\r\n        var filterByStatusUL = document.getElementById(\"filterByStatus\");\r\n   " +
+                    "     if(filterByStatusUL != null)\r\n\t\t{\r\n\t\t\tfilterByStatusUL.addEventListener(\"cl" +
+                    "ick\", filter, false);\r\n\t\t}\r\n\r\n        var filterByPriorityUL = document.getEleme" +
+                    "ntById(\"filterByPriority\");\r\n\t\tif(filterByPriorityUL != null)\r\n\t\t{\r\n\t\t\tfilterByP" +
+                    "riorityUL.addEventListener(\"click\", filter, false);\r\n\t\t}\r\n\r\n        var clearFil" +
+                    "tersButton = document.getElementById(\"clearFilters\");\r\n\t\tif(clearFiltersButton !" +
+                    "= null)\r\n\t\t{\r\n\t\t\tclearFiltersButton.addEventListener(\"click\", clearFilters, fals" +
+                    "e);\r\n\t\t}\r\n    }\r\n\r\n    initialize();\r\n}());\r\n    </script>\r\n</body>\r\n</html>\r\n");
             return this.GenerationEnvironment.ToString();
         }
         private global::Microsoft.VisualStudio.TextTemplating.ITextTemplatingEngineHost hostValue;
@@ -281,7 +280,7 @@ namespace TestCaseManagerCore.Templates
             }
         }
         
-        #line 639 "D:\Projects\TestCaseManager\TestCaseManagerCore\Templates\HtmlTestCaseExportTemplate.tt"
+        #line 657 "D:\Projects\TestCaseManager\TestCaseManagerCore\Templates\HtmlTestCaseExportTemplate.tt"
 
 public void BuildHeader(string checkedProperties)
 {
@@ -389,74 +388,88 @@ public void TestCaseTitle(TestCase testCase, string checkedProperties)
 
 public void TestCaseProperties(TestCase testCase, string status, string checkedProperties)
 {
-	WriteLine(@"<li class=""TestCasePropertiesWrapper"">");
-	WriteLine(@"<div>▶ Test Case Properties</div>");
-	WriteLine(@"<ul class=""TestCasePropertiesList Collapsed"">");
-
-	if(testCase.ITestSuiteBase != null && checkedProperties.IndexOf("Suite")!=-1)
+    if (!string.IsNullOrEmpty(checkedProperties))
     {
-		Write(@"<li class=""Suite""><span class=""TestCasePropertyName Suite"">Suite: </span><span class=""TestCasePropertyValue"">");
-		Write(testCase.ITestSuiteBase.Title);
-		WriteLine("</span></li>");
-    }
+		WriteLine(@"<li class=""TestCasePropertiesWrapper"">");
+		WriteLine(@"<div>▶ Test Case Properties</div>");
+		WriteLine(@"<ul class=""TestCasePropertiesList Collapsed"">");
 
-	if(testCase.Area != null && checkedProperties.IndexOf("Area")!=-1)
-    {
-		Write(@"<li class=""Area""><span class=""TestCasePropertyName Area"">Area: </span><span class=""TestCasePropertyValue"">");
-		Write(testCase.Area);
-		WriteLine("</span></li>");
-    }
-
-	if(testCase.Priority != null  && checkedProperties.IndexOf("Priority")!=-1)
-    {
-		Write(@"<li class=""Priority""><span class=""TestCasePropertyName Priority"">Priority: </span><span class=""TestCasePropertyValue"">");
-		Write(testCase.Priority.ToString());
-		WriteLine("</span></li>");
-    }
-
-	if(testCase.ITestCase != null && checkedProperties.IndexOf("Automated")!=-1)
-    {
-		Write(@"<li class=""Automated""><span class=""TestCasePropertyName Automated"">Automated: </span><span class=""TestCasePropertyValue"">");
-		Write(testCase.ITestCase.IsAutomated.ToString());
-		WriteLine("</span></li>");
-    }
-
-	if(testCase.ITestCase != null && testCase.ITestCase.IsAutomated)
-    {
-        if (testCase.ITestCase.IsAutomated)
-        {
-			Write(@"<li class=""DLLPath""><span class=""TestCasePropertyName DLLPath"">DLL Path: </span><span class=""TestCasePropertyValue"">");
-			var automationInfo = testCase.ITestCase.GetAssociatedAutomation();
-			Write(automationInfo.ToString());
+		if(testCase.ITestSuiteBase != null && checkedProperties.IndexOf("Suite")!=-1)
+		{
+			Write(@"<li class=""Suite""><span class=""TestCasePropertyName Suite"">Suite: </span><span class=""TestCasePropertyValue"">");
+			Write(testCase.ITestSuiteBase.Title);
 			WriteLine("</span></li>");
-        }
-    }
+		}
 
-	if(testCase.OwnerDisplayName != null  && checkedProperties.IndexOf("AssignedTo")!=-1)
-    {
-		Write(@"<li class=""Assigned""><span class=""TestCasePropertyName Assigned"">Assigned To: </span><span class=""TestCasePropertyValue"">");
-		Write(testCase.OwnerDisplayName);
-		WriteLine("</span></li>");
-    }
+		if(testCase.Area != null && checkedProperties.IndexOf("Area")!=-1)
+		{
+			Write(@"<li class=""Area""><span class=""TestCasePropertyName Area"">Area: </span><span class=""TestCasePropertyValue"">");
+			Write(testCase.Area);
+			WriteLine("</span></li>");
+		}
 
-	if(status != null && checkedProperties.IndexOf("Status")!=-1)
-    {
-		Write(@"<li class=""Status""><span class=""TestCasePropertyName Status"">Status: </span><span class=""TestCasePropertyValue"">");
-		Write(status);
-		WriteLine("</span></li>");
+		if(testCase.Priority != null  && checkedProperties.IndexOf("Priority")!=-1)
+		{
+			Write(@"<li class=""Priority""><span class=""TestCasePropertyName Priority"">Priority: </span><span class=""TestCasePropertyValue"">");
+			Write(testCase.Priority.ToString());
+			WriteLine("</span></li>");
+		}
+
+		if(testCase.ITestCase != null && checkedProperties.IndexOf("Automated")!=-1)
+		{
+			Write(@"<li class=""Automated""><span class=""TestCasePropertyName Automated"">Automated: </span><span class=""TestCasePropertyValue"">");
+			Write(testCase.ITestCase.IsAutomated.ToString());
+			WriteLine("</span></li>");
+		}
+
+		if(testCase.ITestCase != null && testCase.ITestCase.IsAutomated)
+		{
+			if (testCase.ITestCase.IsAutomated)
+			{
+				var automationInfo = testCase.ITestCase.GetAssociatedAutomation();
+				Write(@"<li class=""AutomationInfo""><span class=""TestCasePropertyName Assembly"">Assembly: </span><span class=""TestCasePropertyValue"">");
+				Write(automationInfo.Assembly);
+				WriteLine("</span></li>");
+
+				Write(@"<li class=""AutomationInfo""><span class=""TestCasePropertyName Type"">Type: </span><span class=""TestCasePropertyValue"">");
+				Write(automationInfo.Type);
+				WriteLine("</span></li>");
+
+				Write(@"<li class=""AutomationInfo""><span class=""TestCasePropertyName TestName"">TestName: </span><span class=""TestCasePropertyValue"">");
+				Write(automationInfo.TestName);
+				WriteLine("</span></li>");
+			}
+		}
+
+		if(testCase.OwnerDisplayName != null  && checkedProperties.IndexOf("AssignedTo")!=-1)
+		{
+			Write(@"<li class=""Assigned""><span class=""TestCasePropertyName Assigned"">Assigned To: </span><span class=""TestCasePropertyValue"">");
+			Write(testCase.OwnerDisplayName);
+			WriteLine("</span></li>");
+		}
+
+		if(status != null && checkedProperties.IndexOf("Status")!=-1)
+		{
+			Write(@"<li class=""Status""><span class=""TestCasePropertyName Status"">Status: </span><span class=""TestCasePropertyValue"">");
+			Write(status);
+			WriteLine("</span></li>");
+		}
+		else if (status != null && checkedProperties.IndexOf("Status")==-1)
+		{
+			Write(@"<li class=""Status Hidden""><span class=""TestCasePropertyName Status"">Status: </span><span class=""TestCasePropertyValue"">");
+			Write(status);
+			WriteLine("</span></li>");
+		}
+
+		WriteLine("</ul>");
+		WriteLine("</li>");
     }
-    else if (status != null && checkedProperties.IndexOf("Status")==-1)
-    {
-		Write(@"<li class=""Status Hidden""><span class=""TestCasePropertyName Status"">Status: </span><span class=""TestCasePropertyValue"">");
-		Write(status);
-		WriteLine("</span></li>");
-    }
-	WriteLine("</ul>");
-	WriteLine("</li>");
 }
 
 public void TestCaseComment(string comment, string checkedProperties)
 {
+	comment = comment.Replace("<","&lt;").Replace(">","&gt;").Replace("\r\n","<br>").Replace("\n","<br>");
+
     if (checkedProperties.IndexOf("Comment")!=-1)
     {
 		WriteLine(@"<li class=""TestCaseCommentWrapper"">");

@@ -30,6 +30,12 @@
             </Grid>
 
             <DataGrid ItemsSource="{Binding ObservableTests}" AutoGenerateColumns="False" Name="dgTests" Grid.Row="2" IsReadOnly="True" SelectionMode="Single">
+                <DataGrid.ItemContainerStyle>
+                    <Style TargetType="{x:Type DataGridRow}"  BasedOn="{StaticResource {x:Type DataGridRow}}">
+                        <EventSetter Event="MouseDoubleClick" Handler="dgTests_MouseDoubleClick" />
+                    </Style>
+                </DataGrid.ItemContainerStyle>
+
                 <DataGrid.Columns>
                         <DataGridTextColumn Header="FullName" Binding="{Binding FullName}"/>
                         <DataGridTextColumn Header="ClassName" Binding="{Binding ClassName}"/>

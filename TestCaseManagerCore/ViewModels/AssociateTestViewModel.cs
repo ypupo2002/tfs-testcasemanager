@@ -32,7 +32,7 @@ namespace TestCaseManagerCore.ViewModels
         /// </summary>
         /// <param name="testCaseId">The test case unique identifier.</param>
         public AssociateTestViewModel(int testCaseId)
-        {            
+        {
             ITestCase testCaseCore = ExecutionContext.TestManagementTeamProject.TestCases.Find(testCaseId);
             this.TestCase = new TestCase(testCaseCore, null);
             this.TestCaseId = testCaseId;
@@ -46,7 +46,16 @@ namespace TestCaseManagerCore.ViewModels
             {
                 "Small Integration Test", "Unit Test", "Large Integration Test", "UI Test"
             };
+            this.TestTypes.Sort();
         }
+
+        /// <summary>
+        /// Gets or sets the association domain.
+        /// </summary>
+        /// <value>
+        /// The association domain.
+        /// </value>
+        public AppDomain AssociationDomain { get; set; }
 
         /// <summary>
         /// Gets or sets the test case unique identifier.
@@ -137,6 +146,14 @@ namespace TestCaseManagerCore.ViewModels
         {
             this.TestCase.ITestCase.SetAssociatedAutomation(test, testType);
             this.TestCase.ITestCase.Save();
+        }
+
+        /// <summary>
+        /// Unloads the association domain.
+        /// </summary>
+        public void UnloadAssociationDomain()
+        {
+            AppDomain.Unload(this.AssociationDomain);
         }
 
         /// <summary>

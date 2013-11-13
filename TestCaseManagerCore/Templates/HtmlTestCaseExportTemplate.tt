@@ -237,6 +237,10 @@ li > div:first-child {
             font-weight: bolder;
         }
 
+.AutomationInfo {
+	margin-left: 2%;
+}
+
 /*======================================
         TEST CASE COMMENT STYLES
 ======================================*/
@@ -253,8 +257,11 @@ li > div:first-child {
 ======================================*/
 table {
     vertical-align: middle;
-    text-align: center;
     width: 98%;
+}
+
+table thead {
+    text-align: center;
 }
 
 td:first-child, th:first-child {
@@ -459,7 +466,14 @@ thead tr {
 
     // Gets the status state of a given test case
     function getStatusState(testCase) {
-        return testCase.getElementsByClassName("Status")[0].getElementsByClassName("TestCasePropertyValue")[0].innerHTML;
+		var statusState = testCase.getElementsByClassName("Status")[0];
+		
+		if(statusState != null)
+		{
+			statusState = statusState.getElementsByClassName("TestCasePropertyValue")[0].innerHTML;
+		}
+
+        return statusState;
     }
 
     function getPriorityState(testCase) {
@@ -473,43 +487,47 @@ thead tr {
     // Change the background color of the status <p> depending on the state
     function changeStatusPropertyBackgroundColor(testCase) {
         var state = getStatusState(testCase);
-        var statusLi = testCase.getElementsByClassName("Status")[0];
-        var statusPropertyValue = statusLi.getElementsByClassName("TestCasePropertyValue")[0];
-        var testCaseTitle = testCase.getElementsByClassName("TestCaseTitle")[0];
-        var testStatusIndicator = testCase.getElementsByClassName("TestStatusIndicator")[0];
 
-        switch (state) {
+		if(state != null)
+		{
+			var statusLi = testCase.getElementsByClassName("Status")[0];
+			var statusPropertyValue = statusLi.getElementsByClassName("TestCasePropertyValue")[0];
+			var testCaseTitle = testCase.getElementsByClassName("TestCaseTitle")[0];
+			var testStatusIndicator = testCase.getElementsByClassName("TestStatusIndicator")[0];
 
-            case STATUS_ACTIVE:
-                concatClassNameOfGivenElement(statusPropertyValue, " " + STATUS_ACTIVE);
-                concatClassNameOfGivenElement(testStatusIndicator, " " + STATUS_ACTIVE);
-                return;
+			switch (state) {
 
-            case STATUS_PASSED:
-                concatClassNameOfGivenElement(statusPropertyValue, " " + STATUS_PASSED);
-                concatClassNameOfGivenElement(testStatusIndicator, " " + STATUS_PASSED);
-                return;
+				case STATUS_ACTIVE:
+					concatClassNameOfGivenElement(statusPropertyValue, " " + STATUS_ACTIVE);
+					concatClassNameOfGivenElement(testStatusIndicator, " " + STATUS_ACTIVE);
+					return;
 
-            case STATUS_FAILED:
-                concatClassNameOfGivenElement(testStatusIndicator, " " + STATUS_FAILED);
-                concatClassNameOfGivenElement(statusPropertyValue, " " + STATUS_FAILED);
-                return;
+				case STATUS_PASSED:
+					concatClassNameOfGivenElement(statusPropertyValue, " " + STATUS_PASSED);
+					concatClassNameOfGivenElement(testStatusIndicator, " " + STATUS_PASSED);
+					return;
 
-            case STATUS_BLOCKED:
-                concatClassNameOfGivenElement(testStatusIndicator, " " + STATUS_BLOCKED);
-                concatClassNameOfGivenElement(statusPropertyValue, " " + STATUS_BLOCKED);
-                return;
+				case STATUS_FAILED:
+					concatClassNameOfGivenElement(testStatusIndicator, " " + STATUS_FAILED);
+					concatClassNameOfGivenElement(statusPropertyValue, " " + STATUS_FAILED);
+					return;
 
-            case STATUS_NOT_APPLICABLE:
-                concatClassNameOfGivenElement(testStatusIndicator, " " + STATUS_NOT_APPLICABLE);
-                concatClassNameOfGivenElement(statusPropertyValue, " " + STATUS_NOT_APPLICABLE);
-                return;
+				case STATUS_BLOCKED:
+					concatClassNameOfGivenElement(testStatusIndicator, " " + STATUS_BLOCKED);
+					concatClassNameOfGivenElement(statusPropertyValue, " " + STATUS_BLOCKED);
+					return;
 
-            default:
-                concatClassNameOfGivenElement(testStatusIndicator, " " + STATUS_DEFAULT);
-                concatClassNameOfGivenElement(statusPropertyValue, " " + STATUS_DEFAULT);
-                return;
-        }
+				case STATUS_NOT_APPLICABLE:
+					concatClassNameOfGivenElement(testStatusIndicator, " " + STATUS_NOT_APPLICABLE);
+					concatClassNameOfGivenElement(statusPropertyValue, " " + STATUS_NOT_APPLICABLE);
+					return;
+
+				default:
+					concatClassNameOfGivenElement(testStatusIndicator, " " + STATUS_DEFAULT);
+					concatClassNameOfGivenElement(statusPropertyValue, " " + STATUS_DEFAULT);
+					return;
+			}
+		}
     }
 
     function getFilterCriteria(event) {
@@ -743,74 +761,88 @@ public void TestCaseTitle(TestCase testCase, string checkedProperties)
 
 public void TestCaseProperties(TestCase testCase, string status, string checkedProperties)
 {
-	WriteLine(@"<li class=""TestCasePropertiesWrapper"">");
-	WriteLine(@"<div>▶ Test Case Properties</div>");
-	WriteLine(@"<ul class=""TestCasePropertiesList Collapsed"">");
-
-	if(testCase.ITestSuiteBase != null && checkedProperties.IndexOf("Suite")!=-1)
+    if (!string.IsNullOrEmpty(checkedProperties))
     {
-		Write(@"<li class=""Suite""><span class=""TestCasePropertyName Suite"">Suite: </span><span class=""TestCasePropertyValue"">");
-		Write(testCase.ITestSuiteBase.Title);
-		WriteLine("</span></li>");
-    }
+		WriteLine(@"<li class=""TestCasePropertiesWrapper"">");
+		WriteLine(@"<div>▶ Test Case Properties</div>");
+		WriteLine(@"<ul class=""TestCasePropertiesList Collapsed"">");
 
-	if(testCase.Area != null && checkedProperties.IndexOf("Area")!=-1)
-    {
-		Write(@"<li class=""Area""><span class=""TestCasePropertyName Area"">Area: </span><span class=""TestCasePropertyValue"">");
-		Write(testCase.Area);
-		WriteLine("</span></li>");
-    }
-
-	if(testCase.Priority != null  && checkedProperties.IndexOf("Priority")!=-1)
-    {
-		Write(@"<li class=""Priority""><span class=""TestCasePropertyName Priority"">Priority: </span><span class=""TestCasePropertyValue"">");
-		Write(testCase.Priority.ToString());
-		WriteLine("</span></li>");
-    }
-
-	if(testCase.ITestCase != null && checkedProperties.IndexOf("Automated")!=-1)
-    {
-		Write(@"<li class=""Automated""><span class=""TestCasePropertyName Automated"">Automated: </span><span class=""TestCasePropertyValue"">");
-		Write(testCase.ITestCase.IsAutomated.ToString());
-		WriteLine("</span></li>");
-    }
-
-	if(testCase.ITestCase != null && testCase.ITestCase.IsAutomated)
-    {
-        if (testCase.ITestCase.IsAutomated)
-        {
-			Write(@"<li class=""DLLPath""><span class=""TestCasePropertyName DLLPath"">DLL Path: </span><span class=""TestCasePropertyValue"">");
-			var automationInfo = testCase.ITestCase.GetAssociatedAutomation();
-			Write(automationInfo.ToString());
+		if(testCase.ITestSuiteBase != null && checkedProperties.IndexOf("Suite")!=-1)
+		{
+			Write(@"<li class=""Suite""><span class=""TestCasePropertyName Suite"">Suite: </span><span class=""TestCasePropertyValue"">");
+			Write(testCase.ITestSuiteBase.Title);
 			WriteLine("</span></li>");
-        }
-    }
+		}
 
-	if(testCase.OwnerDisplayName != null  && checkedProperties.IndexOf("AssignedTo")!=-1)
-    {
-		Write(@"<li class=""Assigned""><span class=""TestCasePropertyName Assigned"">Assigned To: </span><span class=""TestCasePropertyValue"">");
-		Write(testCase.OwnerDisplayName);
-		WriteLine("</span></li>");
-    }
+		if(testCase.Area != null && checkedProperties.IndexOf("Area")!=-1)
+		{
+			Write(@"<li class=""Area""><span class=""TestCasePropertyName Area"">Area: </span><span class=""TestCasePropertyValue"">");
+			Write(testCase.Area);
+			WriteLine("</span></li>");
+		}
 
-	if(status != null && checkedProperties.IndexOf("Status")!=-1)
-    {
-		Write(@"<li class=""Status""><span class=""TestCasePropertyName Status"">Status: </span><span class=""TestCasePropertyValue"">");
-		Write(status);
-		WriteLine("</span></li>");
+		if(testCase.Priority != null  && checkedProperties.IndexOf("Priority")!=-1)
+		{
+			Write(@"<li class=""Priority""><span class=""TestCasePropertyName Priority"">Priority: </span><span class=""TestCasePropertyValue"">");
+			Write(testCase.Priority.ToString());
+			WriteLine("</span></li>");
+		}
+
+		if(testCase.ITestCase != null && checkedProperties.IndexOf("Automated")!=-1)
+		{
+			Write(@"<li class=""Automated""><span class=""TestCasePropertyName Automated"">Automated: </span><span class=""TestCasePropertyValue"">");
+			Write(testCase.ITestCase.IsAutomated.ToString());
+			WriteLine("</span></li>");
+		}
+
+		if(testCase.ITestCase != null && testCase.ITestCase.IsAutomated)
+		{
+			if (testCase.ITestCase.IsAutomated)
+			{
+				var automationInfo = testCase.ITestCase.GetAssociatedAutomation();
+				Write(@"<li class=""AutomationInfo""><span class=""TestCasePropertyName Assembly"">Assembly: </span><span class=""TestCasePropertyValue"">");
+				Write(automationInfo.Assembly);
+				WriteLine("</span></li>");
+
+				Write(@"<li class=""AutomationInfo""><span class=""TestCasePropertyName Type"">Type: </span><span class=""TestCasePropertyValue"">");
+				Write(automationInfo.Type);
+				WriteLine("</span></li>");
+
+				Write(@"<li class=""AutomationInfo""><span class=""TestCasePropertyName TestName"">TestName: </span><span class=""TestCasePropertyValue"">");
+				Write(automationInfo.TestName);
+				WriteLine("</span></li>");
+			}
+		}
+
+		if(testCase.OwnerDisplayName != null  && checkedProperties.IndexOf("AssignedTo")!=-1)
+		{
+			Write(@"<li class=""Assigned""><span class=""TestCasePropertyName Assigned"">Assigned To: </span><span class=""TestCasePropertyValue"">");
+			Write(testCase.OwnerDisplayName);
+			WriteLine("</span></li>");
+		}
+
+		if(status != null && checkedProperties.IndexOf("Status")!=-1)
+		{
+			Write(@"<li class=""Status""><span class=""TestCasePropertyName Status"">Status: </span><span class=""TestCasePropertyValue"">");
+			Write(status);
+			WriteLine("</span></li>");
+		}
+		else if (status != null && checkedProperties.IndexOf("Status")==-1)
+		{
+			Write(@"<li class=""Status Hidden""><span class=""TestCasePropertyName Status"">Status: </span><span class=""TestCasePropertyValue"">");
+			Write(status);
+			WriteLine("</span></li>");
+		}
+
+		WriteLine("</ul>");
+		WriteLine("</li>");
     }
-    else if (status != null && checkedProperties.IndexOf("Status")==-1)
-    {
-		Write(@"<li class=""Status Hidden""><span class=""TestCasePropertyName Status"">Status: </span><span class=""TestCasePropertyValue"">");
-		Write(status);
-		WriteLine("</span></li>");
-    }
-	WriteLine("</ul>");
-	WriteLine("</li>");
 }
 
 public void TestCaseComment(string comment, string checkedProperties)
 {
+	comment = comment.Replace("<","&lt;").Replace(">","&gt;").Replace("\r\n","<br>").Replace("\n","<br>");
+
     if (checkedProperties.IndexOf("Comment")!=-1)
     {
 		WriteLine(@"<li class=""TestCaseCommentWrapper"">");

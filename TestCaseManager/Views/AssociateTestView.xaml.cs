@@ -207,12 +207,30 @@ namespace TestCaseManagerApp.Views
         /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void btnAssociate_Click(object sender, RoutedEventArgs e)
         {
+            this.AssociateTestInternal();
+        }
+
+        /// <summary>
+        /// Associates the test internal.
+        /// </summary>
+        private void AssociateTestInternal()
+        {
             Test currentSelectedTest = dgTests.SelectedItem as Test;
             string testType = cbTestType.Text;
             this.AssociateTestViewModel.AssociateTestCaseToTest(currentSelectedTest, testType);
 
             log.InfoFormat("Navigate to Edit Test Case with id= {0}, test suite id= {1}, CreateNew= {2}, Duplicate= {3}", AssociateTestViewModel.TestCaseId, AssociateTestViewModel.TestSuiteId, AssociateTestViewModel.CreateNew, AssociateTestViewModel.Duplicate);
             this.NavigateToTestCasesEditView(AssociateTestViewModel.TestCaseId, AssociateTestViewModel.TestSuiteId, AssociateTestViewModel.CreateNew, AssociateTestViewModel.Duplicate);
+        }
+
+        /// <summary>
+        /// Handles the MouseDoubleClick event of the dgTests control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.Windows.Input.MouseButtonEventArgs"/> instance containing the event data.</param>
+        private void dgTests_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            this.AssociateTestInternal();
         }        
     }
 }

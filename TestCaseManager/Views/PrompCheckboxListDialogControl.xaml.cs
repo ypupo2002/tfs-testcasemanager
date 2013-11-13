@@ -61,7 +61,11 @@ namespace TestCaseManagerApp.Views
         {
             PrompCheckboxListDialogViewModel.IsCanceled = false;
             List<String> checkedProperties = PrompCheckboxListDialogViewModel.PropertiesToBeExported.ToList();
-            string checkedPropertiesStr = checkedProperties.Aggregate((i, j) => i + " " + j);
+            string checkedPropertiesStr = string.Empty;
+            if (checkedProperties.Count != 0)
+            {
+                checkedPropertiesStr = checkedProperties.Aggregate((i, j) => i + " " + j);
+            }
             RegistryManager.WriteCheckedPropertiesToBeExported(checkedPropertiesStr);
             RegistryManager.WriteIsWindowClosedFromX(false);
             RegistryManager.WriteIsCheckboxDialogSubmitted(true);

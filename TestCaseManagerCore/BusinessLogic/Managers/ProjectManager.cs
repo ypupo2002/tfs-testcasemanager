@@ -40,7 +40,10 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
             MethodInfo[] methods = null;
             try
             {
-                Assembly assembly = Assembly.LoadFrom(assemblyFullPath);
+                FileInfo dll = new FileInfo(assemblyFullPath);
+                string newPath = Path.Combine(Path.GetTempPath(), String.Concat(Guid.NewGuid().ToString(), dll.Name));
+                File.Copy(assemblyFullPath, newPath);
+                Assembly assembly = Assembly.LoadFrom(newPath);
                 methods = GetMethodsWithTestMethodAttribute(assembly, methods);
             }
             catch (ReflectionTypeLoadException ex)

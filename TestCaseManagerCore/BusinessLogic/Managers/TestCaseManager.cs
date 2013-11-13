@@ -197,8 +197,11 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
         /// Gets all test case from suite.
         /// </summary>
         /// <param name="suiteId">The suite unique identifier.</param>
-        /// <returns>list of all test cases in the list</returns>
-        public static List<TestCase> GetAllTestCaseFromSuite(int suiteId)
+        /// <param name="includeExecutionStatus">if set to <c>true</c> [include execution status].</param>
+        /// <returns>
+        /// list of all test cases in the list
+        /// </returns>
+        public static List<TestCase> GetAllTestCaseFromSuite(int suiteId, bool includeExecutionStatus = true)
         {
             List<TestCase> testCases = new List<TestCase>();
             ExecutionContext.Preferences.TestPlan.Refresh();
@@ -206,7 +209,7 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
             currentSuite.Refresh();
             foreach (var currentTestCase in currentSuite.TestCases)
             {
-                TestCase testCaseToAdd = new TestCase(currentTestCase.TestCase, currentSuite);
+                TestCase testCaseToAdd = new TestCase(currentTestCase.TestCase, currentSuite, includeExecutionStatus);
                 if (!testCases.Contains(testCaseToAdd))
                 {
                     testCases.Add(testCaseToAdd);
@@ -269,7 +272,7 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
             List<TestCase> testCasesList;
             //if (includeSuites)
             //{
-            //    testCasesList = GetAllTestCasesFromSuiteCollection(ExecutionContext.Preferences.TestPlan.RootSuite.SubSuites);
+            //testCasesList = GetAllTestCasesFromSuiteCollection(ExecutionContext.Preferences.TestPlan.RootSuite.SubSuites);
             //    AddTestCasesWithoutSuites(testCasesList);
             //}
             //else
@@ -431,7 +434,7 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
         /// Adds the test cases without suites.
         /// </summary>
         /// <param name="testCasesList">The test cases list.</param>
-        private static void AddTestCasesWithoutSuites(List<TestCase> testCasesList)
+        public static void AddTestCasesWithoutSuites(List<TestCase> testCasesList)
         {
             string queryText = "select [System.Id], [System.Title] from WorkItems where [System.WorkItemType] = 'Test Case'";
             IEnumerable<ITestCase> allTestCases = ExecutionContext.TestManagementTeamProject.TestCases.Query(queryText);

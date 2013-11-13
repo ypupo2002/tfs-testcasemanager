@@ -26,7 +26,7 @@ namespace TestCaseManagerCore.ViewModels
         /// </summary>
         public TestCaseExecutionArrangmentViewModel(int suiteId)
         {
-            List<TestCase> suiteTestCases = TestCaseManager.GetAllTestCaseFromSuite(suiteId);
+            List<TestCase> suiteTestCases = TestCaseManager.GetAllTestCaseFromSuite(suiteId, false);
             this.CurrentSuite = TestSuiteManager.GetTestSuiteById(suiteId) as IStaticTestSuite;
             this.ObservableTestCases = new ObservableCollection<TestCase>();
             this.InitialTestCaseCollection = new List<TestCase>();

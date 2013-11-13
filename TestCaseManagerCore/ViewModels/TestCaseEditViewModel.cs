@@ -103,12 +103,12 @@ namespace TestCaseManagerCore.ViewModels
                 if (this.EditViewContext.CreateNew && !this.EditViewContext.Duplicate)
                 {
                     ITestCase newTestCase = TestCaseManagerCore.ExecutionContext.TestManagementTeamProject.TestCases.Create();
-                    this.TestCase = new TestCase(newTestCase, testSuiteBaseCore);
+                    this.TestCase = new TestCase(newTestCase, testSuiteBaseCore, false);
                 }
                 else
                 {
                     ITestCase testCaseCore = TestCaseManagerCore.ExecutionContext.TestManagementTeamProject.TestCases.Find(this.EditViewContext.TestCaseId);
-                    this.TestCase = new TestCase(testCaseCore, testSuiteBaseCore);
+                    this.TestCase = new TestCase(testCaseCore, testSuiteBaseCore, false);
                 }
                 this.ObservableSharedSteps = new ObservableCollection<SharedStep>();
                 this.InitializeObservableSharedSteps();
