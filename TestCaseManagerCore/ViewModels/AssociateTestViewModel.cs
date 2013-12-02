@@ -37,7 +37,7 @@ namespace TestCaseManagerCore.ViewModels
             this.TestCase = new TestCase(testCaseCore, null);
             this.TestCaseId = testCaseId;
             string projectDllPath = RegistryManager.GetProjectDllPath();
-            List<Test> testsList = ProjectManager.GetTests(projectDllPath);
+            List<Test> testsList = ProjectManager.GetProjectTestMethods(projectDllPath);
             this.ObservableTests = new ObservableCollection<Test>();
             this.AssociateTestViewFilters = new AssociateTestViewFilters();
             testsList.ForEach(t => this.ObservableTests.Add(t));

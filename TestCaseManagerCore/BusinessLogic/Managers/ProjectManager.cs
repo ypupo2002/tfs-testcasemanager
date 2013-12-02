@@ -35,16 +35,21 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
         /// </summary>
         /// <param name="assemblyFullPath">The assembly full path.</param>
         /// <returns>array of method info objects</returns>
-        public static MethodInfo[] GetProjectTestMethods(string assemblyFullPath)
+        public static List<Test> GetProjectTestMethods(string assemblyFullPath)
         {
-            MethodInfo[] methods = null;
+            List<Test> tests = null;
             try
             {
-                FileInfo dll = new FileInfo(assemblyFullPath);
-                string newPath = Path.Combine(Path.GetTempPath(), String.Concat(Guid.NewGuid().ToString(), dll.Name));
-                File.Copy(assemblyFullPath, newPath);
-                Assembly assembly = Assembly.LoadFrom(newPath);
-                methods = GetMethodsWithTestMethodAttribute(assembly, methods);
+              AppDomainSetup setup = AppDomain.CurrentDomain.SetupInformation;
+              AppDomain newDomain = AppDomain.CreateDomain("newDomain", AppDomain.CurrentDomain.Evidence, setup);
+              System.Runtime.Remoting.ObjectHandle obj = newDomain.CreateInstance(typeof(AssemblyLoader).Assembly.FullName, typeof(AssemblyLoader).FullName);
+ 
+              AssemblyLoader loader = (AssemblyLoader)obj.Unwrap();
+              loader.LoadAssembly(assemblyFullPath);
+              tests = loader.GetMethodsWithTestMethodAttribute();
+ 
+              AppDomain.Unload(newDomain);
+               
             }
             catch (ReflectionTypeLoadException ex)
             {
@@ -65,25 +70,6 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
                     sb.AppendLine();
                 }
                 string errorMessage = sb.ToString();
-
-                // Display or log the error based on your application.
-            }
-
-            return methods;
-        }
-
-        /// <summary>
-        /// Gets the test objects from specific assemly.
-        /// </summary>
-        /// <param name="assemblyFullPath">The assembly full path.</param>
-        /// <returns>list of all test objects</returns>
-        public static List<Test> GetTests(string assemblyFullPath)
-        {
-            MethodInfo[] currentDllMethods = GetProjectTestMethods(assemblyFullPath);
-            List<Test> tests = new List<Test>();
-            foreach (var cM in currentDllMethods)
-            {
-                tests.Add(new Test(string.Format("{0}.{1}", cM.DeclaringType.FullName, cM.Name), cM.DeclaringType.Name, GenerateTestMethodId(cM)));
             }
 
             return tests;

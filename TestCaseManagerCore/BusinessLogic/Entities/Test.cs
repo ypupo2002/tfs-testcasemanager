@@ -13,6 +13,7 @@ namespace TestCaseManagerCore.BusinessLogic.Entities
     /// <summary>
     /// Contains Test object information properties
     /// </summary>
+    [Serializable]
     public class Test
     {
         /// <summary>

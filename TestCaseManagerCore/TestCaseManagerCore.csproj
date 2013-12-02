@@ -150,6 +150,7 @@
     <Compile Include="BusinessLogic\Enums\Priority.cs" />
     <Compile Include="BusinessLogic\Enums\TestCaseExecutionType.cs" />
     <Compile Include="BusinessLogic\Entities\AssembliesLoader.cs" />
+    <Compile Include="BusinessLogic\Managers\AssemblyLoader.cs" />
     <Compile Include="BusinessLogic\Managers\CheckedItemManager.cs" />
     <Compile Include="BusinessLogic\Managers\ClipBoardManager.cs" />
     <Compile Include="BusinessLogic\Managers\TestPointManager.cs" />
