@@ -49,6 +49,11 @@ namespace TestCaseManagerCore.ViewModels
         private string testCasesCount;
 
         /// <summary>
+        /// The show sub suites test cases
+        /// </summary>
+        private bool showSubSuitesTestCases;
+
+        /// <summary>
         /// The selected test cases count
         /// </summary>
         private string selectedTestCasesCount;
@@ -64,11 +69,14 @@ namespace TestCaseManagerCore.ViewModels
             // Load last selected suite in the treeview in order to selected it again
             this.selectedSuiteId = RegistryManager.GetSelectedSuiteId();
             List<TestCase> suiteTestCaseCollection = new List<TestCase>();
+            this.ShowSubSuitesTestCases = RegistryManager.ReadShowSubsuiteTestCases();
+
             if (this.selectedSuiteId != -1)
             {
                 try
                 {
                     suiteTestCaseCollection = TestCaseManager.GetAllTestCaseFromSuite(this.selectedSuiteId);
+                    this.AddTestCasesSubsuites(suiteTestCaseCollection);
                 }
                 catch(NullReferenceException ex)
                 {
@@ -84,10 +92,19 @@ namespace TestCaseManagerCore.ViewModels
                     }
                 }
             }
+            else if (ExecutionContext.Preferences.TestPlan.RootSuite != null && ExecutionContext.Preferences.TestPlan.RootSuite.SubSuites != null && ExecutionContext.Preferences.TestPlan.RootSuite.SubSuites.Count > 0)
+            {
+                suiteTestCaseCollection = TestCaseManager.GetAllTestCaseFromSuite(ExecutionContext.Preferences.TestPlan.RootSuite.SubSuites.First().Id);
+                this.selectedSuiteId = ExecutionContext.Preferences.TestPlan.RootSuite.SubSuites.First().Id;
+                this.ShowSubSuitesTestCases = false;
+                RegistryManager.WriteShowSubsuiteTestCases(false);
+            }
             else
             {
+                this.ShowSubSuitesTestCases = false;
+                RegistryManager.WriteShowSubsuiteTestCases(false);
                 suiteTestCaseCollection = TestCaseManager.GetAllTestCasesInTestPlan();
-            }      
+            }
             
             this.ObservableTestCases = new ObservableCollection<TestCase>();
             this.InitialTestCaseCollection = new ObservableCollection<TestCase>();
@@ -112,6 +129,25 @@ namespace TestCaseManagerCore.ViewModels
             this.IsAfterInitialize = true;
             this.SelectedTestCasesCount = "0";
             this.CurrentExecutionStatusOption = TestCaseExecutionType.All;
+        }
+
+        /// <summary>
+        /// Adds the test cases subsuites.
+        /// </summary>
+        /// <param name="suiteTestCaseCollection">The suite test case collection.</param>
+        public void AddTestCasesSubsuites(List<TestCase> suiteTestCaseCollection)
+        {
+            int selectedSuiteId = RegistryManager.GetSelectedSuiteId();
+            if (this.ShowSubSuitesTestCases)
+            {
+                List<TestCase> testCasesList = new List<TestCase>();
+                ITestSuiteBase currentSuite = TestSuiteManager.GetTestSuiteById(selectedSuiteId);
+                if (currentSuite is IStaticTestSuite)
+                {
+                    testCasesList = TestCaseManager.GetAllTestCasesFromSuiteCollection((currentSuite as IStaticTestSuite).SubSuites);
+                    testCasesList.ForEach(x => suiteTestCaseCollection.Add(x));
+                }
+            }
         }      
 
         /// <summary>
@@ -202,6 +238,26 @@ namespace TestCaseManagerCore.ViewModels
             set
             {
                 this.hideAutomated = value;
+                this.NotifyPropertyChanged();
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether [show sub suites test cases].
+        /// </summary>
+        /// <value>
+        /// <c>true</c> if [show sub suites test cases]; otherwise, <c>false</c>.
+        /// </value>
+        public bool ShowSubSuitesTestCases
+        {
+            get
+            {
+                return this.showSubSuitesTestCases;
+            }
+
+            set
+            {
+                this.showSubSuitesTestCases = value;
                 this.NotifyPropertyChanged();
             }
         }
@@ -314,7 +370,6 @@ namespace TestCaseManagerCore.ViewModels
                 ).ToList();
             this.ObservableTestCases.Clear();
             filteredList.ForEach(x => this.ObservableTestCases.Add(x));
-       
             this.TestCasesCount = filteredList.Count.ToString();
         }
 

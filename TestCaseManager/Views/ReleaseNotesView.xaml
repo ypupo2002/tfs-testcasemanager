@@ -9,6 +9,13 @@
         <ScrollViewer>
             <StackPanel >
                 <TextBlock Text="Release Notes" FontSize="26" Height="Auto" Margin="0,0,0,15"/>
+                <mui:BBCodeBlock BBCode="[b]Version[/b]: 1.0.8.6     [b]Date[/b]: 10.12.2013" Margin="0,0,10,15"/>
+                <mui:BBCodeBlock BBCode="-add feature if the test plan is loaded for the first time first suite in the plan is selected instead the All node" Margin="0,0,0,15" />
+                <mui:BBCodeBlock BBCode="-add fast button Change Test Cases in the Initial View" Margin="0,0,0,15" />
+                <mui:BBCodeBlock BBCode="-fix bug clear Undo/Redo operation if you click Cancel- Cancel - Save Changes Dialog - Edit Mode" Margin="0,0,0,15" />
+                <mui:BBCodeBlock BBCode="-add checkbox show test cases in subsuites" Margin="0,0,0,15" />
+                <mui:BBCodeBlock BBCode="-add feature to save the state of the show test cases in subsuites option between views and runs of the app" Margin="0,0,0,15" />
+                
                 <mui:BBCodeBlock BBCode="[b]Version[/b]: 1.0.8.5     [b]Date[/b]: 12.11.2013" Margin="0,0,10,15"/>
                 <mui:BBCodeBlock BBCode="-add export selection properties dialog" Margin="0,0,0,15" />
                 <mui:BBCodeBlock BBCode="-add new test cases export report v2.0" Margin="0,0,0,15" />

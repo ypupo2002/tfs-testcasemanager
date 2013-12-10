@@ -87,6 +87,11 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
         private static string selectedSuiteIdFilterRegistrySubKeyName = "selectedSuiteId";
 
         /// <summary>
+        /// The show subsuite test cases registry sub key name
+        /// </summary>
+        private static string showSubsuiteTestCasesRegistrySubKeyName = "showSubsuiteTestCases";
+
+        /// <summary>
         /// The automation association registry sub key name
         /// </summary>
         private static string automationAssociationRegistrySubKeyName = "AutomationAssociation";
@@ -170,6 +175,15 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
         }
 
         /// <summary>
+        /// Writes the show subsuite test cases.
+        /// </summary>
+        /// <param name="showSubsuiteTestCases">if set to <c>true</c> [show subsuite test cases].</param>
+        public static void WriteShowSubsuiteTestCases(bool showSubsuiteTestCases)
+        {
+            Write(showSubsuiteTestCasesRegistrySubKeyName, showSubsuiteTestCases.ToString());
+        }
+
+        /// <summary>
         /// Writes the checked properties automatic be exported.
         /// </summary>
         /// <param name="checkedPropertiesToBeExported">The checked properties automatic be exported.</param>
@@ -194,6 +208,21 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
         public static bool ReadIsWindowClosedFromX()
         {
             string resultStr = Read(isWindowClosedFromXSubKeyName);
+            bool result = false;
+            if (!String.IsNullOrEmpty(resultStr))
+            {
+                result = bool.Parse(resultStr);
+            }
+            return result;
+        }
+
+        /// <summary>
+        /// Reads the show subsuite test cases.
+        /// </summary>
+        /// <returns>should show subsuite test cases</returns>
+        public static bool ReadShowSubsuiteTestCases()
+        {
+            string resultStr = Read(showSubsuiteTestCasesRegistrySubKeyName);
             bool result = false;
             if (!String.IsNullOrEmpty(resultStr))
             {

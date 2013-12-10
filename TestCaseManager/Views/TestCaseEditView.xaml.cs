@@ -1013,7 +1013,7 @@ namespace TestCaseManagerApp.Views
                 }
                 else
                 {
-                    UndoRedoManager.Instance().Clear();  
+                    //UndoRedoManager.Instance().Clear();  
                     this.editViewContext.IsInitialized = true;
                 }
             }
@@ -1028,7 +1028,7 @@ namespace TestCaseManagerApp.Views
                 }
                 else
                 {
-                    UndoRedoManager.Instance().Clear();  
+                    //UndoRedoManager.Instance().Clear();  
                     this.editViewContext.IsInitialized = true;
                 }
             }
@@ -1047,7 +1047,7 @@ namespace TestCaseManagerApp.Views
                 }
                 else
                 {
-                    UndoRedoManager.Instance().Clear();  
+                    //UndoRedoManager.Instance().Clear();  
                     this.editViewContext.IsInitialized = true;                    
                 }              
             }

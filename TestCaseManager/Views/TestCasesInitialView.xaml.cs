@@ -18,6 +18,7 @@ using TestCaseManagerCore.BusinessLogic.Enums;
 using TestCaseManagerCore.BusinessLogic.Managers;
 using TestCaseManagerCore.ViewModels;
 using TestCaseManagerCore;
+using Microsoft.TeamFoundation.TestManagement.Client;
 
 namespace TestCaseManagerApp.Views
 {
@@ -135,6 +136,11 @@ namespace TestCaseManagerApp.Views
         /// Indicates if the view model is already initialized
         /// </summary>
         private static bool isInitialized;
+
+        /// <summary>
+        /// The is show test cases subsuite already unchecked
+        /// </summary>
+        private bool isShowTestCasesSubsuiteAlreadyUnchecked;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="TestCasesInitialView"/> class.
@@ -556,10 +562,13 @@ namespace TestCaseManagerApp.Views
         /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void treeViewItem_Selected(object sender, RoutedEventArgs e)
         {
+            this.isShowTestCasesSubsuiteAlreadyUnchecked = false;
             e.Handled = true;
             int selectedSuiteId = (int)tvSuites.SelectedValue;
             //btnShowTestCaseWithoutSuite.Visibility = System.Windows.Visibility.Hidden;
             //btnShowTestCaseWithoutSuite1.Visibility = System.Windows.Visibility.Hidden;
+            //this.TestCasesInitialViewModel.ShowSubSuitesTestCases = false;
+            //RegistryManager.WriteShowSubsuiteTestCases(false);
             btnArrange.Visibility = System.Windows.Visibility.Visible;
             btnArrange1.Visibility = System.Windows.Visibility.Visible;
             if (selectedSuiteId == -1 || !TestSuiteManager.IsStaticSuite(selectedSuiteId))
@@ -577,16 +586,27 @@ namespace TestCaseManagerApp.Views
             RegistryManager.WriteSelectedSuiteId(selectedSuiteId);
             this.TestCasesInitialViewModel.TestCasesCount = "...";
             this.ShowTestCasesProgressbar();
-            List<TestCase> suiteTestCaseCollection = new List<TestCase>();
+            
             this.ShowAllExecutionStatusContextMenuItemsStatuses();
             spExecutionStatuses.Visibility = System.Windows.Visibility.Visible;
+            this.InitializeTestCasesBySelectedSuiteIdInternal(selectedSuiteId);
+            this.isShowTestCasesSubsuiteAlreadyUnchecked = true;
+        }
+
+        /// <summary>
+        /// Initializes the test cases by selected suite unique identifier internal.
+        /// </summary>
+        /// <param name="selectedSuiteId">The selected suite unique identifier.</param>
+        private void InitializeTestCasesBySelectedSuiteIdInternal(int selectedSuiteId)
+        {
+            List<TestCase> suiteTestCaseCollection = new List<TestCase>();
             bool shouldHideMenuItems = false;
             Task t = Task.Factory.StartNew(() =>
             {
                 if (selectedSuiteId != -1)
                 {
                     suiteTestCaseCollection = TestCaseManager.GetAllTestCaseFromSuite(selectedSuiteId);
-                  
+                    this.TestCasesInitialViewModel.AddTestCasesSubsuites(suiteTestCaseCollection);
                 }
                 else if (isInitialized)
                 {
@@ -1113,6 +1133,8 @@ namespace TestCaseManagerApp.Views
             btnEdit.IsEnabled = true;
             btnPreview1.IsEnabled = true;
             btnDuplicate1.IsEnabled = true;
+            btnChangeTestCases.IsEnabled = true;
+            btnChangeTestCases1.IsEnabled = true;
             btnEdit1.IsEnabled = true;
             btnExport.IsEnabled = true;
             btnExport1.IsEnabled = true;
@@ -1138,6 +1160,8 @@ namespace TestCaseManagerApp.Views
                 dgTestCaseContextItemEdit.IsEnabled = false;
                 dgTestCaseContextItemPreview.IsEnabled = false;
                 dgTestCaseContextItemDuplicate.IsEnabled = false;
+                btnChangeTestCases.IsEnabled = false;
+                btnChangeTestCases1.IsEnabled = false;
 
                 dgTestCaseContextItemCopy.IsEnabled = false;
                 dgTestCaseContextItemCut.IsEnabled = false;
@@ -1414,6 +1438,76 @@ namespace TestCaseManagerApp.Views
             {
                 this.NavigateToTestCasesExecutionArrangement(selectedSuiteId);
             }
+        }
+
+        /// <summary>
+        /// Handles the Click event of the btnChangeTestCases control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
+        private void btnChangeTestCases_Click(object sender, RoutedEventArgs e)
+        {
+            if (dgTestCases.SelectedItems.Count == 0)
+            {
+                ModernDialog.ShowMessage("No test cases selected.", "Warning", MessageBoxButton.OK);
+            }
+            else
+            {
+                ExecutionContext.SelectedTestCasesForChange = new List<TestCase>();
+                foreach (TestCase currentTestCase in dgTestCases.SelectedItems)
+                {
+                    ExecutionContext.SelectedTestCasesForChange.Add(currentTestCase);
+                }
+                log.Info("Navigate to TestCaseBatchDuplicateView initialized with selected test cases.");
+                this.NavigateToTestCaseBatchDuplicateView(true, true);
+            }
+        }
+
+        /// <summary>
+        /// Handles the Unchecked event of the cbShowSubsuiteTestCases control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
+        private void cbShowSubsuiteTestCases_Unchecked(object sender, RoutedEventArgs e)
+        {
+            if (this.isShowTestCasesSubsuiteAlreadyUnchecked)
+            {
+                ShowTestCasesProgressbar();
+                int selectedSuiteId = RegistryManager.GetSelectedSuiteId();
+                this.InitializeTestCasesBySelectedSuiteIdInternal(selectedSuiteId);
+            }
+        }
+
+        /// <summary>
+        /// Handles the Checked event of the cbShowSubsuiteTestCases control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
+        private void cbShowSubsuiteTestCases_Checked(object sender, RoutedEventArgs e)
+        {
+            int selectedSuiteId = RegistryManager.GetSelectedSuiteId();
+            if (selectedSuiteId == -1)
+            {
+                return;
+            }
+            RegistryManager.WriteShowSubsuiteTestCases(true);
+            ShowTestCasesProgressbar();
+            List<TestCase> testCasesList = new List<TestCase>();
+            Task t = Task.Factory.StartNew(() =>
+            {
+                ITestSuiteBase currentSuite = TestSuiteManager.GetTestSuiteById(selectedSuiteId);
+                if (currentSuite is IStaticTestSuite)
+                {
+                    testCasesList = TestCaseManager.GetAllTestCasesFromSuiteCollection((currentSuite as IStaticTestSuite).SubSuites);
+                } 
+            });
+            t.ContinueWith(antecedent =>
+            {
+                testCasesList.ForEach(x => this.TestCasesInitialViewModel.ObservableTestCases.Add(x));
+                testCasesList.ForEach(x => this.TestCasesInitialViewModel.InitialTestCaseCollection.Add(x));
+                this.TestCasesInitialViewModel.FilterTestCases();
+                this.HideTestCasesProgressbar();
+            }, TaskScheduler.FromCurrentSynchronizationContext());                    
         }
     }
 }
