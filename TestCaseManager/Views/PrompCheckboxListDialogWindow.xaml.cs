@@ -40,7 +40,7 @@ namespace TestCaseManagerApp.Views
         /// <param name="e">The <see cref="System.ComponentModel.CancelEventArgs"/> instance containing the event data.</param>
         private void ModernWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            if(RegistryManager.ReadIsWindowClosedFromX())
+            if( RegistryManager.ReadIsWindowClosedFromX() )
             {
                 RegistryManager.WriteIsCanceledTitlePromtDialog(true);
             }

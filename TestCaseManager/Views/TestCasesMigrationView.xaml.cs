@@ -2,16 +2,13 @@
 // https://testcasemanager.codeplex.com/ All rights reserved.
 // </copyright>
 // <author>Anton Angelov</author>
-using System;
 using System.Threading.Tasks;
 using System.Windows;
-using FirstFloor.ModernUI.Presentation;
 using FirstFloor.ModernUI.Windows;
-using FirstFloor.ModernUI.Windows.Controls;
 using FirstFloor.ModernUI.Windows.Navigation;
 using Microsoft.TeamFoundation.Client;
-using Microsoft.TeamFoundation.TestManagement.Client;
 using TestCaseManagerCore;
+using TestCaseManagerCore.BusinessLogic.Enums;
 using TestCaseManagerCore.BusinessLogic.Managers;
 using TestCaseManagerCore.Helpers;
 using TestCaseManagerCore.ViewModels;
@@ -26,16 +23,11 @@ namespace TestCaseManagerApp.Views
         /// <summary>
         /// Indicates if the view model is already initialized
         /// </summary>
-        private static bool isInitialized;	
+        private static bool isInitialized;
 
 		/// <summary>
-		/// The team project
+		/// Initializes a new instance of the <see cref="TestCasesMigrationView"/> class.
 		/// </summary>
-		private ITestManagementTeamProject initialTeamProject; 
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ProjectSelectionView"/> class.
-        /// </summary>
 		public TestCasesMigrationView()
         {
             this.InitializeComponent();
@@ -102,18 +94,9 @@ namespace TestCaseManagerApp.Views
             }
             this.ShowProgressBar();
 			this.TestCasesMigrationViewModel = new TestCasesMigrationViewModel();
-            bool showTfsServerUnavailableException = false;
+
             Task t = Task.Factory.StartNew(() =>
             {
-				//this.ProjectSelectionViewModel.LoadProjectSettingsFromRegistry();
-				//try
-				//{
-				//	ProjectSelectionViewModel.InitializeTestPlans(ExecutionContext.TestManagementTeamProject);
-				//}
-				//catch(Exception)
-				//{
-				//	showTfsServerUnavailableException = true;
-				//}
             });
             t.ContinueWith(antecedent =>
             {
@@ -141,35 +124,6 @@ namespace TestCaseManagerApp.Views
             mainGrid.Visibility = System.Windows.Visibility.Hidden;
         }
 
-        /// <summary>
-        /// Handles the Click event of the DisplayButton control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
-        private void MigrateButton_Click(object sender, RoutedEventArgs e)
-        {
-			//this.ProjectSelectionViewModel.SelectedTestPlan = cbTestPlans.Text;
-			//if (string.IsNullOrEmpty(this.ProjectSelectionViewModel.SelectedTestPlan))
-			//{
-			//	ModernDialog.ShowMessage("No test plan selected.", "Warning", MessageBoxButton.OK);
-			//	return;
-			//}
-			//if (ExecutionContext.TestManagementTeamProject == null)
-			//{
-			//	ModernDialog.ShowMessage("No test project selected.", "Warning", MessageBoxButton.OK);
-			//	return;
-			//}
-			//RegistryManager.WriteCurrentTestPlan(this.ProjectSelectionViewModel.SelectedTestPlan);
-			//try
-			//{
-			//	ExecutionContext.Preferences.TestPlan = TestPlanManager.GetTestPlanByName(ExecutionContext.TestManagementTeamProject, this.ProjectSelectionViewModel.SelectedTestPlan);
-			//}
-			//catch (Exception)
-			//{
-			//	ModernDialog.ShowMessage("Team Foundation services are unavailable and no test plans can be populated. Please try again after few seconds.", "Warning", MessageBoxButton.OK);
-			//}
-        }
-
 		/// <summary>
 		/// Handles the MouseMove event of the cbTestPlansDestination control.
 		/// </summary>
@@ -191,35 +145,145 @@ namespace TestCaseManagerApp.Views
 		}
 
 		/// <summary>
-		/// Handles the Click event of the btnMigrate control.
+		/// Handles the Click event of the btnSourceBrowser control.
 		/// </summary>
 		/// <param name="sender">The source of the event.</param>
 		/// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
-		private void btnMigrate_Click(object sender, RoutedEventArgs e)
-		{
-
-		}
-
-		/// <summary>
-		/// Handles the Click event of the brnSourceBrowser control.
-		/// </summary>
-		/// <param name="sender">The source of the event.</param>
-		/// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
-		private void brnSourceBrowser_Click(object sender, RoutedEventArgs e)
+		private void btnSourceBrowser_Click(object sender, RoutedEventArgs e)
 		{
 			var projectPicker = new TeamProjectPicker(TeamProjectPickerMode.SingleProject, false);
 			this.TestCasesMigrationViewModel.LoadProjectSettingsFromUserDecisionSource(projectPicker);
 		}
 
 		/// <summary>
-		/// Handles the Click event of the brnDestinationBrowser control.
+		/// Handles the Click event of the btnDestinationBrowser control.
 		/// </summary>
 		/// <param name="sender">The source of the event.</param>
 		/// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
-		private void brnDestinationBrowser_Click(object sender, RoutedEventArgs e)
+		private void btnDestinationBrowser_Click(object sender, RoutedEventArgs e)
 		{
 			var projectPicker = new TeamProjectPicker(TeamProjectPickerMode.SingleProject, false);
 			this.TestCasesMigrationViewModel.LoadProjectSettingsFromUserDecisionDestination(projectPicker);
+		}
+
+		/// <summary>
+		/// Handles the Click event of the btnMigrateSharedSteps control.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
+		private void btnMigrateSharedSteps_Click(object sender, RoutedEventArgs e)
+		{
+
+		}
+
+		/// <summary>
+		/// Handles the Click event of the btnStopSharedStepsMigration control.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
+		private void btnStopSharedStepsMigration_Click(object sender, RoutedEventArgs e)
+		{
+
+		}
+
+		/// <summary>
+		/// Handles the Click event of the btnMigrateSuites control.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
+		private void btnMigrateSuites_Click(object sender, RoutedEventArgs e)
+		{
+
+		}
+
+		/// <summary>
+		/// Handles the Click event of the btnStopSuitesMigration control.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
+		private void btnStopSuitesMigration_Click(object sender, RoutedEventArgs e)
+		{
+
+		}
+
+		/// <summary>
+		/// Handles the Click event of the btnBrowseSuitesJsonPath control.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
+		private void btnBrowseSuitesJsonPath_Click(object sender, RoutedEventArgs e)
+		{
+			this.TestCasesMigrationViewModel.MigrationSuitesRetryJsonPath = FileDialogManager.Intance.GetFileName(FileType.JSON);
+		}
+
+		/// <summary>
+		/// Handles the Click event of the btnMigrateTestCases control.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
+		private void btnMigrateTestCases_Click(object sender, RoutedEventArgs e)
+		{
+
+		}
+
+		/// <summary>
+		/// Handles the Click event of the btnStopTestCasesMigration control.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
+		private void btnStopTestCasesMigration_Click(object sender, RoutedEventArgs e)
+		{
+
+		}
+
+		/// <summary>
+		/// Handles the Click event of the btnBrowseTestCasesJsonPath control.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
+		private void btnBrowseTestCasesJsonPath_Click(object sender, RoutedEventArgs e)
+		{
+			this.TestCasesMigrationViewModel.MigrationTestCasesRetryJsonPath = FileDialogManager.Intance.GetFileName(FileType.JSON);
+		}
+
+		/// <summary>
+		/// Handles the Click event of the btnAddTestCasesToSuites control.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
+		private void btnAddTestCasesToSuites_Click(object sender, RoutedEventArgs e)
+		{
+
+		}
+
+		/// <summary>
+		/// Handles the Click event of the btnStopTestCasesToSuitesAddition control.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
+		private void btnStopTestCasesToSuitesAddition_Click(object sender, RoutedEventArgs e)
+		{
+
+		}
+
+		/// <summary>
+		/// Handles the Click event of the btnDefaultJsonsPath control.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
+		private void btnDefaultJsonsPath_Click(object sender, RoutedEventArgs e)
+		{
+			this.TestCasesMigrationViewModel.DefaultJsonFolder = FolderBrowseDialogManager.Intance.GetFolderPath();
+		}
+
+		/// <summary>
+		/// Handles the Click event of the btnBrowserSharedStepsJsonPath control.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
+		private void btnBrowserSharedStepsJsonPath_Click(object sender, RoutedEventArgs e)
+		{
+			this.TestCasesMigrationViewModel.MigrationAddTestCasesToSuitesRetryJsonPath = FileDialogManager.Intance.GetFileName(FileType.JSON);
 		}
     }
 }

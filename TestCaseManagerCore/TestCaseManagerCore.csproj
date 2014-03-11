@@ -147,12 +147,16 @@
     <Compile Include="BusinessLogic\Entities\UndoRedoRecord.cs" />
     <Compile Include="BusinessLogic\Entities\UndoTransaction.cs" />
     <Compile Include="BusinessLogic\Enums\ClipBoardCommand.cs" />
+    <Compile Include="BusinessLogic\Enums\FileType.cs" />
     <Compile Include="BusinessLogic\Enums\Priority.cs" />
     <Compile Include="BusinessLogic\Enums\TestCaseExecutionType.cs" />
     <Compile Include="BusinessLogic\Entities\AssembliesLoader.cs" />
     <Compile Include="BusinessLogic\Managers\AssemblyLoader.cs" />
     <Compile Include="BusinessLogic\Managers\CheckedItemManager.cs" />
     <Compile Include="BusinessLogic\Managers\ClipBoardManager.cs" />
+    <Compile Include="BusinessLogic\Managers\BasdeDialogManager.cs" />
+    <Compile Include="BusinessLogic\Managers\FolderBrowseDialogManager.cs" />
+    <Compile Include="BusinessLogic\Managers\FileDialogManager.cs" />
     <Compile Include="BusinessLogic\Managers\TestPointManager.cs" />
     <Compile Include="BusinessLogic\Managers\FragmentManager.cs" />
     <Compile Include="BusinessLogic\Managers\ProjectManager.cs" />

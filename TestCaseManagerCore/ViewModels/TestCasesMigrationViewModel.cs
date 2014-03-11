@@ -83,6 +83,146 @@ using System.Collections.Concurrent;
 		private Dictionary<int, int> testCasesMapping;
 
 		/// <summary>
+		/// The default json folder
+		/// </summary>
+		private string defaultJsonFolder;
+
+		/// <summary>
+		/// The migration shared steps retry json path
+		/// </summary>
+		private string migrationSharedStepsRetryJsonPath;
+
+		/// <summary>
+		/// The migration suites retry json path
+		/// </summary>
+		private string migrationSuitesRetryJsonPath;
+
+		/// <summary>
+		/// The migration test cases retry json path
+		/// </summary>
+		private string migrationTestCasesRetryJsonPath;
+
+		/// <summary>
+		/// The migration add test cases to suites retry json path
+		/// </summary>
+		private string migrationAddTestCasesToSuitesRetryJsonPath;
+
+		/// <summary>
+		/// The is shared steps migration finished
+		/// </summary>
+		private bool isSharedStepsMigrationFinished;
+
+		/// <summary>
+		/// The is suites migration finished
+		/// </summary>
+		private bool isSuitesMigrationFinished;
+
+		/// <summary>
+		/// The is test cases migration finished
+		/// </summary>
+		private bool isTestCasesMigrationFinished;
+
+		/// <summary>
+		/// Gets or sets the default json folder.
+		/// </summary>
+		/// <value>
+		/// The default json folder.
+		/// </value>
+		public string DefaultJsonFolder
+		{
+			get
+			{
+				return this.defaultJsonFolder;
+			}
+
+			set
+			{
+				this.defaultJsonFolder = value;
+				this.NotifyPropertyChanged();
+			}
+		}
+
+		/// <summary>
+		/// Gets or sets the migration shared steps retry json path.
+		/// </summary>
+		/// <value>
+		/// The migration shared steps retry json path.
+		/// </value>
+		public string MigrationSharedStepsRetryJsonPath
+		{
+			get
+			{
+				return this.migrationSharedStepsRetryJsonPath;
+			}
+
+			set
+			{
+				this.migrationSharedStepsRetryJsonPath = value;
+				this.NotifyPropertyChanged();
+			}
+		}
+
+		/// <summary>
+		/// Gets or sets the migration suites retry json path.
+		/// </summary>
+		/// <value>
+		/// The migration suites retry json path.
+		/// </value>
+		public string MigrationSuitesRetryJsonPath
+		{
+			get
+			{
+				return this.migrationSuitesRetryJsonPath;
+			}
+
+			set
+			{
+				this.migrationSuitesRetryJsonPath = value;
+				this.NotifyPropertyChanged();
+			}
+		}
+
+		/// <summary>
+		/// Gets or sets the migration test cases retry json path.
+		/// </summary>
+		/// <value>
+		/// The migration test cases retry json path.
+		/// </value>
+		public string MigrationTestCasesRetryJsonPath
+		{
+			get
+			{
+				return this.migrationTestCasesRetryJsonPath;
+			}
+
+			set
+			{
+				this.migrationTestCasesRetryJsonPath = value;
+				this.NotifyPropertyChanged();
+			}
+		}
+
+		/// <summary>
+		/// Gets or sets the migration add test cases to suites retry json path.
+		/// </summary>
+		/// <value>
+		/// The migration add test cases to suites retry json path.
+		/// </value>
+		public string MigrationAddTestCasesToSuitesRetryJsonPath
+		{
+			get
+			{
+				return this.migrationAddTestCasesToSuitesRetryJsonPath;
+			}
+
+			set
+			{
+				this.migrationAddTestCasesToSuitesRetryJsonPath = value;
+				this.NotifyPropertyChanged();
+			}
+		}
+
+		/// <summary>
 		/// Gets or sets the name of the source full team project.
 		/// </summary>
 		/// <value>
@@ -117,8 +257,67 @@ using System.Collections.Concurrent;
 
 			set
 			{
-
 				this.destinationFullTeamProjectName = value;
+				this.NotifyPropertyChanged();
+			}
+		}
+
+		/// <summary>
+		/// Gets or sets the is shared steps migration finished.
+		/// </summary>
+		/// <value>
+		/// The is shared steps migration finished.
+		/// </value>
+		public bool IsSharedStepsMigrationFinished
+		{
+			get
+			{
+				return this.isSharedStepsMigrationFinished;
+			}
+
+			set
+			{
+				this.isSharedStepsMigrationFinished = value;
+				this.NotifyPropertyChanged();
+			}
+		}
+
+		/// <summary>
+		/// Gets or sets the is suites migration finished.
+		/// </summary>
+		/// <value>
+		/// The is suites migration finished.
+		/// </value>
+		public bool IsSuitesMigrationFinished
+		{
+			get
+			{
+				return this.isSuitesMigrationFinished;
+			}
+
+			set
+			{
+				this.isSuitesMigrationFinished = value;
+				this.NotifyPropertyChanged();
+			}
+		}
+
+		/// <summary>
+		/// Gets or sets the is test cases migration finished.
+		/// </summary>
+		/// <value>
+		/// The is test cases migration finished.
+		/// </value>
+		public bool IsTestCasesMigrationFinished
+		{
+			get
+			{
+				return this.isTestCasesMigrationFinished;
+			}
+
+			set
+			{
+				this.isTestCasesMigrationFinished = value;
 				this.NotifyPropertyChanged();
 			}
 		}
@@ -134,6 +333,7 @@ using System.Collections.Concurrent;
 			this.ObservableSuitesToBeSkipped.Add(new TextReplacePair());
 			this.suitesMapping = new Dictionary<int, int>();
 			this.sharedStepsMapping = new Dictionary<int, int>();
+			this.testCasesMapping = new Dictionary<int, int>();
 			this.StatusLogQueue = new ConcurrentQueue<string>();
         }
 
