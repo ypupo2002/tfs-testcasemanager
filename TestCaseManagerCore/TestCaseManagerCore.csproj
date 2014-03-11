@@ -175,9 +175,13 @@
       <DependentUpon>HtmlTestCaseExportTemplate.tt</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\AssociateTestViewModel.cs" />
-    <Compile Include="ViewModels\BaseProjectSelectionViewModel.cs" />
-    <Compile Include="ViewModels\TestCasesMigrationViewModel.cs" />
+    <Compile Include="ViewModels\BaseProjectSelectionViewModel.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="ViewModels\PrompCheckboxListDialogViewModel.cs" />
+    <Compile Include="ViewModels\TestCasesMigrationViewModel.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="ViewModels\TestPlansEditViewModel.cs" />
     <Compile Include="ViewModels\TestCaseExecutionArrangmentViewModel.cs" />
     <Compile Include="ViewModels\ProjectSelectionViewModel.cs" />
