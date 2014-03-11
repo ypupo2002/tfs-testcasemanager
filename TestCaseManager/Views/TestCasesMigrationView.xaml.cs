@@ -173,7 +173,8 @@ namespace TestCaseManagerApp.Views
 		/// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
 		private void btnMigrateSharedSteps_Click(object sender, RoutedEventArgs e)
 		{
-
+			this.TestCasesMigrationViewModel.StartUiProgressLogging(lblProgress);
+			this.TestCasesMigrationViewModel.StartSharedStepsFromSourceToDestinationMigration();
 		}
 
 		/// <summary>
@@ -183,7 +184,8 @@ namespace TestCaseManagerApp.Views
 		/// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
 		private void btnStopSharedStepsMigration_Click(object sender, RoutedEventArgs e)
 		{
-
+			this.TestCasesMigrationViewModel.StopUiProgressLogging();
+			this.TestCasesMigrationViewModel.StopSharedStepsFromSourceToDestinationMigration();
 		}
 
 		/// <summary>

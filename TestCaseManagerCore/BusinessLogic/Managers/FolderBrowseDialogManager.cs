@@ -10,7 +10,7 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
 	/// <summary>
     /// Helps to pick up folder
     /// </summary>
-	public class FolderBrowseDialogManager : BasdeDialogManager
+	public class FolderBrowseDialogManager
     {
 		/// <summary>
 		/// The instance

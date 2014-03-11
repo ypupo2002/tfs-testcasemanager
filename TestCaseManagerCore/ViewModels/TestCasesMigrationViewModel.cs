@@ -10,7 +10,7 @@ namespace TestCaseManagerCore.ViewModels
 	using System.Net;
 	using System.Net.Sockets;
 	using System.Windows;
-	using System.Windows.Forms;
+	using System.Windows.Controls;
 	using System.Linq;
 	using FirstFloor.ModernUI.Windows.Controls;
 	using log4net;
@@ -18,11 +18,14 @@ namespace TestCaseManagerCore.ViewModels
 	using Microsoft.TeamFoundation.TestManagement.Client;
 	using TestCaseManagerCore.BusinessLogic.Entities;
 	using TestCaseManagerCore.BusinessLogic.Managers;
-using System.Collections.Concurrent;
+	using System.Collections.Concurrent;
+	using System.Threading.Tasks;
+	using System.Threading;
+	using System.IO;
 
-    /// <summary>
-    /// Provides methods and properties related to the Migration View
-    /// </summary>
+	/// <summary>
+	/// Provides methods and properties related to the Migration View
+	/// </summary>
 	public class TestCasesMigrationViewModel : BaseProjectSelectionViewModel
     {
         /// <summary>
@@ -60,6 +63,9 @@ using System.Collections.Concurrent;
 		/// </summary>
 		private ITestManagementTeamProject destinationTeamProject;
 
+		/// <summary>
+		/// The source full team project name
+		/// </summary>
 		private string sourceFullTeamProjectName;
 
 		/// <summary>
@@ -121,6 +127,58 @@ using System.Collections.Concurrent;
 		/// The is test cases migration finished
 		/// </summary>
 		private bool isTestCasesMigrationFinished;
+
+		/// <summary>
+		/// The shared steps migration log manager
+		/// </summary>
+		private MigrationLogManager sharedStepsMigrationLogManager;
+
+		/// <summary>
+		/// The suites migration log manager
+		/// </summary>
+		private MigrationLogManager suitesMigrationLogManager;
+
+		/// <summary>
+		/// The test cases migration log manager
+		/// </summary>
+		private MigrationLogManager testCasesMigrationLogManager;
+
+		/// <summary>
+		/// The test cases add to suites migration log manager
+		/// </summary>
+		private MigrationLogManager testCasesAddToSuitesMigrationLogManager;
+
+		/// <summary>
+		/// Gets or sets the cancellation token source.
+		/// </summary>
+		/// <value>
+		/// The cancellation token source.
+		/// </value>
+		private CancellationTokenSource loggingCancellationTokenSource;
+
+		/// <summary>
+		/// Gets or sets the cancellation token.
+		/// </summary>
+		/// <value>
+		/// The cancellation token.
+		/// </value>
+		private CancellationToken loggingCancellationToken;
+
+		/// <summary>
+		/// Gets or sets the cancellation token source.
+		/// </summary>
+		/// <value>
+		/// The cancellation token source.
+		/// </value>
+		private CancellationTokenSource executionCancellationTokenSource;
+
+		/// <summary>
+		/// Gets or sets the cancellation token.
+		/// </summary>
+		/// <value>
+		/// The cancellation token.
+		/// </value>
+		private CancellationToken executionCancellationToken;
 
 		/// <summary>
 		/// Gets or sets the default json folder.
@@ -323,6 +381,14 @@ using System.Collections.Concurrent;
 		}
 
 		/// <summary>
+		/// Gets or sets the progress queue.
+		/// </summary>
+		/// <value>
+		/// The progress queue.
+		/// </value>
+		public ConcurrentQueue<string> ProgressConcurrentQueue { get; set; }
+
+		/// <summary>
 		/// Initializes a new instance of the <see cref="TestCasesMigrationViewModel"/> class.
 		/// </summary>
 		public TestCasesMigrationViewModel()
@@ -335,6 +401,7 @@ using System.Collections.Concurrent;
 			this.sharedStepsMapping = new Dictionary<int, int>();
 			this.testCasesMapping = new Dictionary<int, int>();
 			this.StatusLogQueue = new ConcurrentQueue<string>();
+			this.ProgressConcurrentQueue = new ConcurrentQueue<string>();
         }
 
         /// <summary>
@@ -428,16 +495,86 @@ using System.Collections.Concurrent;
 		/// <summary>
 		/// Migrates the shared steps from source to destination.
 		/// </summary>
-		public void MigrateSharedStepsFromSourceToDestination()
+		public void StartSharedStepsFromSourceToDestinationMigration()
 		{
+			this.executionCancellationTokenSource= new CancellationTokenSource();
+			this.executionCancellationToken = this.executionCancellationTokenSource.Token;
+
+			Task t = Task.Factory.StartNew(() =>
+			{
+				this.MigrateSharedStepsFromSourceToDestinationInternal();
+			}, this.executionCancellationToken);
+			t.ContinueWith(antecedent =>
+			{
+				this.StopUiProgressLogging();
+			});
+		}
+
+		/// <summary>
+		/// Stops the shared steps from source to destination migration.
+		/// </summary>
+		public void StopSharedStepsFromSourceToDestinationMigration()
+		{
+			log.Info("Stop Shared Steps Migration!");
+			if (this.executionCancellationTokenSource != null)
+			{
+				this.executionCancellationTokenSource.Cancel();
+				log.Info("Shared Steps Migration STOPPED!");
+			}
+		}
+
+		/// <summary>
+		/// Migrates the shared steps from source to destination.
+		/// </summary>
+		private void MigrateSharedStepsFromSourceToDestinationInternal()
+		{
+			if (!string.IsNullOrEmpty(this.MigrationSharedStepsRetryJsonPath) && File.Exists(this.MigrationSharedStepsRetryJsonPath))
+			{
+				this.sharedStepsMigrationLogManager = new MigrationLogManager(this.MigrationSharedStepsRetryJsonPath);
+				this.sharedStepsMigrationLogManager.LoadCollectionFromExistingFile();
+			}
+			else
+			{
+				this.sharedStepsMigrationLogManager = new MigrationLogManager("sharedSteps", this.DefaultJsonFolder);
+			}
+
 			List<SharedStep> sourceSharedSteps = SharedStepManager.GetAllSharedStepsInTestPlan(this.sourceTeamProject);
 			foreach (SharedStep currentSourceSharedStep in sourceSharedSteps)
 			{
-				 List<TestStep> testSteps = TestStepManager.GetTestStepsFromTestActions(currentSourceSharedStep.ISharedStep.Actions);
-				 SharedStep newSharedStep = currentSourceSharedStep.Save(this.destinationTeamProject, true, testSteps);
-				 newSharedStep.ISharedStep.Refresh();
-				 suitesMapping.Add(currentSourceSharedStep.ISharedStep.Id, newSharedStep.ISharedStep.Id);
+				if (this.executionCancellationToken.IsCancellationRequested)
+				{
+					break;
+				}
+				string infoMessage = String.Empty;
+				try
+				{
+					infoMessage = String.Format("Start Migrating Shared Step with Source Id= {0}", currentSourceSharedStep.Id);
+					log.Info(infoMessage);
+					this.ProgressConcurrentQueue.Enqueue(infoMessage);
+
+					List<TestStep> testSteps = TestStepManager.GetTestStepsFromTestActions(currentSourceSharedStep.ISharedStep.Actions);
+					SharedStep newSharedStep = currentSourceSharedStep.Save(this.destinationTeamProject, true, testSteps);
+					newSharedStep.ISharedStep.Refresh();
+					this.sharedStepsMapping.Add(currentSourceSharedStep.ISharedStep.Id, newSharedStep.ISharedStep.Id);
+
+					this.sharedStepsMigrationLogManager.Log(currentSourceSharedStep.Id, newSharedStep.Id, true);
+					infoMessage = String.Format("Shared Step Migrated SUCCESSFULLY: Source Id= {0}, Destination Id= {1}", currentSourceSharedStep.Id, newSharedStep.Id);
+					log.Info(infoMessage);
+					this.ProgressConcurrentQueue.Enqueue(infoMessage);
+				}
+				catch (Exception ex)
+				{
+					this.sharedStepsMigrationLogManager.Log(currentSourceSharedStep.Id, -1, false, ex.Message);
+					log.Error(ex);
+					this.ProgressConcurrentQueue.Enqueue(ex.Message);
+				}
+				finally
+				{
+					this.sharedStepsMigrationLogManager.Save();
+					this.MigrationSharedStepsRetryJsonPath = this.sharedStepsMigrationLogManager.FullResultFilePath;
+				}
 			}
+			this.isSharedStepsMigrationFinished = true;
 		}
 
 		/// <summary>
@@ -540,6 +677,95 @@ using System.Collections.Concurrent;
 					}				
 				}
 			}
+		}
+
+		/// <summary>
+		/// Starts the UI progress logging.
+		/// </summary>
+		/// <param name="progressLabel">The progress label.</param>
+		public void StartUiProgressLogging(Label progressLabel)
+		{
+			log.Info("Start UI Progress logging!");
+			this.loggingCancellationTokenSource = new CancellationTokenSource();
+			this.loggingCancellationToken = this.loggingCancellationTokenSource.Token;
+			this.LogProgressInternal(this.ProgressConcurrentQueue, progressLabel);
+		}
+
+
+		/// <summary>
+		/// Stops the UI progress logging.
+		/// </summary>
+		public void StopUiProgressLogging()
+		{
+			log.Info("Stop UI Progress logging!");
+			if (this.loggingCancellationTokenSource != null)
+			{
+				this.loggingCancellationTokenSource.Cancel();
+				log.Info("UI Progress logging STOPPED!");
+			}
+		}
+
+		/// <summary>
+		/// Determines whether this instance [can start migration].
+		/// </summary>
+		/// <returns>
+		///   <c>true</c> if this instance [can start migration]; otherwise, <c>false</c>.
+		/// </returns>
+		public bool CanStartMigration()
+		{
+			bool canStartMigration = true;
+
+			if (this.destinationFullTeamProjectName == null || this.sourceFullTeamProjectName == null )
+			{
+				// TODO: Add Moder Dialog Message Box Validations
+				canStartMigration = false;
+			}
+			if (string.IsNullOrEmpty(this.SelectedSourceTestPlan) || string.IsNullOrEmpty(this.SelectedDestinationTestPlan))
+			{
+				canStartMigration = false;
+			}
+			if (string.IsNullOrEmpty(this.DefaultJsonFolder))
+			{
+				canStartMigration = false;
+			}
+
+			return canStartMigration;
+		}
+
+		/// <summary>
+		/// Logs the execution.
+		/// </summary>
+		/// <param name="queue">The queue.</param>
+		/// <param name="progressLabel">The progress label.</param>
+		private void LogProgressInternal(ConcurrentQueue<string> queue, Label progressLabel)
+		{
+			Task loggingTask = Task.Factory.StartNew((a) =>
+			{
+				do
+				{
+					if (this.loggingCancellationToken.IsCancellationRequested)
+					{
+						break;
+					}
+					string currentMessage = String.Empty;
+					bool isLoggingMessageDequeued = queue.TryDequeue(out currentMessage);
+
+					if (isLoggingMessageDequeued)
+					{
+						progressLabel.Dispatcher.InvokeAsync((Action)(() =>
+						{
+							try
+							{
+								progressLabel.Content = String.Format("\n{0}", currentMessage);
+							}
+							catch
+							{
+							}
+						}), System.Windows.Threading.DispatcherPriority.Loaded);
+					}
+				}
+				while (true);
+			}, this.loggingCancellationToken);
 		}
     }
 }

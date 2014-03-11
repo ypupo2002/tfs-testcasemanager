@@ -12,7 +12,7 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
     /// <summary>
     /// Helps to get the path to specific file
     /// </summary>
-	public class FileDialogManager : BasdeDialogManager
+	public class FileDialogManager
     {
 		/// <summary>
 		/// The instance
@@ -44,7 +44,8 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
         public string GetFileName(FileType fileType)
         {
 			Microsoft.Win32.OpenFileDialog dialog = new Microsoft.Win32.OpenFileDialog();
-			base.GetFileFiltersByFileType(dialog, fileType);
+			dialog.Filter =  BaseFileTypeManager.GetFileFiltersByFileType(fileType);
+			dialog.DefaultExt = BaseFileTypeManager.GetExtensionByFileType(fileType);
 
 			bool? result = dialog.ShowDialog();
 			string resultFileName = String.Empty;

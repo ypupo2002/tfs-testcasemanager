@@ -77,6 +77,8 @@
     <Reference Include="System.Printing">
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Windows.Forms">
       <Private>True</Private>
     </Reference>
@@ -129,6 +131,8 @@
     <Compile Include="BusinessLogic\Entities\CheckedItem.cs" />
     <Compile Include="BusinessLogic\Entities\ClipBoardTestCase.cs" />
     <Compile Include="BusinessLogic\Entities\ClipBoardTestStep.cs" />
+    <Compile Include="BusinessLogic\Entities\DateTimeFormats.cs" />
+    <Compile Include="BusinessLogic\Entities\MigrationRetryEntry.cs" />
     <Compile Include="BusinessLogic\Entities\TestPlan.cs" />
     <Compile Include="BusinessLogic\Entities\EditViewContext.cs" />
     <Compile Include="BusinessLogic\Entities\InitialViewFilters.cs" />
@@ -152,9 +156,11 @@
     <Compile Include="BusinessLogic\Enums\TestCaseExecutionType.cs" />
     <Compile Include="BusinessLogic\Entities\AssembliesLoader.cs" />
     <Compile Include="BusinessLogic\Managers\AssemblyLoader.cs" />
+    <Compile Include="BusinessLogic\Managers\BaseLogManager.cs" />
     <Compile Include="BusinessLogic\Managers\CheckedItemManager.cs" />
     <Compile Include="BusinessLogic\Managers\ClipBoardManager.cs" />
-    <Compile Include="BusinessLogic\Managers\BasdeDialogManager.cs" />
+    <Compile Include="BusinessLogic\Managers\BaseFileTypeManager.cs" />
+    <Compile Include="BusinessLogic\Managers\MigrationLogManager.cs" />
     <Compile Include="BusinessLogic\Managers\FolderBrowseDialogManager.cs" />
     <Compile Include="BusinessLogic\Managers\FileDialogManager.cs" />
     <Compile Include="BusinessLogic\Managers\TestPointManager.cs" />
