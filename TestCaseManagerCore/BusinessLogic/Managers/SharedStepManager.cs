@@ -18,10 +18,10 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
         /// Gets all shared steps information test plan.
         /// </summary>
         /// <returns></returns>
-        public static List<SharedStep> GetAllSharedStepsInTestPlan()
+		public static List<SharedStep> GetAllSharedStepsInTestPlan(ITestManagementTeamProject testManagementTeamProject)
         {
             List<SharedStep> sharedSteps = new List<SharedStep>();
-            var testPlanSharedStepsCore = ExecutionContext.TestManagementTeamProject.SharedSteps.Query("select * from WorkItems where [System.TeamProject] = @project and [System.WorkItemType] = 'Shared Steps'");
+			var testPlanSharedStepsCore = testManagementTeamProject.SharedSteps.Query("SELECT * FROM WorkItems WHERE [System.TeamProject] = @project and [System.WorkItemType] = 'Shared Steps'");
             foreach (ISharedStep currentSharedStepCore in testPlanSharedStepsCore)
             {
                 SharedStep currentSharedStep = new SharedStep(currentSharedStepCore);
@@ -52,19 +52,19 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
         /// <param name="newSuiteTitle">The new suite title.</param>
         /// <param name="testSteps">The test steps.</param>
         /// <returns></returns>
-        public static SharedStep Save(this SharedStep sharedStep, bool createNew, ICollection<TestStep> testSteps)
+        public static SharedStep Save(this SharedStep sharedStep, ITestManagementTeamProject testManagementTeamProject, bool createNew, ICollection<TestStep> testSteps)
         {
             SharedStep currentSharedStep = sharedStep;
             if (createNew)
             {
-                ISharedStep sharedStepCore = ExecutionContext.TestManagementTeamProject.SharedSteps.Create();
+				ISharedStep sharedStepCore = testManagementTeamProject.SharedSteps.Create();
                 currentSharedStep = new SharedStep(sharedStepCore);
             }
             currentSharedStep.ISharedStep.Area = sharedStep.Area;
             currentSharedStep.ISharedStep.Title = sharedStep.Title;
             currentSharedStep.ISharedStep.Priority = (int)sharedStep.Priority;
             currentSharedStep.ISharedStep.Actions.Clear();
-            currentSharedStep.ISharedStep.Owner = ExecutionContext.TestManagementTeamProject.TfsIdentityStore.FindByTeamFoundationId(sharedStep.TeamFoundationId);
+			currentSharedStep.ISharedStep.Owner = testManagementTeamProject.TfsIdentityStore.FindByTeamFoundationId(sharedStep.TeamFoundationId);
             List<Guid> addedSharedStepGuids = new List<Guid>();
             foreach (TestStep currentStep in testSteps)
             {

@@ -87,8 +87,8 @@ namespace TestCaseManagerCore.ViewModels
                         this.selectedSuiteId = subSuites[0].Id;
                     }
                     else
-                    {                    
-                        suiteTestCaseCollection = TestCaseManager.GetAllTestCasesInTestPlan();
+                    {
+						suiteTestCaseCollection = TestCaseManager.GetAllTestCasesInTestPlan(ExecutionContext.TestManagementTeamProject, ExecutionContext.Preferences.TestPlan);
                     }
                 }
             }
@@ -103,7 +103,7 @@ namespace TestCaseManagerCore.ViewModels
             {
                 this.ShowSubSuitesTestCases = false;
                 RegistryManager.WriteShowSubsuiteTestCases(false);
-                suiteTestCaseCollection = TestCaseManager.GetAllTestCasesInTestPlan();
+				suiteTestCaseCollection = TestCaseManager.GetAllTestCasesInTestPlan(ExecutionContext.TestManagementTeamProject, ExecutionContext.Preferences.TestPlan);
             }
             
             this.ObservableTestCases = new ObservableCollection<TestCase>();
@@ -141,7 +141,7 @@ namespace TestCaseManagerCore.ViewModels
             if (this.ShowSubSuitesTestCases)
             {
                 List<TestCase> testCasesList = new List<TestCase>();
-                ITestSuiteBase currentSuite = TestSuiteManager.GetTestSuiteById(selectedSuiteId);
+				ITestSuiteBase currentSuite = TestSuiteManager.GetTestSuiteById(ExecutionContext.TestManagementTeamProject, ExecutionContext.Preferences.TestPlan, selectedSuiteId);
                 if (currentSuite is IStaticTestSuite)
                 {
                     testCasesList = TestCaseManager.GetAllTestCasesFromSuiteCollection((currentSuite as IStaticTestSuite).SubSuites);
@@ -373,6 +373,30 @@ namespace TestCaseManagerCore.ViewModels
             this.TestCasesCount = filteredList.Count.ToString();
         }
 
+		/// <summary>
+		/// Filters the suites without suite.
+		/// </summary>
+		public void FilterSuitesWithoutSuite()
+		{
+			if (ExecutionContext.Preferences.TestPlan.RootSuite.SubSuites.FirstOrDefault() == null)
+			{
+				return;
+			}
+			List<TestCase> testCasesWithSuite = TestCaseManager.GetAllTestCasesFromSuiteCollection(ExecutionContext.Preferences.TestPlan.RootSuite.SubSuites);
+			List<TestCase> filteredTestCases = new List<TestCase>();
+			
+			foreach (TestCase currentTestCase in this.ObservableTestCases)
+			{
+				if (!testCasesWithSuite.Contains(currentTestCase))
+				{
+					filteredTestCases.Add(currentTestCase);
+				}
+			}
+
+			this.InitialTestCaseCollection.Clear();
+			filteredTestCases.ForEach(x => this.InitialTestCaseCollection.Add(x));
+		}
+
         /// <summary>
         /// Filters the test cases without suite.
         /// </summary>
@@ -393,7 +417,7 @@ namespace TestCaseManagerCore.ViewModels
             this.ObservableTestCases.Clear();
             ExecutionContext.Preferences.TestPlan.Refresh();
             ExecutionContext.Preferences.TestPlan.RootSuite.Refresh();
-            List<TestCase> testCasesList = TestCaseManager.GetAllTestCasesInTestPlan();
+			List<TestCase> testCasesList = TestCaseManager.GetAllTestCasesInTestPlan(ExecutionContext.TestManagementTeamProject, ExecutionContext.Preferences.TestPlan);
             testCasesList.ForEach(t => this.ObservableTestCases.Add(t));
         }
 

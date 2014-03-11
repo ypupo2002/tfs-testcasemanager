@@ -266,20 +266,13 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
         /// <returns>
         /// list of all test cases
         /// </returns>
-        public static List<TestCase> GetAllTestCasesInTestPlan(bool initializeTestCaseStatus = true)
+		public static List<TestCase> GetAllTestCasesInTestPlan(ITestManagementTeamProject testManagementTeamProject, ITestPlan testPlan, bool initializeTestCaseStatus = true)
         {
-            ExecutionContext.Preferences.TestPlan.Refresh();
+            testPlan.Refresh();
             List<TestCase> testCasesList;
-            //if (includeSuites)
-            //{
-            //testCasesList = GetAllTestCasesFromSuiteCollection(ExecutionContext.Preferences.TestPlan.RootSuite.SubSuites);
-            //    AddTestCasesWithoutSuites(testCasesList);
-            //}
-            //else
-            //{
             testCasesList = new List<TestCase>();
-            string queryText = "select [System.Id], [System.Title] from WorkItems where [System.WorkItemType] = 'Test Case'";
-            IEnumerable<ITestCase> allTestCases = ExecutionContext.TestManagementTeamProject.TestCases.Query(queryText);
+			string queryText = "SELECT [System.Id], [System.Title] FROM WorkItems WHERE [System.WorkItemType] = 'Test Case' AND [Team Project] = '{0}'";
+			IEnumerable<ITestCase> allTestCases = testManagementTeamProject.TestCases.Query(String.Format(queryText, testManagementTeamProject.TeamProjectName));
             foreach (var currentTestCase in allTestCases)
             {
                 TestCase testCaseToAdd = new TestCase(currentTestCase, currentTestCase.TestSuiteEntry.ParentTestSuite, initializeTestCaseStatus);
@@ -288,7 +281,6 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
                     testCasesList.Add(testCaseToAdd);
                 }
             }
-            //}
 
             return testCasesList;
         }
@@ -301,25 +293,25 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
         /// <param name="newSuiteTitle">The new suite title.</param>
         /// <param name="testSteps">The test steps.</param>
         /// <returns>the saved test case</returns>
-        public static TestCase Save(this TestCase testCase, bool createNew, int? suiteId, ICollection<TestStep> testSteps)
+        public static TestCase Save(this TestCase testCase, ITestManagementTeamProject testManagementTeamProject, bool createNew, int? suiteId, ICollection<TestStep> testSteps)
         {
             TestCase currentTestCase = testCase;
             if (createNew)
             {
-                ITestCase testCaseCore = ExecutionContext.TestManagementTeamProject.TestCases.Create();
+				ITestCase testCaseCore = testManagementTeamProject.TestCases.Create();
                 currentTestCase = new TestCase(testCaseCore, testCase.ITestSuiteBase);
             }
             currentTestCase.ITestCase.Area = testCase.Area;
             currentTestCase.ITestCase.Title = testCase.Title;
             currentTestCase.ITestCase.Priority = (int)testCase.Priority;
             currentTestCase.ITestCase.Actions.Clear();
-            currentTestCase.ITestCase.Owner = ExecutionContext.TestManagementTeamProject.TfsIdentityStore.FindByTeamFoundationId(testCase.TeamFoundationId);
+			currentTestCase.ITestCase.Owner = testManagementTeamProject.TfsIdentityStore.FindByTeamFoundationId(testCase.TeamFoundationId);
             List<Guid> addedSharedStepGuids = new List<Guid>();
             foreach (TestStep currentStep in testSteps)
             {
                 if (currentStep.IsShared && !addedSharedStepGuids.Contains(currentStep.TestStepGuid))
                 {
-                    ISharedStep sharedStepCore = ExecutionContext.TestManagementTeamProject.SharedSteps.Find(currentStep.SharedStepId);
+					ISharedStep sharedStepCore = testManagementTeamProject.SharedSteps.Find(currentStep.SharedStepId);
                     ISharedStepReference sharedStepReferenceCore = currentTestCase.ITestCase.CreateSharedStepReference();
                     sharedStepReferenceCore.SharedStepId = sharedStepCore.Id;
                     currentTestCase.ITestCase.Actions.Add(sharedStepReferenceCore);
@@ -336,7 +328,7 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
 
             if (suiteId != null)
             {
-                var newSuite = TestSuiteManager.GetTestSuiteById((int)suiteId);
+				var newSuite = TestSuiteManager.GetTestSuiteById(ExecutionContext.TestManagementTeamProject, ExecutionContext.Preferences.TestPlan, (int)suiteId);
                 testCase.ITestSuiteBase = newSuite;
             }
             currentTestCase.ITestCase.Flush();
@@ -409,7 +401,7 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
         public static List<TestCase> FindAllReferenceTestCasesForShareStep(int sharedStepId)
         {
             List<TestCase> filteredTestCases = new List<TestCase>();
-            List<TestCase> allTestCases = GetAllTestCasesInTestPlan();
+			List<TestCase> allTestCases = GetAllTestCasesInTestPlan(ExecutionContext.TestManagementTeamProject, ExecutionContext.Preferences.TestPlan);
             foreach (var currentTestCase in allTestCases)
             {
                 //List<TestStep> testSteps = TestStepManager.GetTestStepsFromTestActions(currentTestCase.ITestCase.Actions);
@@ -455,7 +447,7 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
         /// <param name="testCase">The test case.</param>
         private static void SetTestCaseSuite(int suiteId, TestCase testCase)
         {
-            var newSuite = TestSuiteManager.GetTestSuiteById(suiteId);
+			var newSuite = TestSuiteManager.GetTestSuiteById(ExecutionContext.TestManagementTeamProject, ExecutionContext.Preferences.TestPlan, suiteId);
             if (newSuite != null)
             {
                 newSuite.AddTestCase(testCase.ITestCase);

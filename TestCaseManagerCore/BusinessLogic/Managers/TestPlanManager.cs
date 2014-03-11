@@ -27,7 +27,7 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
         /// <returns>the found test plan</returns>
         public static ITestPlan GetTestPlanByName(ITestManagementTeamProject testManagementTeamProject, string testPlanName)
         {
-            ITestPlanCollection testPlans = GetAllTestPlans(TestCaseManagerCore.ExecutionContext.TestManagementTeamProject);
+			ITestPlanCollection testPlans = GetAllTestPlans(testManagementTeamProject);
             ITestPlan testPlan = null;
             if (testPlans != null)
             {

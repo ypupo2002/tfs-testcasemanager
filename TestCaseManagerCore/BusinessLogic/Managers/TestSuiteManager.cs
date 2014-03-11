@@ -34,7 +34,7 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
             {
                 if (currentSuite != null)
                 {
-                    currentSuite.Refresh();
+					//currentSuite.Refresh();
                     ObservableCollection<Suite> childred = null;
                     if (currentSuite is IStaticTestSuite)
                     {
@@ -67,9 +67,9 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
         /// Gets all test suites from the current test plan.
         /// </summary>
         /// <returns>list of all test suites</returns>
-        public static List<ITestSuiteBase> GetAllTestSuitesInTestPlan()
+        public static List<ITestSuiteBase> GetAllTestSuitesInTestPlan(ITestPlan testPlan)
         {
-            List<ITestSuiteBase> testSuites = GetAllTestSuites(ExecutionContext.Preferences.TestPlan.RootSuite.SubSuites);
+			List<ITestSuiteBase> testSuites = GetAllTestSuites(testPlan.RootSuite.SubSuites);
             return testSuites;
         }
 
@@ -112,12 +112,12 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
         /// <returns>
         /// new suite unique identifier.
         /// </returns>
-        public static int AddChildSuite(int parentSuiteId, string title, out bool canBeAdded)
+        public static int AddChildSuite(ITestManagementTeamProject testManagementTeamProject, ITestPlan testPlan, int parentSuiteId, string title, out bool canBeAdded)
         {
             ITestSuiteBase parentSuite = null;
             if (parentSuiteId != -1)
             {
-                parentSuite = ExecutionContext.TestManagementTeamProject.TestSuites.Find(parentSuiteId);
+				parentSuite = testManagementTeamProject.TestSuites.Find(parentSuiteId);
             }
 
             if (parentSuite is IRequirementTestSuite)
@@ -125,7 +125,7 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
                 canBeAdded = false;
                 return 0;
             }
-            IStaticTestSuite staticSuite = ExecutionContext.TestManagementTeamProject.TestSuites.CreateStatic();
+			IStaticTestSuite staticSuite = testManagementTeamProject.TestSuites.CreateStatic();
             canBeAdded = true;
             staticSuite.Title = title;
 
@@ -137,9 +137,11 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
             }
             else
             {
-                ExecutionContext.Preferences.TestPlan.RootSuite.Entries.Add(staticSuite);
+				testPlan.RootSuite.Entries.Add(staticSuite);
                 log.InfoFormat("Add child suite with title= {0} to test plan", title);
             }
+			ExecutionContext.Preferences.TestPlan.Save();
+
             return staticSuite.Id;
         }
 
@@ -237,7 +239,7 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
                 {
                     if (allTestCasesInPlan == null)
                     {
-                        allTestCasesInPlan = TestCaseManager.GetAllTestCasesInTestPlan();                        
+						allTestCasesInPlan = TestCaseManager.GetAllTestCasesInTestPlan(ExecutionContext.TestManagementTeamProject, ExecutionContext.Preferences.TestPlan);                        
                     }
                     testCaseCore = allTestCasesInPlan.Where(t => t.TestCaseId.Equals(currentTestCase.TestCaseId)).FirstOrDefault().ITestCase;
                 }
@@ -326,9 +328,9 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
         /// </summary>
         /// <param name="suiteName">The suite name.</param>
         /// <returns>test suite core object</returns>
-        public static ITestSuiteBase GetTestSuiteByName(string suiteName)
+        public static ITestSuiteBase GetTestSuiteByName(ITestManagementTeamProject testManagementTeamProject, string suiteName)
         {
-            var firstMatchingSuite = ExecutionContext.TestManagementTeamProject.TestSuites.Query(string.Concat("SELECT * FROM TestSuite where Title = '", suiteName, "'")).First();
+			var firstMatchingSuite = testManagementTeamProject.TestSuites.Query(string.Concat("SELECT * FROM TestSuite where Title = '", suiteName, "'")).First();
 
             return firstMatchingSuite;
         }
@@ -338,18 +340,18 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
         /// </summary>
         /// <param name="suiteId">The suite unique identifier.</param>
         /// <returns>test suite core object</returns>
-        public static ITestSuiteBase GetTestSuiteById(int suiteId)
+		public static ITestSuiteBase GetTestSuiteById(ITestManagementTeamProject testManagementTeamProject, ITestPlan testPlan, int suiteId)
         {
             ITestSuiteBase testSuiteBase = null;
             if (suiteId > 0)
             {
                 // If it's old test case
-                testSuiteBase = ExecutionContext.TestManagementTeamProject.TestSuites.Find(suiteId);
+				testSuiteBase = testManagementTeamProject.TestSuites.Find(suiteId);
             }
             else
             {
                 // If the test case is new it will be added to root suite of the test plan
-                testSuiteBase = ExecutionContext.Preferences.TestPlan.RootSuite;
+				testSuiteBase = testPlan.RootSuite;
             }
 
             return testSuiteBase;

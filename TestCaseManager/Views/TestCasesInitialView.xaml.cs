@@ -610,18 +610,14 @@ namespace TestCaseManagerApp.Views
                 }
                 else if (isInitialized)
                 {
-                    suiteTestCaseCollection = TestCaseManager.GetAllTestCasesInTestPlan(false);
+					suiteTestCaseCollection = TestCaseManager.GetAllTestCasesInTestPlan(ExecutionContext.TestManagementTeamProject, ExecutionContext.Preferences.TestPlan, false);
                     shouldHideMenuItems = true;
                     log.InfoFormat("Load all test cases in the test plan.");
                 }
             });
             t.ContinueWith(antecedent =>
             {
-                //if (selectedSuiteId == -1)
-                //{
-                //    btnShowTestCaseWithoutSuite.Visibility = System.Windows.Visibility.Visible;
-                //    btnShowTestCaseWithoutSuite1.Visibility = System.Windows.Visibility.Visible;
-                //}
+				this.DetermineShowTestCasesWithoutSuiteVisiblityStatus(selectedSuiteId);
                 if (shouldHideMenuItems)
                 {
                     this.HideAllExecutionStatusContextMenuItemsStatuses();
@@ -633,6 +629,24 @@ namespace TestCaseManagerApp.Views
                 this.HideTestCasesProgressbar();
             }, TaskScheduler.FromCurrentSynchronizationContext());
         }
+
+		/// <summary>
+		/// Determines the show test cases without suite visiblity status.
+		/// </summary>
+		/// <param name="selectedSuiteId">The selected suite id.</param>
+		private void DetermineShowTestCasesWithoutSuiteVisiblityStatus(int selectedSuiteId)
+		{
+			if (selectedSuiteId == -1)
+			{
+				btnShowTestCaseWithoutSuite.Visibility = System.Windows.Visibility.Visible;
+				btnShowTestCaseWithoutSuite1.Visibility = System.Windows.Visibility.Visible;
+			}
+			else
+			{
+				btnShowTestCaseWithoutSuite.Visibility = System.Windows.Visibility.Hidden;
+				btnShowTestCaseWithoutSuite1.Visibility = System.Windows.Visibility.Hidden;
+			}
+		}
 
         /// <summary>
         /// Handles the Command event of the removeTestCaseFromSuite control.
@@ -677,7 +691,6 @@ namespace TestCaseManagerApp.Views
         {
             e.Handled = true;
             List<TestCase> testCases = this.GetSelectedTestCasesInternal();
-            //List<LightTestCase> lightTetCases = TestCaseManager.GetLightTestCases(testCases);
             TestCaseManager.CopyToClipboardTestCases(true, testCases);
         }
 
@@ -690,7 +703,6 @@ namespace TestCaseManagerApp.Views
         {
             e.Handled = true;
             List<TestCase> testCases = this.GetSelectedTestCasesInternal();
-            //List<LightTestCase> lightTetCases = TestCaseManager.GetLightTestCases(testCases);
             TestCaseManager.CopyToClipboardTestCases(false, testCases);
         }
 
@@ -936,7 +948,7 @@ namespace TestCaseManagerApp.Views
             {
                 int selectedSuiteId = RegistryManager.GetSelectedSuiteId();
                 bool canBeAddedNewSuite = false;
-                int? newSuiteId = TestSuiteManager.AddChildSuite(selectedSuiteId, newTitle, out canBeAddedNewSuite);
+                int? newSuiteId = TestSuiteManager.AddChildSuite(ExecutionContext.TestManagementTeamProject, ExecutionContext.Preferences.TestPlan, selectedSuiteId, newTitle, out canBeAddedNewSuite);
                 if (canBeAddedNewSuite)
                 {
                     this.TestCasesInitialViewModel.AddChildSuiteObservableCollection(this.TestCasesInitialViewModel.Suites, selectedSuiteId, (int)newSuiteId);
@@ -1417,16 +1429,6 @@ namespace TestCaseManagerApp.Views
         }
 
         /// <summary>
-        /// Handles the Click event of the btnShowTestCaseWithoutSuite control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
-        //private void btnShowTestCaseWithoutSuite_Click(object sender, RoutedEventArgs e)
-        //{
-        //    this.TestCasesInitialViewModel.FilterTestCasesWithoutSuite();
-        //}
-
-        /// <summary>
         /// Handles the Click event of the btnArrange control.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
@@ -1495,7 +1497,7 @@ namespace TestCaseManagerApp.Views
             List<TestCase> testCasesList = new List<TestCase>();
             Task t = Task.Factory.StartNew(() =>
             {
-                ITestSuiteBase currentSuite = TestSuiteManager.GetTestSuiteById(selectedSuiteId);
+				ITestSuiteBase currentSuite = TestSuiteManager.GetTestSuiteById(ExecutionContext.TestManagementTeamProject, ExecutionContext.Preferences.TestPlan, selectedSuiteId);
                 if (currentSuite is IStaticTestSuite)
                 {
                     testCasesList = TestCaseManager.GetAllTestCasesFromSuiteCollection((currentSuite as IStaticTestSuite).SubSuites);
@@ -1509,5 +1511,25 @@ namespace TestCaseManagerApp.Views
                 this.HideTestCasesProgressbar();
             }, TaskScheduler.FromCurrentSynchronizationContext());                    
         }
+
+		/// <summary>
+		/// Handles the Click event of the btnShowTestCaseWithoutSuite1 control.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
+		private void btnShowTestCaseWithoutSuite1_Click(object sender, RoutedEventArgs e)
+		{
+			ShowProgressBar();
+			Task t = Task.Factory.StartNew(() =>
+			{
+				this.TestCasesInitialViewModel.FilterSuitesWithoutSuite();
+			});
+			t.ContinueWith(antecedent =>
+			{
+				this.TestCasesInitialViewModel.FilterTestCases();	
+				this.HideProgressBar();
+				ModernDialog.ShowMessage("In order to prevent performance issues, you can cut the test cases without suite in new suite- \"TestCaseWithoutSuite\" and then start working with them!", "Warning", MessageBoxButton.OK);
+			}, TaskScheduler.FromCurrentSynchronizationContext());			
+		}
     }
 }

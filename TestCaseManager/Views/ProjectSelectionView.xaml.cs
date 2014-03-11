@@ -238,7 +238,13 @@ namespace TestCaseManagerApp.Views
             l4.DisplayName = "Change|Duplicate Shared Steps";
             l4.Source = u4;
             lg.Links.Add(l4);
-            //mw.MenuLinkGroups[2].Links[0].
+
+			Uri u5 = new Uri("/Views/TestCasesMigrationView.xaml", UriKind.Relative);
+			Link l5 = new Link();
+			l5.DisplayName = "Migrate Test Cases";
+			l5.Source = u5;
+			lg.Links.Add(l5);
+
             mw.MenuLinkGroups.Add(lg);
         }
 

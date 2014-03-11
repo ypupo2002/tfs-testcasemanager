@@ -72,7 +72,7 @@
                         <Button Name="btnExport" Content="_Export" Margin="15,0,10,0" Height="30" Width="90" VerticalAlignment="Center" Click="btnExport_Click"/>
                         <Button Name="btnArrange" Content="Arrange" Margin="15,0,10,0" Height="30" Width="Auto" VerticalAlignment="Center" Click="btnArrange_Click"/>
                         <Button Name="btnChangeTestCases1" Content="Change Test Cases"  Margin="30,0,10,0" Height="30" Width="Auto" VerticalAlignment="Center" Click="btnChangeTestCases_Click"/>
-                        <!--<Button Name="btnShowTestCaseWithoutSuite" Content="Show Test Cases Without Suite" Margin="15,0,10,0" Height="30" Width="Auto" VerticalAlignment="Center" Click="btnShowTestCaseWithoutSuite_Click"/>-->
+                        <Button Name="btnShowTestCaseWithoutSuite" Content="Show Test Cases Without Suite" Margin="15,0,10,0" Height="30" Width="Auto" VerticalAlignment="Center" Click="btnShowTestCaseWithoutSuite1_Click"/>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="20,10,0,10">
                         <CheckBox Margin="0,0,10,0" VerticalAlignment="Center" HorizontalAlignment="Left" IsChecked="{Binding Path=ShowSubSuitesTestCases, Mode=TwoWay}" 
@@ -255,7 +255,7 @@
                     <Button Name="btnExport1" Content="_Export" Margin="15,0,10,0" Height="30" Width="90" VerticalAlignment="Center" Click="btnExport_Click"/>
                     <Button Name="btnArrange1" Content="Arrange" Margin="15,0,10,0" Height="30" Width="Auto" VerticalAlignment="Center" Click="btnArrange_Click"/>
                     <Button Name="btnChangeTestCases" Content="Change Test Cases"  Margin="30,0,10,0" Height="30" Width="Auto" VerticalAlignment="Center" Click="btnChangeTestCases_Click"/>
-                    <!--<Button Name="btnShowTestCaseWithoutSuite1" Content="Show Test Cases Without Suite" Margin="15,0,10,0" Height="30" Width="Auto" VerticalAlignment="Center" Click="btnShowTestCaseWithoutSuite_Click"/>-->
+                    <Button Name="btnShowTestCaseWithoutSuite1" Content="Show Test Cases Without Suite" Margin="15,0,10,0" Height="30" Width="Auto" VerticalAlignment="Center" Click="btnShowTestCaseWithoutSuite1_Click"/>
                 </StackPanel>
             </StackPanel>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Grid.Row="4" Grid.Column="2" Grid.ColumnSpan="3">

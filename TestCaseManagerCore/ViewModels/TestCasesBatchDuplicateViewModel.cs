@@ -70,7 +70,7 @@ namespace TestCaseManagerCore.ViewModels
             else
             {
                 this.ObservableSharedSteps = new ObservableCollection<SharedStep>();
-                List<SharedStep> allSharedSteps = SharedStepManager.GetAllSharedStepsInTestPlan();
+				List<SharedStep> allSharedSteps = SharedStepManager.GetAllSharedStepsInTestPlan(ExecutionContext.TestManagementTeamProject);
                 allSharedSteps.ForEach(s => this.ObservableSharedSteps.Add(s));
                 this.InitialSharedStepsCollection = new ObservableCollection<SharedStep>();
                 allSharedSteps.ForEach(s => this.InitialSharedStepsCollection.Add(s));
@@ -401,7 +401,7 @@ namespace TestCaseManagerCore.ViewModels
         /// <param name="currentTestCase">The current test case.</param>
         private void AddTestCaseToSuite(TestCase currentTestCase)
         {
-            var newSuite = TestSuiteManager.GetTestSuiteByName(this.ReplaceContext.SelectedSuite.Title);
+			var newSuite = TestSuiteManager.GetTestSuiteByName(ExecutionContext.TestManagementTeamProject, this.ReplaceContext.SelectedSuite.Title);
             newSuite.AddTestCase(currentTestCase.ITestCase);
         }
 
@@ -547,7 +547,7 @@ namespace TestCaseManagerCore.ViewModels
         /// </summary>
         private void InitializeTestSuiteList()
         {
-            List<ITestSuiteBase> testSuiteList = TestSuiteManager.GetAllTestSuitesInTestPlan();
+			List<ITestSuiteBase> testSuiteList = TestSuiteManager.GetAllTestSuitesInTestPlan(ExecutionContext.Preferences.TestPlan);
             testSuiteList.ForEach(s => this.ObservableTestSuites.Add(s));
         }
 
