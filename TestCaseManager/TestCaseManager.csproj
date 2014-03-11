@@ -156,14 +156,14 @@
     <Compile Include="Views\AboutView.xaml.cs">
       <DependentUpon>AboutView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\TestCasesMigrationView.xaml.cs">
-      <DependentUpon>TestCasesMigrationView.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\PrompCheckboxListDialogControl.xaml.cs">
       <DependentUpon>PrompCheckboxListDialogControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\PrompCheckboxListDialogWindow.xaml.cs">
       <DependentUpon>PrompCheckboxListDialogWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\TestCasesMigrationView.xaml.cs">
+      <DependentUpon>TestCasesMigrationView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\TestPlansEditView.xaml.cs">
       <DependentUpon>TestPlansEditView.xaml</DependentUpon>
@@ -239,10 +239,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\TestCasesMigrationView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="Views\PrompCheckboxListDialogControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -250,6 +246,10 @@
     <Page Include="Views\PrompCheckboxListDialogWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\TestCasesMigrationView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\TestPlansEditView.xaml">
       <Generator>MSBuild:Compile</Generator>
