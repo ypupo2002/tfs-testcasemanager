@@ -52,7 +52,7 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
         /// <param name="newSuiteTitle">The new suite title.</param>
         /// <param name="testSteps">The test steps.</param>
         /// <returns></returns>
-        public static SharedStep Save(this SharedStep sharedStep, ITestManagementTeamProject testManagementTeamProject, bool createNew, ICollection<TestStep> testSteps)
+        public static SharedStep Save(this SharedStep sharedStep, ITestManagementTeamProject testManagementTeamProject, bool createNew, ICollection<TestStep> testSteps, bool shouldSetArea = true)
         {
             SharedStep currentSharedStep = sharedStep;
             if (createNew)
@@ -60,7 +60,10 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
 				ISharedStep sharedStepCore = testManagementTeamProject.SharedSteps.Create();
                 currentSharedStep = new SharedStep(sharedStepCore);
             }
-            currentSharedStep.ISharedStep.Area = sharedStep.Area;
+			if (shouldSetArea)
+			{
+				currentSharedStep.ISharedStep.Area = sharedStep.Area;
+			}
             currentSharedStep.ISharedStep.Title = sharedStep.Title;
             currentSharedStep.ISharedStep.Priority = (int)sharedStep.Priority;
             currentSharedStep.ISharedStep.Actions.Clear();

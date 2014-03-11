@@ -26,7 +26,8 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
 		public void Initialize(FileType fileType, string resultsFilePrefix, string resultsFolder)
 		{
 			string fileExtension = BaseFileTypeManager.GetExtensionByFileType(fileType);
-			FullResultFilePath = String.Concat(resultsFolder, resultsFilePrefix, DateTime.Now.ToString(DateTimeFormats.DateTimeShortFileFormat), fileExtension);
+			string uniqueFileName = String.Concat(resultsFilePrefix, DateTime.Now.ToString(DateTimeFormats.DateTimeShortFileFormat), fileExtension);
+			FullResultFilePath = Path.Combine(resultsFolder, uniqueFileName);
 		}
 
 		/// <summary>

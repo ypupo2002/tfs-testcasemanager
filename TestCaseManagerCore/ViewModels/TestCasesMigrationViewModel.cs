@@ -553,7 +553,7 @@ namespace TestCaseManagerCore.ViewModels
 					this.ProgressConcurrentQueue.Enqueue(infoMessage);
 
 					List<TestStep> testSteps = TestStepManager.GetTestStepsFromTestActions(currentSourceSharedStep.ISharedStep.Actions);
-					SharedStep newSharedStep = currentSourceSharedStep.Save(this.destinationTeamProject, true, testSteps);
+					SharedStep newSharedStep = currentSourceSharedStep.Save(this.destinationTeamProject, true, testSteps, false);
 					newSharedStep.ISharedStep.Refresh();
 					this.sharedStepsMapping.Add(currentSourceSharedStep.ISharedStep.Id, newSharedStep.ISharedStep.Id);
 
@@ -686,6 +686,7 @@ namespace TestCaseManagerCore.ViewModels
 		public void StartUiProgressLogging(Label progressLabel)
 		{
 			log.Info("Start UI Progress logging!");
+			progressLabel.IsEnabled = true;
 			this.loggingCancellationTokenSource = new CancellationTokenSource();
 			this.loggingCancellationToken = this.loggingCancellationTokenSource.Token;
 			this.LogProgressInternal(this.ProgressConcurrentQueue, progressLabel);
@@ -697,7 +698,7 @@ namespace TestCaseManagerCore.ViewModels
 		/// </summary>
 		public void StopUiProgressLogging()
 		{
-			log.Info("Stop UI Progress logging!");
+			log.Info("Stop UI Progress logging!");		
 			if (this.loggingCancellationTokenSource != null)
 			{
 				this.loggingCancellationTokenSource.Cancel();
