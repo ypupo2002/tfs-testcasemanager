@@ -30,9 +30,9 @@
             </StackPanel>
             <StackPanel Orientation="Vertical" Grid.Column="1" Grid.Row="1">
                 <TextBox Margin="10" Name="tbTfsProjectSource" Height="30" Text="{Binding SourceFullTeamProjectName}"/>
-                <ComboBox Margin="10" Height="30" ItemsSource="{Binding ObservableSourceTestPlans}" Name="cbTestPlansSource" local:ComboBoxDropdownExtensions.OpenDropDownAutomatically="True" MouseMove="cbTestPlansSource_MouseMove"  SelectedIndex="0"/>
+                <ComboBox Margin="10" Height="30" ItemsSource="{Binding ObservableSourceTestPlans}" Name="cbTestPlansSource" local:ComboBoxDropdownExtensions.OpenDropDownAutomatically="True" MouseMove="cbTestPlansSource_MouseMove"  SelectedIndex="0" SelectionChanged="cbTestPlansSource_SelectionChanged"/>
                 <TextBox Margin="10" Name="tbTfsProjectDestination" Height="30" Text="{Binding DestinationFullTeamProjectName}"/>
-                <ComboBox Margin="10" Height="30" ItemsSource="{Binding ObservableDestinationTestPlans}" Name="cbTestPlansDestination" local:ComboBoxDropdownExtensions.OpenDropDownAutomatically="True" MouseMove="cbTestPlansDestination_MouseMove"  SelectedIndex="0"/>
+                <ComboBox Margin="10" Height="30" ItemsSource="{Binding ObservableDestinationTestPlans}" Name="cbTestPlansDestination" local:ComboBoxDropdownExtensions.OpenDropDownAutomatically="True" MouseMove="cbTestPlansDestination_MouseMove"  SelectedIndex="0" SelectionChanged="cbTestPlansDestination_SelectionChanged"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal"  Grid.Row="2"  Grid.Column="0" Grid.ColumnSpan="3" Height="Auto">
                 <DataGrid Name="dgTextsToBeReplaced" ItemsSource="{Binding ObservableSuitesToBeSkipped}"  CanUserAddRows="True" AutoGenerateColumns="False" Width="400" HorizontalAlignment="Left" >
@@ -49,7 +49,7 @@
             </StackPanel>
             <StackPanel Orientation="Vertical" Grid.Row="2"  Grid.Column="1" Grid.ColumnSpan="2" >
                 <ProgressBar Name="internalProgressBar" Minimum="0" Maximum="1" Height="16" IsIndeterminate="True" Margin="10" Visibility="Hidden" />
-                <Label Name="lblProgress" FontSize="12" Margin="10" Visibility="Hidden"/>
+                <Label Name="lblProgress" FontSize="12" Margin="10"/>
             </StackPanel>
             <StackPanel Orientation="Vertical" Grid.Column="2"  Grid.Row="1">
                 <Button Name="btnSourceBrowser" Content="Browse" Margin="10" Width="150" Height="30" Click="btnSourceBrowser_Click" />
@@ -72,39 +72,39 @@
                 <!--Default Jsons Paths Browse-->
                 <StackPanel Orientation="Horizontal" Grid.Row="0"  Grid.Column="0" Grid.ColumnSpan="3" HorizontalAlignment="Right">
                     <Label Content="Default Jsons Folder" FontWeight="Bold" FontSize="12" Margin="25" Height="30"/>
-                    <TextBox Margin="25"  Name="tbDefaultJsonsPath" MinWidth="500" Height="30" Text="{Binding DefaultJsonFolder}"/>
+                    <TextBox Margin="25"  Name="tbDefaultJsonsPath" Width="500" Height="30" Text="{Binding DefaultJsonFolder}"/>
                     <Button Name="btnDefaultJsonsPath" Content="Browse" Margin="25" Width="150" Height="30" Click="btnDefaultJsonsPath_Click" />
                 </StackPanel>
                 <!--Migration Shared Steps Controls-->
-                <Button Content="Migrate Shared Steps" Name="btnMigrateSharedSteps" Margin="25" Width="170" Height="30" Click="btnMigrateSharedSteps_Click" Grid.Row="1"  Grid.Column="0"/>
-                <Button Content="Stop" Name="btnStopSharedStepsMigration" Margin="25" Width="Auto" Height="30" Click="btnStopSharedStepsMigration_Click" Grid.Row="1"  Grid.Column="1" IsEnabled="False"/>
+                <Button Content="Migrate Shared Steps" Name="btnMigrateSharedSteps" Margin="25" Width="175" Height="30" Click="btnMigrateSharedSteps_Click" Grid.Row="1"  Grid.Column="0"/>
+                <Button Content="Stop" Name="btnStopSharedStepsMigration" Margin="25" Width="Auto" Height="30" Click="btnStopSharedStepsMigration_Click" Grid.Row="1"  Grid.Column="1" IsEnabled="True"/>
                 <StackPanel Orientation="Horizontal" Grid.Row="1"  Grid.Column="2">
                     <Label Content="Retry Json Path" FontWeight="Bold" FontSize="12" Margin="25" Height="30"/>
-                    <TextBox Margin="25"  Name="tbSharedStepsJsonPath" Height="30" MinWidth="500" Text="{Binding MigrationSharedStepsRetryJsonPath}"/>
+                    <TextBox Margin="25"  Name="tbSharedStepsJsonPath" Height="30" Width="500"  Text="{Binding MigrationSharedStepsRetryJsonPath}"/>
                     <Button Name="btnBrowserSharedStepsJsonPath" Content="Browse" Margin="25" Width="150" Height="30" Click="btnBrowserSharedStepsJsonPath_Click" />
                 </StackPanel>
                 <!--Migration Suite Controls-->
-                <Button Content="Migrate Suites" Name="btnMigrateSuites" Margin="25" Width="170" Height="30" Click="btnMigrateSuites_Click" Grid.Row="2"  Grid.Column="0"/>
+                <Button Content="Migrate Suites" Name="btnMigrateSuites" Margin="25" Width="175" Height="30" Click="btnMigrateSuites_Click" Grid.Row="2"  Grid.Column="0"/>
                 <Button Content="Stop" Name="btnStopSuitesMigration" Margin="25" Width="Auto" Height="30" Click="btnStopSuitesMigration_Click" Grid.Row="2"  Grid.Column="1" IsEnabled="False"/>
                 <StackPanel Orientation="Horizontal" Grid.Row="2"  Grid.Column="2">
                     <Label Content="Retry Json Path" FontWeight="Bold" FontSize="12" Margin="25" Height="30"/>
-                    <TextBox Margin="25"  Name="tbSuitesJsonPath" Height="30" MinWidth="500" Text="{Binding MigrationSuitesRetryJsonPath}"/>
+                    <TextBox Margin="25"  Name="tbSuitesJsonPath" Height="30" Width="500" Text="{Binding MigrationSuitesRetryJsonPath}"/>
                     <Button Name="btnBrowseSuitesJsonPath" Content="Browse" Margin="25" Width="150" Height="30" Click="btnBrowseSuitesJsonPath_Click" />
                 </StackPanel>
                 <!--Migration Test Cases Controls-->
-                <Button Content="Migrate Test Cases" Name="btnMigrateTestCases" Margin="25" Width="170" Height="30" Click="btnMigrateTestCases_Click" Grid.Row="3"  Grid.Column="0" IsEnabled="{Binding IsSharedStepsMigrationFinished}"/>
+                <Button Content="Migrate Test Cases" Name="btnMigrateTestCases" Margin="25" Width="175" Height="30" Click="btnMigrateTestCases_Click" Grid.Row="3"  Grid.Column="0" IsEnabled="{Binding IsSharedStepsMigrationFinished}"/>
                 <Button Content="Stop" Name="btnStopTestCasesMigration" Margin="25" Width="Auto" Height="30" Click="btnStopTestCasesMigration_Click" Grid.Row="3"  Grid.Column="1" IsEnabled="False"/>
                 <StackPanel Orientation="Horizontal" Grid.Row="3"  Grid.Column="2">
                     <Label Content="Retry Json Path" FontWeight="Bold" FontSize="12" Margin="25" Height="30"/>
-                    <TextBox Margin="25"  Name="tbTestCasesJsonPath" Height="30" MinWidth="500" Text="{Binding MigrationTestCasesRetryJsonPath}"/>
+                    <TextBox Margin="25"  Name="tbTestCasesJsonPath" Height="30" Width="500" Text="{Binding MigrationTestCasesRetryJsonPath}"/>
                     <Button Name="btnBrowseTestCasesJsonPath" Content="Browse" Margin="25" Width="150" Height="30" Click="btnBrowseTestCasesJsonPath_Click" />
                 </StackPanel>
                 <!--Migration Add Test Cases To Suites Controls-->
-                <Button Content="Add Test Cases to Suites" Name="btnAddTestCasesToSuites" Margin="25" Width="170" Height="30" Click="btnAddTestCasesToSuites_Click"  Grid.Row="4"  Grid.Column="0" IsEnabled="{Binding IsSuitesMigrationFinished}"/>
+                <Button Content="Add Test Cases to Suites" Name="btnAddTestCasesToSuites" Margin="25" Width="175" Height="30" Click="btnAddTestCasesToSuites_Click"  Grid.Row="4"  Grid.Column="0" IsEnabled="{Binding IsSuitesMigrationFinished}"/>
                 <Button Content="Stop" Name="btnStopTestCasesToSuitesAddition" Margin="25" Width="Auto" Height="30" Click="btnStopTestCasesToSuitesAddition_Click"  Grid.Row="4"  Grid.Column="1" IsEnabled="False"/>
                 <StackPanel Orientation="Horizontal" Grid.Row="4"  Grid.Column="2">
                     <Label Content="Retry Json Path" FontWeight="Bold" FontSize="12" Margin="25" />
-                    <TextBox Margin="25"  Name="tbTestCasesToSuitesAdditionJsonPath" Height="30" MinWidth="500" Text="{Binding MigrationAddTestCasesToSuitesRetryJsonPath}"/>
+                    <TextBox Margin="25"  Name="tbTestCasesToSuitesAdditionJsonPath" Height="30" Width="500" Text="{Binding MigrationAddTestCasesToSuitesRetryJsonPath}"/>
                     <Button Name="btnBrowseTestCasesToSuitesJsonPath" Content="Browse" Margin="25" Width="150" Height="30" Click="btnBrowseTestCasesJsonPath_Click" />
                 </StackPanel>
             </Grid>

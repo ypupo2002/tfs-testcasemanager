@@ -5,6 +5,7 @@
 using System.Threading.Tasks;
 using System.Windows;
 using FirstFloor.ModernUI.Windows;
+using FirstFloor.ModernUI.Windows.Controls;
 using FirstFloor.ModernUI.Windows.Navigation;
 using Microsoft.TeamFoundation.Client;
 using TestCaseManagerCore;
@@ -103,6 +104,7 @@ namespace TestCaseManagerApp.Views
 				this.DataContext = this.TestCasesMigrationViewModel;
                 isInitialized = true;
 				HideProgressBar();
+				ModernDialog.ShowMessage("Please read carefully the online documentation about this module because the changes cannot be revirted!\nYou should migrate the entities in the following order: shared steps,suites, test cases, add test cases to suites.\nBefore you proceed to the next stage of the sync be sure that there aren't error in the previous!\nIn case of unexpexted errors you can retry the logic using the created JSON file saved in the default JSON folder.", "Warning", MessageBoxButton.OK);		
             }, TaskScheduler.FromCurrentSynchronizationContext());
         }
 
@@ -173,8 +175,12 @@ namespace TestCaseManagerApp.Views
 		/// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
 		private void btnMigrateSharedSteps_Click(object sender, RoutedEventArgs e)
 		{
-			this.TestCasesMigrationViewModel.StartUiProgressLogging(lblProgress);
-			this.TestCasesMigrationViewModel.StartSharedStepsFromSourceToDestinationMigration();
+			bool canMigratite = this.TestCasesMigrationViewModel.CanStartMigration();
+			if (canMigratite)
+			{
+				this.TestCasesMigrationViewModel.StartUiProgressLogging(lblProgress);
+				this.TestCasesMigrationViewModel.StartSharedStepsFromSourceToDestinationMigration(internalProgressBar);
+			}
 		}
 
 		/// <summary>
@@ -185,7 +191,7 @@ namespace TestCaseManagerApp.Views
 		private void btnStopSharedStepsMigration_Click(object sender, RoutedEventArgs e)
 		{
 			this.TestCasesMigrationViewModel.StopUiProgressLogging();
-			this.TestCasesMigrationViewModel.StopSharedStepsFromSourceToDestinationMigration();
+			this.TestCasesMigrationViewModel.StopMigrationExecution();
 		}
 
 		/// <summary>
@@ -195,7 +201,12 @@ namespace TestCaseManagerApp.Views
 		/// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
 		private void btnMigrateSuites_Click(object sender, RoutedEventArgs e)
 		{
-
+			bool canMigratite = this.TestCasesMigrationViewModel.CanStartMigration();
+			if (canMigratite)
+			{
+				this.TestCasesMigrationViewModel.StartUiProgressLogging(lblProgress);
+				this.TestCasesMigrationViewModel.StartSuitesFromSourceToDestinationMigration(internalProgressBar);
+			}
 		}
 
 		/// <summary>
@@ -205,7 +216,8 @@ namespace TestCaseManagerApp.Views
 		/// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
 		private void btnStopSuitesMigration_Click(object sender, RoutedEventArgs e)
 		{
-
+			this.TestCasesMigrationViewModel.StopUiProgressLogging();
+			this.TestCasesMigrationViewModel.StopMigrationExecution();
 		}
 
 		/// <summary>
@@ -285,7 +297,35 @@ namespace TestCaseManagerApp.Views
 		/// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
 		private void btnBrowserSharedStepsJsonPath_Click(object sender, RoutedEventArgs e)
 		{
-			this.TestCasesMigrationViewModel.MigrationAddTestCasesToSuitesRetryJsonPath = FileDialogManager.Intance.GetFileName(FileType.JSON);
+			this.TestCasesMigrationViewModel.MigrationSharedStepsRetryJsonPath = FileDialogManager.Intance.GetFileName(FileType.JSON);
+		}
+
+		/// <summary>
+		/// Handles the SelectionChanged event of the cbTestPlansSource control.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="System.Windows.Controls.SelectionChangedEventArgs"/> instance containing the event data.</param>
+		private void cbTestPlansSource_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+		{
+			if (cbTestPlansSource.SelectedIndex >= 0 && this.TestCasesMigrationViewModel.ObservableSourceTestPlans.Count > cbTestPlansSource.SelectedIndex)
+			{
+				this.TestCasesMigrationViewModel.SelectedSourceTestPlan = this.TestCasesMigrationViewModel.ObservableSourceTestPlans[cbTestPlansSource.SelectedIndex];
+				this.TestCasesMigrationViewModel.InitializeSelectedSourceTestPlan();
+			}
+		}
+
+		/// <summary>
+		/// Handles the SelectionChanged event of the cbTestPlansDestination control.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="System.Windows.Controls.SelectionChangedEventArgs"/> instance containing the event data.</param>
+		private void cbTestPlansDestination_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+		{
+			if (cbTestPlansDestination.SelectedIndex >= 0 && this.TestCasesMigrationViewModel.ObservableDestinationTestPlans.Count > cbTestPlansDestination.SelectedIndex)
+			{
+				this.TestCasesMigrationViewModel.SelectedDestinationTestPlan = this.TestCasesMigrationViewModel.ObservableDestinationTestPlans[cbTestPlansDestination.SelectedIndex];
+				this.TestCasesMigrationViewModel.InitializeSelectedDestinationTestPlan();
+			}
 		}
     }
 }

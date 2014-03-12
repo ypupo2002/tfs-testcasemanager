@@ -475,9 +475,16 @@ namespace TestCaseManagerCore.ViewModels
 		public void LoadProjectSettingsFromUserDecisionSource(TeamProjectPicker projectPicker)
 		{
 			base.LoadProjectSettingsFromUserDecision(projectPicker, ref this.sourceTfsTeamProjectCollection, ref this.sourceTeamProject, ref this.sourcePreferences, this.SourceTestService, this.SelectedSourceTestPlan, false);
-			this.SourceFullTeamProjectName = base.GenerateFullTeamProjectName(this.sourcePreferences.TfsUri.ToString(), this.sourcePreferences.TestProjectName);
-			this.sourcePreferences.TestPlan = TestPlanManager.GetTestPlanByName(this.sourceTeamProject, this.SelectedSourceTestPlan);
-			base.InitializeTestPlans(this.sourceTeamProject, this.ObservableSourceTestPlans);
+			if (this.sourcePreferences.TfsUri != null && this.sourcePreferences != null)
+			{
+				this.SourceFullTeamProjectName = base.GenerateFullTeamProjectName(this.sourcePreferences.TfsUri.ToString(), this.sourcePreferences.TestProjectName);
+				this.sourcePreferences.TestPlan = TestPlanManager.GetTestPlanByName(this.sourceTeamProject, this.SelectedSourceTestPlan);
+				base.InitializeTestPlans(this.sourceTeamProject, this.ObservableSourceTestPlans);
+				if (this.ObservableSourceTestPlans.Count > 0)
+				{
+					this.SelectedSourceTestPlan = this.ObservableSourceTestPlans[0];
+				}
+			}		
 		}
 
 		/// <summary>
@@ -487,33 +494,67 @@ namespace TestCaseManagerCore.ViewModels
 		public void LoadProjectSettingsFromUserDecisionDestination(TeamProjectPicker projectPicker)
 		{
 			base.LoadProjectSettingsFromUserDecision(projectPicker, ref this.destinationTfsTeamProjectCollection, ref this.destinationTeamProject, ref this.destinationPreferences, this.DestinationTestService, this.SelectedDestinationTestPlan, false);
-			this.DestinationFullTeamProjectName = base.GenerateFullTeamProjectName(this.destinationPreferences.TfsUri.ToString(), this.destinationPreferences.TestProjectName);
-			this.destinationPreferences.TestPlan = TestPlanManager.GetTestPlanByName(this.destinationTeamProject, this.SelectedDestinationTestPlan);
-			base.InitializeTestPlans(this.destinationTeamProject, this.ObservableDestinationTestPlans);
+			if (this.destinationPreferences.TfsUri != null && this.destinationPreferences != null)
+			{
+				this.DestinationFullTeamProjectName = base.GenerateFullTeamProjectName(this.destinationPreferences.TfsUri.ToString(), this.destinationPreferences.TestProjectName);
+				this.destinationPreferences.TestPlan = TestPlanManager.GetTestPlanByName(this.destinationTeamProject, this.SelectedDestinationTestPlan);
+				base.InitializeTestPlans(this.destinationTeamProject, this.ObservableDestinationTestPlans);
+				if(this.ObservableDestinationTestPlans.Count > 0)
+				{
+					this.SelectedDestinationTestPlan = this.ObservableDestinationTestPlans[0];
+				}
+			}
 		}
 
 		/// <summary>
 		/// Migrates the shared steps from source to destination.
 		/// </summary>
-		public void StartSharedStepsFromSourceToDestinationMigration()
+		public void StartSharedStepsFromSourceToDestinationMigration(ProgressBar progressBar)
 		{
 			this.executionCancellationTokenSource= new CancellationTokenSource();
 			this.executionCancellationToken = this.executionCancellationTokenSource.Token;
 
 			Task t = Task.Factory.StartNew(() =>
 			{
+				this.ShowProgressBar(progressBar);
 				this.MigrateSharedStepsFromSourceToDestinationInternal();
 			}, this.executionCancellationToken);
 			t.ContinueWith(antecedent =>
 			{
 				this.StopUiProgressLogging();
-			});
+				this.HideProgressBar(progressBar);
+				this.DisplayNotProcessedSharedSteps();
+			}, TaskScheduler.FromCurrentSynchronizationContext());
+		}
+
+		/// <summary>
+		/// Shows the progress bar.
+		/// </summary>
+		/// <param name="progressBar">The progress bar.</param>
+		private void ShowProgressBar(ProgressBar progressBar)
+		{
+			progressBar.Dispatcher.InvokeAsync((Action)(() =>
+			{
+				progressBar.Visibility = Visibility.Visible;
+			}), System.Windows.Threading.DispatcherPriority.Loaded);
+		}
+
+		/// <summary>
+		/// Hides the progress bar.
+		/// </summary>
+		/// <param name="progressBar">The progress bar.</param>
+		private void HideProgressBar(ProgressBar progressBar)
+		{
+			progressBar.Dispatcher.InvokeAsync((Action)(() =>
+			{
+				progressBar.Visibility = Visibility.Hidden;
+			}), System.Windows.Threading.DispatcherPriority.Loaded);
 		}
 
 		/// <summary>
 		/// Stops the shared steps from source to destination migration.
 		/// </summary>
-		public void StopSharedStepsFromSourceToDestinationMigration()
+		public void StopMigrationExecution()
 		{
 			log.Info("Stop Shared Steps Migration!");
 			if (this.executionCancellationTokenSource != null)
@@ -521,6 +562,43 @@ namespace TestCaseManagerCore.ViewModels
 				this.executionCancellationTokenSource.Cancel();
 				log.Info("Shared Steps Migration STOPPED!");
 			}
+		}
+
+		/// <summary>
+		/// Starts the suites from source to destination migration.
+		/// </summary>
+		public void StartSuitesFromSourceToDestinationMigration(ProgressBar progressBar)
+		{
+			this.executionCancellationTokenSource = new CancellationTokenSource();
+			this.executionCancellationToken = this.executionCancellationTokenSource.Token;
+
+			Task t = Task.Factory.StartNew(() =>
+			{
+				this.ShowProgressBar(progressBar);
+				this.MigrateSuitesFromSourceToDestinationInternal(this.sourcePreferences.TestPlan.RootSuite.SubSuites, -1);
+			}, this.executionCancellationToken);
+			t.ContinueWith(antecedent =>
+			{
+				this.StopUiProgressLogging();
+				this.HideProgressBar(progressBar);
+				this.DisplayNotProcessedSuites();
+			}, TaskScheduler.FromCurrentSynchronizationContext());
+		}
+
+		/// <summary>
+		/// Initializes the selected source test plan.
+		/// </summary>
+		public void InitializeSelectedSourceTestPlan()
+		{
+			this.sourcePreferences.TestPlan = TestPlanManager.GetTestPlanByName(this.sourceTeamProject, this.SelectedSourceTestPlan);
+		}
+
+		/// <summary>
+		/// Initializes the selected destination test plan.
+		/// </summary>
+		public void InitializeSelectedDestinationTestPlan()
+		{
+			this.destinationPreferences.TestPlan = TestPlanManager.GetTestPlanByName(this.destinationTeamProject, this.SelectedDestinationTestPlan);
 		}
 
 		/// <summary>
@@ -532,6 +610,7 @@ namespace TestCaseManagerCore.ViewModels
 			{
 				this.sharedStepsMigrationLogManager = new MigrationLogManager(this.MigrationSharedStepsRetryJsonPath);
 				this.sharedStepsMigrationLogManager.LoadCollectionFromExistingFile();
+				this.sharedStepsMapping = this.sharedStepsMigrationLogManager.GetProssedItemsMappings();
 			}
 			else
 			{
@@ -544,6 +623,12 @@ namespace TestCaseManagerCore.ViewModels
 				if (this.executionCancellationToken.IsCancellationRequested)
 				{
 					break;
+				}
+
+				// If it's already processed skip it
+				if (this.sharedStepsMigrationLogManager.MigrationEntries.Count(e => e.SourceId.Equals(currentSourceSharedStep.Id)) > 0)
+				{
+					continue;
 				}
 				string infoMessage = String.Empty;
 				try
@@ -574,40 +659,106 @@ namespace TestCaseManagerCore.ViewModels
 					this.MigrationSharedStepsRetryJsonPath = this.sharedStepsMigrationLogManager.FullResultFilePath;
 				}
 			}
-			this.isSharedStepsMigrationFinished = true;
+			this.IsSharedStepsMigrationFinished = true;
 		}
 
 		/// <summary>
-		/// Migrates the suites from source to destination.
+		/// Displays the not processed shared steps.
 		/// </summary>
-		public void MigrateSuitesFromSourceToDestination(ITestSuiteCollection subSuitesCore, int parentId)
+		public void DisplayNotProcessedSharedSteps()
 		{
-			//List<Suite> sourceSuites = TestSuiteManager.GetAllSuites(ExecutionContext.Preferences.TestPlan.RootSuite.SubSuites).ToList();			
-		
+			List<MigrationRetryEntry>  notProssedEntries = this.sharedStepsMigrationLogManager.GetNotProssedEntries();
+			ModernDialog.ShowMessage(String.Format("Number of not processed: {0}", notProssedEntries.Count), "Warning", MessageBoxButton.OK);
+		}
+
+		/// <summary>
+		/// Displays the not processed suites.
+		/// </summary>
+		public void DisplayNotProcessedSuites()
+		{
+			List<MigrationRetryEntry> notProssedEntries = this.suitesMigrationLogManager.GetNotProssedEntries();
+			ModernDialog.ShowMessage(String.Format("Number of not processed: {0}", notProssedEntries.Count), "Warning", MessageBoxButton.OK);
+		}
+
+		/// <summary>
+		/// Migrates the suites from source to destination internal.
+		/// </summary>
+		/// <param name="subSuitesCore">The sub suites core.</param>
+		/// <param name="parentId">The parent id.</param>
+		private void MigrateSuitesFromSourceToDestinationInternal(ITestSuiteCollection subSuitesCore, int parentId)
+		{
+			if (!string.IsNullOrEmpty(this.MigrationSuitesRetryJsonPath) && File.Exists(this.MigrationSuitesRetryJsonPath))
+			{
+				this.suitesMigrationLogManager = new MigrationLogManager(this.MigrationSuitesRetryJsonPath);
+				this.suitesMigrationLogManager.LoadCollectionFromExistingFile();
+				this.suitesMapping = this.suitesMigrationLogManager.GetProssedItemsMappings();
+			}
+			else
+			{
+				this.suitesMigrationLogManager = new MigrationLogManager("suites", this.DefaultJsonFolder);
+			}
+			List<MigrationRetryEntry> notProssedEntries = this.suitesMigrationLogManager.GetNotProssedEntries();
+
 			if (subSuitesCore == null || subSuitesCore.Count == 0)
 			{
 				return;
 			}
 			foreach (ITestSuiteBase currentSuite in subSuitesCore)
 			{
-				if (currentSuite != null)
+				if (this.executionCancellationToken.IsCancellationRequested)
 				{
-					currentSuite.Refresh();
-
-					bool canBeAddedNewSuite;
-					int newSuiteId = TestSuiteManager.AddChildSuite(this.destinationTeamProject, this.destinationPreferences.TestPlan, parentId, currentSuite.Title, out canBeAddedNewSuite);
-					if (newSuiteId != 0)
-					{
-						suitesMapping.Add(currentSuite.Id, newSuiteId);
-					}
-
-					if (!(currentSuite is IRequirementTestSuite))
-					{
-                        IStaticTestSuite suite = currentSuite as IStaticTestSuite;
-						MigrateSuitesFromSourceToDestination(suite.SubSuites, newSuiteId);
-					}
+					break;
 				}
+				// If it's already processed skip it
+				if (notProssedEntries.Count(e => e.SourceId.Equals(currentSuite.Id)) > 0)
+				{
+					continue;
+				}
+
+				string infoMessage = String.Empty;
+				try
+				{
+					infoMessage = String.Format("Start Migrating Suite with Source Id= {0}", currentSuite.Id);
+					log.Info(infoMessage);
+					this.ProgressConcurrentQueue.Enqueue(infoMessage);
+					int newSuiteId = 0;
+					if (currentSuite != null)
+					{
+						currentSuite.Refresh();
+
+						bool canBeAddedNewSuite;
+						newSuiteId = TestSuiteManager.AddChildSuite(this.destinationTeamProject, this.destinationPreferences.TestPlan, parentId, currentSuite.Title, out canBeAddedNewSuite);
+						if (newSuiteId != 0)
+						{
+							suitesMapping.Add(currentSuite.Id, newSuiteId);
+						}
+
+						if (!(currentSuite is IRequirementTestSuite))
+						{
+							IStaticTestSuite suite = currentSuite as IStaticTestSuite;
+							this.MigrateSuitesFromSourceToDestinationInternal(suite.SubSuites, newSuiteId);
+						}
+					}
+
+					this.suitesMigrationLogManager.Log(currentSuite.Id, newSuiteId, true);
+					infoMessage = String.Format("Suite Migrated SUCCESSFULLY: Source Id= {0}, Destination Id= {1}", currentSuite.Id, newSuiteId);
+					log.Info(infoMessage);
+					this.ProgressConcurrentQueue.Enqueue(infoMessage);
+				}
+				catch (Exception ex)
+				{
+					this.suitesMigrationLogManager.Log(currentSuite.Id, -1, false, ex.Message);
+					log.Error(ex);
+					this.ProgressConcurrentQueue.Enqueue(ex.Message);
+				}
+				finally
+				{
+					this.suitesMigrationLogManager.Save();
+					this.MigrationSuitesRetryJsonPath = this.suitesMigrationLogManager.FullResultFilePath;
+				}				
 			}
+			this.IsSuitesMigrationFinished = true;
+			notProssedEntries = this.suitesMigrationLogManager.GetNotProssedEntries();
 		}
 
 		/// <summary>
@@ -714,23 +865,23 @@ namespace TestCaseManagerCore.ViewModels
 		/// </returns>
 		public bool CanStartMigration()
 		{
-			bool canStartMigration = true;
-
 			if (this.destinationFullTeamProjectName == null || this.sourceFullTeamProjectName == null )
 			{
-				// TODO: Add Moder Dialog Message Box Validations
-				canStartMigration = false;
+				ModernDialog.ShowMessage("No Team Projects Specified!.", "Warning", MessageBoxButton.OK);
+				return false;
 			}
 			if (string.IsNullOrEmpty(this.SelectedSourceTestPlan) || string.IsNullOrEmpty(this.SelectedDestinationTestPlan))
 			{
-				canStartMigration = false;
+				ModernDialog.ShowMessage("No Test Plans Specified!.", "Warning", MessageBoxButton.OK);
+				return false;
 			}
 			if (string.IsNullOrEmpty(this.DefaultJsonFolder))
 			{
-				canStartMigration = false;
+				ModernDialog.ShowMessage("No Default JSON Folder set!.", "Warning", MessageBoxButton.OK);
+				return false;
 			}
 
-			return canStartMigration;
+			return true;
 		}
 
 		/// <summary>

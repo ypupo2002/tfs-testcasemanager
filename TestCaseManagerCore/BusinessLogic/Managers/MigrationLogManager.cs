@@ -99,5 +99,23 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
 		{
 			return this.MigrationEntries.Where(m => !string.IsNullOrEmpty(m.Exception) && m.IsProcessed.Equals(false)).ToList();
 		}
+
+		/// <summary>
+		/// Gets the prossed items mappings.
+		/// </summary>
+		/// <returns></returns>
+		public Dictionary<int, int> GetProssedItemsMappings()
+		{
+			Dictionary<int, int> prossedItemsMappings = new Dictionary<int, int>();
+			List<MigrationRetryEntry> prossedItems = this.MigrationEntries.Where(m => string.IsNullOrEmpty(m.Exception) && m.IsProcessed.Equals(true)).ToList();
+			foreach (MigrationRetryEntry currentItem in prossedItems)
+			{
+				if (!prossedItemsMappings.ContainsKey(currentItem.SourceId))
+				{
+					prossedItemsMappings.Add(currentItem.SourceId, currentItem.DestinationId);
+				}
+			}
+			return prossedItemsMappings;
+		}
     }
 }

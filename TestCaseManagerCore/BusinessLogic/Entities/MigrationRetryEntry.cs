@@ -73,5 +73,12 @@ namespace TestCaseManagerCore.BusinessLogic.Entities
 			: this(sourceId, destinationId, isProcessed, "")
 		{
 		}
+
+		/// <summary>
+		/// Initializes a new instance of the <see cref="MigrationRetryEntry"/> class.
+		/// </summary>
+		public MigrationRetryEntry()
+		{
+		}
 	}
 }
