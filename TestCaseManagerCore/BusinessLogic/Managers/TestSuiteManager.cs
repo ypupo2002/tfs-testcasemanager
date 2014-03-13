@@ -78,12 +78,12 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
         /// </summary>
         /// <param name="suiteId">The suite unique identifier.</param>
         /// <param name="newName">The new name.</param>
-        public static void RenameSuite(int suiteId, string newName)
+        public static void RenameSuite(ITestManagementTeamProject testManagementTeamProject, ITestPlan testPlan, int suiteId, string newName)
         {
-            ITestSuiteBase currentSuite = ExecutionContext.TestManagementTeamProject.TestSuites.Find(suiteId);
+			ITestSuiteBase currentSuite = testManagementTeamProject.TestSuites.Find(suiteId);
             log.InfoFormat("Change Suite title from {0} to {1}, Suite Id = {2}", currentSuite.Title, newName, currentSuite.Id);
             currentSuite.Title = newName;
-            ExecutionContext.Preferences.TestPlan.Save();          
+			testPlan.Save();          
         }
 
         /// <summary>
@@ -91,9 +91,9 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
         /// </summary>
         /// <param name="suiteId">The suite unique identifier.</param>
         /// <returns>is static suite</returns>
-        public static bool IsStaticSuite(int suiteId)
+        public static bool IsStaticSuite(ITestManagementTeamProject testManagementTeamProject, int suiteId)
         {
-            ITestSuiteBase currentSuite = ExecutionContext.TestManagementTeamProject.TestSuites.Find(suiteId);
+			ITestSuiteBase currentSuite = testManagementTeamProject.TestSuites.Find(suiteId);
             bool isStaticSuite = false;
             if (currentSuite is IStaticTestSuite)
             {
@@ -140,25 +140,27 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
 				testPlan.RootSuite.Entries.Add(staticSuite);
                 log.InfoFormat("Add child suite with title= {0} to test plan", title);
             }
-			ExecutionContext.Preferences.TestPlan.Save();
+			testPlan.Save();
 
             return staticSuite.Id;
         }
 
-        /// <summary>
-        /// Pastes the suite to parent.
-        /// </summary>
-        /// <param name="parentSuiteId">The parent suite unique identifier.</param>
-        /// <param name="suiteToAddId">The suite automatic add unique identifier.</param>
-        /// <param name="clipBoardCommand">The clip board command.</param>
-        /// <exception cref="System.ArgumentException">The requirments based suites cannot have child suites!</exception>
-        public static void PasteSuiteToParent(int parentSuiteId, int suiteToAddId, ClipBoardCommand clipBoardCommand)
+		/// <summary>
+		/// Pastes the suite to parent.
+		/// </summary>
+		/// <param name="testManagementTeamProject">The test management team project.</param>
+		/// <param name="testPlan">The test plan.</param>
+		/// <param name="parentSuiteId">The parent suite unique identifier.</param>
+		/// <param name="suiteToAddId">The suite automatic add unique identifier.</param>
+		/// <param name="clipBoardCommand">The clip board command.</param>
+		/// <exception cref="System.ArgumentException">The requirments based suites cannot have child suites!</exception>
+        public static void PasteSuiteToParent(ITestManagementTeamProject testManagementTeamProject, ITestPlan testPlan, int parentSuiteId, int suiteToAddId, ClipBoardCommand clipBoardCommand)
         {
             ITestSuiteBase parentSuite = null;
             ITestSuiteBase suiteToAdd = null;
             try
             {
-                parentSuite = ExecutionContext.TestManagementTeamProject.TestSuites.Find(parentSuiteId);
+				parentSuite = testManagementTeamProject.TestSuites.Find(parentSuiteId);
             }
             catch(TestManagementValidationException ex)
             {
@@ -166,7 +168,7 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
             }
             try
             {
-                suiteToAdd = ExecutionContext.TestManagementTeamProject.TestSuites.Find(suiteToAddId);
+				suiteToAdd = testManagementTeamProject.TestSuites.Find(suiteToAddId);
             }
             catch (TestManagementValidationException ex)
             {
@@ -187,25 +189,27 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
             }
             else
             {
-                ExecutionContext.Preferences.TestPlan.RootSuite.Entries.Add(suiteToAdd);
+				testPlan.RootSuite.Entries.Add(suiteToAdd);
             }
             if (clipBoardCommand.Equals(ClipBoardCommand.Cut))
             {
-                DeleteSuite(suiteToAddId, oldParent);
+				DeleteSuite(testManagementTeamProject, testPlan, suiteToAddId, oldParent);
             }
 
-            ExecutionContext.Preferences.TestPlan.Save();
+			testPlan.Save();
         }
 
-        /// <summary>
-        /// Pastes the test cases to suite.
-        /// </summary>
-        /// <param name="suiteToAddInId">The suite automatic add information unique identifier.</param>
-        /// <param name="clipBoardCommand">The clip board test case object.</param>
-        /// <exception cref="System.ArgumentException">New test cases cannot be added to requirement based suites!</exception>
-        public static void PasteTestCasesToSuite(int suiteToAddInId, ClipBoardTestCase clipBoardTestCase)
+		/// <summary>
+		/// Pastes the test cases to suite.
+		/// </summary>
+		/// <param name="testManagementTeamProject">The test management team project.</param>
+		/// <param name="testPlan">The test plan.</param>
+		/// <param name="suiteToAddInId">The suite automatic add information unique identifier.</param>
+		/// <param name="clipBoardTestCase">The clip board test case.</param>
+		/// <exception cref="System.ArgumentException">New test cases cannot be added to requirement based suites!</exception>
+        public static void PasteTestCasesToSuite(ITestManagementTeamProject testManagementTeamProject, ITestPlan testPlan, int suiteToAddInId, ClipBoardTestCase clipBoardTestCase)
         {
-            ITestSuiteBase suiteToAddIn = ExecutionContext.TestManagementTeamProject.TestSuites.Find(suiteToAddInId);
+			ITestSuiteBase suiteToAddIn = testManagementTeamProject.TestSuites.Find(suiteToAddInId);
             if (suiteToAddIn is IRequirementTestSuite)
             {
                 throw new ArgumentException("New test cases cannot be added to requirement based suites!");
@@ -215,7 +219,7 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
             List<TestCase> allTestCasesInPlan = null;
             if (clipBoardTestCase.TestCases[0].TestSuiteId != null)
             {
-                oldSuite = ExecutionContext.TestManagementTeamProject.TestSuites.Find((int)clipBoardTestCase.TestCases[0].TestSuiteId);
+				oldSuite = testManagementTeamProject.TestSuites.Find((int)clipBoardTestCase.TestCases[0].TestSuiteId);
             }
             else
             {
@@ -239,7 +243,7 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
                 {
                     if (allTestCasesInPlan == null)
                     {
-						allTestCasesInPlan = TestCaseManager.GetAllTestCasesInTestPlan(ExecutionContext.TestManagementTeamProject, ExecutionContext.Preferences.TestPlan);                        
+						allTestCasesInPlan = TestCaseManager.GetAllTestCasesInTestPlan(testManagementTeamProject, testPlan);                        
                     }
                     testCaseCore = allTestCasesInPlan.Where(t => t.TestCaseId.Equals(currentTestCase.TestCaseId)).FirstOrDefault().ITestCase;
                 }
@@ -257,7 +261,7 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
                 }              
             }           
 
-            ExecutionContext.Preferences.TestPlan.Save();
+            testPlan.Save();
         }
 
         /// <summary>
@@ -266,28 +270,14 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
         /// <param name="suiteToBeRemovedId">The suite to be removed unique identifier.</param>
         /// <param name="parent">The parent.</param>
         /// <exception cref="System.ArgumentException">The root suite cannot be deleted!</exception>
-        public static void DeleteSuite(int suiteToBeRemovedId, IStaticTestSuite parent = null)
+        public static void DeleteSuite(ITestManagementTeamProject testManagementTeamProject, ITestPlan testPlan, int suiteToBeRemovedId, IStaticTestSuite parent = null)
         {
             // If it's root suite throw exception
             if (suiteToBeRemovedId == -1)
             {
                 throw new ArgumentException("The root suite cannot be deleted!");
             }
-            ITestSuiteBase currentSuite = ExecutionContext.TestManagementTeamProject.TestSuites.Find(suiteToBeRemovedId);
-
-            // Don't remove test cases becuase the suite can be child of another active suite
-            // Remove all test cases in the suite
-            // RemoveAllTestCasesInSuite(currentSuite);
-
-            // Performs recursive delete for each child suite which is static. Requirements suites don't have childs.
-            ////if (currentSuite is IStaticTestSuite)
-            ////{
-            ////    IStaticTestSuite staticSuite = currentSuite as IStaticTestSuite;
-            ////    foreach (var currentChild in staticSuite.SubSuites)
-            ////    {
-            ////        DeleteSuite(currentChild.Id);
-            ////    }
-            ////}   
+			ITestSuiteBase currentSuite = testManagementTeamProject.TestSuites.Find(suiteToBeRemovedId);
        
             // Remove the parent child relation. This is the only way to delete the suite.
             if (parent != null)
@@ -303,12 +293,12 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
             else
             {
                 // If it's initial suite, remove it from the test plan.
-                ExecutionContext.Preferences.TestPlan.RootSuite.Entries.Remove(currentSuite);
+				testPlan.RootSuite.Entries.Remove(currentSuite);
                 log.Info("Remove suite Title= \"{0}\", id= \"{1}\" from test plan.");
             }
 
             // Apply changes to the suites
-            ExecutionContext.Preferences.TestPlan.Save();
+			testPlan.Save();
         }
 
         /// <summary>
@@ -382,13 +372,14 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
             }  
         }
 
-        /// <summary>
-        /// Removes the specified test case from the test suite.
-        /// </summary>
-        /// <param name="testCaseToRemove">The test case to be removed.</param>
-        public static void RemoveTestCase(ITestCase testCaseToRemove)
+		/// <summary>
+		/// Removes the specified test case from the test suite.
+		/// </summary>
+		/// <param name="testPlan">The test plan.</param>
+		/// <param name="testCaseToRemove">The test case to be removed.</param>
+        public static void RemoveTestCase(ITestPlan testPlan, ITestCase testCaseToRemove)
         {
-            RemoveTestCaseInternal(testCaseToRemove, ExecutionContext.Preferences.TestPlan.RootSuite.SubSuites);
+			RemoveTestCaseInternal(testCaseToRemove, testPlan.RootSuite.SubSuites);
         }
 
         /// <summary>

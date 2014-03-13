@@ -564,14 +564,11 @@ namespace TestCaseManagerApp.Views
         {
             this.isShowTestCasesSubsuiteAlreadyUnchecked = false;
             e.Handled = true;
-            int selectedSuiteId = (int)tvSuites.SelectedValue;
-            //btnShowTestCaseWithoutSuite.Visibility = System.Windows.Visibility.Hidden;
-            //btnShowTestCaseWithoutSuite1.Visibility = System.Windows.Visibility.Hidden;
-            //this.TestCasesInitialViewModel.ShowSubSuitesTestCases = false;
-            //RegistryManager.WriteShowSubsuiteTestCases(false);
+            int selectedSuiteId = (int)tvSuites.SelectedValue;         
+
             btnArrange.Visibility = System.Windows.Visibility.Visible;
             btnArrange1.Visibility = System.Windows.Visibility.Visible;
-            if (selectedSuiteId == -1 || !TestSuiteManager.IsStaticSuite(selectedSuiteId))
+			if (selectedSuiteId == -1 || !TestSuiteManager.IsStaticSuite(ExecutionContext.TestManagementTeamProject, selectedSuiteId))
             {
                 btnArrange.Visibility = System.Windows.Visibility.Hidden;
                 btnArrange1.Visibility = System.Windows.Visibility.Hidden;
@@ -605,7 +602,7 @@ namespace TestCaseManagerApp.Views
             {
                 if (selectedSuiteId != -1)
                 {
-                    suiteTestCaseCollection = TestCaseManager.GetAllTestCaseFromSuite(selectedSuiteId);
+					suiteTestCaseCollection = TestCaseManager.GetAllTestCaseFromSuite(ExecutionContext.Preferences.TestPlan, selectedSuiteId);
                     this.TestCasesInitialViewModel.AddTestCasesSubsuites(suiteTestCaseCollection);
                 }
                 else if (isInitialized)
@@ -771,7 +768,7 @@ namespace TestCaseManagerApp.Views
 
             if (clipboardSuite != null)
             {
-                this.PasteSuiteToSelectedSuiteInternal(suiteToPasteIn, clipboardSuite);
+				this.PasteSuiteToSelectedSuiteInternal(ExecutionContext.TestManagementTeamProject, ExecutionContext.Preferences.TestPlan, suiteToPasteIn, clipboardSuite);
             }
             else if (clipBoardTestCase != null)
             {
@@ -779,20 +776,22 @@ namespace TestCaseManagerApp.Views
             }
         }
 
-        /// <summary>
-        /// Pastes the suite automatic selected suite internal.
-        /// </summary>
-        /// <param name="suiteToPasteIn">The suite to paste in.</param>
-        /// <param name="clipboardSuite">The clipboard suite.</param>
-        private void PasteSuiteToSelectedSuiteInternal(Suite suiteToPasteIn, Suite clipboardSuite)
+		/// <summary>
+		/// Pastes the suite automatic selected suite internal.
+		/// </summary>
+		/// <param name="testManagementTeamProject">The test management team project.</param>
+		/// <param name="testPlan">The test plan.</param>
+		/// <param name="suiteToPasteIn">The suite to paste in.</param>
+		/// <param name="clipboardSuite">The clipboard suite.</param>
+		private void PasteSuiteToSelectedSuiteInternal(ITestManagementTeamProject testManagementTeamProject, ITestPlan testPlan, Suite suiteToPasteIn, Suite clipboardSuite)
         {
             if (clipboardSuite.ClipBoardCommand.Equals(ClipBoardCommand.Copy))
             {
-                this.TestCasesInitialViewModel.CopyPasteSuiteToParentSuite(suiteToPasteIn, clipboardSuite);
+				this.TestCasesInitialViewModel.CopyPasteSuiteToParentSuite(testManagementTeamProject, testPlan, suiteToPasteIn, clipboardSuite);
             }
             else
             {
-                this.TestCasesInitialViewModel.CutPasteSuiteToParentSuite(suiteToPasteIn, clipboardSuite);
+				this.TestCasesInitialViewModel.CutPasteSuiteToParentSuite(testManagementTeamProject, testPlan, suiteToPasteIn, clipboardSuite);
             }
         }
 
@@ -808,11 +807,11 @@ namespace TestCaseManagerApp.Views
             {
                 if (clipBoardTestCase.ClipBoardCommand.Equals(ClipBoardCommand.Copy))
                 {
-                    TestSuiteManager.PasteTestCasesToSuite(suiteToPasteIn.Id, clipBoardTestCase);
+					TestSuiteManager.PasteTestCasesToSuite(ExecutionContext.TestManagementTeamProject, ExecutionContext.Preferences.TestPlan, suiteToPasteIn.Id, clipBoardTestCase);
                 }
                 else
                 {
-                    TestSuiteManager.PasteTestCasesToSuite(suiteToPasteIn.Id, clipBoardTestCase);
+					TestSuiteManager.PasteTestCasesToSuite(ExecutionContext.TestManagementTeamProject, ExecutionContext.Preferences.TestPlan, suiteToPasteIn.Id, clipBoardTestCase);
                 }
             });
             t.ContinueWith(antecedent =>
@@ -851,21 +850,23 @@ namespace TestCaseManagerApp.Views
         /// <param name="e">The <see cref="ExecutedRoutedEventArgs"/> instance containing the event data.</param>
         private void removeSuite_Command(object sender, ExecutedRoutedEventArgs e)
         {
-            this.RemoveSuiteInternal();
+            this.RemoveSuiteInternal(ExecutionContext.TestManagementTeamProject, ExecutionContext.Preferences.TestPlan);
             e.Handled = true;
         }
 
-        /// <summary>
-        /// Removes the suite internal.
-        /// </summary>
-        private void RemoveSuiteInternal()
+		/// <summary>
+		/// Removes the suite internal.
+		/// </summary>
+		/// <param name="testManagementTeamProject">The test management team project.</param>
+		/// <param name="testPlan">The test plan.</param>
+        private void RemoveSuiteInternal(ITestManagementTeamProject testManagementTeamProject, ITestPlan testPlan)
         {
             int selectedSuiteId = RegistryManager.GetSelectedSuiteId();
             try
             {
                 if (ModernDialog.ShowMessage("If you delete this test suite, you will also delete all test suites that are children of this test suite!", "Delete this test suite?", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
                 {
-                    TestSuiteManager.DeleteSuite(selectedSuiteId);
+                    TestSuiteManager.DeleteSuite(testManagementTeamProject, testPlan, selectedSuiteId);
                     this.TestCasesInitialViewModel.DeleteSuiteObservableCollection(this.TestCasesInitialViewModel.Suites, selectedSuiteId);
                 }
             }
@@ -917,7 +918,7 @@ namespace TestCaseManagerApp.Views
                     ModernDialog.ShowMessage("Cannot rename root suite!", "Warrning!", MessageBoxButton.OK);
                     return;
                 }
-                TestSuiteManager.RenameSuite(selectedSuiteId, newTitle);
+				TestSuiteManager.RenameSuite(ExecutionContext.TestManagementTeamProject, ExecutionContext.Preferences.TestPlan, selectedSuiteId, newTitle);
                 this.TestCasesInitialViewModel.RenameSuiteInObservableCollection(this.TestCasesInitialViewModel.Suites, selectedSuiteId, newTitle);
             }
         }
@@ -1367,7 +1368,7 @@ namespace TestCaseManagerApp.Views
                 {
                     foreach (var currentTestCase in selectedTestCases)
                     {
-                        currentTestCase.SetNewExecutionOutcome(testCaseExecutionType, comment);
+						currentTestCase.SetNewExecutionOutcome(ExecutionContext.Preferences.TestPlan, testCaseExecutionType, comment);
                         currentTestCase.LastExecutionOutcome = testCaseExecutionType;
                     }
                 });
@@ -1500,7 +1501,7 @@ namespace TestCaseManagerApp.Views
 				ITestSuiteBase currentSuite = TestSuiteManager.GetTestSuiteById(ExecutionContext.TestManagementTeamProject, ExecutionContext.Preferences.TestPlan, selectedSuiteId);
                 if (currentSuite is IStaticTestSuite)
                 {
-                    testCasesList = TestCaseManager.GetAllTestCasesFromSuiteCollection((currentSuite as IStaticTestSuite).SubSuites);
+					testCasesList = TestCaseManager.GetAllTestCasesFromSuiteCollection(ExecutionContext.Preferences.TestPlan, (currentSuite as IStaticTestSuite).SubSuites);
                 } 
             });
             t.ContinueWith(antecedent =>

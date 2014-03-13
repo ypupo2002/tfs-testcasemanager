@@ -34,7 +34,7 @@ namespace TestCaseManagerCore.BusinessLogic.Entities
         /// <param name="testCaseCore">The test case core object.</param>
         /// <param name="testSuiteBaseCore">The test suite base core object.</param>
         /// <param name="initializeStatus">if set to <c>true</c> [initialize status].</param>
-        public TestCase(ITestCase testCaseCore, ITestSuiteBase testSuiteBaseCore, bool initializeStatus = true)
+        public TestCase(ITestCase testCaseCore, ITestSuiteBase testSuiteBaseCore, ITestPlan testPlan, bool initializeStatus = true)
         {
             this.ITestCase = testCaseCore;
             this.ITestSuiteBase = testSuiteBaseCore;
@@ -53,7 +53,7 @@ namespace TestCaseManagerCore.BusinessLogic.Entities
             this.Id = testCaseCore.Id;
             if (initializeStatus)
             {
-                string mostRecentResult = TestCaseManager.GetMostRecentTestCaseResult(this.Id);
+				string mostRecentResult = TestCaseManager.GetMostRecentTestCaseResult(testPlan, this.Id);
                 this.LastExecutionOutcome = TestCaseManager.GetTestCaseExecutionType(mostRecentResult);
             }
         }

@@ -173,7 +173,9 @@
     <Compile Include="BusinessLogic\Managers\TestCaseManager.cs" />
     <Compile Include="BusinessLogic\Managers\TestPlanManager.cs" />
     <Compile Include="BusinessLogic\Managers\TestStepManager.cs" />
-    <Compile Include="BusinessLogic\Managers\TestSuiteManager.cs" />
+    <Compile Include="BusinessLogic\Managers\TestSuiteManager.cs">
+      <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
+    </Compile>
     <Compile Include="BusinessLogic\Managers\UndoRedoManager.cs" />
     <Compile Include="BusinessLogic\UiControlExtensions\ComboBoxDropdownExtensions.cs" />
     <Compile Include="BusinessLogic\UiControlExtensions\RichTextBoxExtensions.cs" />

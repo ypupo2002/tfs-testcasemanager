@@ -12,22 +12,31 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
     using TestCaseManagerCore.BusinessLogic.Enums;
     using TestCaseManagerCore.BusinessLogic.Managers;
 
-    /// <summary>
-    /// Contains helper methods for working with TestCase entities
-    /// </summary>
+	/// <summary>
+	/// Contains helper methods for working with TestCase entities
+	/// </summary>
     public static class TestCaseManager
     {
+		/// <summary>
+		/// All test cases in team project query expression
+		/// </summary>
+		private const string allTestCasesInTeamProjectQueryExpression = "SELECT [System.Id], [System.Title] FROM WorkItems WHERE [System.WorkItemType] = 'Test Case' AND [Team Project] = '{0}'";
+
         /// <summary>
         /// The log
         /// </summary>
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
-        /// <summary>
-        /// Gets all test cases from all test suites.d
-        /// </summary>
-        /// <param name="suiteEntries">The test suite collection.</param>
-        /// <returns>list with all test cases</returns>
-        public static List<TestCase> GetAllTestCasesFromSuiteCollection(ITestSuiteCollection suiteEntries, List<int> alreadyCheckedSuitesIds = null)
+		/// <summary>
+		/// Gets all test cases from all test suites.d
+		/// </summary>
+		/// <param name="testPlan">The test plan.</param>
+		/// <param name="suiteEntries">The test suite collection.</param>
+		/// <param name="alreadyCheckedSuitesIds">The already checked suites ids.</param>
+		/// <returns>
+		/// list with all test cases
+		/// </returns>
+        public static List<TestCase> GetAllTestCasesFromSuiteCollection(ITestPlan testPlan, ITestSuiteCollection suiteEntries, List<int> alreadyCheckedSuitesIds = null)
         {
             if (alreadyCheckedSuitesIds == null)
             {
@@ -43,7 +52,7 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
                     currentSuite.Refresh();
                     foreach (var currentTestCase in currentSuite.TestCases)
                     {
-                        TestCase testCaseToAdd = new TestCase(currentTestCase.TestCase, currentSuite);
+						TestCase testCaseToAdd = new TestCase(currentTestCase.TestCase, currentSuite, testPlan);
                         if (!testCases.Contains(testCaseToAdd))
                         {
                             testCases.Add(testCaseToAdd);
@@ -55,7 +64,7 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
                         IStaticTestSuite staticTestSuite = currentSuite as IStaticTestSuite;
                         if (staticTestSuite != null && (staticTestSuite.SubSuites.Count > 0))
                         {
-                            List<TestCase> testCasesInternal = GetAllTestCasesFromSuiteCollection(staticTestSuite.SubSuites, alreadyCheckedSuitesIds);
+							List<TestCase> testCasesInternal = GetAllTestCasesFromSuiteCollection(testPlan, staticTestSuite.SubSuites, alreadyCheckedSuitesIds);
                             foreach (var currentTestCase in testCasesInternal)
                             {
                                 if (!testCases.Contains(currentTestCase))
@@ -70,14 +79,15 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
             return testCases;
         }
 
-        /// <summary>
-        /// Gets the most recent test case result.
-        /// </summary>
-        /// <param name="testCaseId">The test case unique identifier.</param>
-        /// <returns></returns>
-        public static string GetMostRecentTestCaseResult(int testCaseId)
+		/// <summary>
+		/// Gets the most recent test case result.
+		/// </summary>
+		/// <param name="testPlan">The test plan.</param>
+		/// <param name="testCaseId">The test case unique identifier.</param>
+		/// <returns></returns>
+		public static string GetMostRecentTestCaseResult(ITestPlan testPlan, int testCaseId)
         {
-            var testPoints = TestPointManager.GetTestPointsByTestCaseId(testCaseId);
+			var testPoints = TestPointManager.GetTestPointsByTestCaseId(testPlan, testCaseId);
             ITestPoint lastTestPoint = null;
             if (testPoints.Count > 0)
             {
@@ -97,14 +107,15 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
             return mostRecentResult;
         }
 
-        /// <summary>
-        /// Gets the most recent execution comment.
-        /// </summary>
-        /// <param name="testCaseId">The test case unique identifier.</param>
-        /// <returns></returns>
-        public static string GetMostRecentExecutionComment(int testCaseId)
+		/// <summary>
+		/// Gets the most recent execution comment.
+		/// </summary>
+		/// <param name="testPlan">The test plan.</param>
+		/// <param name="testCaseId">The test case unique identifier.</param>
+		/// <returns></returns>
+		public static string GetMostRecentExecutionComment(ITestPlan testPlan, int testCaseId)
         {
-            var testPoints = TestPointManager.GetTestPointsByTestCaseId(testCaseId);
+			var testPoints = TestPointManager.GetTestPointsByTestCaseId(testPlan, testCaseId);
             ITestPoint lastTestPoint = null;
             if (testPoints.Count > 0)
             {
@@ -126,14 +137,14 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
         /// <param name="currentTestCase">The current test case.</param>
         /// <param name="newExecutionOutcome">The new execution outcome.</param>
         /// <param name="comment">The comment.</param>
-        public static void SetNewExecutionOutcome(this TestCase currentTestCase, TestCaseExecutionType newExecutionOutcome, string comment)
+        public static void SetNewExecutionOutcome(this TestCase currentTestCase, ITestPlan testPlan, TestCaseExecutionType newExecutionOutcome, string comment)
         {
             if (currentTestCase.ITestCase.Owner == null)
             {
                 return;
             }
-            var testPoints = ExecutionContext.Preferences.TestPlan.QueryTestPoints(string.Format("Select * from TestPoint where TestCaseId = {0} ", currentTestCase.Id));
-            var testRun = ExecutionContext.Preferences.TestPlan.CreateTestRun(false);
+			var testPoints = testPlan.QueryTestPoints(string.Format("SELECT * FROM TestPoint WHERE TestCaseId = {0} ", currentTestCase.Id));
+			var testRun = testPlan.CreateTestRun(false);
 
             testRun.DateStarted = DateTime.Now;
             testRun.AddTestPoint(testPoints.Last(), currentTestCase.ITestCase.Owner);
@@ -193,23 +204,24 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
             return testCaseExecutionType;
         }
 
-        /// <summary>
-        /// Gets all test case from suite.
-        /// </summary>
-        /// <param name="suiteId">The suite unique identifier.</param>
-        /// <param name="includeExecutionStatus">if set to <c>true</c> [include execution status].</param>
-        /// <returns>
-        /// list of all test cases in the list
-        /// </returns>
-        public static List<TestCase> GetAllTestCaseFromSuite(int suiteId, bool includeExecutionStatus = true)
+		/// <summary>
+		/// Gets all test case from suite.
+		/// </summary>
+		/// <param name="testPlan">The test plan.</param>
+		/// <param name="suiteId">The suite unique identifier.</param>
+		/// <param name="includeExecutionStatus">if set to <c>true</c> [include execution status].</param>
+		/// <returns>
+		/// list of all test cases in the list
+		/// </returns>
+        public static List<TestCase> GetAllTestCaseFromSuite(ITestPlan testPlan, int suiteId, bool includeExecutionStatus = true)
         {
             List<TestCase> testCases = new List<TestCase>();
-            ExecutionContext.Preferences.TestPlan.Refresh();
-            ITestSuiteBase currentSuite = ExecutionContext.Preferences.TestPlan.Project.TestSuites.Find(suiteId);
+			testPlan.Refresh();
+			ITestSuiteBase currentSuite = testPlan.Project.TestSuites.Find(suiteId);
             currentSuite.Refresh();
             foreach (var currentTestCase in currentSuite.TestCases)
             {
-                TestCase testCaseToAdd = new TestCase(currentTestCase.TestCase, currentSuite, includeExecutionStatus);
+                TestCase testCaseToAdd = new TestCase(currentTestCase.TestCase, currentSuite, testPlan, includeExecutionStatus);
                 if (!testCases.Contains(testCaseToAdd))
                 {
                     testCases.Add(testCaseToAdd);
@@ -239,18 +251,19 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
             return associatedAutomation;
         }
 
-        /// <summary>
-        /// Sets the associated automation of specific test case.
-        /// </summary>
-        /// <param name="testCase">The test case.</param>
-        /// <param name="testForAssociation">The test to be associated with.</param>
-        /// <param name="testType">Type of the test.</param>
-        public static void SetAssociatedAutomation(this ITestCase testCase, Test testForAssociation, string testType)
+		/// <summary>
+		/// Sets the associated automation of specific test case.
+		/// </summary>
+		/// <param name="testCase">The test case.</param>
+		/// <param name="testManagementTeamProject">The test management team project.</param>
+		/// <param name="testForAssociation">The test to be associated with.</param>
+		/// <param name="testType">Type of the test.</param>
+		public static void SetAssociatedAutomation(this ITestCase testCase, ITestManagementTeamProject testManagementTeamProject, Test testForAssociation, string testType)
         {
             try
             {
                 log.InfoFormat("Associate test case with title= {0}, id= {1} to test: {2}, test type= {3}", testCase.Title, testCase.Id, testForAssociation, testType);
-                ITmiTestImplementation imp = ExecutionContext.TestManagementTeamProject.CreateTmiTestImplementation(testForAssociation.FullName, testType, testForAssociation.ClassName, testForAssociation.MethodId);
+				ITmiTestImplementation imp = testManagementTeamProject.CreateTmiTestImplementation(testForAssociation.FullName, testType, testForAssociation.ClassName, testForAssociation.MethodId);
                 testCase.Implementation = imp;
             }
             catch (NullReferenceException ex)
@@ -271,11 +284,11 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
             testPlan.Refresh();
             List<TestCase> testCasesList;
             testCasesList = new List<TestCase>();
-			string queryText = "SELECT [System.Id], [System.Title] FROM WorkItems WHERE [System.WorkItemType] = 'Test Case' AND [Team Project] = '{0}'";
-			IEnumerable<ITestCase> allTestCases = testManagementTeamProject.TestCases.Query(String.Format(queryText, testManagementTeamProject.TeamProjectName));
+			string fullQuery = String.Format(allTestCasesInTeamProjectQueryExpression, testManagementTeamProject.TeamProjectName);
+			IEnumerable<ITestCase> allTestCases = testManagementTeamProject.TestCases.Query(fullQuery);
             foreach (var currentTestCase in allTestCases)
             {
-                TestCase testCaseToAdd = new TestCase(currentTestCase, currentTestCase.TestSuiteEntry.ParentTestSuite, initializeTestCaseStatus);
+                TestCase testCaseToAdd = new TestCase(currentTestCase, currentTestCase.TestSuiteEntry.ParentTestSuite, testPlan, initializeTestCaseStatus);
                 if (!testCasesList.Contains(testCaseToAdd))
                 {
                     testCasesList.Add(testCaseToAdd);
@@ -288,24 +301,31 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
         /// <summary>
         /// Saves the specified test case.
         /// </summary>
-        /// <param name="testCase">The test case.</param>
+        /// <param name="sourceTestCase">The test case.</param>
         /// <param name="createNew">should be saved as new test case.</param>
         /// <param name="newSuiteTitle">The new suite title.</param>
         /// <param name="testSteps">The test steps.</param>
         /// <returns>the saved test case</returns>
-        public static TestCase Save(this TestCase testCase, ITestManagementTeamProject testManagementTeamProject, bool createNew, int? suiteId, ICollection<TestStep> testSteps)
+        public static TestCase Save(this TestCase sourceTestCase, ITestManagementTeamProject testManagementTeamProject, ITestPlan testPlan, bool createNew, int? suiteId, ICollection<TestStep> testSteps, bool shouldAssignArea = true)
         {
-            TestCase currentTestCase = testCase;
+            TestCase currentTestCase = sourceTestCase;
             if (createNew)
             {
 				ITestCase testCaseCore = testManagementTeamProject.TestCases.Create();
-                currentTestCase = new TestCase(testCaseCore, testCase.ITestSuiteBase);
+				currentTestCase = new TestCase(testCaseCore, sourceTestCase.ITestSuiteBase, testPlan);
             }
-            currentTestCase.ITestCase.Area = testCase.Area;
-            currentTestCase.ITestCase.Title = testCase.Title;
-            currentTestCase.ITestCase.Priority = (int)testCase.Priority;
+			if (shouldAssignArea)
+			{
+				currentTestCase.ITestCase.Area = sourceTestCase.Area;
+			}
+            currentTestCase.ITestCase.Title = sourceTestCase.Title;
+            currentTestCase.ITestCase.Priority = (int)sourceTestCase.Priority;
             currentTestCase.ITestCase.Actions.Clear();
-			currentTestCase.ITestCase.Owner = testManagementTeamProject.TfsIdentityStore.FindByTeamFoundationId(testCase.TeamFoundationId);
+			currentTestCase.ITestCase.Owner = testManagementTeamProject.TfsIdentityStore.FindByTeamFoundationId(sourceTestCase.TeamFoundationId);
+			if (sourceTestCase.ITestCase.Implementation != null)
+			{
+				currentTestCase.ITestCase.Implementation = sourceTestCase.ITestCase.Implementation;
+			}
             List<Guid> addedSharedStepGuids = new List<Guid>();
             foreach (TestStep currentStep in testSteps)
             {
@@ -328,14 +348,14 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
 
             if (suiteId != null)
             {
-				var newSuite = TestSuiteManager.GetTestSuiteById(ExecutionContext.TestManagementTeamProject, ExecutionContext.Preferences.TestPlan, (int)suiteId);
-                testCase.ITestSuiteBase = newSuite;
+				var newSuite = TestSuiteManager.GetTestSuiteById(testManagementTeamProject, testPlan, (int)suiteId);
+                sourceTestCase.ITestSuiteBase = newSuite;
             }
             currentTestCase.ITestCase.Flush();
             currentTestCase.ITestCase.Save();
             if (suiteId != null)
             {
-                SetTestCaseSuite((int)suiteId, currentTestCase);
+				SetTestCaseSuite(testManagementTeamProject, testPlan, (int)suiteId, currentTestCase);
             }
 
             currentTestCase.ITestCase.Flush();
@@ -380,31 +400,34 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
         /// </summary>
         /// <param name="testCaseId">The test case unique identifier.</param>
         /// <returns></returns>
-        public static ITestCase GetTestCaseCoreObjectById(int testCaseId)
+		public static ITestCase GetTestCaseCoreObjectById(ITestManagementTeamProject testManagementTeamProject, int testCaseId)
         {
             ITestCase testCaseCore = null;
             try
             {
-                testCaseCore = ExecutionContext.TestManagementTeamProject.TestCases.Find(testCaseId);
+				testCaseCore = testManagementTeamProject.TestCases.Find(testCaseId);
             }
-            catch
+            catch(Exception ex)
             {
+				log.Error(ex);
             }
 
             return testCaseCore;
         }
 
-        /// <summary>
-        /// Finds all reference test cases for specific shared step.
-        /// </summary>
-        /// <param name="sharedStepId">The shared step unique identifier.</param>
-        public static List<TestCase> FindAllReferenceTestCasesForShareStep(int sharedStepId)
+		/// <summary>
+		/// Finds all reference test cases for specific shared step.
+		/// </summary>
+		/// <param name="testManagementTeamProject">The test management team project.</param>
+		/// <param name="testPlan">The test plan.</param>
+		/// <param name="sharedStepId">The shared step unique identifier.</param>
+		/// <returns></returns>
+		public static List<TestCase> FindAllReferenceTestCasesForShareStep(ITestManagementTeamProject testManagementTeamProject, ITestPlan testPlan, int sharedStepId)
         {
             List<TestCase> filteredTestCases = new List<TestCase>();
-			List<TestCase> allTestCases = GetAllTestCasesInTestPlan(ExecutionContext.TestManagementTeamProject, ExecutionContext.Preferences.TestPlan);
+			List<TestCase> allTestCases = GetAllTestCasesInTestPlan(testManagementTeamProject, testPlan);
             foreach (var currentTestCase in allTestCases)
             {
-                //List<TestStep> testSteps = TestStepManager.GetTestStepsFromTestActions(currentTestCase.ITestCase.Actions);
                 foreach (var currentAction in currentTestCase.ITestCase.Actions)
                 {
                     if (currentAction is ISharedStepReference)
@@ -426,13 +449,14 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
         /// Adds the test cases without suites.
         /// </summary>
         /// <param name="testCasesList">The test cases list.</param>
-        public static void AddTestCasesWithoutSuites(List<TestCase> testCasesList)
+		public static void AddTestCasesWithoutSuites(ITestManagementTeamProject testManagementTeamProject, ITestPlan testPlan, List<TestCase> testCasesList)
         {
-            string queryText = "select [System.Id], [System.Title] from WorkItems where [System.WorkItemType] = 'Test Case'";
-            IEnumerable<ITestCase> allTestCases = ExecutionContext.TestManagementTeamProject.TestCases.Query(queryText);
+			testPlan.Refresh();
+			string fullQuery = String.Format(allTestCasesInTeamProjectQueryExpression, testManagementTeamProject.TeamProjectName);
+			IEnumerable<ITestCase> allTestCases = testManagementTeamProject.TestCases.Query(fullQuery);
             foreach (var currentTestCase in allTestCases)
             {
-                TestCase testCaseToAdd = new TestCase(currentTestCase, null);
+				TestCase testCaseToAdd = new TestCase(currentTestCase, null, ExecutionContext.Preferences.TestPlan);
                 if (!testCasesList.Contains(testCaseToAdd))
                 {
                     testCasesList.Add(testCaseToAdd);
@@ -445,9 +469,9 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
         /// </summary>
         /// <param name="suiteId">The suite unique identifier.</param>
         /// <param name="testCase">The test case.</param>
-        private static void SetTestCaseSuite(int suiteId, TestCase testCase)
+        private static void SetTestCaseSuite(ITestManagementTeamProject testManagementTeamProject, ITestPlan testPlan, int suiteId, TestCase testCase)
         {
-			var newSuite = TestSuiteManager.GetTestSuiteById(ExecutionContext.TestManagementTeamProject, ExecutionContext.Preferences.TestPlan, suiteId);
+			var newSuite = TestSuiteManager.GetTestSuiteById(testManagementTeamProject, testPlan, suiteId);
             if (newSuite != null)
             {
                 newSuite.AddTestCase(testCase.ITestCase);

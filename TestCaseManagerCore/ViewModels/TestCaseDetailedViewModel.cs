@@ -32,12 +32,12 @@ namespace TestCaseManagerCore.ViewModels
             {
                 testSuiteBaseCore = ExecutionContext.TestManagementTeamProject.TestSuites.Find(suiteId);
             }
-            
-            this.TestCase = new TestCase(testCaseCore, testSuiteBaseCore);
+
+			this.TestCase = new TestCase(testCaseCore, testSuiteBaseCore, ExecutionContext.Preferences.TestPlan);
             this.TestActions = new List<ITestAction>();
             this.TestCase.ITestCase.Actions.ToList().ForEach(x => this.TestActions.Add(x));
             this.ObservableTestSteps = new ObservableCollection<TestStep>();
-            List<TestStep> testSteps = TestStepManager.GetTestStepsFromTestActions(this.TestActions);
+			List<TestStep> testSteps = TestStepManager.GetTestStepsFromTestActions(ExecutionContext.TestManagementTeamProject, this.TestActions);
             this.AssociatedAutomation = TestCase.ITestCase.GetAssociatedAutomation();
             TestStepManager.UpdateGenericSharedSteps(testSteps);
             this.InitializeTestSteps(testSteps);

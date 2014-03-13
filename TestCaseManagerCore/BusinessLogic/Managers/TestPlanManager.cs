@@ -4,10 +4,11 @@
 // <author>Anton Angelov</author>
 namespace TestCaseManagerCore.BusinessLogic.Managers
 {
-    using System;
-    using System.Threading;
-    using Microsoft.TeamFoundation.TestManagement.Client;
-    using TestCaseManagerCore.BusinessLogic.Entities;
+	using System;
+	using System.Threading;
+	using Microsoft.TeamFoundation.Client;
+	using Microsoft.TeamFoundation.TestManagement.Client;
+	using TestCaseManagerCore.BusinessLogic.Entities;
 
     /// <summary>
     /// Contains helper methods for working with ITestPlan objects
@@ -67,28 +68,31 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
             return testPlanCollection;
         }
 
-        /// <summary>
-        /// Creates the test plan.
-        /// </summary>
-        /// <param name="name">The name.</param>
-        /// <returns></returns>
-        public static TestPlan CreateTestPlan(string name)
+		/// <summary>
+		/// Creates the test plan.
+		/// </summary>
+		/// <param name="tfsTeamProjectCollection">The TFS team project collection.</param>
+		/// <param name="testManagementTeamProject">The test management team project.</param>
+		/// <param name="name">The name.</param>
+		/// <returns></returns>
+        public static TestPlan CreateTestPlan(TfsTeamProjectCollection tfsTeamProjectCollection, ITestManagementTeamProject testManagementTeamProject, string name)
         {
-            ITestPlan newTestPlan = TestCaseManagerCore.ExecutionContext.TestManagementTeamProject.TestPlans.Create();
+			ITestPlan newTestPlan = testManagementTeamProject.TestPlans.Create();
             newTestPlan.Name = name;
-            newTestPlan.Owner = TestCaseManagerCore.ExecutionContext.TfsTeamProjectCollection.AuthorizedIdentity;
+			newTestPlan.Owner = tfsTeamProjectCollection.AuthorizedIdentity;
             newTestPlan.Save();
 
             return new TestPlan(newTestPlan);
         }
 
-        /// <summary>
-        /// Removes the test plan.
-        /// </summary>
-        /// <param name="testPlanId">The test plan unique identifier.</param>
-        public static void RemoveTestPlan(int testPlanId)
+		/// <summary>
+		/// Removes the test plan.
+		/// </summary>
+		/// <param name="testManagementTeamProject">The test management team project.</param>
+		/// <param name="testPlanId">The test plan unique identifier.</param>
+		public static void RemoveTestPlan(ITestManagementTeamProject testManagementTeamProject, int testPlanId)
         {
-            ITestPlan newTestPlan = TestCaseManagerCore.ExecutionContext.TestManagementTeamProject.TestPlans.Find(testPlanId);
+			ITestPlan newTestPlan = testManagementTeamProject.TestPlans.Find(testPlanId);
             newTestPlan.Delete();
         }
     }

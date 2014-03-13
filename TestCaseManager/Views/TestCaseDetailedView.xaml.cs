@@ -237,7 +237,7 @@ namespace TestCaseManagerApp.Views
             {                
                 Task t1 = Task.Factory.StartNew(() =>
                 {
-                    this.TestCaseDetailedViewModel.TestCase.SetNewExecutionOutcome(testCaseExecutionType, comment);
+					this.TestCaseDetailedViewModel.TestCase.SetNewExecutionOutcome(ExecutionContext.Preferences.TestPlan, testCaseExecutionType, comment);
                     this.TestCaseDetailedViewModel.TestCase.LastExecutionOutcome = testCaseExecutionType;
                 });
                 t1.ContinueWith(antecedent =>

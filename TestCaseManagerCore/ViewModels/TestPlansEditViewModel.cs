@@ -45,7 +45,7 @@ namespace TestCaseManagerCore.ViewModels
         /// <param name="testPlanToBeDeleted">The test plan automatic be deleted.</param>
         public void DeleteTestPlan(TestPlan testPlanToBeDeleted)
         {
-            TestPlanManager.RemoveTestPlan(testPlanToBeDeleted.Id);
+			TestPlanManager.RemoveTestPlan(ExecutionContext.TestManagementTeamProject, testPlanToBeDeleted.Id);
             this.ObservableTestPlans.Remove(testPlanToBeDeleted);
         }
 
@@ -55,7 +55,7 @@ namespace TestCaseManagerCore.ViewModels
         /// <param name="name">The name.</param>
         public void AddTestPlan(string name)
         {
-            TestPlan testPlanToBeAdded = TestPlanManager.CreateTestPlan(name);
+			TestPlan testPlanToBeAdded = TestPlanManager.CreateTestPlan(ExecutionContext.TfsTeamProjectCollection, ExecutionContext.TestManagementTeamProject, name);
             this.ObservableTestPlans.Add(testPlanToBeAdded);
         }
     }

@@ -586,6 +586,50 @@ namespace TestCaseManagerCore.ViewModels
 		}
 
 		/// <summary>
+		/// Starts the test cases from source to destination migration.
+		/// </summary>
+		/// <param name="progressBar">The progress bar.</param>
+		public void StartTestCasesFromSourceToDestinationMigration(ProgressBar progressBar)
+		{
+			this.executionCancellationTokenSource = new CancellationTokenSource();
+			this.executionCancellationToken = this.executionCancellationTokenSource.Token;
+
+			Task t = Task.Factory.StartNew(() =>
+			{
+				this.ShowProgressBar(progressBar);
+				this.MigrateTestCasesFromSourceToDestinationInternal();
+			}, this.executionCancellationToken);
+			t.ContinueWith(antecedent =>
+			{
+				this.StopUiProgressLogging();
+				this.HideProgressBar(progressBar);
+				this.DisplayNotProcessedTestCases();
+			}, TaskScheduler.FromCurrentSynchronizationContext());
+		}
+
+		/// <summary>
+		/// Starts the test cases to suite from source to destination migration.
+		/// </summary>
+		/// <param name="progressBar">The progress bar.</param>
+		public void StartTestCasesToSuiteFromSourceToDestinationMigration(ProgressBar progressBar)
+		{
+			this.executionCancellationTokenSource = new CancellationTokenSource();
+			this.executionCancellationToken = this.executionCancellationTokenSource.Token;
+
+			Task t = Task.Factory.StartNew(() =>
+			{
+				this.ShowProgressBar(progressBar);
+				this.AddNewTestCasesToNewSuitesDestinationInternal();
+			}, this.executionCancellationToken);
+			t.ContinueWith(antecedent =>
+			{
+				this.StopUiProgressLogging();
+				this.HideProgressBar(progressBar);
+				this.DisplayNotProcessedTestCasesToSuites();
+			}, TaskScheduler.FromCurrentSynchronizationContext());
+		}
+
+		/// <summary>
 		/// Initializes the selected source test plan.
 		/// </summary>
 		public void InitializeSelectedSourceTestPlan()
@@ -626,7 +670,7 @@ namespace TestCaseManagerCore.ViewModels
 				}
 
 				// If it's already processed skip it
-				if (this.sharedStepsMigrationLogManager.MigrationEntries.Count(e => e.SourceId.Equals(currentSourceSharedStep.Id)) > 0)
+				if (this.sharedStepsMigrationLogManager.MigrationEntries.Count(e => e.SourceId.Equals(currentSourceSharedStep.ISharedStep.Id) && e.IsProcessed.Equals(true)) > 0)
 				{
 					continue;
 				}
@@ -637,13 +681,13 @@ namespace TestCaseManagerCore.ViewModels
 					log.Info(infoMessage);
 					this.ProgressConcurrentQueue.Enqueue(infoMessage);
 
-					List<TestStep> testSteps = TestStepManager.GetTestStepsFromTestActions(currentSourceSharedStep.ISharedStep.Actions);
+					List<TestStep> testSteps = TestStepManager.GetTestStepsFromTestActions(this.sourceTeamProject, currentSourceSharedStep.ISharedStep.Actions);
 					SharedStep newSharedStep = currentSourceSharedStep.Save(this.destinationTeamProject, true, testSteps, false);
 					newSharedStep.ISharedStep.Refresh();
 					this.sharedStepsMapping.Add(currentSourceSharedStep.ISharedStep.Id, newSharedStep.ISharedStep.Id);
 
-					this.sharedStepsMigrationLogManager.Log(currentSourceSharedStep.Id, newSharedStep.Id, true);
-					infoMessage = String.Format("Shared Step Migrated SUCCESSFULLY: Source Id= {0}, Destination Id= {1}", currentSourceSharedStep.Id, newSharedStep.Id);
+					this.sharedStepsMigrationLogManager.Log(currentSourceSharedStep.Id, newSharedStep.ISharedStep.Id, true);
+					infoMessage = String.Format("Shared Step Migrated SUCCESSFULLY: Source Id= {0}, Destination Id= {1}", currentSourceSharedStep.Id, newSharedStep.ISharedStep.Id);
 					log.Info(infoMessage);
 					this.ProgressConcurrentQueue.Enqueue(infoMessage);
 				}
@@ -667,8 +711,7 @@ namespace TestCaseManagerCore.ViewModels
 		/// </summary>
 		public void DisplayNotProcessedSharedSteps()
 		{
-			List<MigrationRetryEntry>  notProssedEntries = this.sharedStepsMigrationLogManager.GetNotProssedEntries();
-			ModernDialog.ShowMessage(String.Format("Number of not processed: {0}", notProssedEntries.Count), "Warning", MessageBoxButton.OK);
+			this.DisplayNotProssedEntities(this.sharedStepsMigrationLogManager);
 		}
 
 		/// <summary>
@@ -676,7 +719,32 @@ namespace TestCaseManagerCore.ViewModels
 		/// </summary>
 		public void DisplayNotProcessedSuites()
 		{
-			List<MigrationRetryEntry> notProssedEntries = this.suitesMigrationLogManager.GetNotProssedEntries();
+			this.DisplayNotProssedEntities(this.suitesMigrationLogManager);
+		}
+
+		/// <summary>
+		/// Displays the not processed test cases.
+		/// </summary>
+		public void DisplayNotProcessedTestCases()
+		{
+			this.DisplayNotProssedEntities(this.testCasesMigrationLogManager);
+		}
+
+		/// <summary>
+		/// Displays the not processed test cases to suites.
+		/// </summary>
+		public void DisplayNotProcessedTestCasesToSuites()
+		{
+			this.DisplayNotProssedEntities(this.testCasesAddToSuitesMigrationLogManager);
+		}
+
+		/// <summary>
+		/// Displays the not prossed entities.
+		/// </summary>
+		/// <param name="logManager">The log manager.</param>
+		private void DisplayNotProssedEntities(MigrationLogManager logManager)
+		{
+			List<MigrationRetryEntry> notProssedEntries = logManager.GetNotProssedEntries();
 			ModernDialog.ShowMessage(String.Format("Number of not processed: {0}", notProssedEntries.Count), "Warning", MessageBoxButton.OK);
 		}
 
@@ -697,7 +765,6 @@ namespace TestCaseManagerCore.ViewModels
 			{
 				this.suitesMigrationLogManager = new MigrationLogManager("suites", this.DefaultJsonFolder);
 			}
-			List<MigrationRetryEntry> notProssedEntries = this.suitesMigrationLogManager.GetNotProssedEntries();
 
 			if (subSuitesCore == null || subSuitesCore.Count == 0)
 			{
@@ -710,7 +777,7 @@ namespace TestCaseManagerCore.ViewModels
 					break;
 				}
 				// If it's already processed skip it
-				if (notProssedEntries.Count(e => e.SourceId.Equals(currentSuite.Id)) > 0)
+				if (this.suitesMigrationLogManager.MigrationEntries.Count(e => e.SourceId.Equals(currentSuite.Id) && e.IsProcessed.Equals(true)) > 0)
 				{
 					continue;
 				}
@@ -725,7 +792,11 @@ namespace TestCaseManagerCore.ViewModels
 					if (currentSuite != null)
 					{
 						currentSuite.Refresh();
-
+						//Don't migrate the suite if its suite is in the exclusion list
+						if (this.ObservableSuitesToBeSkipped.Count(t => t != null && t.NewText != null && t.NewText.Equals(currentSuite.Title)) > 0)
+						{
+							continue;
+						}
 						bool canBeAddedNewSuite;
 						newSuiteId = TestSuiteManager.AddChildSuite(this.destinationTeamProject, this.destinationPreferences.TestPlan, parentId, currentSuite.Title, out canBeAddedNewSuite);
 						if (newSuiteId != 0)
@@ -758,45 +829,93 @@ namespace TestCaseManagerCore.ViewModels
 				}				
 			}
 			this.IsSuitesMigrationFinished = true;
-			notProssedEntries = this.suitesMigrationLogManager.GetNotProssedEntries();
 		}
 
 		/// <summary>
 		/// Migrates the test cases from source to destination.
 		/// </summary>
-		public void MigrateTestCasesFromSourceToDestination()
+		public void MigrateTestCasesFromSourceToDestinationInternal()
 		{
-			ITestPlan sourceTestPlan = TestPlanManager.GetTestPlanByName(this.sourceTeamProject, this.SelectedSourceTestPlan);
-			List<TestCase> sourceTestCases = TestCaseManager.GetAllTestCasesInTestPlan(this.sourceTeamProject, sourceTestPlan, false);
-			foreach (TestCase currentSourceTestCase in sourceTestCases)
+			if (!string.IsNullOrEmpty(this.MigrationTestCasesRetryJsonPath) && File.Exists(this.MigrationTestCasesRetryJsonPath))
 			{
-				//Don't migrate the test case if its suite is in the exclusion list
-				if (currentSourceTestCase.ITestSuiteBase != null && this.ObservableSuitesToBeSkipped.Count(t => t.NewText.Equals(currentSourceTestCase.ITestSuiteBase.Title)) > 0)
+				this.testCasesMigrationLogManager = new MigrationLogManager(this.MigrationTestCasesRetryJsonPath);
+				this.testCasesMigrationLogManager.LoadCollectionFromExistingFile();
+				this.testCasesMapping = this.testCasesMigrationLogManager.GetProssedItemsMappings();
+			}
+			else
+			{
+				this.testCasesMigrationLogManager = new MigrationLogManager("testCases", this.DefaultJsonFolder);
+			}
+
+			this.ProgressConcurrentQueue.Enqueue("Prepare source test cases...");
+			ITestPlan sourceTestPlan = TestPlanManager.GetTestPlanByName(this.sourceTeamProject, this.SelectedSourceTestPlan);
+			List<TestCase> sourceTestCases = TestCaseManager.GetAllTestCasesFromSuiteCollection(this.sourcePreferences.TestPlan, this.sourcePreferences.TestPlan.RootSuite.SubSuites);
+			TestCaseManager.AddTestCasesWithoutSuites(this.sourceTeamProject, this.sourcePreferences.TestPlan, sourceTestCases);
+			foreach (TestCase currentSourceTestCase in sourceTestCases)
+			{				
+				if (this.executionCancellationToken.IsCancellationRequested)
+				{
+					break;
+				}
+
+				// If it's already processed skip it
+				if (this.testCasesMigrationLogManager.MigrationEntries.Count(e => e.SourceId.Equals(currentSourceTestCase.ITestCase.Id) && e.IsProcessed.Equals(true)) > 0)
 				{
 					continue;
 				}
-				List<TestStep> currentSourceTestCaseTestSteps = TestStepManager.GetTestStepsFromTestActions(currentSourceTestCase.ITestCase.Actions);
-				bool shouldCreateTestCase = true;
-				foreach (TestStep currentTestStep in currentSourceTestCaseTestSteps)
+				string infoMessage = String.Empty;
+				try
 				{
-					if (currentTestStep.IsShared)
+					infoMessage = String.Format("Start Migrating Test Case with Source Id= {0}", currentSourceTestCase.Id);
+					log.Info(infoMessage);
+					this.ProgressConcurrentQueue.Enqueue(infoMessage);
+
+					//Don't migrate the test case if its suite is in the exclusion list
+					if (currentSourceTestCase.ITestSuiteBase != null && this.ObservableSuitesToBeSkipped.Count(t => t != null && t.NewText != null && t.NewText.Equals(currentSourceTestCase.ITestSuiteBase.Title)) > 0)
 					{
-						//If the test step is shared we change the current shared step id with the newly created shared step in the destination team project
-						if (sharedStepsMapping.ContainsKey(currentTestStep.SharedStepId))
+						continue;
+					}
+					List<TestStep> currentSourceTestCaseTestSteps = TestStepManager.GetTestStepsFromTestActions(this.sourceTeamProject, currentSourceTestCase.ITestCase.Actions);
+					bool shouldCreateTestCase = true;
+					foreach (TestStep currentTestStep in currentSourceTestCaseTestSteps)
+					{
+						if (currentTestStep.IsShared)
 						{
-							currentTestStep.SharedStepId = sharedStepsMapping[currentTestStep.SharedStepId];
-						}
-						else
-						{
-							// Don't save if the required shared steps are missing
-							shouldCreateTestCase = false;
+							//If the test step is shared we change the current shared step id with the newly created shared step in the destination team project
+							if (sharedStepsMapping.ContainsKey(currentTestStep.SharedStepId))
+							{
+								currentTestStep.SharedStepId = sharedStepsMapping[currentTestStep.SharedStepId];
+							}
+							else
+							{
+								// Don't save if the required shared steps are missing
+								shouldCreateTestCase = false;
+							}
 						}
 					}
+					if (shouldCreateTestCase)
+					{
+						TestCase newTestCase = currentSourceTestCase.Save(this.destinationTeamProject, this.destinationPreferences.TestPlan, true, null, currentSourceTestCaseTestSteps, false);
+						testCasesMapping.Add(currentSourceTestCase.ITestCase.Id, newTestCase.ITestCase.Id);
+						this.testCasesMigrationLogManager.Log(currentSourceTestCase.ITestCase.Id, newTestCase.ITestCase.Id, true);
+						infoMessage = String.Format("Test Case Migrated SUCCESSFULLY: Source Id= {0}, Destination Id= {1}", currentSourceTestCase.ITestCase.Id, newTestCase.ITestCase.Id);
+						log.Info(infoMessage);
+						this.ProgressConcurrentQueue.Enqueue(infoMessage);
+					}				
 				}
-				if (shouldCreateTestCase)
+				catch (Exception ex)
 				{
-					TestCase newTestCase = currentSourceTestCase.Save(this.destinationTeamProject, true, null, currentSourceTestCaseTestSteps);
-					testCasesMapping.Add(currentSourceTestCase.Id, newTestCase.Id);
+					if (currentSourceTestCase != null)
+					{
+						this.testCasesMigrationLogManager.Log(currentSourceTestCase.ITestCase.Id, -1, false, ex.Message);
+						log.Error(ex);
+						this.ProgressConcurrentQueue.Enqueue(ex.Message);
+					}
+				}
+				finally
+				{
+					this.testCasesMigrationLogManager.Save();
+					this.MigrationTestCasesRetryJsonPath = this.testCasesMigrationLogManager.FullResultFilePath;
 				}
 			}
 		}
@@ -804,28 +923,89 @@ namespace TestCaseManagerCore.ViewModels
 		/// <summary>
 		/// Adds the new test cases to new suites destination.
 		/// </summary>
-		public void AddNewTestCasesToNewSuitesDestination()
+		public void AddNewTestCasesToNewSuitesDestinationInternal()
 		{
+			if (!string.IsNullOrEmpty(this.MigrationAddTestCasesToSuitesRetryJsonPath) && File.Exists(this.MigrationAddTestCasesToSuitesRetryJsonPath))
+			{
+				this.testCasesAddToSuitesMigrationLogManager = new MigrationLogManager(this.MigrationAddTestCasesToSuitesRetryJsonPath);
+				this.testCasesAddToSuitesMigrationLogManager.LoadCollectionFromExistingFile();
+				this.sharedStepsMapping = this.testCasesAddToSuitesMigrationLogManager.GetProssedItemsMappings();
+			}
+			else
+			{
+				this.testCasesAddToSuitesMigrationLogManager = new MigrationLogManager("testCasesToSuites", this.DefaultJsonFolder);
+			}
+			this.ProgressConcurrentQueue.Enqueue("Prepare destination test cases...");
 			ITestPlan destinationTestPlan = TestPlanManager.GetTestPlanByName(this.destinationTeamProject, this.SelectedDestinationTestPlan);
 			List<TestCase> destinationTestCases = TestCaseManager.GetAllTestCasesInTestPlan(this.destinationTeamProject, destinationTestPlan, false);
+			this.ProgressConcurrentQueue.Enqueue("Prepare source test cases...");
 			ITestPlan sourceTestPlan = TestPlanManager.GetTestPlanByName(this.sourceTeamProject, this.SelectedSourceTestPlan);
-			List<TestCase> sourceTestCases = TestCaseManager.GetAllTestCasesInTestPlan(this.sourceTeamProject, sourceTestPlan, false);
+			List<TestCase> sourceTestCases = TestCaseManager.GetAllTestCasesFromSuiteCollection(this.sourcePreferences.TestPlan, this.sourcePreferences.TestPlan.RootSuite.SubSuites);
 
 			foreach (TestCase currentSourceTestCase in sourceTestCases)
 			{
-				if (currentSourceTestCase.ITestSuiteBase == null)
+				if (this.executionCancellationToken.IsCancellationRequested)
+				{
+					break;
+				}
+
+				// If it's already processed skip it
+				if (this.testCasesAddToSuitesMigrationLogManager.MigrationEntries.Count(e => e.SourceId.Equals(currentSourceTestCase.ITestCase.Id) && e.IsProcessed.Equals(true)) > 0)
 				{
 					continue;
 				}
-				else
+				if (currentSourceTestCase.ITestSuiteBase != null && this.ObservableSuitesToBeSkipped.Count(t => t != null && t.NewText != null && t.NewText.Equals(currentSourceTestCase.ITestSuiteBase.Title)) > 0)
 				{
-					int sourceParentSuiteId = currentSourceTestCase.ITestSuiteBase.Id;
-					ITestSuiteBase destinationSuite = this.destinationTeamProject.TestSuites.Find(sourceParentSuiteId);
-					if (testCasesMapping.ContainsKey(currentSourceTestCase.Id))
+					continue;
+				}
+				string infoMessage = String.Empty;
+				try
+				{
+					infoMessage = String.Format("Start Adding to Suite Test Case with Source Id= {0}", currentSourceTestCase.Id);
+					log.Info(infoMessage);
+					this.ProgressConcurrentQueue.Enqueue(infoMessage);
+
+					if (currentSourceTestCase.ITestSuiteBase == null)
 					{
-						TestCase currentDestinationTestCase = destinationTestCases.FirstOrDefault(t => t.Id.Equals(testCasesMapping[currentSourceTestCase.Id]));
-						destinationSuite.AddTestCase(currentDestinationTestCase.ITestCase);
-					}				
+						continue;
+					}
+					else
+					{
+						int sourceParentSuiteId = currentSourceTestCase.ITestSuiteBase.Id;
+						if (!this.suitesMapping.ContainsKey(sourceParentSuiteId))
+						{
+							return;
+						}
+						else
+						{
+							int destinationSuiteId = this.suitesMapping[sourceParentSuiteId];
+							ITestSuiteBase destinationSuite = this.destinationTeamProject.TestSuites.Find(destinationSuiteId);
+							if (testCasesMapping.ContainsKey(currentSourceTestCase.ITestCase.Id))
+							{
+								TestCase currentDestinationTestCase = destinationTestCases.FirstOrDefault(t => t.Id.Equals(testCasesMapping[currentSourceTestCase.ITestCase.Id]));
+								destinationSuite.AddTestCase(currentDestinationTestCase.ITestCase);
+
+								this.testCasesAddToSuitesMigrationLogManager.Log(currentSourceTestCase.ITestCase.Id, destinationSuite.Id, true);
+								infoMessage = String.Format("Test Case SUCCESSFULLY added to Suite: Test Case Id= {0}, Suite Id= {1}", currentDestinationTestCase.ITestCase.Id, destinationSuite.Id);
+								log.Info(infoMessage);
+								this.ProgressConcurrentQueue.Enqueue(infoMessage);
+							}
+						}
+					}					
+				}
+				catch (Exception ex)
+				{
+					if (currentSourceTestCase != null)
+					{
+						this.testCasesAddToSuitesMigrationLogManager.Log(currentSourceTestCase.ITestCase.Id, -1, false, ex.Message);
+						log.Error(ex);
+						this.ProgressConcurrentQueue.Enqueue(ex.Message);
+					}
+				}
+				finally
+				{
+					this.testCasesAddToSuitesMigrationLogManager.Save();
+					this.MigrationAddTestCasesToSuitesRetryJsonPath = this.testCasesAddToSuitesMigrationLogManager.FullResultFilePath;
 				}
 			}
 		}

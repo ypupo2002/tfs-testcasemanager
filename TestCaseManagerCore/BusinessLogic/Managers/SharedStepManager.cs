@@ -36,9 +36,9 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
         /// </summary>
         /// <param name="sharedStepId">The shared step unique identifier.</param>
         /// <returns></returns>
-        public static SharedStep GetSharedStepById(int sharedStepId)
+		public static SharedStep GetSharedStepById(ITestManagementTeamProject testManagementTeamProject, int sharedStepId)
         {
-            ISharedStep sharedStepCore = ExecutionContext.TestManagementTeamProject.SharedSteps.Find(sharedStepId);
+			ISharedStep sharedStepCore = testManagementTeamProject.SharedSteps.Find(sharedStepId);
             SharedStep currentSharedStep = new SharedStep(sharedStepCore);
 
             return currentSharedStep;

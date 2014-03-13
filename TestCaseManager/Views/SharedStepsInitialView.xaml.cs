@@ -522,7 +522,7 @@ namespace TestCaseManagerApp.Views
             Task t = Task.Factory.StartNew(() =>
             {
                 log.InfoFormat("Find all reference Test Cases for Shared Step with id: {0} ", this.SharedStepsInitialViewModel.SelectedSharedStep.Id);
-                filteredTestCases = TestCaseManager.FindAllReferenceTestCasesForShareStep(this.SharedStepsInitialViewModel.SelectedSharedStep.Id);
+				filteredTestCases = TestCaseManager.FindAllReferenceTestCasesForShareStep(ExecutionContext.TestManagementTeamProject, ExecutionContext.Preferences.TestPlan, this.SharedStepsInitialViewModel.SelectedSharedStep.Id);
                 this.SharedStepsInitialViewModel.InitialTestCaseCollection = filteredTestCases;
             });
             t.ContinueWith(antecedent =>

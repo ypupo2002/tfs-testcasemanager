@@ -52,7 +52,7 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
         /// <param name="alreadyAddedSharedSteps">The already added shared steps.</param>
         /// <param name="sharedSteps">The shared steps.</param>
         /// <returns>list of all test steps</returns>
-        public static List<TestStep> GetTestStepsFromTestActions(ICollection<ITestAction> testActions)
+        public static List<TestStep> GetTestStepsFromTestActions(ITestManagementTeamProject testManagementTeamProject, ICollection<ITestAction> testActions)
         {
             List<TestStep> testSteps = new List<TestStep>();
 
@@ -66,7 +66,7 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
                 else if (currentAction is ISharedStepReference)
                 {
                     ISharedStepReference currentSharedStepReference = currentAction as ISharedStepReference;
-                    ISharedStep currentSharedStep = ExecutionContext.TestManagementTeamProject.SharedSteps.Find(currentSharedStepReference.SharedStepId);
+					ISharedStep currentSharedStep = testManagementTeamProject.SharedSteps.Find(currentSharedStepReference.SharedStepId);
                     testSteps.AddRange(TestStepManager.GetAllTestStepsInSharedStep(currentSharedStep));
                 }
             }

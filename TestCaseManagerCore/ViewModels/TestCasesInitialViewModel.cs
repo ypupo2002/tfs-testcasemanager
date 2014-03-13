@@ -75,7 +75,7 @@ namespace TestCaseManagerCore.ViewModels
             {
                 try
                 {
-                    suiteTestCaseCollection = TestCaseManager.GetAllTestCaseFromSuite(this.selectedSuiteId);
+					suiteTestCaseCollection = TestCaseManager.GetAllTestCaseFromSuite(ExecutionContext.Preferences.TestPlan, this.selectedSuiteId);
                     this.AddTestCasesSubsuites(suiteTestCaseCollection);
                 }
                 catch(NullReferenceException ex)
@@ -83,7 +83,7 @@ namespace TestCaseManagerCore.ViewModels
                     log.Error(ex);
                     if (subSuites.Count > 0)
                     {
-                        suiteTestCaseCollection = TestCaseManager.GetAllTestCaseFromSuite(subSuites[0].Id);
+						suiteTestCaseCollection = TestCaseManager.GetAllTestCaseFromSuite(ExecutionContext.Preferences.TestPlan, subSuites[0].Id);
                         this.selectedSuiteId = subSuites[0].Id;
                     }
                     else
@@ -94,7 +94,7 @@ namespace TestCaseManagerCore.ViewModels
             }
             else if (ExecutionContext.Preferences.TestPlan.RootSuite != null && ExecutionContext.Preferences.TestPlan.RootSuite.SubSuites != null && ExecutionContext.Preferences.TestPlan.RootSuite.SubSuites.Count > 0)
             {
-                suiteTestCaseCollection = TestCaseManager.GetAllTestCaseFromSuite(ExecutionContext.Preferences.TestPlan.RootSuite.SubSuites.First().Id);
+				suiteTestCaseCollection = TestCaseManager.GetAllTestCaseFromSuite(ExecutionContext.Preferences.TestPlan, ExecutionContext.Preferences.TestPlan.RootSuite.SubSuites.First().Id);
                 this.selectedSuiteId = ExecutionContext.Preferences.TestPlan.RootSuite.SubSuites.First().Id;
                 this.ShowSubSuitesTestCases = false;
                 RegistryManager.WriteShowSubsuiteTestCases(false);
@@ -144,7 +144,7 @@ namespace TestCaseManagerCore.ViewModels
 				ITestSuiteBase currentSuite = TestSuiteManager.GetTestSuiteById(ExecutionContext.TestManagementTeamProject, ExecutionContext.Preferences.TestPlan, selectedSuiteId);
                 if (currentSuite is IStaticTestSuite)
                 {
-                    testCasesList = TestCaseManager.GetAllTestCasesFromSuiteCollection((currentSuite as IStaticTestSuite).SubSuites);
+					testCasesList = TestCaseManager.GetAllTestCasesFromSuiteCollection(ExecutionContext.Preferences.TestPlan, (currentSuite as IStaticTestSuite).SubSuites);
                     testCasesList.ForEach(x => suiteTestCaseCollection.Add(x));
                 }
             }
@@ -382,7 +382,7 @@ namespace TestCaseManagerCore.ViewModels
 			{
 				return;
 			}
-			List<TestCase> testCasesWithSuite = TestCaseManager.GetAllTestCasesFromSuiteCollection(ExecutionContext.Preferences.TestPlan.RootSuite.SubSuites);
+			List<TestCase> testCasesWithSuite = TestCaseManager.GetAllTestCasesFromSuiteCollection(ExecutionContext.Preferences.TestPlan, ExecutionContext.Preferences.TestPlan.RootSuite.SubSuites);
 			List<TestCase> filteredTestCases = new List<TestCase>();
 			
 			foreach (TestCase currentTestCase in this.ObservableTestCases)
@@ -560,11 +560,11 @@ namespace TestCaseManagerCore.ViewModels
         /// </summary>
         /// <param name="parentSuite">The parent suite.</param>
         /// <param name="clipboardSuite">The clipboard suite.</param>
-        public void CopyPasteSuiteToParentSuite(Suite parentSuite, Suite clipboardSuite)
+        public void CopyPasteSuiteToParentSuite(ITestManagementTeamProject testManagementTeamProject, ITestPlan testPlan, Suite parentSuite, Suite clipboardSuite)
         {
             try
             {
-                TestSuiteManager.PasteSuiteToParent(parentSuite.Id, clipboardSuite.Id, ClipBoardCommand.Copy);
+				TestSuiteManager.PasteSuiteToParent(testManagementTeamProject, testPlan, parentSuite.Id, clipboardSuite.Id, ClipBoardCommand.Copy);
             }
             catch (TestManagementValidationException ex)
             {
@@ -582,14 +582,16 @@ namespace TestCaseManagerCore.ViewModels
             parentSuite.IsNodeExpanded = true;
         }
 
-        /// <summary>
-        /// Cuts the paste suite to parent suite.
-        /// </summary>
-        /// <param name="parentSuite">The parent suite.</param>
-        /// <param name="clipboardSuite">The clipboard suite.</param>
-        public void CutPasteSuiteToParentSuite(Suite parentSuite, Suite clipboardSuite)
+		/// <summary>
+		/// Cuts the paste suite to parent suite.
+		/// </summary>
+		/// <param name="testManagementTeamProject">The test management team project.</param>
+		/// <param name="testPlan">The test plan.</param>
+		/// <param name="parentSuite">The parent suite.</param>
+		/// <param name="clipboardSuite">The clipboard suite.</param>
+        public void CutPasteSuiteToParentSuite(ITestManagementTeamProject testManagementTeamProject, ITestPlan testPlan, Suite parentSuite, Suite clipboardSuite)
         {
-            TestSuiteManager.PasteSuiteToParent(parentSuite.Id, clipboardSuite.Id, ClipBoardCommand.Cut);
+			TestSuiteManager.PasteSuiteToParent(testManagementTeamProject, testPlan, parentSuite.Id, clipboardSuite.Id, ClipBoardCommand.Cut);
             if (clipboardSuite.Parent != null)
             {
                 this.DeleteSuiteObservableCollection(this.Suites, clipboardSuite.Id);
@@ -638,26 +640,29 @@ namespace TestCaseManagerCore.ViewModels
                 Suite parentSuite = this.GetSuiteById(this.Suites, parentSuiteId);
                 parentSuite.IsSelected = false;
             }
-           
-            List<TestCase> testCasesList = TestCaseManager.GetAllTestCaseFromSuite(suiteToPasteIn.Id);
+
+			List<TestCase> testCasesList = TestCaseManager.GetAllTestCaseFromSuite(ExecutionContext.Preferences.TestPlan, suiteToPasteIn.Id);
             this.ObservableTestCases.Clear();
             testCasesList.ForEach(t => this.ObservableTestCases.Add(t));
             this.InitializeInitialTestCaseCollection(this.ObservableTestCases);
         }
 
-        /// <summary>
-        /// Gets all full test cases for observable test cases.
-        /// </summary>
-        /// <param name="selectedTestCases">The selected test cases.</param>
-        /// <returns>list of full test cases</returns>
+		/// <summary>
+		/// Gets all full test cases for observable test cases.
+		/// </summary>
+		/// <param name="testPlan">The test plan.</param>
+		/// <param name="selectedTestCases">The selected test cases.</param>
+		/// <returns>
+		/// list of full test cases
+		/// </returns>
         private List<TestCaseFull> GetAllFullTestCasesForObservableTestCases(List<TestCase> selectedTestCases)
         {    
             List<TestCaseFull> fullTestCases = new List<TestCaseFull>();
             foreach (TestCase currentTestCase in selectedTestCases)
             {
-                string mostRecentResult = TestCaseManager.GetMostRecentTestCaseResult(currentTestCase.Id);
-                string executionComment = TestCaseManager.GetMostRecentExecutionComment(currentTestCase.Id);
-                List<TestStep> currentTestSteps = TestStepManager.GetTestStepsFromTestActions(currentTestCase.ITestCase.Actions);
+				string mostRecentResult = TestCaseManager.GetMostRecentTestCaseResult(ExecutionContext.Preferences.TestPlan, currentTestCase.Id);
+				string executionComment = TestCaseManager.GetMostRecentExecutionComment(ExecutionContext.Preferences.TestPlan, currentTestCase.Id);
+				List<TestStep> currentTestSteps = TestStepManager.GetTestStepsFromTestActions(ExecutionContext.TestManagementTeamProject, currentTestCase.ITestCase.Actions);
                 fullTestCases.Add(new TestCaseFull(currentTestCase, currentTestSteps, mostRecentResult, executionComment));
             }
 

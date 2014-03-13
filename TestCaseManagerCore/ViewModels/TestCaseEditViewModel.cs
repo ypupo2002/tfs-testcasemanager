@@ -103,12 +103,12 @@ namespace TestCaseManagerCore.ViewModels
                 if (this.EditViewContext.CreateNew && !this.EditViewContext.Duplicate)
                 {
                     ITestCase newTestCase = TestCaseManagerCore.ExecutionContext.TestManagementTeamProject.TestCases.Create();
-                    this.TestCase = new TestCase(newTestCase, testSuiteBaseCore, false);
+					this.TestCase = new TestCase(newTestCase, testSuiteBaseCore, TestCaseManagerCore.ExecutionContext.Preferences.TestPlan, false);
                 }
                 else
                 {
                     ITestCase testCaseCore = TestCaseManagerCore.ExecutionContext.TestManagementTeamProject.TestCases.Find(this.EditViewContext.TestCaseId);
-                    this.TestCase = new TestCase(testCaseCore, testSuiteBaseCore, false);
+					this.TestCase = new TestCase(testCaseCore, testSuiteBaseCore, TestCaseManagerCore.ExecutionContext.Preferences.TestPlan, false);
                 }
                 this.ObservableSharedSteps = new ObservableCollection<SharedStep>();
                 this.InitializeObservableSharedSteps();
@@ -126,13 +126,12 @@ namespace TestCaseManagerCore.ViewModels
                 }
                 else
                 {
-                    SharedStep currentSharedStep = SharedStepManager.GetSharedStepById(this.EditViewContext.SharedStepId);
+					SharedStep currentSharedStep = SharedStepManager.GetSharedStepById(TestCaseManagerCore.ExecutionContext.TestManagementTeamProject, this.EditViewContext.SharedStepId);
                     this.SharedStep = currentSharedStep;
                 }
 
                 List<TestStep> innerTestSteps = TestStepManager.GetAllTestStepsInSharedStep(this.SharedStep.ISharedStep, false);
                 this.AddTestStepsToObservableCollection(innerTestSteps);
-                //this.TestCaseIdLabel = this.SharedStep.ISharedStep.Id.ToString();
                 this.ShowTestCaseSpecificFields = false;
                 this.TestBase = this.SharedStep;
                 this.ClearTestStepNames();
@@ -388,7 +387,7 @@ namespace TestCaseManagerCore.ViewModels
             if ((this.EditViewContext.CreateNew || this.EditViewContext.Duplicate) && !this.EditViewContext.IsAlreadyCreated)
             {
                 log.Info("Save test case as new one.");
-				savedTestCase = this.TestCase.Save(TestCaseManagerCore.ExecutionContext.TestManagementTeamProject, true, suiteId, this.ObservableTestSteps);
+				savedTestCase = this.TestCase.Save(TestCaseManagerCore.ExecutionContext.TestManagementTeamProject, TestCaseManagerCore.ExecutionContext.Preferences.TestPlan, true, suiteId, this.ObservableTestSteps);
                 this.TestCase = savedTestCase;
                 this.EditViewContext.IsAlreadyCreated = true;
                 this.EditViewContext.CreateNew = false;
@@ -397,7 +396,7 @@ namespace TestCaseManagerCore.ViewModels
             else
             {
                 log.InfoFormat("Save edited test case with id= {0}.", this.TestCase.Id);
-				savedTestCase = this.TestCase.Save(TestCaseManagerCore.ExecutionContext.TestManagementTeamProject, false, suiteId, this.ObservableTestSteps);
+				savedTestCase = this.TestCase.Save(TestCaseManagerCore.ExecutionContext.TestManagementTeamProject, TestCaseManagerCore.ExecutionContext.Preferences.TestPlan, false, suiteId, this.ObservableTestSteps);
             }
             this.EditViewContext.TestCaseId = savedTestCase.ITestCase.Id;
             this.TestCaseIdLabel = savedTestCase.ITestCase.Id.ToString();
@@ -937,7 +936,7 @@ namespace TestCaseManagerCore.ViewModels
         /// </summary>
         private void InitializeTestCaseTestStepsFromITestCaseActions()
         {
-            List<TestStep> testSteps = TestStepManager.GetTestStepsFromTestActions(this.TestCase.ITestCase.Actions);
+			List<TestStep> testSteps = TestStepManager.GetTestStepsFromTestActions(TestCaseManagerCore.ExecutionContext.TestManagementTeamProject, this.TestCase.ITestCase.Actions);
             this.AddTestStepsToObservableCollection(testSteps);
         }
 

@@ -222,8 +222,8 @@ namespace TestCaseManagerCore.ViewModels
         {
             ExecutionContext.Preferences.TestPlan.Refresh();
             ExecutionContext.Preferences.TestPlan.RootSuite.Refresh();
-            List<TestCase> testCasesList = TestCaseManager.GetAllTestCasesFromSuiteCollection(ExecutionContext.Preferences.TestPlan.RootSuite.SubSuites);
-            TestCaseManager.AddTestCasesWithoutSuites(testCasesList);
+			List<TestCase> testCasesList = TestCaseManager.GetAllTestCasesFromSuiteCollection(ExecutionContext.Preferences.TestPlan, ExecutionContext.Preferences.TestPlan.RootSuite.SubSuites);
+			TestCaseManager.AddTestCasesWithoutSuites(ExecutionContext.TestManagementTeamProject, ExecutionContext.Preferences.TestPlan, testCasesList);
             this.ObservableTestCases = new ObservableCollection<TestCase>();
             testCasesList.ForEach(t => this.ObservableTestCases.Add(t));
         }
@@ -362,12 +362,12 @@ namespace TestCaseManagerCore.ViewModels
             {
                 TestCase testCaseToBeDuplicated = entityToBeDuplicated as TestCase;
                 ITestCase testCaseCore = ExecutionContext.TestManagementTeamProject.TestCases.Create();
-                TestCase currentTestCase = new TestCase(testCaseCore, testCaseToBeDuplicated.ITestSuiteBase);
+				TestCase currentTestCase = new TestCase(testCaseCore, testCaseToBeDuplicated.ITestSuiteBase, ExecutionContext.Preferences.TestPlan);
                 currentTestCase.ITestCase.Area = testCaseToBeDuplicated.ITestCase.Area;
                 currentTestCase.ITestCase.Title = testCaseToBeDuplicated.ITestCase.Title;
                 //currentTestCase.ITestCase = ExecutionContext.TestManagementTeamProject.TestCases.Find(currentTestCase.ITestCase.Id);
                 log.InfoFormat("Duplicate test case with Title= \"{0}\" id= \"{1}\"", currentTestCase.Title, currentTestCase.Id);
-                List<TestStep> testSteps = TestStepManager.GetTestStepsFromTestActions(testCaseToBeDuplicated.ITestCase.Actions.ToList());
+				List<TestStep> testSteps = TestStepManager.GetTestStepsFromTestActions(ExecutionContext.TestManagementTeamProject, testCaseToBeDuplicated.ITestCase.Actions.ToList());
                 this.ReplaceTestCaseTitle(currentTestCase);
                 this.ChangeTestCasePriority(currentTestCase);
                 this.ChangeTestCaseOwner(currentTestCase);
@@ -384,7 +384,7 @@ namespace TestCaseManagerCore.ViewModels
                 currentSharedStep = new SharedStep(sharedStepCore);
                 currentSharedStep.ISharedStep.Area = sharedStepToBeDuplicated.ISharedStep.Area;
                 log.InfoFormat("Duplicate shared step with Title= \"{0}\" id= \"{1}\"", currentSharedStep.Title, currentSharedStep.Id);
-                List<TestStep> testSteps = TestStepManager.GetTestStepsFromTestActions(currentSharedStep.ISharedStep.Actions.ToList());
+				List<TestStep> testSteps = TestStepManager.GetTestStepsFromTestActions(ExecutionContext.TestManagementTeamProject, currentSharedStep.ISharedStep.Actions.ToList());
                 this.ReplaceSharedStepTitle(currentSharedStep);
                 this.ChangeSharedStepPriority(currentSharedStep);
                 this.ChangeSharedStepOwner(currentSharedStep);
@@ -418,7 +418,7 @@ namespace TestCaseManagerCore.ViewModels
                 currentTestCase = entityToReplaceIn as TestCase;
                 currentTestCase.ITestCase = ExecutionContext.TestManagementTeamProject.TestCases.Find(currentTestCase.ITestCase.Id);
                 log.InfoFormat("Find and Replace in test case with Title= \"{0}\" id= \"{1}\"", currentTestCase.Title, currentTestCase.Id);
-                List<TestStep> testSteps = TestStepManager.GetTestStepsFromTestActions(currentTestCase.ITestCase.Actions.ToList());
+				List<TestStep> testSteps = TestStepManager.GetTestStepsFromTestActions(ExecutionContext.TestManagementTeamProject, currentTestCase.ITestCase.Actions.ToList());
                 this.ReplaceTestCaseTitle(currentTestCase);
                 this.ChangeTestCasePriority(currentTestCase);
                 this.ChangeTestCaseOwner(currentTestCase);
@@ -436,7 +436,7 @@ namespace TestCaseManagerCore.ViewModels
                 currentSharedStep = entityToReplaceIn as SharedStep;
                 currentSharedStep.ISharedStep = ExecutionContext.TestManagementTeamProject.SharedSteps.Find(currentSharedStep.ISharedStep.Id);
                 log.InfoFormat("Find and Replace in shared step with Title= \"{0}\" id= \"{1}\"", currentSharedStep.Title, currentSharedStep.Id);
-                List<TestStep> testSteps = TestStepManager.GetTestStepsFromTestActions(currentSharedStep.ISharedStep.Actions.ToList());
+				List<TestStep> testSteps = TestStepManager.GetTestStepsFromTestActions(ExecutionContext.TestManagementTeamProject, currentSharedStep.ISharedStep.Actions.ToList());
                 this.ReplaceSharedStepTitle(currentSharedStep);
                 this.ChangeSharedStepPriority(currentSharedStep);
                 this.ChangeSharedStepOwner(currentSharedStep);

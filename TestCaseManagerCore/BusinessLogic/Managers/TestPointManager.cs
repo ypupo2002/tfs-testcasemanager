@@ -12,15 +12,16 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
     /// </summary>
     public static class TestPointManager
     {
-
-        /// <summary>
-        /// Gets the test points by test case unique identifier.
-        /// </summary>
-        /// <param name="testCaseId">The test case unique identifier.</param>
-        /// <returns></returns>
-        public static ITestPointCollection GetTestPointsByTestCaseId(int testCaseId)
+		private const string allTestPointsQueryExpression = "SELECT * FROM TestPoint WHERE TestCaseId = {0}";
+		/// <summary>
+		/// Gets the test points by test case unique identifier.
+		/// </summary>
+		/// <param name="testPlan">The test plan.</param>
+		/// <param name="testCaseId">The test case unique identifier.</param>
+		/// <returns></returns>
+        public static ITestPointCollection GetTestPointsByTestCaseId(ITestPlan testPlan, int testCaseId)
         {
-            return  ExecutionContext.Preferences.TestPlan.QueryTestPoints(string.Format("Select * from TestPoint where TestCaseId = {0} ", testCaseId));
+			return testPlan.QueryTestPoints(string.Format(allTestPointsQueryExpression, testCaseId));
         }
     }
 }

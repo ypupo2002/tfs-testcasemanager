@@ -34,7 +34,7 @@ namespace TestCaseManagerCore.ViewModels
         public AssociateTestViewModel(int testCaseId)
         {
             ITestCase testCaseCore = ExecutionContext.TestManagementTeamProject.TestCases.Find(testCaseId);
-            this.TestCase = new TestCase(testCaseCore, null);
+			this.TestCase = new TestCase(testCaseCore, null, ExecutionContext.Preferences.TestPlan);
             this.TestCaseId = testCaseId;
             string projectDllPath = RegistryManager.GetProjectDllPath();
             List<Test> testsList = ProjectManager.GetProjectTestMethods(projectDllPath);
@@ -144,7 +144,7 @@ namespace TestCaseManagerCore.ViewModels
         /// <param name="testType">Type of the test.</param>
         public void AssociateTestCaseToTest(Test test, string testType)
         {
-            this.TestCase.ITestCase.SetAssociatedAutomation(test, testType);
+			this.TestCase.ITestCase.SetAssociatedAutomation(ExecutionContext.TestManagementTeamProject, test, testType);
             this.TestCase.ITestCase.Save();
         }
 

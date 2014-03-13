@@ -175,8 +175,8 @@ namespace TestCaseManagerApp.Views
 		/// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
 		private void btnMigrateSharedSteps_Click(object sender, RoutedEventArgs e)
 		{
-			bool canMigratite = this.TestCasesMigrationViewModel.CanStartMigration();
-			if (canMigratite)
+			bool canMigrate = this.TestCasesMigrationViewModel.CanStartMigration();
+			if (canMigrate)
 			{
 				this.TestCasesMigrationViewModel.StartUiProgressLogging(lblProgress);
 				this.TestCasesMigrationViewModel.StartSharedStepsFromSourceToDestinationMigration(internalProgressBar);
@@ -201,8 +201,8 @@ namespace TestCaseManagerApp.Views
 		/// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
 		private void btnMigrateSuites_Click(object sender, RoutedEventArgs e)
 		{
-			bool canMigratite = this.TestCasesMigrationViewModel.CanStartMigration();
-			if (canMigratite)
+			bool canMigrate = this.TestCasesMigrationViewModel.CanStartMigration();
+			if (canMigrate)
 			{
 				this.TestCasesMigrationViewModel.StartUiProgressLogging(lblProgress);
 				this.TestCasesMigrationViewModel.StartSuitesFromSourceToDestinationMigration(internalProgressBar);
@@ -237,7 +237,12 @@ namespace TestCaseManagerApp.Views
 		/// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
 		private void btnMigrateTestCases_Click(object sender, RoutedEventArgs e)
 		{
-
+			bool canMigrate = this.TestCasesMigrationViewModel.CanStartMigration();
+			if (canMigrate)
+			{
+				this.TestCasesMigrationViewModel.StartUiProgressLogging(lblProgress);
+				this.TestCasesMigrationViewModel.StartTestCasesFromSourceToDestinationMigration(internalProgressBar);
+			}
 		}
 
 		/// <summary>
@@ -247,7 +252,8 @@ namespace TestCaseManagerApp.Views
 		/// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
 		private void btnStopTestCasesMigration_Click(object sender, RoutedEventArgs e)
 		{
-
+			this.TestCasesMigrationViewModel.StopUiProgressLogging();
+			this.TestCasesMigrationViewModel.StopMigrationExecution();
 		}
 
 		/// <summary>
@@ -267,7 +273,12 @@ namespace TestCaseManagerApp.Views
 		/// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
 		private void btnAddTestCasesToSuites_Click(object sender, RoutedEventArgs e)
 		{
-
+			bool canMigrate = this.TestCasesMigrationViewModel.CanStartMigration();
+			if (canMigrate)
+			{
+				this.TestCasesMigrationViewModel.StartUiProgressLogging(lblProgress);
+				this.TestCasesMigrationViewModel.StartTestCasesToSuiteFromSourceToDestinationMigration(internalProgressBar);
+			}
 		}
 
 		/// <summary>
@@ -277,7 +288,8 @@ namespace TestCaseManagerApp.Views
 		/// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
 		private void btnStopTestCasesToSuitesAddition_Click(object sender, RoutedEventArgs e)
 		{
-
+			this.TestCasesMigrationViewModel.StopUiProgressLogging();
+			this.TestCasesMigrationViewModel.StopMigrationExecution();
 		}
 
 		/// <summary>
@@ -326,6 +338,16 @@ namespace TestCaseManagerApp.Views
 				this.TestCasesMigrationViewModel.SelectedDestinationTestPlan = this.TestCasesMigrationViewModel.ObservableDestinationTestPlans[cbTestPlansDestination.SelectedIndex];
 				this.TestCasesMigrationViewModel.InitializeSelectedDestinationTestPlan();
 			}
+		}
+
+		/// <summary>
+		/// Handles the Click event of the btnBrowseTestCasesToSuitesJsonPath control.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
+		private void btnBrowseTestCasesToSuitesJsonPath_Click(object sender, RoutedEventArgs e)
+		{
+			this.TestCasesMigrationViewModel.MigrationAddTestCasesToSuitesRetryJsonPath = FileDialogManager.Intance.GetFileName(FileType.JSON);
 		}
     }
 }
