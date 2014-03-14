@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-D:\Projects\TestCaseManager\TestCaseManager\obj\Release\
+D:\Codeplex\TestCaseManager\TestCaseManager\obj\Release\
 TestCaseManagerApp
 none
 false
 TRACE
-D:\Projects\TestCaseManager\TestCaseManager\App.xaml
-151169058481
+D:\Codeplex\TestCaseManager\TestCaseManager\App.xaml
+23-1767891508
 1-1578682317
-16-611032587
-281484196796
-Assets\ModernUI.HelloKitty.xaml;Assets\ModernUI.Love.xaml;Assets\ModernUI.Snowflakes.xaml;MainWindow.xaml;Views\AboutView.xaml;Views\SharedStepsInitialView.xaml;Views\SettingsView.xaml;Views\AssociateTestView.xaml;Views\PrompDialogWindow.xaml;Views\PrompDialogUserControl.xaml;Views\TestCaseBatchDuplicateView.xaml;Views\TestCaseEditView.xaml;Views\ProjectSelectionView.xaml;Views\TestCaseDetailedView.xaml;Views\TestCasesInitialView.xaml;
+241760521780
+28-1913843356
+Assets\ModernUI.HelloKitty.xaml;Assets\ModernUI.Love.xaml;Assets\ModernUI.Snowflakes.xaml;MainWindow.xaml;Views\AboutView.xaml;Views\PrompCheckboxListDialogControl.xaml;Views\PrompCheckboxListDialogWindow.xaml;Views\TestCasesMigrationView.xaml;Views\TestPlansEditView.xaml;Views\TestCaseExecutionArrangmentView.xaml;Views\PrompDialogRichTextBoxWindow.xaml;Views\PrompDialogRichTextBoxUserControl.xaml;Views\ReleaseNotesView.xaml;Views\SharedStepsInitialView.xaml;Views\SettingsView.xaml;Views\AssociateTestView.xaml;Views\PrompDialogWindow.xaml;Views\PrompDialogUserControl.xaml;Views\TestCaseBatchDuplicateView.xaml;Views\TestCaseEditView.xaml;Views\ProjectSelectionView.xaml;Views\TestCaseDetailedView.xaml;Views\TestCasesInitialView.xaml;
 
 False
 

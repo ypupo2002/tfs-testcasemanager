@@ -1,8 +1,10 @@
-﻿D:\Projects\TestCaseManager\TestCaseManager\obj\Release\GeneratedInternalTypeHelper.g.i.cs
+﻿D:\Codeplex\TestCaseManager\TestCaseManager\obj\Release\GeneratedInternalTypeHelper.g.i.cs
 
-FD:\Projects\TestCaseManager\TestCaseManager\MainWindow.xaml;;
-FD:\Projects\TestCaseManager\TestCaseManager\Views\SharedStepsInitialView.xaml;;
-FD:\Projects\TestCaseManager\TestCaseManager\Views\TestCaseEditView.xaml;;
-FD:\Projects\TestCaseManager\TestCaseManager\Views\TestCaseDetailedView.xaml;;
-FD:\Projects\TestCaseManager\TestCaseManager\Views\TestCasesInitialView.xaml;;
+FD:\Codeplex\TestCaseManager\TestCaseManager\MainWindow.xaml;;
+FD:\Codeplex\TestCaseManager\TestCaseManager\Views\TestPlansEditView.xaml;;
+FD:\Codeplex\TestCaseManager\TestCaseManager\Views\TestCaseExecutionArrangmentView.xaml;;
+FD:\Codeplex\TestCaseManager\TestCaseManager\Views\SharedStepsInitialView.xaml;;
+FD:\Codeplex\TestCaseManager\TestCaseManager\Views\TestCaseEditView.xaml;;
+FD:\Codeplex\TestCaseManager\TestCaseManager\Views\TestCaseDetailedView.xaml;;
+FD:\Codeplex\TestCaseManager\TestCaseManager\Views\TestCasesInitialView.xaml;;
 
