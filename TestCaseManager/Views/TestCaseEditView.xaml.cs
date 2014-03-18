@@ -597,6 +597,7 @@ namespace TestCaseManagerApp.Views
             e.Handled = true;
             SharedStep currentSharedStep = dgSharedSteps.SelectedItem as SharedStep;
             this.TestCaseEditViewModel.SaveChangesDialog();
+			this.editViewContext.IsAlreadyCreated = false;
             this.editViewContext.IsInitialized = false;
             this.editViewContext.CreateNew = true;
             this.editViewContext.Duplicate = true;

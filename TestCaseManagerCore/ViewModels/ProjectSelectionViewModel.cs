@@ -16,7 +16,7 @@ namespace TestCaseManagerCore.ViewModels
         /// <summary>
         /// The log
         /// </summary>
-       private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+       private static readonly log4net.ILog Log = log4net.LogManager.GetLogger(System.Reflection.Methodthis.GetCurrentMethod().DeclaringType);
 
 		/// <summary>
 		/// The test management team project
@@ -63,7 +63,6 @@ namespace TestCaseManagerCore.ViewModels
         /// </value>
         public ObservableCollection<string> ObservableTestPlans { get; set; }
 
-
 		/// <summary>
 		/// Gets or sets the full name of the team project.
 		/// </summary>
@@ -79,7 +78,6 @@ namespace TestCaseManagerCore.ViewModels
 
 			set
 			{
-
 				this.fullTeamProjectName = value;
 				this.NotifyPropertyChanged();
 			}
@@ -99,11 +97,14 @@ namespace TestCaseManagerCore.ViewModels
         /// <param name="projectPicker">The project picker.</param>
         public void LoadProjectSettingsFromUserDecision(TeamProjectPicker projectPicker)
         {
-			base.LoadProjectSettingsFromUserDecision(projectPicker, ref tfsTeamProjectCollection, ref testManagementTeamProject, ref this.preferences, this.tfsClientService, this.SelectedTestPlan);
-			ExecutionContext.TfsTeamProjectCollection = tfsTeamProjectCollection;
-			ExecutionContext.TestManagementTeamProject = testManagementTeamProject;
-			ExecutionContext.Preferences = this.preferences;
-			this.FullTeamProjectName = base.GenerateFullTeamProjectName(ExecutionContext.Preferences.TfsUri.ToString(), ExecutionContext.Preferences.TestProjectName);
+			this.LoadProjectSettingsFromUserDecision(projectPicker, ref this.tfsTeamProjectCollection, ref this.testManagementTeamProject, ref this.preferences, this.tfsClientService, this.SelectedTestPlan);
+			if (this.preferences.TfsUri != null && this.preferences.TestProjectName != null)
+			{
+				ExecutionContext.TfsTeamProjectCollection = this.tfsTeamProjectCollection;
+				ExecutionContext.TestManagementTeamProject = this.testManagementTeamProject;
+				ExecutionContext.Preferences = this.preferences;
+				this.FullTeamProjectName = this.GenerateFullTeamProjectName(ExecutionContext.Preferences.TfsUri.ToString(), ExecutionContext.Preferences.TestProjectName);
+			}
 		}
 
         /// <summary>
@@ -111,20 +112,20 @@ namespace TestCaseManagerCore.ViewModels
         /// </summary>
         public void LoadProjectSettingsFromRegistry()
         {
-			base.LoadProjectSettingsFromRegistry(ref tfsTeamProjectCollection, ref testManagementTeamProject, ref this.preferences, this.tfsClientService, this.SelectedTestPlan);
-			ExecutionContext.TfsTeamProjectCollection = tfsTeamProjectCollection;
-			ExecutionContext.TestManagementTeamProject = testManagementTeamProject;
+			this.LoadProjectSettingsFromRegistry(ref this.tfsTeamProjectCollection, ref this.testManagementTeamProject, ref this.preferences, this.tfsClientService, this.SelectedTestPlan);
+			ExecutionContext.TfsTeamProjectCollection = this.tfsTeamProjectCollection;
+			ExecutionContext.TestManagementTeamProject = this.testManagementTeamProject;
 			ExecutionContext.Preferences = this.preferences;
-			this.FullTeamProjectName = base.GenerateFullTeamProjectName(ExecutionContext.Preferences.TfsUri.ToString(), ExecutionContext.Preferences.TestProjectName);
+			this.FullTeamProjectName = this.GenerateFullTeamProjectName(ExecutionContext.Preferences.TfsUri.ToString(), ExecutionContext.Preferences.TestProjectName);
 		}
-	
-        /// <summary>
-        /// Initializes the test plans.
-        /// </summary>
-        /// <param name="testManagementTeamProject">The _testproject.</param>
+
+		/// <summary>
+		/// Initializes the test plans.
+		/// </summary>
+		/// <param name="testManagementTeamProject">The test project.</param>
         public void InitializeTestPlans(ITestManagementTeamProject testManagementTeamProject)
         {
-			base.InitializeTestPlans(testManagementTeamProject, this.ObservableTestPlans);
+			this.InitializeTestPlans(testManagementTeamProject, this.ObservableTestPlans);
         } 
     }
 }

@@ -77,7 +77,7 @@
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="20,10,0,10">
                         <CheckBox Margin="0,0,10,0" VerticalAlignment="Center" HorizontalAlignment="Left" IsChecked="{Binding Path=ShowSubSuitesTestCases, Mode=TwoWay}" 
                                   Name="cbShowSubsuiteTestCases" Unchecked="cbShowSubsuiteTestCases_Unchecked"  Checked="cbShowSubsuiteTestCases_Checked"/>
-                        <TextBlock Text="Show Test Cases in subsuites" Margin="10,0,10,0" Height="Auto" Width="Auto" HorizontalAlignment="Left"/>                       
+                        <TextBlock Text="Show Test Cases in Subsuites" Margin="10,0,10,0" Height="Auto" Width="Auto" HorizontalAlignment="Left"/>                       
 
                     </StackPanel>
                 </StackPanel>

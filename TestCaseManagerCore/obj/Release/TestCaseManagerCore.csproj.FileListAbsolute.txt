@@ -59,3 +59,4 @@ D:\Codeplex\TestCaseManager\TestCaseManagerCore\bin\Release\Microsoft.VisualStud
 D:\Codeplex\TestCaseManager\TestCaseManagerCore\bin\Release\Microsoft.WITDataStore.dll
 D:\Codeplex\TestCaseManager\TestCaseManagerCore\obj\Release\TestCaseManagerCore.dll
 D:\Codeplex\TestCaseManager\TestCaseManagerCore\obj\Release\TestCaseManagerCore.pdb
+D:\Codeplex\TestCaseManager\TestCaseManagerCore\obj\Release\TestCaseManagerCore.csprojResolveAssemblyReference.cache

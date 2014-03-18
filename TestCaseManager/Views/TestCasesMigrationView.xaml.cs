@@ -104,7 +104,7 @@ namespace TestCaseManagerApp.Views
 				this.DataContext = this.TestCasesMigrationViewModel;
                 isInitialized = true;
 				HideProgressBar();
-				ModernDialog.ShowMessage("Please read carefully the online documentation about this module because the changes cannot be revirted!\nYou should migrate the entities in the following order: shared steps,suites, test cases, add test cases to suites.\nBefore you proceed to the next stage of the sync be sure that there aren't error in the previous!\nIn case of unexpexted errors you can retry the logic using the created JSON file saved in the default JSON folder.", "Warning", MessageBoxButton.OK);		
+				ModernDialog.ShowMessage("Please read carefully the online documentation about the module. The caused changes cannot be reverted!\n\nThe entities should be migrated in the following order:\n1. Shared steps\n2. Suites\n3. Test cases\n4. Add test cases to suites.\n\nBefore proceeding to the next stage of the migration be sure that no errors are present in the previous one!\n\nIn case of unexpected errors you can retry the logic using the created JSON files saved in the default JSON folder.", "Warning", MessageBoxButton.OK);		
             }, TaskScheduler.FromCurrentSynchronizationContext());
         }
 

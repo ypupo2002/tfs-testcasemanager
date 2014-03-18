@@ -45,10 +45,15 @@ namespace TestCaseManagerApp.Views
         /// </value>
         public PromptDialogViewModel PromptDialogViewModel { get; set; }
 
+		/// <summary>
+		/// Handles the Loaded event of the UserControl control.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
             RegistryManager.WriteIsWindowClosedFromX(true);
-            PromptDialogViewModel = new PromptDialogViewModel();
+            this.PromptDialogViewModel = new PromptDialogViewModel();
             this.DataContext = this.PromptDialogViewModel;         
         }
 
@@ -74,7 +79,7 @@ namespace TestCaseManagerApp.Views
         {
             PromptDialogViewModel.IsCanceled = true;
             RegistryManager.WriteIsWindowClosedFromX(false);
-            PromptDialogViewModel.Content = String.Empty;
+            PromptDialogViewModel.Content = string.Empty;
             Window window = Window.GetWindow(this);
             window.Close();
         }

@@ -44,6 +44,11 @@ namespace TestCaseManagerApp.Views
         /// </value>
         public PromptDialogViewModel PromptDialogViewModel { get; set; }
 
+		/// <summary>
+		/// Handles the Loaded event of the UserControl control.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
             RegistryManager.WriteIsWindowClosedFromX(true);
@@ -58,7 +63,7 @@ namespace TestCaseManagerApp.Views
         /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void ButtonOk_Click(object sender, RoutedEventArgs e)
         {
-            if (String.IsNullOrEmpty(this.PromptDialogViewModel.Content))
+			if (string.IsNullOrEmpty(this.PromptDialogViewModel.Content) && string.IsNullOrEmpty(tbTitle.Text))
             {
                 ModernDialog.ShowMessage("Content cannot be empty!", "Warrning!", MessageBoxButton.OK);
             }
@@ -76,7 +81,7 @@ namespace TestCaseManagerApp.Views
         private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
             PromptDialogViewModel.IsCanceled = true;
-            PromptDialogViewModel.Content = String.Empty;
+            PromptDialogViewModel.Content = string.Empty;
             RegistryManager.WriteIsWindowClosedFromX(false);
             Window window = Window.GetWindow(this);
             window.Close();

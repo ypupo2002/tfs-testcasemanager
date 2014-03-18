@@ -13,12 +13,12 @@ using System.Windows.Media;
 using FirstFloor.ModernUI.Windows;
 using FirstFloor.ModernUI.Windows.Controls;
 using FirstFloor.ModernUI.Windows.Navigation;
+using Microsoft.TeamFoundation.TestManagement.Client;
+using TestCaseManagerCore;
 using TestCaseManagerCore.BusinessLogic.Entities;
 using TestCaseManagerCore.BusinessLogic.Enums;
 using TestCaseManagerCore.BusinessLogic.Managers;
 using TestCaseManagerCore.ViewModels;
-using TestCaseManagerCore;
-using Microsoft.TeamFoundation.TestManagement.Client;
 
 namespace TestCaseManagerApp.Views
 {
@@ -28,109 +28,109 @@ namespace TestCaseManagerApp.Views
     public partial class TestCasesInitialView : System.Windows.Controls.UserControl, IContent
     {
         /// <summary>
-        /// The log
-        /// </summary>
-        private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-
-        /// <summary>
         /// The edit command
         /// </summary>
-        public static RoutedCommand EditCommand = new RoutedCommand();
+		public static readonly RoutedCommand EditCommand = new RoutedCommand();
 
         /// <summary>
         /// The duplicate command
         /// </summary>
-        public static RoutedCommand DuplicateCommand = new RoutedCommand();
+		public static readonly RoutedCommand DuplicateCommand = new RoutedCommand();
 
         /// <summary>
         /// The preview command
         /// </summary>
-        public static RoutedCommand PreviewCommand = new RoutedCommand();
+		public static readonly RoutedCommand PreviewCommand = new RoutedCommand();
 
         /// <summary>
         /// The new command
         /// </summary>
-        public static RoutedCommand NewCommand = new RoutedCommand();
+		public static readonly RoutedCommand NewCommand = new RoutedCommand();
 
         /// <summary>
         /// The refresh command
         /// </summary>
-        public static RoutedCommand RemoveCommand = new RoutedCommand();
+		public static readonly RoutedCommand RemoveCommand = new RoutedCommand();
 
         /// <summary>
         /// The remove test case from suite command
         /// </summary>
-        public static RoutedCommand RemoveTestCaseFromSuiteCommand = new RoutedCommand();
+		public static readonly RoutedCommand RemoveTestCaseFromSuiteCommand = new RoutedCommand();
 
         /// <summary>
         /// The rename suite command
         /// </summary>
-        public static RoutedCommand RenameSuiteCommand = new RoutedCommand();
+		public static readonly RoutedCommand RenameSuiteCommand = new RoutedCommand();
 
         /// <summary>
         /// The add suite command
         /// </summary>
-        public static RoutedCommand AddSuiteCommand = new RoutedCommand();
+		public static readonly RoutedCommand AddSuiteCommand = new RoutedCommand();
 
         /// <summary>
         /// The remove suite command
         /// </summary>
-        public static RoutedCommand RemoveSuiteCommand = new RoutedCommand();
+		public static readonly RoutedCommand RemoveSuiteCommand = new RoutedCommand();
 
         /// <summary>
         /// The copy suite command
         /// </summary>
-        public static RoutedCommand CopySuiteCommand = new RoutedCommand();
+		public static readonly RoutedCommand CopySuiteCommand = new RoutedCommand();
 
         /// <summary>
         /// The cut suite command
         /// </summary>
-        public static RoutedCommand CutSuiteCommand = new RoutedCommand();
+		public static readonly RoutedCommand CutSuiteCommand = new RoutedCommand();
 
         /// <summary>
         /// The paste suite command
         /// </summary>
-        public static RoutedCommand PasteSuiteCommand = new RoutedCommand();
+		public static readonly RoutedCommand PasteSuiteCommand = new RoutedCommand();
 
         /// <summary>
         /// The copy test cases command
         /// </summary>
-        public static RoutedCommand CopyTestCasesCommand = new RoutedCommand();
+		public static readonly RoutedCommand CopyTestCasesCommand = new RoutedCommand();
 
         /// <summary>
         /// The cut test cases command
         /// </summary>
-        public static RoutedCommand CutTestCasesCommand = new RoutedCommand();
+		public static readonly RoutedCommand CutTestCasesCommand = new RoutedCommand();
 
         /// <summary>
         /// The paste test cases command
         /// </summary>
-        public static RoutedCommand PasteTestCasesCommand = new RoutedCommand();
+		public static readonly RoutedCommand PasteTestCasesCommand = new RoutedCommand();
 
         /// <summary>
         /// The export test cases command
         /// </summary>
-        public static RoutedCommand ExportTestCasesCommand = new RoutedCommand();
+		public static readonly RoutedCommand ExportTestCasesCommand = new RoutedCommand();
 
         /// <summary>
         /// The set active test cases command
         /// </summary>
-        public static RoutedCommand SetActiveTestCasesCommand = new RoutedCommand();
+		public static readonly RoutedCommand SetActiveTestCasesCommand = new RoutedCommand();
 
         /// <summary>
         /// The set passed test cases command
         /// </summary>
-        public static RoutedCommand SetPassedTestCasesCommand = new RoutedCommand();
+		public static readonly RoutedCommand SetPassedTestCasesCommand = new RoutedCommand();
 
         /// <summary>
         /// The set failed test cases command
         /// </summary>
-        public static RoutedCommand SetFailedTestCasesCommand = new RoutedCommand();
+		public static readonly RoutedCommand SetFailedTestCasesCommand = new RoutedCommand();
 
         /// <summary>
         /// The set blocked test cases command
         /// </summary>
-        public static RoutedCommand SetBlockedTestCasesCommand = new RoutedCommand();
+		public static readonly RoutedCommand SetBlockedTestCasesCommand = new RoutedCommand();
+
+		/// <summary>
+		/// The log
+		/// </summary>
+		private static readonly log4net.ILog Log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         /// <summary>
         /// Indicates if the view model is already initialized
@@ -279,15 +279,14 @@ namespace TestCaseManagerApp.Views
                 TestCase currentTestCase = dgTestCases.SelectedItem as TestCase;
                 if (currentTestCase.ITestSuiteBase != null)
                 {
-                    log.InfoFormat("Preview test case with id= \"{0}\" and suiteId= \"{1}\"", currentTestCase.ITestCase.Id, currentTestCase.ITestSuiteBase.Id);
+                    Log.InfoFormat("Preview test case with id= \"{0}\" and suiteId= \"{1}\"", currentTestCase.ITestCase.Id, currentTestCase.ITestSuiteBase.Id);
                     this.NavigateToTestCasesDetailedView(currentTestCase.ITestCase.Id, currentTestCase.ITestSuiteBase.Id);
                 }
                 else
                 {
-                    log.InfoFormat("Preview test case with id= \"{0}\" and suiteId= \"{1}\"", currentTestCase.ITestCase.Id, -1);
+                    Log.InfoFormat("Preview test case with id= \"{0}\" and suiteId= \"{1}\"", currentTestCase.ITestCase.Id, -1);
                     this.NavigateToTestCasesDetailedView(currentTestCase.ITestCase.Id, -1);
-                }
-               
+                }               
             });
         }
 
@@ -327,12 +326,12 @@ namespace TestCaseManagerApp.Views
                 TestCase currentTestCase = dgTestCases.SelectedItem as TestCase;
                 if (currentTestCase.ITestSuiteBase != null)
                 {
-                    log.InfoFormat("Preview test case with id= \"{0}\" and suiteId= \"{1}\"", currentTestCase.ITestCase.Id, currentTestCase.ITestSuiteBase.Id);
+                    Log.InfoFormat("Preview test case with id= \"{0}\" and suiteId= \"{1}\"", currentTestCase.ITestCase.Id, currentTestCase.ITestSuiteBase.Id);
                     this.NavigateToTestCasesEditView(currentTestCase.ITestCase.Id, currentTestCase.ITestSuiteBase.Id);
                 }
                 else
                 {
-                    log.InfoFormat("Preview test case with id= \"{0}\" and suiteId= \"{1}\"", currentTestCase.ITestCase.Id, -1);
+                    Log.InfoFormat("Preview test case with id= \"{0}\" and suiteId= \"{1}\"", currentTestCase.ITestCase.Id, -1);
                     this.NavigateToTestCasesEditView(currentTestCase.ITestCase.Id, -1);
                 }
             });
@@ -350,12 +349,12 @@ namespace TestCaseManagerApp.Views
                 TestCase currentTestCase = dgTestCases.SelectedItem as TestCase;
                 if (currentTestCase.ITestSuiteBase != null)
                 {
-                    log.InfoFormat("Preview test case with id= \"{0}\" and suiteId= \"{1}\"", currentTestCase.ITestCase.Id, currentTestCase.ITestSuiteBase.Id);
+                    Log.InfoFormat("Preview test case with id= \"{0}\" and suiteId= \"{1}\"", currentTestCase.ITestCase.Id, currentTestCase.ITestSuiteBase.Id);
                     this.NavigateToTestCasesEditView(currentTestCase.ITestCase.Id, currentTestCase.ITestSuiteBase.Id, true, true);
                 }
                 else
                 {
-                    log.InfoFormat("Preview test case with id= \"{0}\" and suiteId= \"{1}\"", currentTestCase.ITestCase.Id, -1);
+                    Log.InfoFormat("Preview test case with id= \"{0}\" and suiteId= \"{1}\"", currentTestCase.ITestCase.Id, -1);
                     this.NavigateToTestCasesEditView(currentTestCase.ITestCase.Id, -1, true, true);
                 }                
             });
@@ -369,7 +368,7 @@ namespace TestCaseManagerApp.Views
         private void btnNew_Click(object sender, RoutedEventArgs e)
         {
             int selectedSuiteId = RegistryManager.GetSelectedSuiteId();
-            log.InfoFormat("Navigate to Create New Test Case, steiId= \"{0}\"", selectedSuiteId);
+            Log.InfoFormat("Navigate to Create New Test Case, steiId= \"{0}\"", selectedSuiteId);
             this.NavigateToTestCasesEditView(selectedSuiteId, true, false);
         }
 
@@ -400,7 +399,7 @@ namespace TestCaseManagerApp.Views
         /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void tbTextSuiteFilter_GotFocus(object sender, RoutedEventArgs e)
         {
-            //tbSuiteFilter.ClearDefaultContent(ref TestCasesInitialViewModel.InitialViewFilters.IsSuiteTextSet);
+			////tbSuiteFilter.ClearDefaultContent(ref TestCasesInitialViewModel.InitialViewFilters.IsSuiteTextSet);
         }
 
         /// <summary>
@@ -430,7 +429,7 @@ namespace TestCaseManagerApp.Views
         /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void tbSuiteFilter_LostFocus(object sender, RoutedEventArgs e)
         {
-            //tbSuiteFilter.RestoreDefaultText(this.TestCasesInitialViewModel.InitialViewFilters.DetaultSuite, ref this.TestCasesInitialViewModel.InitialViewFilters.IsSuiteTextSet);
+			////tbSuiteFilter.RestoreDefaultText(this.TestCasesInitialViewModel.InitialViewFilters.DetaultSuite, ref this.TestCasesInitialViewModel.InitialViewFilters.IsSuiteTextSet);
         }
 
         /// <summary>
@@ -511,7 +510,6 @@ namespace TestCaseManagerApp.Views
         private void tbPriorityFilter_LostFocus(object sender, RoutedEventArgs e)
         {
             tbPriorityFilter.RestoreDefaultText(this.TestCasesInitialViewModel.InitialViewFilters.DetaultPriority, ref this.TestCasesInitialViewModel.InitialViewFilters.IsPriorityTextSet);
-
         }
 
         /// <summary>
@@ -540,12 +538,12 @@ namespace TestCaseManagerApp.Views
                 TestCase currentTestCase = dgTestCases.SelectedItem as TestCase;
                 if (currentTestCase.ITestSuiteBase != null)
                 {
-                    log.InfoFormat("Edit test case with id: {0} and suite id {1}", currentTestCase.ITestCase.Id, currentTestCase.ITestSuiteBase.Id);
+                    Log.InfoFormat("Edit test case with id: {0} and suite id {1}", currentTestCase.ITestCase.Id, currentTestCase.ITestSuiteBase.Id);
                     this.NavigateToTestCasesEditView(currentTestCase.ITestCase.Id, currentTestCase.ITestSuiteBase.Id);
                 }
                 else
                 {
-                    log.InfoFormat("Edit test case with id: {0} and suite id {1}", currentTestCase.ITestCase.Id, -1);
+                    Log.InfoFormat("Edit test case with id: {0} and suite id {1}", currentTestCase.ITestCase.Id, -1);
                     this.NavigateToTestCasesEditView(currentTestCase.ITestCase.Id, -1);
                 }                
             }
@@ -609,7 +607,7 @@ namespace TestCaseManagerApp.Views
                 {
 					suiteTestCaseCollection = TestCaseManager.GetAllTestCasesInTestPlan(ExecutionContext.TestManagementTeamProject, ExecutionContext.Preferences.TestPlan, false);
                     shouldHideMenuItems = true;
-                    log.InfoFormat("Load all test cases in the test plan.");
+                    Log.InfoFormat("Load all test cases in the test plan.");
                 }
             });
             t.ContinueWith(antecedent =>
@@ -1334,13 +1332,14 @@ namespace TestCaseManagerApp.Views
             this.SetNewExecutionOutcomeInternal(TestCaseExecutionType.Passed);
         }
 
-        /// <summary>
-        /// Sets the new execution outcome internal.
-        /// </summary>
+		/// <summary>
+		/// Sets the new execution outcome internal.
+		/// </summary>
+		/// <param name="testCaseExecutionType">Type of the test case execution.</param>
         private void SetNewExecutionOutcomeInternal(TestCaseExecutionType testCaseExecutionType)
         {
             bool shouldCommentWindowShow = RegistryManager.ReadShouldCommentWindowShow();
-            string comment = String.Empty;
+            string comment = string.Empty;
             bool isCanceled = false;
             if (shouldCommentWindowShow && testCaseExecutionType != TestCaseExecutionType.Active)
             {
@@ -1420,9 +1419,7 @@ namespace TestCaseManagerApp.Views
         /// <param name="e">The <see cref="System.Windows.Input.KeyEventArgs"/> instance containing the event data.</param>
         private void tvSuites_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
         {
-            char keyPressedChar = (char)e.Key;
-            char f2Char = (char)91;
-            if ((System.Windows.Forms.Control.ModifierKeys == Keys.None) && ((keyPressedChar  & f2Char) != 0))
+			if (System.Windows.Forms.Control.ModifierKeys == Keys.None && e.Key.Equals(Key.F2))
             {
                 this.RenameSuiteInternal();
                 e.Handled = true;
@@ -1461,7 +1458,7 @@ namespace TestCaseManagerApp.Views
                 {
                     ExecutionContext.SelectedTestCasesForChange.Add(currentTestCase);
                 }
-                log.Info("Navigate to TestCaseBatchDuplicateView initialized with selected test cases.");
+                Log.Info("Navigate to TestCaseBatchDuplicateView initialized with selected test cases.");
                 this.NavigateToTestCaseBatchDuplicateView(true, true);
             }
         }
@@ -1475,9 +1472,10 @@ namespace TestCaseManagerApp.Views
         {
             if (this.isShowTestCasesSubsuiteAlreadyUnchecked)
             {
-                ShowTestCasesProgressbar();
+                this.ShowTestCasesProgressbar();
                 int selectedSuiteId = RegistryManager.GetSelectedSuiteId();
                 this.InitializeTestCasesBySelectedSuiteIdInternal(selectedSuiteId);
+				RegistryManager.WriteShowSubsuiteTestCases(false);
             }
         }
 
@@ -1494,7 +1492,7 @@ namespace TestCaseManagerApp.Views
                 return;
             }
             RegistryManager.WriteShowSubsuiteTestCases(true);
-            ShowTestCasesProgressbar();
+            this.ShowTestCasesProgressbar();
             List<TestCase> testCasesList = new List<TestCase>();
             Task t = Task.Factory.StartNew(() =>
             {
@@ -1520,7 +1518,7 @@ namespace TestCaseManagerApp.Views
 		/// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
 		private void btnShowTestCaseWithoutSuite1_Click(object sender, RoutedEventArgs e)
 		{
-			ShowProgressBar();
+			this.ShowProgressBar();
 			Task t = Task.Factory.StartNew(() =>
 			{
 				this.TestCasesInitialViewModel.FilterSuitesWithoutSuite();
