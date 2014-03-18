@@ -201,6 +201,7 @@
     </Compile>
     <Compile Include="Views\TestCaseEditView.xaml.cs">
       <DependentUpon>TestCaseEditView.xaml</DependentUpon>
+      <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
     </Compile>
     <Compile Include="Views\ProjectSelectionView.xaml.cs">
       <DependentUpon>ProjectSelectionView.xaml</DependentUpon>

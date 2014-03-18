@@ -2,21 +2,16 @@
 // https://testcasemanager.codeplex.com/ All rights reserved.
 // </copyright>
 // <author>Anton Angelov</author>
-using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Forms;
-using System.Windows.Input;
 using FirstFloor.ModernUI.Windows;
 using FirstFloor.ModernUI.Windows.Controls;
 using FirstFloor.ModernUI.Windows.Navigation;
-using TestCaseManagerCore.BusinessLogic.Entities;
-using TestCaseManagerCore.ViewModels;
 using TestCaseManagerCore;
-using System.Collections.Generic;
+using TestCaseManagerCore.BusinessLogic.Entities;
 using TestCaseManagerCore.BusinessLogic.Managers;
-using System.Text;
+using TestCaseManagerCore.ViewModels;
 
 namespace TestCaseManagerApp.Views
 {
@@ -33,7 +28,7 @@ namespace TestCaseManagerApp.Views
         /// <summary>
         /// The log
         /// </summary>
-        private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly log4net.ILog Log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         /// <summary>
         /// The suite unique identifier
@@ -169,7 +164,7 @@ namespace TestCaseManagerApp.Views
 
             if (!isCanceled)
             {
-                log.InfoFormat("Add New Test Plan with Name=\"{0}\"", newTitle);
+                Log.InfoFormat("Add New Test Plan with Name=\"{0}\"", newTitle);
                 this.TestPlansEditViewModel.AddTestPlan(newTitle);
             }
         }
@@ -193,7 +188,7 @@ namespace TestCaseManagerApp.Views
             }
             foreach (TestPlan currentTestPlan in testPlansToBeDeleted)
             {
-                log.InfoFormat("Delete Test Plan with Name=\"{0}\" Id = \"{1}\"", currentTestPlan.Name, currentTestPlan.Id);
+                Log.InfoFormat("Delete Test Plan with Name=\"{0}\" Id = \"{1}\"", currentTestPlan.Name, currentTestPlan.Id);
                 this.TestPlansEditViewModel.DeleteTestPlan(currentTestPlan);
             }
         }
@@ -205,7 +200,7 @@ namespace TestCaseManagerApp.Views
         /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void btnFinish_Click(object sender, RoutedEventArgs e)
         {
-            log.Info("Navigate to ProjectSelectionView");
+            Log.Info("Navigate to ProjectSelectionView");
             this.NavigateToProjectSelection();
         }   
     }

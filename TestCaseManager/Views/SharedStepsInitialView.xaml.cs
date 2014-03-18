@@ -3,6 +3,7 @@
 // </copyright>
 // <author>Anton Angelov</author>
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -11,12 +12,10 @@ using System.Windows.Input;
 using FirstFloor.ModernUI.Windows;
 using FirstFloor.ModernUI.Windows.Controls;
 using FirstFloor.ModernUI.Windows.Navigation;
-using TestCaseManagerCore.BusinessLogic.Entities;
-using TestCaseManagerCore.ViewModels;
 using TestCaseManagerCore;
-using System.Collections.Generic;
+using TestCaseManagerCore.BusinessLogic.Entities;
 using TestCaseManagerCore.BusinessLogic.Managers;
-using System.Text;
+using TestCaseManagerCore.ViewModels;
 
 namespace TestCaseManagerApp.Views
 {
@@ -53,7 +52,7 @@ namespace TestCaseManagerApp.Views
         /// <summary>
         /// The log
         /// </summary>
-        private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly log4net.ILog Log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         /// <summary>
         /// Initializes a new instance of the <see cref="TestCasesInitialView"/> class.
@@ -205,7 +204,7 @@ namespace TestCaseManagerApp.Views
             this.ValidateSharedStepsSelection(() =>
             {
                 SharedStep currentSharedStep = dgSharedSteps.SelectedItem as SharedStep;
-                log.InfoFormat("Edit Shared Step with id: {0} ", currentSharedStep.ISharedStep.Id);
+                Log.InfoFormat("Edit Shared Step with id: {0} ", currentSharedStep.ISharedStep.Id);
                 this.NavigateToTestCasesEditView(true, currentSharedStep.ISharedStep.Id);
             });
         }
@@ -220,7 +219,7 @@ namespace TestCaseManagerApp.Views
             this.ValidateSharedStepsSelection(() =>
             {
                 SharedStep currentSharedStep = dgSharedSteps.SelectedItem as SharedStep;
-                log.InfoFormat("Duplicate Shared Step with id: {0} ", currentSharedStep.ISharedStep.Id);
+                Log.InfoFormat("Duplicate Shared Step with id: {0} ", currentSharedStep.ISharedStep.Id);
                 this.NavigateToTestCasesEditView(true, currentSharedStep.ISharedStep.Id, true, true);
             });
         }
@@ -232,7 +231,7 @@ namespace TestCaseManagerApp.Views
         /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void btnNew_Click(object sender, RoutedEventArgs e)
         {
-            log.Info("Navigate to Create New Shared Step");
+            Log.Info("Navigate to Create New Shared Step");
             this.NavigateToTestCasesEditView(true, true, false);
         }
 
@@ -446,7 +445,7 @@ namespace TestCaseManagerApp.Views
             if (dgSharedSteps.SelectedItem != null)
             {
                 SharedStep currentSharedStep = dgSharedSteps.SelectedItem as SharedStep;
-                log.InfoFormat("Edit Shared Step with id: {0} ", currentSharedStep.ISharedStep.Id);
+                Log.InfoFormat("Edit Shared Step with id: {0} ", currentSharedStep.ISharedStep.Id);
                 this.NavigateToTestCasesEditView(true, currentSharedStep.ISharedStep.Id);
             }
         }
@@ -521,7 +520,7 @@ namespace TestCaseManagerApp.Views
             List<TestCase> filteredTestCases = new List<TestCase>();
             Task t = Task.Factory.StartNew(() =>
             {
-                log.InfoFormat("Find all reference Test Cases for Shared Step with id: {0} ", this.SharedStepsInitialViewModel.SelectedSharedStep.Id);
+                Log.InfoFormat("Find all reference Test Cases for Shared Step with id: {0} ", this.SharedStepsInitialViewModel.SelectedSharedStep.Id);
 				filteredTestCases = TestCaseManager.FindAllReferenceTestCasesForShareStep(ExecutionContext.TestManagementTeamProject, ExecutionContext.Preferences.TestPlan, this.SharedStepsInitialViewModel.SelectedSharedStep.Id);
                 this.SharedStepsInitialViewModel.InitialTestCaseCollection = filteredTestCases;
             });
@@ -550,12 +549,12 @@ namespace TestCaseManagerApp.Views
             TestCase currentTestCase = dgTestCases.SelectedItem as TestCase;
             if (currentTestCase.ITestSuiteBase != null)
             {
-                log.InfoFormat("Edit test case with id: {0} and suite id {1}", currentTestCase.ITestCase.Id, currentTestCase.ITestSuiteBase.Id);               
+                Log.InfoFormat("Edit test case with id: {0} and suite id {1}", currentTestCase.ITestCase.Id, currentTestCase.ITestSuiteBase.Id);               
                 this.NavigateToTestCasesEditView(currentTestCase.ITestCase.Id, currentTestCase.ITestSuiteBase.Id);
             }
             else
             {
-                 log.InfoFormat("Edit test case with id: {0}", currentTestCase.ITestCase.Id);
+                 Log.InfoFormat("Edit test case with id: {0}", currentTestCase.ITestCase.Id);
                 this.NavigateToTestCasesEditView(currentTestCase.ITestCase.Id, -1);
             }
         }
@@ -578,7 +577,7 @@ namespace TestCaseManagerApp.Views
                 {
                     ExecutionContext.SelectedTestCasesForChange.Add(currentTestCase);
                 }
-                log.Info("Navigate to TestCaseBatchDuplicateView initialized with selected test cases.");
+                Log.Info("Navigate to TestCaseBatchDuplicateView initialized with selected test cases.");
                 this.NavigateToTestCaseBatchDuplicateView(true, true);
             }
         }

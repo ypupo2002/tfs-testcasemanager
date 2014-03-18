@@ -2,17 +2,14 @@
 // https://testcasemanager.codeplex.com/ All rights reserved.
 // </copyright>
 // <author>Anton Angelov</author>
-using System;
-using System.Linq;
 using System.Windows;
 using FirstFloor.ModernUI.Windows;
-using FirstFloor.ModernUI.Windows.Controls;
 using FirstFloor.ModernUI.Windows.Navigation;
+using TestCaseManagerCore;
 using TestCaseManagerCore.BusinessLogic.Entities;
 using TestCaseManagerCore.BusinessLogic.Managers;
 using TestCaseManagerCore.Helpers;
 using TestCaseManagerCore.ViewModels;
-using TestCaseManagerCore;
 
 namespace TestCaseManagerApp.Views
 {
@@ -24,7 +21,7 @@ namespace TestCaseManagerApp.Views
         /// <summary>
         /// The log
         /// </summary>
-        private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly log4net.ILog Log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AssociateTestView"/> class.
@@ -219,7 +216,7 @@ namespace TestCaseManagerApp.Views
             string testType = cbTestType.Text;
             this.AssociateTestViewModel.AssociateTestCaseToTest(currentSelectedTest, testType);
 
-            log.InfoFormat("Navigate to Edit Test Case with id= {0}, test suite id= {1}, CreateNew= {2}, Duplicate= {3}", AssociateTestViewModel.TestCaseId, AssociateTestViewModel.TestSuiteId, AssociateTestViewModel.CreateNew, AssociateTestViewModel.Duplicate);
+            Log.InfoFormat("Navigate to Edit Test Case with id= {0}, test suite id= {1}, CreateNew= {2}, Duplicate= {3}", AssociateTestViewModel.TestCaseId, AssociateTestViewModel.TestSuiteId, AssociateTestViewModel.CreateNew, AssociateTestViewModel.Duplicate);
             this.NavigateToTestCasesEditView(AssociateTestViewModel.TestCaseId, AssociateTestViewModel.TestSuiteId, AssociateTestViewModel.CreateNew, AssociateTestViewModel.Duplicate);
         }
 

@@ -24,7 +24,7 @@ namespace TestCaseManagerApp.Views
         /// <summary>
         /// The log
         /// </summary>
-        private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly log4net.ILog Log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         /// <summary>
         /// The edit command
@@ -87,7 +87,7 @@ namespace TestCaseManagerApp.Views
             this.ShowProgressBar();
             Task t = Task.Factory.StartNew(() =>
             {
-                log.InfoFormat("Preview test case with id: {0} and suite id {1}", this.TestCaseId, this.TestSuiteId);
+                Log.InfoFormat("Preview test case with id: {0} and suite id {1}", this.TestCaseId, this.TestSuiteId);
                 TestCaseDetailedViewModel = new TestCaseDetailedViewModel(this.TestCaseId, this.TestSuiteId);
             });
             t.ContinueWith(antecedent =>
@@ -166,12 +166,12 @@ namespace TestCaseManagerApp.Views
         {
             if (TestCaseDetailedViewModel.TestCase.ITestSuiteBase != null)
             {
-                log.InfoFormat("Edit test case with id: {0} and suite id {1}", TestCaseDetailedViewModel.TestCase.ITestCase.Id, TestCaseDetailedViewModel.TestCase.ITestSuiteBase.Id);
+                Log.InfoFormat("Edit test case with id: {0} and suite id {1}", TestCaseDetailedViewModel.TestCase.ITestCase.Id, TestCaseDetailedViewModel.TestCase.ITestSuiteBase.Id);
                 this.NavigateToTestCasesEditView(TestCaseDetailedViewModel.TestCase.ITestCase.Id, TestCaseDetailedViewModel.TestCase.ITestSuiteBase.Id);
             }
             else
             {
-                log.InfoFormat("Edit test case with id: {0}", TestCaseDetailedViewModel.TestCase.ITestCase.Id);
+                Log.InfoFormat("Edit test case with id: {0}", TestCaseDetailedViewModel.TestCase.ITestCase.Id);
                 this.NavigateToTestCasesEditView(TestCaseDetailedViewModel.TestCase.ITestCase.Id, -1);
             }            
         }
@@ -185,12 +185,12 @@ namespace TestCaseManagerApp.Views
         {
             if (TestCaseDetailedViewModel.TestCase.ITestSuiteBase != null)
             {
-                log.InfoFormat("Duplicate test case with id: {0} and suite id {1}", TestCaseDetailedViewModel.TestCase.ITestCase.Id, TestCaseDetailedViewModel.TestCase.ITestSuiteBase.Id);
+                Log.InfoFormat("Duplicate test case with id: {0} and suite id {1}", TestCaseDetailedViewModel.TestCase.ITestCase.Id, TestCaseDetailedViewModel.TestCase.ITestSuiteBase.Id);
                 this.NavigateToTestCasesEditView(TestCaseDetailedViewModel.TestCase.ITestCase.Id, TestCaseDetailedViewModel.TestCase.ITestSuiteBase.Id, true, true);
             }
             else
             {
-                log.InfoFormat("Duplicate test case with id: {0}", TestCaseDetailedViewModel.TestCase.ITestCase.Id);
+                Log.InfoFormat("Duplicate test case with id: {0}", TestCaseDetailedViewModel.TestCase.ITestCase.Id);
                 this.NavigateToTestCasesEditView(TestCaseDetailedViewModel.TestCase.ITestCase.Id, -1, true, true);
             }            
         }

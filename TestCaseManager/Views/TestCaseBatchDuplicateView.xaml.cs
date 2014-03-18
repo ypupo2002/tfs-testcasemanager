@@ -29,7 +29,7 @@ namespace TestCaseManagerApp.Views
         /// <summary>
         /// The log
         /// </summary>
-        private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly log4net.ILog Log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         /// <summary>
         /// Indicates if the view model is already initialized
@@ -528,19 +528,19 @@ namespace TestCaseManagerApp.Views
                 TestCase currentTestCase = dgTestCases.SelectedItem as TestCase;
                 if (currentTestCase.ITestSuiteBase != null)
                 {
-                    log.InfoFormat("Edit test case with id: {0} and suite id {1}", currentTestCase.ITestCase.Id, currentTestCase.ITestSuiteBase.Id);
+                    Log.InfoFormat("Edit test case with id: {0} and suite id {1}", currentTestCase.ITestCase.Id, currentTestCase.ITestSuiteBase.Id);
                     this.NavigateToTestCasesEditView(currentTestCase.ITestCase.Id, currentTestCase.ITestSuiteBase.Id);
                 }
                 else
                 {
-                    log.InfoFormat("Edit test case with id: {0}", currentTestCase.ITestCase.Id);
+                    Log.InfoFormat("Edit test case with id: {0}", currentTestCase.ITestCase.Id);
                     this.NavigateToTestCasesEditView(currentTestCase.ITestCase.Id, -1);
                 }
             }
             else
             {
                 SharedStep currentSharedStep = dgTestCases.SelectedItem as SharedStep;
-                log.InfoFormat("Edit Shared Step with id: {0} ", currentSharedStep.ISharedStep.Id);
+                Log.InfoFormat("Edit Shared Step with id: {0} ", currentSharedStep.ISharedStep.Id);
                 this.NavigateToTestCasesEditView(true, currentSharedStep.ISharedStep.Id);
             }
         }
