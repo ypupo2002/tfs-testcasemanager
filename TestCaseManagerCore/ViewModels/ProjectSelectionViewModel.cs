@@ -16,7 +16,7 @@ namespace TestCaseManagerCore.ViewModels
         /// <summary>
         /// The log
         /// </summary>
-       private static readonly log4net.ILog Log = log4net.LogManager.GetLogger(System.Reflection.Methodthis.GetCurrentMethod().DeclaringType);
+		private static readonly log4net.ILog Log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
 		/// <summary>
 		/// The test management team project

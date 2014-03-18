@@ -308,3 +308,6 @@ D:\Codeplex\TestCaseManager\TestCaseManager\obj\Release\TestCaseManagerApp.Prope
 D:\Codeplex\TestCaseManager\TestCaseManager\obj\Release\TestCaseManager.csproj.GenerateResource.Cache
 D:\Codeplex\TestCaseManager\TestCaseManager\obj\Release\TestCaseManager.exe.manifest
 D:\Codeplex\TestCaseManager\TestCaseManager\obj\Release\TestCaseManager.application
+D:\Codeplex\TestCaseManager\TestCaseManager\obj\Release\Views\ReportingView.g.cs
+D:\Codeplex\TestCaseManager\TestCaseManager\bin\Release\De.TorstenMandelkow.MetroChart.dll
+D:\Codeplex\TestCaseManager\TestCaseManager\obj\Release\Views\ReportingView.baml
