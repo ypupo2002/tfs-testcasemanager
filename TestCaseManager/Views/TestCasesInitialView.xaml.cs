@@ -562,8 +562,8 @@ namespace TestCaseManagerApp.Views
         {
             this.isShowTestCasesSubsuiteAlreadyUnchecked = false;
             e.Handled = true;
-            int selectedSuiteId = (int)tvSuites.SelectedValue;         
-
+            int selectedSuiteId = (int)tvSuites.SelectedValue;
+			this.tbSuiteId.Text = selectedSuiteId.ToString();
             btnArrange.Visibility = System.Windows.Visibility.Visible;
             btnArrange1.Visibility = System.Windows.Visibility.Visible;
 			if (selectedSuiteId == -1 || !TestSuiteManager.IsStaticSuite(ExecutionContext.TestManagementTeamProject, selectedSuiteId))
