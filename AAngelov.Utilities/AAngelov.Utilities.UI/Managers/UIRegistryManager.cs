@@ -1,0 +1,241 @@
+﻿using AAngelov.Utilities.Managers;
+
+namespace AAngelov.Utilities.UI.Managers
+{
+    /// <summary>
+    /// Contains UI App related Registry methods
+    /// </summary>
+    public class UIRegistryManager : BaseRegistryManager
+    {
+        /// <summary>
+        /// The instance
+        /// </summary>
+        private static UIRegistryManager instance;
+
+        /// <summary>
+        /// The is window closed from executable sub key name
+        /// </summary>
+        private readonly string isWindowClosedFromXSubKeyName = "isWindowClosedFromX";
+
+        /// <summary>
+        /// The theme registry sub key name
+        /// </summary>
+        private readonly string themeRegistrySubKeyName = "theme";
+
+        /// <summary>
+        /// The color registry sub key name
+        /// </summary>
+        private readonly string colorRegistrySubKeyName = "color";
+
+        /// <summary>
+        /// The shouldOpenDropDownOnHover registry sub key name- shows if the drop downs will be opened on hover
+        /// </summary>
+        private readonly string shouldOpenDropDownOnHoverRegistrySubKeyName = "shouldOpenDropDrownOnHover";
+
+        /// <summary>
+        /// The title prompt dialog registry sub key name
+        /// </summary>
+        private readonly string titlePromptDialogRegistrySubKeyName = "titlePromptDialog";
+
+        /// <summary>
+        /// The checkbox prompt dialog is submitted registry sub key name
+        /// </summary>
+        private readonly string checkboxPromptDialogIsSubmittedRegistrySubKeyName = "checkboxPromptDialogIsSubmitted";
+
+        /// <summary>
+        /// The checked properties prompt dialog registry sub key name
+        /// </summary>
+        private readonly string checkedPropertiesPromptDialogRegistrySubKeyName = "checkedPropertiesPromptDialog";
+
+        /// <summary>
+        /// The title prompt dialog is canceled registry sub key name
+        /// </summary>
+        private readonly string isCanceledtitlePromptDialogRegistrySubKeyName = "titlePromptDialogIsCanceled";
+
+        /// <summary>
+        /// The title title prompt dialog is canceled registry sub key name
+        /// </summary>
+        private readonly string titleTitlePromptDialogIsCanceledRegistrySubKeyName = "titleTitlePromptDialog";
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="UIRegistryManager"/> class.
+        /// </summary>
+        public UIRegistryManager()
+        {
+            this.MainRegistrySubKey = "YouTubeToGroovesharkImporter/UI";
+        }
+
+        /// <summary>
+        /// Gets the instance.
+        /// </summary>
+        /// <value>
+        /// The instance.
+        /// </value>
+        public static UIRegistryManager Instance 
+        {
+            get
+            {
+                if(instance == null)
+                {
+                    instance = new UIRegistryManager();
+                }
+                return instance;
+            }
+        }
+
+        /// <summary>
+        /// Writes the current theme to registry.
+        /// </summary>
+        /// <param name="theme">The theme name.</param>
+        public void WriteCurrentTheme(string theme)
+        {
+            Write(this.GenerateMergedKey(themeRegistrySubKeyName), theme); 
+        }
+
+        /// <summary>
+        /// Writes the is window closed from executable.
+        /// </summary>
+        /// <param name="isWindowClosedFromX">if set to <c>true</c> [is window closed from executable].</param>
+        public void WriteIsWindowClosedFromX(bool isWindowClosedFromX)
+        {
+            Write(this.GenerateMergedKey(isWindowClosedFromXSubKeyName), isWindowClosedFromX); 
+        }
+
+        /// <summary>
+        /// Writes the is checkbox dialog submitted.
+        /// </summary>
+        /// <param name="IsCheckboxDialogSubmitted">if set to <c>true</c> [is checkbox dialog submitted].</param>
+        public void WriteIsCheckboxDialogSubmitted(bool isCheckboxDialogSubmitted)
+        {
+            Write(this.GenerateMergedKey(checkboxPromptDialogIsSubmittedRegistrySubKeyName), isCheckboxDialogSubmitted); 
+        }
+
+        /// <summary>
+        /// Writes the checked properties automatic be exported.
+        /// </summary>
+        /// <param name="checkedPropertiesToBeExported">The checked properties automatic be exported.</param>
+        public void WriteCheckedPropertiesToBeExported(string checkedPropertiesToBeExported)
+        {
+            Write(this.GenerateMergedKey(checkedPropertiesPromptDialogRegistrySubKeyName), checkedPropertiesToBeExported); 
+        }    
+
+        /// <summary>
+        /// Writes the drop down behavior to registry.
+        /// </summary>
+        /// <param name="shouldOpenDropDownOnHover">if set to <c>true</c> [should open drop down configuration hover].</param>
+        public void WriteDropDownBehavior(bool shouldOpenDropDownOnHover)
+        {
+            Write(this.GenerateMergedKey(shouldOpenDropDownOnHoverRegistrySubKeyName), shouldOpenDropDownOnHover); 
+        }
+
+        /// <summary>
+        /// Writes the if the title promt dialog is canceled .
+        /// </summary>
+        /// <param name="isCanceled">if set to <c>true</c> [is canceled].</param>
+        public void WriteIsCanceledTitlePromtDialog(bool isCanceled)
+        {
+            Write(this.GenerateMergedKey(titlePromptDialogRegistrySubKeyName, isCanceledtitlePromptDialogRegistrySubKeyName), isCanceled); 
+        }
+
+        /// <summary>
+        /// Writes the title in title promt dialog.
+        /// </summary>
+        /// <param name="title">The title.</param>
+        public void WriteTitleTitlePromtDialog(string title)
+        {
+            Write(this.GenerateMergedKey(titlePromptDialogRegistrySubKeyName, titleTitlePromptDialogIsCanceledRegistrySubKeyName), title); 
+        }
+
+        /// <summary>
+        /// Writes the current colors to registry.
+        /// </summary>
+        /// <param name="red">The red part.</param>
+        /// <param name="green">The green part.</param>
+        /// <param name="blue">The blue part.</param>
+        public void WriteCurrentColors(byte red, byte green, byte blue)
+        {
+            Write(this.GenerateMergedKey(colorRegistrySubKeyName), string.Format("{0}&{1}&{2}", red, green, blue)); 
+        }
+
+
+        /// <summary>
+        /// Reads the is window closed from executable.
+        /// </summary>
+        /// <returns></returns>
+        public bool ReadIsWindowClosedFromX()
+        {
+            return ReadBool(GenerateMergedKey(isWindowClosedFromXSubKeyName));
+        }
+
+        /// <summary>
+        /// Reads the is checkbox dialog submitted.
+        /// </summary>
+        /// <returns>is checkbox dialog submitted</returns>
+        public bool ReadIsCheckboxDialogSubmitted()
+        {
+            return ReadBool(GenerateMergedKey(checkboxPromptDialogIsSubmittedRegistrySubKeyName));
+        }
+
+        /// <summary>
+        /// Reads the checked properties automatic be exported.
+        /// </summary>
+        /// <returns>check properties to be exported</returns>
+        public string ReadCheckedPropertiesToBeExported()
+        {
+            return ReadStr(GenerateMergedKey(checkedPropertiesPromptDialogRegistrySubKeyName));
+
+        }
+
+        /// <summary>
+        /// Gets the title in title promt dialog.
+        /// </summary>
+        /// <returns>the title</returns>
+        public string GetContentPromtDialog()
+        {
+            return ReadStr(GenerateMergedKey(titlePromptDialogRegistrySubKeyName, titleTitlePromptDialogIsCanceledRegistrySubKeyName));
+        }
+
+        /// <summary>
+        /// Gets if the title promt dialog is canceled.
+        /// </summary>
+        /// <returns> if the title promt dialog was canceled</returns>
+        public bool GetIsCanceledPromtDialog()
+        {
+            return ReadBool(GenerateMergedKey(titlePromptDialogRegistrySubKeyName, isCanceledtitlePromptDialogRegistrySubKeyName));
+        }
+
+        /// <summary>
+        /// Gets the colors from registry.
+        /// </summary>
+        /// <returns>the colors</returns>
+        public string[] GetColors()
+        {
+            string[] colorsStr = null;
+            string colors = ReadStr(GenerateMergedKey(colorRegistrySubKeyName));
+            if (!string.IsNullOrEmpty(colors))
+            {
+                colorsStr = colors.Split('&');
+            }
+
+            return colorsStr;
+        }
+
+        /// <summary>
+        /// Gets the theme from registry.
+        /// </summary>
+        /// <returns>the theme</returns>
+        public string GetTheme()
+        {
+            return ReadStr(GenerateMergedKey(themeRegistrySubKeyName));
+        }
+
+        /// <summary>
+        /// Gets the drop down behavior from registry.
+        /// </summary>
+        /// <returns>drop down behavior</returns>
+        public bool GetDropDownBehavior()
+        {
+            return ReadBool(GenerateMergedKey(shouldOpenDropDownOnHoverRegistrySubKeyName));
+        }
+    }
+}
