@@ -11,6 +11,8 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
 	using System.IO;
 	using System.Web.Script.Serialization;
 	using System.Linq;
+    using AAngelov.Utilities.UI.Managers;
+    using AAngelov.Utilities.UI.Enums;
 
 	/// <summary>
     /// Used to log the current process of the migration and supports the retry logic
@@ -43,7 +45,7 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
 		public MigrationLogManager(string prefix, string folderPath)
 			: this()
 		{
-			base.Initialize(Enums.FileType.JSON, prefix, folderPath);
+			base.Initialize(FileType.JSON, prefix, folderPath);
 		}
 
 		/// <summary>

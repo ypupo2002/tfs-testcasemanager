@@ -13,6 +13,7 @@ using TestCaseManagerCore;
 using TestCaseManagerCore.BusinessLogic.Enums;
 using TestCaseManagerCore.BusinessLogic.Managers;
 using TestCaseManagerCore.ViewModels;
+using AAngelov.Utilities.UI.Managers;
 
 namespace TestCaseManagerApp.Views
 {
@@ -167,12 +168,12 @@ namespace TestCaseManagerApp.Views
             if (TestCaseDetailedViewModel.TestCase.ITestSuiteBase != null)
             {
                 log.InfoFormat("Edit test case with id: {0} and suite id {1}", TestCaseDetailedViewModel.TestCase.ITestCase.Id, TestCaseDetailedViewModel.TestCase.ITestSuiteBase.Id);
-                this.NavigateToTestCasesEditView(TestCaseDetailedViewModel.TestCase.ITestCase.Id, TestCaseDetailedViewModel.TestCase.ITestSuiteBase.Id);
+                Navigator.Instance.NavigateToTestCasesEditView(this, TestCaseDetailedViewModel.TestCase.ITestCase.Id, TestCaseDetailedViewModel.TestCase.ITestSuiteBase.Id);
             }
             else
             {
                 log.InfoFormat("Edit test case with id: {0}", TestCaseDetailedViewModel.TestCase.ITestCase.Id);
-                this.NavigateToTestCasesEditView(TestCaseDetailedViewModel.TestCase.ITestCase.Id, -1);
+                Navigator.Instance.NavigateToTestCasesEditView(this, TestCaseDetailedViewModel.TestCase.ITestCase.Id, -1);
             }            
         }
 
@@ -186,12 +187,12 @@ namespace TestCaseManagerApp.Views
             if (TestCaseDetailedViewModel.TestCase.ITestSuiteBase != null)
             {
                 log.InfoFormat("Duplicate test case with id: {0} and suite id {1}", TestCaseDetailedViewModel.TestCase.ITestCase.Id, TestCaseDetailedViewModel.TestCase.ITestSuiteBase.Id);
-                this.NavigateToTestCasesEditView(TestCaseDetailedViewModel.TestCase.ITestCase.Id, TestCaseDetailedViewModel.TestCase.ITestSuiteBase.Id, true, true);
+                Navigator.Instance.NavigateToTestCasesEditView(this, TestCaseDetailedViewModel.TestCase.ITestCase.Id, TestCaseDetailedViewModel.TestCase.ITestSuiteBase.Id, true, true);
             }
             else
             {
                 log.InfoFormat("Duplicate test case with id: {0}", TestCaseDetailedViewModel.TestCase.ITestCase.Id);
-                this.NavigateToTestCasesEditView(TestCaseDetailedViewModel.TestCase.ITestCase.Id, -1, true, true);
+                Navigator.Instance.NavigateToTestCasesEditView(this, TestCaseDetailedViewModel.TestCase.ITestCase.Id, -1, true, true);
             }            
         }
 
@@ -212,25 +213,25 @@ namespace TestCaseManagerApp.Views
         /// </summary>
         private void SetNewExecutionOutcomeInternal(TestCaseExecutionType testCaseExecutionType)
         {
-            bool shouldCommentWindowShow = RegistryManager.ReadShouldCommentWindowShow();
+            bool shouldCommentWindowShow = RegistryManager.Instance.ReadShouldCommentWindowShow();
             string comment = String.Empty;
             bool isCanceled = false;
             if (shouldCommentWindowShow && testCaseExecutionType != TestCaseExecutionType.Active)
             {
-                RegistryManager.WriteTitleTitlePromtDialog(string.Empty);
+                UIRegistryManager.Instance.WriteTitleTitlePromtDialog(string.Empty);
                 var dialog = new PrompDialogRichTextBoxWindow();
                 dialog.ShowDialog();
                 Task t = Task.Factory.StartNew(() =>
                 {
-                    isCanceled = RegistryManager.GetIsCanceledPromtDialog();
-                    comment = RegistryManager.GetContentPromtDialog();
+                    isCanceled = UIRegistryManager.Instance.GetIsCanceledPromtDialog();
+                    comment = UIRegistryManager.Instance.GetContentPromtDialog();
                     while (string.IsNullOrEmpty(comment) && !isCanceled)
                     {
                     }
                 });
                 t.Wait();
-                isCanceled = RegistryManager.GetIsCanceledPromtDialog();
-                comment = RegistryManager.GetContentPromtDialog();
+                isCanceled = UIRegistryManager.Instance.GetIsCanceledPromtDialog();
+                comment = UIRegistryManager.Instance.GetContentPromtDialog();
             }
 
             if (!isCanceled || !shouldCommentWindowShow)
@@ -242,7 +243,7 @@ namespace TestCaseManagerApp.Views
                 });
                 t1.ContinueWith(antecedent =>
                 {
-                    this.NavigateToTestCasesInitialView();
+                    Navigator.Instance.NavigateToTestCasesInitialView(this);
                 }, TaskScheduler.FromCurrentSynchronizationContext());
             }
         }

@@ -5,6 +5,7 @@
 using System;
 using System.Threading.Tasks;
 using System.Windows;
+using AAngelov.Utilities.UI.ControlExtensions;
 using FirstFloor.ModernUI.Presentation;
 using FirstFloor.ModernUI.Windows;
 using FirstFloor.ModernUI.Windows.Controls;
@@ -12,8 +13,8 @@ using FirstFloor.ModernUI.Windows.Navigation;
 using Microsoft.TeamFoundation.Client;
 using TestCaseManagerCore;
 using TestCaseManagerCore.BusinessLogic.Managers;
-using TestCaseManagerCore.Helpers;
 using TestCaseManagerCore.ViewModels;
+using AAngelov.Utilities.UI.Managers;
 
 namespace TestCaseManagerApp.Views
 {
@@ -194,7 +195,7 @@ namespace TestCaseManagerApp.Views
                 ModernDialog.ShowMessage("No test project selected.", "Warning", MessageBoxButton.OK);
                 return;
             }
-            RegistryManager.WriteCurrentTestPlan(this.ProjectSelectionViewModel.SelectedTestPlan);
+            RegistryManager.Instance.WriteCurrentTestPlan(this.ProjectSelectionViewModel.SelectedTestPlan);
             try
             {
                 ExecutionContext.Preferences.TestPlan = TestPlanManager.GetTestPlanByName(ExecutionContext.TestManagementTeamProject, this.ProjectSelectionViewModel.SelectedTestPlan);
@@ -265,7 +266,7 @@ namespace TestCaseManagerApp.Views
         /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void btnEditTestPlans_Click(object sender, RoutedEventArgs e)
         {
-            this.NavigateToTestPlansEdit();
+            Navigator.Instance.NavigateToTestPlansEdit(this);
         }
     }
 }

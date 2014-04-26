@@ -373,6 +373,14 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\AAngelov.Utilities\AAngelov.Utilities.UI\AAngelov.Utilities.UI.csproj">
+      <Project>{C547F875-DB0A-41B6-8C42-10FBC1EDF711}</Project>
+      <Name>AAngelov.Utilities.UI</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\AAngelov.Utilities\AAngelov.Utilities\AAngelov.Utilities.csproj">
+      <Project>{6649be16-8e52-47ce-a870-6b2c9de35bd8}</Project>
+      <Name>AAngelov.Utilities</Name>
+    </ProjectReference>
     <ProjectReference Include="..\TestCaseManagerCore\TestCaseManagerCore.csproj">
       <Project>{d5457a68-337d-4d6b-8ad0-b335b9b996db}</Project>
       <Name>TestCaseManagerCore</Name>

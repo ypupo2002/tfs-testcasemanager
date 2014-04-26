@@ -4,15 +4,15 @@
 // <author>Anton Angelov</author>
 using System.Threading.Tasks;
 using System.Windows;
+using AAngelov.Utilities.UI.ControlExtensions;
 using FirstFloor.ModernUI.Windows;
 using FirstFloor.ModernUI.Windows.Controls;
 using FirstFloor.ModernUI.Windows.Navigation;
 using Microsoft.TeamFoundation.Client;
 using TestCaseManagerCore;
-using TestCaseManagerCore.BusinessLogic.Enums;
-using TestCaseManagerCore.BusinessLogic.Managers;
-using TestCaseManagerCore.Helpers;
 using TestCaseManagerCore.ViewModels;
+using AAngelov.Utilities.UI.Managers;
+using AAngelov.Utilities.UI.Enums;
 
 namespace TestCaseManagerApp.Views
 {
@@ -49,7 +49,6 @@ namespace TestCaseManagerApp.Views
         /// <param name="e">An object that contains the navigation data.</param>
         public void OnFragmentNavigation(FragmentNavigationEventArgs e)
         {
-            FragmentManager fm = new FragmentManager(e.Fragment);
         }
 
         /// <summary>

@@ -1,9 +1,14 @@
-﻿// <copyright file="TextBoxExtensions.cs" company="AANGELOV">
-// http://aangelov.com All rights reserved.
+﻿// <copyright file="TextBoxExtensions.cs" company="CodePlex">
+// https://testcasemanager.codeplex.com/ All rights reserved.
 // </copyright>
 // <author>Anton Angelov</author>
 namespace AAngelov.Utilities.UI.ControlExtensions
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
+    using System.Threading.Tasks;
     using System.Windows.Controls;
 
     /// <summary>

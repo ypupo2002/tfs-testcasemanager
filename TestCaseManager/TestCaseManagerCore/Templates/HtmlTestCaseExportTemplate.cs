@@ -14,16 +14,18 @@ namespace TestCaseManagerCore.Templates
     using System.Collections.Generic;
     using TestCaseManagerCore.BusinessLogic.Entities;
     using TestCaseManagerCore.BusinessLogic.Managers;
+    using AAngelov.Utilities.UI.Managers;
     using System;
     
     /// <summary>
     /// Class to produce the template output
     /// </summary>
     
-    #line 1 "D:\Projects\TestCaseManager\TestCaseManagerCore\Templates\HtmlTestCaseExportTemplate.tt"
+    #line 1 "E:\Projects\TestCaseManager1\TestCaseManagerCore\Templates\HtmlTestCaseExportTemplate.tt"
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "11.0.0.0")]
     public partial class HtmlTestCaseExportTemplate : HtmlTestCaseExportTemplateBase
     {
+#line hidden
         /// <summary>
         /// Create the template output
         /// </summary>
@@ -109,9 +111,9 @@ namespace TestCaseManagerCore.Templates
                     "========================\r\n               STYLES END\r\n===========================" +
                     "===========*/\r\n\r\n    </style>\r\n</head>\r\n<body>\r\n\r\n");
             
-            #line 340 "D:\Projects\TestCaseManager\TestCaseManagerCore\Templates\HtmlTestCaseExportTemplate.tt"
+            #line 341 "E:\Projects\TestCaseManager1\TestCaseManagerCore\Templates\HtmlTestCaseExportTemplate.tt"
 
-	string checkedProperties = RegistryManager.ReadCheckedPropertiesToBeExported();
+	string checkedProperties = UIRegistryManager.Instance.ReadCheckedPropertiesToBeExported();
 
 	BuildHeader(checkedProperties);
 	BuildBody(checkedProperties);
@@ -280,7 +282,7 @@ namespace TestCaseManagerCore.Templates
             }
         }
         
-        #line 657 "D:\Projects\TestCaseManager\TestCaseManagerCore\Templates\HtmlTestCaseExportTemplate.tt"
+        #line 658 "E:\Projects\TestCaseManager1\TestCaseManagerCore\Templates\HtmlTestCaseExportTemplate.tt"
 
 public void BuildHeader(string checkedProperties)
 {
@@ -619,7 +621,7 @@ public void BuildTestCaseTestStepsTable(List<TestStep> testSteps)
         #line default
         #line hidden
         
-        #line 1 "D:\Projects\TestCaseManager\TestCaseManagerCore\Templates\HtmlTestCaseExportTemplate.tt"
+        #line 1 "E:\Projects\TestCaseManager1\TestCaseManagerCore\Templates\HtmlTestCaseExportTemplate.tt"
 
 private global::System.Collections.Generic.List<TestCaseManagerCore.BusinessLogic.Entities.TestCaseFull> _FullTestCasesField;
 

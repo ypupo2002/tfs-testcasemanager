@@ -17,6 +17,7 @@ using TestCaseManagerCore;
 using System.Collections.Generic;
 using TestCaseManagerCore.BusinessLogic.Managers;
 using System.Text;
+using AAngelov.Utilities.UI.Managers;
 
 namespace TestCaseManagerApp.Views
 {
@@ -314,7 +315,7 @@ namespace TestCaseManagerApp.Views
         private void btnSaveArrangement_Click(object sender, RoutedEventArgs e)
         {
             this.TestCaseExecutionArrangmentViewModel.SaveArrangement();
-            this.NavigateToTestCasesInitialView();
+            Navigator.Instance.NavigateToTestCasesInitialView(this);
         }
 
         /// <summary>
@@ -336,8 +337,7 @@ namespace TestCaseManagerApp.Views
         /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
-            this.NavigateToTestCasesInitialView();
-        }
-     
+            Navigator.Instance.NavigateToTestCasesInitialView(this);
+        }     
     }
 }

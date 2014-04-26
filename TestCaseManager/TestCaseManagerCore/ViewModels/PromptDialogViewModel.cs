@@ -16,6 +16,8 @@ namespace TestCaseManagerCore.ViewModels
     using Microsoft.TeamFoundation.TestManagement.Client;
     using TestCaseManagerCore.BusinessLogic.Entities;
     using TestCaseManagerCore.BusinessLogic.Managers;
+    using AAngelov.Utilities.UI.Managers;
+    using AAngelov.Utilities.UI.Core;
     
     /// <summary>
     /// Holds PromptDialogView Properties
@@ -44,7 +46,7 @@ namespace TestCaseManagerCore.ViewModels
             {
                 if (this.content == null)
                 {
-                    this.content = RegistryManager.GetContentPromtDialog();
+                    this.content = UIRegistryManager.Instance.GetContentPromtDialog();
                 }
 
                 return this.content;
@@ -54,7 +56,7 @@ namespace TestCaseManagerCore.ViewModels
             {
                
                 this.content = value;
-                RegistryManager.WriteTitleTitlePromtDialog(this.content);
+                UIRegistryManager.Instance.WriteTitleTitlePromtDialog(this.content);
                 this.NotifyPropertyChanged();
             }
         }
@@ -75,7 +77,7 @@ namespace TestCaseManagerCore.ViewModels
             set
             {
                 this.isCanceled = value;
-                RegistryManager.WriteIsCanceledTitlePromtDialog(this.isCanceled);
+                UIRegistryManager.Instance.WriteIsCanceledTitlePromtDialog(this.isCanceled);
                 this.NotifyPropertyChanged();
             }
         }

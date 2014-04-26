@@ -7,6 +7,7 @@
 <#@ import namespace="TestCaseManagerCore.BusinessLogic.Entities" #>
 <#@ import namespace="System.Collections.Generic" #>
 <#@ import namespace="TestCaseManagerCore.BusinessLogic.Managers" #>
+<#@ import namespace="AAngelov.Utilities.UI.Managers" #>
 <#@ parameter name="FullTestCases" type="System.Collections.Generic.List<TestCaseManagerCore.BusinessLogic.Entities.TestCaseFull>" #>
 <!DOCTYPE html>
 <html>
@@ -338,7 +339,7 @@ thead tr {
 <body>
 
 <#
-	string checkedProperties = RegistryManager.ReadCheckedPropertiesToBeExported();
+	string checkedProperties = UIRegistryManager.Instance.ReadCheckedPropertiesToBeExported();
 
 	BuildHeader(checkedProperties);
 	BuildBody(checkedProperties);

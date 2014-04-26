@@ -2,7 +2,7 @@
 // https://testcasemanager.codeplex.com/ All rights reserved.
 // </copyright>
 // <author>Anton Angelov</author>
-namespace TestCaseManagerCore.BusinessLogic.Managers
+namespace AAngelov.Utilities.Managers
 {
     using System;
     using System.Collections.Generic;
@@ -11,9 +11,8 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
     using System.Reflection;
     using System.Security.Cryptography;
     using System.Text;
-    using System.Threading.Tasks;
+    using AAngelov.Utilities.Entities;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
-    using TestCaseManagerCore.BusinessLogic.Entities;
 
     /// <summary>
     /// Contains helper methods for getting all methods information in specified assembly

@@ -6,9 +6,10 @@ namespace TestCaseManagerCore.BusinessLogic.Entities
 {
     using System;
     using System.Collections.ObjectModel;
-    using TestCaseManagerCore.BusinessLogic.Contracts;
-    using TestCaseManagerCore.BusinessLogic.Enums;
-    using TestCaseManagerCore.BusinessLogic.Managers;
+    using AAngelov.Utilities.Managers;
+    using AAngelov.Utilities.UI.Core;
+    using AAngelov.Utilities.Contracts;
+    using AAngelov.Utilities.Enums;
 
     /// <summary>
     /// Represents TreeView Suite Node Object
@@ -82,7 +83,7 @@ namespace TestCaseManagerCore.BusinessLogic.Entities
             this.IsSuiteAddEnabled = true;
             this.IsAddSuiteAllowed = true;
             this.IsPasteAllowed = true;
-            this.ClipBoardCommand = Enums.ClipBoardCommand.None;
+            this.ClipBoardCommand = ClipBoardCommand.None;
             if (subSuites == null)
             {
                 this.SubSuites = new ObservableCollection<Suite>();
@@ -333,7 +334,7 @@ namespace TestCaseManagerCore.BusinessLogic.Entities
         /// <param name="isCopy">if set to <c>true</c> [copy].</param>
         public void CopyToClipboard(bool isCopy)
         {
-            this.ClipBoardCommand = isCopy ? Enums.ClipBoardCommand.Copy : Enums.ClipBoardCommand.Cut;
+            this.ClipBoardCommand = isCopy ? ClipBoardCommand.Copy : ClipBoardCommand.Cut;
             ClipBoardManager<Suite>.CopyToClipboard(this);            
         }      
 

@@ -10,6 +10,7 @@ using System.Windows.Controls;
 using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media;
+using AAngelov.Utilities.UI.ControlExtensions;
 using FirstFloor.ModernUI.Windows;
 using FirstFloor.ModernUI.Windows.Controls;
 using FirstFloor.ModernUI.Windows.Navigation;
@@ -19,6 +20,8 @@ using TestCaseManagerCore.BusinessLogic.Managers;
 using TestCaseManagerCore.ViewModels;
 using TestCaseManagerCore;
 using Microsoft.TeamFoundation.TestManagement.Client;
+using AAngelov.Utilities.UI.Managers;
+using AAngelov.Utilities.Enums;
 
 namespace TestCaseManagerApp.Views
 {
@@ -280,12 +283,12 @@ namespace TestCaseManagerApp.Views
                 if (currentTestCase.ITestSuiteBase != null)
                 {
                     log.InfoFormat("Preview test case with id= \"{0}\" and suiteId= \"{1}\"", currentTestCase.ITestCase.Id, currentTestCase.ITestSuiteBase.Id);
-                    this.NavigateToTestCasesDetailedView(currentTestCase.ITestCase.Id, currentTestCase.ITestSuiteBase.Id);
+                    Navigator.Instance.NavigateToTestCasesDetailedView(this, currentTestCase.ITestCase.Id, currentTestCase.ITestSuiteBase.Id);
                 }
                 else
                 {
                     log.InfoFormat("Preview test case with id= \"{0}\" and suiteId= \"{1}\"", currentTestCase.ITestCase.Id, -1);
-                    this.NavigateToTestCasesDetailedView(currentTestCase.ITestCase.Id, -1);
+                    Navigator.Instance.NavigateToTestCasesDetailedView(this, currentTestCase.ITestCase.Id, -1);
                 }
                
             });
@@ -328,12 +331,12 @@ namespace TestCaseManagerApp.Views
                 if (currentTestCase.ITestSuiteBase != null)
                 {
                     log.InfoFormat("Preview test case with id= \"{0}\" and suiteId= \"{1}\"", currentTestCase.ITestCase.Id, currentTestCase.ITestSuiteBase.Id);
-                    this.NavigateToTestCasesEditView(currentTestCase.ITestCase.Id, currentTestCase.ITestSuiteBase.Id);
+                    Navigator.Instance.NavigateToTestCasesEditView(this, currentTestCase.ITestCase.Id, currentTestCase.ITestSuiteBase.Id);
                 }
                 else
                 {
                     log.InfoFormat("Preview test case with id= \"{0}\" and suiteId= \"{1}\"", currentTestCase.ITestCase.Id, -1);
-                    this.NavigateToTestCasesEditView(currentTestCase.ITestCase.Id, -1);
+                    Navigator.Instance.NavigateToTestCasesEditView(this, currentTestCase.ITestCase.Id, -1);
                 }
             });
         }
@@ -351,12 +354,12 @@ namespace TestCaseManagerApp.Views
                 if (currentTestCase.ITestSuiteBase != null)
                 {
                     log.InfoFormat("Preview test case with id= \"{0}\" and suiteId= \"{1}\"", currentTestCase.ITestCase.Id, currentTestCase.ITestSuiteBase.Id);
-                    this.NavigateToTestCasesEditView(currentTestCase.ITestCase.Id, currentTestCase.ITestSuiteBase.Id, true, true);
+                    Navigator.Instance.NavigateToTestCasesEditView(this, currentTestCase.ITestCase.Id, currentTestCase.ITestSuiteBase.Id, true, true);
                 }
                 else
                 {
                     log.InfoFormat("Preview test case with id= \"{0}\" and suiteId= \"{1}\"", currentTestCase.ITestCase.Id, -1);
-                    this.NavigateToTestCasesEditView(currentTestCase.ITestCase.Id, -1, true, true);
+                    Navigator.Instance.NavigateToTestCasesEditView(this, currentTestCase.ITestCase.Id, -1, true, true);
                 }                
             });
         }
@@ -368,9 +371,9 @@ namespace TestCaseManagerApp.Views
         /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void btnNew_Click(object sender, RoutedEventArgs e)
         {
-            int selectedSuiteId = RegistryManager.GetSelectedSuiteId();
+            int selectedSuiteId = RegistryManager.Instance.GetSelectedSuiteId();
             log.InfoFormat("Navigate to Create New Test Case, steiId= \"{0}\"", selectedSuiteId);
-            this.NavigateToTestCasesEditView(selectedSuiteId, true, false);
+            Navigator.Instance.NavigateToTestCasesEditView(this, selectedSuiteId, true, false);
         }
 
         /// <summary>
@@ -541,12 +544,12 @@ namespace TestCaseManagerApp.Views
                 if (currentTestCase.ITestSuiteBase != null)
                 {
                     log.InfoFormat("Edit test case with id: {0} and suite id {1}", currentTestCase.ITestCase.Id, currentTestCase.ITestSuiteBase.Id);
-                    this.NavigateToTestCasesEditView(currentTestCase.ITestCase.Id, currentTestCase.ITestSuiteBase.Id);
+                    Navigator.Instance.NavigateToTestCasesEditView(this, currentTestCase.ITestCase.Id, currentTestCase.ITestSuiteBase.Id);
                 }
                 else
                 {
                     log.InfoFormat("Edit test case with id: {0} and suite id {1}", currentTestCase.ITestCase.Id, -1);
-                    this.NavigateToTestCasesEditView(currentTestCase.ITestCase.Id, -1);
+                    Navigator.Instance.NavigateToTestCasesEditView(this, currentTestCase.ITestCase.Id, -1);
                 }                
             }
             else
@@ -580,7 +583,7 @@ namespace TestCaseManagerApp.Views
 
             // Remove the initial view filters because we are currently filtering by suite and the old filters are not valid any more
             this.TestCasesInitialViewModel.ResetInitialFilters();
-            RegistryManager.WriteSelectedSuiteId(selectedSuiteId);
+            RegistryManager.Instance.WriteSelectedSuiteId(selectedSuiteId);
             this.TestCasesInitialViewModel.TestCasesCount = "...";
             this.ShowTestCasesProgressbar();
             
@@ -674,7 +677,7 @@ namespace TestCaseManagerApp.Views
         private void copySuite_Command(object sender, ExecutedRoutedEventArgs e)
         {
             e.Handled = true;
-            int selectedSuiteId = RegistryManager.GetSelectedSuiteId();
+            int selectedSuiteId = RegistryManager.Instance.GetSelectedSuiteId();
             Suite suite = this.TestCasesInitialViewModel.GetSuiteById(this.TestCasesInitialViewModel.Suites, selectedSuiteId);
             suite.CopyToClipboard(true);
         }
@@ -711,7 +714,7 @@ namespace TestCaseManagerApp.Views
         private void pasteTestCases_Command(object sender, ExecutedRoutedEventArgs e)
         {
             e.Handled = true;
-            int selectedSuiteId = RegistryManager.GetSelectedSuiteId();
+            int selectedSuiteId = RegistryManager.Instance.GetSelectedSuiteId();
             Suite parentSuite = this.TestCasesInitialViewModel.GetSuiteById(this.TestCasesInitialViewModel.Suites, selectedSuiteId);
             ClipBoardTestCase clipBoardTestCase = TestCaseManager.GetFromClipboardTestCases();
             if (clipBoardTestCase != null)
@@ -742,7 +745,7 @@ namespace TestCaseManagerApp.Views
         private void cutSuite_Command(object sender, ExecutedRoutedEventArgs e)
         {
             e.Handled = true;
-            int selectedSuiteId = RegistryManager.GetSelectedSuiteId();
+            int selectedSuiteId = RegistryManager.Instance.GetSelectedSuiteId();
             Suite suite = this.TestCasesInitialViewModel.GetSuiteById(this.TestCasesInitialViewModel.Suites, selectedSuiteId);
             suite.CopyToClipboard(false);
         }
@@ -755,7 +758,7 @@ namespace TestCaseManagerApp.Views
         private void pasteSuite_Command(object sender, ExecutedRoutedEventArgs e)
         {
             e.Handled = true;
-            int selectedSuiteId = RegistryManager.GetSelectedSuiteId();
+            int selectedSuiteId = RegistryManager.Instance.GetSelectedSuiteId();
             Suite suiteToPasteIn = this.TestCasesInitialViewModel.GetSuiteById(this.TestCasesInitialViewModel.Suites, selectedSuiteId);
             Suite clipboardSuite = Suite.GetFromClipboard();
             ClipBoardTestCase clipBoardTestCase = TestCaseManager.GetFromClipboardTestCases();
@@ -805,14 +808,7 @@ namespace TestCaseManagerApp.Views
             this.ShowTestCasesProgressbar();
             Task t = Task.Factory.StartNew(() =>
             {
-                if (clipBoardTestCase.ClipBoardCommand.Equals(ClipBoardCommand.Copy))
-                {
-					TestSuiteManager.PasteTestCasesToSuite(ExecutionContext.TestManagementTeamProject, ExecutionContext.Preferences.TestPlan, suiteToPasteIn.Id, clipBoardTestCase);
-                }
-                else
-                {
-					TestSuiteManager.PasteTestCasesToSuite(ExecutionContext.TestManagementTeamProject, ExecutionContext.Preferences.TestPlan, suiteToPasteIn.Id, clipBoardTestCase);
-                }
+                TestSuiteManager.PasteTestCasesToSuite(ExecutionContext.TestManagementTeamProject, ExecutionContext.Preferences.TestPlan, suiteToPasteIn.Id, clipBoardTestCase);
             });
             t.ContinueWith(antecedent =>
             {
@@ -861,7 +857,7 @@ namespace TestCaseManagerApp.Views
 		/// <param name="testPlan">The test plan.</param>
         private void RemoveSuiteInternal(ITestManagementTeamProject testManagementTeamProject, ITestPlan testPlan)
         {
-            int selectedSuiteId = RegistryManager.GetSelectedSuiteId();
+            int selectedSuiteId = RegistryManager.Instance.GetSelectedSuiteId();
             try
             {
                 if (ModernDialog.ShowMessage("If you delete this test suite, you will also delete all test suites that are children of this test suite!", "Delete this test suite?", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
@@ -893,7 +889,7 @@ namespace TestCaseManagerApp.Views
         private void RenameSuiteInternal()
         {
             Suite selectedSuite = tvSuites.SelectedItem as Suite;
-            RegistryManager.WriteTitleTitlePromtDialog(selectedSuite.Title);
+            UIRegistryManager.Instance.WriteTitleTitlePromtDialog(selectedSuite.Title);
 
             var dialog = new PrompDialogWindow();
             dialog.ShowDialog();
@@ -901,18 +897,18 @@ namespace TestCaseManagerApp.Views
             string newTitle;
             Task t = Task.Factory.StartNew(() =>
             {
-                isCanceled = RegistryManager.GetIsCanceledPromtDialog();
-                newTitle = RegistryManager.GetContentPromtDialog();
+                isCanceled = UIRegistryManager.Instance.GetIsCanceledPromtDialog();
+                newTitle = UIRegistryManager.Instance.GetContentPromtDialog();
                 while (string.IsNullOrEmpty(newTitle) && !isCanceled)
                 {
                 }
             });
             t.Wait();
-            isCanceled = RegistryManager.GetIsCanceledPromtDialog();
-            newTitle = RegistryManager.GetContentPromtDialog();
+            isCanceled = UIRegistryManager.Instance.GetIsCanceledPromtDialog();
+            newTitle = UIRegistryManager.Instance.GetContentPromtDialog();
             if (!isCanceled)
             {
-                int selectedSuiteId = RegistryManager.GetSelectedSuiteId();
+                int selectedSuiteId = RegistryManager.Instance.GetSelectedSuiteId();
                 if (selectedSuiteId == -1)
                 {
                     ModernDialog.ShowMessage("Cannot rename root suite!", "Warrning!", MessageBoxButton.OK);
@@ -928,7 +924,7 @@ namespace TestCaseManagerApp.Views
         /// </summary>
         private void AddSuiteInternal()
         {
-            RegistryManager.WriteTitleTitlePromtDialog(string.Empty);
+            UIRegistryManager.Instance.WriteTitleTitlePromtDialog(string.Empty);
 
             var dialog = new PrompDialogWindow();
             dialog.ShowDialog();
@@ -936,18 +932,18 @@ namespace TestCaseManagerApp.Views
             string newTitle;
             Task t = Task.Factory.StartNew(() =>
             {
-                isCanceled = RegistryManager.GetIsCanceledPromtDialog();
-                newTitle = RegistryManager.GetContentPromtDialog();
+                isCanceled = UIRegistryManager.Instance.GetIsCanceledPromtDialog();
+                newTitle = UIRegistryManager.Instance.GetContentPromtDialog();
                 while (string.IsNullOrEmpty(newTitle) && !isCanceled)
                 {
                 }
             });
             t.Wait();
-            isCanceled = RegistryManager.GetIsCanceledPromtDialog();
-            newTitle = RegistryManager.GetContentPromtDialog();
+            isCanceled = UIRegistryManager.Instance.GetIsCanceledPromtDialog();
+            newTitle = UIRegistryManager.Instance.GetContentPromtDialog();
             if (!isCanceled)
             {
-                int selectedSuiteId = RegistryManager.GetSelectedSuiteId();
+                int selectedSuiteId = RegistryManager.Instance.GetSelectedSuiteId();
                 bool canBeAddedNewSuite = false;
                 int? newSuiteId = TestSuiteManager.AddChildSuite(ExecutionContext.TestManagementTeamProject, ExecutionContext.Preferences.TestPlan, selectedSuiteId, newTitle, out canBeAddedNewSuite);
                 if (canBeAddedNewSuite)
@@ -984,7 +980,7 @@ namespace TestCaseManagerApp.Views
         /// </summary>
         private void UpdateSuiteContextMenuItemsStatus()
         {
-            int selectedSuiteId = RegistryManager.GetSelectedSuiteId();
+            int selectedSuiteId = RegistryManager.Instance.GetSelectedSuiteId();
             Suite suite = this.TestCasesInitialViewModel.GetSuiteById(this.TestCasesInitialViewModel.Suites, selectedSuiteId);
 
             // Quit if its requirment based suite because no child suites are allowed
@@ -1016,7 +1012,7 @@ namespace TestCaseManagerApp.Views
         /// </summary>
         private void UpdateTestCasesContextMenuItemsStatus()
         {
-            int selectedSuiteId = RegistryManager.GetSelectedSuiteId();
+            int selectedSuiteId = RegistryManager.Instance.GetSelectedSuiteId();
             Suite suite = this.TestCasesInitialViewModel.GetSuiteById(this.TestCasesInitialViewModel.Suites, selectedSuiteId);
 
             // If the selected suite is requirement based the paste command is not enabled or if the clipboard object is not list of testcases
@@ -1201,14 +1197,14 @@ namespace TestCaseManagerApp.Views
             bool isSubmitted;
             Task t = Task.Factory.StartNew(() =>
             {
-                isCanceled = RegistryManager.GetIsCanceledPromtDialog();
-                isSubmitted = RegistryManager.ReadIsCheckboxDialogSubmitted();
+                isCanceled = UIRegistryManager.Instance.GetIsCanceledPromtDialog();
+                isSubmitted = UIRegistryManager.Instance.ReadIsCheckboxDialogSubmitted();
                 while (!isSubmitted && !isCanceled)
                 {
                 }
             });
             t.Wait();
-            isCanceled = RegistryManager.GetIsCanceledPromtDialog();
+            isCanceled = UIRegistryManager.Instance.GetIsCanceledPromtDialog();
             if (!isCanceled)
             {
                 Microsoft.Win32.SaveFileDialog dlg = new Microsoft.Win32.SaveFileDialog();
@@ -1339,25 +1335,25 @@ namespace TestCaseManagerApp.Views
         /// </summary>
         private void SetNewExecutionOutcomeInternal(TestCaseExecutionType testCaseExecutionType)
         {
-            bool shouldCommentWindowShow = RegistryManager.ReadShouldCommentWindowShow();
+            bool shouldCommentWindowShow = RegistryManager.Instance.ReadShouldCommentWindowShow();
             string comment = String.Empty;
             bool isCanceled = false;
             if (shouldCommentWindowShow && testCaseExecutionType != TestCaseExecutionType.Active)
             {
-                RegistryManager.WriteTitleTitlePromtDialog(string.Empty);
+                UIRegistryManager.Instance.WriteTitleTitlePromtDialog(string.Empty);
                 var dialog = new PrompDialogRichTextBoxWindow();
                 dialog.ShowDialog();
                 Task t = Task.Factory.StartNew(() =>
                 {
-                    isCanceled = RegistryManager.GetIsCanceledPromtDialog();
-                    comment = RegistryManager.GetContentPromtDialog();
+                    isCanceled = UIRegistryManager.Instance.GetIsCanceledPromtDialog();
+                    comment = UIRegistryManager.Instance.GetContentPromtDialog();
                     while (string.IsNullOrEmpty(comment) && !isCanceled)
                     {
                     }
                 });
                 t.Wait();
-                isCanceled = RegistryManager.GetIsCanceledPromtDialog();
-                comment = RegistryManager.GetContentPromtDialog();
+                isCanceled = UIRegistryManager.Instance.GetIsCanceledPromtDialog();
+                comment = UIRegistryManager.Instance.GetContentPromtDialog();
             }
 
             if (!isCanceled || !shouldCommentWindowShow)
@@ -1439,7 +1435,7 @@ namespace TestCaseManagerApp.Views
             int selectedSuiteId = (int)tvSuites.SelectedValue;
             if (selectedSuiteId != -1)
             {
-                this.NavigateToTestCasesExecutionArrangement(selectedSuiteId);
+                Navigator.Instance.NavigateToTestCasesExecutionArrangement(this, selectedSuiteId);
             }
         }
 
@@ -1462,7 +1458,7 @@ namespace TestCaseManagerApp.Views
                     ExecutionContext.SelectedTestCasesForChange.Add(currentTestCase);
                 }
                 log.Info("Navigate to TestCaseBatchDuplicateView initialized with selected test cases.");
-                this.NavigateToTestCaseBatchDuplicateView(true, true);
+                Navigator.Instance.NavigateToTestCaseBatchDuplicateView(this, true, true);
             }
         }
 
@@ -1476,7 +1472,7 @@ namespace TestCaseManagerApp.Views
             if (this.isShowTestCasesSubsuiteAlreadyUnchecked)
             {
                 ShowTestCasesProgressbar();
-                int selectedSuiteId = RegistryManager.GetSelectedSuiteId();
+                int selectedSuiteId = RegistryManager.Instance.GetSelectedSuiteId();
                 this.InitializeTestCasesBySelectedSuiteIdInternal(selectedSuiteId);
             }
         }
@@ -1488,12 +1484,12 @@ namespace TestCaseManagerApp.Views
         /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void cbShowSubsuiteTestCases_Checked(object sender, RoutedEventArgs e)
         {
-            int selectedSuiteId = RegistryManager.GetSelectedSuiteId();
+            int selectedSuiteId = RegistryManager.Instance.GetSelectedSuiteId();
             if (selectedSuiteId == -1)
             {
                 return;
             }
-            RegistryManager.WriteShowSubsuiteTestCases(true);
+            RegistryManager.Instance.WriteShowSubsuiteTestCases(true);
             ShowTestCasesProgressbar();
             List<TestCase> testCasesList = new List<TestCase>();
             Task t = Task.Factory.StartNew(() =>

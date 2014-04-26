@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:mui="http://firstfloorsoftware.com/ModernUI"
-             xmlns:local="clr-namespace:TestCaseManagerCore.Helpers;assembly=TestCaseManagerCore"
+             xmlns:local="clr-namespace:AAngelov.Utilities.UI.ControlExtensions;assembly=AAngelov.Utilities.UI"
              mc:Ignorable="d" Loaded="UserControl_Loaded">
     <Grid>
         <ProgressBar Name="progressBar" Minimum="0" Maximum="1" Height="16" IsIndeterminate="True" Margin="0,0,0,16" />

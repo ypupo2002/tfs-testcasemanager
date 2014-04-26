@@ -12,6 +12,8 @@ namespace TestCaseManagerCore.ViewModels
     using System.Text;
     using System.Threading.Tasks;
     using System.Windows;
+    using AAngelov.Utilities.Entities;
+    using AAngelov.Utilities.Managers;
     using FirstFloor.ModernUI.Windows.Controls;
     using Microsoft.TeamFoundation.TestManagement.Client;
     using TestCaseManagerCore.BusinessLogic.Entities;
@@ -36,7 +38,7 @@ namespace TestCaseManagerCore.ViewModels
             ITestCase testCaseCore = ExecutionContext.TestManagementTeamProject.TestCases.Find(testCaseId);
 			this.TestCase = new TestCase(testCaseCore, null, ExecutionContext.Preferences.TestPlan);
             this.TestCaseId = testCaseId;
-            string projectDllPath = RegistryManager.GetProjectDllPath();
+            string projectDllPath = RegistryManager.Instance.GetProjectDllPath();
             List<Test> testsList = ProjectManager.GetProjectTestMethods(projectDllPath);
             this.ObservableTests = new ObservableCollection<Test>();
             this.AssociateTestViewFilters = new AssociateTestViewFilters();

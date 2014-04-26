@@ -22,6 +22,7 @@ namespace TestCaseManagerCore.ViewModels
 	using System.Threading.Tasks;
 	using System.Threading;
 	using System.IO;
+    using AAngelov.Utilities.Entities;
 
 	/// <summary>
 	/// Provides methods and properties related to the Migration View

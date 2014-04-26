@@ -11,6 +11,7 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
     using Microsoft.TeamFoundation.TestManagement.Client;
     using TestCaseManagerCore.BusinessLogic.Entities;
     using TestCaseManagerCore.BusinessLogic.Enums;
+    using AAngelov.Utilities.Enums;
 
     /// <summary>
     /// Contains helper methods for working with TestSuite entities

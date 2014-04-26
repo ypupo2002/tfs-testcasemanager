@@ -16,11 +16,12 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using AAngelov.Utilities.UI.ControlExtensions;
 using FirstFloor.ModernUI.Windows;
 using FirstFloor.ModernUI.Windows.Controls;
-using TestCaseManagerCore;
 using TestCaseManagerCore.BusinessLogic.Managers;
 using TestCaseManagerCore.ViewModels;
+using AAngelov.Utilities.UI.Managers;
 
 namespace TestCaseManagerApp.Views
 {
@@ -47,7 +48,7 @@ namespace TestCaseManagerApp.Views
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            RegistryManager.WriteIsWindowClosedFromX(true);
+            UIRegistryManager.Instance.WriteIsWindowClosedFromX(true);
             PromptDialogViewModel = new PromptDialogViewModel();
             this.DataContext = this.PromptDialogViewModel;         
         }
@@ -60,7 +61,7 @@ namespace TestCaseManagerApp.Views
         private void ButtonOk_Click(object sender, RoutedEventArgs e)
         {          
             PromptDialogViewModel.IsCanceled = false;
-            RegistryManager.WriteIsWindowClosedFromX(false);
+            UIRegistryManager.Instance.WriteIsWindowClosedFromX(false);
             Window window = Window.GetWindow(this);
             window.Close();
         }
@@ -73,7 +74,7 @@ namespace TestCaseManagerApp.Views
         private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
             PromptDialogViewModel.IsCanceled = true;
-            RegistryManager.WriteIsWindowClosedFromX(false);
+            UIRegistryManager.Instance.WriteIsWindowClosedFromX(false);
             PromptDialogViewModel.Content = String.Empty;
             Window window = Window.GetWindow(this);
             window.Close();

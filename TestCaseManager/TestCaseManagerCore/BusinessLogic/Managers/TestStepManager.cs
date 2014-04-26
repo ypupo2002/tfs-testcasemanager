@@ -11,10 +11,12 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
     using System.Text;
     using System.Text.RegularExpressions;
     using System.Threading.Tasks;
+    using AAngelov.Utilities.Managers;
     using Microsoft.TeamFoundation.TestManagement.Client;
     using TestCaseManagerCore.BusinessLogic.Entities;
     using TestCaseManagerCore.BusinessLogic.Enums;
     using TestCaseManagerCore.BusinessLogic.Managers;
+    using AAngelov.Utilities.Enums;
 
     /// <summary>
     /// Contains helper methods for working with TestStep entities

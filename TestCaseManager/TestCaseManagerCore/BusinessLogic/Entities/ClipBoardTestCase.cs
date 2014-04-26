@@ -4,6 +4,7 @@
 // <author>Anton Angelov</author>
 namespace TestCaseManagerCore.BusinessLogic.Entities
 {
+    using AAngelov.Utilities.Enums;
     using System;
     using System.Collections.Generic;
     using TestCaseManagerCore.BusinessLogic.Enums;

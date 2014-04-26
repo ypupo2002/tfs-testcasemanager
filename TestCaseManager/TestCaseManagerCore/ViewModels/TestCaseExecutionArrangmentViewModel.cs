@@ -10,6 +10,7 @@ namespace TestCaseManagerCore.ViewModels
     using Microsoft.TeamFoundation.TestManagement.Client;
     using TestCaseManagerCore.BusinessLogic.Entities;
     using TestCaseManagerCore.BusinessLogic.Managers;
+    using AAngelov.Utilities.UI.Core;
 
     /// <summary>
     /// Contains methods and properties related to the TestCasesInitial View

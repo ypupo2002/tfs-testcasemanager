@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:mui="http://firstfloorsoftware.com/ModernUI"
-             xmlns:helpers="clr-namespace:TestCaseManagerCore.Helpers;assembly=TestCaseManagerCore"
+             xmlns:helpers="clr-namespace:AAngelov.Utilities.UI.ControlExtensions;assembly=AAngelov.Utilities.UI"
              mc:Ignorable="d">
     <Grid>
         <Grid Name="mainGrid">

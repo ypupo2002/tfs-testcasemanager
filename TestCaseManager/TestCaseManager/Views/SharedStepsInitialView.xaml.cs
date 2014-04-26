@@ -8,6 +8,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Forms;
 using System.Windows.Input;
+using AAngelov.Utilities.UI.ControlExtensions;
 using FirstFloor.ModernUI.Windows;
 using FirstFloor.ModernUI.Windows.Controls;
 using FirstFloor.ModernUI.Windows.Navigation;
@@ -206,7 +207,7 @@ namespace TestCaseManagerApp.Views
             {
                 SharedStep currentSharedStep = dgSharedSteps.SelectedItem as SharedStep;
                 log.InfoFormat("Edit Shared Step with id: {0} ", currentSharedStep.ISharedStep.Id);
-                this.NavigateToTestCasesEditView(true, currentSharedStep.ISharedStep.Id);
+                Navigator.Instance.NavigateToTestCasesEditView(this, true, currentSharedStep.ISharedStep.Id);
             });
         }
 
@@ -221,7 +222,7 @@ namespace TestCaseManagerApp.Views
             {
                 SharedStep currentSharedStep = dgSharedSteps.SelectedItem as SharedStep;
                 log.InfoFormat("Duplicate Shared Step with id: {0} ", currentSharedStep.ISharedStep.Id);
-                this.NavigateToTestCasesEditView(true, currentSharedStep.ISharedStep.Id, true, true);
+                Navigator.Instance.NavigateToTestCasesEditView(this, true, currentSharedStep.ISharedStep.Id, true, true);
             });
         }
 
@@ -233,7 +234,7 @@ namespace TestCaseManagerApp.Views
         private void btnNew_Click(object sender, RoutedEventArgs e)
         {
             log.Info("Navigate to Create New Shared Step");
-            this.NavigateToTestCasesEditView(true, true, false);
+            Navigator.Instance.NavigateToTestCasesEditView(this, true, true, false);
         }
 
         /// <summary>
@@ -447,7 +448,7 @@ namespace TestCaseManagerApp.Views
             {
                 SharedStep currentSharedStep = dgSharedSteps.SelectedItem as SharedStep;
                 log.InfoFormat("Edit Shared Step with id: {0} ", currentSharedStep.ISharedStep.Id);
-                this.NavigateToTestCasesEditView(true, currentSharedStep.ISharedStep.Id);
+                Navigator.Instance.NavigateToTestCasesEditView(this, true, currentSharedStep.ISharedStep.Id);
             }
         }
 
@@ -461,7 +462,7 @@ namespace TestCaseManagerApp.Views
             if (Keyboard.IsKeyDown(Key.Enter))
             {
                 SharedStep currentSharedStep = dgSharedSteps.SelectedItem as SharedStep;
-                this.NavigateToTestCasesEditView(true, currentSharedStep.ISharedStep.Id);
+                Navigator.Instance.NavigateToTestCasesEditView(this, true, currentSharedStep.ISharedStep.Id);
             }
         }       
 
@@ -550,13 +551,13 @@ namespace TestCaseManagerApp.Views
             TestCase currentTestCase = dgTestCases.SelectedItem as TestCase;
             if (currentTestCase.ITestSuiteBase != null)
             {
-                log.InfoFormat("Edit test case with id: {0} and suite id {1}", currentTestCase.ITestCase.Id, currentTestCase.ITestSuiteBase.Id);               
-                this.NavigateToTestCasesEditView(currentTestCase.ITestCase.Id, currentTestCase.ITestSuiteBase.Id);
+                log.InfoFormat("Edit test case with id: {0} and suite id {1}", currentTestCase.ITestCase.Id, currentTestCase.ITestSuiteBase.Id);
+                Navigator.Instance.NavigateToTestCasesEditView(this, currentTestCase.ITestCase.Id, currentTestCase.ITestSuiteBase.Id);
             }
             else
             {
                  log.InfoFormat("Edit test case with id: {0}", currentTestCase.ITestCase.Id);
-                this.NavigateToTestCasesEditView(currentTestCase.ITestCase.Id, -1);
+                 Navigator.Instance.NavigateToTestCasesEditView(this, currentTestCase.ITestCase.Id, -1);
             }
         }
 
@@ -579,7 +580,7 @@ namespace TestCaseManagerApp.Views
                     ExecutionContext.SelectedTestCasesForChange.Add(currentTestCase);
                 }
                 log.Info("Navigate to TestCaseBatchDuplicateView initialized with selected test cases.");
-                this.NavigateToTestCaseBatchDuplicateView(true, true);
+                Navigator.Instance.NavigateToTestCaseBatchDuplicateView(this, true, true);
             }
         }
 

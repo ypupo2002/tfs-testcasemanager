@@ -19,6 +19,7 @@ namespace TestCaseManagerApp.Views
     using System.Windows.Shapes;
     using FirstFloor.ModernUI.Windows.Controls;
     using TestCaseManagerCore.BusinessLogic.Managers;
+    using AAngelov.Utilities.UI.Managers;
 
     /// <summary>
     /// Initializes promo dialog window
@@ -40,9 +41,9 @@ namespace TestCaseManagerApp.Views
         /// <param name="e">The <see cref="System.ComponentModel.CancelEventArgs"/> instance containing the event data.</param>
         private void ModernWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            if (RegistryManager.ReadIsWindowClosedFromX())
+            if (UIRegistryManager.Instance.ReadIsWindowClosedFromX())
             {
-                RegistryManager.WriteIsCanceledTitlePromtDialog(true);
+                UIRegistryManager.Instance.WriteIsCanceledTitlePromtDialog(true);
             }
         }
     }

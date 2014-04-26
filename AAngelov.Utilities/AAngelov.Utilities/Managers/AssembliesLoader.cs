@@ -6,7 +6,7 @@
 using System;
 using System.Reflection;
 
-namespace TestCaseManagerCore.BusinessLogic.Entities
+namespace AAngelov.Utilities.Managers
 {
     /// <summary>
     /// Contains help methods to load given assembly in custom App Domain

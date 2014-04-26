@@ -2,9 +2,9 @@
 // https://testcasemanager.codeplex.com/ All rights reserved.
 // </copyright>
 // <author>Anton Angelov</author>
-
-namespace TestCaseManagerCore.Helpers
+namespace AAngelov.Utilities.UI.ControlExtensions
 {
+    using AAngelov.Utilities.UI.Managers;
     using System;
     using System.Collections.Generic;
     using System.Linq;
@@ -67,7 +67,7 @@ namespace TestCaseManagerCore.Helpers
             // - the mouse is no longer over the popup
             // - the cbo's IsMouseDirectlyOver returns true (which, albeit strange, is true
             //   when the mouse is neither over the popup NOR the cbo itself
-            if (cbo.IsDropDownOpen && !p.IsMouseOver && cbo.IsMouseDirectlyOver && ExecutionContext.SettingsViewModel.HoverBehaviorDropDown)
+            if (cbo.IsDropDownOpen && !p.IsMouseOver && cbo.IsMouseDirectlyOver && UIRegistryManager.Instance.GetDropDownBehavior())
             {
                 cbo.IsDropDownOpen = false;
             }

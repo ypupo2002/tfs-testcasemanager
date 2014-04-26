@@ -17,6 +17,7 @@ using TestCaseManagerCore;
 using System.Collections.Generic;
 using TestCaseManagerCore.BusinessLogic.Managers;
 using System.Text;
+using AAngelov.Utilities.UI.Managers;
 
 namespace TestCaseManagerApp.Views
 {
@@ -149,7 +150,7 @@ namespace TestCaseManagerApp.Views
         /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void btnAddTestPlan_Click(object sender, RoutedEventArgs e)
         {
-                 RegistryManager.WriteTitleTitlePromtDialog(string.Empty);
+            UIRegistryManager.Instance.WriteTitleTitlePromtDialog(string.Empty);
             var dialog = new PrompDialogWindow();
             dialog.ShowDialog();
 
@@ -157,15 +158,15 @@ namespace TestCaseManagerApp.Views
             string newTitle;
             Task t = Task.Factory.StartNew(() =>
             {
-                isCanceled = RegistryManager.GetIsCanceledPromtDialog();
-                newTitle = RegistryManager.GetContentPromtDialog();
+                isCanceled = UIRegistryManager.Instance.GetIsCanceledPromtDialog();
+                newTitle = UIRegistryManager.Instance.GetContentPromtDialog();
                 while (string.IsNullOrEmpty(newTitle) && !isCanceled)
                 {
                 }
             });
             t.Wait();
-            isCanceled = RegistryManager.GetIsCanceledPromtDialog();
-            newTitle = RegistryManager.GetContentPromtDialog();
+            isCanceled = UIRegistryManager.Instance.GetIsCanceledPromtDialog();
+            newTitle = UIRegistryManager.Instance.GetContentPromtDialog();
 
             if (!isCanceled)
             {
@@ -206,7 +207,7 @@ namespace TestCaseManagerApp.Views
         private void btnFinish_Click(object sender, RoutedEventArgs e)
         {
             log.Info("Navigate to ProjectSelectionView");
-            this.NavigateToProjectSelection();
+            Navigator.Instance.NavigateToProjectSelection(this);
         }   
     }
 }

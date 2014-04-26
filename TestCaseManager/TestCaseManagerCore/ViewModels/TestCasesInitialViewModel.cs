@@ -17,6 +17,8 @@ namespace TestCaseManagerCore.ViewModels
     using TestCaseManagerCore.BusinessLogic.Enums;
     using TestCaseManagerCore.BusinessLogic.Managers;
     using TestCaseManagerCore.Templates;
+    using AAngelov.Utilities.UI.Core;
+    using AAngelov.Utilities.Enums;
 
     /// <summary>
     /// Contains methods and properties related to the TestCasesInitial View
@@ -67,9 +69,9 @@ namespace TestCaseManagerCore.ViewModels
             List<Suite> subSuites = TestSuiteManager.GetAllSuites(ExecutionContext.Preferences.TestPlan.RootSuite.SubSuites).ToList();
             subSuites.Sort();
             // Load last selected suite in the treeview in order to selected it again
-            this.selectedSuiteId = RegistryManager.GetSelectedSuiteId();
+            this.selectedSuiteId = RegistryManager.Instance.GetSelectedSuiteId();
             List<TestCase> suiteTestCaseCollection = new List<TestCase>();
-            this.ShowSubSuitesTestCases = RegistryManager.ReadShowSubsuiteTestCases();
+            this.ShowSubSuitesTestCases = RegistryManager.Instance.ReadShowSubsuiteTestCases();
 
             if (this.selectedSuiteId != -1)
             {
@@ -97,12 +99,12 @@ namespace TestCaseManagerCore.ViewModels
 				suiteTestCaseCollection = TestCaseManager.GetAllTestCaseFromSuite(ExecutionContext.Preferences.TestPlan, ExecutionContext.Preferences.TestPlan.RootSuite.SubSuites.First().Id);
                 this.selectedSuiteId = ExecutionContext.Preferences.TestPlan.RootSuite.SubSuites.First().Id;
                 this.ShowSubSuitesTestCases = false;
-                RegistryManager.WriteShowSubsuiteTestCases(false);
+                RegistryManager.Instance.WriteShowSubsuiteTestCases(false);
             }
             else
             {
                 this.ShowSubSuitesTestCases = false;
-                RegistryManager.WriteShowSubsuiteTestCases(false);
+                RegistryManager.Instance.WriteShowSubsuiteTestCases(false);
 				suiteTestCaseCollection = TestCaseManager.GetAllTestCasesInTestPlan(ExecutionContext.TestManagementTeamProject, ExecutionContext.Preferences.TestPlan);
             }
             
@@ -137,7 +139,7 @@ namespace TestCaseManagerCore.ViewModels
         /// <param name="suiteTestCaseCollection">The suite test case collection.</param>
         public void AddTestCasesSubsuites(List<TestCase> suiteTestCaseCollection)
         {
-            int selectedSuiteId = RegistryManager.GetSelectedSuiteId();
+            int selectedSuiteId = RegistryManager.Instance.GetSelectedSuiteId();
             if (this.ShowSubSuitesTestCases)
             {
                 List<TestCase> testCasesList = new List<TestCase>();

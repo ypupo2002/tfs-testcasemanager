@@ -18,6 +18,9 @@ namespace TestCaseManagerCore.ViewModels
     using Microsoft.TeamFoundation.TestManagement.Client;
     using TestCaseManagerCore.BusinessLogic.Entities;
     using TestCaseManagerCore.BusinessLogic.Managers;
+    using AAngelov.Utilities.UI.Core;
+    using AAngelov.Utilities.Managers;
+    using AAngelov.Utilities.Entities;
 
     /// <summary>
     /// Contains methods and properties related to the TestCaseEdit View

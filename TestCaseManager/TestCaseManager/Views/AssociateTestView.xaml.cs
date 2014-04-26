@@ -5,14 +5,16 @@
 using System;
 using System.Linq;
 using System.Windows;
+using AAngelov.Utilities.Entities;
+using AAngelov.Utilities.UI.ControlExtensions;
 using FirstFloor.ModernUI.Windows;
 using FirstFloor.ModernUI.Windows.Controls;
 using FirstFloor.ModernUI.Windows.Navigation;
 using TestCaseManagerCore.BusinessLogic.Entities;
 using TestCaseManagerCore.BusinessLogic.Managers;
-using TestCaseManagerCore.Helpers;
 using TestCaseManagerCore.ViewModels;
 using TestCaseManagerCore;
+using AAngelov.Utilities.UI.Managers;
 
 namespace TestCaseManagerApp.Views
 {
@@ -220,7 +222,7 @@ namespace TestCaseManagerApp.Views
             this.AssociateTestViewModel.AssociateTestCaseToTest(currentSelectedTest, testType);
 
             log.InfoFormat("Navigate to Edit Test Case with id= {0}, test suite id= {1}, CreateNew= {2}, Duplicate= {3}", AssociateTestViewModel.TestCaseId, AssociateTestViewModel.TestSuiteId, AssociateTestViewModel.CreateNew, AssociateTestViewModel.Duplicate);
-            this.NavigateToTestCasesEditView(AssociateTestViewModel.TestCaseId, AssociateTestViewModel.TestSuiteId, AssociateTestViewModel.CreateNew, AssociateTestViewModel.Duplicate);
+            Navigator.Instance.NavigateToTestCasesEditView(this, AssociateTestViewModel.TestCaseId, AssociateTestViewModel.TestSuiteId, AssociateTestViewModel.CreateNew, AssociateTestViewModel.Duplicate);
         }
 
         /// <summary>

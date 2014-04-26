@@ -2,7 +2,7 @@
 // https://testcasemanager.codeplex.com/ All rights reserved.
 // </copyright>
 // <author>Anton Angelov</author>
-namespace TestCaseManagerCore.BusinessLogic.Entities
+namespace AAngelov.Utilities.Entities
 {
     using System;
     using System.Collections.Generic;

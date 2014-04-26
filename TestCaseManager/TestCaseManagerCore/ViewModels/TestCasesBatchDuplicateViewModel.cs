@@ -10,11 +10,13 @@ namespace TestCaseManagerCore.ViewModels
     using System.Linq;
     using System.Text.RegularExpressions;
     using System.Windows.Documents;
+    using AAngelov.Utilities.Managers;
     using Microsoft.TeamFoundation.Framework.Client;
     using Microsoft.TeamFoundation.Framework.Common;
     using Microsoft.TeamFoundation.TestManagement.Client;
     using TestCaseManagerCore.BusinessLogic.Entities;
     using TestCaseManagerCore.BusinessLogic.Managers;
+    using AAngelov.Utilities.UI.Core;
 
     /// <summary>
     /// Contains methods and properties related to the TestCasesBatchDuplicate View

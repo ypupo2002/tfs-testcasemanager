@@ -5,21 +5,12 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
 using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using FirstFloor.ModernUI.Windows;
-using FirstFloor.ModernUI.Windows.Controls;
-using TestCaseManagerCore.BusinessLogic.Managers;
+using AAngelov.Utilities.UI.Managers;
 using TestCaseManagerCore.ViewModels;
+using AAngelov.Utilities.UI.Managers;
 
 namespace TestCaseManagerApp.Views
 {
@@ -46,8 +37,8 @@ namespace TestCaseManagerApp.Views
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            RegistryManager.WriteIsWindowClosedFromX(true);
-            RegistryManager.WriteIsCheckboxDialogSubmitted(false);
+            UIRegistryManager.Instance.WriteIsWindowClosedFromX(true);
+            UIRegistryManager.Instance.WriteIsCheckboxDialogSubmitted(false);
             PrompCheckboxListDialogViewModel = new PrompCheckboxListDialogViewModel();
             this.DataContext = this.PrompCheckboxListDialogViewModel;         
         }
@@ -66,9 +57,9 @@ namespace TestCaseManagerApp.Views
             {
                 checkedPropertiesStr = checkedProperties.Aggregate((i, j) => i + " " + j);
             }
-            RegistryManager.WriteCheckedPropertiesToBeExported(checkedPropertiesStr);
-            RegistryManager.WriteIsWindowClosedFromX(false);
-            RegistryManager.WriteIsCheckboxDialogSubmitted(true);
+            UIRegistryManager.Instance.WriteCheckedPropertiesToBeExported(checkedPropertiesStr);
+            UIRegistryManager.Instance.WriteIsWindowClosedFromX(false);
+            UIRegistryManager.Instance.WriteIsCheckboxDialogSubmitted(true);
             Window window = Window.GetWindow(this);
             window.Close();
         }
@@ -81,7 +72,7 @@ namespace TestCaseManagerApp.Views
         private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
             PrompCheckboxListDialogViewModel.IsCanceled = true;
-            RegistryManager.WriteIsWindowClosedFromX(false);
+            UIRegistryManager.Instance.WriteIsWindowClosedFromX(false);
             Window window = Window.GetWindow(this);
             window.Close();
         }  

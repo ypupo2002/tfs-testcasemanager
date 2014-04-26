@@ -4,6 +4,7 @@
 // <author>Anton Angelov</author>
 namespace TestCaseManagerCore.BusinessLogic.Entities
 {
+    using AAngelov.Utilities.UI.Core;
     using FirstFloor.ModernUI.Presentation;
 
     /// <summary>

@@ -10,6 +10,8 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Input;
+using AAngelov.Utilities.Entities;
+using AAngelov.Utilities.UI.ControlExtensions;
 using FirstFloor.ModernUI.Windows;
 using FirstFloor.ModernUI.Windows.Controls;
 using FirstFloor.ModernUI.Windows.Navigation;
@@ -17,11 +19,13 @@ using Microsoft.TeamFoundation.TestManagement.Client;
 using TestCaseManagerCore.BusinessLogic.Entities;
 using TestCaseManagerCore.BusinessLogic.Enums;
 using TestCaseManagerCore.BusinessLogic.Managers;
-using TestCaseManagerCore.Helpers;
 using TestCaseManagerCore.ViewModels;
 using TestCaseManagerCore;
 using System.Windows.Controls;
 using System.Threading;
+using AAngelov.Utilities.UI.Managers;
+using AAngelov.Utilities.Managers;
+using AAngelov.Utilities.Enums;
 
 namespace TestCaseManagerApp.Views
 {
@@ -462,7 +466,7 @@ namespace TestCaseManagerApp.Views
             {
                 return;
             }
-            RegistryManager.WriteTitleTitlePromtDialog(string.Empty);
+            UIRegistryManager.Instance.WriteTitleTitlePromtDialog(string.Empty);
             var dialog = new PrompDialogWindow();
             dialog.ShowDialog();
 
@@ -470,15 +474,15 @@ namespace TestCaseManagerApp.Views
             string newTitle;
             Task t = Task.Factory.StartNew(() =>
             {
-                isCanceled = RegistryManager.GetIsCanceledPromtDialog();
-                newTitle = RegistryManager.GetContentPromtDialog();
+                isCanceled = UIRegistryManager.Instance.GetIsCanceledPromtDialog();
+                newTitle = UIRegistryManager.Instance.GetContentPromtDialog();
                 while (string.IsNullOrEmpty(newTitle) && !isCanceled)
                 {
                 }
             });
             t.Wait();
-            isCanceled = RegistryManager.GetIsCanceledPromtDialog();
-            newTitle = RegistryManager.GetContentPromtDialog();
+            isCanceled = UIRegistryManager.Instance.GetIsCanceledPromtDialog();
+            newTitle = UIRegistryManager.Instance.GetContentPromtDialog();
 
             if (!isCanceled)
             {
@@ -1008,8 +1012,8 @@ namespace TestCaseManagerApp.Views
                 if (result != MessageBoxResult.Cancel && !isFromNavigation)
                 {
                     log.Info("Navigate to all Test Cases View.");
-                    UndoRedoManager.Instance().Clear();  
-                    this.NavigateToTestCasesInitialView();
+                    UndoRedoManager.Instance().Clear();
+                    Navigator.Instance.NavigateToTestCasesInitialView(this);
                 }
                 else
                 {
@@ -1023,8 +1027,8 @@ namespace TestCaseManagerApp.Views
                 if (result != MessageBoxResult.Cancel && !isFromNavigation)
                 {
                     log.Info("Navigate to all Shared Steps View.");
-                    UndoRedoManager.Instance().Clear();  
-                    this.NavigateToSharedStepsInitialView();
+                    UndoRedoManager.Instance().Clear();
+                    Navigator.Instance.NavigateToSharedStepsInitialView(this);
                 }
                 else
                 {
@@ -1112,12 +1116,12 @@ namespace TestCaseManagerApp.Views
             if (this.editViewContext.ComeFromTestCase || !this.editViewContext.IsSharedStep)
             {
                 log.Info("Navigate to all test cases view.");
-                this.NavigateToTestCasesInitialView();
+                Navigator.Instance.NavigateToTestCasesInitialView(this);
             }
             else
             {
                 log.Info("Navigate to all shared steps view.");
-                this.NavigateToSharedStepsInitialView();
+                Navigator.Instance.NavigateToSharedStepsInitialView(this);
             }
         }
 
@@ -1421,11 +1425,11 @@ namespace TestCaseManagerApp.Views
         /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void btnAssociateToAutomation_Click(object sender, RoutedEventArgs e)
         {
-            string projectDllPath = RegistryManager.GetProjectDllPath();
+            string projectDllPath = RegistryManager.Instance.GetProjectDllPath();
             if (!File.Exists(projectDllPath))
             {
                 ModernDialog.ShowMessage("Provide Existing Project Path Dll.", "Warning", MessageBoxButton.OK);
-                this.NavigateToAppearanceSettingsView();
+                Navigator.Instance.NavigateToAppearanceSettingsView(this);
             }
             else
             {
@@ -1435,12 +1439,12 @@ namespace TestCaseManagerApp.Views
                     if (currentTestCase.ITestSuiteBase != null)
                     {
                         log.InfoFormat("Navigate to AssociateAutomation, test case id= {0}, suite id= {1}, CreateNew= {2}, Duplicate= {3}.", currentTestCase.ITestCase.Id, currentTestCase.ITestSuiteBase.Id, this.editViewContext.CreateNew, this.editViewContext.Duplicate);
-                        this.NavigateToAssociateAutomationView(currentTestCase.ITestCase.Id, currentTestCase.ITestSuiteBase.Id, this.editViewContext.CreateNew, this.editViewContext.Duplicate);
+                        Navigator.Instance.NavigateToAssociateAutomationView(this, currentTestCase.ITestCase.Id, currentTestCase.ITestSuiteBase.Id, this.editViewContext.CreateNew, this.editViewContext.Duplicate);
                     }
                     else
                     {
                         log.InfoFormat("Navigate to AssociateAutomation, test case id= {0}, suite id= {1}, CreateNew= {2}, Duplicate= {3}.", currentTestCase.ITestCase.Id, -1, this.editViewContext.CreateNew, this.editViewContext.Duplicate);
-                        this.NavigateToAssociateAutomationView(currentTestCase.ITestCase.Id, -1, this.editViewContext.CreateNew, this.editViewContext.Duplicate);
+                        Navigator.Instance.NavigateToAssociateAutomationView(this, currentTestCase.ITestCase.Id, -1, this.editViewContext.CreateNew, this.editViewContext.Duplicate);
                     }
                    
                 }
@@ -1597,12 +1601,12 @@ namespace TestCaseManagerApp.Views
             if (this.TestCaseEditViewModel.TestCase.ITestSuiteBase != null)
             {
                 log.InfoFormat("Preview test case with id= \"{0}\" and suiteId= \"{1}\"", this.TestCaseEditViewModel.TestCase.ITestCase.Id, this.TestCaseEditViewModel.TestCase.ITestSuiteBase.Id);
-                this.NavigateToTestCasesDetailedView(this.TestCaseEditViewModel.TestCase.ITestCase.Id, this.TestCaseEditViewModel.TestCase.ITestSuiteBase.Id);
+                Navigator.Instance.NavigateToTestCasesDetailedView(this, this.TestCaseEditViewModel.TestCase.ITestCase.Id, this.TestCaseEditViewModel.TestCase.ITestSuiteBase.Id);
             }
             else
             {
                 log.InfoFormat("Preview test case with id= \"{0}\" and suiteId= \"{1}\"", this.TestCaseEditViewModel.TestCase.ITestCase.Id, -1);
-                this.NavigateToTestCasesDetailedView(this.TestCaseEditViewModel.TestCase.ITestCase.Id, -1);
+                Navigator.Instance.NavigateToTestCasesDetailedView(this, this.TestCaseEditViewModel.TestCase.ITestCase.Id, -1);
             }
         }
     }

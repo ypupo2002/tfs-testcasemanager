@@ -51,6 +51,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ControlExtensions\ComboBoxDropdownExtensions.cs" />
     <Compile Include="ControlExtensions\RichTextBoxExtensions.cs" />
     <Compile Include="ControlExtensions\TextBoxExtensions.cs" />
     <Compile Include="Converters\EnumMatchToBooleanConverter.cs" />

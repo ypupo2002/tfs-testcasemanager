@@ -6,54 +6,55 @@ namespace TestCaseManagerCore
 {
     using System;
     using System.Windows;
-    using FirstFloor.ModernUI.Windows.Navigation;
+    using AAngelov.Utilities.UI.Core;
 
     /// <summary>
     /// Contains methods which navigate to different views with option to set different parameters
     /// </summary>
-    public static class Navigator
+    public class Navigator : BaseNavigator
     {
         /// <summary>
-        /// Navigates the specified source.
+        /// The instance
         /// </summary>
-        /// <param name="source">The source.</param>
-        /// <param name="url">The URL.</param>
-        public static void Navigate(this FrameworkElement source, string url)
+        private static Navigator instance;
+
+        /// <summary>
+        /// Gets the instance.
+        /// </summary>
+        /// <value>
+        /// The instance.
+        /// </value>
+        public static Navigator Instance 
         {
-            DefaultLinkNavigator navigator = new DefaultLinkNavigator();
-            navigator.Navigate(new Uri(url, UriKind.Relative), source, null);
+            get
+            {
+                if (instance == null)
+                {
+                    instance = new Navigator();
+                }
+
+                return instance;
+            }
         }
 
         /// <summary>
         /// Navigates to test cases initial view.
         /// </summary>
         /// <param name="source">The source.</param>
-        public static void NavigateToTestCasesInitialView(this FrameworkElement source)
+        public void NavigateToTestCasesInitialView(FrameworkElement source)
         {
             string url = "/Views/TestCasesInitialView.xaml";
-            source.Navigate(url);
-        }
-
-        /// <summary>
-        /// Navigates the back.
-        /// </summary>
-        /// <param name="source">The source.</param>
-        public static void NavigateBack(this FrameworkElement source)
-        {
-            string url = "cmd://browseback";
-            //source.Navigate(url);
-            DefaultLinkNavigator navigator = new DefaultLinkNavigator();
-            navigator.Navigate(new Uri(url, UriKind.Absolute), source, "_self");
+            this.Navigate(source, url);
         }
 
         /// <summary>
         /// Navigates the automatic shared steps initial view.
         /// </summary>
         /// <param name="source">The source.</param>
-        public static void NavigateToSharedStepsInitialView(this FrameworkElement source)
+        public void NavigateToSharedStepsInitialView(FrameworkElement source)
         {
             string url = "/Views/SharedStepsInitialView.xaml";
-            source.Navigate(url);
+            this.Navigate(source, url);
         }
 
         /// <summary>
@@ -62,11 +63,11 @@ namespace TestCaseManagerCore
         /// <param name="source">The source.</param>
         /// <param name="testCaseId">The test case unique identifier.</param>
         /// <param name="suiteId">The suite unique identifier.</param>
-        public static void NavigateToTestCasesEditView(this FrameworkElement source, int testCaseId, int suiteId)
+        public void NavigateToTestCasesEditView(FrameworkElement source, int testCaseId, int suiteId)
         {
             string url = string.Format("/Views/TestCaseEditView.xaml#id={0}&suiteId={1}", testCaseId, suiteId);
-     
-            source.Navigate(url);
+
+            this.Navigate(source, url);
         }
 
         /// <summary>
@@ -75,20 +76,20 @@ namespace TestCaseManagerCore
         /// <param name="source">The source.</param>
         /// <param name="testCaseId">The test case unique identifier.</param>
         /// <param name="suiteId">The suite unique identifier.</param>
-        public static void NavigateToTestCasesDetailedView(this FrameworkElement source, int testCaseId, int suiteId)
+        public void NavigateToTestCasesDetailedView(FrameworkElement source, int testCaseId, int suiteId)
         {
             string url = string.Format("/Views/TestCaseDetailedView.xaml#id={0}&suiteId={1}", testCaseId, suiteId);
 
-            source.Navigate(url);
+            this.Navigate(source, url);
         }
 
         /// <summary>
         /// Navigates to appearance settings view.
         /// </summary>
         /// <param name="source">The source.</param>
-        public static void NavigateToAppearanceSettingsView(this FrameworkElement source)
+        public void NavigateToAppearanceSettingsView(FrameworkElement source)
         {
-            source.Navigate("/Views/SettingsView.xaml");
+            this.Navigate(source, "/Views/SettingsView.xaml");
         }
 
         /// <summary>
@@ -99,11 +100,11 @@ namespace TestCaseManagerCore
         /// <param name="suiteId">The suite unique identifier.</param>
         /// <param name="createNew">if set to <c>true</c> [create new].</param>
         /// <param name="duplicate">if set to <c>true</c> [duplicate].</param>
-        public static void NavigateToTestCasesEditView(this FrameworkElement source, int testCaseId, int suiteId, bool createNew, bool duplicate)
+        public void NavigateToTestCasesEditView(FrameworkElement source, int testCaseId, int suiteId, bool createNew, bool duplicate)
         {
             string url = string.Format("/Views/TestCaseEditView.xaml#id={0}&suiteId={1}&createNew={2}&duplicate={3}", testCaseId, suiteId, createNew, duplicate);
 
-            source.Navigate(url);
+            this.Navigate(source, url);
         }
 
         /// <summary>
@@ -114,11 +115,11 @@ namespace TestCaseManagerCore
         /// <param name="sharedStepId">The shared step unique identifier.</param>
         /// <param name="createNew">if set to <c>true</c> [create new].</param>
         /// <param name="duplicate">if set to <c>true</c> [duplicate].</param>
-        public static void NavigateToTestCasesEditView(this FrameworkElement source, bool isSharedStep, int sharedStepId, bool createNew, bool duplicate)
+        public void NavigateToTestCasesEditView(FrameworkElement source, bool isSharedStep, int sharedStepId, bool createNew, bool duplicate)
         {
             string url = string.Format("/Views/TestCaseEditView.xaml#isSharedStep={0}&sharedStepId={1}&createNew={2}&duplicate={3}", isSharedStep, sharedStepId, createNew, duplicate);
 
-            source.Navigate(url);
+            this.Navigate(source, url);
         }
 
         /// <summary>
@@ -128,11 +129,11 @@ namespace TestCaseManagerCore
         /// <param name="isSharedStep">if set to <c>true</c> [is shared step].</param>
         /// <param name="createNew">if set to <c>true</c> [create new].</param>
         /// <param name="duplicate">if set to <c>true</c> [duplicate].</param>
-        public static void NavigateToTestCasesEditView(this FrameworkElement source, bool isSharedStep, bool createNew, bool duplicate)
+        public void NavigateToTestCasesEditView(FrameworkElement source, bool isSharedStep, bool createNew, bool duplicate)
         {
             string url = string.Format("/Views/TestCaseEditView.xaml#isSharedStep={0}&createNew={1}&duplicate={2}", isSharedStep, createNew, duplicate);
 
-            source.Navigate(url);
+            this.Navigate(source, url);
         }
 
         /// <summary>
@@ -141,11 +142,11 @@ namespace TestCaseManagerCore
         /// <param name="source">The source.</param>
         /// <param name="isShared">if set to <c>true</c> [is shared].</param>
         /// <param name="sharedStepId">The test step unique identifier.</param>
-        public static void NavigateToTestCasesEditView(this FrameworkElement source, bool isShared, int sharedStepId)
+        public void NavigateToTestCasesEditView(FrameworkElement source, bool isShared, int sharedStepId)
         {
             string url = string.Format("/Views/TestCaseEditView.xaml#isSharedStep={0}&sharedStepId={1}", isShared, sharedStepId);
 
-            source.Navigate(url);
+            this.Navigate(source, url);
         }
 
         /// <summary>
@@ -156,11 +157,11 @@ namespace TestCaseManagerCore
         /// <param name="suiteId">The suite unique identifier.</param>
         /// <param name="createNew">if set to <c>true</c> [create new].</param>
         /// <param name="duplicate">if set to <c>true</c> [duplicate].</param>
-        public static void NavigateToAssociateAutomationView(this FrameworkElement source, int testCaseId, int suiteId, bool createNew, bool duplicate)
+        public void NavigateToAssociateAutomationView(FrameworkElement source, int testCaseId, int suiteId, bool createNew, bool duplicate)
         {
             string url = string.Format("/Views/AssociateTestView.xaml#id={0}&suiteId={1}&createNew={2}&duplicate={3}", testCaseId, suiteId, createNew, duplicate);
 
-            source.Navigate(url);
+            this.Navigate(source, url);
         }
 
         /// <summary>
@@ -169,11 +170,11 @@ namespace TestCaseManagerCore
         /// <param name="source">The source.</param>
         /// <param name="createNew">if set to <c>true</c> [create new].</param>
         /// <param name="duplicate">if set to <c>true</c> [duplicate].</param>
-        public static void NavigateToTestCasesEditView(this FrameworkElement source, int suiteId, bool createNew, bool duplicate)
+        public void NavigateToTestCasesEditView(FrameworkElement source, int suiteId, bool createNew, bool duplicate)
         {
             string url = string.Format("/Views/TestCaseEditView.xaml#suiteId={0}&createNew={1}&duplicate={2}", suiteId, createNew, duplicate);
 
-            source.Navigate(url);
+            this.Navigate(source, url);
         }
 
         /// <summary>
@@ -182,44 +183,44 @@ namespace TestCaseManagerCore
         /// <param name="source">The source.</param>
         /// <param name="loadTestCases">if set to <c>true</c> [load test cases].</param>
         /// <param name="testCaseIds">The test case ids.</param>
-        public static void NavigateToTestCaseBatchDuplicateView(this FrameworkElement source, bool loadTestCases, bool loadSpecificTestCases)
+        public void NavigateToTestCaseBatchDuplicateView(FrameworkElement source, bool loadTestCases, bool loadSpecificTestCases)
         {
             string url = string.Format("/Views/TestCaseBatchDuplicateView.xaml#loadTestCases={0}&loadSpecificTestCases={1}", loadTestCases, loadSpecificTestCases);
 
-            source.Navigate(url);
+            this.Navigate(source, url);
         }
 
         /// <summary>
         /// Navigates to test cases edit view from associated automation.
         /// </summary>
         /// <param name="source">The source.</param>
-        public static void NavigateToTestCasesEditViewFromAssociatedAutomation(this FrameworkElement source)
+        public void NavigateToTestCasesEditViewFromAssociatedAutomation(FrameworkElement source)
         {
             string url = "/Views/TestCaseEditView.xaml#comesFromAssociatedAutomation=true";
 
-            source.Navigate(url);
+            this.Navigate(source, url);
         }
 
         /// <summary>
         /// Navigates the automatic project selection.
         /// </summary>
         /// <param name="source">The source.</param>
-        public static void NavigateToProjectSelection(this FrameworkElement source)
+        public void NavigateToProjectSelection(FrameworkElement source)
         {
             string url = "/Views/ProjectSelectionView.xaml#skipAutoLoad=true";
 
-            source.Navigate(url);
+            this.Navigate(source, url);
         }
 
         /// <summary>
         /// Navigates the automatic test plans edit view.
         /// </summary>
         /// <param name="source">The source.</param>
-        public static void NavigateToTestPlansEdit(this FrameworkElement source)
+        public void NavigateToTestPlansEdit(FrameworkElement source)
         {
             string url = "/Views/TestPlansEditView.xaml";
 
-            source.Navigate(url);
+            this.Navigate(source, url);
         }
 
         /// <summary>
@@ -227,10 +228,10 @@ namespace TestCaseManagerCore
         /// </summary>
         /// <param name="source">The source.</param>
         /// <param name="suiteId">The suite unique identifier.</param>
-        public static void NavigateToTestCasesExecutionArrangement(this FrameworkElement source, int suiteId)
+        public void NavigateToTestCasesExecutionArrangement(FrameworkElement source, int suiteId)
         {
             string url = string.Format("/Views/TestCaseExecutionArrangmentView.xaml#suiteId={0}", suiteId);
-            source.Navigate(url);
+            this.Navigate(source, url);
         }
     }
 }

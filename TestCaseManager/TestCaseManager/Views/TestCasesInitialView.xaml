@@ -6,7 +6,7 @@
              xmlns:mui="http://firstfloorsoftware.com/ModernUI"
              xmlns:local="clr-namespace:TestCaseManagerApp.Views"
              xmlns:entities="clr-namespace:TestCaseManagerCore.BusinessLogic.Entities;assembly=TestCaseManagerCore"    
-              xmlns:convert="clr-namespace:TestCaseManagerCore.BusinessLogic.Converters;assembly=TestCaseManagerCore"
+              xmlns:convert="clr-namespace:AAngelov.Utilities.UI.Converters;assembly=AAngelov.Utilities.UI"
              mc:Ignorable="d" Loaded="TestCaseInitialView_Loaded">
     <Grid>
         <Grid.Resources>

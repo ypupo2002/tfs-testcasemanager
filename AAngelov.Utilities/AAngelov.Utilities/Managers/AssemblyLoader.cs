@@ -2,14 +2,15 @@
 // https://testcasemanager.codeplex.com/ All rights reserved.
 // </copyright>
 // <author>Anton Angelov</author>
-namespace TestCaseManagerCore.BusinessLogic.Managers
+namespace AAngelov.Utilities.Managers
 {
     using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Reflection;
+    using AAngelov.Utilities.Entities;
+    using AAngelov.Utilities.Managers;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
-    using TestCaseManagerCore.BusinessLogic.Entities;
 
     /// <summary>
     /// Assemly Loader Helper class

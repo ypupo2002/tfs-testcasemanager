@@ -16,6 +16,7 @@ namespace TestCaseManagerCore.ViewModels
 	using Microsoft.TeamFoundation.TestManagement.Client;
 	using TestCaseManagerCore.BusinessLogic.Entities;
 	using TestCaseManagerCore.BusinessLogic.Managers;
+    using AAngelov.Utilities.UI.Core;
 
 	/// <summary>
 	/// Provides base methods and properties for team project/collection
@@ -69,8 +70,8 @@ namespace TestCaseManagerCore.ViewModels
 					log.InfoFormat("TFS URI: {0}", preferences.TfsUri);
 					if (writeToRegistry)
 					{
-						RegistryManager.WriteCurrentTeamProjectName(preferences.TestProjectName);
-						RegistryManager.WriteCurrentTeamProjectUri(preferences.TfsUri.ToString());
+                        RegistryManager.Instance.WriteCurrentTeamProjectName(preferences.TestProjectName);
+                        RegistryManager.Instance.WriteCurrentTeamProjectUri(preferences.TfsUri.ToString());
 					}
 				}
 			}
@@ -87,9 +88,9 @@ namespace TestCaseManagerCore.ViewModels
 		public void LoadProjectSettingsFromRegistry(ref TfsTeamProjectCollection tfsTeamProjectCollection, ref ITestManagementTeamProject testManagementTeamProject, ref Preferences preferences, ITestManagementService testService, string selectedTestPlan)
 		{
 			log.Info("Load project info loaded from registry!");
-			string teamProjectUri = RegistryManager.GetTeamProjectUri();
-			string teamProjectName = RegistryManager.GetTeamProjectName();
-			string projectDllPath = RegistryManager.GetProjectDllPath();
+            string teamProjectUri = RegistryManager.Instance.GetTeamProjectUri();
+            string teamProjectName = RegistryManager.Instance.GetTeamProjectName();
+            string projectDllPath = RegistryManager.Instance.GetProjectDllPath();
 			if (!string.IsNullOrEmpty(teamProjectUri) && !string.IsNullOrEmpty(teamProjectName))
 			{
 				preferences.TfsUri = new Uri(teamProjectUri);
@@ -100,7 +101,7 @@ namespace TestCaseManagerCore.ViewModels
 				log.InfoFormat("Registry> TfsTeamProjectCollection: {0}", tfsTeamProjectCollection);
 				testService = (ITestManagementService)tfsTeamProjectCollection.GetService(typeof(ITestManagementService));
 				testManagementTeamProject = testService.GetTeamProject(preferences.TestProjectName);
-				selectedTestPlan = RegistryManager.GetTestPlan();
+                selectedTestPlan = RegistryManager.Instance.GetTestPlan();
 				log.InfoFormat("Registry> SelectedTestPlan: {0}", selectedTestPlan);
 				if (!string.IsNullOrEmpty(selectedTestPlan))
 				{

@@ -8,6 +8,8 @@ namespace TestCaseManagerCore.BusinessLogic.Entities
     using Microsoft.TeamFoundation.TestManagement.Client;
     using TestCaseManagerCore.BusinessLogic.Entities;
     using TestCaseManagerCore.BusinessLogic.Managers;
+    using AAngelov.Utilities.UI.Core;
+    using AAngelov.Utilities.Managers;
 
     /// <summary>
     /// Contains Test Step object information properties

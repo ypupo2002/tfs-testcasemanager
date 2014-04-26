@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:mui="http://firstfloorsoftware.com/ModernUI"
-             xmlns:local="clr-namespace:TestCaseManagerCore.Helpers;assembly=TestCaseManagerCore"
+             xmlns:helpers="clr-namespace:AAngelov.Utilities.UI.ControlExtensions;assembly=AAngelov.Utilities.UI"
              xmlns:System="clr-namespace:System;assembly=mscorlib"
              xmlns:enums="clr-namespace:TestCaseManagerCore.BusinessLogic.Enums;assembly=TestCaseManagerCore"
              mc:Ignorable="d" Loaded="UserControl_Loaded">
@@ -49,16 +49,16 @@
                     </Grid.ColumnDefinitions>
                     <TextBlock Text="New Suite" Margin="10,0,0,0" Height="25" Width="Auto" HorizontalAlignment="Left" Grid.Row="0" Grid.Column="0" IsEnabled="{Binding ShowTestCaseSpecificFields}"/>
                     <ComboBox Height="25" Margin="10,0,0,20" Name="cbSuite" SelectedIndex="0" HorizontalAlignment="Stretch" ItemsSource="{Binding ObservableTestSuites}" DisplayMemberPath="Title"
-                              IsTextSearchEnabled="True" local:ComboBoxDropdownExtensions.OpenDropDownAutomatically="True" IsEditable ="True" MouseEnter="cbSuite_MouseEnter" 
+                              IsTextSearchEnabled="True" helpers:ComboBoxDropdownExtensions.OpenDropDownAutomatically="True" IsEditable ="True" MouseEnter="cbSuite_MouseEnter" 
                               SelectedValue="{Binding Path=ReplaceContext.SelectedSuite, Mode=TwoWay}" MouseMove="cbSuite_MouseMove" Grid.Row="1" Grid.Column="0" IsEnabled="{Binding ShowTestCaseSpecificFields}"/>
                     <TextBlock Text="Priority" Margin="10,0,0,0" Height="25" Width="Auto" HorizontalAlignment="Left" Grid.Row="0" Grid.Column="1"/>
                     <ComboBox Height="25" Margin="10,0,0,20" Name="cbPriority" SelectedIndex="0" HorizontalAlignment="Stretch" ItemsSource="{Binding Source={StaticResource dataFromEnum}}" SelectedValue="{Binding Path=ReplaceContext.SelectedPriority, Mode=TwoWay}"
-                              IsTextSearchEnabled="True" local:ComboBoxDropdownExtensions.OpenDropDownAutomatically="True" IsEditable ="True" MouseEnter="cbPriority_MouseEnter"
+                              IsTextSearchEnabled="True" helpers:ComboBoxDropdownExtensions.OpenDropDownAutomatically="True" IsEditable ="True" MouseEnter="cbPriority_MouseEnter"
                               MouseMove="cbPriority_MouseMove"  Grid.Row="1" Grid.Column="1"/>
                     <TextBlock Text="Assigned To" Margin="10,0,0,0" Height="25" Width="Auto" HorizontalAlignment="Left" Grid.Row="2" Grid.Column="0"/>
                     <ComboBox Height="25" Margin="10,0,0,20" Name="cbTeamFoundationIdentityNames" SelectedIndex="0" HorizontalAlignment="Stretch" ItemsSource="{Binding ObservableTeamFoundationIdentityNames}"
                               SelectedValue="{Binding Path=ReplaceContext.SelectedTeamFoundationIdentityName, Mode=TwoWay}" DisplayMemberPath="DisplayName" IsTextSearchEnabled="True" 
-                              local:ComboBoxDropdownExtensions.OpenDropDownAutomatically="True" IsEditable ="True" MouseEnter="cbTeamFoundationIdentityNames_MouseEnter"
+                              helpers:ComboBoxDropdownExtensions.OpenDropDownAutomatically="True" IsEditable ="True" MouseEnter="cbTeamFoundationIdentityNames_MouseEnter"
                               MouseMove="cbTeamFoundationIdentityNames_MouseMove"  Grid.Row="3" Grid.Column="0" />
                 </Grid>
             </StackPanel>

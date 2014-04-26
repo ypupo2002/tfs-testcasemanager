@@ -1,5 +1,5 @@
-﻿// <copyright file="RichTextBoxExtensions.cs" company="AANGELOV">
-// http://aangelov.com All rights reserved.
+﻿// <copyright file="RichTextBoxExtensions.cs" company="CodePlex">
+// https://testcasemanager.codeplex.com/ All rights reserved.
 // </copyright>
 // <author>Anton Angelov</author>
 namespace AAngelov.Utilities.UI.ControlExtensions

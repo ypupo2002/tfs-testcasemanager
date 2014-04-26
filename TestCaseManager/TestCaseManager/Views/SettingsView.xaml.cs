@@ -6,11 +6,12 @@ namespace TestCaseManagerApp
 {
     using System.Windows;
     using System.Windows.Controls;
+    using AAngelov.Utilities.UI.ControlExtensions;
     using FirstFloor.ModernUI.Windows;
     using FirstFloor.ModernUI.Windows.Navigation;
     using TestCaseManagerCore;
     using TestCaseManagerCore.BusinessLogic.Managers;
-    using TestCaseManagerCore.Helpers;
+
     /// <summary>
     /// Contains logic related to the settings page
     /// </summary>
@@ -23,7 +24,7 @@ namespace TestCaseManagerApp
         {
             this.InitializeComponent();
             this.DataContext = ExecutionContext.SettingsViewModel;
-            string projectDllPath = RegistryManager.GetProjectDllPath();
+            string projectDllPath = RegistryManager.Instance.GetProjectDllPath();
             tbAssociatedProjectDllPath.Text = projectDllPath;
         }
 
@@ -85,7 +86,7 @@ namespace TestCaseManagerApp
                 // Open document 
                 string filename = dlg.FileName;
                 tbAssociatedProjectDllPath.Text = filename;
-                RegistryManager.WriteCurrentProjectDllPath(filename);
+                RegistryManager.Instance.WriteCurrentProjectDllPath(filename);
             }
         }
 

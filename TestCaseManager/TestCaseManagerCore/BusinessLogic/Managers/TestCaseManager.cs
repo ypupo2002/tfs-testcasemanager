@@ -7,10 +7,13 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using AAngelov.Utilities.Entities;
+    using AAngelov.Utilities.Managers;
     using Microsoft.TeamFoundation.TestManagement.Client;
     using TestCaseManagerCore.BusinessLogic.Entities;
     using TestCaseManagerCore.BusinessLogic.Enums;
     using TestCaseManagerCore.BusinessLogic.Managers;
+    using AAngelov.Utilities.Enums;
 
 	/// <summary>
 	/// Contains helper methods for working with TestCase entities

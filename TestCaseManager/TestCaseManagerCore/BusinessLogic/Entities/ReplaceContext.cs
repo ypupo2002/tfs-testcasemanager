@@ -12,6 +12,8 @@ namespace TestCaseManagerCore.BusinessLogic.Entities
     using System.Threading.Tasks;
     using Microsoft.TeamFoundation.TestManagement.Client;
     using TestCaseManagerCore.BusinessLogic.Enums;
+    using AAngelov.Utilities.Entities;
+    using AAngelov.Utilities.UI.Core;
 
     /// <summary>
     /// Used in the Find Replace View to pass which data should be changed and the data itself

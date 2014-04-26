@@ -10,14 +10,16 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Input;
+using AAngelov.Utilities.UI.ControlExtensions;
 using FirstFloor.ModernUI.Windows;
 using FirstFloor.ModernUI.Windows.Controls;
 using FirstFloor.ModernUI.Windows.Navigation;
 using TestCaseManagerCore;
 using TestCaseManagerCore.BusinessLogic.Entities;
 using TestCaseManagerCore.BusinessLogic.Managers;
-using TestCaseManagerCore.Helpers;
 using TestCaseManagerCore.ViewModels;
+using AAngelov.Utilities.UI.Managers;
+using AAngelov.Utilities.Entities;
 
 namespace TestCaseManagerApp.Views
 {
@@ -418,9 +420,6 @@ namespace TestCaseManagerApp.Views
                 return;
             }
             this.InitializeCurrentSelectedEntities();
-            string newSuiteTitle = cbSuite.Text;
-            List<TextReplacePair> textReplacePairsList = this.TestCasesBatchDuplicateViewModel.ReplaceContext.ObservableTextReplacePairs.ToList();
-            List<SharedStepIdReplacePair> sharedStepIdReplacePairList = this.TestCasesBatchDuplicateViewModel.ReplaceContext.ObservableSharedStepIdReplacePairs.ToList();
             int duplicatedCount = 0;
             this.ShowProgressBar();
             Task t = Task.Factory.StartNew(() =>
@@ -529,19 +528,19 @@ namespace TestCaseManagerApp.Views
                 if (currentTestCase.ITestSuiteBase != null)
                 {
                     log.InfoFormat("Edit test case with id: {0} and suite id {1}", currentTestCase.ITestCase.Id, currentTestCase.ITestSuiteBase.Id);
-                    this.NavigateToTestCasesEditView(currentTestCase.ITestCase.Id, currentTestCase.ITestSuiteBase.Id);
+                    Navigator.Instance.NavigateToTestCasesEditView(this, currentTestCase.ITestCase.Id, currentTestCase.ITestSuiteBase.Id);
                 }
                 else
                 {
                     log.InfoFormat("Edit test case with id: {0}", currentTestCase.ITestCase.Id);
-                    this.NavigateToTestCasesEditView(currentTestCase.ITestCase.Id, -1);
+                    Navigator.Instance.NavigateToTestCasesEditView(this, currentTestCase.ITestCase.Id, -1);
                 }
             }
             else
             {
                 SharedStep currentSharedStep = dgTestCases.SelectedItem as SharedStep;
                 log.InfoFormat("Edit Shared Step with id: {0} ", currentSharedStep.ISharedStep.Id);
-                this.NavigateToTestCasesEditView(true, currentSharedStep.ISharedStep.Id);
+                Navigator.Instance.NavigateToTestCasesEditView(this, true, currentSharedStep.ISharedStep.Id);
             }
         }
 
