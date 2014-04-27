@@ -2,13 +2,13 @@
 // https://testcasemanager.codeplex.com/ All rights reserved.
 // </copyright>
 // <author>Anton Angelov</author>
+
 namespace TestCaseManagerCore.BusinessLogic.Managers
 {
-	using System;
-	using System.Threading;
-	using Microsoft.TeamFoundation.Client;
-	using Microsoft.TeamFoundation.TestManagement.Client;
-	using TestCaseManagerCore.BusinessLogic.Entities;
+    using System;
+    using Microsoft.TeamFoundation.Client;
+    using Microsoft.TeamFoundation.TestManagement.Client;
+    using TestCaseManagerCore.BusinessLogic.Entities;
 
     /// <summary>
     /// Contains helper methods for working with ITestPlan objects
@@ -28,7 +28,7 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
         /// <returns>the found test plan</returns>
         public static ITestPlan GetTestPlanByName(ITestManagementTeamProject testManagementTeamProject, string testPlanName)
         {
-			ITestPlanCollection testPlans = GetAllTestPlans(testManagementTeamProject);
+            ITestPlanCollection testPlans = GetAllTestPlans(testManagementTeamProject);
             ITestPlan testPlan = null;
             if (testPlans != null)
             {
@@ -63,36 +63,36 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
                 log.Error("Getting all plans error.", ex);
                 retryCount++;
                 throw ex;
-            }    
+            }
 
             return testPlanCollection;
         }
 
-		/// <summary>
-		/// Creates the test plan.
-		/// </summary>
-		/// <param name="tfsTeamProjectCollection">The TFS team project collection.</param>
-		/// <param name="testManagementTeamProject">The test management team project.</param>
-		/// <param name="name">The name.</param>
-		/// <returns></returns>
+        /// <summary>
+        /// Creates the test plan.
+        /// </summary>
+        /// <param name="tfsTeamProjectCollection">The TFS team project collection.</param>
+        /// <param name="testManagementTeamProject">The test management team project.</param>
+        /// <param name="name">The name.</param>
+        /// <returns></returns>
         public static TestPlan CreateTestPlan(TfsTeamProjectCollection tfsTeamProjectCollection, ITestManagementTeamProject testManagementTeamProject, string name)
         {
-			ITestPlan newTestPlan = testManagementTeamProject.TestPlans.Create();
+            ITestPlan newTestPlan = testManagementTeamProject.TestPlans.Create();
             newTestPlan.Name = name;
-			newTestPlan.Owner = tfsTeamProjectCollection.AuthorizedIdentity;
+            newTestPlan.Owner = tfsTeamProjectCollection.AuthorizedIdentity;
             newTestPlan.Save();
 
             return new TestPlan(newTestPlan);
         }
 
-		/// <summary>
-		/// Removes the test plan.
-		/// </summary>
-		/// <param name="testManagementTeamProject">The test management team project.</param>
-		/// <param name="testPlanId">The test plan unique identifier.</param>
-		public static void RemoveTestPlan(ITestManagementTeamProject testManagementTeamProject, int testPlanId)
+        /// <summary>
+        /// Removes the test plan.
+        /// </summary>
+        /// <param name="testManagementTeamProject">The test management team project.</param>
+        /// <param name="testPlanId">The test plan unique identifier.</param>
+        public static void RemoveTestPlan(ITestManagementTeamProject testManagementTeamProject, int testPlanId)
         {
-			ITestPlan newTestPlan = testManagementTeamProject.TestPlans.Find(testPlanId);
+            ITestPlan newTestPlan = testManagementTeamProject.TestPlans.Find(testPlanId);
             newTestPlan.Delete();
         }
     }

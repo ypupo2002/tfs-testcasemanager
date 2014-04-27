@@ -2,6 +2,7 @@
 // http://www.codeproject.com/Articles/456591/Simple-Undo-redo-library-for-Csharp-NET?msg=4572235#xx4572235xx All rights reserved.
 // </copyright>
 // <author>Y Sujan</author>
+
 namespace AAngelov.Utilities.Managers
 {
     using System;
@@ -15,7 +16,7 @@ namespace AAngelov.Utilities.Managers
     /// This is a singleton class which stores undo/redo records and executes the undo/redo operations specified in these records
     /// </summary>
     public class UndoRedoManager
-    {     
+    { 
         /// <summary>
         /// Stores instance of this singleton object
         /// </summary>
@@ -155,7 +156,7 @@ namespace AAngelov.Utilities.Managers
         public static UndoRedoManager Instance()
         {
             return thisObject;
-        }     
+        }
 
         /// <summary>
         /// Starts a transaction under which all undo redo operations take place
@@ -235,7 +236,7 @@ namespace AAngelov.Utilities.Managers
 
             // Fire event to inform consumers that the stack size has changed
             eventToFire();
-        }     
+        }
 
         /// <summary>
         /// Pushes the specified undo operation.
@@ -267,7 +268,7 @@ namespace AAngelov.Utilities.Managers
 
             // Fire event to inform consumers that the stack size has changed
             eventToFire();
-        }          
+        }
 
         /// <summary>
         /// Performs an undo operation
@@ -461,6 +462,6 @@ namespace AAngelov.Utilities.Managers
             {
                 this.RedoStackStatusChanged(this.HasRedoOperations);
             }
-        }    
+        }
     }
 }

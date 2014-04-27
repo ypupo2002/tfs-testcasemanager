@@ -14,7 +14,7 @@
                 <Button Content="OK" Name="btnOk" Width="100" Margin="10" HorizontalAlignment="Left" Click="ButtonOk_Click" IsDefault="True" IsEnabled="False"/>
                 <Button Content="Cancel" Name="btnCancel" Width="100" Margin="10" HorizontalAlignment="Left" Click="btnCancel_Click" IsCancel="True"/>
             </StackPanel>
-          
+
         </StackPanel>
     </Grid>
 </UserControl>

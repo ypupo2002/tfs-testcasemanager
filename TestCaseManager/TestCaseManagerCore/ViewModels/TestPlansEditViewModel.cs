@@ -2,15 +2,15 @@
 // https://testcasemanager.codeplex.com/ All rights reserved.
 // </copyright>
 // <author>Anton Angelov</author>
+
 namespace TestCaseManagerCore.ViewModels
 {
-    using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.Linq;
+    using AAngelov.Utilities.UI.Core;
     using Microsoft.TeamFoundation.TestManagement.Client;
     using TestCaseManagerCore.BusinessLogic.Entities;
     using TestCaseManagerCore.BusinessLogic.Managers;
-    using AAngelov.Utilities.UI.Core;
 
     /// <summary>
     /// Contains methods and properties related to the EditTestPlans View
@@ -21,7 +21,6 @@ namespace TestCaseManagerCore.ViewModels
         /// The log
         /// </summary>
         //private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-
         /// <summary>
         /// Initializes a new instance of the <see cref="TestCaseExecutionArrangmentViewModel"/> class.
         /// </summary>
@@ -46,7 +45,7 @@ namespace TestCaseManagerCore.ViewModels
         /// <param name="testPlanToBeDeleted">The test plan automatic be deleted.</param>
         public void DeleteTestPlan(TestPlan testPlanToBeDeleted)
         {
-			TestPlanManager.RemoveTestPlan(ExecutionContext.TestManagementTeamProject, testPlanToBeDeleted.Id);
+            TestPlanManager.RemoveTestPlan(ExecutionContext.TestManagementTeamProject, testPlanToBeDeleted.Id);
             this.ObservableTestPlans.Remove(testPlanToBeDeleted);
         }
 
@@ -56,7 +55,7 @@ namespace TestCaseManagerCore.ViewModels
         /// <param name="name">The name.</param>
         public void AddTestPlan(string name)
         {
-			TestPlan testPlanToBeAdded = TestPlanManager.CreateTestPlan(ExecutionContext.TfsTeamProjectCollection, ExecutionContext.TestManagementTeamProject, name);
+            TestPlan testPlanToBeAdded = TestPlanManager.CreateTestPlan(ExecutionContext.TfsTeamProjectCollection, ExecutionContext.TestManagementTeamProject, name);
             this.ObservableTestPlans.Add(testPlanToBeAdded);
         }
     }

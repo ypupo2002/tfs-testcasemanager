@@ -2,19 +2,18 @@
 // https://testcasemanager.codeplex.com/ All rights reserved.
 // </copyright>
 // <author>Anton Angelov</author>
+
 using System;
 using System.Linq;
 using System.Windows;
 using AAngelov.Utilities.Entities;
 using AAngelov.Utilities.UI.ControlExtensions;
-using FirstFloor.ModernUI.Windows;
-using FirstFloor.ModernUI.Windows.Controls;
-using FirstFloor.ModernUI.Windows.Navigation;
-using TestCaseManagerCore.BusinessLogic.Entities;
-using TestCaseManagerCore.BusinessLogic.Managers;
-using TestCaseManagerCore.ViewModels;
-using TestCaseManagerCore;
 using AAngelov.Utilities.UI.Managers;
+using FirstFloor.ModernUI.Windows;
+using FirstFloor.ModernUI.Windows.Navigation;
+using TestCaseManagerCore;
+using TestCaseManagerCore.BusinessLogic.Entities;
+using TestCaseManagerCore.ViewModels;
 
 namespace TestCaseManagerApp.Views
 {
@@ -115,8 +114,8 @@ namespace TestCaseManagerApp.Views
                 return;
             }
 
-            string fullNameFilter = tbFullName.Text.Equals(AssociateTestViewFilters.FullNameDefaultText) ? string.Empty : tbFullName.Text;
-            string classNameFilter = tbClassName.Text.Equals(AssociateTestViewFilters.ClassNameDefaultText) ? string.Empty : tbClassName.Text;
+            string fullNameFilter = this.tbFullName.Text.Equals(AssociateTestViewFilters.FullNameDefaultText) ? string.Empty : this.tbFullName.Text;
+            string classNameFilter = this.tbClassName.Text.Equals(AssociateTestViewFilters.ClassNameDefaultText) ? string.Empty : this.tbClassName.Text;
 
             this.AssociateTestViewModel.FilterTests(fullNameFilter, classNameFilter);
         }
@@ -128,7 +127,7 @@ namespace TestCaseManagerApp.Views
         /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void tbFullName_GotFocus(object sender, RoutedEventArgs e)
         {
-            tbFullName.ClearDefaultContent(ref AssociateTestViewModel.AssociateTestViewFilters.IsFullNameFilterSet);
+            this.tbFullName.ClearDefaultContent(ref this.AssociateTestViewModel.AssociateTestViewFilters.IsFullNameFilterSet);
         }
 
         /// <summary>
@@ -138,7 +137,7 @@ namespace TestCaseManagerApp.Views
         /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void tbFullName_LostFocus(object sender, RoutedEventArgs e)
         {
-            tbFullName.RestoreDefaultText(AssociateTestViewFilters.FullNameDefaultText, ref AssociateTestViewModel.AssociateTestViewFilters.IsFullNameFilterSet);
+            this.tbFullName.RestoreDefaultText(AssociateTestViewFilters.FullNameDefaultText, ref this.AssociateTestViewModel.AssociateTestViewFilters.IsFullNameFilterSet);
         }
 
         /// <summary>
@@ -158,7 +157,7 @@ namespace TestCaseManagerApp.Views
         /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void tbClassName_GotFocus(object sender, RoutedEventArgs e)
         {
-            tbClassName.ClearDefaultContent(ref AssociateTestViewModel.AssociateTestViewFilters.IsClassNameFilterSet);
+            this.tbClassName.ClearDefaultContent(ref this.AssociateTestViewModel.AssociateTestViewFilters.IsClassNameFilterSet);
         }
 
         /// <summary>
@@ -168,7 +167,7 @@ namespace TestCaseManagerApp.Views
         /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void tbClassName_LostFocus(object sender, RoutedEventArgs e)
         {
-            tbClassName.RestoreDefaultText(AssociateTestViewFilters.ClassNameDefaultText, ref AssociateTestViewModel.AssociateTestViewFilters.IsClassNameFilterSet);
+            this.tbClassName.RestoreDefaultText(AssociateTestViewFilters.ClassNameDefaultText, ref this.AssociateTestViewModel.AssociateTestViewFilters.IsClassNameFilterSet);
         }
 
         /// <summary>
@@ -188,8 +187,8 @@ namespace TestCaseManagerApp.Views
         /// <param name="e">The <see cref="System.Windows.Input.MouseEventArgs"/> instance containing the event data.</param>
         private void cbTestType_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
         {
-            cbTestType.IsDropDownOpen = true;
-            cbTestType.Focus();
+            this.cbTestType.IsDropDownOpen = true;
+            this.cbTestType.Focus();
         }
 
         /// <summary>
@@ -217,12 +216,12 @@ namespace TestCaseManagerApp.Views
         /// </summary>
         private void AssociateTestInternal()
         {
-            Test currentSelectedTest = dgTests.SelectedItem as Test;
-            string testType = cbTestType.Text;
+            Test currentSelectedTest = this.dgTests.SelectedItem as Test;
+            string testType = this.cbTestType.Text;
             this.AssociateTestViewModel.AssociateTestCaseToTest(currentSelectedTest, testType);
 
-            log.InfoFormat("Navigate to Edit Test Case with id= {0}, test suite id= {1}, CreateNew= {2}, Duplicate= {3}", AssociateTestViewModel.TestCaseId, AssociateTestViewModel.TestSuiteId, AssociateTestViewModel.CreateNew, AssociateTestViewModel.Duplicate);
-            Navigator.Instance.NavigateToTestCasesEditView(this, AssociateTestViewModel.TestCaseId, AssociateTestViewModel.TestSuiteId, AssociateTestViewModel.CreateNew, AssociateTestViewModel.Duplicate);
+            log.InfoFormat("Navigate to Edit Test Case with id= {0}, test suite id= {1}, CreateNew= {2}, Duplicate= {3}", this.AssociateTestViewModel.TestCaseId, this.AssociateTestViewModel.TestSuiteId, this.AssociateTestViewModel.CreateNew, this.AssociateTestViewModel.Duplicate);
+            Navigator.Instance.NavigateToTestCasesEditView(this, this.AssociateTestViewModel.TestCaseId, this.AssociateTestViewModel.TestSuiteId, this.AssociateTestViewModel.CreateNew, this.AssociateTestViewModel.Duplicate);
         }
 
         /// <summary>
@@ -233,6 +232,6 @@ namespace TestCaseManagerApp.Views
         private void dgTests_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             this.AssociateTestInternal();
-        }        
+        }
     }
 }

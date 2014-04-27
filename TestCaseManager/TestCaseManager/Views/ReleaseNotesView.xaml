@@ -14,14 +14,14 @@
                 <mui:BBCodeBlock BBCode="-add button display test cases without suites when you click the All node Test Cases Initial View" Margin="0,0,0,15" />
                 <mui:BBCodeBlock BBCode="-Optimize the overall performance" Margin="0,0,0,15" />
                 <mui:BBCodeBlock BBCode="-fix Test Cases Initial View to display test cases only in the current Team Project" Margin="0,0,0,15" />
-                
+
                 <mui:BBCodeBlock BBCode="[b]Version[/b]: 1.0.8.6     [b]Date[/b]: 10.12.2013" Margin="0,0,10,15"/>
                 <mui:BBCodeBlock BBCode="-add feature if the test plan is loaded for the first time first suite in the plan is selected instead the All node" Margin="0,0,0,15" />
                 <mui:BBCodeBlock BBCode="-add fast button Change Test Cases in the Initial View" Margin="0,0,0,15" />
                 <mui:BBCodeBlock BBCode="-fix bug clear Undo/Redo operation if you click Cancel- Cancel - Save Changes Dialog - Edit Mode" Margin="0,0,0,15" />
                 <mui:BBCodeBlock BBCode="-add checkbox show test cases in subsuites" Margin="0,0,0,15" />
                 <mui:BBCodeBlock BBCode="-add feature to save the state of the show test cases in subsuites option between views and runs of the app" Margin="0,0,0,15" />
-                
+
                 <mui:BBCodeBlock BBCode="[b]Version[/b]: 1.0.8.5     [b]Date[/b]: 12.11.2013" Margin="0,0,10,15"/>
                 <mui:BBCodeBlock BBCode="-add export selection properties dialog" Margin="0,0,0,15" />
                 <mui:BBCodeBlock BBCode="-add new test cases export report v2.0" Margin="0,0,0,15" />
@@ -33,7 +33,7 @@
                 <mui:BBCodeBlock BBCode="-hide 'Show Test Cases Without Suites' buttons- All Test Cases" Margin="0,0,0,15" />
                 <mui:BBCodeBlock BBCode="-fix export errors if some of the selected test cases was never executed" Margin="0,0,0,15" />
                 <mui:BBCodeBlock BBCode="-fix 'associate test case' bug if the tests dll has dependency dlls exceptions" Margin="0,0,0,15" />
-                
+
                 <mui:BBCodeBlock BBCode="[b]Version[/b]: 1.0.8.1     [b]Date[/b]: 20.10.2013" Margin="0,0,10,15"/>
                 <mui:BBCodeBlock BBCode="-add TestcaseArrangeView" Margin="0,0,0,15" />
                 <mui:BBCodeBlock BBCode="-add logic to change test cases order in static suite" Margin="0,0,0,15" />
@@ -88,7 +88,7 @@
                 <mui:BBCodeBlock BBCode="-fix bug original title, expected result lost after paste" Margin="0,0,0,15" />
                 <mui:BBCodeBlock BBCode="-fix bug not get variables with special symbols" Margin="0,0,0,15" />
                 <mui:BBCodeBlock BBCode="-fix bug not correct handling multiple params shared steps replacing" Margin="0,0,0,15" />
-                                
+
                 <mui:BBCodeBlock BBCode="[b]Version[/b]: 1.0.7.6     [b]Date[/b]: 14.10.2013" Margin="0,20,10,15"/>
                 <mui:BBCodeBlock BBCode="-add test case execution status to export" Margin="0,0,0,15" />
                 <mui:BBCodeBlock BBCode="-add new improved template for export testcases" Margin="0,0,0,15" />
@@ -96,7 +96,7 @@
                 <mui:BBCodeBlock BBCode="-add shared step name to Detailed view" Margin="0,0,0,15" />
                 <mui:BBCodeBlock BBCode="-fix bug NullReference exception if you leave rows in text replace pairs empty" Margin="0,0,0,15" />
                 <mui:BBCodeBlock BBCode="-fix bug not correct change shared steps" Margin="0,0,0,15" />
-                <mui:BBCodeBlock BBCode="-fix bug if you click another change|duplicate nothing happens" Margin="0,0,0,15" />               
+                <mui:BBCodeBlock BBCode="-fix bug if you click another change|duplicate nothing happens" Margin="0,0,0,15" />
             </StackPanel>
         </ScrollViewer>
     </Grid>

@@ -2,6 +2,7 @@
 // https://testcasemanager.codeplex.com/ All rights reserved.
 // </copyright>
 // <author>Anton Angelov</author>
+
 namespace AAngelov.Utilities.Managers
 {
     using System;
@@ -12,7 +13,6 @@ namespace AAngelov.Utilities.Managers
     using System.Security.Cryptography;
     using System.Text;
     using AAngelov.Utilities.Entities;
-    using Microsoft.VisualStudio.TestTools.UnitTesting;
 
     /// <summary>
     /// Contains helper methods for getting all methods information in specified assembly
@@ -39,16 +39,15 @@ namespace AAngelov.Utilities.Managers
             List<Test> tests = null;
             try
             {
-              AppDomainSetup setup = AppDomain.CurrentDomain.SetupInformation;
-              AppDomain newDomain = AppDomain.CreateDomain("newDomain", AppDomain.CurrentDomain.Evidence, setup);
-              System.Runtime.Remoting.ObjectHandle obj = newDomain.CreateInstance(typeof(AssemblyLoader).Assembly.FullName, typeof(AssemblyLoader).FullName);
+                AppDomainSetup setup = AppDomain.CurrentDomain.SetupInformation;
+                AppDomain newDomain = AppDomain.CreateDomain("newDomain", AppDomain.CurrentDomain.Evidence, setup);
+                System.Runtime.Remoting.ObjectHandle obj = newDomain.CreateInstance(typeof(AssemblyLoader).Assembly.FullName, typeof(AssemblyLoader).FullName);
  
-              AssemblyLoader loader = (AssemblyLoader)obj.Unwrap();
-              loader.LoadAssembly(assemblyFullPath);
-              tests = loader.GetMethodsWithTestMethodAttribute();
+                AssemblyLoader loader = (AssemblyLoader)obj.Unwrap();
+                loader.LoadAssembly(assemblyFullPath);
+                tests = loader.GetMethodsWithTestMethodAttribute();
  
-              AppDomain.Unload(newDomain);
-               
+                AppDomain.Unload(newDomain);
             }
             catch (ReflectionTypeLoadException ex)
             {
@@ -87,51 +86,6 @@ namespace AAngelov.Utilities.Managers
             Guid testId = GuidFromString(currentTestMethodFullName);
 
             return testId;
-        }
-
-        /// <summary>
-        /// Gets the methods with test method attribute.
-        /// </summary>
-        /// <param name="assembly">The assembly.</param>
-        /// <param name="methods">The methods info array</param>
-        /// <returns>filtered method infos array</returns>
-        private static MethodInfo[] GetMethodsWithTestMethodAttribute(Assembly assembly, MethodInfo[] methods)
-        {
-            Type[] types;
-            try
-            {
-                types = assembly.GetTypes();
-            }
-            catch (ReflectionTypeLoadException ex)
-            {
-                types = ex.Types;
-            }
-            types = types.Where(t => t != null).ToArray();
-            methods = types.SelectMany(t =>
-                    t.GetMethods().Where(y =>
-                    {
-                        var attributes = y.GetCustomAttributes(true).ToArray();
-                        if (attributes.Length == 0)
-                        {
-                            return false;
-                        }
-                        else
-                        {
-                            bool result = false;
-                            foreach (var cAttribute in attributes)
-                            {
-                                result = cAttribute.GetType().FullName.Equals(typeof(TestMethodAttribute).ToString());
-                                if (result)
-                                {
-                                    break;
-                                }
-                            }
-
-                            return result;
-                        }
-                    })).ToArray();
-
-            return methods;
         }
 
         /// <summary>

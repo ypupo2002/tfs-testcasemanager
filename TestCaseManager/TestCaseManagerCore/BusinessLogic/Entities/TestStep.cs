@@ -2,14 +2,13 @@
 // https://testcasemanager.codeplex.com/ All rights reserved.
 // </copyright>
 // <author>Anton Angelov</author>
+
 namespace TestCaseManagerCore.BusinessLogic.Entities
 {
     using System;
-    using Microsoft.TeamFoundation.TestManagement.Client;
-    using TestCaseManagerCore.BusinessLogic.Entities;
-    using TestCaseManagerCore.BusinessLogic.Managers;
-    using AAngelov.Utilities.UI.Core;
     using AAngelov.Utilities.Managers;
+    using AAngelov.Utilities.UI.Core;
+    using Microsoft.TeamFoundation.TestManagement.Client;
 
     /// <summary>
     /// Contains Test Step object information properties
@@ -82,8 +81,7 @@ namespace TestCaseManagerCore.BusinessLogic.Entities
         /// <param name="testStepId">The test step unique identifier.</param>
         /// <param name="actionTitle">The action title.</param>
         /// <param name="actionExpectedResult">The action expected result.</param>
-        public TestStep(bool isShared, string title, Guid testStepGuid, int testStepId, string actionTitle, string actionExpectedResult)
-            : this(isShared, title, testStepGuid)
+        public TestStep(bool isShared, string title, Guid testStepGuid, int testStepId, string actionTitle, string actionExpectedResult) : this(isShared, title, testStepGuid)
         {
             this.TestStepId = testStepId;
             this.ActionTitle = actionTitle;
@@ -100,8 +98,7 @@ namespace TestCaseManagerCore.BusinessLogic.Entities
         /// <param name="title">The title.</param>
         /// <param name="testStepGuid">The test step unique identifier.</param>
         /// <param name="testStepCore">The test step core.</param>
-        public TestStep(bool isShared, string title, Guid testStepGuid, ITestStep testStepCore)
-            : this(isShared, title, testStepGuid)
+        public TestStep(bool isShared, string title, Guid testStepGuid, ITestStep testStepCore) : this(isShared, title, testStepGuid)
         {
             this.TestStepId = testStepCore.Id;
             this.ActionTitle = testStepCore.Title.ToPlainText();
@@ -119,8 +116,7 @@ namespace TestCaseManagerCore.BusinessLogic.Entities
         /// <param name="testStepGuid">The test step unique identifier.</param>
         /// <param name="testStepCore">The test step core.</param>
         /// <param name="sharedStepId">The shared step unique identifier.</param>
-        public TestStep(bool isShared, string title, Guid testStepGuid, ITestStep testStepCore, int sharedStepId)
-            : this(isShared, title, testStepGuid, testStepCore)
+        public TestStep(bool isShared, string title, Guid testStepGuid, ITestStep testStepCore, int sharedStepId) : this(isShared, title, testStepGuid, testStepCore)
         {
             this.SharedStepId = sharedStepId;
         }
@@ -129,8 +125,7 @@ namespace TestCaseManagerCore.BusinessLogic.Entities
         /// Initializes a new instance of the <see cref="TestStep"/> class.
         /// </summary>
         /// <param name="otherTestStep">The other test step.</param>
-        public TestStep(TestStep otherTestStep)
-            : this(otherTestStep.IsShared, otherTestStep.Title, otherTestStep.TestStepGuid, otherTestStep.TestStepId, otherTestStep.ActionTitle, otherTestStep.ActionExpectedResult)
+        public TestStep(TestStep otherTestStep) : this(otherTestStep.IsShared, otherTestStep.Title, otherTestStep.TestStepGuid, otherTestStep.TestStepId, otherTestStep.ActionTitle, otherTestStep.ActionExpectedResult)
         {
             this.SharedStepId = otherTestStep.SharedStepId;
             this.OriginalActionTitle = otherTestStep.OriginalActionTitle;
@@ -236,7 +231,7 @@ namespace TestCaseManagerCore.BusinessLogic.Entities
         public string ActionTitle
         {
             get
-            {               
+            { 
                 return this.actionTitle;
             }
 
@@ -292,7 +287,8 @@ namespace TestCaseManagerCore.BusinessLogic.Entities
             {
                 if (this.isInitialized)
                 {
-                    UndoRedoManager.Instance().Push(t => { 
+                    UndoRedoManager.Instance().Push(t =>
+                    { 
                         this.OriginalTitle = t;
                         this.Title = t;
                     }, this.title, "Change the test step title");
@@ -381,12 +377,12 @@ namespace TestCaseManagerCore.BusinessLogic.Entities
         /// </returns>
         public bool Equals(TestStep other)
         {
-            bool result = this.TestStepGuid.Equals(other.TestStepGuid) && 
-                this.ActionTitle.Equals(other.ActionTitle) &&
-                this.ActionExpectedResult.Equals(other.ActionExpectedResult) &&
-                this.IsShared.Equals(other.IsShared) &&
-                this.SharedStepId.Equals(other.SharedStepId) &&
-                this.TestStepId.Equals(other.TestStepId);
+            bool result = this.TestStepGuid.Equals(other.TestStepGuid) &&
+                          this.ActionTitle.Equals(other.ActionTitle) &&
+                          this.ActionExpectedResult.Equals(other.ActionExpectedResult) &&
+                          this.IsShared.Equals(other.IsShared) &&
+                          this.SharedStepId.Equals(other.SharedStepId) &&
+                          this.TestStepId.Equals(other.TestStepId);
 
             return result;
         }

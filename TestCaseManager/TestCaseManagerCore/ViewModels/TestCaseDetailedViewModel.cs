@@ -2,14 +2,13 @@
 // https://testcasemanager.codeplex.com/ All rights reserved.
 // </copyright>
 // <author>Anton Angelov</author>
+
 namespace TestCaseManagerCore.ViewModels
 {
     using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
     using Microsoft.TeamFoundation.TestManagement.Client;
     using TestCaseManagerCore.BusinessLogic.Entities;
     using TestCaseManagerCore.BusinessLogic.Managers;
@@ -25,7 +24,7 @@ namespace TestCaseManagerCore.ViewModels
         /// <param name="testCaseId">The test case unique identifier.</param>
         /// <param name="suiteId">The suite unique identifier.</param>
         public TestCaseDetailedViewModel(int testCaseId, int suiteId)
-        {            
+        { 
             ITestCase testCaseCore = ExecutionContext.TestManagementTeamProject.TestCases.Find(testCaseId);
             ITestSuiteBase testSuiteBaseCore = null;
             if (suiteId != -1)
@@ -33,12 +32,12 @@ namespace TestCaseManagerCore.ViewModels
                 testSuiteBaseCore = ExecutionContext.TestManagementTeamProject.TestSuites.Find(suiteId);
             }
 
-			this.TestCase = new TestCase(testCaseCore, testSuiteBaseCore, ExecutionContext.Preferences.TestPlan);
+            this.TestCase = new TestCase(testCaseCore, testSuiteBaseCore, ExecutionContext.Preferences.TestPlan);
             this.TestActions = new List<ITestAction>();
             this.TestCase.ITestCase.Actions.ToList().ForEach(x => this.TestActions.Add(x));
             this.ObservableTestSteps = new ObservableCollection<TestStep>();
-			List<TestStep> testSteps = TestStepManager.GetTestStepsFromTestActions(ExecutionContext.TestManagementTeamProject, this.TestActions);
-            this.AssociatedAutomation = TestCase.ITestCase.GetAssociatedAutomation();
+            List<TestStep> testSteps = TestStepManager.GetTestStepsFromTestActions(ExecutionContext.TestManagementTeamProject, this.TestActions);
+            this.AssociatedAutomation = this.TestCase.ITestCase.GetAssociatedAutomation();
             TestStepManager.UpdateGenericSharedSteps(testSteps);
             this.InitializeTestSteps(testSteps);
         }

@@ -2,6 +2,7 @@
 // https://testcasemanager.codeplex.com/ All rights reserved.
 // </copyright>
 // <author>Anton Angelov</author>
+
 namespace TestCaseManagerApp
 {
     using System;
@@ -30,8 +31,8 @@ namespace TestCaseManagerApp
         /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            tbVersion.Text = Assembly.GetExecutingAssembly().GetName().Version.ToString();
-            tbDate.Text = File.GetCreationTime(Assembly.GetExecutingAssembly().Location).ToShortDateString();
+            this.tbVersion.Text = Assembly.GetExecutingAssembly().GetName().Version.ToString();
+            this.tbDate.Text = File.GetCreationTime(Assembly.GetExecutingAssembly().Location).ToShortDateString();
         }
     }
 }

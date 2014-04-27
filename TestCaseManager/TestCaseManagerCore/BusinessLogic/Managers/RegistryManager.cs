@@ -71,7 +71,7 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
         {
             get
             {
-                if(instance == null)
+                if (instance == null)
                 {
                     instance = new RegistryManager();
                 }
@@ -85,7 +85,7 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
         /// <param name="showSubsuiteTestCases">if set to <c>true</c> [show subsuite test cases].</param>
         public void WriteShowSubsuiteTestCases(bool showSubsuiteTestCases)
         {
-            Write(this.GenerateMergedKey(showSubsuiteTestCasesRegistrySubKeyName), showSubsuiteTestCases); 
+            this.Write(this.GenerateMergedKey(showSubsuiteTestCasesRegistrySubKeyName), showSubsuiteTestCases); 
         }
 
         /// <summary>
@@ -94,8 +94,8 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
         /// <param name="shouldCommentWindowShow">if set to <c>true</c> [should comment window show].</param>
         public void WriteShouldCommentWindowShow(bool shouldCommentWindowShow)
         {
-            Write(this.GenerateMergedKey(shouldShowCommentWindowRegistrySubKeyName), shouldCommentWindowShow);
-        }        
+            this.Write(this.GenerateMergedKey(shouldShowCommentWindowRegistrySubKeyName), shouldCommentWindowShow);
+        }
 
         /// <summary>
         /// Writes the suite filter.
@@ -103,7 +103,7 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
         /// <param name="suiteFilter">The suite filter.</param>
         public void WriteSuiteFilter(string suiteFilter)
         {
-            Write(this.GenerateMergedKey(suiteFilterRegistrySubKeyName), suiteFilter);
+            this.Write(this.GenerateMergedKey(suiteFilterRegistrySubKeyName), suiteFilter);
         }
 
         /// <summary>
@@ -112,7 +112,7 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
         /// <param name="suiteId">The suite unique identifier.</param>
         public void WriteSelectedSuiteId(int suiteId)
         {
-            Write(this.GenerateMergedKey(selectedSuiteIdFilterRegistrySubKeyName), suiteId);
+            this.Write(this.GenerateMergedKey(selectedSuiteIdFilterRegistrySubKeyName), suiteId);
         }
 
         /// <summary>
@@ -121,7 +121,7 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
         /// <param name="teamProjectUri">The team project URI.</param>
         public void WriteCurrentTeamProjectUri(string teamProjectUri)
         {
-            Write(this.GenerateMergedKey(teamProjectUriRegistrySubKeyName), teamProjectUri);
+            this.Write(this.GenerateMergedKey(teamProjectUriRegistrySubKeyName), teamProjectUri);
         }
 
         /// <summary>
@@ -130,7 +130,7 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
         /// <param name="teamProjectName">Name of the team project.</param>
         public void WriteCurrentTeamProjectName(string teamProjectName)
         {
-            Write(this.GenerateMergedKey(teamProjectNameRegistrySubKeyName), teamProjectName);
+            this.Write(this.GenerateMergedKey(teamProjectNameRegistrySubKeyName), teamProjectName);
         }
 
         /// <summary>
@@ -139,7 +139,7 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
         /// <param name="testPlan">The test plan.</param>
         public void WriteCurrentTestPlan(string testPlan)
         {
-            Write(this.GenerateMergedKey(testPlanRegistrySubKeyName), testPlan);
+            this.Write(this.GenerateMergedKey(testPlanRegistrySubKeyName), testPlan);
         }
 
         /// <summary>
@@ -148,7 +148,7 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
         /// <param name="projectDllPath">The project DLL path.</param>
         public void WriteCurrentProjectDllPath(string projectDllPath)
         {
-            Write(this.GenerateMergedKey(projectDllPathRegistrySubKeyName), projectDllPath);
+            this.Write(this.GenerateMergedKey(projectDllPathRegistrySubKeyName), projectDllPath);
         }
 
         /// <summary>
@@ -157,7 +157,7 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
         /// <returns>should show subsuite test cases</returns>
         public bool ReadShowSubsuiteTestCases()
         {
-            return ReadBool(GenerateMergedKey(showSubsuiteTestCasesRegistrySubKeyName));
+            return this.ReadBool(this.GenerateMergedKey(showSubsuiteTestCasesRegistrySubKeyName));
         }
 
         /// <summary>
@@ -166,7 +166,7 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
         /// <returns>should Comment Window Show</returns>
         public bool ReadShouldCommentWindowShow()
         {
-            return ReadBool(GenerateMergedKey(shouldShowCommentWindowRegistrySubKeyName));
+            return this.ReadBool(this.GenerateMergedKey(shouldShowCommentWindowRegistrySubKeyName));
         }
 
         /// <summary>
@@ -175,7 +175,7 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
         /// <returns>team project URI</returns>
         public string GetTeamProjectUri()
         {
-            return ReadStr(GenerateMergedKey(teamProjectUriRegistrySubKeyName));
+            return this.ReadStr(this.GenerateMergedKey(teamProjectUriRegistrySubKeyName));
         }
 
         /// <summary>
@@ -184,7 +184,7 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
         /// <returns>name of the team project</returns>
         public string GetTeamProjectName()
         {
-            return ReadStr(GenerateMergedKey(teamProjectNameRegistrySubKeyName));
+            return this.ReadStr(this.GenerateMergedKey(teamProjectNameRegistrySubKeyName));
         }
 
         /// <summary>
@@ -193,7 +193,7 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
         /// <returns>the project DLL path</returns>
         public string GetProjectDllPath()
         {
-            return ReadStr(GenerateMergedKey(projectDllPathRegistrySubKeyName));
+            return this.ReadStr(this.GenerateMergedKey(projectDllPathRegistrySubKeyName));
         }
 
         /// <summary>
@@ -202,7 +202,7 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
         /// <returns>the test plan</returns>
         public string GetTestPlan()
         {
-            return ReadStr(GenerateMergedKey(testPlanRegistrySubKeyName));
+            return this.ReadStr(this.GenerateMergedKey(testPlanRegistrySubKeyName));
         }
 
         /// <summary>
@@ -211,7 +211,7 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
         /// <returns>the suite filter</returns>
         public string GetSuiteFilter()
         {
-            return ReadStr(GenerateMergedKey(suiteFilterRegistrySubKeyName));
+            return this.ReadStr(this.GenerateMergedKey(suiteFilterRegistrySubKeyName));
         }
 
         /// <summary>
@@ -223,8 +223,8 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
             int result = -1;
             try
             {
-                result = ReadInt(GenerateMergedKey(selectedSuiteIdFilterRegistrySubKeyName));
-                if(result == 0)
+                result = this.ReadInt(this.GenerateMergedKey(selectedSuiteIdFilterRegistrySubKeyName));
+                if (result == 0)
                 {
                     result = -1;
                 }

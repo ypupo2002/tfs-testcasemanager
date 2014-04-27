@@ -2,21 +2,18 @@
 // https://testcasemanager.codeplex.com/ All rights reserved.
 // </copyright>
 // <author>Anton Angelov</author>
+
 namespace TestCaseManagerCore.BusinessLogic.Managers
 {
     using System;
     using System.Collections.Generic;
-    using System.Collections.ObjectModel;
     using System.Linq;
     using System.Text;
     using System.Text.RegularExpressions;
-    using System.Threading.Tasks;
+    using AAngelov.Utilities.Enums;
     using AAngelov.Utilities.Managers;
     using Microsoft.TeamFoundation.TestManagement.Client;
     using TestCaseManagerCore.BusinessLogic.Entities;
-    using TestCaseManagerCore.BusinessLogic.Enums;
-    using TestCaseManagerCore.BusinessLogic.Managers;
-    using AAngelov.Utilities.Enums;
 
     /// <summary>
     /// Contains helper methods for working with TestStep entities
@@ -68,7 +65,7 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
                 else if (currentAction is ISharedStepReference)
                 {
                     ISharedStepReference currentSharedStepReference = currentAction as ISharedStepReference;
-					ISharedStep currentSharedStep = testManagementTeamProject.SharedSteps.Find(currentSharedStepReference.SharedStepId);
+                    ISharedStep currentSharedStep = testManagementTeamProject.SharedSteps.Find(currentSharedStepReference.SharedStepId);
                     testSteps.AddRange(TestStepManager.GetAllTestStepsInSharedStep(currentSharedStep));
                 }
             }
@@ -443,28 +440,6 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
         }
 
         /// <summary>
-        /// Replaces the current no namespace parameter.
-        /// </summary>
-        /// <param name="currentTestStep">The current test step.</param>
-        /// <param name="genericParameters">The generic parameters.</param>
-        /// <param name="initializeCount">The initialize count.</param>
-        /// <param name="reinitialized">if set to <c>true</c> [reinitialized].</param>
-        /// <param name="currentGenParam">The current gen parameter.</param>
-        private static void ReplaceCurrentNoNamespaceParameter(TestStep currentTestStep, Dictionary<string, Dictionary<string, string>> genericParameters, ref int initializeCount, ref bool reinitialized, string currentGenParam)
-        {
-            if (!reinitialized)
-            {
-                ReinitializeTestStep(currentTestStep);
-                reinitialized = true;
-            }
-            initializeCount--;
-            string strToBeReplaced = AddParenthesesToParam(currentGenParam);
-
-            currentTestStep.ActionTitle = currentTestStep.ActionTitle.Replace(strToBeReplaced, genericParameters[DefaultGuidString][currentGenParam]);
-            currentTestStep.ActionExpectedResult = currentTestStep.ActionExpectedResult.Replace(strToBeReplaced, genericParameters[DefaultGuidString][currentGenParam]);
-        }
-
-        /// <summary>
         /// Adds the parentheses automatic parameter.
         /// </summary>
         /// <param name="param">The parameter.</param>
@@ -482,39 +457,6 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
         {
             currentTestStep.ActionTitle = currentTestStep.OriginalActionTitle;
             currentTestStep.ActionExpectedResult = currentTestStep.OriginalActionExpectedResult;
-        }
-
-        /// <summary>
-        /// Replaces the multiple parameters title with new values.
-        /// </summary>
-        /// <param name="currentTestStep">The current test step.</param>
-        /// <param name="currentNamespace">The current namespace.</param>
-        /// <param name="genericParameters">The generic parameters.</param>
-        private static void ReplaceMultipleParamsTitleWithNewValues(TestStep currentTestStep, string currentNamespace, Dictionary<string, Dictionary<string, string>> genericParameters)
-        {
-            if (genericParameters[currentNamespace].Keys.Count > 1)
-            {
-                StringBuilder newStringBuilder = new StringBuilder();
-                StringBuilder oldStringBuilder1 = new StringBuilder();
-                newStringBuilder.Append("(");
-                oldStringBuilder1.Append(")");
-                for (int i = 0; i < genericParameters[currentNamespace].Keys.Count; i++)
-                {
-                    string currentKey = genericParameters[currentNamespace].Keys.ElementAt(i);
-                    newStringBuilder.Append(genericParameters[currentNamespace][currentKey]);
-                    oldStringBuilder1.Append(currentKey);
-                    if (i < genericParameters[currentNamespace].Keys.Count - 1)
-                    {
-                        newStringBuilder.Append(",");
-                        oldStringBuilder1.Append(",");
-                    }
-                }
-                newStringBuilder.Append(")");
-                oldStringBuilder1.Append(")");
-                string genericMultiParamNew = newStringBuilder.ToString();
-                string genericMultiParamOld = oldStringBuilder1.ToString();
-                currentTestStep.Title = currentTestStep.Title.Replace(genericMultiParamOld, genericMultiParamNew);
-            }
         }
 
         /// <summary>
@@ -563,7 +505,6 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
             log.InfoFormat("Change ActionTitle from {0} to {1}", currentTestStep.ActionExpectedResult, newActionExpectedResult);
             currentTestStep.ActionExpectedResult = newActionExpectedResult;
             currentTestStep.OriginalActionExpectedResult = newActionExpectedResult;
-
         }
     }
 }

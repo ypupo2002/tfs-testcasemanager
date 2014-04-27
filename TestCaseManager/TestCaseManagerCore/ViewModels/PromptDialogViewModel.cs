@@ -2,23 +2,14 @@
 // https://testcasemanager.codeplex.com/ All rights reserved.
 // </copyright>
 // <author>Anton Angelov</author>
+
 namespace TestCaseManagerCore.ViewModels
 {
     using System;
-    using System.Collections.Generic;
-    using System.Collections.ObjectModel;
-    using System.ComponentModel;
     using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
-    using System.Windows.Media;
-    using FirstFloor.ModernUI.Presentation;
-    using Microsoft.TeamFoundation.TestManagement.Client;
-    using TestCaseManagerCore.BusinessLogic.Entities;
-    using TestCaseManagerCore.BusinessLogic.Managers;
-    using AAngelov.Utilities.UI.Managers;
     using AAngelov.Utilities.UI.Core;
-    
+    using AAngelov.Utilities.UI.Managers;
+
     /// <summary>
     /// Holds PromptDialogView Properties
     /// </summary>
@@ -54,7 +45,6 @@ namespace TestCaseManagerCore.ViewModels
 
             set
             {
-               
                 this.content = value;
                 UIRegistryManager.Instance.WriteTitleTitlePromtDialog(this.content);
                 this.NotifyPropertyChanged();

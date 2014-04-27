@@ -2,24 +2,13 @@
 // https://testcasemanager.codeplex.com/ All rights reserved.
 // </copyright>
 // <author>Anton Angelov</author>
+
 namespace TestCaseManagerApp.Views
 {
     using System;
-    using System.Collections.Generic;
     using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
-    using System.Windows;
-    using System.Windows.Controls;
-    using System.Windows.Data;
-    using System.Windows.Documents;
-    using System.Windows.Input;
-    using System.Windows.Media;
-    using System.Windows.Media.Imaging;
-    using System.Windows.Shapes;
-    using FirstFloor.ModernUI.Windows.Controls;
-    using TestCaseManagerCore.BusinessLogic.Managers;
     using AAngelov.Utilities.UI.Managers;
+    using FirstFloor.ModernUI.Windows.Controls;
 
     /// <summary>
     /// Initializes promo dialog window

@@ -2,13 +2,11 @@
 // https://aangelov.com/ All rights reserved.
 // </copyright>
 // <author>Anton Angelov</author>
+
 namespace AAngelov.Utilities.Managers
 {
     using System;
-    using System.Collections.Generic;
     using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
     using System.Windows.Forms;
 
     /// <summary>

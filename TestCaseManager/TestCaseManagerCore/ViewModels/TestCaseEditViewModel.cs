@@ -2,25 +2,24 @@
 // https://testcasemanager.codeplex.com/ All rights reserved.
 // </copyright>
 // <author>Anton Angelov</author>
+
 namespace TestCaseManagerCore.ViewModels
 {
     using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.Linq;
-    using System.Text;
-    using System.Text.RegularExpressions;
-	using System.Threading;
+    using System.Threading;
     using System.Windows;
     using System.Xml;
+    using AAngelov.Utilities.Entities;
+    using AAngelov.Utilities.Managers;
+    using AAngelov.Utilities.UI.Core;
     using FirstFloor.ModernUI.Windows.Controls;
     using Microsoft.TeamFoundation.Server;
     using Microsoft.TeamFoundation.TestManagement.Client;
     using TestCaseManagerCore.BusinessLogic.Entities;
     using TestCaseManagerCore.BusinessLogic.Managers;
-    using AAngelov.Utilities.UI.Core;
-    using AAngelov.Utilities.Managers;
-    using AAngelov.Utilities.Entities;
 
     /// <summary>
     /// Contains methods and properties related to the TestCaseEdit View
@@ -99,19 +98,19 @@ namespace TestCaseManagerCore.ViewModels
             {
                 this.ShowTestCaseSpecificFields = true;
                 ITestSuiteBase testSuiteBaseCore = null;
-                if (this.EditViewContext.TestSuiteId != -1 )
+                if (this.EditViewContext.TestSuiteId != -1)
                 {
-					testSuiteBaseCore = TestSuiteManager.GetTestSuiteById(TestCaseManagerCore.ExecutionContext.TestManagementTeamProject, TestCaseManagerCore.ExecutionContext.Preferences.TestPlan, this.EditViewContext.TestSuiteId);
+                    testSuiteBaseCore = TestSuiteManager.GetTestSuiteById(TestCaseManagerCore.ExecutionContext.TestManagementTeamProject, TestCaseManagerCore.ExecutionContext.Preferences.TestPlan, this.EditViewContext.TestSuiteId);
                 }
                 if (this.EditViewContext.CreateNew && !this.EditViewContext.Duplicate)
                 {
                     ITestCase newTestCase = TestCaseManagerCore.ExecutionContext.TestManagementTeamProject.TestCases.Create();
-					this.TestCase = new TestCase(newTestCase, testSuiteBaseCore, TestCaseManagerCore.ExecutionContext.Preferences.TestPlan, false);
+                    this.TestCase = new TestCase(newTestCase, testSuiteBaseCore, TestCaseManagerCore.ExecutionContext.Preferences.TestPlan, false);
                 }
                 else
                 {
                     ITestCase testCaseCore = TestCaseManagerCore.ExecutionContext.TestManagementTeamProject.TestCases.Find(this.EditViewContext.TestCaseId);
-					this.TestCase = new TestCase(testCaseCore, testSuiteBaseCore, TestCaseManagerCore.ExecutionContext.Preferences.TestPlan, false);
+                    this.TestCase = new TestCase(testCaseCore, testSuiteBaseCore, TestCaseManagerCore.ExecutionContext.Preferences.TestPlan, false);
                 }
                 this.ObservableSharedSteps = new ObservableCollection<SharedStep>();
                 this.InitializeObservableSharedSteps();
@@ -121,7 +120,7 @@ namespace TestCaseManagerCore.ViewModels
                 this.TestBase = this.TestCase;
             }
             else
-            {                
+            { 
                 if (this.EditViewContext.CreateNew && !this.EditViewContext.Duplicate)
                 {
                     ISharedStep currentSharedStepCore = TestCaseManagerCore.ExecutionContext.TestManagementTeamProject.SharedSteps.Create();
@@ -129,7 +128,7 @@ namespace TestCaseManagerCore.ViewModels
                 }
                 else
                 {
-					SharedStep currentSharedStep = SharedStepManager.GetSharedStepById(TestCaseManagerCore.ExecutionContext.TestManagementTeamProject, this.EditViewContext.SharedStepId);
+                    SharedStep currentSharedStep = SharedStepManager.GetSharedStepById(TestCaseManagerCore.ExecutionContext.TestManagementTeamProject, this.EditViewContext.SharedStepId);
                     this.SharedStep = currentSharedStep;
                 }
 
@@ -144,7 +143,7 @@ namespace TestCaseManagerCore.ViewModels
             log.InfoFormat("Load Edit View with Context: {0} ", editViewContext);
 
             TestStepManager.UpdateGenericSharedSteps(this.ObservableTestSteps);
-        }      
+        }
 
         /// <summary>
         /// Gets or sets the test case.
@@ -339,10 +338,10 @@ namespace TestCaseManagerCore.ViewModels
                 bool shouldSetSharedStepsFilter = this.IsSharedStepSearchTextSet && !string.IsNullOrEmpty(sharedStepsFilter);
 
                 var filteredList = this.InitialSharedStepCollection
-                   .Where(t => (shouldSetSharedStepsFilter ? t.ISharedStep.Title.ToLower().Contains(sharedStepsFilter.ToLower()) : true)).ToList();
+                                       .Where(t => (shouldSetSharedStepsFilter ? t.ISharedStep.Title.ToLower().Contains(sharedStepsFilter.ToLower()) : true)).ToList();
                 this.ObservableSharedSteps.Clear();
                 filteredList.ForEach(x => this.ObservableSharedSteps.Add(x));
-            }     
+            }
         }
 
         /// <summary>
@@ -390,7 +389,7 @@ namespace TestCaseManagerCore.ViewModels
             if ((this.EditViewContext.CreateNew || this.EditViewContext.Duplicate) && !this.EditViewContext.IsAlreadyCreated)
             {
                 log.Info("Save test case as new one.");
-				savedTestCase = this.TestCase.Save(TestCaseManagerCore.ExecutionContext.TestManagementTeamProject, TestCaseManagerCore.ExecutionContext.Preferences.TestPlan, true, suiteId, this.ObservableTestSteps);
+                savedTestCase = this.TestCase.Save(TestCaseManagerCore.ExecutionContext.TestManagementTeamProject, TestCaseManagerCore.ExecutionContext.Preferences.TestPlan, true, suiteId, this.ObservableTestSteps);
                 this.TestCase = savedTestCase;
                 this.EditViewContext.IsAlreadyCreated = true;
                 this.EditViewContext.CreateNew = false;
@@ -399,7 +398,7 @@ namespace TestCaseManagerCore.ViewModels
             else
             {
                 log.InfoFormat("Save edited test case with id= {0}.", this.TestCase.Id);
-				savedTestCase = this.TestCase.Save(TestCaseManagerCore.ExecutionContext.TestManagementTeamProject, TestCaseManagerCore.ExecutionContext.Preferences.TestPlan, false, suiteId, this.ObservableTestSteps);
+                savedTestCase = this.TestCase.Save(TestCaseManagerCore.ExecutionContext.TestManagementTeamProject, TestCaseManagerCore.ExecutionContext.Preferences.TestPlan, false, suiteId, this.ObservableTestSteps);
             }
             this.EditViewContext.TestCaseId = savedTestCase.ITestCase.Id;
             this.TestCaseIdLabel = savedTestCase.ITestCase.Id.ToString();
@@ -430,7 +429,7 @@ namespace TestCaseManagerCore.ViewModels
             if ((this.EditViewContext.CreateNew || this.EditViewContext.Duplicate) && !this.EditViewContext.IsAlreadyCreated)
             {
                 log.Info("Save shared step as new one.");
-				savedSharedStep = this.SharedStep.Save(TestCaseManagerCore.ExecutionContext.TestManagementTeamProject, true, this.ObservableTestSteps);
+                savedSharedStep = this.SharedStep.Save(TestCaseManagerCore.ExecutionContext.TestManagementTeamProject, true, this.ObservableTestSteps);
                 this.SharedStep = savedSharedStep;
                 this.EditViewContext.IsAlreadyCreated = true;
                 this.EditViewContext.CreateNew = false;
@@ -439,7 +438,7 @@ namespace TestCaseManagerCore.ViewModels
             else
             {
                 log.InfoFormat("Save edited shared step with id= {0}.", this.SharedStep.Id);
-				savedSharedStep = this.SharedStep.Save(TestCaseManagerCore.ExecutionContext.TestManagementTeamProject, false, this.ObservableTestSteps);
+                savedSharedStep = this.SharedStep.Save(TestCaseManagerCore.ExecutionContext.TestManagementTeamProject, false, this.ObservableTestSteps);
             }
             this.EditViewContext.SharedStepId = savedSharedStep.ISharedStep.Id;
             this.TestCaseIdLabel = this.EditViewContext.SharedStepId.ToString();
@@ -468,7 +467,7 @@ namespace TestCaseManagerCore.ViewModels
             {
                 this.ObservableSharedSteps.Add(item);
             }
-        }      
+        }
 
         /// <summary>
         /// Gets the step title.
@@ -517,7 +516,7 @@ namespace TestCaseManagerCore.ViewModels
         /// </summary>
         /// <param name="cutTestSteps">The cut test steps.</param>
         public void DeleteCutTestSteps(List<TestStep> cutTestSteps)
-        {          
+        { 
             foreach (TestStep currentTestStepToBeRemoved in cutTestSteps)
             {
                 for (int i = 0; i < this.ObservableTestSteps.Count; i++)
@@ -532,7 +531,7 @@ namespace TestCaseManagerCore.ViewModels
                     }
                     if (this.ObservableTestSteps[i].TestStepGuid.Equals(currentTestStepToBeRemoved.TestStepGuid))
                     {
-                        this.RemoveTestStepFromObservableCollection(ObservableTestSteps[i], index);
+                        this.RemoveTestStepFromObservableCollection(this.ObservableTestSteps[i], index);
                         break;
                     }
                 }
@@ -565,9 +564,9 @@ namespace TestCaseManagerCore.ViewModels
                         if (!testStepsToBeRemoved.Contains(currentTestStep))
                         {
                             testStepsToBeRemoved.Add(currentTestStep);
-                        }                       
+                        }
                     }
-                }               
+                }
             }
 
             return testStepsToBeRemoved;
@@ -619,7 +618,7 @@ namespace TestCaseManagerCore.ViewModels
         {
             if (selectedIndex == -2)
             {
-                selectedIndex+=2;
+                selectedIndex += 2;
             }
             else if (selectedIndex == -1)
             {
@@ -672,7 +671,6 @@ namespace TestCaseManagerCore.ViewModels
             log.InfoFormat("Remove test step ActionTitle = {0}, ExpectedResult= {1}", testStepToBeRemoved.ActionTitle, testStepToBeRemoved.ActionExpectedResult);
             UndoRedoManager.Instance().Push((r, i) => this.InsertTestStepInTestCase(r, i), testStepToBeRemoved, selectedIndex, "remove Test Step");
             TestStepManager.UpdateGenericSharedSteps(this.ObservableTestSteps);
-
         }
 
         /// <summary>
@@ -795,7 +793,7 @@ namespace TestCaseManagerCore.ViewModels
                         {
                             log.Error(innerException);
                         }
-                    }                  
+                    }
                 }
                 Thread.Sleep(30000);                
             }
@@ -835,7 +833,7 @@ namespace TestCaseManagerCore.ViewModels
                 {
                     this.RemoveTestStepFromObservableCollection(testStepsToBeRemoved[i], testStepsToBeRemoved[i].Index);
                 }
-            }           
+            }
         }
 
         /// <summary>
@@ -929,7 +927,7 @@ namespace TestCaseManagerCore.ViewModels
                     XmlNode areaNodes = areaTree.ChildNodes[0];
                     this.CreateAreasList(areaNodes, areas);
                 }
-            }          
+            }
 
             return areas;
         }
@@ -939,7 +937,7 @@ namespace TestCaseManagerCore.ViewModels
         /// </summary>
         private void InitializeTestCaseTestStepsFromITestCaseActions()
         {
-			List<TestStep> testSteps = TestStepManager.GetTestStepsFromTestActions(TestCaseManagerCore.ExecutionContext.TestManagementTeamProject, this.TestCase.ITestCase.Actions);
+            List<TestStep> testSteps = TestStepManager.GetTestStepsFromTestActions(TestCaseManagerCore.ExecutionContext.TestManagementTeamProject, this.TestCase.ITestCase.Actions);
             this.AddTestStepsToObservableCollection(testSteps);
         }
 
@@ -1016,6 +1014,6 @@ namespace TestCaseManagerCore.ViewModels
             {
                 this.GetAreasNodes(currentNode.ChildNodes, areas);
             }
-        }     
+        }
     }
 }

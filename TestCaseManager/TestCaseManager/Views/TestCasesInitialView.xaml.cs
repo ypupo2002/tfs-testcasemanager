@@ -2,6 +2,7 @@
 // https://testcasemanager.codeplex.com/ All rights reserved.
 // </copyright>
 // <author>Anton Angelov</author>
+
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -10,18 +11,18 @@ using System.Windows.Controls;
 using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media;
+using AAngelov.Utilities.Enums;
 using AAngelov.Utilities.UI.ControlExtensions;
+using AAngelov.Utilities.UI.Managers;
 using FirstFloor.ModernUI.Windows;
 using FirstFloor.ModernUI.Windows.Controls;
 using FirstFloor.ModernUI.Windows.Navigation;
+using Microsoft.TeamFoundation.TestManagement.Client;
+using TestCaseManagerCore;
 using TestCaseManagerCore.BusinessLogic.Entities;
 using TestCaseManagerCore.BusinessLogic.Enums;
 using TestCaseManagerCore.BusinessLogic.Managers;
 using TestCaseManagerCore.ViewModels;
-using TestCaseManagerCore;
-using Microsoft.TeamFoundation.TestManagement.Client;
-using AAngelov.Utilities.UI.Managers;
-using AAngelov.Utilities.Enums;
 
 namespace TestCaseManagerApp.Views
 {
@@ -218,12 +219,12 @@ namespace TestCaseManagerApp.Views
                 }
                 else
                 {
-                    TestCasesInitialViewModel = new TestCaseManagerCore.ViewModels.TestCasesInitialViewModel();
+                    this.TestCasesInitialViewModel = new TestCaseManagerCore.ViewModels.TestCasesInitialViewModel();
                 }
             });
             t.ContinueWith(antecedent =>
             {
-                this.DataContext = TestCasesInitialViewModel;
+                this.DataContext = this.TestCasesInitialViewModel;
                 this.UpdateButtonsStatus();
                 this.HideProgressBar();
                 this.tbTitleFilter.Focus();
@@ -249,8 +250,8 @@ namespace TestCaseManagerApp.Views
         /// </summary>
         private void HideProgressBar()
         {
-            progressBar.Visibility = System.Windows.Visibility.Hidden;
-            mainGrid.Visibility = System.Windows.Visibility.Visible;
+            this.progressBar.Visibility = System.Windows.Visibility.Hidden;
+            this.mainGrid.Visibility = System.Windows.Visibility.Visible;
         }
 
         /// <summary>
@@ -258,8 +259,8 @@ namespace TestCaseManagerApp.Views
         /// </summary>
         private void ShowProgressBar()
         {
-            progressBar.Visibility = System.Windows.Visibility.Visible;
-            mainGrid.Visibility = System.Windows.Visibility.Hidden;
+            this.progressBar.Visibility = System.Windows.Visibility.Visible;
+            this.mainGrid.Visibility = System.Windows.Visibility.Hidden;
         }
 
         /// <summary>
@@ -279,7 +280,7 @@ namespace TestCaseManagerApp.Views
         {
             this.ValidateTestCaseSelection(() =>
             {
-                TestCase currentTestCase = dgTestCases.SelectedItem as TestCase;
+                TestCase currentTestCase = this.dgTestCases.SelectedItem as TestCase;
                 if (currentTestCase.ITestSuiteBase != null)
                 {
                     log.InfoFormat("Preview test case with id= \"{0}\" and suiteId= \"{1}\"", currentTestCase.ITestCase.Id, currentTestCase.ITestSuiteBase.Id);
@@ -290,7 +291,6 @@ namespace TestCaseManagerApp.Views
                     log.InfoFormat("Preview test case with id= \"{0}\" and suiteId= \"{1}\"", currentTestCase.ITestCase.Id, -1);
                     Navigator.Instance.NavigateToTestCasesDetailedView(this, currentTestCase.ITestCase.Id, -1);
                 }
-               
             });
         }
 
@@ -300,7 +300,7 @@ namespace TestCaseManagerApp.Views
         /// <param name="action">The action.</param>
         private void ValidateTestCaseSelection(Action action)
         {
-            if (dgTestCases.SelectedIndex != -1)
+            if (this.dgTestCases.SelectedIndex != -1)
             {
                 action.Invoke();
             }
@@ -327,7 +327,7 @@ namespace TestCaseManagerApp.Views
         {
             this.ValidateTestCaseSelection(() =>
             {
-                TestCase currentTestCase = dgTestCases.SelectedItem as TestCase;
+                TestCase currentTestCase = this.dgTestCases.SelectedItem as TestCase;
                 if (currentTestCase.ITestSuiteBase != null)
                 {
                     log.InfoFormat("Preview test case with id= \"{0}\" and suiteId= \"{1}\"", currentTestCase.ITestCase.Id, currentTestCase.ITestSuiteBase.Id);
@@ -350,7 +350,7 @@ namespace TestCaseManagerApp.Views
         {
             this.ValidateTestCaseSelection(() =>
             {
-                TestCase currentTestCase = dgTestCases.SelectedItem as TestCase;
+                TestCase currentTestCase = this.dgTestCases.SelectedItem as TestCase;
                 if (currentTestCase.ITestSuiteBase != null)
                 {
                     log.InfoFormat("Preview test case with id= \"{0}\" and suiteId= \"{1}\"", currentTestCase.ITestCase.Id, currentTestCase.ITestSuiteBase.Id);
@@ -360,7 +360,7 @@ namespace TestCaseManagerApp.Views
                 {
                     log.InfoFormat("Preview test case with id= \"{0}\" and suiteId= \"{1}\"", currentTestCase.ITestCase.Id, -1);
                     Navigator.Instance.NavigateToTestCasesEditView(this, currentTestCase.ITestCase.Id, -1, true, true);
-                }                
+                }
             });
         }
 
@@ -383,7 +383,7 @@ namespace TestCaseManagerApp.Views
         /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void tbIdFilter_GotFocus(object sender, RoutedEventArgs e)
         {
-            tbIdFilter.ClearDefaultContent(ref TestCasesInitialViewModel.InitialViewFilters.IsIdTextSet);
+            this.tbIdFilter.ClearDefaultContent(ref this.TestCasesInitialViewModel.InitialViewFilters.IsIdTextSet);
         }
 
         /// <summary>
@@ -393,7 +393,7 @@ namespace TestCaseManagerApp.Views
         /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void tbTitleFilter_GotFocus(object sender, RoutedEventArgs e)
         {
-            tbTitleFilter.ClearDefaultContent(ref TestCasesInitialViewModel.InitialViewFilters.IsTitleTextSet);
+            this.tbTitleFilter.ClearDefaultContent(ref this.TestCasesInitialViewModel.InitialViewFilters.IsTitleTextSet);
         }
 
         /// <summary>
@@ -413,7 +413,7 @@ namespace TestCaseManagerApp.Views
         /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void tbIdFilter_LostFocus(object sender, RoutedEventArgs e)
         {
-            tbIdFilter.RestoreDefaultText(this.TestCasesInitialViewModel.InitialViewFilters.DetaultId, ref this.TestCasesInitialViewModel.InitialViewFilters.IsIdTextSet);
+            this.tbIdFilter.RestoreDefaultText(this.TestCasesInitialViewModel.InitialViewFilters.DetaultId, ref this.TestCasesInitialViewModel.InitialViewFilters.IsIdTextSet);
         }
 
         /// <summary>
@@ -423,7 +423,7 @@ namespace TestCaseManagerApp.Views
         /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void tbTitleFilter_LostFocus(object sender, RoutedEventArgs e)
         {
-            tbTitleFilter.RestoreDefaultText(this.TestCasesInitialViewModel.InitialViewFilters.DetaultTitle, ref this.TestCasesInitialViewModel.InitialViewFilters.IsTitleTextSet);
+            this.tbTitleFilter.RestoreDefaultText(this.TestCasesInitialViewModel.InitialViewFilters.DetaultTitle, ref this.TestCasesInitialViewModel.InitialViewFilters.IsTitleTextSet);
         }
 
         /// <summary>
@@ -473,7 +473,7 @@ namespace TestCaseManagerApp.Views
         /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void tbAssignedToFilter_GotFocus(object sender, RoutedEventArgs e)
         {
-            tbAssignedToFilter.ClearDefaultContent(ref this.TestCasesInitialViewModel.InitialViewFilters.IsAssignedToTextSet);
+            this.tbAssignedToFilter.ClearDefaultContent(ref this.TestCasesInitialViewModel.InitialViewFilters.IsAssignedToTextSet);
         }
 
         /// <summary>
@@ -483,7 +483,7 @@ namespace TestCaseManagerApp.Views
         /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void tbAssignedToFilter_LostFocus(object sender, RoutedEventArgs e)
         {
-            tbAssignedToFilter.RestoreDefaultText(this.TestCasesInitialViewModel.InitialViewFilters.DetaultAssignedTo, ref this.TestCasesInitialViewModel.InitialViewFilters.IsAssignedToTextSet);
+            this.tbAssignedToFilter.RestoreDefaultText(this.TestCasesInitialViewModel.InitialViewFilters.DetaultAssignedTo, ref this.TestCasesInitialViewModel.InitialViewFilters.IsAssignedToTextSet);
         }
 
         /// <summary>
@@ -503,7 +503,7 @@ namespace TestCaseManagerApp.Views
         /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void tbPriorityFilter_GotFocus(object sender, RoutedEventArgs e)
         {
-            tbPriorityFilter.ClearDefaultContent(ref this.TestCasesInitialViewModel.InitialViewFilters.IsPriorityTextSet);
+            this.tbPriorityFilter.ClearDefaultContent(ref this.TestCasesInitialViewModel.InitialViewFilters.IsPriorityTextSet);
         }
 
         /// <summary>
@@ -513,8 +513,7 @@ namespace TestCaseManagerApp.Views
         /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void tbPriorityFilter_LostFocus(object sender, RoutedEventArgs e)
         {
-            tbPriorityFilter.RestoreDefaultText(this.TestCasesInitialViewModel.InitialViewFilters.DetaultPriority, ref this.TestCasesInitialViewModel.InitialViewFilters.IsPriorityTextSet);
-
+            this.tbPriorityFilter.RestoreDefaultText(this.TestCasesInitialViewModel.InitialViewFilters.DetaultPriority, ref this.TestCasesInitialViewModel.InitialViewFilters.IsPriorityTextSet);
         }
 
         /// <summary>
@@ -525,7 +524,7 @@ namespace TestCaseManagerApp.Views
         private void tbPriorityFilter_KeyUp(object sender, System.Windows.Input.KeyEventArgs e)
         {
             this.TestCasesInitialViewModel.FilterTestCases();
-        }    
+        }
 
         /// <summary>
         /// Handles the MouseDoubleClick event of the dgTestCases control.
@@ -534,13 +533,13 @@ namespace TestCaseManagerApp.Views
         /// <param name="e">The <see cref="MouseButtonEventArgs"/> instance containing the event data.</param>
         private void dgTestCases_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            if (dgTestCases.SelectedItem == null)
+            if (this.dgTestCases.SelectedItem == null)
             {
                 return;
             }
             if (System.Windows.Forms.Control.ModifierKeys == Keys.Alt)
             {
-                TestCase currentTestCase = dgTestCases.SelectedItem as TestCase;
+                TestCase currentTestCase = this.dgTestCases.SelectedItem as TestCase;
                 if (currentTestCase.ITestSuiteBase != null)
                 {
                     log.InfoFormat("Edit test case with id: {0} and suite id {1}", currentTestCase.ITestCase.Id, currentTestCase.ITestSuiteBase.Id);
@@ -550,7 +549,7 @@ namespace TestCaseManagerApp.Views
                 {
                     log.InfoFormat("Edit test case with id: {0} and suite id {1}", currentTestCase.ITestCase.Id, -1);
                     Navigator.Instance.NavigateToTestCasesEditView(this, currentTestCase.ITestCase.Id, -1);
-                }                
+                }
             }
             else
             {
@@ -567,14 +566,14 @@ namespace TestCaseManagerApp.Views
         {
             this.isShowTestCasesSubsuiteAlreadyUnchecked = false;
             e.Handled = true;
-            int selectedSuiteId = (int)tvSuites.SelectedValue;         
+            int selectedSuiteId = (int)this.tvSuites.SelectedValue;         
 
-            btnArrange.Visibility = System.Windows.Visibility.Visible;
-            btnArrange1.Visibility = System.Windows.Visibility.Visible;
-			if (selectedSuiteId == -1 || !TestSuiteManager.IsStaticSuite(ExecutionContext.TestManagementTeamProject, selectedSuiteId))
+            this.btnArrange.Visibility = System.Windows.Visibility.Visible;
+            this.btnArrange1.Visibility = System.Windows.Visibility.Visible;
+            if (selectedSuiteId == -1 || !TestSuiteManager.IsStaticSuite(ExecutionContext.TestManagementTeamProject, selectedSuiteId))
             {
-                btnArrange.Visibility = System.Windows.Visibility.Hidden;
-                btnArrange1.Visibility = System.Windows.Visibility.Hidden;
+                this.btnArrange.Visibility = System.Windows.Visibility.Hidden;
+                this.btnArrange1.Visibility = System.Windows.Visibility.Hidden;
             }
             if (selectedSuiteId.Equals(-1) && this.TestCasesInitialViewModel.IsThereSubnodeSelected(this.TestCasesInitialViewModel.Suites))
             {
@@ -588,7 +587,7 @@ namespace TestCaseManagerApp.Views
             this.ShowTestCasesProgressbar();
             
             this.ShowAllExecutionStatusContextMenuItemsStatuses();
-            spExecutionStatuses.Visibility = System.Windows.Visibility.Visible;
+            this.spExecutionStatuses.Visibility = System.Windows.Visibility.Visible;
             this.InitializeTestCasesBySelectedSuiteIdInternal(selectedSuiteId);
             this.isShowTestCasesSubsuiteAlreadyUnchecked = true;
         }
@@ -605,24 +604,24 @@ namespace TestCaseManagerApp.Views
             {
                 if (selectedSuiteId != -1)
                 {
-					suiteTestCaseCollection = TestCaseManager.GetAllTestCaseFromSuite(ExecutionContext.Preferences.TestPlan, selectedSuiteId);
+                    suiteTestCaseCollection = TestCaseManager.GetAllTestCaseFromSuite(ExecutionContext.Preferences.TestPlan, selectedSuiteId);
                     this.TestCasesInitialViewModel.AddTestCasesSubsuites(suiteTestCaseCollection);
                 }
                 else if (isInitialized)
                 {
-					suiteTestCaseCollection = TestCaseManager.GetAllTestCasesInTestPlan(ExecutionContext.TestManagementTeamProject, ExecutionContext.Preferences.TestPlan, false);
+                    suiteTestCaseCollection = TestCaseManager.GetAllTestCasesInTestPlan(ExecutionContext.TestManagementTeamProject, ExecutionContext.Preferences.TestPlan, false);
                     shouldHideMenuItems = true;
                     log.InfoFormat("Load all test cases in the test plan.");
                 }
             });
             t.ContinueWith(antecedent =>
             {
-				this.DetermineShowTestCasesWithoutSuiteVisiblityStatus(selectedSuiteId);
+                this.DetermineShowTestCasesWithoutSuiteVisiblityStatus(selectedSuiteId);
                 if (shouldHideMenuItems)
                 {
                     this.HideAllExecutionStatusContextMenuItemsStatuses();
                     this.TestCasesInitialViewModel.CurrentExecutionStatusOption = TestCaseExecutionType.All;
-                    spExecutionStatuses.Visibility = System.Windows.Visibility.Hidden;
+                    this.spExecutionStatuses.Visibility = System.Windows.Visibility.Hidden;
                 }
                 this.TestCasesInitialViewModel.InitializeInitialTestCaseCollection(suiteTestCaseCollection);
                 this.TestCasesInitialViewModel.FilterTestCases();
@@ -630,23 +629,23 @@ namespace TestCaseManagerApp.Views
             }, TaskScheduler.FromCurrentSynchronizationContext());
         }
 
-		/// <summary>
-		/// Determines the show test cases without suite visiblity status.
-		/// </summary>
-		/// <param name="selectedSuiteId">The selected suite id.</param>
-		private void DetermineShowTestCasesWithoutSuiteVisiblityStatus(int selectedSuiteId)
-		{
-			if (selectedSuiteId == -1)
-			{
-				btnShowTestCaseWithoutSuite.Visibility = System.Windows.Visibility.Visible;
-				btnShowTestCaseWithoutSuite1.Visibility = System.Windows.Visibility.Visible;
-			}
-			else
-			{
-				btnShowTestCaseWithoutSuite.Visibility = System.Windows.Visibility.Hidden;
-				btnShowTestCaseWithoutSuite1.Visibility = System.Windows.Visibility.Hidden;
-			}
-		}
+        /// <summary>
+        /// Determines the show test cases without suite visiblity status.
+        /// </summary>
+        /// <param name="selectedSuiteId">The selected suite id.</param>
+        private void DetermineShowTestCasesWithoutSuiteVisiblityStatus(int selectedSuiteId)
+        {
+            if (selectedSuiteId == -1)
+            {
+                this.btnShowTestCaseWithoutSuite.Visibility = System.Windows.Visibility.Visible;
+                this.btnShowTestCaseWithoutSuite1.Visibility = System.Windows.Visibility.Visible;
+            }
+            else
+            {
+                this.btnShowTestCaseWithoutSuite.Visibility = System.Windows.Visibility.Hidden;
+                this.btnShowTestCaseWithoutSuite1.Visibility = System.Windows.Visibility.Hidden;
+            }
+        }
 
         /// <summary>
         /// Handles the Command event of the removeTestCaseFromSuite control.
@@ -730,7 +729,7 @@ namespace TestCaseManagerApp.Views
         private List<TestCase> GetSelectedTestCasesInternal()
         {
             List<TestCase> testCases = new List<TestCase>();
-            foreach (TestCase currentTestCase in dgTestCases.SelectedItems)
+            foreach (TestCase currentTestCase in this.dgTestCases.SelectedItems)
             {
                 testCases.Add(currentTestCase);
             }
@@ -771,7 +770,7 @@ namespace TestCaseManagerApp.Views
 
             if (clipboardSuite != null)
             {
-				this.PasteSuiteToSelectedSuiteInternal(ExecutionContext.TestManagementTeamProject, ExecutionContext.Preferences.TestPlan, suiteToPasteIn, clipboardSuite);
+                this.PasteSuiteToSelectedSuiteInternal(ExecutionContext.TestManagementTeamProject, ExecutionContext.Preferences.TestPlan, suiteToPasteIn, clipboardSuite);
             }
             else if (clipBoardTestCase != null)
             {
@@ -779,22 +778,22 @@ namespace TestCaseManagerApp.Views
             }
         }
 
-		/// <summary>
-		/// Pastes the suite automatic selected suite internal.
-		/// </summary>
-		/// <param name="testManagementTeamProject">The test management team project.</param>
-		/// <param name="testPlan">The test plan.</param>
-		/// <param name="suiteToPasteIn">The suite to paste in.</param>
-		/// <param name="clipboardSuite">The clipboard suite.</param>
-		private void PasteSuiteToSelectedSuiteInternal(ITestManagementTeamProject testManagementTeamProject, ITestPlan testPlan, Suite suiteToPasteIn, Suite clipboardSuite)
+        /// <summary>
+        /// Pastes the suite automatic selected suite internal.
+        /// </summary>
+        /// <param name="testManagementTeamProject">The test management team project.</param>
+        /// <param name="testPlan">The test plan.</param>
+        /// <param name="suiteToPasteIn">The suite to paste in.</param>
+        /// <param name="clipboardSuite">The clipboard suite.</param>
+        private void PasteSuiteToSelectedSuiteInternal(ITestManagementTeamProject testManagementTeamProject, ITestPlan testPlan, Suite suiteToPasteIn, Suite clipboardSuite)
         {
             if (clipboardSuite.ClipBoardCommand.Equals(ClipBoardCommand.Copy))
             {
-				this.TestCasesInitialViewModel.CopyPasteSuiteToParentSuite(testManagementTeamProject, testPlan, suiteToPasteIn, clipboardSuite);
+                this.TestCasesInitialViewModel.CopyPasteSuiteToParentSuite(testManagementTeamProject, testPlan, suiteToPasteIn, clipboardSuite);
             }
             else
             {
-				this.TestCasesInitialViewModel.CutPasteSuiteToParentSuite(testManagementTeamProject, testPlan, suiteToPasteIn, clipboardSuite);
+                this.TestCasesInitialViewModel.CutPasteSuiteToParentSuite(testManagementTeamProject, testPlan, suiteToPasteIn, clipboardSuite);
             }
         }
 
@@ -826,8 +825,8 @@ namespace TestCaseManagerApp.Views
         /// </summary>
         private void ShowTestCasesProgressbar()
         {
-            progressBarTestCases.Visibility = System.Windows.Visibility.Visible;
-            dgTestCases.Visibility = System.Windows.Visibility.Hidden;
+            this.progressBarTestCases.Visibility = System.Windows.Visibility.Visible;
+            this.dgTestCases.Visibility = System.Windows.Visibility.Hidden;
         }
 
         /// <summary>
@@ -835,8 +834,8 @@ namespace TestCaseManagerApp.Views
         /// </summary>
         private void HideTestCasesProgressbar()
         {
-            progressBarTestCases.Visibility = System.Windows.Visibility.Hidden;
-            dgTestCases.Visibility = System.Windows.Visibility.Visible;
+            this.progressBarTestCases.Visibility = System.Windows.Visibility.Hidden;
+            this.dgTestCases.Visibility = System.Windows.Visibility.Visible;
         }
 
         /// <summary>
@@ -850,11 +849,11 @@ namespace TestCaseManagerApp.Views
             e.Handled = true;
         }
 
-		/// <summary>
-		/// Removes the suite internal.
-		/// </summary>
-		/// <param name="testManagementTeamProject">The test management team project.</param>
-		/// <param name="testPlan">The test plan.</param>
+        /// <summary>
+        /// Removes the suite internal.
+        /// </summary>
+        /// <param name="testManagementTeamProject">The test management team project.</param>
+        /// <param name="testPlan">The test plan.</param>
         private void RemoveSuiteInternal(ITestManagementTeamProject testManagementTeamProject, ITestPlan testPlan)
         {
             int selectedSuiteId = RegistryManager.Instance.GetSelectedSuiteId();
@@ -888,7 +887,7 @@ namespace TestCaseManagerApp.Views
         /// </summary>
         private void RenameSuiteInternal()
         {
-            Suite selectedSuite = tvSuites.SelectedItem as Suite;
+            Suite selectedSuite = this.tvSuites.SelectedItem as Suite;
             UIRegistryManager.Instance.WriteTitleTitlePromtDialog(selectedSuite.Title);
 
             var dialog = new PrompDialogWindow();
@@ -914,7 +913,7 @@ namespace TestCaseManagerApp.Views
                     ModernDialog.ShowMessage("Cannot rename root suite!", "Warrning!", MessageBoxButton.OK);
                     return;
                 }
-				TestSuiteManager.RenameSuite(ExecutionContext.TestManagementTeamProject, ExecutionContext.Preferences.TestPlan, selectedSuiteId, newTitle);
+                TestSuiteManager.RenameSuite(ExecutionContext.TestManagementTeamProject, ExecutionContext.Preferences.TestPlan, selectedSuiteId, newTitle);
                 this.TestCasesInitialViewModel.RenameSuiteInObservableCollection(this.TestCasesInitialViewModel.Suites, selectedSuiteId, newTitle);
             }
         }
@@ -1016,11 +1015,11 @@ namespace TestCaseManagerApp.Views
             Suite suite = this.TestCasesInitialViewModel.GetSuiteById(this.TestCasesInitialViewModel.Suites, selectedSuiteId);
 
             // If the selected suite is requirement based the paste command is not enabled or if the clipboard object is not list of testcases
-            dgTestCaseContextItemPaste.IsEnabled = true;
+            this.dgTestCaseContextItemPaste.IsEnabled = true;
             ClipBoardTestCase clipBoardTestCase = TestCaseManager.GetFromClipboardTestCases();
             if (clipBoardTestCase == null || !suite.IsPasteAllowed)
             {
-                dgTestCaseContextItemPaste.IsEnabled = false;
+                this.dgTestCaseContextItemPaste.IsEnabled = false;
                 suite.IsPasteEnabled = false;
             }
         }
@@ -1089,7 +1088,7 @@ namespace TestCaseManagerApp.Views
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void btnRemoveTestCase_Click(object sender, RoutedEventArgs e)
-        {           
+        { 
             this.RemoveTestCaseFromSuiteInternal();
         }
 
@@ -1098,27 +1097,27 @@ namespace TestCaseManagerApp.Views
         /// </summary>
         private void RemoveTestCaseFromSuiteInternal()
         {
-            if (dgTestCases.SelectedItems.Count == 0)
+            if (this.dgTestCases.SelectedItems.Count == 0)
             {
                 this.DisplayNonSelectionWarning();
                 return;
             }
-            int selectedIndex = dgTestCases.SelectedIndex;
+            int selectedIndex = this.dgTestCases.SelectedIndex;
             do
             {
-                TestCase currentTestCase = dgTestCases.SelectedItems[0] as TestCase;
+                TestCase currentTestCase = this.dgTestCases.SelectedItems[0] as TestCase;
                 this.TestCasesInitialViewModel.RemoveTestCaseFromSuite(currentTestCase);
             }
-            while (dgTestCases.SelectedItems.Count != 0);
-            if (selectedIndex == dgTestCases.Items.Count)
+            while (this.dgTestCases.SelectedItems.Count != 0);
+            if (selectedIndex == this.dgTestCases.Items.Count)
             {
-                dgTestCases.SelectedIndex = selectedIndex - 1;
+                this.dgTestCases.SelectedIndex = selectedIndex - 1;
             }
             else
             {
-                dgTestCases.SelectedIndex = selectedIndex;
+                this.dgTestCases.SelectedIndex = selectedIndex;
             }
-            dgTestCases.Focus();
+            this.dgTestCases.Focus();
         }
 
         /// <summary>
@@ -1137,46 +1136,46 @@ namespace TestCaseManagerApp.Views
         /// </summary>
         private void UpdateButtonsStatus()
         {
-            btnPreview.IsEnabled = true;
-            btnDuplicate.IsEnabled = true;
-            btnEdit.IsEnabled = true;
-            btnPreview1.IsEnabled = true;
-            btnDuplicate1.IsEnabled = true;
-            btnChangeTestCases.IsEnabled = true;
-            btnChangeTestCases1.IsEnabled = true;
-            btnEdit1.IsEnabled = true;
-            btnExport.IsEnabled = true;
-            btnExport1.IsEnabled = true;
-            btnRemoveTestCase.IsEnabled = true;
-            btnRemoveTestCase1.IsEnabled = true;
-            dgTestCaseContextItemEdit.IsEnabled = true;
-            dgTestCaseContextItemPreview.IsEnabled = true;
-            dgTestCaseContextItemDuplicate.IsEnabled = true;
+            this.btnPreview.IsEnabled = true;
+            this.btnDuplicate.IsEnabled = true;
+            this.btnEdit.IsEnabled = true;
+            this.btnPreview1.IsEnabled = true;
+            this.btnDuplicate1.IsEnabled = true;
+            this.btnChangeTestCases.IsEnabled = true;
+            this.btnChangeTestCases1.IsEnabled = true;
+            this.btnEdit1.IsEnabled = true;
+            this.btnExport.IsEnabled = true;
+            this.btnExport1.IsEnabled = true;
+            this.btnRemoveTestCase.IsEnabled = true;
+            this.btnRemoveTestCase1.IsEnabled = true;
+            this.dgTestCaseContextItemEdit.IsEnabled = true;
+            this.dgTestCaseContextItemPreview.IsEnabled = true;
+            this.dgTestCaseContextItemDuplicate.IsEnabled = true;
 
-            dgTestCaseContextItemCopy.IsEnabled = true;
-            dgTestCaseContextItemCut.IsEnabled = true;
-            dgTestCaseContextItemRemove.IsEnabled = true;
-            if (dgTestCases.SelectedItems.Count < 1)
+            this.dgTestCaseContextItemCopy.IsEnabled = true;
+            this.dgTestCaseContextItemCut.IsEnabled = true;
+            this.dgTestCaseContextItemRemove.IsEnabled = true;
+            if (this.dgTestCases.SelectedItems.Count < 1)
             {
-                btnPreview.IsEnabled = false;
-                btnDuplicate.IsEnabled = false;
-                btnEdit.IsEnabled = false;
-                btnPreview1.IsEnabled = false;
-                btnDuplicate1.IsEnabled = false;
-                btnEdit1.IsEnabled = false;
-                btnRemoveTestCase.IsEnabled = false;
-                btnRemoveTestCase1.IsEnabled = false;             
-                dgTestCaseContextItemEdit.IsEnabled = false;
-                dgTestCaseContextItemPreview.IsEnabled = false;
-                dgTestCaseContextItemDuplicate.IsEnabled = false;
-                btnChangeTestCases.IsEnabled = false;
-                btnChangeTestCases1.IsEnabled = false;
+                this.btnPreview.IsEnabled = false;
+                this.btnDuplicate.IsEnabled = false;
+                this.btnEdit.IsEnabled = false;
+                this.btnPreview1.IsEnabled = false;
+                this.btnDuplicate1.IsEnabled = false;
+                this.btnEdit1.IsEnabled = false;
+                this.btnRemoveTestCase.IsEnabled = false;
+                this.btnRemoveTestCase1.IsEnabled = false;             
+                this.dgTestCaseContextItemEdit.IsEnabled = false;
+                this.dgTestCaseContextItemPreview.IsEnabled = false;
+                this.dgTestCaseContextItemDuplicate.IsEnabled = false;
+                this.btnChangeTestCases.IsEnabled = false;
+                this.btnChangeTestCases1.IsEnabled = false;
 
-                dgTestCaseContextItemCopy.IsEnabled = false;
-                dgTestCaseContextItemCut.IsEnabled = false;
-                dgTestCaseContextItemRemove.IsEnabled = false;
-                btnExport.IsEnabled = false;
-                btnExport1.IsEnabled = false;
+                this.dgTestCaseContextItemCopy.IsEnabled = false;
+                this.dgTestCaseContextItemCut.IsEnabled = false;
+                this.dgTestCaseContextItemRemove.IsEnabled = false;
+                this.btnExport.IsEnabled = false;
+                this.btnExport1.IsEnabled = false;
             }
         }
 
@@ -1187,7 +1186,7 @@ namespace TestCaseManagerApp.Views
         /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void btnExport_Click(object sender, RoutedEventArgs e)
         {
-            if (dgTestCases.SelectedItems.Count == 0)
+            if (this.dgTestCases.SelectedItems.Count == 0)
             {
                 this.DisplayNonSelectionWarning();
             }
@@ -1233,7 +1232,7 @@ namespace TestCaseManagerApp.Views
                         ModernDialog.ShowMessage("Test Cases Exported!", "Success!", MessageBoxButton.OK);
                         System.Diagnostics.Process.Start(filename);
                     }, TaskScheduler.FromCurrentSynchronizationContext());
-                }           
+                }
             }
         }
 
@@ -1257,32 +1256,32 @@ namespace TestCaseManagerApp.Views
             switch (this.TestCasesInitialViewModel.CurrentExecutionStatusOption)
             {
                 case TestCaseExecutionType.Active:
-                    dgTestCaseContextItemActive.IsEnabled = false;
-                    dgTestCaseContextItemCopy.IsEnabled = false;
-                    dgTestCaseContextItemCut.IsEnabled = false;
-                    dgTestCaseContextItemPaste.IsEnabled = false;
-                    dgTestCaseContextItemRemove.IsEnabled = false;
+                    this.dgTestCaseContextItemActive.IsEnabled = false;
+                    this.dgTestCaseContextItemCopy.IsEnabled = false;
+                    this.dgTestCaseContextItemCut.IsEnabled = false;
+                    this.dgTestCaseContextItemPaste.IsEnabled = false;
+                    this.dgTestCaseContextItemRemove.IsEnabled = false;
                     break;
                 case TestCaseExecutionType.Passed:
-                    dgTestCaseContextItemPass.IsEnabled = false;
-                    dgTestCaseContextItemCopy.IsEnabled = false;
-                    dgTestCaseContextItemCut.IsEnabled = false;
-                    dgTestCaseContextItemPaste.IsEnabled = false;
-                    dgTestCaseContextItemRemove.IsEnabled = false;
+                    this.dgTestCaseContextItemPass.IsEnabled = false;
+                    this.dgTestCaseContextItemCopy.IsEnabled = false;
+                    this.dgTestCaseContextItemCut.IsEnabled = false;
+                    this.dgTestCaseContextItemPaste.IsEnabled = false;
+                    this.dgTestCaseContextItemRemove.IsEnabled = false;
                     break;
                 case TestCaseExecutionType.Failed:
-                    dgTestCaseContextItemFail.IsEnabled = false;
-                    dgTestCaseContextItemCopy.IsEnabled = false;
-                    dgTestCaseContextItemCut.IsEnabled = false;
-                    dgTestCaseContextItemPaste.IsEnabled = false;
-                    dgTestCaseContextItemRemove.IsEnabled = false;
+                    this.dgTestCaseContextItemFail.IsEnabled = false;
+                    this.dgTestCaseContextItemCopy.IsEnabled = false;
+                    this.dgTestCaseContextItemCut.IsEnabled = false;
+                    this.dgTestCaseContextItemPaste.IsEnabled = false;
+                    this.dgTestCaseContextItemRemove.IsEnabled = false;
                     break;
                 case TestCaseExecutionType.Blocked:
-                    dgTestCaseContextItemBlock.IsEnabled = false;
-                    dgTestCaseContextItemCopy.IsEnabled = false;
-                    dgTestCaseContextItemCut.IsEnabled = false;
-                    dgTestCaseContextItemPaste.IsEnabled = false;
-                    dgTestCaseContextItemRemove.IsEnabled = false;
+                    this.dgTestCaseContextItemBlock.IsEnabled = false;
+                    this.dgTestCaseContextItemCopy.IsEnabled = false;
+                    this.dgTestCaseContextItemCut.IsEnabled = false;
+                    this.dgTestCaseContextItemPaste.IsEnabled = false;
+                    this.dgTestCaseContextItemRemove.IsEnabled = false;
                     break;
                 default:
                     break;
@@ -1294,14 +1293,14 @@ namespace TestCaseManagerApp.Views
         /// </summary>
         private void ShowAllExecutionStatusContextMenuItemsStatuses()
         {
-            dgTestCaseContextItemPass.IsEnabled = true;
-            dgTestCaseContextItemBlock.IsEnabled = true;
-            dgTestCaseContextItemFail.IsEnabled = true;
-            dgTestCaseContextItemActive.IsEnabled = true;
-            dgTestCaseContextItemCopy.IsEnabled = true;
-            dgTestCaseContextItemCut.IsEnabled = true;
-            dgTestCaseContextItemPaste.IsEnabled = true;
-            dgTestCaseContextItemRemove.IsEnabled = true;
+            this.dgTestCaseContextItemPass.IsEnabled = true;
+            this.dgTestCaseContextItemBlock.IsEnabled = true;
+            this.dgTestCaseContextItemFail.IsEnabled = true;
+            this.dgTestCaseContextItemActive.IsEnabled = true;
+            this.dgTestCaseContextItemCopy.IsEnabled = true;
+            this.dgTestCaseContextItemCut.IsEnabled = true;
+            this.dgTestCaseContextItemPaste.IsEnabled = true;
+            this.dgTestCaseContextItemRemove.IsEnabled = true;
         }
 
         /// <summary>
@@ -1309,14 +1308,14 @@ namespace TestCaseManagerApp.Views
         /// </summary>
         private void HideAllExecutionStatusContextMenuItemsStatuses()
         {
-            dgTestCaseContextItemPass.IsEnabled = false;
-            dgTestCaseContextItemBlock.IsEnabled = false;
-            dgTestCaseContextItemFail.IsEnabled = false;
-            dgTestCaseContextItemActive.IsEnabled = false;
-            dgTestCaseContextItemCopy.IsEnabled = false;
-            dgTestCaseContextItemCut.IsEnabled = false;
-            dgTestCaseContextItemPaste.IsEnabled = false;
-            dgTestCaseContextItemRemove.IsEnabled = false;
+            this.dgTestCaseContextItemPass.IsEnabled = false;
+            this.dgTestCaseContextItemBlock.IsEnabled = false;
+            this.dgTestCaseContextItemFail.IsEnabled = false;
+            this.dgTestCaseContextItemActive.IsEnabled = false;
+            this.dgTestCaseContextItemCopy.IsEnabled = false;
+            this.dgTestCaseContextItemCut.IsEnabled = false;
+            this.dgTestCaseContextItemPaste.IsEnabled = false;
+            this.dgTestCaseContextItemRemove.IsEnabled = false;
         }
 
         /// <summary>
@@ -1364,7 +1363,7 @@ namespace TestCaseManagerApp.Views
                 {
                     foreach (var currentTestCase in selectedTestCases)
                     {
-						currentTestCase.SetNewExecutionOutcome(ExecutionContext.Preferences.TestPlan, testCaseExecutionType, comment);
+                        currentTestCase.SetNewExecutionOutcome(ExecutionContext.Preferences.TestPlan, testCaseExecutionType, comment);
                         currentTestCase.LastExecutionOutcome = testCaseExecutionType;
                     }
                 });
@@ -1418,7 +1417,7 @@ namespace TestCaseManagerApp.Views
         {
             char keyPressedChar = (char)e.Key;
             char f2Char = (char)91;
-            if ((System.Windows.Forms.Control.ModifierKeys == Keys.None) && ((keyPressedChar  & f2Char) != 0))
+            if ((System.Windows.Forms.Control.ModifierKeys == Keys.None) && ((keyPressedChar & f2Char) != 0))
             {
                 this.RenameSuiteInternal();
                 e.Handled = true;
@@ -1432,7 +1431,7 @@ namespace TestCaseManagerApp.Views
         /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void btnArrange_Click(object sender, RoutedEventArgs e)
         {
-            int selectedSuiteId = (int)tvSuites.SelectedValue;
+            int selectedSuiteId = (int)this.tvSuites.SelectedValue;
             if (selectedSuiteId != -1)
             {
                 Navigator.Instance.NavigateToTestCasesExecutionArrangement(this, selectedSuiteId);
@@ -1446,14 +1445,14 @@ namespace TestCaseManagerApp.Views
         /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void btnChangeTestCases_Click(object sender, RoutedEventArgs e)
         {
-            if (dgTestCases.SelectedItems.Count == 0)
+            if (this.dgTestCases.SelectedItems.Count == 0)
             {
                 ModernDialog.ShowMessage("No test cases selected.", "Warning", MessageBoxButton.OK);
             }
             else
             {
                 ExecutionContext.SelectedTestCasesForChange = new List<TestCase>();
-                foreach (TestCase currentTestCase in dgTestCases.SelectedItems)
+                foreach (TestCase currentTestCase in this.dgTestCases.SelectedItems)
                 {
                     ExecutionContext.SelectedTestCasesForChange.Add(currentTestCase);
                 }
@@ -1471,7 +1470,7 @@ namespace TestCaseManagerApp.Views
         {
             if (this.isShowTestCasesSubsuiteAlreadyUnchecked)
             {
-                ShowTestCasesProgressbar();
+                this.ShowTestCasesProgressbar();
                 int selectedSuiteId = RegistryManager.Instance.GetSelectedSuiteId();
                 this.InitializeTestCasesBySelectedSuiteIdInternal(selectedSuiteId);
             }
@@ -1490,15 +1489,15 @@ namespace TestCaseManagerApp.Views
                 return;
             }
             RegistryManager.Instance.WriteShowSubsuiteTestCases(true);
-            ShowTestCasesProgressbar();
+            this.ShowTestCasesProgressbar();
             List<TestCase> testCasesList = new List<TestCase>();
             Task t = Task.Factory.StartNew(() =>
             {
-				ITestSuiteBase currentSuite = TestSuiteManager.GetTestSuiteById(ExecutionContext.TestManagementTeamProject, ExecutionContext.Preferences.TestPlan, selectedSuiteId);
+                ITestSuiteBase currentSuite = TestSuiteManager.GetTestSuiteById(ExecutionContext.TestManagementTeamProject, ExecutionContext.Preferences.TestPlan, selectedSuiteId);
                 if (currentSuite is IStaticTestSuite)
                 {
-					testCasesList = TestCaseManager.GetAllTestCasesFromSuiteCollection(ExecutionContext.Preferences.TestPlan, (currentSuite as IStaticTestSuite).SubSuites);
-                } 
+                    testCasesList = TestCaseManager.GetAllTestCasesFromSuiteCollection(ExecutionContext.Preferences.TestPlan, (currentSuite as IStaticTestSuite).SubSuites);
+                }
             });
             t.ContinueWith(antecedent =>
             {
@@ -1509,24 +1508,24 @@ namespace TestCaseManagerApp.Views
             }, TaskScheduler.FromCurrentSynchronizationContext());                    
         }
 
-		/// <summary>
-		/// Handles the Click event of the btnShowTestCaseWithoutSuite1 control.
-		/// </summary>
-		/// <param name="sender">The source of the event.</param>
-		/// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
-		private void btnShowTestCaseWithoutSuite1_Click(object sender, RoutedEventArgs e)
-		{
-			ShowProgressBar();
-			Task t = Task.Factory.StartNew(() =>
-			{
-				this.TestCasesInitialViewModel.FilterSuitesWithoutSuite();
-			});
-			t.ContinueWith(antecedent =>
-			{
-				this.TestCasesInitialViewModel.FilterTestCases();	
-				this.HideProgressBar();
-				ModernDialog.ShowMessage("In order to prevent performance issues, you can cut the test cases without suite in new suite- \"TestCaseWithoutSuite\" and then start working with them!", "Warning", MessageBoxButton.OK);
-			}, TaskScheduler.FromCurrentSynchronizationContext());			
-		}
+        /// <summary>
+        /// Handles the Click event of the btnShowTestCaseWithoutSuite1 control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
+        private void btnShowTestCaseWithoutSuite1_Click(object sender, RoutedEventArgs e)
+        {
+            this.ShowProgressBar();
+            Task t = Task.Factory.StartNew(() =>
+            {
+                this.TestCasesInitialViewModel.FilterSuitesWithoutSuite();
+            });
+            t.ContinueWith(antecedent =>
+            {
+                this.TestCasesInitialViewModel.FilterTestCases();	
+                this.HideProgressBar();
+                ModernDialog.ShowMessage("In order to prevent performance issues, you can cut the test cases without suite in new suite- \"TestCaseWithoutSuite\" and then start working with them!", "Warning", MessageBoxButton.OK);
+            }, TaskScheduler.FromCurrentSynchronizationContext());			
+        }
     }
 }

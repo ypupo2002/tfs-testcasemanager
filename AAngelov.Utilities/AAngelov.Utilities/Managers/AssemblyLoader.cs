@@ -2,6 +2,7 @@
 // https://testcasemanager.codeplex.com/ All rights reserved.
 // </copyright>
 // <author>Anton Angelov</author>
+
 namespace AAngelov.Utilities.Managers
 {
     using System;
@@ -9,7 +10,6 @@ namespace AAngelov.Utilities.Managers
     using System.Linq;
     using System.Reflection;
     using AAngelov.Utilities.Entities;
-    using AAngelov.Utilities.Managers;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 
     /// <summary>
@@ -42,7 +42,7 @@ namespace AAngelov.Utilities.Managers
         /// <param name="path">The path.</param>
         public void LoadAssembly(string path)
         {
-            assembly = Assembly.Load(AssemblyName.GetAssemblyName(path));
+            this.assembly = Assembly.Load(AssemblyName.GetAssemblyName(path));
         }
 
         /// <summary>
@@ -54,36 +54,35 @@ namespace AAngelov.Utilities.Managers
             Type[] types;
             try
             {
-                types = assembly.GetTypes();
+                types = this.assembly.GetTypes();
             }
             catch (ReflectionTypeLoadException ex)
             {
                 types = ex.Types;
             }
             types = types.Where(t => t != null).ToArray();
-            MethodInfo[] methods = types.SelectMany(t =>
-                    t.GetMethods().Where(y =>
+            MethodInfo[] methods = types.SelectMany(t => t.GetMethods().Where(y =>
+            {
+                var attributes = y.GetCustomAttributes(true).ToArray();
+                if (attributes.Length == 0)
+                {
+                    return false;
+                }
+                else
+                {
+                    bool result = false;
+                    foreach (var cAttribute in attributes)
                     {
-                        var attributes = y.GetCustomAttributes(true).ToArray();
-                        if (attributes.Length == 0)
+                        result = cAttribute.GetType().FullName.Equals(typeof(TestMethodAttribute).ToString());
+                        if (result)
                         {
-                            return false;
+                            break;
                         }
-                        else
-                        {
-                            bool result = false;
-                            foreach (var cAttribute in attributes)
-                            {
-                                result = cAttribute.GetType().FullName.Equals(typeof(TestMethodAttribute).ToString());
-                                if (result)
-                                {
-                                    break;
-                                }
-                            }
+                    }
 
-                            return result;
-                        }
-                    })).ToArray();
+                    return result;
+                }
+            })).ToArray();
 
             List<Test> tests = GetTestsByMethodInfos(methods);
 

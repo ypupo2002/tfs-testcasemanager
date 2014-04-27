@@ -2,13 +2,13 @@
 // https://testcasemanager.codeplex.com/ All rights reserved.
 // </copyright>
 // <author>Anton Angelov</author>
+
 namespace TestCaseManagerCore.ViewModels
 {
+    using System.Collections.ObjectModel;
     using AAngelov.Utilities.UI.Core;
     using AAngelov.Utilities.UI.Managers;
-    using System.Collections.ObjectModel;
-    using TestCaseManagerCore.BusinessLogic.Entities;
-    
+
     /// <summary>
     /// Holds PrompCheckboxListDialogViewModel Properties
     /// </summary>
@@ -86,7 +86,7 @@ namespace TestCaseManagerCore.ViewModels
                         currentCheckedItem.Selected = true;
                     }
                 }
-            }           
+            }
         }
     }
 }

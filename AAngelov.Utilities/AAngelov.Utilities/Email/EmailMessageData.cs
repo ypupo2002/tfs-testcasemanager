@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AAngelov.Utilities.Email
 {
@@ -75,14 +73,13 @@ namespace AAngelov.Utilities.Email
         /// <param name="emailBody">The email body.</param>
         /// <param name="subject">The subject.</param>
         /// <param name="attachmentPath">The attachment path.</param>
-        public EmailMessageData(List<string> emails, string fromEmail, string emailBody, string subject, List<string> attachmentPath)
-            : this(emails, fromEmail, emailBody, subject)
+        public EmailMessageData(List<string> emails, string fromEmail, string emailBody, string subject, List<string> attachmentPath) : this(emails, fromEmail, emailBody, subject)
         {
             this.Emails = emails;
             this.FromEmail = fromEmail;
             this.EmailBody = emailBody;
             this.Subject = subject;
             this.AttachmentPaths = attachmentPath;
-        }      
+        }
     }
 }

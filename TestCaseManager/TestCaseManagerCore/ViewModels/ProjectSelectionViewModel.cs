@@ -2,49 +2,50 @@
 // https://testcasemanager.codeplex.com/ All rights reserved.
 // </copyright>
 // <author>Anton Angelov</author>
+
 namespace TestCaseManagerCore.ViewModels
 {
-	using System.Collections.ObjectModel;
-	using Microsoft.TeamFoundation.Client;
+    using System.Collections.ObjectModel;
+    using Microsoft.TeamFoundation.Client;
     using Microsoft.TeamFoundation.TestManagement.Client;
 
-	/// <summary>
+    /// <summary>
     /// Provides methods and properties related to the Project Selection View
     /// </summary>
-	public class ProjectSelectionViewModel : BaseProjectSelectionViewModel
+    public class ProjectSelectionViewModel : BaseProjectSelectionViewModel
     {
         /// <summary>
         /// The log
         /// </summary>
-       private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
-		/// <summary>
-		/// The test management team project
-		/// </summary>
-		private ITestManagementTeamProject testManagementTeamProject;
+        /// <summary>
+        /// The test management team project
+        /// </summary>
+        private ITestManagementTeamProject testManagementTeamProject;
 
-		/// <summary>
-		/// The TFS team project collection
-		/// </summary>
-		private TfsTeamProjectCollection tfsTeamProjectCollection;
+        /// <summary>
+        /// The TFS team project collection
+        /// </summary>
+        private TfsTeamProjectCollection tfsTeamProjectCollection;
 
-		/// <summary>
-		/// Gets or sets the TFS client service.
-		/// </summary>
-		/// <value>
-		/// The TFS client service.
-		/// </value>
-		private ITestManagementService tfsClientService;
+        /// <summary>
+        /// Gets or sets the TFS client service.
+        /// </summary>
+        /// <value>
+        /// The TFS client service.
+        /// </value>
+        private ITestManagementService tfsClientService;
 
-		/// <summary>
-		/// The preference
-		/// </summary>
-		private Preferences preferences;
+        /// <summary>
+        /// The preference
+        /// </summary>
+        private Preferences preferences;
 
-		/// <summary>
-		/// The full team project name
-		/// </summary>
-		private string fullTeamProjectName;
+        /// <summary>
+        /// The full team project name
+        /// </summary>
+        private string fullTeamProjectName;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ProjectSelectionViewModel"/> class.
@@ -52,7 +53,7 @@ namespace TestCaseManagerCore.ViewModels
         public ProjectSelectionViewModel()
         {
             this.ObservableTestPlans = new ObservableCollection<string>();
-			this.preferences = new Preferences();
+            this.preferences = new Preferences();
         }
 
         /// <summary>
@@ -63,27 +64,25 @@ namespace TestCaseManagerCore.ViewModels
         /// </value>
         public ObservableCollection<string> ObservableTestPlans { get; set; }
 
+        /// <summary>
+        /// Gets or sets the full name of the team project.
+        /// </summary>
+        /// <value>
+        /// The full name of the team project.
+        /// </value>
+        public string FullTeamProjectName
+        {
+            get
+            {
+                return this.fullTeamProjectName;
+            }
 
-		/// <summary>
-		/// Gets or sets the full name of the team project.
-		/// </summary>
-		/// <value>
-		/// The full name of the team project.
-		/// </value>
-		public string FullTeamProjectName
-		{
-			get
-			{
-				return this.fullTeamProjectName;
-			}
-
-			set
-			{
-
-				this.fullTeamProjectName = value;
-				this.NotifyPropertyChanged();
-			}
-		}
+            set
+            {
+                this.fullTeamProjectName = value;
+                this.NotifyPropertyChanged();
+            }
+        }
 
         /// <summary>
         /// Gets or sets the selected test plan.
@@ -99,24 +98,24 @@ namespace TestCaseManagerCore.ViewModels
         /// <param name="projectPicker">The project picker.</param>
         public void LoadProjectSettingsFromUserDecision(TeamProjectPicker projectPicker)
         {
-			base.LoadProjectSettingsFromUserDecision(projectPicker, ref tfsTeamProjectCollection, ref testManagementTeamProject, ref this.preferences, this.tfsClientService, this.SelectedTestPlan);
-			ExecutionContext.TfsTeamProjectCollection = tfsTeamProjectCollection;
-			ExecutionContext.TestManagementTeamProject = testManagementTeamProject;
-			ExecutionContext.Preferences = this.preferences;
-			this.FullTeamProjectName = base.GenerateFullTeamProjectName(ExecutionContext.Preferences.TfsUri.ToString(), ExecutionContext.Preferences.TestProjectName);
-		}
+            base.LoadProjectSettingsFromUserDecision(projectPicker, ref this.tfsTeamProjectCollection, ref this.testManagementTeamProject, ref this.preferences, this.tfsClientService, this.SelectedTestPlan);
+            ExecutionContext.TfsTeamProjectCollection = this.tfsTeamProjectCollection;
+            ExecutionContext.TestManagementTeamProject = this.testManagementTeamProject;
+            ExecutionContext.Preferences = this.preferences;
+            this.FullTeamProjectName = base.GenerateFullTeamProjectName(ExecutionContext.Preferences.TfsUri.ToString(), ExecutionContext.Preferences.TestProjectName);
+        }
 
         /// <summary>
         /// Loads project settings from registry.
         /// </summary>
         public void LoadProjectSettingsFromRegistry()
         {
-			base.LoadProjectSettingsFromRegistry(ref tfsTeamProjectCollection, ref testManagementTeamProject, ref this.preferences, this.tfsClientService, this.SelectedTestPlan);
-			ExecutionContext.TfsTeamProjectCollection = tfsTeamProjectCollection;
-			ExecutionContext.TestManagementTeamProject = testManagementTeamProject;
-			ExecutionContext.Preferences = this.preferences;
-			this.FullTeamProjectName = base.GenerateFullTeamProjectName(ExecutionContext.Preferences.TfsUri.ToString(), ExecutionContext.Preferences.TestProjectName);
-		}
+            base.LoadProjectSettingsFromRegistry(ref this.tfsTeamProjectCollection, ref this.testManagementTeamProject, ref this.preferences, this.tfsClientService, this.SelectedTestPlan);
+            ExecutionContext.TfsTeamProjectCollection = this.tfsTeamProjectCollection;
+            ExecutionContext.TestManagementTeamProject = this.testManagementTeamProject;
+            ExecutionContext.Preferences = this.preferences;
+            this.FullTeamProjectName = base.GenerateFullTeamProjectName(ExecutionContext.Preferences.TfsUri.ToString(), ExecutionContext.Preferences.TestProjectName);
+        }
 	
         /// <summary>
         /// Initializes the test plans.
@@ -124,7 +123,7 @@ namespace TestCaseManagerCore.ViewModels
         /// <param name="testManagementTeamProject">The _testproject.</param>
         public void InitializeTestPlans(ITestManagementTeamProject testManagementTeamProject)
         {
-			base.InitializeTestPlans(testManagementTeamProject, this.ObservableTestPlans);
-        } 
+            base.InitializeTestPlans(testManagementTeamProject, this.ObservableTestPlans);
+        }
     }
 }

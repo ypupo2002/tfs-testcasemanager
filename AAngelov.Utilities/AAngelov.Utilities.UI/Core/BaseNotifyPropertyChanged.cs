@@ -2,6 +2,7 @@
 // http://aangelov.com All rights reserved.
 // </copyright>
 // <author>Anton Angelov</author>
+
 namespace AAngelov.Utilities.UI.Core
 {
     using System;
@@ -24,7 +25,8 @@ namespace AAngelov.Utilities.UI.Core
         /// Notifies the property changed.
         /// </summary>
         /// <param name="propertyName">Name of the property.</param>
-        protected void NotifyPropertyChanged([CallerMemberName] string propertyName = "")
+        protected void NotifyPropertyChanged([CallerMemberName]
+                                             string propertyName = "")
         {
             if (this.PropertyChanged != null)
             {

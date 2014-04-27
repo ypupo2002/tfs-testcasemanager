@@ -28,11 +28,11 @@
             <StackPanel Orientation="Horizontal" Grid.ColumnSpan="2">
                 <TextBlock Text="{Binding Path=ViewTitle}" Margin="10,0,10,30" Height="Auto" Width="Auto" FontWeight="Bold" FontSize="26" HorizontalAlignment="Left" Grid.Row="0"/>
             </StackPanel>
-         
+
             <DataGrid ItemsSource="{Binding Path=ObservableTestCases}" AutoGenerateColumns="False" Name="dgTestCases" Grid.Row="1" Grid.Column="0" 
                       IsReadOnly="True" SelectionMode="Extended"  SelectionUnit="FullRow" TabIndex="5"
-                       Margin="{StaticResource SplitRight}" LoadingRow="dgTestCases_LoadingRow">
-                
+                      Margin="{StaticResource SplitRight}" LoadingRow="dgTestCases_LoadingRow">
+
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="ID"  Binding="{Binding ITestCase.Id}" Width="0.6*">
                         <DataGridTextColumn.HeaderStyle>
@@ -61,10 +61,10 @@
                         </DataGridTextColumn.HeaderStyle>
                     </DataGridTextColumn>
                 </DataGrid.Columns>
-        </DataGrid>
+            </DataGrid>
             <StackPanel Orientation="Vertical" VerticalAlignment="Center" Grid.Row="1" Grid.Column="1">
                 <Button Content="_Up" Width="80" Height="30" Margin="5" VerticalAlignment="Center" Name="btnMoveUp"  Click="btnMoveUp_Click"/>
-                <Button Content="_Down" Width="80" Height="30" Margin="5" VerticalAlignment="Center" Name="btnMoveDown"  Click="btnMoveDown_Click"/>            
+                <Button Content="_Down" Width="80" Height="30" Margin="5" VerticalAlignment="Center" Name="btnMoveDown"  Click="btnMoveDown_Click"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal"  Grid.Row="2" Grid.Column="0">
                 <Button Content="_Save" Width="80" Height="30"  Margin="0,20,0,20" VerticalAlignment="Center" IsDefault="True" Name="btnSaveArrangement"  Click="btnSaveArrangement_Click"/>

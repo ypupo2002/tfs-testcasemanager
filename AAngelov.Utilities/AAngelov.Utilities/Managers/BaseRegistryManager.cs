@@ -2,6 +2,7 @@
 // https://testcasemanager.codeplex.com/ All rights reserved.
 // </copyright>
 // <author>Anton Angelov</author>
+
 namespace AAngelov.Utilities.Managers
 {
     using System;
@@ -52,7 +53,7 @@ namespace AAngelov.Utilities.Managers
             }
 
             this.CloseAllRegistryKeys(registryKeys);
-        }       
+        }
 
         /// <summary>
         /// Reads the specified sub key.
@@ -85,10 +86,10 @@ namespace AAngelov.Utilities.Managers
                     }
                 }
             }
-             catch (Exception ex)
-             {
-                 log.Error(ex);
-             }
+            catch (Exception ex)
+            {
+                log.Error(ex);
+            }
 
             return result;
         }
@@ -100,7 +101,7 @@ namespace AAngelov.Utilities.Managers
         /// <returns>the integer read from registry</returns>
         protected int ReadInt(string subKeys)
         {
-            int result = (int)Read(subKeys);
+            int result = (int)this.Read(subKeys);
 
             return result;
         }
@@ -113,7 +114,7 @@ namespace AAngelov.Utilities.Managers
         protected bool ReadBool(string subKeys)
         {
             bool result = default(bool);
-            string resultStr = (string)Read(subKeys);
+            string resultStr = (string)this.Read(subKeys);
             if (!string.IsNullOrEmpty(resultStr))
             {
                 result = bool.Parse(resultStr);
@@ -130,7 +131,7 @@ namespace AAngelov.Utilities.Managers
         protected string ReadStr(string subKeys)
         {
             string result = string.Empty;
-            string resultStr = (string)Read(subKeys);
+            string resultStr = (string)this.Read(subKeys);
             if (!string.IsNullOrEmpty(resultStr))
             {
                 result = resultStr;
@@ -146,7 +147,7 @@ namespace AAngelov.Utilities.Managers
         /// <returns>return merged sub key</returns>
         protected string GenerateMergedKey(params string[] keys)
         {
-            string result = MainRegistrySubKey;
+            string result = this.MainRegistrySubKey;
             foreach (var currentKey in keys)
             {
                 result = string.Join("/", result, currentKey);                

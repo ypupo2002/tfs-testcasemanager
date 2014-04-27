@@ -17,7 +17,7 @@
             <StackPanel Orientation="Vertical">
                 <TextBlock Text="Associate Automation" Margin="10,0,10,30" Height="Auto" FontWeight="Bold" FontSize="26" HorizontalAlignment="Left" Grid.Row="0" Grid.ColumnSpan="2"/>
                 <TextBlock Text="{Binding TestCase.ITestCase.Title}" Margin="10,0,10,30" Height="25" FontWeight="Bold" FontSize="18" HorizontalAlignment="Left" Grid.Row="0" Grid.ColumnSpan="2"/>
-            </StackPanel>           
+            </StackPanel>
             <Grid  Grid.Row="1">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
@@ -37,23 +37,23 @@
                 </DataGrid.ItemContainerStyle>
 
                 <DataGrid.Columns>
-                        <DataGridTextColumn Header="FullName" Binding="{Binding FullName}"/>
-                        <DataGridTextColumn Header="ClassName" Binding="{Binding ClassName}"/>
+                    <DataGridTextColumn Header="FullName" Binding="{Binding FullName}"/>
+                    <DataGridTextColumn Header="ClassName" Binding="{Binding ClassName}"/>
                 </DataGrid.Columns>
             </DataGrid>
-            
+
             <StackPanel Orientation="Vertical" Grid.Row="3" Margin="0,30,0,30">
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
                     <Button Name="btnAssociate" Margin="0,0,10,0" Height="30" Width="90" VerticalAlignment="Center" Click="btnAssociate_Click">
                         <Button.Content>
                             <TextBlock>
-                                  <Underline>A</Underline>ssociate
+                                <Underline>A</Underline>ssociate
                             </TextBlock>
                         </Button.Content>
                     </Button>
-                  
+
                 </StackPanel>
             </StackPanel>
         </Grid>
-    </Grid>    
+    </Grid>
 </UserControl>

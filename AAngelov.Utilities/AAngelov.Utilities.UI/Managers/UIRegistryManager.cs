@@ -84,13 +84,14 @@ namespace AAngelov.Utilities.UI.Managers
                 return instance;
             }
         }
+
         /// <summary>
         /// Writes the current theme to registry.
         /// </summary>
         /// <param name="theme">The theme name.</param>
         public void WriteCurrentTheme(string theme)
         {
-            Write(this.GenerateMergedKey(themeRegistrySubKeyName), theme); 
+            this.Write(this.GenerateMergedKey(themeRegistrySubKeyName), theme); 
         }
 
         /// <summary>
@@ -99,7 +100,7 @@ namespace AAngelov.Utilities.UI.Managers
         /// <param name="isWindowClosedFromX">if set to <c>true</c> [is window closed from executable].</param>
         public void WriteIsWindowClosedFromX(bool isWindowClosedFromX)
         {
-            Write(this.GenerateMergedKey(isWindowClosedFromXSubKeyName), isWindowClosedFromX); 
+            this.Write(this.GenerateMergedKey(isWindowClosedFromXSubKeyName), isWindowClosedFromX); 
         }
 
         /// <summary>
@@ -108,7 +109,7 @@ namespace AAngelov.Utilities.UI.Managers
         /// <param name="IsCheckboxDialogSubmitted">if set to <c>true</c> [is checkbox dialog submitted].</param>
         public void WriteIsCheckboxDialogSubmitted(bool isCheckboxDialogSubmitted)
         {
-            Write(this.GenerateMergedKey(checkboxPromptDialogIsSubmittedRegistrySubKeyName), isCheckboxDialogSubmitted); 
+            this.Write(this.GenerateMergedKey(checkboxPromptDialogIsSubmittedRegistrySubKeyName), isCheckboxDialogSubmitted); 
         }
 
         /// <summary>
@@ -117,8 +118,8 @@ namespace AAngelov.Utilities.UI.Managers
         /// <param name="checkedPropertiesToBeExported">The checked properties automatic be exported.</param>
         public void WriteCheckedPropertiesToBeExported(string checkedPropertiesToBeExported)
         {
-            Write(this.GenerateMergedKey(checkedPropertiesPromptDialogRegistrySubKeyName), checkedPropertiesToBeExported); 
-        }    
+            this.Write(this.GenerateMergedKey(checkedPropertiesPromptDialogRegistrySubKeyName), checkedPropertiesToBeExported); 
+        }
 
         /// <summary>
         /// Writes the drop down behavior to registry.
@@ -126,7 +127,7 @@ namespace AAngelov.Utilities.UI.Managers
         /// <param name="shouldOpenDropDownOnHover">if set to <c>true</c> [should open drop down configuration hover].</param>
         public void WriteDropDownBehavior(bool shouldOpenDropDownOnHover)
         {
-            Write(this.GenerateMergedKey(shouldOpenDropDownOnHoverRegistrySubKeyName), shouldOpenDropDownOnHover); 
+            this.Write(this.GenerateMergedKey(shouldOpenDropDownOnHoverRegistrySubKeyName), shouldOpenDropDownOnHover); 
         }
 
         /// <summary>
@@ -135,7 +136,7 @@ namespace AAngelov.Utilities.UI.Managers
         /// <param name="isCanceled">if set to <c>true</c> [is canceled].</param>
         public void WriteIsCanceledTitlePromtDialog(bool isCanceled)
         {
-            Write(this.GenerateMergedKey(titlePromptDialogRegistrySubKeyName, isCanceledtitlePromptDialogRegistrySubKeyName), isCanceled); 
+            this.Write(this.GenerateMergedKey(titlePromptDialogRegistrySubKeyName, isCanceledtitlePromptDialogRegistrySubKeyName), isCanceled); 
         }
 
         /// <summary>
@@ -144,7 +145,7 @@ namespace AAngelov.Utilities.UI.Managers
         /// <param name="title">The title.</param>
         public void WriteTitleTitlePromtDialog(string title)
         {
-            Write(this.GenerateMergedKey(titlePromptDialogRegistrySubKeyName, titleTitlePromptDialogIsCanceledRegistrySubKeyName), title); 
+            this.Write(this.GenerateMergedKey(titlePromptDialogRegistrySubKeyName, titleTitlePromptDialogIsCanceledRegistrySubKeyName), title); 
         }
 
         /// <summary>
@@ -155,9 +156,8 @@ namespace AAngelov.Utilities.UI.Managers
         /// <param name="blue">The blue part.</param>
         public void WriteCurrentColors(byte red, byte green, byte blue)
         {
-            Write(this.GenerateMergedKey(colorRegistrySubKeyName), string.Format("{0}&{1}&{2}", red, green, blue)); 
+            this.Write(this.GenerateMergedKey(colorRegistrySubKeyName), string.Format("{0}&{1}&{2}", red, green, blue)); 
         }
-
 
         /// <summary>
         /// Reads the is window closed from executable.
@@ -165,7 +165,7 @@ namespace AAngelov.Utilities.UI.Managers
         /// <returns></returns>
         public bool ReadIsWindowClosedFromX()
         {
-            return ReadBool(GenerateMergedKey(isWindowClosedFromXSubKeyName));
+            return this.ReadBool(this.GenerateMergedKey(isWindowClosedFromXSubKeyName));
         }
 
         /// <summary>
@@ -174,7 +174,7 @@ namespace AAngelov.Utilities.UI.Managers
         /// <returns>is checkbox dialog submitted</returns>
         public bool ReadIsCheckboxDialogSubmitted()
         {
-            return ReadBool(GenerateMergedKey(checkboxPromptDialogIsSubmittedRegistrySubKeyName));
+            return this.ReadBool(this.GenerateMergedKey(checkboxPromptDialogIsSubmittedRegistrySubKeyName));
         }
 
         /// <summary>
@@ -183,8 +183,7 @@ namespace AAngelov.Utilities.UI.Managers
         /// <returns>check properties to be exported</returns>
         public string ReadCheckedPropertiesToBeExported()
         {
-            return ReadStr(GenerateMergedKey(checkedPropertiesPromptDialogRegistrySubKeyName));
-
+            return this.ReadStr(this.GenerateMergedKey(checkedPropertiesPromptDialogRegistrySubKeyName));
         }
 
         /// <summary>
@@ -193,7 +192,7 @@ namespace AAngelov.Utilities.UI.Managers
         /// <returns>the title</returns>
         public string GetContentPromtDialog()
         {
-            return ReadStr(GenerateMergedKey(titlePromptDialogRegistrySubKeyName, titleTitlePromptDialogIsCanceledRegistrySubKeyName));
+            return this.ReadStr(this.GenerateMergedKey(titlePromptDialogRegistrySubKeyName, titleTitlePromptDialogIsCanceledRegistrySubKeyName));
         }
 
         /// <summary>
@@ -202,7 +201,7 @@ namespace AAngelov.Utilities.UI.Managers
         /// <returns> if the title promt dialog was canceled</returns>
         public bool GetIsCanceledPromtDialog()
         {
-            return ReadBool(GenerateMergedKey(titlePromptDialogRegistrySubKeyName, isCanceledtitlePromptDialogRegistrySubKeyName));
+            return this.ReadBool(this.GenerateMergedKey(titlePromptDialogRegistrySubKeyName, isCanceledtitlePromptDialogRegistrySubKeyName));
         }
 
         /// <summary>
@@ -212,7 +211,7 @@ namespace AAngelov.Utilities.UI.Managers
         public string[] GetColors()
         {
             string[] colorsStr = null;
-            string colors = ReadStr(GenerateMergedKey(colorRegistrySubKeyName));
+            string colors = this.ReadStr(this.GenerateMergedKey(colorRegistrySubKeyName));
             if (!string.IsNullOrEmpty(colors))
             {
                 colorsStr = colors.Split('&');
@@ -227,7 +226,7 @@ namespace AAngelov.Utilities.UI.Managers
         /// <returns>the theme</returns>
         public string GetTheme()
         {
-            return ReadStr(GenerateMergedKey(themeRegistrySubKeyName));
+            return this.ReadStr(this.GenerateMergedKey(themeRegistrySubKeyName));
         }
 
         /// <summary>
@@ -236,7 +235,7 @@ namespace AAngelov.Utilities.UI.Managers
         /// <returns>drop down behavior</returns>
         public bool GetDropDownBehavior()
         {
-            return ReadBool(GenerateMergedKey(shouldOpenDropDownOnHoverRegistrySubKeyName));
+            return this.ReadBool(this.GenerateMergedKey(shouldOpenDropDownOnHoverRegistrySubKeyName));
         }
     }
 }

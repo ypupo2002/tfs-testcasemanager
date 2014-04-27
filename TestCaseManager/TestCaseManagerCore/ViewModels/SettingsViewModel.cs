@@ -2,16 +2,16 @@
 // https://testcasemanager.codeplex.com/ All rights reserved.
 // </copyright>
 // <author>Anton Angelov</author>
+
 namespace TestCaseManagerCore.ViewModels
 {
-    using AAngelov.Utilities.UI.Core;
-    using AAngelov.Utilities.UI.Managers;
-    using FirstFloor.ModernUI.Presentation;
     using System;
     using System.ComponentModel;
     using System.Linq;
     using System.Windows.Media;
-    using TestCaseManagerCore.BusinessLogic.Entities;
+    using AAngelov.Utilities.UI.Core;
+    using AAngelov.Utilities.UI.Managers;
+    using FirstFloor.ModernUI.Presentation;
     using TestCaseManagerCore.BusinessLogic.Managers;
 
     /// <summary>
@@ -105,7 +105,7 @@ namespace TestCaseManagerCore.ViewModels
             this.SetPreviousHoverBehaviorDropDown();
             AppearanceManager.Current.PropertyChanged += this.OnAppearanceManagerPropertyChanged;
             this.SetPreviousAppereanceSettings();            
-        }      
+        }
 
         /// <summary>
         /// Gets or sets a value indicating whether [the drop downs should open on hover].
@@ -297,6 +297,6 @@ namespace TestCaseManagerCore.ViewModels
             {
                 this.SyncThemeAndColor();
             }
-        }      
+        }
     }
 }

@@ -2,6 +2,7 @@
 // http://aangelov.com All rights reserved.
 // </copyright>
 // <author>Anton Angelov</author>
+
 namespace AAngelov.Utilities.UI.Managers
 {
     using System;

@@ -2,12 +2,10 @@
 // https://testcasemanager.codeplex.com/ All rights reserved.
 // </copyright>
 // <author>Anton Angelov</author>
+
 namespace TestCaseManagerApp
 {
     using System;
-    using System.IO;
-    using System.Reflection;
-    using System.Windows;
     using System.Windows.Controls;
 
     /// <summary>

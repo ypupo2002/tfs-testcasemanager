@@ -2,19 +2,15 @@
 // https://testcasemanager.codeplex.com/ All rights reserved.
 // </copyright>
 // <author>Anton Angelov</author>
+
 namespace TestCaseManagerCore.ViewModels
 {
     using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
-    using System.IO;
     using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
-    using System.Windows;
     using AAngelov.Utilities.Entities;
     using AAngelov.Utilities.Managers;
-    using FirstFloor.ModernUI.Windows.Controls;
     using Microsoft.TeamFoundation.TestManagement.Client;
     using TestCaseManagerCore.BusinessLogic.Entities;
     using TestCaseManagerCore.BusinessLogic.Managers;
@@ -36,7 +32,7 @@ namespace TestCaseManagerCore.ViewModels
         public AssociateTestViewModel(int testCaseId)
         {
             ITestCase testCaseCore = ExecutionContext.TestManagementTeamProject.TestCases.Find(testCaseId);
-			this.TestCase = new TestCase(testCaseCore, null, ExecutionContext.Preferences.TestPlan);
+            this.TestCase = new TestCase(testCaseCore, null, ExecutionContext.Preferences.TestPlan);
             this.TestCaseId = testCaseId;
             string projectDllPath = RegistryManager.Instance.GetProjectDllPath();
             List<Test> testsList = ProjectManager.GetProjectTestMethods(projectDllPath);
@@ -146,7 +142,7 @@ namespace TestCaseManagerCore.ViewModels
         /// <param name="testType">Type of the test.</param>
         public void AssociateTestCaseToTest(Test test, string testType)
         {
-			this.TestCase.ITestCase.SetAssociatedAutomation(ExecutionContext.TestManagementTeamProject, test, testType);
+            this.TestCase.ITestCase.SetAssociatedAutomation(ExecutionContext.TestManagementTeamProject, test, testType);
             this.TestCase.ITestCase.Save();
         }
 
@@ -180,8 +176,8 @@ namespace TestCaseManagerCore.ViewModels
             this.ReinitializeTests();
 
             var filteredList = this.ObservableTests.Where(
-                t => ((this.AssociateTestViewFilters.IsFullNameFilterSet && !string.IsNullOrEmpty(fullNameFilter)) ? t.FullName.ToLower().Contains(fullNameFilter.ToLower()) : true)
-                    && ((this.AssociateTestViewFilters.IsClassNameFilterSet && !string.IsNullOrEmpty(classNameFilter)) ? t.ClassName.ToLower().Contains(classNameFilter.ToLower()) : true)).ToList();
+                                                        t => ((this.AssociateTestViewFilters.IsFullNameFilterSet && !string.IsNullOrEmpty(fullNameFilter)) ? t.FullName.ToLower().Contains(fullNameFilter.ToLower()) : true) &&
+                                                             ((this.AssociateTestViewFilters.IsClassNameFilterSet && !string.IsNullOrEmpty(classNameFilter)) ? t.ClassName.ToLower().Contains(classNameFilter.ToLower()) : true)).ToList();
             this.ObservableTests.Clear();
             filteredList.ForEach(x => this.ObservableTests.Add(x));
         }
@@ -196,6 +192,6 @@ namespace TestCaseManagerCore.ViewModels
             {
                 this.InitialTestsCollection.Add(currentTest);
             }
-        }       
+        }
     }
 }

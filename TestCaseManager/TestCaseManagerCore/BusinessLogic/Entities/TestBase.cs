@@ -2,14 +2,14 @@
 // https://testcasemanager.codeplex.com/ All rights reserved.
 // </copyright>
 // <author>Anton Angelov</author>
+
 namespace TestCaseManagerCore.BusinessLogic.Entities
 {
     using System;
+    using AAngelov.Utilities.Managers;
+    using AAngelov.Utilities.UI.Core;
     using Microsoft.TeamFoundation.TestManagement.Client;
     using TestCaseManagerCore.BusinessLogic.Enums;
-    using TestCaseManagerCore.BusinessLogic.Managers;
-    using AAngelov.Utilities.UI.Core;
-    using AAngelov.Utilities.Managers;
 
     /// <summary>
     /// Contains Base Test Entities properties
@@ -101,7 +101,7 @@ namespace TestCaseManagerCore.BusinessLogic.Entities
                 if (this.isInitialized)
                 {
                     UndoRedoManager.Instance().Push(t => this.Title = t, this.title, "Change the test case title");
-                }                
+                }
                 this.title = value;
                 this.NotifyPropertyChanged();
             }
@@ -125,7 +125,7 @@ namespace TestCaseManagerCore.BusinessLogic.Entities
                 if (this.isInitialized)
                 {
                     UndoRedoManager.Instance().Push(a => this.Area = a, this.area, "Change the test case area");
-                }               
+                }
                 this.area = value;
                 this.NotifyPropertyChanged();
             }
@@ -149,7 +149,7 @@ namespace TestCaseManagerCore.BusinessLogic.Entities
                 if (this.isInitialized)
                 {
                     UndoRedoManager.Instance().Push(t => this.TeamFoundationIdentityName = t, this.teamFoundationIdentityName, "Change the test case owner");
-                }                
+                }
                 this.teamFoundationIdentityName = value;
                 this.NotifyPropertyChanged();
             }
@@ -173,7 +173,7 @@ namespace TestCaseManagerCore.BusinessLogic.Entities
                 if (this.isInitialized)
                 {
                     UndoRedoManager.Instance().Push(p => this.Priority = p, this.priority, "Change the test case priority");
-                }                
+                }
                 this.priority = value;
                 this.NotifyPropertyChanged();
             }

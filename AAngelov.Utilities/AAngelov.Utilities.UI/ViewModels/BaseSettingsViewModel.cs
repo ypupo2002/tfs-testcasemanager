@@ -1,10 +1,10 @@
-﻿using AAngelov.Utilities.UI.Core;
-using AAngelov.Utilities.UI.Managers;
-using FirstFloor.ModernUI.Presentation;
-using System;
+﻿using System;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows.Media;
+using AAngelov.Utilities.UI.Core;
+using AAngelov.Utilities.UI.Managers;
+using FirstFloor.ModernUI.Presentation;
 
 namespace AAngelov.Utilities.UI.ViewModels
 {
@@ -94,7 +94,7 @@ namespace AAngelov.Utilities.UI.ViewModels
             this.SetPreviousHoverBehaviorDropDown();
             AppearanceManager.Current.PropertyChanged += this.OnAppearanceManagerPropertyChanged;
             this.SetPreviousAppereanceSettings();            
-        }      
+        }
 
         /// <summary>
         /// Gets or sets a value indicating whether [the drop downs should open on hover].
@@ -267,6 +267,6 @@ namespace AAngelov.Utilities.UI.ViewModels
             {
                 this.SyncThemeAndColor();
             }
-        }      
+        }
     }
 }

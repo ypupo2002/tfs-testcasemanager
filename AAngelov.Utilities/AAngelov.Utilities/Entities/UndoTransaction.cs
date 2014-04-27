@@ -2,6 +2,7 @@
 // http://aangelov.com All rights reserved.
 // </copyright>
 // <author>Anton Angelov</author>
+
 namespace AAngelov.Utilities.Entities
 {
     using System;
@@ -56,7 +57,10 @@ namespace AAngelov.Utilities.Entities
         /// </value>
         public string Name
         {
-            get { return this.name; }
+            get
+            {
+                return this.name;
+            }
         }
 
         /// <summary>
@@ -92,17 +96,17 @@ namespace AAngelov.Utilities.Entities
         /// Adds the undo redo operation.
         /// </summary>
         /// <param name="operation">The operation.</param>
-         public void AddUndoRedoOperation(IUndoRedoRecord operation)
-         {
-             if (this.isFifo)
-             {
-                 this.undoRedoOperationsQueue.Enqueue(operation);
-             }
-             else
-             {
-                 this.undoRedoOperationsStack.Push(operation);
-             }             
-         }     
+        public void AddUndoRedoOperation(IUndoRedoRecord operation)
+        {
+            if (this.isFifo)
+            {
+                this.undoRedoOperationsQueue.Enqueue(operation);
+            }
+            else
+            {
+                this.undoRedoOperationsStack.Push(operation);
+            }
+        }
 
         /// <summary>
         /// Executes the operation saved in the collections.
@@ -124,7 +128,7 @@ namespace AAngelov.Utilities.Entities
                     IUndoRedoRecord currentRecord = this.undoRedoOperationsStack.Pop();
                     currentRecord.Execute();
                 }
-            }         
+            }
         }
     }
 }

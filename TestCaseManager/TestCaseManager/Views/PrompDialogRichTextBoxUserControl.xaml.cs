@@ -2,26 +2,15 @@
 // https://testcasemanager.codeplex.com/ All rights reserved.
 // </copyright>
 // <author>Anton Angelov</author>
+
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using AAngelov.Utilities.UI.ControlExtensions;
-using FirstFloor.ModernUI.Windows;
-using FirstFloor.ModernUI.Windows.Controls;
-using TestCaseManagerCore.BusinessLogic.Managers;
-using TestCaseManagerCore.ViewModels;
 using AAngelov.Utilities.UI.Managers;
+using TestCaseManagerCore.ViewModels;
 
 namespace TestCaseManagerApp.Views
 {
@@ -49,7 +38,7 @@ namespace TestCaseManagerApp.Views
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
             UIRegistryManager.Instance.WriteIsWindowClosedFromX(true);
-            PromptDialogViewModel = new PromptDialogViewModel();
+            this.PromptDialogViewModel = new PromptDialogViewModel();
             this.DataContext = this.PromptDialogViewModel;         
         }
 
@@ -59,8 +48,8 @@ namespace TestCaseManagerApp.Views
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void ButtonOk_Click(object sender, RoutedEventArgs e)
-        {          
-            PromptDialogViewModel.IsCanceled = false;
+        { 
+            this.PromptDialogViewModel.IsCanceled = false;
             UIRegistryManager.Instance.WriteIsWindowClosedFromX(false);
             Window window = Window.GetWindow(this);
             window.Close();
@@ -73,9 +62,9 @@ namespace TestCaseManagerApp.Views
         /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
-            PromptDialogViewModel.IsCanceled = true;
+            this.PromptDialogViewModel.IsCanceled = true;
             UIRegistryManager.Instance.WriteIsWindowClosedFromX(false);
-            PromptDialogViewModel.Content = String.Empty;
+            this.PromptDialogViewModel.Content = String.Empty;
             Window window = Window.GetWindow(this);
             window.Close();
         }
@@ -87,15 +76,15 @@ namespace TestCaseManagerApp.Views
         /// <param name="e">The <see cref="KeyEventArgs"/> instance containing the event data.</param>
         private void rtbComment_KeyUp(object sender, KeyEventArgs e)
         {
-            this.PromptDialogViewModel.Content = rtbComment.GetText();
+            this.PromptDialogViewModel.Content = this.rtbComment.GetText();
             if (!string.IsNullOrEmpty(this.PromptDialogViewModel.Content) && !string.IsNullOrWhiteSpace(this.PromptDialogViewModel.Content) && this.PromptDialogViewModel.Content != Environment.NewLine.ToString())
             {
-                btnOk.IsEnabled = true;
+                this.btnOk.IsEnabled = true;
             }
             else
             {
-                btnOk.IsEnabled = false;
+                this.btnOk.IsEnabled = false;
             }
-        }   
+        }
     }
 }

@@ -2,7 +2,9 @@
 // https://testcasemanager.codeplex.com/ All rights reserved.
 // </copyright>
 // <author>Anton Angelov</author>
+
 using AAngelov.Utilities.UI.Core;
+
 namespace TestCaseManagerCore.BusinessLogic.Entities
 {
     /// <summary>

@@ -2,22 +2,18 @@
 // https://testcasemanager.codeplex.com/ All rights reserved.
 // </copyright>
 // <author>Anton Angelov</author>
+
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Forms;
-using System.Windows.Input;
+using AAngelov.Utilities.UI.Managers;
 using FirstFloor.ModernUI.Windows;
 using FirstFloor.ModernUI.Windows.Controls;
 using FirstFloor.ModernUI.Windows.Navigation;
+using TestCaseManagerCore;
 using TestCaseManagerCore.BusinessLogic.Entities;
 using TestCaseManagerCore.ViewModels;
-using TestCaseManagerCore;
-using System.Collections.Generic;
-using TestCaseManagerCore.BusinessLogic.Managers;
-using System.Text;
-using AAngelov.Utilities.UI.Managers;
 
 namespace TestCaseManagerApp.Views
 {
@@ -62,7 +58,7 @@ namespace TestCaseManagerApp.Views
         /// </summary>
         /// <param name="e">An object that contains the navigation data.</param>
         public void OnFragmentNavigation(FragmentNavigationEventArgs e)
-        {   
+        { 
         }
 
         /// <summary>
@@ -122,8 +118,8 @@ namespace TestCaseManagerApp.Views
         /// </summary>
         private void HideProgressBar()
         {
-            progressBar.Visibility = System.Windows.Visibility.Hidden;
-            mainGrid.Visibility = System.Windows.Visibility.Visible;
+            this.progressBar.Visibility = System.Windows.Visibility.Hidden;
+            this.mainGrid.Visibility = System.Windows.Visibility.Visible;
         }
 
         /// <summary>
@@ -131,8 +127,8 @@ namespace TestCaseManagerApp.Views
         /// </summary>
         private void ShowProgressBar()
         {
-            progressBar.Visibility = System.Windows.Visibility.Visible;
-            mainGrid.Visibility = System.Windows.Visibility.Hidden;
+            this.progressBar.Visibility = System.Windows.Visibility.Visible;
+            this.mainGrid.Visibility = System.Windows.Visibility.Hidden;
         }
 
         /// <summary>
@@ -182,13 +178,13 @@ namespace TestCaseManagerApp.Views
         /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void btnDeleteTestPlan_Click(object sender, RoutedEventArgs e)
         {
-            if (dgTestPlans.SelectedItems.Count == 0)
+            if (this.dgTestPlans.SelectedItems.Count == 0)
             {
                 this.DisplayNonSelectionWarning();
                 return;
             }
             List<TestPlan> testPlansToBeDeleted = new List<TestPlan>();
-            foreach (TestPlan currentTestPlan in dgTestPlans.SelectedItems)
+            foreach (TestPlan currentTestPlan in this.dgTestPlans.SelectedItems)
             {
                 testPlansToBeDeleted.Add(currentTestPlan);               
             }
@@ -208,6 +204,6 @@ namespace TestCaseManagerApp.Views
         {
             log.Info("Navigate to ProjectSelectionView");
             Navigator.Instance.NavigateToProjectSelection(this);
-        }   
+        }
     }
 }

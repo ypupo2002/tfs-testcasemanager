@@ -41,7 +41,10 @@ namespace AAngelov.Utilities.Utilities
         /// <exception cref="System.ArgumentException"></exception>
         private void ValidatePath(string path)
         {
-            if (path == null) throw new ArgumentNullException("path");
+            if (path == null)
+            {
+                throw new ArgumentNullException("path");
+            }
             if (!System.IO.File.Exists(path))
             {
                 throw new ArgumentException(String.Format("path \"{0}\" does not exist", path));

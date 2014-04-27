@@ -2,22 +2,12 @@
 // https://testcasemanager.codeplex.com/ All rights reserved.
 // </copyright>
 // <author>Anton Angelov</author>
+
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using FirstFloor.ModernUI.Windows.Controls;
-using FirstFloor.ModernUI.Windows.Navigation;
 using TestCaseManagerCore;
 
 namespace TestCaseManagerApp
@@ -68,7 +58,7 @@ namespace TestCaseManagerApp
         /// <param name="e">The <see cref="ExecutedRoutedEventArgs"/> instance containing the event data.</param>
         private void CommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            NavigationCommands.BrowseBack.Execute(null, currentModernFrame);
+            NavigationCommands.BrowseBack.Execute(null, this.currentModernFrame);
         }
 
         /// <summary>
@@ -78,7 +68,7 @@ namespace TestCaseManagerApp
         {
             base.OnApplyTemplate();
 
-            currentModernFrame = (ModernFrame)GetTemplateChild("ContentFrame");
+            this.currentModernFrame = (ModernFrame)this.GetTemplateChild("ContentFrame");
         }
 
         /// <summary>
@@ -91,7 +81,7 @@ namespace TestCaseManagerApp
             if (ExecutionContext.TestCaseEditViewModel != null)
             {
                 ExecutionContext.TestCaseEditViewModel.SaveChangesDialog();
-            }           
+            }
             MessageBoxResult messageBoxResult = ModernDialog.ShowMessage("Are you sure you want to exit?", "Confirm Exit!", MessageBoxButton.YesNoCancel);
             if (messageBoxResult != MessageBoxResult.Yes)
             {

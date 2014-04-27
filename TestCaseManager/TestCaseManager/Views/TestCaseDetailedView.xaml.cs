@@ -1,20 +1,20 @@
 ﻿using System;
-// <copyright file="TestCaseDetailedView.xaml.cs" company="CodePlex">
-// https://testcasemanager.codeplex.com/ All rights reserved.
-// </copyright>
-// <author>Anton Angelov</author>
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using AAngelov.Utilities.UI.Managers;
 using FirstFloor.ModernUI.Windows;
 using FirstFloor.ModernUI.Windows.Navigation;
 using TestCaseManagerCore;
 using TestCaseManagerCore.BusinessLogic.Enums;
 using TestCaseManagerCore.BusinessLogic.Managers;
 using TestCaseManagerCore.ViewModels;
-using AAngelov.Utilities.UI.Managers;
 
+// <copyright file="TestCaseDetailedView.xaml.cs" company="CodePlex">
+// https://testcasemanager.codeplex.com/ All rights reserved.
+// </copyright>
+// <author>Anton Angelov</author>
 namespace TestCaseManagerApp.Views
 {
     /// <summary>
@@ -89,11 +89,11 @@ namespace TestCaseManagerApp.Views
             Task t = Task.Factory.StartNew(() =>
             {
                 log.InfoFormat("Preview test case with id: {0} and suite id {1}", this.TestCaseId, this.TestSuiteId);
-                TestCaseDetailedViewModel = new TestCaseDetailedViewModel(this.TestCaseId, this.TestSuiteId);
+                this.TestCaseDetailedViewModel = new TestCaseDetailedViewModel(this.TestCaseId, this.TestSuiteId);
             });
             t.ContinueWith(antecedent =>
             {
-                this.DataContext = TestCaseDetailedViewModel;
+                this.DataContext = this.TestCaseDetailedViewModel;
                 EditCommand.InputGestures.Add(new KeyGesture(Key.E, ModifierKeys.Alt));
                 DuplicateCommand.InputGestures.Add(new KeyGesture(Key.D, ModifierKeys.Alt));
                 this.HideProgressBar();
@@ -145,8 +145,8 @@ namespace TestCaseManagerApp.Views
         /// </summary>
         private void HideProgressBar()
         {
-            progressBar.Visibility = System.Windows.Visibility.Hidden;
-            mainGrid.Visibility = System.Windows.Visibility.Visible;
+            this.progressBar.Visibility = System.Windows.Visibility.Hidden;
+            this.mainGrid.Visibility = System.Windows.Visibility.Visible;
         }
 
         /// <summary>
@@ -154,8 +154,8 @@ namespace TestCaseManagerApp.Views
         /// </summary>
         private void ShowProgressBar()
         {
-            progressBar.Visibility = System.Windows.Visibility.Visible;
-            mainGrid.Visibility = System.Windows.Visibility.Hidden;
+            this.progressBar.Visibility = System.Windows.Visibility.Visible;
+            this.mainGrid.Visibility = System.Windows.Visibility.Hidden;
         }
 
         /// <summary>
@@ -165,16 +165,16 @@ namespace TestCaseManagerApp.Views
         /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void EditButton_Click(object sender, RoutedEventArgs e)
         {
-            if (TestCaseDetailedViewModel.TestCase.ITestSuiteBase != null)
+            if (this.TestCaseDetailedViewModel.TestCase.ITestSuiteBase != null)
             {
-                log.InfoFormat("Edit test case with id: {0} and suite id {1}", TestCaseDetailedViewModel.TestCase.ITestCase.Id, TestCaseDetailedViewModel.TestCase.ITestSuiteBase.Id);
-                Navigator.Instance.NavigateToTestCasesEditView(this, TestCaseDetailedViewModel.TestCase.ITestCase.Id, TestCaseDetailedViewModel.TestCase.ITestSuiteBase.Id);
+                log.InfoFormat("Edit test case with id: {0} and suite id {1}", this.TestCaseDetailedViewModel.TestCase.ITestCase.Id, this.TestCaseDetailedViewModel.TestCase.ITestSuiteBase.Id);
+                Navigator.Instance.NavigateToTestCasesEditView(this, this.TestCaseDetailedViewModel.TestCase.ITestCase.Id, this.TestCaseDetailedViewModel.TestCase.ITestSuiteBase.Id);
             }
             else
             {
-                log.InfoFormat("Edit test case with id: {0}", TestCaseDetailedViewModel.TestCase.ITestCase.Id);
-                Navigator.Instance.NavigateToTestCasesEditView(this, TestCaseDetailedViewModel.TestCase.ITestCase.Id, -1);
-            }            
+                log.InfoFormat("Edit test case with id: {0}", this.TestCaseDetailedViewModel.TestCase.ITestCase.Id);
+                Navigator.Instance.NavigateToTestCasesEditView(this, this.TestCaseDetailedViewModel.TestCase.ITestCase.Id, -1);
+            }
         }
 
         /// <summary>
@@ -184,16 +184,16 @@ namespace TestCaseManagerApp.Views
         /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void DuplicateButton_Click(object sender, RoutedEventArgs e)
         {
-            if (TestCaseDetailedViewModel.TestCase.ITestSuiteBase != null)
+            if (this.TestCaseDetailedViewModel.TestCase.ITestSuiteBase != null)
             {
-                log.InfoFormat("Duplicate test case with id: {0} and suite id {1}", TestCaseDetailedViewModel.TestCase.ITestCase.Id, TestCaseDetailedViewModel.TestCase.ITestSuiteBase.Id);
-                Navigator.Instance.NavigateToTestCasesEditView(this, TestCaseDetailedViewModel.TestCase.ITestCase.Id, TestCaseDetailedViewModel.TestCase.ITestSuiteBase.Id, true, true);
+                log.InfoFormat("Duplicate test case with id: {0} and suite id {1}", this.TestCaseDetailedViewModel.TestCase.ITestCase.Id, this.TestCaseDetailedViewModel.TestCase.ITestSuiteBase.Id);
+                Navigator.Instance.NavigateToTestCasesEditView(this, this.TestCaseDetailedViewModel.TestCase.ITestCase.Id, this.TestCaseDetailedViewModel.TestCase.ITestSuiteBase.Id, true, true);
             }
             else
             {
-                log.InfoFormat("Duplicate test case with id: {0}", TestCaseDetailedViewModel.TestCase.ITestCase.Id);
-                Navigator.Instance.NavigateToTestCasesEditView(this, TestCaseDetailedViewModel.TestCase.ITestCase.Id, -1, true, true);
-            }            
+                log.InfoFormat("Duplicate test case with id: {0}", this.TestCaseDetailedViewModel.TestCase.ITestCase.Id);
+                Navigator.Instance.NavigateToTestCasesEditView(this, this.TestCaseDetailedViewModel.TestCase.ITestCase.Id, -1, true, true);
+            }
         }
 
         /// <summary>
@@ -235,10 +235,10 @@ namespace TestCaseManagerApp.Views
             }
 
             if (!isCanceled || !shouldCommentWindowShow)
-            {                
+            { 
                 Task t1 = Task.Factory.StartNew(() =>
                 {
-					this.TestCaseDetailedViewModel.TestCase.SetNewExecutionOutcome(ExecutionContext.Preferences.TestPlan, testCaseExecutionType, comment);
+                    this.TestCaseDetailedViewModel.TestCase.SetNewExecutionOutcome(ExecutionContext.Preferences.TestPlan, testCaseExecutionType, comment);
                     this.TestCaseDetailedViewModel.TestCase.LastExecutionOutcome = testCaseExecutionType;
                 });
                 t1.ContinueWith(antecedent =>

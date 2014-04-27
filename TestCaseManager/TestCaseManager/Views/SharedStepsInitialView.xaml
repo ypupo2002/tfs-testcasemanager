@@ -126,19 +126,19 @@
                         <ColumnDefinition Width="2*" />
                     </Grid.ColumnDefinitions>
                     <TextBox x:Name="tbTestCaseTitleFilter" Text="{Binding InitialViewFiltersTestCases.TitleFilter, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TabIndex="5" Margin="10,0,0,0" Height="25"
-            			Grid.Column="0" GotFocus="tbTestCaseTitleFilter_GotFocus"  LostFocus="tbTestCaseTitleFilter_LostFocus"  KeyUp="tbTestCaseTitleFilter_KeyUp"/>
+                             Grid.Column="0" GotFocus="tbTestCaseTitleFilter_GotFocus"  LostFocus="tbTestCaseTitleFilter_LostFocus"  KeyUp="tbTestCaseTitleFilter_KeyUp"/>
                     <TextBox x:Name="tbTestCaseSuiteFilter" Text="{Binding InitialViewFiltersTestCases.SuiteFilter, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TabIndex="6" Margin="10,0,0,0" Height="25" 
-            			Grid.Column="1" GotFocus="tbTestCaseSuiteFilter_GotFocus"  LostFocus="tbTestCaseSuiteFilter_LostFocus"  KeyUp="tbTestCaseSuiteFilter_KeyUp"/>
+                             Grid.Column="1" GotFocus="tbTestCaseSuiteFilter_GotFocus"  LostFocus="tbTestCaseSuiteFilter_LostFocus"  KeyUp="tbTestCaseSuiteFilter_KeyUp"/>
                 </Grid>
             </StackPanel>
             <DataGrid ItemsSource="{Binding Path=ObservableTestCases}" AutoGenerateColumns="False" Name="dgTestCases" Grid.Row="2" Grid.Column="2" 
                       IsReadOnly="True" SelectionMode="Extended"  SelectionUnit="FullRow" TabIndex="5"
-                       Margin="{StaticResource SplitRight}">
+                      Margin="{StaticResource SplitRight}">
                 <!--SelectedCellsChanged="dgTestCases_SelectedCellsChanged" PreviewMouseRightButtonDown="dgTestCases_PreviewMouseRightButtonDown"-->
                 <!--<DataGrid.ContextMenu>
-                    <ContextMenu>
-                        <MenuItem Name="dgTestCaseContextItemEdit" Command="{x:Static local:TestCasesInitialView.EditCommand}" Header="Edit"/>
-                    </ContextMenu>
+                <ContextMenu>
+                <MenuItem Name="dgTestCaseContextItemEdit" Command="{x:Static local:TestCasesInitialView.EditCommand}" Header="Edit"/>
+                </ContextMenu>
                 </DataGrid.ContextMenu>-->
                 <DataGrid.ItemContainerStyle>
                     <Style TargetType="{x:Type DataGridRow}"  BasedOn="{StaticResource {x:Type DataGridRow}}">
@@ -149,11 +149,11 @@
 
                 <DataGrid.Columns>
                     <!--<DataGridTextColumn Header="ID"  Binding="{Binding ITestCase.Id}" Width="0.6*">
-                        <DataGridTextColumn.HeaderStyle>
-                            <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource {x:Type DataGridColumnHeader}}">
-                                <Setter Property="HorizontalContentAlignment" Value="Left"/>
-                            </Style>
-                        </DataGridTextColumn.HeaderStyle>
+                    <DataGridTextColumn.HeaderStyle>
+                    <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource {x:Type DataGridColumnHeader}}">
+                    <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                    </Style>
+                    </DataGridTextColumn.HeaderStyle>
                     </DataGridTextColumn>-->
                     <DataGridTextColumn Header="Title" Binding="{Binding Title}" Width="4*">
                         <DataGridTextColumn.HeaderStyle>
@@ -171,7 +171,6 @@
                     </DataGridTextColumn>
                 </DataGrid.Columns>
             </DataGrid>
-
 
             <StackPanel Orientation="Vertical" Grid.Row="3" Grid.ColumnSpan="3" Margin="10,30,0,30">
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">

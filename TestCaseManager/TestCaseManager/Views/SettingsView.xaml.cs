@@ -2,6 +2,7 @@
 // https://testcasemanager.codeplex.com/ All rights reserved.
 // </copyright>
 // <author>Anton Angelov</author>
+
 namespace TestCaseManagerApp
 {
     using System.Windows;
@@ -25,7 +26,7 @@ namespace TestCaseManagerApp
             this.InitializeComponent();
             this.DataContext = ExecutionContext.SettingsViewModel;
             string projectDllPath = RegistryManager.Instance.GetProjectDllPath();
-            tbAssociatedProjectDllPath.Text = projectDllPath;
+            this.tbAssociatedProjectDllPath.Text = projectDllPath;
         }
 
         /// <summary>
@@ -85,7 +86,7 @@ namespace TestCaseManagerApp
             {
                 // Open document 
                 string filename = dlg.FileName;
-                tbAssociatedProjectDllPath.Text = filename;
+                this.tbAssociatedProjectDllPath.Text = filename;
                 RegistryManager.Instance.WriteCurrentProjectDllPath(filename);
             }
         }

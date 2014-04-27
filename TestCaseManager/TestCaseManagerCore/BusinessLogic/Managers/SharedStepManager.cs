@@ -2,6 +2,7 @@
 // https://testcasemanager.codeplex.com/ All rights reserved.
 // </copyright>
 // <author>Anton Angelov</author>
+
 namespace TestCaseManagerCore.BusinessLogic.Managers
 {
     using System;
@@ -18,10 +19,10 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
         /// Gets all shared steps information test plan.
         /// </summary>
         /// <returns></returns>
-		public static List<SharedStep> GetAllSharedStepsInTestPlan(ITestManagementTeamProject testManagementTeamProject)
+        public static List<SharedStep> GetAllSharedStepsInTestPlan(ITestManagementTeamProject testManagementTeamProject)
         {
             List<SharedStep> sharedSteps = new List<SharedStep>();
-			var testPlanSharedStepsCore = testManagementTeamProject.SharedSteps.Query("SELECT * FROM WorkItems WHERE [System.TeamProject] = @project and [System.WorkItemType] = 'Shared Steps'");
+            var testPlanSharedStepsCore = testManagementTeamProject.SharedSteps.Query("SELECT * FROM WorkItems WHERE [System.TeamProject] = @project and [System.WorkItemType] = 'Shared Steps'");
             foreach (ISharedStep currentSharedStepCore in testPlanSharedStepsCore)
             {
                 SharedStep currentSharedStep = new SharedStep(currentSharedStepCore);
@@ -36,9 +37,9 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
         /// </summary>
         /// <param name="sharedStepId">The shared step unique identifier.</param>
         /// <returns></returns>
-		public static SharedStep GetSharedStepById(ITestManagementTeamProject testManagementTeamProject, int sharedStepId)
+        public static SharedStep GetSharedStepById(ITestManagementTeamProject testManagementTeamProject, int sharedStepId)
         {
-			ISharedStep sharedStepCore = testManagementTeamProject.SharedSteps.Find(sharedStepId);
+            ISharedStep sharedStepCore = testManagementTeamProject.SharedSteps.Find(sharedStepId);
             SharedStep currentSharedStep = new SharedStep(sharedStepCore);
 
             return currentSharedStep;
@@ -57,17 +58,17 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
             SharedStep currentSharedStep = sharedStep;
             if (createNew)
             {
-				ISharedStep sharedStepCore = testManagementTeamProject.SharedSteps.Create();
+                ISharedStep sharedStepCore = testManagementTeamProject.SharedSteps.Create();
                 currentSharedStep = new SharedStep(sharedStepCore);
             }
-			if (shouldSetArea)
-			{
-				currentSharedStep.ISharedStep.Area = sharedStep.Area;
-			}
+            if (shouldSetArea)
+            {
+                currentSharedStep.ISharedStep.Area = sharedStep.Area;
+            }
             currentSharedStep.ISharedStep.Title = sharedStep.Title;
             currentSharedStep.ISharedStep.Priority = (int)sharedStep.Priority;
             currentSharedStep.ISharedStep.Actions.Clear();
-			currentSharedStep.ISharedStep.Owner = testManagementTeamProject.TfsIdentityStore.FindByTeamFoundationId(sharedStep.TeamFoundationId);
+            currentSharedStep.ISharedStep.Owner = testManagementTeamProject.TfsIdentityStore.FindByTeamFoundationId(sharedStep.TeamFoundationId);
             List<Guid> addedSharedStepGuids = new List<Guid>();
             foreach (TestStep currentStep in testSteps)
             {

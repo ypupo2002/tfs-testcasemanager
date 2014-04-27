@@ -70,7 +70,7 @@ namespace AAngelov.Utilities.Managers
         {
             get
             {
-                if(instance == null)
+                if (instance == null)
                 {
                     instance = new TestCaseManagerRegistryManager();
                 }
@@ -84,7 +84,7 @@ namespace AAngelov.Utilities.Managers
         /// <param name="showSubsuiteTestCases">if set to <c>true</c> [show subsuite test cases].</param>
         public void WriteShowSubsuiteTestCases(bool showSubsuiteTestCases)
         {
-            Write(this.GenerateMergedKey(showSubsuiteTestCasesRegistrySubKeyName), showSubsuiteTestCases); 
+            this.Write(this.GenerateMergedKey(showSubsuiteTestCasesRegistrySubKeyName), showSubsuiteTestCases); 
         }
 
         /// <summary>
@@ -93,8 +93,8 @@ namespace AAngelov.Utilities.Managers
         /// <param name="shouldCommentWindowShow">if set to <c>true</c> [should comment window show].</param>
         public void WriteShouldCommentWindowShow(bool shouldCommentWindowShow)
         {
-            Write(this.GenerateMergedKey(shouldShowCommentWindowRegistrySubKeyName), shouldCommentWindowShow);
-        }        
+            this.Write(this.GenerateMergedKey(shouldShowCommentWindowRegistrySubKeyName), shouldCommentWindowShow);
+        }
 
         /// <summary>
         /// Writes the suite filter.
@@ -102,7 +102,7 @@ namespace AAngelov.Utilities.Managers
         /// <param name="suiteFilter">The suite filter.</param>
         public void WriteSuiteFilter(string suiteFilter)
         {
-            Write(this.GenerateMergedKey(suiteFilterRegistrySubKeyName), suiteFilter);
+            this.Write(this.GenerateMergedKey(suiteFilterRegistrySubKeyName), suiteFilter);
         }
 
         /// <summary>
@@ -111,7 +111,7 @@ namespace AAngelov.Utilities.Managers
         /// <param name="suiteId">The suite unique identifier.</param>
         public void WriteSelectedSuiteId(int suiteId)
         {
-            Write(this.GenerateMergedKey(selectedSuiteIdFilterRegistrySubKeyName), suiteId);
+            this.Write(this.GenerateMergedKey(selectedSuiteIdFilterRegistrySubKeyName), suiteId);
         }
 
         /// <summary>
@@ -120,7 +120,7 @@ namespace AAngelov.Utilities.Managers
         /// <param name="teamProjectUri">The team project URI.</param>
         public void WriteCurrentTeamProjectUri(string teamProjectUri)
         {
-            Write(this.GenerateMergedKey(teamProjectUriRegistrySubKeyName), teamProjectUri);
+            this.Write(this.GenerateMergedKey(teamProjectUriRegistrySubKeyName), teamProjectUri);
         }
 
         /// <summary>
@@ -129,7 +129,7 @@ namespace AAngelov.Utilities.Managers
         /// <param name="teamProjectName">Name of the team project.</param>
         public void WriteCurrentTeamProjectName(string teamProjectName)
         {
-            Write(this.GenerateMergedKey(teamProjectNameRegistrySubKeyName), teamProjectName);
+            this.Write(this.GenerateMergedKey(teamProjectNameRegistrySubKeyName), teamProjectName);
         }
 
         /// <summary>
@@ -138,7 +138,7 @@ namespace AAngelov.Utilities.Managers
         /// <param name="testPlan">The test plan.</param>
         public void WriteCurrentTestPlan(string testPlan)
         {
-            Write(this.GenerateMergedKey(testPlanRegistrySubKeyName), testPlan);
+            this.Write(this.GenerateMergedKey(testPlanRegistrySubKeyName), testPlan);
         }
 
         /// <summary>
@@ -147,7 +147,7 @@ namespace AAngelov.Utilities.Managers
         /// <param name="projectDllPath">The project DLL path.</param>
         public void WriteCurrentProjectDllPath(string projectDllPath)
         {
-            Write(this.GenerateMergedKey(projectDllPathRegistrySubKeyName), projectDllPath);
+            this.Write(this.GenerateMergedKey(projectDllPathRegistrySubKeyName), projectDllPath);
         }
 
         /// <summary>
@@ -156,7 +156,7 @@ namespace AAngelov.Utilities.Managers
         /// <returns>should show subsuite test cases</returns>
         public bool ReadShowSubsuiteTestCases()
         {
-            return ReadBool(GenerateMergedKey(showSubsuiteTestCasesRegistrySubKeyName));
+            return this.ReadBool(this.GenerateMergedKey(showSubsuiteTestCasesRegistrySubKeyName));
         }
 
         /// <summary>
@@ -165,7 +165,7 @@ namespace AAngelov.Utilities.Managers
         /// <returns>should Comment Window Show</returns>
         public bool ReadShouldCommentWindowShow()
         {
-            return ReadBool(GenerateMergedKey(shouldShowCommentWindowRegistrySubKeyName));
+            return this.ReadBool(this.GenerateMergedKey(shouldShowCommentWindowRegistrySubKeyName));
         }
 
         /// <summary>
@@ -174,7 +174,7 @@ namespace AAngelov.Utilities.Managers
         /// <returns>team project URI</returns>
         public string GetTeamProjectUri()
         {
-            return ReadStr(GenerateMergedKey(teamProjectUriRegistrySubKeyName));
+            return this.ReadStr(this.GenerateMergedKey(teamProjectUriRegistrySubKeyName));
         }
 
         /// <summary>
@@ -183,7 +183,7 @@ namespace AAngelov.Utilities.Managers
         /// <returns>name of the team project</returns>
         public string GetTeamProjectName()
         {
-            return ReadStr(GenerateMergedKey(teamProjectNameRegistrySubKeyName));
+            return this.ReadStr(this.GenerateMergedKey(teamProjectNameRegistrySubKeyName));
         }
 
         /// <summary>
@@ -192,7 +192,7 @@ namespace AAngelov.Utilities.Managers
         /// <returns>the project DLL path</returns>
         public string GetProjectDllPath()
         {
-            return ReadStr(GenerateMergedKey(projectDllPathRegistrySubKeyName));
+            return this.ReadStr(this.GenerateMergedKey(projectDllPathRegistrySubKeyName));
         }
 
         /// <summary>
@@ -201,7 +201,7 @@ namespace AAngelov.Utilities.Managers
         /// <returns>the test plan</returns>
         public string GetTestPlan()
         {
-            return ReadStr(GenerateMergedKey(testPlanRegistrySubKeyName));
+            return this.ReadStr(this.GenerateMergedKey(testPlanRegistrySubKeyName));
         }
 
         /// <summary>
@@ -210,7 +210,7 @@ namespace AAngelov.Utilities.Managers
         /// <returns>the suite filter</returns>
         public string GetSuiteFilter()
         {
-            return ReadStr(GenerateMergedKey(suiteFilterRegistrySubKeyName));
+            return this.ReadStr(this.GenerateMergedKey(suiteFilterRegistrySubKeyName));
         }
 
         /// <summary>
@@ -222,7 +222,7 @@ namespace AAngelov.Utilities.Managers
             int result = -1;
             try
             {
-                result = ReadInt(GenerateMergedKey(selectedSuiteIdFilterRegistrySubKeyName));
+                result = this.ReadInt(this.GenerateMergedKey(selectedSuiteIdFilterRegistrySubKeyName));
             }
             catch (NullReferenceException)
             {

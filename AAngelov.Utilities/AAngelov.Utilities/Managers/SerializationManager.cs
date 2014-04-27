@@ -2,6 +2,7 @@
 // http://aangelov.com All rights reserved.
 // </copyright>
 // <author>Anton Angelov</author>
+
 namespace AAngelov.Utilities.Managers
 {
     using System;
@@ -31,7 +32,7 @@ namespace AAngelov.Utilities.Managers
             catch (Exception ex)
             {
                 MessageBox.Show("Your object cannot be serialized." +
-                                 " The reason is: " + ex.ToString());
+                                " The reason is: " + ex.ToString());
                 return false;
             }
         }

@@ -2,6 +2,7 @@
 // https://testcasemanager.codeplex.com/ All rights reserved.
 // </copyright>
 // <author>Anton Angelov</author>
+
 namespace TestCaseManagerCore.BusinessLogic.Entities
 {
     using System;
@@ -27,7 +28,6 @@ namespace TestCaseManagerCore.BusinessLogic.Entities
         [NonSerialized]
         private ITestSuiteBase testSuiteBaseCore;
 
-
         /// <summary>
         /// Initializes a new instance of the <see cref="TestCase" /> class.
         /// </summary>
@@ -45,7 +45,7 @@ namespace TestCaseManagerCore.BusinessLogic.Entities
             if (testCaseCore.OwnerTeamFoundationId != default(Guid) && !string.IsNullOrEmpty(testCaseCore.OwnerName))
             {
                 this.TeamFoundationIdentityName = new TeamFoundationIdentityName(testCaseCore.OwnerTeamFoundationId, testCaseCore.OwnerName);
-            }           
+            }
             this.OwnerDisplayName = testCaseCore.OwnerName;
             this.TeamFoundationId = testCaseCore.OwnerTeamFoundationId;
             this.TestSuiteId = (testSuiteBaseCore == null) ? null : (int?)testSuiteBaseCore.Id;
@@ -53,7 +53,7 @@ namespace TestCaseManagerCore.BusinessLogic.Entities
             this.Id = testCaseCore.Id;
             if (initializeStatus)
             {
-				string mostRecentResult = TestCaseManager.GetMostRecentTestCaseResult(testPlan, this.Id);
+                string mostRecentResult = TestCaseManager.GetMostRecentTestCaseResult(testPlan, this.Id);
                 this.LastExecutionOutcome = TestCaseManager.GetTestCaseExecutionType(mostRecentResult);
             }
         }
@@ -80,7 +80,7 @@ namespace TestCaseManagerCore.BusinessLogic.Entities
         /// <value>
         /// The last execution outcome.
         /// </value>
-        public TestCaseExecutionType LastExecutionOutcome { get; set; }       
+        public TestCaseExecutionType LastExecutionOutcome { get; set; }
 
         /// <summary>
         /// Gets or sets the core test case object.
@@ -128,7 +128,7 @@ namespace TestCaseManagerCore.BusinessLogic.Entities
         {
             this.Title = testBase.Title;
             this.Area = testBase.Area;
-            this.Priority = (Priority)testBase.Priority;
+            this.Priority = testBase.Priority;
             this.ITestCase.Title = testBase.Title;
             this.ITestCase.Area = testBase.Area;
             this.ITestCase.Priority = (int)testBase.Priority;

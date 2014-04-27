@@ -2,6 +2,7 @@
 // http://aangelov.com All rights reserved.
 // </copyright>
 // <author>Anton Angelov</author>
+
 using System;
 using System.Windows;
 using System.Windows.Controls;
@@ -36,7 +37,7 @@ namespace AAngelov.Utilities.UI.Views
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
             UIRegistryManager.Instance.WriteIsWindowClosedFromX(true);
-            PromptDialogViewModel = new PromptDialogViewModel();
+            this.PromptDialogViewModel = new PromptDialogViewModel();
             this.DataContext = this.PromptDialogViewModel;         
         }
 
@@ -51,7 +52,7 @@ namespace AAngelov.Utilities.UI.Views
             {
                 ModernDialog.ShowMessage("Content cannot be empty!", "Warrning!", MessageBoxButton.OK);
             }
-            PromptDialogViewModel.IsCanceled = false;
+            this.PromptDialogViewModel.IsCanceled = false;
             UIRegistryManager.Instance.WriteIsWindowClosedFromX(false);
             Window window = Window.GetWindow(this);
             window.Close();
@@ -64,8 +65,8 @@ namespace AAngelov.Utilities.UI.Views
         /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
-            PromptDialogViewModel.IsCanceled = true;
-            PromptDialogViewModel.Content = String.Empty;
+            this.PromptDialogViewModel.IsCanceled = true;
+            this.PromptDialogViewModel.Content = String.Empty;
             UIRegistryManager.Instance.WriteIsWindowClosedFromX(false);
             Window window = Window.GetWindow(this);
             window.Close();
@@ -78,14 +79,14 @@ namespace AAngelov.Utilities.UI.Views
         /// <param name="e">The <see cref="KeyEventArgs"/> instance containing the event data.</param>
         private void tbTitle_KeyUp(object sender, KeyEventArgs e)
         {
-            if (!string.IsNullOrEmpty(tbTitle.Text))
+            if (!string.IsNullOrEmpty(this.tbTitle.Text))
             {
-                btnOk.IsEnabled = true;
+                this.btnOk.IsEnabled = true;
             }
             else
             {
-                btnOk.IsEnabled = false;
+                this.btnOk.IsEnabled = false;
             }
-        }   
+        }
     }
 }

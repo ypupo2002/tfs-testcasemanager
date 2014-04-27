@@ -2,6 +2,7 @@
 // http://aangelov.com All rights reserved.
 // </copyright>
 // <author>Anton Angelov</author>
+
 namespace AAngelov.Utilities.UI.Core
 {
     using System;
@@ -33,6 +34,6 @@ namespace AAngelov.Utilities.UI.Core
             string url = "cmd://browseback";
             DefaultLinkNavigator navigator = new DefaultLinkNavigator();
             navigator.Navigate(new Uri(url, UriKind.Absolute), source, "_self");
-        }       
+        }
     }
 }

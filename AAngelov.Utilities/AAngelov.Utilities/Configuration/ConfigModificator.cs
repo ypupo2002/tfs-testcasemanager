@@ -100,5 +100,5 @@ namespace AAngelov.Utilities.Configuration
         {
             ConfigurationManager.RefreshSection("appSettings");
         }
-    }   
+    }
 }

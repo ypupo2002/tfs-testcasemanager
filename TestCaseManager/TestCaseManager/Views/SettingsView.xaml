@@ -43,7 +43,7 @@
 
                     <TextBlock Text="Theme:" VerticalAlignment="Center" Margin="0,0,16,4" />
                     <ComboBox Grid.Column="1" Name="cbThemes" ItemsSource="{Binding Themes}" SelectedItem="{Binding SelectedTheme, Mode=TwoWay}" DisplayMemberPath="DisplayName" VerticalAlignment="Center" helpers:ComboBoxDropdownExtensions.OpenDropDownAutomatically="True" MouseMove="cbThemes_MouseMove" Margin="0,0,0,4" />
-                    
+
                 </Grid>
                 <Grid Grid.ColumnSpan="2">
                     <Grid.RowDefinitions>
@@ -55,17 +55,17 @@
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="3*" />
                     </Grid.ColumnDefinitions>
-                        <Label Content="Associate Automation Project Dll Path" FontWeight="Bold" FontSize="12" Margin="10" Grid.Row="0"/>
-                        <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="0">
-                            <TextBox Margin="10" Name="tbAssociatedProjectDllPath" MinWidth="380"/>
-                            <Button Name="btnBrowse" Content="Browse" Margin="10" Width="100" Height="24" Click="btnBrowse_Click" />
-                        </StackPanel>
-                    
-                        <TextBlock Text="Hover Behavior Drop Drown" Margin="10" Height="25" Width="Auto" HorizontalAlignment="Left" Grid.Row="1"/>
-                        <CheckBox Margin="10" HorizontalAlignment="Left" IsChecked="{Binding Path=HoverBehaviorDropDown, Mode=TwoWay}" Checked="CheckBox_Checked" Grid.Column="1" Grid.Row="1"/>
+                    <Label Content="Associate Automation Project Dll Path" FontWeight="Bold" FontSize="12" Margin="10" Grid.Row="0"/>
+                    <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="0">
+                        <TextBox Margin="10" Name="tbAssociatedProjectDllPath" MinWidth="380"/>
+                        <Button Name="btnBrowse" Content="Browse" Margin="10" Width="100" Height="24" Click="btnBrowse_Click" />
+                    </StackPanel>
 
-                        <TextBlock Text="Show Comment Window" Margin="10" Height="25" Width="Auto" HorizontalAlignment="Left" Grid.Row="2"/>
-                        <CheckBox Margin="10" HorizontalAlignment="Left" IsChecked="{Binding Path=ShouldCommentWindowShow, Mode=TwoWay}" Checked="CheckBox_Checked" Grid.Column="1" Grid.Row="2"/>
+                    <TextBlock Text="Hover Behavior Drop Drown" Margin="10" Height="25" Width="Auto" HorizontalAlignment="Left" Grid.Row="1"/>
+                    <CheckBox Margin="10" HorizontalAlignment="Left" IsChecked="{Binding Path=HoverBehaviorDropDown, Mode=TwoWay}" Checked="CheckBox_Checked" Grid.Column="1" Grid.Row="1"/>
+
+                    <TextBlock Text="Show Comment Window" Margin="10" Height="25" Width="Auto" HorizontalAlignment="Left" Grid.Row="2"/>
+                    <CheckBox Margin="10" HorizontalAlignment="Left" IsChecked="{Binding Path=ShouldCommentWindowShow, Mode=TwoWay}" Checked="CheckBox_Checked" Grid.Column="1" Grid.Row="2"/>
                 </Grid>
 
             </StackPanel>

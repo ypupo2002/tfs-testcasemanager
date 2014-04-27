@@ -2,6 +2,7 @@
 // http://aangelov.com All rights reserved.
 // </copyright>
 // <author>Anton Angelov</author>
+
 namespace AAngelov.Utilities.Managers
 {
     using System.Collections.Generic;
@@ -26,7 +27,7 @@ namespace AAngelov.Utilities.Managers
                 if (currentPair.OldText != null && currentPair.NewText != null)
                 {
                     newText = newText.Replace(currentPair.OldText, currentPair.NewText);
-                }              
+                }
             }
 
             return newText;

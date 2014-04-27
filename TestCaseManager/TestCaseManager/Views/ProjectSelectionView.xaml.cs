@@ -2,10 +2,12 @@
 // https://testcasemanager.codeplex.com/ All rights reserved.
 // </copyright>
 // <author>Anton Angelov</author>
+
 using System;
 using System.Threading.Tasks;
 using System.Windows;
 using AAngelov.Utilities.UI.ControlExtensions;
+using AAngelov.Utilities.UI.Managers;
 using FirstFloor.ModernUI.Presentation;
 using FirstFloor.ModernUI.Windows;
 using FirstFloor.ModernUI.Windows.Controls;
@@ -14,7 +16,6 @@ using Microsoft.TeamFoundation.Client;
 using TestCaseManagerCore;
 using TestCaseManagerCore.BusinessLogic.Managers;
 using TestCaseManagerCore.ViewModels;
-using AAngelov.Utilities.UI.Managers;
 
 namespace TestCaseManagerApp.Views
 {
@@ -23,7 +24,6 @@ namespace TestCaseManagerApp.Views
     /// </summary>
     public partial class ProjectSelectionView : System.Windows.Controls.UserControl, IContent
     {
-
         /// <summary>
         /// Indicates if the view model is already initialized
         /// </summary>
@@ -113,9 +113,9 @@ namespace TestCaseManagerApp.Views
                 this.ProjectSelectionViewModel.LoadProjectSettingsFromRegistry();
                 try
                 {
-                    ProjectSelectionViewModel.InitializeTestPlans(ExecutionContext.TestManagementTeamProject);
+                    this.ProjectSelectionViewModel.InitializeTestPlans(ExecutionContext.TestManagementTeamProject);
                 }
-                catch(Exception)
+                catch (Exception)
                 {
                     showTfsServerUnavailableException = true;
                 }
@@ -138,11 +138,11 @@ namespace TestCaseManagerApp.Views
                             ExecutionContext.Preferences.TestPlan = TestPlanManager.GetTestPlanByName(ExecutionContext.TestManagementTeamProject, this.ProjectSelectionViewModel.SelectedTestPlan);
                         }
                         this.AddNewLinksToWindow();
-                    }                 
+                    }
                 }
                 else
-                {                   
-                    HideProgressBar();
+                { 
+                    this.HideProgressBar();
                 }
             }, TaskScheduler.FromCurrentSynchronizationContext());
         }
@@ -152,8 +152,8 @@ namespace TestCaseManagerApp.Views
         /// </summary>
         private void HideProgressBar()
         {
-            progressBar.Visibility = System.Windows.Visibility.Hidden;
-            mainGrid.Visibility = System.Windows.Visibility.Visible;
+            this.progressBar.Visibility = System.Windows.Visibility.Hidden;
+            this.mainGrid.Visibility = System.Windows.Visibility.Visible;
         }
 
         /// <summary>
@@ -161,8 +161,8 @@ namespace TestCaseManagerApp.Views
         /// </summary>
         private void ShowProgressBar()
         {
-            progressBar.Visibility = System.Windows.Visibility.Visible;
-            mainGrid.Visibility = System.Windows.Visibility.Hidden;
+            this.progressBar.Visibility = System.Windows.Visibility.Visible;
+            this.mainGrid.Visibility = System.Windows.Visibility.Hidden;
         }
 
         /// <summary>
@@ -174,7 +174,7 @@ namespace TestCaseManagerApp.Views
         {
             var projectPicker = new TeamProjectPicker(TeamProjectPickerMode.SingleProject, false);
             this.ProjectSelectionViewModel.LoadProjectSettingsFromUserDecision(projectPicker);
-            ProjectSelectionViewModel.InitializeTestPlans(ExecutionContext.TestManagementTeamProject);
+            this.ProjectSelectionViewModel.InitializeTestPlans(ExecutionContext.TestManagementTeamProject);
         }
 
         /// <summary>
@@ -184,7 +184,7 @@ namespace TestCaseManagerApp.Views
         /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void DisplayButton_Click(object sender, RoutedEventArgs e)
         {
-            this.ProjectSelectionViewModel.SelectedTestPlan = cbTestPlans.Text;
+            this.ProjectSelectionViewModel.SelectedTestPlan = this.cbTestPlans.Text;
             if (string.IsNullOrEmpty(this.ProjectSelectionViewModel.SelectedTestPlan))
             {
                 ModernDialog.ShowMessage("No test plan selected.", "Warning", MessageBoxButton.OK);
@@ -240,11 +240,11 @@ namespace TestCaseManagerApp.Views
             l4.Source = u4;
             lg.Links.Add(l4);
 
-			Uri u5 = new Uri("/Views/TestCasesMigrationView.xaml", UriKind.Relative);
-			Link l5 = new Link();
-			l5.DisplayName = "Migrate Test Cases";
-			l5.Source = u5;
-			lg.Links.Add(l5);
+            Uri u5 = new Uri("/Views/TestCasesMigrationView.xaml", UriKind.Relative);
+            Link l5 = new Link();
+            l5.DisplayName = "Migrate Test Cases";
+            l5.Source = u5;
+            lg.Links.Add(l5);
 
             mw.MenuLinkGroups.Add(lg);
         }
@@ -256,7 +256,7 @@ namespace TestCaseManagerApp.Views
         /// <param name="e">The <see cref="System.Windows.Input.MouseEventArgs"/> instance containing the event data.</param>
         private void cbTestPlans_MouseMove(object sender, System.Windows.Input.MouseEventArgs e)
         {
-             ComboBoxDropdownExtensions.cboMouseMove(sender, e);
+            ComboBoxDropdownExtensions.cboMouseMove(sender, e);
         }
 
         /// <summary>

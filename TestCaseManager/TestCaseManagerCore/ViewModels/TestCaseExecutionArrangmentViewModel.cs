@@ -2,15 +2,16 @@
 // https://testcasemanager.codeplex.com/ All rights reserved.
 // </copyright>
 // <author>Anton Angelov</author>
+
 namespace TestCaseManagerCore.ViewModels
 {
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.Linq;
+    using AAngelov.Utilities.UI.Core;
     using Microsoft.TeamFoundation.TestManagement.Client;
     using TestCaseManagerCore.BusinessLogic.Entities;
     using TestCaseManagerCore.BusinessLogic.Managers;
-    using AAngelov.Utilities.UI.Core;
 
     /// <summary>
     /// Contains methods and properties related to the TestCasesInitial View
@@ -27,8 +28,8 @@ namespace TestCaseManagerCore.ViewModels
         /// </summary>
         public TestCaseExecutionArrangmentViewModel(int suiteId)
         {
-			List<TestCase> suiteTestCases = TestCaseManager.GetAllTestCaseFromSuite(ExecutionContext.Preferences.TestPlan, suiteId, false);
-			this.CurrentSuite = TestSuiteManager.GetTestSuiteById(ExecutionContext.TestManagementTeamProject, ExecutionContext.Preferences.TestPlan, suiteId) as IStaticTestSuite;
+            List<TestCase> suiteTestCases = TestCaseManager.GetAllTestCaseFromSuite(ExecutionContext.Preferences.TestPlan, suiteId, false);
+            this.CurrentSuite = TestSuiteManager.GetTestSuiteById(ExecutionContext.TestManagementTeamProject, ExecutionContext.Preferences.TestPlan, suiteId) as IStaticTestSuite;
             this.ObservableTestCases = new ObservableCollection<TestCase>();
             this.InitialTestCaseCollection = new List<TestCase>();
             suiteTestCases.ForEach(t => this.ObservableTestCases.Add(t));
@@ -67,7 +68,6 @@ namespace TestCaseManagerCore.ViewModels
         /// The view title.
         /// </value>
         public string ViewTitle { get; set; }
-
 
         /// <summary>
         /// Initializes the initial test case collection.
@@ -154,7 +154,7 @@ namespace TestCaseManagerCore.ViewModels
                 {
                     int currentIndex = this.GetOldTestCaseIndexInSuiteCollection(currentTestCase);
                     this.CurrentSuite.Entries.Move(currentIndex, ++startIndex);
-                }                
+                }
             }
             ExecutionContext.Preferences.TestPlan.Save();
         }

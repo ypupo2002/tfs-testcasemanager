@@ -2,16 +2,14 @@
 // https://testcasemanager.codeplex.com/ All rights reserved.
 // </copyright>
 // <author>Anton Angelov</author>
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Documents;
 using AAngelov.Utilities.UI.Managers;
 using TestCaseManagerCore.ViewModels;
-using AAngelov.Utilities.UI.Managers;
-using TestCaseManagerCore.BusinessLogic.Managers;
 
 namespace TestCaseManagerApp.Views
 {
@@ -40,7 +38,7 @@ namespace TestCaseManagerApp.Views
         {
             UIRegistryManager.Instance.WriteIsWindowClosedFromX(true);
             UIRegistryManager.Instance.WriteIsCheckboxDialogSubmitted(false);
-            PrompCheckboxListDialogViewModel = new PrompCheckboxListDialogViewModel();
+            this.PrompCheckboxListDialogViewModel = new PrompCheckboxListDialogViewModel();
             this.DataContext = this.PrompCheckboxListDialogViewModel;         
         }
 
@@ -51,8 +49,8 @@ namespace TestCaseManagerApp.Views
         /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void ButtonOk_Click(object sender, RoutedEventArgs e)
         {
-            PrompCheckboxListDialogViewModel.IsCanceled = false;
-            List<String> checkedProperties = PrompCheckboxListDialogViewModel.PropertiesToBeExported.ToList();
+            this.PrompCheckboxListDialogViewModel.IsCanceled = false;
+            List<String> checkedProperties = this.PrompCheckboxListDialogViewModel.PropertiesToBeExported.ToList();
             string checkedPropertiesStr = string.Empty;
             if (checkedProperties.Count != 0)
             {
@@ -72,10 +70,10 @@ namespace TestCaseManagerApp.Views
         /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
-            PrompCheckboxListDialogViewModel.IsCanceled = true;
+            this.PrompCheckboxListDialogViewModel.IsCanceled = true;
             UIRegistryManager.Instance.WriteIsWindowClosedFromX(false);
             Window window = Window.GetWindow(this);
             window.Close();
-        }  
+        }
     }
 }

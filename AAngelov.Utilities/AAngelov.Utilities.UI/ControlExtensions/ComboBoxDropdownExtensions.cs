@@ -2,17 +2,15 @@
 // https://testcasemanager.codeplex.com/ All rights reserved.
 // </copyright>
 // <author>Anton Angelov</author>
+
 namespace AAngelov.Utilities.UI.ControlExtensions
 {
-    using AAngelov.Utilities.UI.Managers;
     using System;
-    using System.Collections.Generic;
     using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
     using System.Windows;
     using System.Windows.Controls;
     using System.Windows.Controls.Primitives;
+    using AAngelov.Utilities.UI.Managers;
 
     /// <summary>
     /// Contains helper methods which add hover functionality to WPF combobox
@@ -24,11 +22,11 @@ namespace AAngelov.Utilities.UI.ControlExtensions
         /// when the mouse hovers over it and closes again when the mouse leaves.
         /// </summary>
         private static DependencyProperty openDropDownAutomaticallyProperty =
-                 DependencyProperty.RegisterAttached(
-                 "OpenDropDownAutomatically",
-                 typeof(bool),
-                 typeof(ComboBoxDropdownExtensions),
-                 new UIPropertyMetadata(false, OnOpenDropDownAutomatically_Changed));
+            DependencyProperty.RegisterAttached(
+                "OpenDropDownAutomatically",
+                typeof(bool),
+                typeof(ComboBoxDropdownExtensions),
+                new UIPropertyMetadata(false, OnOpenDropDownAutomatically_Changed));
 
         /// <summary>
         /// Gets the open drop down automatically.

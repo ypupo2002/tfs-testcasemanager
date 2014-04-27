@@ -2,22 +2,21 @@
 // https://testcasemanager.codeplex.com/ All rights reserved.
 // </copyright>
 // <author>Anton Angelov</author>
+
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Forms;
 using System.Windows.Input;
 using AAngelov.Utilities.UI.ControlExtensions;
 using FirstFloor.ModernUI.Windows;
 using FirstFloor.ModernUI.Windows.Controls;
 using FirstFloor.ModernUI.Windows.Navigation;
-using TestCaseManagerCore.BusinessLogic.Entities;
-using TestCaseManagerCore.ViewModels;
 using TestCaseManagerCore;
-using System.Collections.Generic;
+using TestCaseManagerCore.BusinessLogic.Entities;
 using TestCaseManagerCore.BusinessLogic.Managers;
-using System.Text;
+using TestCaseManagerCore.ViewModels;
 
 namespace TestCaseManagerApp.Views
 {
@@ -129,13 +128,13 @@ namespace TestCaseManagerApp.Views
                 }
                 else
                 {
-                    SharedStepsInitialViewModel = new TestCaseManagerCore.ViewModels.SharedStepsInitialViewModel();
+                    this.SharedStepsInitialViewModel = new TestCaseManagerCore.ViewModels.SharedStepsInitialViewModel();
                 }
             });
             t.ContinueWith(antecedent =>
             {
                 this.SharedStepsInitialViewModel.FilterSharedSteps();
-                this.DataContext = SharedStepsInitialViewModel;
+                this.DataContext = this.SharedStepsInitialViewModel;
                 this.UpdateButtonsStatus();             
                 this.HideProgressBar();
                 this.tbTitleFilter.Focus();
@@ -159,8 +158,8 @@ namespace TestCaseManagerApp.Views
         /// </summary>
         private void HideProgressBar()
         {
-            progressBar.Visibility = System.Windows.Visibility.Hidden;
-            mainGrid.Visibility = System.Windows.Visibility.Visible;
+            this.progressBar.Visibility = System.Windows.Visibility.Hidden;
+            this.mainGrid.Visibility = System.Windows.Visibility.Visible;
         }
 
         /// <summary>
@@ -168,8 +167,8 @@ namespace TestCaseManagerApp.Views
         /// </summary>
         private void ShowProgressBar()
         {
-            progressBar.Visibility = System.Windows.Visibility.Visible;
-            mainGrid.Visibility = System.Windows.Visibility.Hidden;
+            this.progressBar.Visibility = System.Windows.Visibility.Visible;
+            this.mainGrid.Visibility = System.Windows.Visibility.Hidden;
         }
 
         /// <summary>
@@ -178,7 +177,7 @@ namespace TestCaseManagerApp.Views
         /// <param name="action">The action.</param>
         private void ValidateSharedStepsSelection(Action action)
         {
-            if (dgSharedSteps.SelectedIndex != -1)
+            if (this.dgSharedSteps.SelectedIndex != -1)
             {
                 action.Invoke();
             }
@@ -205,7 +204,7 @@ namespace TestCaseManagerApp.Views
         {
             this.ValidateSharedStepsSelection(() =>
             {
-                SharedStep currentSharedStep = dgSharedSteps.SelectedItem as SharedStep;
+                SharedStep currentSharedStep = this.dgSharedSteps.SelectedItem as SharedStep;
                 log.InfoFormat("Edit Shared Step with id: {0} ", currentSharedStep.ISharedStep.Id);
                 Navigator.Instance.NavigateToTestCasesEditView(this, true, currentSharedStep.ISharedStep.Id);
             });
@@ -220,7 +219,7 @@ namespace TestCaseManagerApp.Views
         {
             this.ValidateSharedStepsSelection(() =>
             {
-                SharedStep currentSharedStep = dgSharedSteps.SelectedItem as SharedStep;
+                SharedStep currentSharedStep = this.dgSharedSteps.SelectedItem as SharedStep;
                 log.InfoFormat("Duplicate Shared Step with id: {0} ", currentSharedStep.ISharedStep.Id);
                 Navigator.Instance.NavigateToTestCasesEditView(this, true, currentSharedStep.ISharedStep.Id, true, true);
             });
@@ -244,7 +243,7 @@ namespace TestCaseManagerApp.Views
         /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void tbIdFilter_GotFocus(object sender, RoutedEventArgs e)
         {
-            tbIdFilter.ClearDefaultContent(ref SharedStepsInitialViewModel.InitialViewFiltersSharedSteps.IsIdTextSet);
+            this.tbIdFilter.ClearDefaultContent(ref this.SharedStepsInitialViewModel.InitialViewFiltersSharedSteps.IsIdTextSet);
         }
 
         /// <summary>
@@ -254,7 +253,7 @@ namespace TestCaseManagerApp.Views
         /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void tbTitleFilter_GotFocus(object sender, RoutedEventArgs e)
         {
-            tbTitleFilter.ClearDefaultContent(ref SharedStepsInitialViewModel.InitialViewFiltersSharedSteps.IsTitleTextSet);
+            this.tbTitleFilter.ClearDefaultContent(ref this.SharedStepsInitialViewModel.InitialViewFiltersSharedSteps.IsTitleTextSet);
         }
 
         /// <summary>
@@ -264,7 +263,7 @@ namespace TestCaseManagerApp.Views
         /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void tbIdFilter_LostFocus(object sender, RoutedEventArgs e)
         {
-            tbIdFilter.RestoreDefaultText(this.SharedStepsInitialViewModel.InitialViewFiltersSharedSteps.DetaultId, ref this.SharedStepsInitialViewModel.InitialViewFiltersSharedSteps.IsIdTextSet);
+            this.tbIdFilter.RestoreDefaultText(this.SharedStepsInitialViewModel.InitialViewFiltersSharedSteps.DetaultId, ref this.SharedStepsInitialViewModel.InitialViewFiltersSharedSteps.IsIdTextSet);
         }
 
         /// <summary>
@@ -274,7 +273,7 @@ namespace TestCaseManagerApp.Views
         /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void tbTitleFilter_LostFocus(object sender, RoutedEventArgs e)
         {
-            tbTitleFilter.RestoreDefaultText(this.SharedStepsInitialViewModel.InitialViewFiltersSharedSteps.DetaultTitle, ref this.SharedStepsInitialViewModel.InitialViewFiltersSharedSteps.IsTitleTextSet);
+            this.tbTitleFilter.RestoreDefaultText(this.SharedStepsInitialViewModel.InitialViewFiltersSharedSteps.DetaultTitle, ref this.SharedStepsInitialViewModel.InitialViewFiltersSharedSteps.IsTitleTextSet);
         }
 
         /// <summary>
@@ -304,7 +303,7 @@ namespace TestCaseManagerApp.Views
         /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void tbAssignedToFilter_GotFocus(object sender, RoutedEventArgs e)
         {
-            tbAssignedToFilter.ClearDefaultContent(ref this.SharedStepsInitialViewModel.InitialViewFiltersSharedSteps.IsAssignedToTextSet);
+            this.tbAssignedToFilter.ClearDefaultContent(ref this.SharedStepsInitialViewModel.InitialViewFiltersSharedSteps.IsAssignedToTextSet);
         }
 
         /// <summary>
@@ -314,7 +313,7 @@ namespace TestCaseManagerApp.Views
         /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void tbAssignedToFilter_LostFocus(object sender, RoutedEventArgs e)
         {
-            tbAssignedToFilter.RestoreDefaultText(this.SharedStepsInitialViewModel.InitialViewFiltersSharedSteps.DetaultAssignedTo, ref this.SharedStepsInitialViewModel.InitialViewFiltersSharedSteps.IsAssignedToTextSet);
+            this.tbAssignedToFilter.RestoreDefaultText(this.SharedStepsInitialViewModel.InitialViewFiltersSharedSteps.DetaultAssignedTo, ref this.SharedStepsInitialViewModel.InitialViewFiltersSharedSteps.IsAssignedToTextSet);
         }
 
         /// <summary>
@@ -334,7 +333,7 @@ namespace TestCaseManagerApp.Views
         /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void tbPriorityFilter_GotFocus(object sender, RoutedEventArgs e)
         {
-            tbPriorityFilter.ClearDefaultContent(ref this.SharedStepsInitialViewModel.InitialViewFiltersSharedSteps.IsPriorityTextSet);
+            this.tbPriorityFilter.ClearDefaultContent(ref this.SharedStepsInitialViewModel.InitialViewFiltersSharedSteps.IsPriorityTextSet);
         }
 
         /// <summary>
@@ -344,8 +343,7 @@ namespace TestCaseManagerApp.Views
         /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void tbPriorityFilter_LostFocus(object sender, RoutedEventArgs e)
         {
-            tbPriorityFilter.RestoreDefaultText(this.SharedStepsInitialViewModel.InitialViewFiltersSharedSteps.DetaultPriority, ref this.SharedStepsInitialViewModel.InitialViewFiltersSharedSteps.IsPriorityTextSet);
-
+            this.tbPriorityFilter.RestoreDefaultText(this.SharedStepsInitialViewModel.InitialViewFiltersSharedSteps.DetaultPriority, ref this.SharedStepsInitialViewModel.InitialViewFiltersSharedSteps.IsPriorityTextSet);
         }
 
         /// <summary>
@@ -365,7 +363,7 @@ namespace TestCaseManagerApp.Views
         /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void tbTestCaseTitleFilter_GotFocus(object sender, RoutedEventArgs e)
         {
-            tbTestCaseTitleFilter.ClearDefaultContent(ref SharedStepsInitialViewModel.InitialViewFiltersTestCases.IsTitleTextSet);           
+            this.tbTestCaseTitleFilter.ClearDefaultContent(ref this.SharedStepsInitialViewModel.InitialViewFiltersTestCases.IsTitleTextSet);           
         }
 
         /// <summary>
@@ -375,7 +373,7 @@ namespace TestCaseManagerApp.Views
         /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void tbTestCaseTitleFilter_LostFocus(object sender, RoutedEventArgs e)
         {
-            tbTestCaseTitleFilter.RestoreDefaultText(this.SharedStepsInitialViewModel.InitialViewFiltersTestCases.DetaultTitle, ref this.SharedStepsInitialViewModel.InitialViewFiltersTestCases.IsTitleTextSet);
+            this.tbTestCaseTitleFilter.RestoreDefaultText(this.SharedStepsInitialViewModel.InitialViewFiltersTestCases.DetaultTitle, ref this.SharedStepsInitialViewModel.InitialViewFiltersTestCases.IsTitleTextSet);
         }
 
         /// <summary>
@@ -385,13 +383,12 @@ namespace TestCaseManagerApp.Views
         /// <param name="e">The <see cref="System.Windows.Input.KeyEventArgs"/> instance containing the event data.</param>
         private void tbTestCaseTitleFilter_KeyUp(object sender, System.Windows.Input.KeyEventArgs e)
         {
-            List<TestCase> filteredList= this.SharedStepsInitialViewModel.FilterTestCases();
+            List<TestCase> filteredList = this.SharedStepsInitialViewModel.FilterTestCases();
             if (filteredList != null)
             {
                 this.SharedStepsInitialViewModel.ObservableTestCases.Clear();
                 filteredList.ForEach(x => this.SharedStepsInitialViewModel.ObservableTestCases.Add(x));
             }
-          
         }
 
         /// <summary>
@@ -401,7 +398,7 @@ namespace TestCaseManagerApp.Views
         /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void tbTestCaseSuiteFilter_GotFocus(object sender, RoutedEventArgs e)
         {
-            tbTestCaseSuiteFilter.ClearDefaultContent(ref this.SharedStepsInitialViewModel.InitialViewFiltersTestCases.IsSuiteTextSet);
+            this.tbTestCaseSuiteFilter.ClearDefaultContent(ref this.SharedStepsInitialViewModel.InitialViewFiltersTestCases.IsSuiteTextSet);
         }
 
         /// <summary>
@@ -411,7 +408,7 @@ namespace TestCaseManagerApp.Views
         /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void tbTestCaseSuiteFilter_LostFocus(object sender, RoutedEventArgs e)
         {
-            tbTestCaseSuiteFilter.RestoreDefaultText(this.SharedStepsInitialViewModel.InitialViewFiltersTestCases.DetaultSuite, ref this.SharedStepsInitialViewModel.InitialViewFiltersTestCases.IsSuiteTextSet);
+            this.tbTestCaseSuiteFilter.RestoreDefaultText(this.SharedStepsInitialViewModel.InitialViewFiltersTestCases.DetaultSuite, ref this.SharedStepsInitialViewModel.InitialViewFiltersTestCases.IsSuiteTextSet);
         }
 
         /// <summary>
@@ -444,9 +441,9 @@ namespace TestCaseManagerApp.Views
         /// </summary>
         private void EditTestCaseInternal()
         {
-            if (dgSharedSteps.SelectedItem != null)
+            if (this.dgSharedSteps.SelectedItem != null)
             {
-                SharedStep currentSharedStep = dgSharedSteps.SelectedItem as SharedStep;
+                SharedStep currentSharedStep = this.dgSharedSteps.SelectedItem as SharedStep;
                 log.InfoFormat("Edit Shared Step with id: {0} ", currentSharedStep.ISharedStep.Id);
                 Navigator.Instance.NavigateToTestCasesEditView(this, true, currentSharedStep.ISharedStep.Id);
             }
@@ -461,10 +458,10 @@ namespace TestCaseManagerApp.Views
         {
             if (Keyboard.IsKeyDown(Key.Enter))
             {
-                SharedStep currentSharedStep = dgSharedSteps.SelectedItem as SharedStep;
+                SharedStep currentSharedStep = this.dgSharedSteps.SelectedItem as SharedStep;
                 Navigator.Instance.NavigateToTestCasesEditView(this, true, currentSharedStep.ISharedStep.Id);
             }
-        }       
+        }
 
         /// <summary>
         /// Handles the SelectedCellsChanged event of the dgTestCases control. Disable Preview and Duplicate buttons if more than one row is selected.
@@ -481,26 +478,26 @@ namespace TestCaseManagerApp.Views
         /// </summary>
         private void UpdateButtonsStatus()
         {
-            btnDuplicate.IsEnabled = true;
-            btnEdit.IsEnabled = true;
-            btnDuplicate1.IsEnabled = true;
-            btnEdit1.IsEnabled = true;
-            btnFindReferences.IsEnabled = true;
-            btnFindReferences1.IsEnabled = true;
-            dgSharedStepsContextItemEdit.IsEnabled = true;
-            dgSharedStepsContextItemPreview.IsEnabled = true;
-            dgSharedStepsContextItemDuplicate.IsEnabled = true;
-            if (dgSharedSteps.SelectedItems.Count < 1)
+            this.btnDuplicate.IsEnabled = true;
+            this.btnEdit.IsEnabled = true;
+            this.btnDuplicate1.IsEnabled = true;
+            this.btnEdit1.IsEnabled = true;
+            this.btnFindReferences.IsEnabled = true;
+            this.btnFindReferences1.IsEnabled = true;
+            this.dgSharedStepsContextItemEdit.IsEnabled = true;
+            this.dgSharedStepsContextItemPreview.IsEnabled = true;
+            this.dgSharedStepsContextItemDuplicate.IsEnabled = true;
+            if (this.dgSharedSteps.SelectedItems.Count < 1)
             {
-                btnDuplicate.IsEnabled = false;
-                btnEdit.IsEnabled = false;
-                btnDuplicate1.IsEnabled = false;
-                btnEdit1.IsEnabled = false;
-                dgSharedStepsContextItemEdit.IsEnabled = false;
-                dgSharedStepsContextItemPreview.IsEnabled = false;
-                dgSharedStepsContextItemDuplicate.IsEnabled = false;
-                btnFindReferences.IsEnabled = false;
-                btnFindReferences1.IsEnabled = false;
+                this.btnDuplicate.IsEnabled = false;
+                this.btnEdit.IsEnabled = false;
+                this.btnDuplicate1.IsEnabled = false;
+                this.btnEdit1.IsEnabled = false;
+                this.dgSharedStepsContextItemEdit.IsEnabled = false;
+                this.dgSharedStepsContextItemPreview.IsEnabled = false;
+                this.dgSharedStepsContextItemDuplicate.IsEnabled = false;
+                this.btnFindReferences.IsEnabled = false;
+                this.btnFindReferences1.IsEnabled = false;
             }
         }
 
@@ -516,14 +513,14 @@ namespace TestCaseManagerApp.Views
                 ModernDialog.ShowMessage("No shared step selected.", "Warning", MessageBoxButton.OK);
                 return;
             }
-            progressBar.Visibility = System.Windows.Visibility.Visible;
-            mainGrid.Visibility = System.Windows.Visibility.Hidden;
+            this.progressBar.Visibility = System.Windows.Visibility.Visible;
+            this.mainGrid.Visibility = System.Windows.Visibility.Hidden;
             this.SharedStepsInitialViewModel.ObservableTestCases.Clear();
             List<TestCase> filteredTestCases = new List<TestCase>();
             Task t = Task.Factory.StartNew(() =>
             {
                 log.InfoFormat("Find all reference Test Cases for Shared Step with id: {0} ", this.SharedStepsInitialViewModel.SelectedSharedStep.Id);
-				filteredTestCases = TestCaseManager.FindAllReferenceTestCasesForShareStep(ExecutionContext.TestManagementTeamProject, ExecutionContext.Preferences.TestPlan, this.SharedStepsInitialViewModel.SelectedSharedStep.Id);
+                filteredTestCases = TestCaseManager.FindAllReferenceTestCasesForShareStep(ExecutionContext.TestManagementTeamProject, ExecutionContext.Preferences.TestPlan, this.SharedStepsInitialViewModel.SelectedSharedStep.Id);
                 this.SharedStepsInitialViewModel.InitialTestCaseCollection = filteredTestCases;
             });
             t.ContinueWith(antecedent =>
@@ -532,8 +529,8 @@ namespace TestCaseManagerApp.Views
                 filteredTestCases.ForEach(tc => this.SharedStepsInitialViewModel.ObservableTestCases.Add(tc));
                 this.SharedStepsInitialViewModel.TestCasesCount = filteredTestCases.Count.ToString();
 
-                progressBar.Visibility = System.Windows.Visibility.Hidden;
-                mainGrid.Visibility = System.Windows.Visibility.Visible;
+                this.progressBar.Visibility = System.Windows.Visibility.Hidden;
+                this.mainGrid.Visibility = System.Windows.Visibility.Visible;
             }, TaskScheduler.FromCurrentSynchronizationContext());         
         }
 
@@ -544,11 +541,11 @@ namespace TestCaseManagerApp.Views
         /// <param name="e">The <see cref="MouseButtonEventArgs"/> instance containing the event data.</param>
         private void dgTestCases_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            if (dgTestCases.SelectedItem == null)
+            if (this.dgTestCases.SelectedItem == null)
             {
                 return;
             }
-            TestCase currentTestCase = dgTestCases.SelectedItem as TestCase;
+            TestCase currentTestCase = this.dgTestCases.SelectedItem as TestCase;
             if (currentTestCase.ITestSuiteBase != null)
             {
                 log.InfoFormat("Edit test case with id: {0} and suite id {1}", currentTestCase.ITestCase.Id, currentTestCase.ITestSuiteBase.Id);
@@ -556,8 +553,8 @@ namespace TestCaseManagerApp.Views
             }
             else
             {
-                 log.InfoFormat("Edit test case with id: {0}", currentTestCase.ITestCase.Id);
-                 Navigator.Instance.NavigateToTestCasesEditView(this, currentTestCase.ITestCase.Id, -1);
+                log.InfoFormat("Edit test case with id: {0}", currentTestCase.ITestCase.Id);
+                Navigator.Instance.NavigateToTestCasesEditView(this, currentTestCase.ITestCase.Id, -1);
             }
         }
 
@@ -568,14 +565,14 @@ namespace TestCaseManagerApp.Views
         /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void btnChangeTestCases_Click(object sender, RoutedEventArgs e)
         {
-            if (dgTestCases.SelectedItems.Count == 0)
+            if (this.dgTestCases.SelectedItems.Count == 0)
             {
                 ModernDialog.ShowMessage("No test cases selected.", "Warning", MessageBoxButton.OK);
             }
             else
             {
                 ExecutionContext.SelectedTestCasesForChange = new List<TestCase>();
-                foreach (TestCase currentTestCase in dgTestCases.SelectedItems)
+                foreach (TestCase currentTestCase in this.dgTestCases.SelectedItems)
                 {
                     ExecutionContext.SelectedTestCasesForChange.Add(currentTestCase);
                 }
@@ -595,6 +592,6 @@ namespace TestCaseManagerApp.Views
             {
                 this.EditTestCaseInternal();   
             }
-        }   
+        }
     }
 }

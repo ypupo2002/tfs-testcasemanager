@@ -2,22 +2,19 @@
 // https://testcasemanager.codeplex.com/ All rights reserved.
 // </copyright>
 // <author>Anton Angelov</author>
+
 using System;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Forms;
 using System.Windows.Input;
+using AAngelov.Utilities.UI.Managers;
 using FirstFloor.ModernUI.Windows;
 using FirstFloor.ModernUI.Windows.Controls;
 using FirstFloor.ModernUI.Windows.Navigation;
+using TestCaseManagerCore;
 using TestCaseManagerCore.BusinessLogic.Entities;
 using TestCaseManagerCore.ViewModels;
-using TestCaseManagerCore;
-using System.Collections.Generic;
-using TestCaseManagerCore.BusinessLogic.Managers;
-using System.Text;
-using AAngelov.Utilities.UI.Managers;
 
 namespace TestCaseManagerApp.Views
 {
@@ -83,7 +80,7 @@ namespace TestCaseManagerApp.Views
             if (!string.IsNullOrEmpty(suiteIdStr))
             {
                 this.suiteId = int.Parse(suiteIdStr);
-            }        
+            }
         }
 
         /// <summary>
@@ -154,8 +151,8 @@ namespace TestCaseManagerApp.Views
         /// </summary>
         private void HideProgressBar()
         {
-            progressBar.Visibility = System.Windows.Visibility.Hidden;
-            mainGrid.Visibility = System.Windows.Visibility.Visible;
+            this.progressBar.Visibility = System.Windows.Visibility.Hidden;
+            this.mainGrid.Visibility = System.Windows.Visibility.Visible;
         }
 
         /// <summary>
@@ -163,8 +160,8 @@ namespace TestCaseManagerApp.Views
         /// </summary>
         private void ShowProgressBar()
         {
-            progressBar.Visibility = System.Windows.Visibility.Visible;
-            mainGrid.Visibility = System.Windows.Visibility.Hidden;
+            this.progressBar.Visibility = System.Windows.Visibility.Visible;
+            this.mainGrid.Visibility = System.Windows.Visibility.Hidden;
         }
 
         /// <summary>
@@ -193,7 +190,7 @@ namespace TestCaseManagerApp.Views
         private void btnMoveDown_Click(object sender, RoutedEventArgs e)
         {
             this.MoveDownInternal();
-        }        
+        }
 
         /// <summary>
         /// Moves up test steps internal.
@@ -201,28 +198,28 @@ namespace TestCaseManagerApp.Views
         private void MoveUpInternal()
         {
             // validate the move if it's out of the boudaries return
-            if (dgTestCases.SelectedItems.Count == 0)
+            if (this.dgTestCases.SelectedItems.Count == 0)
             {
                 this.DisplayNonSelectionWarning();
                 return;
             }
-            int startIndex = this.TestCaseExecutionArrangmentViewModel.ObservableTestCases.IndexOf(dgTestCases.SelectedItems[0] as TestCase);
+            int startIndex = this.TestCaseExecutionArrangmentViewModel.ObservableTestCases.IndexOf(this.dgTestCases.SelectedItems[0] as TestCase);
             if (startIndex == 0)
             {
                 return;
             }
-            int count = dgTestCases.SelectedItems.Count;
-            if (dgTestCases.SelectedItems.Count == 0)
+            int count = this.dgTestCases.SelectedItems.Count;
+            if (this.dgTestCases.SelectedItems.Count == 0)
             {
                 return;
             }
             //using (new UndoTransaction("Move up selected steps", true))
             //{
-                this.TestCaseExecutionArrangmentViewModel.CreateNewTestCaseCollectionAfterMoveUp(startIndex, count);
-                this.SelectNextItemsAfterMoveUp(startIndex, count);
+            this.TestCaseExecutionArrangmentViewModel.CreateNewTestCaseCollectionAfterMoveUp(startIndex, count);
+            this.SelectNextItemsAfterMoveUp(startIndex, count);
             //}
-            dgTestCases.UpdateLayout();
-            dgTestCases.ScrollIntoView(dgTestCases.SelectedItem);
+            this.dgTestCases.UpdateLayout();
+            this.dgTestCases.ScrollIntoView(this.dgTestCases.SelectedItem);
         }
 
         /// <summary>
@@ -231,13 +228,13 @@ namespace TestCaseManagerApp.Views
         private void MoveDownInternal()
         {
             // validate the move if it's out of the boudaries return
-            if (dgTestCases.SelectedItems.Count == 0)
+            if (this.dgTestCases.SelectedItems.Count == 0)
             {
                 this.DisplayNonSelectionWarning();
                 return;
             }
-            int startIndex = this.TestCaseExecutionArrangmentViewModel.ObservableTestCases.IndexOf(dgTestCases.SelectedItems[0] as TestCase);
-            int count = dgTestCases.SelectedItems.Count;
+            int startIndex = this.TestCaseExecutionArrangmentViewModel.ObservableTestCases.IndexOf(this.dgTestCases.SelectedItems[0] as TestCase);
+            int count = this.dgTestCases.SelectedItems.Count;
             if (startIndex == this.TestCaseExecutionArrangmentViewModel.ObservableTestCases.Count - 1)
             {
                 return;
@@ -248,11 +245,11 @@ namespace TestCaseManagerApp.Views
             }
             //using (new UndoTransaction("Move down selected steps", true))
             //{
-                this.TestCaseExecutionArrangmentViewModel.CreateNewTestCaseCollectionAfterMoveDown(startIndex, count);
-                this.SelectNextItemsAfterMoveDown(startIndex, count);
+            this.TestCaseExecutionArrangmentViewModel.CreateNewTestCaseCollectionAfterMoveDown(startIndex, count);
+            this.SelectNextItemsAfterMoveDown(startIndex, count);
             //}
-            dgTestCases.UpdateLayout();
-            dgTestCases.ScrollIntoView(dgTestCases.SelectedItems[dgTestCases.SelectedItems.Count - 1]);
+            this.dgTestCases.UpdateLayout();
+            this.dgTestCases.ScrollIntoView(this.dgTestCases.SelectedItems[this.dgTestCases.SelectedItems.Count - 1]);
         }
 
         /// <summary>
@@ -262,10 +259,10 @@ namespace TestCaseManagerApp.Views
         /// <param name="selectedTestStepsCount">The selected test steps count.</param>
         private void SelectNextItemsAfterMoveUp(int startIndex, int selectedTestStepsCount)
         {
-            dgTestCases.SelectedItems.Clear();
+            this.dgTestCases.SelectedItems.Clear();
             for (int i = startIndex - 1; i < startIndex + selectedTestStepsCount - 1; i++)
             {
-                dgTestCases.SelectedItems.Add(dgTestCases.Items[i]);
+                this.dgTestCases.SelectedItems.Add(this.dgTestCases.Items[i]);
             }
             //UndoRedoManager.Instance().Push((si, c) => this.SelectNextItemsAfterMoveDown(si, c), startIndex - 1, selectedTestStepsCount, "Select next items after move up");
         }
@@ -277,10 +274,10 @@ namespace TestCaseManagerApp.Views
         /// <param name="selectedTestStepsCount">The selected test steps count.</param>
         private void SelectNextItemsAfterMoveDown(int startIndex, int selectedTestStepsCount)
         {
-            dgTestCases.SelectedItems.Clear();
+            this.dgTestCases.SelectedItems.Clear();
             for (int i = startIndex + 1; i < startIndex + selectedTestStepsCount + 1; i++)
             {
-                dgTestCases.SelectedItems.Add(dgTestCases.Items[i]);
+                this.dgTestCases.SelectedItems.Add(this.dgTestCases.Items[i]);
             }
             //UndoRedoManager.Instance().Push((si, c) => this.SelectNextItemsAfterMoveUp(si, c), startIndex + 1, selectedTestStepsCount, "Select next items after move up");
         }
@@ -293,7 +290,7 @@ namespace TestCaseManagerApp.Views
         private void moveDown_Command(object sender, ExecutedRoutedEventArgs e)
         {
             this.MoveDownInternal();
-            dgTestCases.Focus();
+            this.dgTestCases.Focus();
         }
 
         /// <summary>
@@ -304,7 +301,7 @@ namespace TestCaseManagerApp.Views
         private void moveUp_Command(object sender, ExecutedRoutedEventArgs e)
         {
             this.MoveUpInternal();
-            dgTestCases.Focus();
+            this.dgTestCases.Focus();
         }
 
         /// <summary>
@@ -338,6 +335,6 @@ namespace TestCaseManagerApp.Views
         private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
             Navigator.Instance.NavigateToTestCasesInitialView(this);
-        }     
+        }
     }
 }

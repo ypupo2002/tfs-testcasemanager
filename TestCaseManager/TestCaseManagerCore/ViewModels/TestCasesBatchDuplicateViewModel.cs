@@ -2,6 +2,7 @@
 // https://testcasemanager.codeplex.com/ All rights reserved.
 // </copyright>
 // <author>Anton Angelov</author>
+
 namespace TestCaseManagerCore.ViewModels
 {
     using System;
@@ -9,14 +10,13 @@ namespace TestCaseManagerCore.ViewModels
     using System.Collections.ObjectModel;
     using System.Linq;
     using System.Text.RegularExpressions;
-    using System.Windows.Documents;
     using AAngelov.Utilities.Managers;
+    using AAngelov.Utilities.UI.Core;
     using Microsoft.TeamFoundation.Framework.Client;
     using Microsoft.TeamFoundation.Framework.Common;
     using Microsoft.TeamFoundation.TestManagement.Client;
     using TestCaseManagerCore.BusinessLogic.Entities;
     using TestCaseManagerCore.BusinessLogic.Managers;
-    using AAngelov.Utilities.UI.Core;
 
     /// <summary>
     /// Contains methods and properties related to the TestCasesBatchDuplicate View
@@ -72,33 +72,32 @@ namespace TestCaseManagerCore.ViewModels
             else
             {
                 this.ObservableSharedSteps = new ObservableCollection<SharedStep>();
-				List<SharedStep> allSharedSteps = SharedStepManager.GetAllSharedStepsInTestPlan(ExecutionContext.TestManagementTeamProject);
+                List<SharedStep> allSharedSteps = SharedStepManager.GetAllSharedStepsInTestPlan(ExecutionContext.TestManagementTeamProject);
                 allSharedSteps.ForEach(s => this.ObservableSharedSteps.Add(s));
                 this.InitialSharedStepsCollection = new ObservableCollection<SharedStep>();
                 allSharedSteps.ForEach(s => this.InitialSharedStepsCollection.Add(s));
                 this.EntitiesCount = this.ObservableSharedSteps.Count.ToString();
-            }          
+            }
       
             if (this.ObservableTeamFoundationIdentityNames.Count > 0)
             {
                 this.ReplaceContext.SelectedTeamFoundationIdentityName = this.ObservableTeamFoundationIdentityNames[0];
-            }            
+            }
             this.SelectedEntitiesCount = "0";   
-        }     
+        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="TestCasesBatchDuplicateViewModel"/> class.
         /// </summary>
         /// <param name="viewModel">The old view model.</param>
-        public TestCasesBatchDuplicateViewModel(TestCasesBatchDuplicateViewModel viewModel, bool loadTestCases, bool loadSpecificTestCases)
-            : this(loadTestCases, loadSpecificTestCases)
+        public TestCasesBatchDuplicateViewModel(TestCasesBatchDuplicateViewModel viewModel, bool loadTestCases, bool loadSpecificTestCases) : this(loadTestCases, loadSpecificTestCases)
         {
             this.InitialViewFilters = viewModel.InitialViewFilters;
             this.ReplaceContext = viewModel.ReplaceContext;
             if (this.ObservableTestSuites.Count > 0)
             {
                 this.ReplaceContext.SelectedSuite = this.ObservableTestSuites[0];
-            }            
+            }
             if (this.ObservableTeamFoundationIdentityNames.Count > 0)
             {
                 this.ReplaceContext.SelectedTeamFoundationIdentityName = this.ObservableTeamFoundationIdentityNames[0];
@@ -135,7 +134,7 @@ namespace TestCaseManagerCore.ViewModels
         /// <value>
         /// The observable shared steps.
         /// </value>
-        public ObservableCollection<SharedStep> ObservableSharedSteps { get; set; } 
+        public ObservableCollection<SharedStep> ObservableSharedSteps { get; set; }
 
         /// <summary>
         /// Gets or sets the initial test case collection.
@@ -261,22 +260,21 @@ namespace TestCaseManagerCore.ViewModels
         /// </summary>
         public void FilterTestCases()
         {
-            bool shouldSetTextFilter = InitialViewFilters.IsTitleTextSet && !string.IsNullOrEmpty(this.InitialViewFilters.TitleFilter);
+            bool shouldSetTextFilter = this.InitialViewFilters.IsTitleTextSet && !string.IsNullOrEmpty(this.InitialViewFilters.TitleFilter);
             string titleFilter = this.InitialViewFilters.TitleFilter.ToLower();
-            bool shouldSetSuiteFilter = InitialViewFilters.IsSuiteTextSet && !string.IsNullOrEmpty(this.InitialViewFilters.SuiteFilter);
+            bool shouldSetSuiteFilter = this.InitialViewFilters.IsSuiteTextSet && !string.IsNullOrEmpty(this.InitialViewFilters.SuiteFilter);
             string suiteFilter = this.InitialViewFilters.SuiteFilter.ToLower();
-            bool shouldSetPriorityFilter = InitialViewFilters.IsPriorityTextSet && !string.IsNullOrEmpty(this.InitialViewFilters.PriorityFilter);
+            bool shouldSetPriorityFilter = this.InitialViewFilters.IsPriorityTextSet && !string.IsNullOrEmpty(this.InitialViewFilters.PriorityFilter);
             string priorityFilter = this.InitialViewFilters.PriorityFilter.ToLower();
-            bool shouldSetAssignedToFilter = InitialViewFilters.IsAssignedToTextSet && !string.IsNullOrEmpty(this.InitialViewFilters.AssignedToFilter);
+            bool shouldSetAssignedToFilter = this.InitialViewFilters.IsAssignedToTextSet && !string.IsNullOrEmpty(this.InitialViewFilters.AssignedToFilter);
             string assignedToFilter = this.InitialViewFilters.AssignedToFilter.ToLower();
 
             var filteredList = this.InitialTestCaseCollection.Where(t =>
-                (t.ITestCase != null) &&
-                (shouldSetTextFilter ? (t.ITestCase.Title.ToLower().Contains(titleFilter)) : true) &&
-                (this.FilterTestCasesBySuite(shouldSetSuiteFilter, suiteFilter, t)) &&
-                (shouldSetPriorityFilter ? t.Priority.ToString().ToLower().Contains(priorityFilter) : true) &&
-                (shouldSetAssignedToFilter ? t.TeamFoundationIdentityName.DisplayName.ToLower().Contains(assignedToFilter) : true)
-                ).ToList();
+                                                                        (t.ITestCase != null) &&
+                                                                        (shouldSetTextFilter ? (t.ITestCase.Title.ToLower().Contains(titleFilter)) : true) &&
+                                                                        (this.FilterTestCasesBySuite(shouldSetSuiteFilter, suiteFilter, t)) &&
+                                                                        (shouldSetPriorityFilter ? t.Priority.ToString().ToLower().Contains(priorityFilter) : true) &&
+                                                                        (shouldSetAssignedToFilter ? t.TeamFoundationIdentityName.DisplayName.ToLower().Contains(assignedToFilter) : true)).ToList();
             this.ObservableTestCases.Clear();
             filteredList.ForEach(x => this.ObservableTestCases.Add(x));
             this.EntitiesCount = filteredList.Count.ToString();
@@ -287,19 +285,18 @@ namespace TestCaseManagerCore.ViewModels
         /// </summary>
         public void FilterSharedSteps()
         {
-            bool shouldSetTextFilter = InitialViewFilters.IsTitleTextSet && !string.IsNullOrEmpty(this.InitialViewFilters.TitleFilter);
+            bool shouldSetTextFilter = this.InitialViewFilters.IsTitleTextSet && !string.IsNullOrEmpty(this.InitialViewFilters.TitleFilter);
             string titleFilter = this.InitialViewFilters.TitleFilter.ToLower();
-            bool shouldSetPriorityFilter = InitialViewFilters.IsPriorityTextSet && !string.IsNullOrEmpty(this.InitialViewFilters.PriorityFilter);
+            bool shouldSetPriorityFilter = this.InitialViewFilters.IsPriorityTextSet && !string.IsNullOrEmpty(this.InitialViewFilters.PriorityFilter);
             string priorityFilter = this.InitialViewFilters.PriorityFilter.ToLower();
-            bool shouldSetAssignedToFilter = InitialViewFilters.IsAssignedToTextSet && !string.IsNullOrEmpty(this.InitialViewFilters.AssignedToFilter);
+            bool shouldSetAssignedToFilter = this.InitialViewFilters.IsAssignedToTextSet && !string.IsNullOrEmpty(this.InitialViewFilters.AssignedToFilter);
             string assignedToFilter = this.InitialViewFilters.AssignedToFilter.ToLower();
 
             var filteredList = this.InitialSharedStepsCollection.Where(t =>
-                (t.ISharedStep != null) &&
-                (shouldSetTextFilter ? (t.ISharedStep.Title.ToLower().Contains(titleFilter)) : true) &&
-                (shouldSetPriorityFilter ? t.Priority.ToString().ToLower().Contains(priorityFilter) : true) &&
-                (shouldSetAssignedToFilter ? t.TeamFoundationIdentityName.DisplayName.ToLower().Contains(assignedToFilter) : true)
-                ).ToList();
+                                                                           (t.ISharedStep != null) &&
+                                                                           (shouldSetTextFilter ? (t.ISharedStep.Title.ToLower().Contains(titleFilter)) : true) &&
+                                                                           (shouldSetPriorityFilter ? t.Priority.ToString().ToLower().Contains(priorityFilter) : true) &&
+                                                                           (shouldSetAssignedToFilter ? t.TeamFoundationIdentityName.DisplayName.ToLower().Contains(assignedToFilter) : true)).ToList();
             this.ObservableSharedSteps.Clear();
             filteredList.ForEach(x => this.ObservableSharedSteps.Add(x));
             this.EntitiesCount = filteredList.Count.ToString();
@@ -314,7 +311,7 @@ namespace TestCaseManagerCore.ViewModels
             int replacedCount = 0;
             for (int i = 0; i < this.ReplaceContext.SelectedEntities.Count; i++)
             {
-                this.FindAndReplaceInEntityInternal(ReplaceContext.SelectedEntities[i]);
+                this.FindAndReplaceInEntityInternal(this.ReplaceContext.SelectedEntities[i]);
                 replacedCount++;
             }
 
@@ -338,24 +335,6 @@ namespace TestCaseManagerCore.ViewModels
         }
 
         /// <summary>
-        /// Gets the test case ids.
-        /// </summary>
-        /// <param name="testCaseIdsStr">The test case ids string.</param>
-        /// <returns></returns>
-        private List<int> GetTestCaseIds(string testCaseIdsStr)
-        {
-            string[] testCaseIdsSplitted = testCaseIdsStr.Split(',');
-            List<int> testCaseIds = new List<int>();
-
-            foreach (var currentTestCaseIdStr in testCaseIdsSplitted)
-            {
-                testCaseIds.Add(int.Parse(currentTestCaseIdStr));
-            }
-
-            return testCaseIds;
-        }
-
-        /// <summary>
         /// Duplicates the test case/shared Step.
         /// </summary>
         /// <param name="entityToBeDuplicated">The test case/shared step to be duplicated.</param>
@@ -366,12 +345,12 @@ namespace TestCaseManagerCore.ViewModels
             {
                 TestCase testCaseToBeDuplicated = entityToBeDuplicated as TestCase;
                 ITestCase testCaseCore = ExecutionContext.TestManagementTeamProject.TestCases.Create();
-				TestCase currentTestCase = new TestCase(testCaseCore, testCaseToBeDuplicated.ITestSuiteBase, ExecutionContext.Preferences.TestPlan);
+                TestCase currentTestCase = new TestCase(testCaseCore, testCaseToBeDuplicated.ITestSuiteBase, ExecutionContext.Preferences.TestPlan);
                 currentTestCase.ITestCase.Area = testCaseToBeDuplicated.ITestCase.Area;
                 currentTestCase.ITestCase.Title = testCaseToBeDuplicated.ITestCase.Title;
                 //currentTestCase.ITestCase = ExecutionContext.TestManagementTeamProject.TestCases.Find(currentTestCase.ITestCase.Id);
                 log.InfoFormat("Duplicate test case with Title= \"{0}\" id= \"{1}\"", currentTestCase.Title, currentTestCase.Id);
-				List<TestStep> testSteps = TestStepManager.GetTestStepsFromTestActions(ExecutionContext.TestManagementTeamProject, testCaseToBeDuplicated.ITestCase.Actions.ToList());
+                List<TestStep> testSteps = TestStepManager.GetTestStepsFromTestActions(ExecutionContext.TestManagementTeamProject, testCaseToBeDuplicated.ITestCase.Actions.ToList());
                 this.ReplaceTestCaseTitle(currentTestCase);
                 this.ChangeTestCasePriority(currentTestCase);
                 this.ChangeTestCaseOwner(currentTestCase);
@@ -388,7 +367,7 @@ namespace TestCaseManagerCore.ViewModels
                 currentSharedStep = new SharedStep(sharedStepCore);
                 currentSharedStep.ISharedStep.Area = sharedStepToBeDuplicated.ISharedStep.Area;
                 log.InfoFormat("Duplicate shared step with Title= \"{0}\" id= \"{1}\"", currentSharedStep.Title, currentSharedStep.Id);
-				List<TestStep> testSteps = TestStepManager.GetTestStepsFromTestActions(ExecutionContext.TestManagementTeamProject, currentSharedStep.ISharedStep.Actions.ToList());
+                List<TestStep> testSteps = TestStepManager.GetTestStepsFromTestActions(ExecutionContext.TestManagementTeamProject, currentSharedStep.ISharedStep.Actions.ToList());
                 this.ReplaceSharedStepTitle(currentSharedStep);
                 this.ChangeSharedStepPriority(currentSharedStep);
                 this.ChangeSharedStepOwner(currentSharedStep);
@@ -396,7 +375,7 @@ namespace TestCaseManagerCore.ViewModels
 
                 currentSharedStep.ISharedStep.Flush();
                 currentSharedStep.ISharedStep.Save();
-            }            
+            }
         }
 
         /// <summary>
@@ -405,7 +384,7 @@ namespace TestCaseManagerCore.ViewModels
         /// <param name="currentTestCase">The current test case.</param>
         private void AddTestCaseToSuite(TestCase currentTestCase)
         {
-			var newSuite = TestSuiteManager.GetTestSuiteByName(ExecutionContext.TestManagementTeamProject, this.ReplaceContext.SelectedSuite.Title);
+            var newSuite = TestSuiteManager.GetTestSuiteByName(ExecutionContext.TestManagementTeamProject, this.ReplaceContext.SelectedSuite.Title);
             newSuite.AddTestCase(currentTestCase.ITestCase);
         }
 
@@ -422,7 +401,7 @@ namespace TestCaseManagerCore.ViewModels
                 currentTestCase = entityToReplaceIn as TestCase;
                 currentTestCase.ITestCase = ExecutionContext.TestManagementTeamProject.TestCases.Find(currentTestCase.ITestCase.Id);
                 log.InfoFormat("Find and Replace in test case with Title= \"{0}\" id= \"{1}\"", currentTestCase.Title, currentTestCase.Id);
-				List<TestStep> testSteps = TestStepManager.GetTestStepsFromTestActions(ExecutionContext.TestManagementTeamProject, currentTestCase.ITestCase.Actions.ToList());
+                List<TestStep> testSteps = TestStepManager.GetTestStepsFromTestActions(ExecutionContext.TestManagementTeamProject, currentTestCase.ITestCase.Actions.ToList());
                 this.ReplaceTestCaseTitle(currentTestCase);
                 this.ChangeTestCasePriority(currentTestCase);
                 this.ChangeTestCaseOwner(currentTestCase);
@@ -440,7 +419,7 @@ namespace TestCaseManagerCore.ViewModels
                 currentSharedStep = entityToReplaceIn as SharedStep;
                 currentSharedStep.ISharedStep = ExecutionContext.TestManagementTeamProject.SharedSteps.Find(currentSharedStep.ISharedStep.Id);
                 log.InfoFormat("Find and Replace in shared step with Title= \"{0}\" id= \"{1}\"", currentSharedStep.Title, currentSharedStep.Id);
-				List<TestStep> testSteps = TestStepManager.GetTestStepsFromTestActions(ExecutionContext.TestManagementTeamProject, currentSharedStep.ISharedStep.Actions.ToList());
+                List<TestStep> testSteps = TestStepManager.GetTestStepsFromTestActions(ExecutionContext.TestManagementTeamProject, currentSharedStep.ISharedStep.Actions.ToList());
                 this.ReplaceSharedStepTitle(currentSharedStep);
                 this.ChangeSharedStepPriority(currentSharedStep);
                 this.ChangeSharedStepOwner(currentSharedStep);
@@ -451,7 +430,7 @@ namespace TestCaseManagerCore.ViewModels
                 currentSharedStep.ISharedStep.Save();
                 currentSharedStep.ISharedStep.Actions.RemoveAt(currentSharedStep.ISharedStep.Actions.Count - 1);
                 currentSharedStep.ISharedStep.Save();
-            }   
+            }
         }
 
         /// <summary>
@@ -461,7 +440,7 @@ namespace TestCaseManagerCore.ViewModels
         private void ReplaceTestCaseTitle(TestCase currentTestCase)
         {
             if (this.ReplaceContext.ReplaceInTitles)
-            {               
+            { 
                 string newTitle = currentTestCase.ITestCase.Title.ReplaceAll(this.ReplaceContext.ObservableTextReplacePairs);
                 if (newTitle.Length > 255)
                 {
@@ -480,7 +459,7 @@ namespace TestCaseManagerCore.ViewModels
         private void ReplaceSharedStepTitle(SharedStep currentSharedStep)
         {
             if (this.ReplaceContext.ReplaceInTitles)
-            {             
+            { 
                 string newTitle = currentSharedStep.ISharedStep.Title.ReplaceAll(this.ReplaceContext.ObservableTextReplacePairs);
                 if (newTitle.Length > 255)
                 {
@@ -551,7 +530,7 @@ namespace TestCaseManagerCore.ViewModels
         /// </summary>
         private void InitializeTestSuiteList()
         {
-			List<ITestSuiteBase> testSuiteList = TestSuiteManager.GetAllTestSuitesInTestPlan(ExecutionContext.Preferences.TestPlan);
+            List<ITestSuiteBase> testSuiteList = TestSuiteManager.GetAllTestSuitesInTestPlan(ExecutionContext.Preferences.TestPlan);
             testSuiteList.ForEach(s => this.ObservableTestSuites.Add(s));
         }
 
@@ -576,7 +555,6 @@ namespace TestCaseManagerCore.ViewModels
             this.InitialViewFilters = new InitialViewFilters();
             this.ObservableTeamFoundationIdentityNames = new ObservableCollection<TeamFoundationIdentityName>();
         }
-
 
         /// <summary>
         /// Initializes the team foundation identity names.
@@ -628,10 +606,10 @@ namespace TestCaseManagerCore.ViewModels
                 foreach (TestStep currentStep in testSteps)
                 {
                     if (currentStep.IsShared && !addedSharedStepGuids.Contains(currentStep.TestStepGuid) && this.ReplaceContext.ReplaceSharedSteps)
-                    {                       
+                    { 
                         if (this.ReplaceContext.ReplaceSharedSteps)
                         {
-                            List<int> newSharedStepIds = GetNewSharedStepIds(currentStep.SharedStepId, this.ReplaceContext.ObservableSharedStepIdReplacePairs);
+                            List<int> newSharedStepIds = this.GetNewSharedStepIds(currentStep.SharedStepId, this.ReplaceContext.ObservableSharedStepIdReplacePairs);
                             foreach (int currentId in newSharedStepIds)
                             {
                                 if (currentId != 0)
@@ -646,7 +624,7 @@ namespace TestCaseManagerCore.ViewModels
                             }
                         }
                         else
-                        {                            
+                        { 
                             this.AddNewSharedStepInternal(testCase, addedSharedStepGuids, currentStep, currentStep.SharedStepId);
                         }
                     }
@@ -687,7 +665,6 @@ namespace TestCaseManagerCore.ViewModels
 
                 foreach (TestStep currentStep in testSteps)
                 {
-
                     ITestStep testStepCore = sharedStep.ISharedStep.CreateTestStep();
                     if (this.ReplaceContext.ReplaceInTestSteps)
                     {
@@ -740,14 +717,14 @@ namespace TestCaseManagerCore.ViewModels
                         continue;
                     }
                     ExecutionContext.TestManagementTeamProject.SharedSteps.Find(currentSharedStepIdReplacePair.OldSharedStepId);
-                    List<int> newSharedStepIds = GetNewSharedStepIdsFromString(currentSharedStepIdReplacePair.NewSharedStepIds);
+                    List<int> newSharedStepIds = this.GetNewSharedStepIdsFromString(currentSharedStepIdReplacePair.NewSharedStepIds);
                     foreach (int currentId in newSharedStepIds)
                     {
                         if (currentId > 0)
                         {
                             ExecutionContext.TestManagementTeamProject.SharedSteps.Find(currentId);
-                        }                        
-                    }                    
+                        }
+                    }
                 }
                 catch
                 {

@@ -2,6 +2,7 @@
 // http://www.codeproject.com/Articles/456591/Simple-Undo-redo-library-for-Csharp-NET?msg=4572235#xx4572235xx All rights reserved.
 // </copyright>
 // <author>Y Sujan</author>
+
 namespace AAngelov.Utilities.Entities
 {
     using System.Diagnostics;
@@ -48,7 +49,7 @@ namespace AAngelov.Utilities.Entities
         /// Initializes a new instance of the <see cref="UndoRedoRecord{T}"/> class.
         /// </summary>
         public UndoRedoRecord()
-        {            
+        { 
         }
 
         /// <summary>
@@ -70,7 +71,10 @@ namespace AAngelov.Utilities.Entities
         /// </value>
         public string Name
         {
-            get { return this.description; }
+            get
+            {
+                return this.description;
+            }
         }
 
         /// <summary>
@@ -93,8 +97,8 @@ namespace AAngelov.Utilities.Entities
         {
             Trace.TraceInformation("Undo/redo operation {0} with data {1} - {2}", this.operation, this.undoData, this.description);
             this.operation(this.undoData);
-        }       
-    }  
+        }
+    }
 
     /// <summary>
     /// Contains information about an undo or redo record
@@ -150,7 +154,10 @@ namespace AAngelov.Utilities.Entities
         /// </value>
         public string Name
         {
-            get { return this.description; }
+            get
+            {
+                return this.description;
+            }
         }
 
         /// <summary>
@@ -175,6 +182,6 @@ namespace AAngelov.Utilities.Entities
         {
             Trace.TraceInformation("Undo/redo operation {0} with data {1} - {2}", this.operation, this.undoData, this.undoData1, this.description);
             this.operation(this.undoData, this.undoData1);
-        }      
+        }
     }
 }

@@ -2,12 +2,12 @@
 // https://testcasemanager.codeplex.com/ All rights reserved.
 // </copyright>
 // <author>Anton Angelov</author>
+
 namespace TestCaseManagerCore.BusinessLogic.Entities
 {
-    using AAngelov.Utilities.Enums;
     using System;
     using System.Collections.Generic;
-    using TestCaseManagerCore.BusinessLogic.Enums;
+    using AAngelov.Utilities.Enums;
 
     /// <summary>
     /// Helper class which contains test steps which will be moved to clipboard + clipboard mode: copy or cut

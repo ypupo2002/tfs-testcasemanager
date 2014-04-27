@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Net.Mail;
 
 namespace AAngelov.Utilities.Email
@@ -24,6 +23,7 @@ namespace AAngelov.Utilities.Email
         /// The current SMTP client port.
         /// </value>
         public static int CurrentSmtpClientPort { get; set; }
+
         /// <summary>
         /// Sends the email.
         /// </summary>
@@ -78,18 +78,6 @@ namespace AAngelov.Utilities.Email
             {
                 currentAttachment.Dispose();
             }
-        }
-
-        /// <summary>
-        /// Extracts all emails.
-        /// </summary>
-        /// <param name="emailsString">The emails string.</param>
-        /// <returns></returns>
-        private static List<string> ExtractAllEmails(string emailsString)
-        {
-            List<string> emails = emailsString.Split(',').ToList();
-
-            return emails;
         }
     }
 }

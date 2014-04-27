@@ -22,7 +22,7 @@
                 <ColumnDefinition Width="0.4*"/>
             </Grid.ColumnDefinitions>
             <Label Content="Migrate Test Cases" FontWeight="Bold" FontSize="26" Margin="10" Grid.Row="0" Height="Auto"/>
-            <StackPanel Orientation="Vertical" Grid.Column="0" Grid.Row="1">            
+            <StackPanel Orientation="Vertical" Grid.Column="0" Grid.Row="1">
                 <Label Content="Source Team Foundation Server Project" FontWeight="Bold" FontSize="12" Margin="15"/>
                 <Label Content="Source Test Plan" FontWeight="Bold" FontSize="12" Margin="15"/>
                 <Label Content="Destination Team Foundation Server Project" FontWeight="Bold" FontSize="12" Margin="15"/>
@@ -45,7 +45,7 @@
                             </DataGridTextColumn.HeaderStyle>
                         </DataGridTextColumn>
                     </DataGrid.Columns>
-                </DataGrid>               
+                </DataGrid>
             </StackPanel>
             <StackPanel Orientation="Vertical" Grid.Row="2"  Grid.Column="1" Grid.ColumnSpan="3" >
                 <ProgressBar Name="internalProgressBar" Minimum="0" Maximum="1" Height="16" IsIndeterminate="True" Margin="10" Visibility="Hidden" />
@@ -56,7 +56,7 @@
             </StackPanel>
             <StackPanel Orientation="Vertical" Grid.Column="2"  Grid.Row="1">
                 <Button Name="btnSourceBrowser" Content="Browse" Margin="10" Width="150" Height="30" Click="btnSourceBrowser_Click" />
-                <Button Name="btnDestinationBrowser" Content="Browse" Margin="10,50,10,10" Width="150" Height="30" Click="btnDestinationBrowser_Click" />            
+                <Button Name="btnDestinationBrowser" Content="Browse" Margin="10,50,10,10" Width="150" Height="30" Click="btnDestinationBrowser_Click" />
             </StackPanel>
             <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Grid.Row="3"  Grid.Column="0" Grid.ColumnSpan="3" VerticalAlignment="Bottom" Margin="0,0,0,50">
                 <Grid Name="migrationGrid" Visibility="Visible" Grid.Row="3"  Grid.Column="0" Grid.ColumnSpan="3" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="0,0,0,50">

@@ -2,10 +2,10 @@
 // https://testcasemanager.codeplex.com/ All rights reserved.
 // </copyright>
 // <author>Anton Angelov</author>
+
 namespace TestCaseManagerCore.BusinessLogic.Entities
 {
     using AAngelov.Utilities.UI.Core;
-    using FirstFloor.ModernUI.Presentation;
 
     /// <summary>
     /// Contains search filters for the initial app view
@@ -108,10 +108,9 @@ namespace TestCaseManagerCore.BusinessLogic.Entities
         /// <param name="id">The unique identifier.</param>
         /// <param name="priority">The priority.</param>
         /// <param name="assignedTo">The assigned automatic.</param>
-        public InitialViewFilters(string title, string suite, string id, string priority, string assignedTo)
-            : this(title, suite, id)
+        public InitialViewFilters(string title, string suite, string id, string priority, string assignedTo) : this(title, suite, id)
         {
-            this.PriorityFilter = priorityFilter;
+            this.PriorityFilter = this.priorityFilter;
             this.AssignedToFilter = assignedTo;
         }
 
@@ -121,7 +120,7 @@ namespace TestCaseManagerCore.BusinessLogic.Entities
         public InitialViewFilters()
         {
             this.Reset();
-        }      
+        }
 
         /// <summary>
         /// Gets or sets the title filter.

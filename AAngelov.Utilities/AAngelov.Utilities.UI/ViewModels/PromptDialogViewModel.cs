@@ -2,6 +2,7 @@
 // http://aangelov.com All rights reserved.
 // </copyright>
 // <author>Anton Angelov</author>
+
 using AAngelov.Utilities.UI.Core;
 using AAngelov.Utilities.UI.Managers;
 
@@ -42,7 +43,6 @@ namespace AAngelov.Utilities.UI.ViewModels
 
             set
             {
-               
                 this.content = value;
                 UIRegistryManager.Instance.WriteTitleTitlePromtDialog(this.content);
                 this.NotifyPropertyChanged();

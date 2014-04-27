@@ -2,6 +2,7 @@
 // http://www.codeproject.com/Articles/456591/Simple-Undo-redo-library-for-Csharp-NET?msg=4572235#xx4572235xx All rights reserved.
 // </copyright>
 // <author>Y Sujan</author>
+
 namespace AAngelov.Utilities.Contracts
 {
     /// <summary>

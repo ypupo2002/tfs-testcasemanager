@@ -2,14 +2,15 @@
 // https://testcasemanager.codeplex.com/ All rights reserved.
 // </copyright>
 // <author>Anton Angelov</author>
+
 namespace TestCaseManagerCore.BusinessLogic.Entities
 {
     using System;
     using System.Collections.ObjectModel;
-    using AAngelov.Utilities.Managers;
-    using AAngelov.Utilities.UI.Core;
     using AAngelov.Utilities.Contracts;
     using AAngelov.Utilities.Enums;
+    using AAngelov.Utilities.Managers;
+    using AAngelov.Utilities.UI.Core;
 
     /// <summary>
     /// Represents TreeView Suite Node Object
@@ -156,7 +157,7 @@ namespace TestCaseManagerCore.BusinessLogic.Entities
                 this.title = value;
                 this.NotifyPropertyChanged();
             }
-        }   
+        }
 
         /// <summary>
         /// Gets or sets a value indicating whether [is copy enabled].
@@ -336,7 +337,7 @@ namespace TestCaseManagerCore.BusinessLogic.Entities
         {
             this.ClipBoardCommand = isCopy ? ClipBoardCommand.Copy : ClipBoardCommand.Cut;
             ClipBoardManager<Suite>.CopyToClipboard(this);            
-        }      
+        }
 
         /// <summary>
         /// Creates a new object that is a copy of the current instance.

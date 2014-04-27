@@ -7,16 +7,16 @@
 //     the code is regenerated.
 // </auto-generated>
 // ------------------------------------------------------------------------------
+
 namespace TestCaseManagerCore.Templates
 {
-    using System.Linq;
-    using System.Text;
+    using System;
     using System.Collections.Generic;
+    using System.Linq;
+    using AAngelov.Utilities.UI.Managers;
     using TestCaseManagerCore.BusinessLogic.Entities;
     using TestCaseManagerCore.BusinessLogic.Managers;
-    using AAngelov.Utilities.UI.Managers;
-    using System;
-    
+
     /// <summary>
     /// Class to produce the template output
     /// </summary>
@@ -25,248 +25,249 @@ namespace TestCaseManagerCore.Templates
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "11.0.0.0")]
     public partial class HtmlTestCaseExportTemplate : HtmlTestCaseExportTemplateBase
     {
-#line hidden
+        #line hidden
         /// <summary>
         /// Create the template output
         /// </summary>
         public virtual string TransformText()
         {
             this.Write("<!DOCTYPE html>\r\n<html>\r\n<head>\r\n\t<meta http-equiv=\"Content-Type\" content=\"text/h" +
-                    "tml; charset=windows-1251\" />\r\n\t<style type=\"text/css\">\r\n\t\r\n/*==================" +
-                    "====================\r\n               RESET\r\n====================================" +
-                    "==*/\r\nhtml, body, div, ul, li, table, thead, tbody, tfoot, tr, th, td, hr {\r\n   " +
-                    " margin: 0;\r\n    padding: 0;\r\n    border: 0;\r\n    font-size: 100%;\r\n    font: in" +
-                    "herit;\r\n    font-family: Tahoma;\r\n    vertical-align: baseline;\r\n}\r\n\r\nbody {\r\n  " +
-                    "  line-height: 1;\r\n    color: #000;\r\n}\r\n\r\nul {\r\n    list-style: none;\r\n}\r\n\r\ntabl" +
-                    "e {\r\n    border-collapse: collapse;\r\n    border-spacing: 0;\r\n}\r\n\r\ninput {\r\n    v" +
-                    "ertical-align: middle;\r\n}\r\n\r\n/*======================================\r\n         " +
-                    "      COMMON STYLES\r\n======================================*/\r\n.Collapsed {\r\n   " +
-                    " display: none;\r\n}\r\n\r\n.ContentWrapper {\r\n    width: 98%;\r\n    height: 100%;\r\n   " +
-                    " margin: 0 auto;\r\n}\r\n\r\n/*======================================\r\n           MAIN" +
-                    " MENU STYLES\r\n======================================*/\r\ninput[type=\"button\"] {\r\n" +
-                    "    border: 2px solid #000;\r\n    background-color: #fff;\r\n    font-weight: bolde" +
-                    "r;\r\n}\r\n\r\n    input[type=\"button\"]:hover {\r\n        background-color: #000;\r\n    " +
-                    "    color: #fff;\r\n        cursor: pointer;\r\n    }\r\n\r\n.MenuWrapper {\r\n    width: " +
-                    "100%;\r\n    height: 10%;\r\n    min-height: 30px;\r\n    position: fixed;\r\n    top: 0" +
-                    ";\r\n    border-top: 2px solid #000;\r\n    border-bottom: 2px solid #000;\r\n    back" +
-                    "ground-color: #fff;\r\n    z-index: 1;\r\n    vertical-align: middle;\r\n}\r\n\r\n#footer " +
-                    "{\r\n    width: 100%;\r\n    height: 7%;\r\n    min-height: 30px;\r\n    position: fixed" +
-                    ";\r\n    bottom: 0;\r\n    border-top: 2px solid #000;\r\n    border-bottom: 2px solid" +
-                    " #000;\r\n    background-color: #fff;\r\n    z-index: 1;\r\n    vertical-align: middle" +
-                    ";\r\n}\r\n\r\n    #footer ul {\r\n        margin-left: 1%;\r\n        width: 100%;\r\n    }\r" +
-                    "\n\r\n        #footer ul li {\r\n            vertical-align: middle;\r\n            pad" +
-                    "ding-top: 1%;\r\n            padding-bottom: 1%;\r\n            display: inline-bloc" +
-                    "k;\r\n            padding-right: 2%;\r\n            margin-left: 2%;\r\n            bo" +
-                    "rder-right: 2px solid #000;\r\n            width: 27%;\r\n            font-size: 1.1" +
-                    "em;\r\n            font-weight: bolder;\r\n            text-align: center;\r\n        " +
-                    "}\r\n\r\n            #footer ul li:first-child {\r\n                margin-left: 0;\r\n " +
-                    "           }\r\n\r\n            #footer ul li:last-child {\r\n                border-r" +
-                    "ight: 0;\r\n            }\r\n\r\n/*======================================\r\n        FIL" +
-                    "TER MENU STYLES\r\n======================================*/\r\n#filterMenu {\r\n    ma" +
-                    "rgin-top: 0.5%;\r\n    margin-left: 1%;\r\n}\r\n\r\n    #filterMenu > li {\r\n        disp" +
-                    "lay: inline-block;\r\n        border: 2px solid #000;\r\n        font-weight: bolder" +
-                    ";\r\n        padding: 1%;\r\n        position: relative;\r\n    }\r\n\r\n        #filterMe" +
-                    "nu > li:hover {\r\n            background-color: #000;\r\n            color: #fff;\r\n" +
-                    "            cursor: pointer;\r\n        }\r\n\r\n            #filterMenu > li:hover ul" +
-                    " {\r\n                display: inline-block;\r\n                position: absolute;\r" +
-                    "\n            }\r\n\r\n        #filterMenu > li > ul {\r\n            position: relativ" +
-                    "e;\r\n            left: -1.0%;\r\n            margin-top: 10%;\r\n            display:" +
-                    " none;\r\n            z-index: 2;\r\n            background-color: #fff;\r\n          " +
-                    "  border: 2px solid #000;\r\n            width: 100%;\r\n        }\r\n\r\n.Filter {\r\n   " +
-                    " color: #000;\r\n    border-bottom: 2px solid #000;\r\n    padding: 10%;\r\n}\r\n\r\n    ." +
-                    "Filter:last-child {\r\n        border-bottom: none;\r\n    }\r\n\r\n#filterMenu > li > u" +
-                    "l > li:hover {\r\n    background-color: #000;\r\n    color: #fff;\r\n}\r\n\r\n/*==========" +
-                    "============================\r\n        TEST CASE STYLES\r\n========================" +
-                    "==============*/\r\n.TestCaseListWrapper {\r\n    margin-top: 6%;\r\n    margin-bottom" +
-                    ": 6%;\r\n}\r\n\r\n.TestCaseList > li {\r\n    border-bottom: 2px solid #fff;\r\n}\r\n\r\n    ." +
-                    "TestCaseList > li:last-child {\r\n        border: none;\r\n    }\r\n\r\n.TestStatusIndic" +
-                    "ator {\r\n    border: 2px solid #000;\r\n    width: 1%;\r\n    height: 10px;\r\n    disp" +
-                    "lay: inline-block;\r\n}\r\n\r\n.TestCaseContent {\r\n    margin-left: 2%;\r\n}\r\n\r\n\r\n.TestC" +
-                    "aseContent {\r\n    margin-bottom: 2%;\r\n}\r\n\r\nli > div:first-child {\r\n    padding: " +
-                    "1%;\r\n}\r\n\r\n    li > div:first-child:hover {\r\n        cursor: pointer;\r\n        ba" +
-                    "ckground-color: #000;\r\n        color: #fff;\r\n    }\r\n\r\n/*========================" +
-                    "==============\r\n        TEST CASE PROPERTIES STYLES\r\n===========================" +
-                    "===========*/\r\n.TestCasePropertiesList {\r\n    margin-left: 2%;\r\n    margin-top: " +
-                    "1%;\r\n}\r\n\r\n    .TestCasePropertiesList li {\r\n        margin-bottom: 0.5%;\r\n    }\r" +
-                    "\n\r\n        .TestCasePropertiesList li > span:first-child {\r\n            font-wei" +
-                    "ght: bolder;\r\n        }\r\n\r\n.AutomationInfo {\r\n\tmargin-left: 2%;\r\n}\r\n\r\n/*========" +
-                    "==============================\r\n        TEST CASE COMMENT STYLES\r\n==============" +
-                    "========================*/\r\n.TestCaseComment {\r\n    margin-left: 2%;\r\n    backgr" +
-                    "ound-color: #fff;\r\n    border: 2px solid #339933;\r\n    padding: 1%;\r\n    margin-" +
-                    "top: 1%;\r\n}\r\n\r\n/*======================================\r\n        TEST CASE STEPS" +
-                    " STYLES\r\n======================================*/\r\ntable {\r\n    vertical-align: " +
-                    "middle;\r\n    width: 98%;\r\n}\r\n\r\ntable thead {\r\n    text-align: center;\r\n}\r\n\r\ntd:f" +
-                    "irst-child, th:first-child {\r\n    width: 3%;\r\n}\r\n\r\ntd:nth-child(2), th:nth-child" +
-                    "(2) {\r\n    width: 52%;\r\n}\r\n\r\ntd:nth-child(3), th:nth-child(3) {\r\n    width: 45%;" +
-                    "\r\n}\r\n\r\n.TestCaseSteps {\r\n    margin-left: 2%;\r\n    margin-top: 1%;\r\n}\r\n\r\ntd, th " +
-                    "{\r\n    border: 2px solid #000;\r\n    padding: 1%;\r\n}\r\n\r\ntbody tr {\r\n    backgroun" +
-                    "d-color: #fff;\r\n}\r\n\r\n    tbody tr:nth-of-type(2n+1) {\r\n        background-color:" +
-                    " #bfe9bf;\r\n    }\r\n\r\nthead tr {\r\n    background-color: #339933;\r\n    font-weight:" +
-                    " bolder;\r\n}\r\n\r\n/*======================================\r\n      STATUSES PREDEFIN" +
-                    "ED COLORS\r\n======================================*/\r\n.Active {\r\n    background-c" +
-                    "olor: #397DD6;\r\n}\r\n\r\n.Passed {\r\n    background-color: #26C155;\r\n}\r\n\r\n.Failed {\r\n" +
-                    "    background-color: #ff0000;\r\n}\r\n\r\n.Blocked {\r\n    background-color: #FF7510;\r" +
-                    "\n}\r\n\r\n.NotApplicable {\r\n    background-color: #9B9B9B;\r\n}\r\n\r\n.DefaultStatus {\r\n " +
-                    "   background-color: #fff;\r\n}\r\n\r\n.Hidden {\r\n\tdisplay: none;\r\n}\r\n/*==============" +
-                    "========================\r\n               STYLES END\r\n===========================" +
-                    "===========*/\r\n\r\n    </style>\r\n</head>\r\n<body>\r\n\r\n");
+                       "tml; charset=windows-1251\" />\r\n\t<style type=\"text/css\">\r\n\t\r\n/*==================" +
+                       "====================\r\n               RESET\r\n====================================" +
+                       "==*/\r\nhtml, body, div, ul, li, table, thead, tbody, tfoot, tr, th, td, hr {\r\n   " +
+                       " margin: 0;\r\n    padding: 0;\r\n    border: 0;\r\n    font-size: 100%;\r\n    font: in" +
+                       "herit;\r\n    font-family: Tahoma;\r\n    vertical-align: baseline;\r\n}\r\n\r\nbody {\r\n  " +
+                       "  line-height: 1;\r\n    color: #000;\r\n}\r\n\r\nul {\r\n    list-style: none;\r\n}\r\n\r\ntabl" +
+                       "e {\r\n    border-collapse: collapse;\r\n    border-spacing: 0;\r\n}\r\n\r\ninput {\r\n    v" +
+                       "ertical-align: middle;\r\n}\r\n\r\n/*======================================\r\n         " +
+                       "      COMMON STYLES\r\n======================================*/\r\n.Collapsed {\r\n   " +
+                       " display: none;\r\n}\r\n\r\n.ContentWrapper {\r\n    width: 98%;\r\n    height: 100%;\r\n   " +
+                       " margin: 0 auto;\r\n}\r\n\r\n/*======================================\r\n           MAIN" +
+                       " MENU STYLES\r\n======================================*/\r\ninput[type=\"button\"] {\r\n" +
+                       "    border: 2px solid #000;\r\n    background-color: #fff;\r\n    font-weight: bolde" +
+                       "r;\r\n}\r\n\r\n    input[type=\"button\"]:hover {\r\n        background-color: #000;\r\n    " +
+                       "    color: #fff;\r\n        cursor: pointer;\r\n    }\r\n\r\n.MenuWrapper {\r\n    width: " +
+                       "100%;\r\n    height: 10%;\r\n    min-height: 30px;\r\n    position: fixed;\r\n    top: 0" +
+                       ";\r\n    border-top: 2px solid #000;\r\n    border-bottom: 2px solid #000;\r\n    back" +
+                       "ground-color: #fff;\r\n    z-index: 1;\r\n    vertical-align: middle;\r\n}\r\n\r\n#footer " +
+                       "{\r\n    width: 100%;\r\n    height: 7%;\r\n    min-height: 30px;\r\n    position: fixed" +
+                       ";\r\n    bottom: 0;\r\n    border-top: 2px solid #000;\r\n    border-bottom: 2px solid" +
+                       " #000;\r\n    background-color: #fff;\r\n    z-index: 1;\r\n    vertical-align: middle" +
+                       ";\r\n}\r\n\r\n    #footer ul {\r\n        margin-left: 1%;\r\n        width: 100%;\r\n    }\r" +
+                       "\n\r\n        #footer ul li {\r\n            vertical-align: middle;\r\n            pad" +
+                       "ding-top: 1%;\r\n            padding-bottom: 1%;\r\n            display: inline-bloc" +
+                       "k;\r\n            padding-right: 2%;\r\n            margin-left: 2%;\r\n            bo" +
+                       "rder-right: 2px solid #000;\r\n            width: 27%;\r\n            font-size: 1.1" +
+                       "em;\r\n            font-weight: bolder;\r\n            text-align: center;\r\n        " +
+                       "}\r\n\r\n            #footer ul li:first-child {\r\n                margin-left: 0;\r\n " +
+                       "           }\r\n\r\n            #footer ul li:last-child {\r\n                border-r" +
+                       "ight: 0;\r\n            }\r\n\r\n/*======================================\r\n        FIL" +
+                       "TER MENU STYLES\r\n======================================*/\r\n#filterMenu {\r\n    ma" +
+                       "rgin-top: 0.5%;\r\n    margin-left: 1%;\r\n}\r\n\r\n    #filterMenu > li {\r\n        disp" +
+                       "lay: inline-block;\r\n        border: 2px solid #000;\r\n        font-weight: bolder" +
+                       ";\r\n        padding: 1%;\r\n        position: relative;\r\n    }\r\n\r\n        #filterMe" +
+                       "nu > li:hover {\r\n            background-color: #000;\r\n            color: #fff;\r\n" +
+                       "            cursor: pointer;\r\n        }\r\n\r\n            #filterMenu > li:hover ul" +
+                       " {\r\n                display: inline-block;\r\n                position: absolute;\r" +
+                       "\n            }\r\n\r\n        #filterMenu > li > ul {\r\n            position: relativ" +
+                       "e;\r\n            left: -1.0%;\r\n            margin-top: 10%;\r\n            display:" +
+                       " none;\r\n            z-index: 2;\r\n            background-color: #fff;\r\n          " +
+                       "  border: 2px solid #000;\r\n            width: 100%;\r\n        }\r\n\r\n.Filter {\r\n   " +
+                       " color: #000;\r\n    border-bottom: 2px solid #000;\r\n    padding: 10%;\r\n}\r\n\r\n    ." +
+                       "Filter:last-child {\r\n        border-bottom: none;\r\n    }\r\n\r\n#filterMenu > li > u" +
+                       "l > li:hover {\r\n    background-color: #000;\r\n    color: #fff;\r\n}\r\n\r\n/*==========" +
+                       "============================\r\n        TEST CASE STYLES\r\n========================" +
+                       "==============*/\r\n.TestCaseListWrapper {\r\n    margin-top: 6%;\r\n    margin-bottom" +
+                       ": 6%;\r\n}\r\n\r\n.TestCaseList > li {\r\n    border-bottom: 2px solid #fff;\r\n}\r\n\r\n    ." +
+                       "TestCaseList > li:last-child {\r\n        border: none;\r\n    }\r\n\r\n.TestStatusIndic" +
+                       "ator {\r\n    border: 2px solid #000;\r\n    width: 1%;\r\n    height: 10px;\r\n    disp" +
+                       "lay: inline-block;\r\n}\r\n\r\n.TestCaseContent {\r\n    margin-left: 2%;\r\n}\r\n\r\n\r\n.TestC" +
+                       "aseContent {\r\n    margin-bottom: 2%;\r\n}\r\n\r\nli > div:first-child {\r\n    padding: " +
+                       "1%;\r\n}\r\n\r\n    li > div:first-child:hover {\r\n        cursor: pointer;\r\n        ba" +
+                       "ckground-color: #000;\r\n        color: #fff;\r\n    }\r\n\r\n/*========================" +
+                       "==============\r\n        TEST CASE PROPERTIES STYLES\r\n===========================" +
+                       "===========*/\r\n.TestCasePropertiesList {\r\n    margin-left: 2%;\r\n    margin-top: " +
+                       "1%;\r\n}\r\n\r\n    .TestCasePropertiesList li {\r\n        margin-bottom: 0.5%;\r\n    }\r" +
+                       "\n\r\n        .TestCasePropertiesList li > span:first-child {\r\n            font-wei" +
+                       "ght: bolder;\r\n        }\r\n\r\n.AutomationInfo {\r\n\tmargin-left: 2%;\r\n}\r\n\r\n/*========" +
+                       "==============================\r\n        TEST CASE COMMENT STYLES\r\n==============" +
+                       "========================*/\r\n.TestCaseComment {\r\n    margin-left: 2%;\r\n    backgr" +
+                       "ound-color: #fff;\r\n    border: 2px solid #339933;\r\n    padding: 1%;\r\n    margin-" +
+                       "top: 1%;\r\n}\r\n\r\n/*======================================\r\n        TEST CASE STEPS" +
+                       " STYLES\r\n======================================*/\r\ntable {\r\n    vertical-align: " +
+                       "middle;\r\n    width: 98%;\r\n}\r\n\r\ntable thead {\r\n    text-align: center;\r\n}\r\n\r\ntd:f" +
+                       "irst-child, th:first-child {\r\n    width: 3%;\r\n}\r\n\r\ntd:nth-child(2), th:nth-child" +
+                       "(2) {\r\n    width: 52%;\r\n}\r\n\r\ntd:nth-child(3), th:nth-child(3) {\r\n    width: 45%;" +
+                       "\r\n}\r\n\r\n.TestCaseSteps {\r\n    margin-left: 2%;\r\n    margin-top: 1%;\r\n}\r\n\r\ntd, th " +
+                       "{\r\n    border: 2px solid #000;\r\n    padding: 1%;\r\n}\r\n\r\ntbody tr {\r\n    backgroun" +
+                       "d-color: #fff;\r\n}\r\n\r\n    tbody tr:nth-of-type(2n+1) {\r\n        background-color:" +
+                       " #bfe9bf;\r\n    }\r\n\r\nthead tr {\r\n    background-color: #339933;\r\n    font-weight:" +
+                       " bolder;\r\n}\r\n\r\n/*======================================\r\n      STATUSES PREDEFIN" +
+                       "ED COLORS\r\n======================================*/\r\n.Active {\r\n    background-c" +
+                       "olor: #397DD6;\r\n}\r\n\r\n.Passed {\r\n    background-color: #26C155;\r\n}\r\n\r\n.Failed {\r\n" +
+                       "    background-color: #ff0000;\r\n}\r\n\r\n.Blocked {\r\n    background-color: #FF7510;\r" +
+                       "\n}\r\n\r\n.NotApplicable {\r\n    background-color: #9B9B9B;\r\n}\r\n\r\n.DefaultStatus {\r\n " +
+                       "   background-color: #fff;\r\n}\r\n\r\n.Hidden {\r\n\tdisplay: none;\r\n}\r\n/*==============" +
+                       "========================\r\n               STYLES END\r\n===========================" +
+                       "===========*/\r\n\r\n    </style>\r\n</head>\r\n<body>\r\n\r\n");
             
             #line 341 "E:\Projects\TestCaseManager1\TestCaseManagerCore\Templates\HtmlTestCaseExportTemplate.tt"
 
-	string checkedProperties = UIRegistryManager.Instance.ReadCheckedPropertiesToBeExported();
+            string checkedProperties = UIRegistryManager.Instance.ReadCheckedPropertiesToBeExported();
 
-	BuildHeader(checkedProperties);
-	BuildBody(checkedProperties);
-	BuildFooter(checkedProperties);
-
+            this.BuildHeader(checkedProperties);
+            this.BuildBody(checkedProperties);
+            this.BuildFooter(checkedProperties);
             
             #line default
             #line hidden
             this.Write("\r\n<script>\r\n\r\n(function () {\r\n    var index = 0;\r\n    var STATUS_ACTIVE = \"Active" +
-                    "\";\r\n    var STATUS_PASSED = \"Passed\";\r\n    var STATUS_FAILED = \"Failed\";\r\n    va" +
-                    "r STATUS_BLOCKED = \"Blocked\";\r\n    var STATUS_NOT_APPLICABLE = \"NotApplicable\";\r" +
-                    "\n    var STATUS_DEFAULT = \"DefaultStatus\";\r\n    var STATE_EXPANDED = \"Expanded\";" +
-                    "\r\n    var STATE_COLLAPSED = \"Collapsed\";\r\n    var STATE_FILTERED = \"Filtered\";\r\n" +
-                    "    var STATE_NOT_FILTERED = \"NotFiltered\";\r\n    var STATUS = \"Status\"\r\n    var " +
-                    "PRIORITY = \"Priority\";\r\n    var SIGN_EXPANDED = \"▼\";\r\n    var SIGN_COLLAPSED = \"" +
-                    "▶\";\r\n    var STATE_NONE = \"None\";\r\n    var testCaseList = document.getElementsBy" +
-                    "ClassName(\"TestCase\");\r\n    var userCriteriaChoice = {\r\n        status: STATE_NO" +
-                    "NE,\r\n        priority: STATE_NONE\r\n    };\r\n\r\n    function hasClassName(element, " +
-                    "className) {\r\n        if (element.className.indexOf(className) != -1) {\r\n       " +
-                    "     return true;\r\n        }\r\n\r\n        return false;\r\n    }\r\n\r\n    // Changes t" +
-                    "he sign ▶ / ▼ of a given item\r\n    function changeSign(itemToChangeSign) {\r\n    " +
-                    "    var childrenList = itemToChangeSign.parentNode.children;\r\n\r\n        for (var" +
-                    " i = 0; i < childrenList.length; i++) {\r\n\r\n            if (childrenList[i].tagNa" +
-                    "me === \"DIV\") {\r\n                var elementSign = childrenList[i];\r\n\r\n         " +
-                    "       if (elementSign.innerHTML.indexOf(SIGN_COLLAPSED) != -1) {\r\n             " +
-                    "       elementSign.innerHTML = elementSign.innerHTML.replace(SIGN_COLLAPSED, SIG" +
-                    "N_EXPANDED);\r\n                } else if (elementSign.innerHTML.indexOf(SIGN_EXPA" +
-                    "NDED) != -1) {\r\n                    elementSign.innerHTML = elementSign.innerHTM" +
-                    "L.replace(SIGN_EXPANDED, SIGN_COLLAPSED);\r\n                }\r\n            }\r\n   " +
-                    "     }\r\n    }\r\n\r\n    // Changes the class Expanded/Collapsed of a given item\r\n  " +
-                    "  function changeClass(itemToChangeClass) {\r\n        if (itemToChangeClass.class" +
-                    "Name.indexOf(STATE_EXPANDED) != -1) {\r\n            itemToChangeClass.className =" +
-                    " String(itemToChangeClass.className).replace(STATE_EXPANDED, STATE_COLLAPSED);\r\n" +
-                    "        } else if (itemToChangeClass.className.indexOf(STATE_COLLAPSED) != -1) {" +
-                    "\r\n            itemToChangeClass.className = String(itemToChangeClass.className)." +
-                    "replace(STATE_COLLAPSED, STATE_EXPANDED);\r\n        }\r\n    }\r\n\r\n    // Changes th" +
-                    "e class & sign of a given item\r\n    function changeVisibilityItem(item) {\r\n     " +
-                    "   changeSign(item);\r\n        changeClass(item);\r\n    }\r\n\r\n    // Changes the cl" +
-                    "ass & sign of clicked item\r\n    function changeVisibilityClickedIem(event) {\r\n  " +
-                    "      var elementSwitchVisibility = event.target;\r\n        elementSwitchVisibili" +
-                    "ty = elementSwitchVisibility.nextElementSibling;\r\n\r\n        changeVisibilityItem" +
-                    "(elementSwitchVisibility);\r\n    }\r\n\r\n    function shallowCopy(collection) {\r\n   " +
-                    "     var coppiedCollection = [];\r\n\r\n        for (index = 0; index < collection.l" +
-                    "ength; index++) {\r\n            coppiedCollection.push(collection[index]);\r\n     " +
-                    "   }\r\n\r\n        return coppiedCollection;\r\n    }\r\n\r\n    // Changes class & sign " +
-                    "of all items in a given list of items. Deep copy is made because of reference co" +
-                    "py bugs\r\n    function changeVisibilityEachItem(testCaseList) {\r\n        var temp" +
-                    "List = [];\r\n\r\n        tempList = shallowCopy(testCaseList);\r\n\r\n        for (inde" +
-                    "x = 0; index < tempList.length; index++) {\r\n            changeVisibilityItem(tem" +
-                    "pList[index]);\r\n        }\r\n    }\r\n\r\n    // Changes class & sign from \"Collapsed\"" +
-                    " => \"Expanded\" of all items (Expand All button)\r\n    function changeVisibilityEx" +
-                    "pandedAll() {\r\n        var expandedOnly = [];\r\n\r\n        for (index = 0; index <" +
-                    " testCaseList.length; index++) {\r\n            var isNotFiltered = testCaseList[i" +
-                    "ndex].className.indexOf(STATE_COLLAPSED) === -1;\r\n\r\n            if (isNotFiltere" +
-                    "d) {\r\n                var itemsToExpandCurrentTestCase = testCaseList[index].get" +
-                    "ElementsByClassName(STATE_COLLAPSED);\r\n                for (var i = 0; i < items" +
-                    "ToExpandCurrentTestCase.length; i++) {\r\n                    expandedOnly.push(it" +
-                    "emsToExpandCurrentTestCase[i]);\r\n                }\r\n            }\r\n        }\r\n\r\n" +
-                    "        changeVisibilityEachItem(expandedOnly);\r\n    }\r\n\r\n    // Changes class &" +
-                    " sign from \"Expanded\" => \"Collapsed\" of all items (Collapse All button)\r\n    fun" +
-                    "ction changeVisibilityCollapsedAll() {\r\n        var testCaseList = document.getE" +
-                    "lementsByClassName(STATE_EXPANDED);\r\n        changeVisibilityEachItem(testCaseLi" +
-                    "st);\r\n    }\r\n\r\n    // Gets the status state of a given test case\r\n    function g" +
-                    "etStatusState(testCase) {\r\n\t\tvar statusState = testCase.getElementsByClassName(\"" +
-                    "Status\")[0];\r\n\t\t\r\n\t\tif(statusState != null)\r\n\t\t{\r\n\t\t\tstatusState = statusState.g" +
-                    "etElementsByClassName(\"TestCasePropertyValue\")[0].innerHTML;\r\n\t\t}\r\n\r\n        ret" +
-                    "urn statusState;\r\n    }\r\n\r\n    function getPriorityState(testCase) {\r\n        re" +
-                    "turn testCase.getElementsByClassName(\"Priority\")[0].getElementsByClassName(\"Test" +
-                    "CasePropertyValue\")[0].innerHTML;\r\n    }\r\n\r\n    function concatClassNameOfGivenE" +
-                    "lement(element, className) {\r\n        element.className = element.className + cl" +
-                    "assName;\r\n    }\r\n\r\n    // Change the background color of the status <p> dependin" +
-                    "g on the state\r\n    function changeStatusPropertyBackgroundColor(testCase) {\r\n  " +
-                    "      var state = getStatusState(testCase);\r\n\r\n\t\tif(state != null)\r\n\t\t{\r\n\t\t\tvar " +
-                    "statusLi = testCase.getElementsByClassName(\"Status\")[0];\r\n\t\t\tvar statusPropertyV" +
-                    "alue = statusLi.getElementsByClassName(\"TestCasePropertyValue\")[0];\r\n\t\t\tvar test" +
-                    "CaseTitle = testCase.getElementsByClassName(\"TestCaseTitle\")[0];\r\n\t\t\tvar testSta" +
-                    "tusIndicator = testCase.getElementsByClassName(\"TestStatusIndicator\")[0];\r\n\r\n\t\t\t" +
-                    "switch (state) {\r\n\r\n\t\t\t\tcase STATUS_ACTIVE:\r\n\t\t\t\t\tconcatClassNameOfGivenElement(" +
-                    "statusPropertyValue, \" \" + STATUS_ACTIVE);\r\n\t\t\t\t\tconcatClassNameOfGivenElement(t" +
-                    "estStatusIndicator, \" \" + STATUS_ACTIVE);\r\n\t\t\t\t\treturn;\r\n\r\n\t\t\t\tcase STATUS_PASSE" +
-                    "D:\r\n\t\t\t\t\tconcatClassNameOfGivenElement(statusPropertyValue, \" \" + STATUS_PASSED)" +
-                    ";\r\n\t\t\t\t\tconcatClassNameOfGivenElement(testStatusIndicator, \" \" + STATUS_PASSED);" +
-                    "\r\n\t\t\t\t\treturn;\r\n\r\n\t\t\t\tcase STATUS_FAILED:\r\n\t\t\t\t\tconcatClassNameOfGivenElement(te" +
-                    "stStatusIndicator, \" \" + STATUS_FAILED);\r\n\t\t\t\t\tconcatClassNameOfGivenElement(sta" +
-                    "tusPropertyValue, \" \" + STATUS_FAILED);\r\n\t\t\t\t\treturn;\r\n\r\n\t\t\t\tcase STATUS_BLOCKED" +
-                    ":\r\n\t\t\t\t\tconcatClassNameOfGivenElement(testStatusIndicator, \" \" + STATUS_BLOCKED)" +
-                    ";\r\n\t\t\t\t\tconcatClassNameOfGivenElement(statusPropertyValue, \" \" + STATUS_BLOCKED)" +
-                    ";\r\n\t\t\t\t\treturn;\r\n\r\n\t\t\t\tcase STATUS_NOT_APPLICABLE:\r\n\t\t\t\t\tconcatClassNameOfGivenE" +
-                    "lement(testStatusIndicator, \" \" + STATUS_NOT_APPLICABLE);\r\n\t\t\t\t\tconcatClassNameO" +
-                    "fGivenElement(statusPropertyValue, \" \" + STATUS_NOT_APPLICABLE);\r\n\t\t\t\t\treturn;\r\n" +
-                    "\r\n\t\t\t\tdefault:\r\n\t\t\t\t\tconcatClassNameOfGivenElement(testStatusIndicator, \" \" + ST" +
-                    "ATUS_DEFAULT);\r\n\t\t\t\t\tconcatClassNameOfGivenElement(statusPropertyValue, \" \" + ST" +
-                    "ATUS_DEFAULT);\r\n\t\t\t\t\treturn;\r\n\t\t\t}\r\n\t\t}\r\n    }\r\n\r\n    function getFilterCriteria" +
-                    "(event) {\r\n        var clickedItem = event.target;\r\n        return clickedItem.i" +
-                    "nnerHTML;\r\n    }\r\n\r\n    function setTestCasesCounter() {\r\n        var testCasesL" +
-                    "istNotFiltered = document.getElementsByClassName(STATE_NOT_FILTERED);\r\n        v" +
-                    "ar testCaseCounter = document.getElementById(\"currentTestCaseCount\");\r\n        t" +
-                    "estCaseCounter.innerHTML = testCasesListNotFiltered.length;\r\n    }\r\n\r\n    functi" +
-                    "on resetTestCasesClass() {\r\n        var testCaseListToClear = shallowCopy(docume" +
-                    "nt.getElementsByClassName(\"TestCase\"));\r\n\r\n        for (var index = 0; index < t" +
-                    "estCaseListToClear.length; index++) {\r\n            testCaseListToClear[index].cl" +
-                    "assName = \"TestCase NotFiltered\";\r\n        }\r\n    }\r\n\r\n    function setCurrentFi" +
-                    "lterLabels(userCriteriaChoice) {\r\n        var statusLabel = document.getElementB" +
-                    "yId(\"currentFilterStatus\");\r\n        var priorityLabel = document.getElementById" +
-                    "(\"currentFilterPriority\");\r\n\t\t\r\n\t\tif(statusLabel != null)\r\n\t\t{\r\n\t\t\tstatusLabel.i" +
-                    "nnerHTML = \" \" + userCriteriaChoice.status;\r\n\t\t}\r\n\r\n\t\tif(priorityLabel != null)\r" +
-                    "\n\t\t{\r\n\t\t\tpriorityLabel.innerHTML = \" \" + userCriteriaChoice.priority;\r\n\t\t}\r\n    " +
-                    "}\r\n\r\n    function clearFilters() {\r\n        userCriteriaChoice = {\r\n            " +
-                    "status: STATE_NONE,\r\n            priority: STATE_NONE\r\n        };\r\n        setCu" +
-                    "rrentFilterLabels(userCriteriaChoice);\r\n        resetTestCasesClass();\r\n        " +
-                    "setTestCasesCounter();\r\n    }\r\n\r\n\r\n\r\n    function filter(event) {\r\n        reset" +
-                    "TestCasesClass();\r\n\r\n        if (hasClassName(event.target, STATUS)) {\r\n        " +
-                    "    userCriteriaChoice.status = getFilterCriteria(event);\r\n        } else if (ha" +
-                    "sClassName(event.target, PRIORITY)) {\r\n            userCriteriaChoice.priority =" +
-                    " getFilterCriteria(event);\r\n        }\r\n        setCurrentFilterLabels(userCriter" +
-                    "iaChoice);\r\n        var testCaseListToFilter = shallowCopy(document.getElementsB" +
-                    "yClassName(STATE_NOT_FILTERED));\r\n\r\n        for (index = 0; index < testCaseList" +
-                    "ToFilter.length; index++) {\r\n            var currentTestCase = testCaseListToFil" +
-                    "ter[index];\r\n\r\n            if (userCriteriaChoice.status != STATE_NONE) {\r\n     " +
-                    "           var currentTestCaseStatus = getStatusState(currentTestCase);\r\n       " +
-                    "         if (userCriteriaChoice.status != currentTestCaseStatus) {\r\n            " +
-                    "        currentTestCase.className = String(currentTestCase.className).replace(ST" +
-                    "ATE_NOT_FILTERED, STATE_FILTERED);\r\n                    concatClassNameOfGivenEl" +
-                    "ement(currentTestCase, \" \" + STATE_COLLAPSED);\r\n                }\r\n            }" +
-                    "\r\n\r\n            if (userCriteriaChoice.priority != STATE_NONE) {\r\n              " +
-                    "  var currentTestCasePriority = getPriorityState(currentTestCase);\r\n            " +
-                    "    if (userCriteriaChoice.priority != currentTestCasePriority) {\r\n             " +
-                    "       currentTestCase.className = String(currentTestCase.className).replace(STA" +
-                    "TE_NOT_FILTERED, STATE_FILTERED);\r\n                    concatClassNameOfGivenEle" +
-                    "ment(currentTestCase, \" \" + STATE_COLLAPSED);\r\n                }\r\n            }\r" +
-                    "\n        }\r\n\r\n        setTestCasesCounter();\r\n    }\r\n\r\n    function initialize()" +
-                    " {\r\n        var testCaseList = document.getElementsByClassName(\"TestCase\");\r\n\r\n " +
-                    "       // iterates between the test cases and chage the background of the status" +
-                    " and test case title\r\n        for (index = 0; index < testCaseList.length; index" +
-                    "++) {\r\n            changeStatusPropertyBackgroundColor(testCaseList[index]);\r\n  " +
-                    "      }\r\n\r\n        setTestCasesCounter();\r\n\r\n        // attach events\r\n        v" +
-                    "ar testCaseList = document.getElementsByClassName(\"TestCaseList\")[0];\r\n        t" +
-                    "estCaseList.addEventListener(\"click\", changeVisibilityClickedIem, false);\r\n\r\n   " +
-                    "     var expandAllButton = document.getElementById(\"expandAll\");\r\n        expand" +
-                    "AllButton.addEventListener(\"click\", changeVisibilityExpandedAll, false);\r\n\r\n    " +
-                    "    var collapseAllButton = document.getElementById(\"collapseAll\");\r\n        col" +
-                    "lapseAllButton.addEventListener(\"click\", changeVisibilityCollapsedAll, false);\r\n" +
-                    "\r\n        var filterByStatusUL = document.getElementById(\"filterByStatus\");\r\n   " +
-                    "     if(filterByStatusUL != null)\r\n\t\t{\r\n\t\t\tfilterByStatusUL.addEventListener(\"cl" +
-                    "ick\", filter, false);\r\n\t\t}\r\n\r\n        var filterByPriorityUL = document.getEleme" +
-                    "ntById(\"filterByPriority\");\r\n\t\tif(filterByPriorityUL != null)\r\n\t\t{\r\n\t\t\tfilterByP" +
-                    "riorityUL.addEventListener(\"click\", filter, false);\r\n\t\t}\r\n\r\n        var clearFil" +
-                    "tersButton = document.getElementById(\"clearFilters\");\r\n\t\tif(clearFiltersButton !" +
-                    "= null)\r\n\t\t{\r\n\t\t\tclearFiltersButton.addEventListener(\"click\", clearFilters, fals" +
-                    "e);\r\n\t\t}\r\n    }\r\n\r\n    initialize();\r\n}());\r\n    </script>\r\n</body>\r\n</html>\r\n");
+                       "\";\r\n    var STATUS_PASSED = \"Passed\";\r\n    var STATUS_FAILED = \"Failed\";\r\n    va" +
+                       "r STATUS_BLOCKED = \"Blocked\";\r\n    var STATUS_NOT_APPLICABLE = \"NotApplicable\";\r" +
+                       "\n    var STATUS_DEFAULT = \"DefaultStatus\";\r\n    var STATE_EXPANDED = \"Expanded\";" +
+                       "\r\n    var STATE_COLLAPSED = \"Collapsed\";\r\n    var STATE_FILTERED = \"Filtered\";\r\n" +
+                       "    var STATE_NOT_FILTERED = \"NotFiltered\";\r\n    var STATUS = \"Status\"\r\n    var " +
+                       "PRIORITY = \"Priority\";\r\n    var SIGN_EXPANDED = \"▼\";\r\n    var SIGN_COLLAPSED = \"" +
+                       "▶\";\r\n    var STATE_NONE = \"None\";\r\n    var testCaseList = document.getElementsBy" +
+                       "ClassName(\"TestCase\");\r\n    var userCriteriaChoice = {\r\n        status: STATE_NO" +
+                       "NE,\r\n        priority: STATE_NONE\r\n    };\r\n\r\n    function hasClassName(element, " +
+                       "className) {\r\n        if (element.className.indexOf(className) != -1) {\r\n       " +
+                       "     return true;\r\n        }\r\n\r\n        return false;\r\n    }\r\n\r\n    // Changes t" +
+                       "he sign ▶ / ▼ of a given item\r\n    function changeSign(itemToChangeSign) {\r\n    " +
+                       "    var childrenList = itemToChangeSign.parentNode.children;\r\n\r\n        for (var" +
+                       " i = 0; i < childrenList.length; i++) {\r\n\r\n            if (childrenList[i].tagNa" +
+                       "me === \"DIV\") {\r\n                var elementSign = childrenList[i];\r\n\r\n         " +
+                       "       if (elementSign.innerHTML.indexOf(SIGN_COLLAPSED) != -1) {\r\n             " +
+                       "       elementSign.innerHTML = elementSign.innerHTML.replace(SIGN_COLLAPSED, SIG" +
+                       "N_EXPANDED);\r\n                } else if (elementSign.innerHTML.indexOf(SIGN_EXPA" +
+                       "NDED) != -1) {\r\n                    elementSign.innerHTML = elementSign.innerHTM" +
+                       "L.replace(SIGN_EXPANDED, SIGN_COLLAPSED);\r\n                }\r\n            }\r\n   " +
+                       "     }\r\n    }\r\n\r\n    // Changes the class Expanded/Collapsed of a given item\r\n  " +
+                       "  function changeClass(itemToChangeClass) {\r\n        if (itemToChangeClass.class" +
+                       "Name.indexOf(STATE_EXPANDED) != -1) {\r\n            itemToChangeClass.className =" +
+                       " String(itemToChangeClass.className).replace(STATE_EXPANDED, STATE_COLLAPSED);\r\n" +
+                       "        } else if (itemToChangeClass.className.indexOf(STATE_COLLAPSED) != -1) {" +
+                       "\r\n            itemToChangeClass.className = String(itemToChangeClass.className)." +
+                       "replace(STATE_COLLAPSED, STATE_EXPANDED);\r\n        }\r\n    }\r\n\r\n    // Changes th" +
+                       "e class & sign of a given item\r\n    function changeVisibilityItem(item) {\r\n     " +
+                       "   changeSign(item);\r\n        changeClass(item);\r\n    }\r\n\r\n    // Changes the cl" +
+                       "ass & sign of clicked item\r\n    function changeVisibilityClickedIem(event) {\r\n  " +
+                       "      var elementSwitchVisibility = event.target;\r\n        elementSwitchVisibili" +
+                       "ty = elementSwitchVisibility.nextElementSibling;\r\n\r\n        changeVisibilityItem" +
+                       "(elementSwitchVisibility);\r\n    }\r\n\r\n    function shallowCopy(collection) {\r\n   " +
+                       "     var coppiedCollection = [];\r\n\r\n        for (index = 0; index < collection.l" +
+                       "ength; index++) {\r\n            coppiedCollection.push(collection[index]);\r\n     " +
+                       "   }\r\n\r\n        return coppiedCollection;\r\n    }\r\n\r\n    // Changes class & sign " +
+                       "of all items in a given list of items. Deep copy is made because of reference co" +
+                       "py bugs\r\n    function changeVisibilityEachItem(testCaseList) {\r\n        var temp" +
+                       "List = [];\r\n\r\n        tempList = shallowCopy(testCaseList);\r\n\r\n        for (inde" +
+                       "x = 0; index < tempList.length; index++) {\r\n            changeVisibilityItem(tem" +
+                       "pList[index]);\r\n        }\r\n    }\r\n\r\n    // Changes class & sign from \"Collapsed\"" +
+                       " => \"Expanded\" of all items (Expand All button)\r\n    function changeVisibilityEx" +
+                       "pandedAll() {\r\n        var expandedOnly = [];\r\n\r\n        for (index = 0; index <" +
+                       " testCaseList.length; index++) {\r\n            var isNotFiltered = testCaseList[i" +
+                       "ndex].className.indexOf(STATE_COLLAPSED) === -1;\r\n\r\n            if (isNotFiltere" +
+                       "d) {\r\n                var itemsToExpandCurrentTestCase = testCaseList[index].get" +
+                       "ElementsByClassName(STATE_COLLAPSED);\r\n                for (var i = 0; i < items" +
+                       "ToExpandCurrentTestCase.length; i++) {\r\n                    expandedOnly.push(it" +
+                       "emsToExpandCurrentTestCase[i]);\r\n                }\r\n            }\r\n        }\r\n\r\n" +
+                       "        changeVisibilityEachItem(expandedOnly);\r\n    }\r\n\r\n    // Changes class &" +
+                       " sign from \"Expanded\" => \"Collapsed\" of all items (Collapse All button)\r\n    fun" +
+                       "ction changeVisibilityCollapsedAll() {\r\n        var testCaseList = document.getE" +
+                       "lementsByClassName(STATE_EXPANDED);\r\n        changeVisibilityEachItem(testCaseLi" +
+                       "st);\r\n    }\r\n\r\n    // Gets the status state of a given test case\r\n    function g" +
+                       "etStatusState(testCase) {\r\n\t\tvar statusState = testCase.getElementsByClassName(\"" +
+                       "Status\")[0];\r\n\t\t\r\n\t\tif(statusState != null)\r\n\t\t{\r\n\t\t\tstatusState = statusState.g" +
+                       "etElementsByClassName(\"TestCasePropertyValue\")[0].innerHTML;\r\n\t\t}\r\n\r\n        ret" +
+                       "urn statusState;\r\n    }\r\n\r\n    function getPriorityState(testCase) {\r\n        re" +
+                       "turn testCase.getElementsByClassName(\"Priority\")[0].getElementsByClassName(\"Test" +
+                       "CasePropertyValue\")[0].innerHTML;\r\n    }\r\n\r\n    function concatClassNameOfGivenE" +
+                       "lement(element, className) {\r\n        element.className = element.className + cl" +
+                       "assName;\r\n    }\r\n\r\n    // Change the background color of the status <p> dependin" +
+                       "g on the state\r\n    function changeStatusPropertyBackgroundColor(testCase) {\r\n  " +
+                       "      var state = getStatusState(testCase);\r\n\r\n\t\tif(state != null)\r\n\t\t{\r\n\t\t\tvar " +
+                       "statusLi = testCase.getElementsByClassName(\"Status\")[0];\r\n\t\t\tvar statusPropertyV" +
+                       "alue = statusLi.getElementsByClassName(\"TestCasePropertyValue\")[0];\r\n\t\t\tvar test" +
+                       "CaseTitle = testCase.getElementsByClassName(\"TestCaseTitle\")[0];\r\n\t\t\tvar testSta" +
+                       "tusIndicator = testCase.getElementsByClassName(\"TestStatusIndicator\")[0];\r\n\r\n\t\t\t" +
+                       "switch (state) {\r\n\r\n\t\t\t\tcase STATUS_ACTIVE:\r\n\t\t\t\t\tconcatClassNameOfGivenElement(" +
+                       "statusPropertyValue, \" \" + STATUS_ACTIVE);\r\n\t\t\t\t\tconcatClassNameOfGivenElement(t" +
+                       "estStatusIndicator, \" \" + STATUS_ACTIVE);\r\n\t\t\t\t\treturn;\r\n\r\n\t\t\t\tcase STATUS_PASSE" +
+                       "D:\r\n\t\t\t\t\tconcatClassNameOfGivenElement(statusPropertyValue, \" \" + STATUS_PASSED)" +
+                       ";\r\n\t\t\t\t\tconcatClassNameOfGivenElement(testStatusIndicator, \" \" + STATUS_PASSED);" +
+                       "\r\n\t\t\t\t\treturn;\r\n\r\n\t\t\t\tcase STATUS_FAILED:\r\n\t\t\t\t\tconcatClassNameOfGivenElement(te" +
+                       "stStatusIndicator, \" \" + STATUS_FAILED);\r\n\t\t\t\t\tconcatClassNameOfGivenElement(sta" +
+                       "tusPropertyValue, \" \" + STATUS_FAILED);\r\n\t\t\t\t\treturn;\r\n\r\n\t\t\t\tcase STATUS_BLOCKED" +
+                       ":\r\n\t\t\t\t\tconcatClassNameOfGivenElement(testStatusIndicator, \" \" + STATUS_BLOCKED)" +
+                       ";\r\n\t\t\t\t\tconcatClassNameOfGivenElement(statusPropertyValue, \" \" + STATUS_BLOCKED)" +
+                       ";\r\n\t\t\t\t\treturn;\r\n\r\n\t\t\t\tcase STATUS_NOT_APPLICABLE:\r\n\t\t\t\t\tconcatClassNameOfGivenE" +
+                       "lement(testStatusIndicator, \" \" + STATUS_NOT_APPLICABLE);\r\n\t\t\t\t\tconcatClassNameO" +
+                       "fGivenElement(statusPropertyValue, \" \" + STATUS_NOT_APPLICABLE);\r\n\t\t\t\t\treturn;\r\n" +
+                       "\r\n\t\t\t\tdefault:\r\n\t\t\t\t\tconcatClassNameOfGivenElement(testStatusIndicator, \" \" + ST" +
+                       "ATUS_DEFAULT);\r\n\t\t\t\t\tconcatClassNameOfGivenElement(statusPropertyValue, \" \" + ST" +
+                       "ATUS_DEFAULT);\r\n\t\t\t\t\treturn;\r\n\t\t\t}\r\n\t\t}\r\n    }\r\n\r\n    function getFilterCriteria" +
+                       "(event) {\r\n        var clickedItem = event.target;\r\n        return clickedItem.i" +
+                       "nnerHTML;\r\n    }\r\n\r\n    function setTestCasesCounter() {\r\n        var testCasesL" +
+                       "istNotFiltered = document.getElementsByClassName(STATE_NOT_FILTERED);\r\n        v" +
+                       "ar testCaseCounter = document.getElementById(\"currentTestCaseCount\");\r\n        t" +
+                       "estCaseCounter.innerHTML = testCasesListNotFiltered.length;\r\n    }\r\n\r\n    functi" +
+                       "on resetTestCasesClass() {\r\n        var testCaseListToClear = shallowCopy(docume" +
+                       "nt.getElementsByClassName(\"TestCase\"));\r\n\r\n        for (var index = 0; index < t" +
+                       "estCaseListToClear.length; index++) {\r\n            testCaseListToClear[index].cl" +
+                       "assName = \"TestCase NotFiltered\";\r\n        }\r\n    }\r\n\r\n    function setCurrentFi" +
+                       "lterLabels(userCriteriaChoice) {\r\n        var statusLabel = document.getElementB" +
+                       "yId(\"currentFilterStatus\");\r\n        var priorityLabel = document.getElementById" +
+                       "(\"currentFilterPriority\");\r\n\t\t\r\n\t\tif(statusLabel != null)\r\n\t\t{\r\n\t\t\tstatusLabel.i" +
+                       "nnerHTML = \" \" + userCriteriaChoice.status;\r\n\t\t}\r\n\r\n\t\tif(priorityLabel != null)\r" +
+                       "\n\t\t{\r\n\t\t\tpriorityLabel.innerHTML = \" \" + userCriteriaChoice.priority;\r\n\t\t}\r\n    " +
+                       "}\r\n\r\n    function clearFilters() {\r\n        userCriteriaChoice = {\r\n            " +
+                       "status: STATE_NONE,\r\n            priority: STATE_NONE\r\n        };\r\n        setCu" +
+                       "rrentFilterLabels(userCriteriaChoice);\r\n        resetTestCasesClass();\r\n        " +
+                       "setTestCasesCounter();\r\n    }\r\n\r\n\r\n\r\n    function filter(event) {\r\n        reset" +
+                       "TestCasesClass();\r\n\r\n        if (hasClassName(event.target, STATUS)) {\r\n        " +
+                       "    userCriteriaChoice.status = getFilterCriteria(event);\r\n        } else if (ha" +
+                       "sClassName(event.target, PRIORITY)) {\r\n            userCriteriaChoice.priority =" +
+                       " getFilterCriteria(event);\r\n        }\r\n        setCurrentFilterLabels(userCriter" +
+                       "iaChoice);\r\n        var testCaseListToFilter = shallowCopy(document.getElementsB" +
+                       "yClassName(STATE_NOT_FILTERED));\r\n\r\n        for (index = 0; index < testCaseList" +
+                       "ToFilter.length; index++) {\r\n            var currentTestCase = testCaseListToFil" +
+                       "ter[index];\r\n\r\n            if (userCriteriaChoice.status != STATE_NONE) {\r\n     " +
+                       "           var currentTestCaseStatus = getStatusState(currentTestCase);\r\n       " +
+                       "         if (userCriteriaChoice.status != currentTestCaseStatus) {\r\n            " +
+                       "        currentTestCase.className = String(currentTestCase.className).replace(ST" +
+                       "ATE_NOT_FILTERED, STATE_FILTERED);\r\n                    concatClassNameOfGivenEl" +
+                       "ement(currentTestCase, \" \" + STATE_COLLAPSED);\r\n                }\r\n            }" +
+                       "\r\n\r\n            if (userCriteriaChoice.priority != STATE_NONE) {\r\n              " +
+                       "  var currentTestCasePriority = getPriorityState(currentTestCase);\r\n            " +
+                       "    if (userCriteriaChoice.priority != currentTestCasePriority) {\r\n             " +
+                       "       currentTestCase.className = String(currentTestCase.className).replace(STA" +
+                       "TE_NOT_FILTERED, STATE_FILTERED);\r\n                    concatClassNameOfGivenEle" +
+                       "ment(currentTestCase, \" \" + STATE_COLLAPSED);\r\n                }\r\n            }\r" +
+                       "\n        }\r\n\r\n        setTestCasesCounter();\r\n    }\r\n\r\n    function initialize()" +
+                       " {\r\n        var testCaseList = document.getElementsByClassName(\"TestCase\");\r\n\r\n " +
+                       "       // iterates between the test cases and chage the background of the status" +
+                       " and test case title\r\n        for (index = 0; index < testCaseList.length; index" +
+                       "++) {\r\n            changeStatusPropertyBackgroundColor(testCaseList[index]);\r\n  " +
+                       "      }\r\n\r\n        setTestCasesCounter();\r\n\r\n        // attach events\r\n        v" +
+                       "ar testCaseList = document.getElementsByClassName(\"TestCaseList\")[0];\r\n        t" +
+                       "estCaseList.addEventListener(\"click\", changeVisibilityClickedIem, false);\r\n\r\n   " +
+                       "     var expandAllButton = document.getElementById(\"expandAll\");\r\n        expand" +
+                       "AllButton.addEventListener(\"click\", changeVisibilityExpandedAll, false);\r\n\r\n    " +
+                       "    var collapseAllButton = document.getElementById(\"collapseAll\");\r\n        col" +
+                       "lapseAllButton.addEventListener(\"click\", changeVisibilityCollapsedAll, false);\r\n" +
+                       "\r\n        var filterByStatusUL = document.getElementById(\"filterByStatus\");\r\n   " +
+                       "     if(filterByStatusUL != null)\r\n\t\t{\r\n\t\t\tfilterByStatusUL.addEventListener(\"cl" +
+                       "ick\", filter, false);\r\n\t\t}\r\n\r\n        var filterByPriorityUL = document.getEleme" +
+                       "ntById(\"filterByPriority\");\r\n\t\tif(filterByPriorityUL != null)\r\n\t\t{\r\n\t\t\tfilterByP" +
+                       "riorityUL.addEventListener(\"click\", filter, false);\r\n\t\t}\r\n\r\n        var clearFil" +
+                       "tersButton = document.getElementById(\"clearFilters\");\r\n\t\tif(clearFiltersButton !" +
+                       "= null)\r\n\t\t{\r\n\t\t\tclearFiltersButton.addEventListener(\"click\", clearFilters, fals" +
+                       "e);\r\n\t\t}\r\n    }\r\n\r\n    initialize();\r\n}());\r\n    </script>\r\n</body>\r\n</html>\r\n");
             return this.GenerationEnvironment.ToString();
         }
+
         private global::Microsoft.VisualStudio.TextTemplating.ITextTemplatingEngineHost hostValue;
+
         /// <summary>
         /// The current host for the text templating engine
         /// </summary>
@@ -284,432 +285,426 @@ namespace TestCaseManagerCore.Templates
         
         #line 658 "E:\Projects\TestCaseManager1\TestCaseManagerCore\Templates\HtmlTestCaseExportTemplate.tt"
 
-public void BuildHeader(string checkedProperties)
-{
-	WriteLine(@"<div class=""MenuWrapper"">");
-		WriteLine(@"<ul id=""filterMenu"">");
-		if (checkedProperties.IndexOf("Status") != -1)
-		{
-		 		WriteLine(@"<li>Filter By Status");
-					WriteLine(@"<ul id=""filterByStatus"">");
-						WriteLine(@"<li class=""Filter Status Active"">Active</li>");
-						WriteLine(@"<li class=""Filter Status Passed"">Passed</li>");    
-						WriteLine(@"<li class=""Filter Status Failed"">Failed</li>");    
-						WriteLine(@"<li class=""Filter Status Blocked"">Blocked</li>");    
-						WriteLine(@"<li class=""Filter Status NotApplicable"">NotApplicable</li>");    
-					WriteLine(@"</ul>");    
-				WriteLine(@"</li>");    
-		}
-
-        if (checkedProperties.IndexOf("Priority") != -1)
+        public void BuildHeader(string checkedProperties)
         {
-			 WriteLine(@"<li>Filter By Priority");
-					WriteLine(@"<ul id=""filterByPriority"">");
-						WriteLine(@"<li class=""Filter Priority VeryHigh"">VeryHigh</li>");
-						WriteLine(@"<li class=""Filter Priority High"">High</li>");    
-						WriteLine(@"<li class=""Filter Priority Medium"">Medium</li>");    
-						WriteLine(@"<li class=""Filter Priority Low"">Low</li>");    
-					WriteLine(@"</ul>");    
-				WriteLine(@"</li>");    
-        }
+            this.WriteLine(@"<div class=""MenuWrapper"">");
+            this.WriteLine(@"<ul id=""filterMenu"">");
+            if (checkedProperties.IndexOf("Status") != -1)
+            {
+                this.WriteLine(@"<li>Filter By Status");
+                this.WriteLine(@"<ul id=""filterByStatus"">");
+                this.WriteLine(@"<li class=""Filter Status Active"">Active</li>");
+                this.WriteLine(@"<li class=""Filter Status Passed"">Passed</li>");    
+                this.WriteLine(@"<li class=""Filter Status Failed"">Failed</li>");    
+                this.WriteLine(@"<li class=""Filter Status Blocked"">Blocked</li>");    
+                this.WriteLine(@"<li class=""Filter Status NotApplicable"">NotApplicable</li>");    
+                this.WriteLine(@"</ul>");    
+                this.WriteLine(@"</li>");    
+            }
+
+            if (checkedProperties.IndexOf("Priority") != -1)
+            {
+                this.WriteLine(@"<li>Filter By Priority");
+                this.WriteLine(@"<ul id=""filterByPriority"">");
+                this.WriteLine(@"<li class=""Filter Priority VeryHigh"">VeryHigh</li>");
+                this.WriteLine(@"<li class=""Filter Priority High"">High</li>");    
+                this.WriteLine(@"<li class=""Filter Priority Medium"">Medium</li>");    
+                this.WriteLine(@"<li class=""Filter Priority Low"">Low</li>");    
+                this.WriteLine(@"</ul>");    
+                this.WriteLine(@"</li>");    
+            }
         
-		if (checkedProperties.IndexOf("Status") != -1 || checkedProperties.IndexOf("Priority") != -1)
-		{
-			WriteLine(@"<li id=""clearFilters"">Clear Filters</li>");
-		}
+            if (checkedProperties.IndexOf("Status") != -1 || checkedProperties.IndexOf("Priority") != -1)
+            {
+                this.WriteLine(@"<li id=""clearFilters"">Clear Filters</li>");
+            }
             
-        WriteLine(@"<li id=""expandAll"">Expand All</li>");
-        WriteLine(@"<li id=""collapseAll"">Collapse All</li>");
-    WriteLine(@"</ul>");
-WriteLine(@"</div>");
+            this.WriteLine(@"<li id=""expandAll"">Expand All</li>");
+            this.WriteLine(@"<li id=""collapseAll"">Collapse All</li>");
+            this.WriteLine(@"</ul>");
+            this.WriteLine(@"</div>");
 
-WriteLine(@"<div class=""ContentWrapper"">");
-WriteLine(@"<div class=""TestCaseListWrapper"">");	    
-WriteLine(@"<ul class=""TestCaseList"">");        
-}
-
-
-public void BuildFooter(string checkedProperties)
-{
-	WriteLine(@"</ul>");
-	WriteLine(@"</div>");
-	WriteLine(@"</div>");
-
-    WriteLine(@"<div id=""footer"">");
-		WriteLine(@"<ul class=""filterInfo"">");
-		if (checkedProperties.IndexOf("Status") != -1)
-		{
-			WriteLine(@"<li>Filtered By Status:<span id=""currentFilterStatus""> None</span></li>");
-		}
-
-		if (checkedProperties.IndexOf("Priority") != -1)
-        {
-			WriteLine(@"<li>Filtered By Priority:<span id=""currentFilterPriority""> None</span></li>");
+            this.WriteLine(@"<div class=""ContentWrapper"">");
+            this.WriteLine(@"<div class=""TestCaseListWrapper"">");	    
+            this.WriteLine(@"<ul class=""TestCaseList"">");        
         }
 
-		WriteLine(@"<li>Test Case Count: <span id=""currentTestCaseCount"">...</span></li>");
-		WriteLine("</ul>");
-    WriteLine("</div>");
-}
+        public void BuildFooter(string checkedProperties)
+        {
+            this.WriteLine(@"</ul>");
+            this.WriteLine(@"</div>");
+            this.WriteLine(@"</div>");
 
+            this.WriteLine(@"<div id=""footer"">");
+            this.WriteLine(@"<ul class=""filterInfo"">");
+            if (checkedProperties.IndexOf("Status") != -1)
+            {
+                this.WriteLine(@"<li>Filtered By Status:<span id=""currentFilterStatus""> None</span></li>");
+            }
 
-public void BuildBody(string checkedProperties)
-{
-	foreach (TestCaseFull currentFullTestCase in FullTestCases)
-	{
-		TestCase(currentFullTestCase.TestCase, currentFullTestCase, currentFullTestCase.ExecutionComment, currentFullTestCase.MostRecentResult, checkedProperties);
-	} 
-}
+            if (checkedProperties.IndexOf("Priority") != -1)
+            {
+                this.WriteLine(@"<li>Filtered By Priority:<span id=""currentFilterPriority""> None</span></li>");
+            }
 
-public void TestCase(TestCase testCase,TestCaseFull testCaseFull, string comment, string status, string checkedProperties)
-{
-	WriteLine(@"<li class=""TestCase NotFiltered"">");
-	TestCaseTitle(testCase, checkedProperties);
-	WriteLine(@"   <ul class=""TestCaseContent Collapsed"">");
-	TestCaseProperties(testCase, status, checkedProperties);
-	TestCaseComment(comment, checkedProperties);
-	TestCaseSteps(testCaseFull, checkedProperties);
-	WriteLine("</ul>");
-	WriteLine("</li>");
-}
-public void TestCaseTitle(TestCase testCase, string checkedProperties)
-{
-	WriteLine(@" <div class=""TestCaseTitle"">");
+            this.WriteLine(@"<li>Test Case Count: <span id=""currentTestCaseCount"">...</span></li>");
+            this.WriteLine("</ul>");
+            this.WriteLine("</div>");
+        }
 
-    if (checkedProperties.IndexOf("Status")!=-1)
-    {
-		WriteLine(@"<div class=""TestStatusIndicator""></div>");
-    }
-    else
-    {
-		WriteLine(@"<div class=""TestStatusIndicator Hidden""></div>");  
-    }
+        public void BuildBody(string checkedProperties)
+        {
+            foreach (TestCaseFull currentFullTestCase in this.FullTestCases)
+            {
+                this.TestCase(currentFullTestCase.TestCase, currentFullTestCase, currentFullTestCase.ExecutionComment, currentFullTestCase.MostRecentResult, checkedProperties);
+            }
+        }
+
+        public void TestCase(TestCase testCase, TestCaseFull testCaseFull, string comment, string status, string checkedProperties)
+        {
+            this.WriteLine(@"<li class=""TestCase NotFiltered"">");
+            this.TestCaseTitle(testCase, checkedProperties);
+            this.WriteLine(@"   <ul class=""TestCaseContent Collapsed"">");
+            this.TestCaseProperties(testCase, status, checkedProperties);
+            this.TestCaseComment(comment, checkedProperties);
+            this.TestCaseSteps(testCaseFull, checkedProperties);
+            this.WriteLine("</ul>");
+            this.WriteLine("</li>");
+        }
+
+        public void TestCaseTitle(TestCase testCase, string checkedProperties)
+        {
+            this.WriteLine(@" <div class=""TestCaseTitle"">");
+
+            if (checkedProperties.IndexOf("Status") != -1)
+            {
+                this.WriteLine(@"<div class=""TestStatusIndicator""></div>");
+            }
+            else
+            {
+                this.WriteLine(@"<div class=""TestStatusIndicator Hidden""></div>");  
+            }
 	
-	WriteLine(@"▶ {0} </div>", testCase.Title);
-}
-
-public void TestCaseProperties(TestCase testCase, string status, string checkedProperties)
-{
-    if (!string.IsNullOrEmpty(checkedProperties))
-    {
-		WriteLine(@"<li class=""TestCasePropertiesWrapper"">");
-		WriteLine(@"<div>▶ Test Case Properties</div>");
-		WriteLine(@"<ul class=""TestCasePropertiesList Collapsed"">");
-
-		if(testCase.ITestSuiteBase != null && checkedProperties.IndexOf("Suite")!=-1)
-		{
-			Write(@"<li class=""Suite""><span class=""TestCasePropertyName Suite"">Suite: </span><span class=""TestCasePropertyValue"">");
-			Write(testCase.ITestSuiteBase.Title);
-			WriteLine("</span></li>");
-		}
-
-		if(testCase.Area != null && checkedProperties.IndexOf("Area")!=-1)
-		{
-			Write(@"<li class=""Area""><span class=""TestCasePropertyName Area"">Area: </span><span class=""TestCasePropertyValue"">");
-			Write(testCase.Area);
-			WriteLine("</span></li>");
-		}
-
-		if(testCase.Priority != null  && checkedProperties.IndexOf("Priority")!=-1)
-		{
-			Write(@"<li class=""Priority""><span class=""TestCasePropertyName Priority"">Priority: </span><span class=""TestCasePropertyValue"">");
-			Write(testCase.Priority.ToString());
-			WriteLine("</span></li>");
-		}
-
-		if(testCase.ITestCase != null && checkedProperties.IndexOf("Automated")!=-1)
-		{
-			Write(@"<li class=""Automated""><span class=""TestCasePropertyName Automated"">Automated: </span><span class=""TestCasePropertyValue"">");
-			Write(testCase.ITestCase.IsAutomated.ToString());
-			WriteLine("</span></li>");
-		}
-
-		if(testCase.ITestCase != null && testCase.ITestCase.IsAutomated)
-		{
-			if (testCase.ITestCase.IsAutomated)
-			{
-				var automationInfo = testCase.ITestCase.GetAssociatedAutomation();
-				Write(@"<li class=""AutomationInfo""><span class=""TestCasePropertyName Assembly"">Assembly: </span><span class=""TestCasePropertyValue"">");
-				Write(automationInfo.Assembly);
-				WriteLine("</span></li>");
-
-				Write(@"<li class=""AutomationInfo""><span class=""TestCasePropertyName Type"">Type: </span><span class=""TestCasePropertyValue"">");
-				Write(automationInfo.Type);
-				WriteLine("</span></li>");
-
-				Write(@"<li class=""AutomationInfo""><span class=""TestCasePropertyName TestName"">TestName: </span><span class=""TestCasePropertyValue"">");
-				Write(automationInfo.TestName);
-				WriteLine("</span></li>");
-			}
-		}
-
-		if(testCase.OwnerDisplayName != null  && checkedProperties.IndexOf("AssignedTo")!=-1)
-		{
-			Write(@"<li class=""Assigned""><span class=""TestCasePropertyName Assigned"">Assigned To: </span><span class=""TestCasePropertyValue"">");
-			Write(testCase.OwnerDisplayName);
-			WriteLine("</span></li>");
-		}
-
-		if(status != null && checkedProperties.IndexOf("Status")!=-1)
-		{
-			Write(@"<li class=""Status""><span class=""TestCasePropertyName Status"">Status: </span><span class=""TestCasePropertyValue"">");
-			Write(status);
-			WriteLine("</span></li>");
-		}
-		else if (status != null && checkedProperties.IndexOf("Status")==-1)
-		{
-			Write(@"<li class=""Status Hidden""><span class=""TestCasePropertyName Status"">Status: </span><span class=""TestCasePropertyValue"">");
-			Write(status);
-			WriteLine("</span></li>");
-		}
-
-		WriteLine("</ul>");
-		WriteLine("</li>");
-    }
-}
-
-public void TestCaseComment(string comment, string checkedProperties)
-{
-	comment = comment.Replace("<","&lt;").Replace(">","&gt;").Replace("\r\n","<br>").Replace("\n","<br>");
-
-    if (checkedProperties.IndexOf("Comment")!=-1)
-    {
-		WriteLine(@"<li class=""TestCaseCommentWrapper"">");
-		if(!string.IsNullOrEmpty(comment) || !string.IsNullOrWhiteSpace(comment))
-        {
-			WriteLine(@" <div>▶ Test Case Comment</div><div class=""TestCaseComment Collapsed"">{0}</div>", comment);
+            this.WriteLine(@"▶ {0} </div>", testCase.Title);
         }
-		else
-        {
-			WriteLine(@" <div>▶ Test Case Comment</div><div class=""TestCaseComment Collapsed"">Comment Not Provided</div>");
-        }
-		WriteLine("</li>"); 
-    }
-}
 
-public void TestCaseSteps(TestCaseFull testCaseFull, string checkedProperties)
-{
-	if (checkedProperties.IndexOf("Steps")!=-1)
-    {       
-		WriteLine(@"<li class=""TestCaseStepsWrapper"">");
-		WriteLine(@"<div>▶ Test Case Steps</div>");
-		WriteLine(@"<table class=""TestCaseSteps Collapsed"">");
-		WriteLine(@"<thead>
-						<tr>
-							<th>No</th>
-							<th>Actions</th>
-							<th>Expected Results</th>
-						</tr>
-					</thead>");
-		WriteLine("<tbody>");
-        if (testCaseFull.TestSteps.Count > 0)
+        public void TestCaseProperties(TestCase testCase, string status, string checkedProperties)
         {
-			 int count = 1;
-			foreach (TestStep currentTestStep in testCaseFull.TestSteps)
-				{		
-					WriteLine(@"<tr>");
-					WriteLine(string.Format("<td>{0}</td>", count++));
-					string currentTestStepActionTitle = currentTestStep.ActionTitle.Replace("<","&lt;").Replace(">","&gt;").Replace("\r\n","<br>").Replace("\n","<br>"); 
-					string currentTestStepActionExpectedResult = currentTestStep.ActionExpectedResult.Replace("<","&lt;").Replace(">","&gt;").Replace("\r\n","<br>").Replace("\n","<br>");
-					WriteLine(string.Format("<td>{0}</td>", currentTestStepActionTitle));
-					WriteLine(string.Format("<td>{0}</td>", currentTestStepActionExpectedResult));
-					WriteLine(@"</tr>");
-				}	
+            if (!string.IsNullOrEmpty(checkedProperties))
+            {
+                this.WriteLine(@"<li class=""TestCasePropertiesWrapper"">");
+                this.WriteLine(@"<div>▶ Test Case Properties</div>");
+                this.WriteLine(@"<ul class=""TestCasePropertiesList Collapsed"">");
+
+                if (testCase.ITestSuiteBase != null && checkedProperties.IndexOf("Suite") != -1)
+                {
+                    this.Write(@"<li class=""Suite""><span class=""TestCasePropertyName Suite"">Suite: </span><span class=""TestCasePropertyValue"">");
+                    this.Write(testCase.ITestSuiteBase.Title);
+                    this.WriteLine("</span></li>");
+                }
+
+                if (testCase.Area != null && checkedProperties.IndexOf("Area") != -1)
+                {
+                    this.Write(@"<li class=""Area""><span class=""TestCasePropertyName Area"">Area: </span><span class=""TestCasePropertyValue"">");
+                    this.Write(testCase.Area);
+                    this.WriteLine("</span></li>");
+                }
+
+                if (testCase.Priority != null && checkedProperties.IndexOf("Priority") != -1)
+                {
+                    this.Write(@"<li class=""Priority""><span class=""TestCasePropertyName Priority"">Priority: </span><span class=""TestCasePropertyValue"">");
+                    this.Write(testCase.Priority.ToString());
+                    this.WriteLine("</span></li>");
+                }
+
+                if (testCase.ITestCase != null && checkedProperties.IndexOf("Automated") != -1)
+                {
+                    this.Write(@"<li class=""Automated""><span class=""TestCasePropertyName Automated"">Automated: </span><span class=""TestCasePropertyValue"">");
+                    this.Write(testCase.ITestCase.IsAutomated.ToString());
+                    this.WriteLine("</span></li>");
+                }
+
+                if (testCase.ITestCase != null && testCase.ITestCase.IsAutomated)
+                {
+                    if (testCase.ITestCase.IsAutomated)
+                    {
+                        var automationInfo = testCase.ITestCase.GetAssociatedAutomation();
+                        this.Write(@"<li class=""AutomationInfo""><span class=""TestCasePropertyName Assembly"">Assembly: </span><span class=""TestCasePropertyValue"">");
+                        this.Write(automationInfo.Assembly);
+                        this.WriteLine("</span></li>");
+
+                        this.Write(@"<li class=""AutomationInfo""><span class=""TestCasePropertyName Type"">Type: </span><span class=""TestCasePropertyValue"">");
+                        this.Write(automationInfo.Type);
+                        this.WriteLine("</span></li>");
+
+                        this.Write(@"<li class=""AutomationInfo""><span class=""TestCasePropertyName TestName"">TestName: </span><span class=""TestCasePropertyValue"">");
+                        this.Write(automationInfo.TestName);
+                        this.WriteLine("</span></li>");
+                    }
+                }
+
+                if (testCase.OwnerDisplayName != null && checkedProperties.IndexOf("AssignedTo") != -1)
+                {
+                    this.Write(@"<li class=""Assigned""><span class=""TestCasePropertyName Assigned"">Assigned To: </span><span class=""TestCasePropertyValue"">");
+                    this.Write(testCase.OwnerDisplayName);
+                    this.WriteLine("</span></li>");
+                }
+
+                if (status != null && checkedProperties.IndexOf("Status") != -1)
+                {
+                    this.Write(@"<li class=""Status""><span class=""TestCasePropertyName Status"">Status: </span><span class=""TestCasePropertyValue"">");
+                    this.Write(status);
+                    this.WriteLine("</span></li>");
+                }
+                else if (status != null && checkedProperties.IndexOf("Status") == -1)
+                {
+                    this.Write(@"<li class=""Status Hidden""><span class=""TestCasePropertyName Status"">Status: </span><span class=""TestCasePropertyValue"">");
+                    this.Write(status);
+                    this.WriteLine("</span></li>");
+                }
+
+                this.WriteLine("</ul>");
+                this.WriteLine("</li>");
+            }
         }
-		else
+
+        public void TestCaseComment(string comment, string checkedProperties)
         {
-			WriteLine(@"<tr>");
-			WriteLine(@"<td></td>");
-			WriteLine("<td>No Test Case Steps Available</td>");
-			WriteLine("<td>No Test Case Steps Available</td>");
-			WriteLine(@"</tr>");
+            comment = comment.Replace("<", "&lt;").Replace(">", "&gt;").Replace("\r\n", "<br>").Replace("\n", "<br>");
+
+            if (checkedProperties.IndexOf("Comment") != -1)
+            {
+                this.WriteLine(@"<li class=""TestCaseCommentWrapper"">");
+                if (!string.IsNullOrEmpty(comment) || !string.IsNullOrWhiteSpace(comment))
+                {
+                    this.WriteLine(@" <div>▶ Test Case Comment</div><div class=""TestCaseComment Collapsed"">{0}</div>", comment);
+                }
+                else
+                {
+                    this.WriteLine(@" <div>▶ Test Case Comment</div><div class=""TestCaseComment Collapsed"">Comment Not Provided</div>");
+                }
+                this.WriteLine("</li>"); 
+            }
         }
+
+        public void TestCaseSteps(TestCaseFull testCaseFull, string checkedProperties)
+        {
+            if (checkedProperties.IndexOf("Steps") != -1)
+            { 
+                this.WriteLine(@"<li class=""TestCaseStepsWrapper"">");
+                this.WriteLine(@"<div>▶ Test Case Steps</div>");
+                this.WriteLine(@"<table class=""TestCaseSteps Collapsed"">");
+                this.WriteLine(@"<thead>
+ 						<tr>
+ 							<th>No</th>
+ 							<th>Actions</th>
+ 							<th>Expected Results</th>
+ 						</tr>
+ 					</thead>");
+                this.WriteLine("<tbody>");
+                if (testCaseFull.TestSteps.Count > 0)
+                {
+                    int count = 1;
+                    foreach (TestStep currentTestStep in testCaseFull.TestSteps)
+                    { 
+                        this.WriteLine(@"<tr>");
+                        this.WriteLine(string.Format("<td>{0}</td>", count++));
+                        string currentTestStepActionTitle = currentTestStep.ActionTitle.Replace("<", "&lt;").Replace(">", "&gt;").Replace("\r\n", "<br>").Replace("\n", "<br>"); 
+                        string currentTestStepActionExpectedResult = currentTestStep.ActionExpectedResult.Replace("<", "&lt;").Replace(">", "&gt;").Replace("\r\n", "<br>").Replace("\n", "<br>");
+                        this.WriteLine(string.Format("<td>{0}</td>", currentTestStepActionTitle));
+                        this.WriteLine(string.Format("<td>{0}</td>", currentTestStepActionExpectedResult));
+                        this.WriteLine(@"</tr>");
+                    }
+                }
+                else
+                {
+                    this.WriteLine(@"<tr>");
+                    this.WriteLine(@"<td></td>");
+                    this.WriteLine("<td>No Test Case Steps Available</td>");
+                    this.WriteLine("<td>No Test Case Steps Available</td>");
+                    this.WriteLine(@"</tr>");
+                }
 		
-		WriteLine("</tbody>");
-		WriteLine("</table></li>");
-    }
-}
+                this.WriteLine("</tbody>");
+                this.WriteLine("</table></li>");
+            }
+        }
 
-public void BuildTestCaseProperties(TestCase testCase, string comment, string status)
-{	
-	WriteLine(@"<li>");
-	WriteLine(@"<span class=""testCaseProps""><span>Title: </span>");
-	WriteLine(testCase.ITestCase.Title);
-	WriteLine(@"</span>");
-	WriteLine(@"<span class=""testCaseProps""><span>Suite: </span>");
-	if(testCase.ITestSuiteBase != null)
-    {
-		WriteLine(testCase.ITestSuiteBase.Title);
-    }
+        public void BuildTestCaseProperties(TestCase testCase, string comment, string status)
+        { 
+            this.WriteLine(@"<li>");
+            this.WriteLine(@"<span class=""testCaseProps""><span>Title: </span>");
+            this.WriteLine(testCase.ITestCase.Title);
+            this.WriteLine(@"</span>");
+            this.WriteLine(@"<span class=""testCaseProps""><span>Suite: </span>");
+            if (testCase.ITestSuiteBase != null)
+            {
+                this.WriteLine(testCase.ITestSuiteBase.Title);
+            }
 	
-	WriteLine(@"</span>");
-	WriteLine(@"<span class=""testCaseProps""><span>Area: </span>");
-	WriteLine(testCase.Area);
-	WriteLine(@"</span>");
-	WriteLine(@"<span class=""testCaseProps""><span>Priority: </span>");
-	WriteLine(testCase.Priority.ToString());
-	WriteLine(@"</span>");
-	WriteLine(@"<span class=""testCaseProps""><span>Automated: </span>");
-	if(testCase.ITestCase != null)
-    {
-		WriteLine(testCase.ITestCase.IsAutomated.ToString());
-    }	
-	WriteLine(@"</span>");
-	WriteLine(@"<span class=""testCaseProps""><span>Assigned To: </span>");
-	WriteLine(testCase.OwnerDisplayName);
-	WriteLine(@"</span>");	
-    WriteLine(@"<span class=""testCaseProps status"">Status: {0}</span>", status);
-	WriteLine(@"<br>");
-	WriteLine(@"<button name='collapsed'> + </button> <span>Show</span><span> steps</span>");
-	WriteLine(@"<br>");
-	WriteLine(@"<button class='collapsedButton'> + </button> <span>Show</span><span> comment</span>");
-	WriteLine(@"<div class='comment collapsed'>{0}</div>", comment);
-}
+            this.WriteLine(@"</span>");
+            this.WriteLine(@"<span class=""testCaseProps""><span>Area: </span>");
+            this.WriteLine(testCase.Area);
+            this.WriteLine(@"</span>");
+            this.WriteLine(@"<span class=""testCaseProps""><span>Priority: </span>");
+            this.WriteLine(testCase.Priority.ToString());
+            this.WriteLine(@"</span>");
+            this.WriteLine(@"<span class=""testCaseProps""><span>Automated: </span>");
+            if (testCase.ITestCase != null)
+            {
+                this.WriteLine(testCase.ITestCase.IsAutomated.ToString());
+            }
+            this.WriteLine(@"</span>");
+            this.WriteLine(@"<span class=""testCaseProps""><span>Assigned To: </span>");
+            this.WriteLine(testCase.OwnerDisplayName);
+            this.WriteLine(@"</span>");	
+            this.WriteLine(@"<span class=""testCaseProps status"">Status: {0}</span>", status);
+            this.WriteLine(@"<br>");
+            this.WriteLine(@"<button name='collapsed'> + </button> <span>Show</span><span> steps</span>");
+            this.WriteLine(@"<br>");
+            this.WriteLine(@"<button class='collapsedButton'> + </button> <span>Show</span><span> comment</span>");
+            this.WriteLine(@"<div class='comment collapsed'>{0}</div>", comment);
+        }
 
-public void BuildTestCaseTestStepsTable(List<TestStep> testSteps)
-{	
-	if(testSteps.Count > 0)
-    {
-		WriteLine(@"<table cellpadding=""0"" cellspacing=""0"">");
-		PushIndent("\t");
-		WriteLine(@"<thead>");
-		PushIndent("\t");
-		int count = 1;
-		WriteLine(@"<tr>");
-		PushIndent("\t");
-		WriteLine(@"<th>Number</th>");
-		WriteLine(@"<th>Actions</th>");
-		WriteLine(@"<th>Expected Results</th>");
-		PopIndent();
-		WriteLine(@"</tr>");
-		WriteLine(@"</thead>");
-		WriteLine(@"<tbody>");
-		PushIndent("\t");
+        public void BuildTestCaseTestStepsTable(List<TestStep> testSteps)
+        { 
+            if (testSteps.Count > 0)
+            {
+                this.WriteLine(@"<table cellpadding=""0"" cellspacing=""0"">");
+                this.PushIndent("\t");
+                this.WriteLine(@"<thead>");
+                this.PushIndent("\t");
+                int count = 1;
+                this.WriteLine(@"<tr>");
+                this.PushIndent("\t");
+                this.WriteLine(@"<th>Number</th>");
+                this.WriteLine(@"<th>Actions</th>");
+                this.WriteLine(@"<th>Expected Results</th>");
+                this.PopIndent();
+                this.WriteLine(@"</tr>");
+                this.WriteLine(@"</thead>");
+                this.WriteLine(@"<tbody>");
+                this.PushIndent("\t");
 
-		foreach (TestStep currentTestStep in testSteps)
-		{		
-			WriteLine(@"<tr>");
-			WriteLine(string.Format("<td>{0}</td>", count++));
-			string currentTestStepActionTitle = currentTestStep.ActionTitle.Replace("\r\n","<br>").Replace("\n","<br>"); 
-			string currentTestStepActionExpectedResult = currentTestStep.ActionExpectedResult.Replace("\r\n","<br>").Replace("\n","<br>");
-			WriteLine(string.Format("<td>{0}</td>", currentTestStepActionTitle));
-			WriteLine(string.Format("<td>{0}</td>", currentTestStepActionExpectedResult));
-			WriteLine(@"</tr>");
-		}	
-    }
-	else
-    {
-		WriteLine(@"<table cellpadding=""0"" cellspacing=""0"">");
-		PushIndent("\t");
-		WriteLine(@"<tbody>");
-		PushIndent("\t");
-		WriteLine(@"<tr>");
-		PushIndent("\t");
-		WriteLine("<td>No Test Steps Available</td>");
-		PushIndent("\t");
-		WriteLine(@"</tr>");
-    }   
-	PopIndent();
-	WriteLine(@"</tbody>");
-	PopIndent();
-	WriteLine(@"</table>");
-	WriteLine(@"</li>");
-	WriteLine(@"<hr />");
-}
-
+                foreach (TestStep currentTestStep in testSteps)
+                { 
+                    this.WriteLine(@"<tr>");
+                    this.WriteLine(string.Format("<td>{0}</td>", count++));
+                    string currentTestStepActionTitle = currentTestStep.ActionTitle.Replace("\r\n", "<br>").Replace("\n", "<br>"); 
+                    string currentTestStepActionExpectedResult = currentTestStep.ActionExpectedResult.Replace("\r\n", "<br>").Replace("\n", "<br>");
+                    this.WriteLine(string.Format("<td>{0}</td>", currentTestStepActionTitle));
+                    this.WriteLine(string.Format("<td>{0}</td>", currentTestStepActionExpectedResult));
+                    this.WriteLine(@"</tr>");
+                }
+            }
+            else
+            {
+                this.WriteLine(@"<table cellpadding=""0"" cellspacing=""0"">");
+                this.PushIndent("\t");
+                this.WriteLine(@"<tbody>");
+                this.PushIndent("\t");
+                this.WriteLine(@"<tr>");
+                this.PushIndent("\t");
+                this.WriteLine("<td>No Test Steps Available</td>");
+                this.PushIndent("\t");
+                this.WriteLine(@"</tr>");
+            }
+            this.PopIndent();
+            this.WriteLine(@"</tbody>");
+            this.PopIndent();
+            this.WriteLine(@"</table>");
+            this.WriteLine(@"</li>");
+            this.WriteLine(@"<hr />");
+        }
         
         #line default
         #line hidden
         
         #line 1 "E:\Projects\TestCaseManager1\TestCaseManagerCore\Templates\HtmlTestCaseExportTemplate.tt"
 
-private global::System.Collections.Generic.List<TestCaseManagerCore.BusinessLogic.Entities.TestCaseFull> _FullTestCasesField;
+        private global::System.Collections.Generic.List<TestCaseManagerCore.BusinessLogic.Entities.TestCaseFull> _FullTestCasesField;
 
-/// <summary>
-/// Access the FullTestCases parameter of the template.
-/// </summary>
-private global::System.Collections.Generic.List<TestCaseManagerCore.BusinessLogic.Entities.TestCaseFull> FullTestCases
-{
-    get
-    {
-        return this._FullTestCasesField;
-    }
-}
-
-
-/// <summary>
-/// Initialize the template
-/// </summary>
-public virtual void Initialize()
-{
-    if ((this.Errors.HasErrors == false))
-    {
-bool FullTestCasesValueAcquired = false;
-if (this.Session.ContainsKey("FullTestCases"))
-{
-    if ((typeof(global::System.Collections.Generic.List<TestCaseManagerCore.BusinessLogic.Entities.TestCaseFull>).IsAssignableFrom(this.Session["FullTestCases"].GetType()) == false))
-    {
-        this.Error("The type \'System.Collections.Generic.List<TestCaseManagerCore.BusinessLogic.Entit" +
-                "ies.TestCaseFull>\' of the parameter \'FullTestCases\' did not match the type of th" +
-                "e data passed to the template.");
-    }
-    else
-    {
-        this._FullTestCasesField = ((global::System.Collections.Generic.List<TestCaseManagerCore.BusinessLogic.Entities.TestCaseFull>)(this.Session["FullTestCases"]));
-        FullTestCasesValueAcquired = true;
-    }
-}
-if ((FullTestCasesValueAcquired == false))
-{
-    string parameterValue = this.Host.ResolveParameterValue("Property", "PropertyDirectiveProcessor", "FullTestCases");
-    if ((string.IsNullOrEmpty(parameterValue) == false))
-    {
-        global::System.ComponentModel.TypeConverter tc = global::System.ComponentModel.TypeDescriptor.GetConverter(typeof(global::System.Collections.Generic.List<TestCaseManagerCore.BusinessLogic.Entities.TestCaseFull>));
-        if (((tc != null) 
-                    && tc.CanConvertFrom(typeof(string))))
+        /// <summary>
+        /// Access the FullTestCases parameter of the template.
+        /// </summary>
+        private global::System.Collections.Generic.List<TestCaseManagerCore.BusinessLogic.Entities.TestCaseFull> FullTestCases
         {
-            this._FullTestCasesField = ((global::System.Collections.Generic.List<TestCaseManagerCore.BusinessLogic.Entities.TestCaseFull>)(tc.ConvertFrom(parameterValue)));
-            FullTestCasesValueAcquired = true;
+            get
+            {
+                return this._FullTestCasesField;
+            }
         }
-        else
+
+        /// <summary>
+        /// Initialize the template
+        /// </summary>
+        public virtual void Initialize()
         {
-            this.Error("The type \'System.Collections.Generic.List<TestCaseManagerCore.BusinessLogic.Entit" +
-                    "ies.TestCaseFull>\' of the parameter \'FullTestCases\' did not match the type of th" +
-                    "e data passed to the template.");
+            if ((this.Errors.HasErrors == false))
+            {
+                bool FullTestCasesValueAcquired = false;
+                if (this.Session.ContainsKey("FullTestCases"))
+                {
+                    if ((typeof(global::System.Collections.Generic.List<TestCaseManagerCore.BusinessLogic.Entities.TestCaseFull>).IsAssignableFrom(this.Session["FullTestCases"].GetType()) == false))
+                    {
+                        this.Error("The type \'System.Collections.Generic.List<TestCaseManagerCore.BusinessLogic.Entit" +
+                                   "ies.TestCaseFull>\' of the parameter \'FullTestCases\' did not match the type of th" +
+                                   "e data passed to the template.");
+                    }
+                    else
+                    {
+                        this._FullTestCasesField = ((global::System.Collections.Generic.List<TestCaseManagerCore.BusinessLogic.Entities.TestCaseFull>)(this.Session["FullTestCases"]));
+                        FullTestCasesValueAcquired = true;
+                    }
+                }
+                if ((FullTestCasesValueAcquired == false))
+                {
+                    string parameterValue = this.Host.ResolveParameterValue("Property", "PropertyDirectiveProcessor", "FullTestCases");
+                    if ((string.IsNullOrEmpty(parameterValue) == false))
+                    {
+                        global::System.ComponentModel.TypeConverter tc = global::System.ComponentModel.TypeDescriptor.GetConverter(typeof(global::System.Collections.Generic.List<TestCaseManagerCore.BusinessLogic.Entities.TestCaseFull>));
+                        if (((tc != null) &&
+                             tc.CanConvertFrom(typeof(string))))
+                        {
+                            this._FullTestCasesField = ((global::System.Collections.Generic.List<TestCaseManagerCore.BusinessLogic.Entities.TestCaseFull>)(tc.ConvertFrom(parameterValue)));
+                            FullTestCasesValueAcquired = true;
+                        }
+                        else
+                        {
+                            this.Error("The type \'System.Collections.Generic.List<TestCaseManagerCore.BusinessLogic.Entit" +
+                                       "ies.TestCaseFull>\' of the parameter \'FullTestCases\' did not match the type of th" +
+                                       "e data passed to the template.");
+                        }
+                    }
+                }
+                if ((FullTestCasesValueAcquired == false))
+                {
+                    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("FullTestCases");
+                    if ((data != null))
+                    {
+                        if ((typeof(global::System.Collections.Generic.List<TestCaseManagerCore.BusinessLogic.Entities.TestCaseFull>).IsAssignableFrom(data.GetType()) == false))
+                        {
+                            this.Error("The type \'System.Collections.Generic.List<TestCaseManagerCore.BusinessLogic.Entit" +
+                                       "ies.TestCaseFull>\' of the parameter \'FullTestCases\' did not match the type of th" +
+                                       "e data passed to the template.");
+                        }
+                        else
+                        {
+                            this._FullTestCasesField = ((global::System.Collections.Generic.List<TestCaseManagerCore.BusinessLogic.Entities.TestCaseFull>)(data));
+                        }
+                    }
+                }
+            }
         }
-    }
-}
-if ((FullTestCasesValueAcquired == false))
-{
-    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("FullTestCases");
-    if ((data != null))
-    {
-        if ((typeof(global::System.Collections.Generic.List<TestCaseManagerCore.BusinessLogic.Entities.TestCaseFull>).IsAssignableFrom(data.GetType()) == false))
-        {
-            this.Error("The type \'System.Collections.Generic.List<TestCaseManagerCore.BusinessLogic.Entit" +
-                    "ies.TestCaseFull>\' of the parameter \'FullTestCases\' did not match the type of th" +
-                    "e data passed to the template.");
-        }
-        else
-        {
-            this._FullTestCasesField = ((global::System.Collections.Generic.List<TestCaseManagerCore.BusinessLogic.Entities.TestCaseFull>)(data));
-        }
-    }
-}
-
-
-    }
-}
-
-
-        
         #line default
         #line hidden
     }
     
     #line default
     #line hidden
+    
     #region Base class
+    
     /// <summary>
     /// Base class for this transformation
     /// </summary>
@@ -717,14 +712,18 @@ if ((FullTestCasesValueAcquired == false))
     public class HtmlTestCaseExportTemplateBase
     {
         #region Fields
+        
         private global::System.Text.StringBuilder generationEnvironmentField;
         private global::System.CodeDom.Compiler.CompilerErrorCollection errorsField;
         private global::System.Collections.Generic.List<int> indentLengthsField;
         private string currentIndentField = "";
         private bool endsWithNewline;
         private global::System.Collections.Generic.IDictionary<string, object> sessionField;
+        
         #endregion
+        
         #region Properties
+        
         /// <summary>
         /// The string builder that generation-time code is using to assemble generated output
         /// </summary>
@@ -743,6 +742,7 @@ if ((FullTestCasesValueAcquired == false))
                 this.generationEnvironmentField = value;
             }
         }
+        
         /// <summary>
         /// The error collection for the generation process
         /// </summary>
@@ -757,6 +757,7 @@ if ((FullTestCasesValueAcquired == false))
                 return this.errorsField;
             }
         }
+        
         /// <summary>
         /// A list of the lengths of each indent that was added with PushIndent
         /// </summary>
@@ -771,6 +772,7 @@ if ((FullTestCasesValueAcquired == false))
                 return this.indentLengthsField;
             }
         }
+        
         /// <summary>
         /// Gets the current indent we use when adding lines to the output
         /// </summary>
@@ -781,6 +783,7 @@ if ((FullTestCasesValueAcquired == false))
                 return this.currentIndentField;
             }
         }
+        
         /// <summary>
         /// Current transformation session
         /// </summary>
@@ -795,8 +798,11 @@ if ((FullTestCasesValueAcquired == false))
                 this.sessionField = value;
             }
         }
+        
         #endregion
+        
         #region Transform-time helpers
+            
         /// <summary>
         /// Write text directly into the generated output
         /// </summary>
@@ -808,8 +814,8 @@ if ((FullTestCasesValueAcquired == false))
             }
             // If we're starting off, or if the previous text ended with a newline,
             // we have to append the current indent first.
-            if (((this.GenerationEnvironment.Length == 0) 
-                        || this.endsWithNewline))
+            if (((this.GenerationEnvironment.Length == 0) ||
+                 this.endsWithNewline))
             {
                 this.GenerationEnvironment.Append(this.currentIndentField);
                 this.endsWithNewline = false;
@@ -839,6 +845,7 @@ if ((FullTestCasesValueAcquired == false))
                 this.GenerationEnvironment.Append(textToAppend);
             }
         }
+            
         /// <summary>
         /// Write text directly into the generated output
         /// </summary>
@@ -848,6 +855,7 @@ if ((FullTestCasesValueAcquired == false))
             this.GenerationEnvironment.AppendLine();
             this.endsWithNewline = true;
         }
+        
         /// <summary>
         /// Write formatted text directly into the generated output
         /// </summary>
@@ -855,6 +863,7 @@ if ((FullTestCasesValueAcquired == false))
         {
             this.Write(string.Format(global::System.Globalization.CultureInfo.CurrentCulture, format, args));
         }
+        
         /// <summary>
         /// Write formatted text directly into the generated output
         /// </summary>
@@ -862,6 +871,7 @@ if ((FullTestCasesValueAcquired == false))
         {
             this.WriteLine(string.Format(global::System.Globalization.CultureInfo.CurrentCulture, format, args));
         }
+            
         /// <summary>
         /// Raise an error
         /// </summary>
@@ -871,6 +881,7 @@ if ((FullTestCasesValueAcquired == false))
             error.ErrorText = message;
             this.Errors.Add(error);
         }
+            
         /// <summary>
         /// Raise a warning
         /// </summary>
@@ -881,6 +892,7 @@ if ((FullTestCasesValueAcquired == false))
             error.IsWarning = true;
             this.Errors.Add(error);
         }
+            
         /// <summary>
         /// Increase the indent
         /// </summary>
@@ -893,6 +905,7 @@ if ((FullTestCasesValueAcquired == false))
             this.currentIndentField = (this.currentIndentField + indent);
             this.indentLengths.Add(indent.Length);
         }
+            
         /// <summary>
         /// Remove the last indent that was added with PushIndent
         /// </summary>
@@ -911,6 +924,7 @@ if ((FullTestCasesValueAcquired == false))
             }
             return returnValue;
         }
+            
         /// <summary>
         /// Remove any indentation
         /// </summary>
@@ -919,14 +933,18 @@ if ((FullTestCasesValueAcquired == false))
             this.indentLengths.Clear();
             this.currentIndentField = "";
         }
+        
         #endregion
+
         #region ToString Helpers
+            
         /// <summary>
         /// Utility class to produce culture-oriented representation of an object as a string.
         /// </summary>
         public class ToStringInstanceHelper
         {
-            private System.IFormatProvider formatProviderField  = global::System.Globalization.CultureInfo.InvariantCulture;
+            private System.IFormatProvider formatProviderField = global::System.Globalization.CultureInfo.InvariantCulture;
+                
             /// <summary>
             /// Gets or sets format provider to be used by ToStringWithCulture method.
             /// </summary>
@@ -940,10 +958,11 @@ if ((FullTestCasesValueAcquired == false))
                 {
                     if ((value != null))
                     {
-                        this.formatProviderField  = value;
+                        this.formatProviderField = value;
                     }
                 }
             }
+                
             /// <summary>
             /// This is called from the compile/run appdomain to convert objects within an expression block to a string
             /// </summary>
@@ -954,20 +973,26 @@ if ((FullTestCasesValueAcquired == false))
                     throw new global::System.ArgumentNullException("objectToConvert");
                 }
                 System.Type t = objectToConvert.GetType();
-                System.Reflection.MethodInfo method = t.GetMethod("ToString", new System.Type[] {
-                            typeof(System.IFormatProvider)});
+                System.Reflection.MethodInfo method = t.GetMethod("ToString", new System.Type[]
+                {
+                    typeof(System.IFormatProvider)
+                });
                 if ((method == null))
                 {
                     return objectToConvert.ToString();
                 }
                 else
                 {
-                    return ((string)(method.Invoke(objectToConvert, new object[] {
-                                this.formatProviderField })));
+                    return ((string)(method.Invoke(objectToConvert, new object[]
+                    {
+                        this.formatProviderField
+                    })));
                 }
             }
         }
+            
         private ToStringInstanceHelper toStringHelperField = new ToStringInstanceHelper();
+            
         /// <summary>
         /// Helper to produce culture-oriented representation of an object as a string
         /// </summary>
@@ -978,7 +1003,9 @@ if ((FullTestCasesValueAcquired == false))
                 return this.toStringHelperField;
             }
         }
+
         #endregion
     }
+
     #endregion
 }

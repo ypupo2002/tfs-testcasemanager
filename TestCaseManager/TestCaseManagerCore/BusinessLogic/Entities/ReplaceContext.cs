@@ -2,18 +2,17 @@
 // https://testcasemanager.codeplex.com/ All rights reserved.
 // </copyright>
 // <author>Anton Angelov</author>
+
 namespace TestCaseManagerCore.BusinessLogic.Entities
 {
     using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
-    using Microsoft.TeamFoundation.TestManagement.Client;
-    using TestCaseManagerCore.BusinessLogic.Enums;
     using AAngelov.Utilities.Entities;
     using AAngelov.Utilities.UI.Core;
+    using Microsoft.TeamFoundation.TestManagement.Client;
+    using TestCaseManagerCore.BusinessLogic.Enums;
 
     /// <summary>
     /// Used in the Find Replace View to pass which data should be changed and the data itself

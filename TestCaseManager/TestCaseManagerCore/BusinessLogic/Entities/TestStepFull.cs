@@ -2,13 +2,11 @@
 // https://testcasemanager.codeplex.com/ All rights reserved.
 // </copyright>
 // <author>Anton Angelov</author>
+
 namespace TestCaseManagerCore.BusinessLogic.Entities
 {
     using System;
-    using System.Collections.Generic;
     using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
 
     /// <summary>
     /// Extends the Test Step object- adds index
@@ -20,8 +18,7 @@ namespace TestCaseManagerCore.BusinessLogic.Entities
         /// </summary>
         /// <param name="testStep">The test step.</param>
         /// <param name="index">The index.</param>
-        public TestStepFull(TestStep testStep, int index)
-            : base(testStep)
+        public TestStepFull(TestStep testStep, int index) : base(testStep)
         {
             this.Index = index;
         }

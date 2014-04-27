@@ -6,7 +6,7 @@
              xmlns:mui="http://firstfloorsoftware.com/ModernUI"
              xmlns:local="clr-namespace:TestCaseManagerApp.Views"
              xmlns:entities="clr-namespace:TestCaseManagerCore.BusinessLogic.Entities;assembly=TestCaseManagerCore"    
-              xmlns:convert="clr-namespace:AAngelov.Utilities.UI.Converters;assembly=AAngelov.Utilities.UI"
+             xmlns:convert="clr-namespace:AAngelov.Utilities.UI.Converters;assembly=AAngelov.Utilities.UI"
              mc:Ignorable="d" Loaded="TestCaseInitialView_Loaded">
     <Grid>
         <Grid.Resources>
@@ -36,7 +36,7 @@
             <CommandBinding Command="{x:Static local:TestCasesInitialView.SetPassedTestCasesCommand}" Executed="setPassed_Command"/>
         </Grid.CommandBindings>
         <ProgressBar Name="progressBar" Minimum="0" Maximum="1" Height="16" IsIndeterminate="True" Margin="0,0,0,16" />
-        
+
         <Grid Name="mainGrid" Visibility="Hidden">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
@@ -77,7 +77,7 @@
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="20,10,0,10">
                         <CheckBox Margin="0,0,10,0" VerticalAlignment="Center" HorizontalAlignment="Left" IsChecked="{Binding Path=ShowSubSuitesTestCases, Mode=TwoWay}" 
                                   Name="cbShowSubsuiteTestCases" Unchecked="cbShowSubsuiteTestCases_Unchecked"  Checked="cbShowSubsuiteTestCases_Checked"/>
-                        <TextBlock Text="Show Test Cases in subsuites" Margin="10,0,10,0" Height="Auto" Width="Auto" HorizontalAlignment="Left"/>                       
+                        <TextBlock Text="Show Test Cases in subsuites" Margin="10,0,10,0" Height="Auto" Width="Auto" HorizontalAlignment="Left"/>
 
                     </StackPanel>
                 </StackPanel>
@@ -95,16 +95,16 @@
                     <TextBox Name="tbTitleFilter" Text="{Binding InitialViewFilters.TitleFilter, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TabIndex="1" Margin="10,0,0,10" Height="25"
                              Grid.Column="1" GotFocus="tbTitleFilter_GotFocus" LostFocus="tbTitleFilter_LostFocus" KeyUp="tbTitleFilter_KeyUp"/>
                     <!--<TextBox Name="tbSuiteFilter" Text="{Binding InitialViewFilters.SuiteFilter, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TabIndex="2" Margin="10,0,0,10" Height="25" 
-                             Grid.Column="2" GotFocus="tbTextSuiteFilter_GotFocus" LostFocus="tbSuiteFilter_LostFocus" KeyUp="tbSuiteFilter_KeyUp"/>-->
+                    Grid.Column="2" GotFocus="tbTextSuiteFilter_GotFocus" LostFocus="tbSuiteFilter_LostFocus" KeyUp="tbSuiteFilter_KeyUp"/>-->
                     <TextBox Name="tbPriorityFilter" Margin="10,0,0,10" Height="25" Text="{Binding InitialViewFilters.PriorityFilter, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TabIndex="3"
                              GotFocus="tbPriorityFilter_GotFocus"  LostFocus="tbPriorityFilter_LostFocus" KeyUp="tbPriorityFilter_KeyUp" Grid.Column="2" />
                     <TextBox Name="tbAssignedToFilter" Margin="10,0,0,10" Height="25" Text="{Binding InitialViewFilters.AssignedToFilter, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TabIndex="4"
                              GotFocus="tbAssignedToFilter_GotFocus"  LostFocus="tbAssignedToFilter_LostFocus"  KeyUp="tbAssignedToFilter_KeyUp"  Grid.Column="3"/>
                     <StackPanel Orientation="Horizontal"  Grid.Column="4">
                         <CheckBox Margin="10,0,10,10" VerticalAlignment="Center" HorizontalAlignment="Left" IsChecked="{Binding Path=HideAutomated, Mode=TwoWay}" Name="cbHideAutomated" Unchecked="cbHideAutomated_Unchecked" Checked="cbHideAutomated_Checked"/>
-                        <TextBlock Text="Hide Automated" Margin="0,10,10,10" Height="25" Width="Auto" HorizontalAlignment="Left" VerticalAlignment="Bottom" FontSize="12"/>                        
+                        <TextBlock Text="Hide Automated" Margin="0,10,10,10" Height="25" Width="Auto" HorizontalAlignment="Left" VerticalAlignment="Bottom" FontSize="12"/>
                     </StackPanel>
-                </Grid>               
+                </Grid>
             </StackPanel>
 
             <TreeView  Name="tvSuites" Grid.Row="1" Grid.Column="0" Grid.RowSpan="2"  SelectedValuePath="Id" ItemsSource="{Binding Suites}" Margin="{StaticResource SplitLeft}">
@@ -114,14 +114,14 @@
                         <Setter Property="IsSelected" Value="{Binding Path=IsSelected, Mode=TwoWay}" />
                         <EventSetter Event="TreeViewItem.PreviewMouseRightButtonDown" Handler="TreeViewItem_PreviewMouseRightButtonDown"/>
                         <EventSetter Event="TreeViewItem.KeyDown" Handler="tvSuites_KeyDown"/>
-                        <EventSetter Event="TreeViewItem.Selected" Handler="treeViewItem_Selected"/>                       
+                        <EventSetter Event="TreeViewItem.Selected" Handler="treeViewItem_Selected"/>
                         <Setter Property="ContextMenu">
                             <Setter.Value>
-                                <ContextMenu>                                    
-                                    <MenuItem Command="{x:Static local:TestCasesInitialView.AddSuiteCommand}" Header="Add" IsEnabled="{Binding Path=IsAddEnabled}"/>                                    
+                                <ContextMenu>
+                                    <MenuItem Command="{x:Static local:TestCasesInitialView.AddSuiteCommand}" Header="Add" IsEnabled="{Binding Path=IsAddEnabled}"/>
                                     <Separator />
                                     <MenuItem Command="{x:Static local:TestCasesInitialView.CutSuiteCommand}" Header="Cut" IsEnabled="{Binding Path=IsCutEnabled}"/>
-                                    <MenuItem Command="{x:Static local:TestCasesInitialView.CopySuiteCommand}" Header="Copy" IsEnabled="{Binding Path=IsCopyEnabled}"/>                                   
+                                    <MenuItem Command="{x:Static local:TestCasesInitialView.CopySuiteCommand}" Header="Copy" IsEnabled="{Binding Path=IsCopyEnabled}"/>
                                     <MenuItem Command="{x:Static local:TestCasesInitialView.PasteSuiteCommand}" Header="Paste" IsEnabled="{Binding Path=IsPasteEnabled}"/>
                                     <MenuItem Command="{x:Static local:TestCasesInitialView.RemoveSuiteCommand}" Header="Remove" IsEnabled="{Binding Path=IsRemoveEnabled}"/>
                                     <Separator />
@@ -141,17 +141,17 @@
                     <CommandBinding Command="Paste"  Executed="pasteSuite_Command"/>
                     <CommandBinding Command="Cut"  Executed="cutSuite_Command"/>
                 </TreeView.CommandBindings>
-                <TreeView.Resources>                 
-                    <HierarchicalDataTemplate DataType="{x:Type entities:Suite}" ItemsSource="{Binding SubSuites}" >                     
+                <TreeView.Resources>
+                    <HierarchicalDataTemplate DataType="{x:Type entities:Suite}" ItemsSource="{Binding SubSuites}" >
                         <TextBlock Text="{Binding Path=Title}" FontSize="14"/>
-                        </HierarchicalDataTemplate>
-                    </TreeView.Resources>
-                </TreeView>
+                    </HierarchicalDataTemplate>
+                </TreeView.Resources>
+            </TreeView>
 
             <GridSplitter Width="5" ResizeDirection="Auto" HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" Grid.Row="1" Grid.RowSpan="2" Grid.Column="1"/>
 
             <ProgressBar Name="progressBarTestCases" Minimum="0" Maximum="1" Height="16" IsIndeterminate="True" Margin="0,0,0,16" Grid.Row="2" Grid.Column="2" Visibility="Hidden"/>
-           
+
             <DataGrid ItemsSource="{Binding Path=ObservableTestCases}" AutoGenerateColumns="False" Name="dgTestCases" Grid.Row="2" Grid.Column="2" 
                       IsReadOnly="True" SelectionMode="Extended"  SelectionUnit="FullRow" TabIndex="5"
                       SelectedCellsChanged="dgTestCases_SelectedCellsChanged" PreviewMouseRightButtonDown="dgTestCases_PreviewMouseRightButtonDown" Margin="{StaticResource SplitRight}">
@@ -159,10 +159,10 @@
                     <ContextMenu>
                         <MenuItem Name="dgTestCaseContextItemPreview" Command="{x:Static local:TestCasesInitialView.PreviewCommand}" Header="Preview"/>
                         <MenuItem Name="dgTestCaseContextItemEdit" Command="{x:Static local:TestCasesInitialView.EditCommand}" Header="Edit"/>
-                        <MenuItem Name="dgTestCaseContextItemDuplicate" Command="{x:Static local:TestCasesInitialView.DuplicateCommand}" Header="Duplicate"/>                   
+                        <MenuItem Name="dgTestCaseContextItemDuplicate" Command="{x:Static local:TestCasesInitialView.DuplicateCommand}" Header="Duplicate"/>
                         <Separator />
                         <MenuItem Name="dgTestCaseContextItemCut" Command="{x:Static local:TestCasesInitialView.CutTestCasesCommand}" Header="Cut"/>
-                        <MenuItem Name="dgTestCaseContextItemCopy" Command="{x:Static local:TestCasesInitialView.CopyTestCasesCommand}" Header="Copy"/>                     
+                        <MenuItem Name="dgTestCaseContextItemCopy" Command="{x:Static local:TestCasesInitialView.CopyTestCasesCommand}" Header="Copy"/>
                         <MenuItem Name="dgTestCaseContextItemPaste" Command="{x:Static local:TestCasesInitialView.PasteTestCasesCommand}" Header="Paste"/>
                         <MenuItem Name="dgTestCaseContextItemRemove" Command="{x:Static local:TestCasesInitialView.RemoveTestCaseFromSuiteCommand}" Header="Remove"/>
                         <Separator />
@@ -214,11 +214,11 @@
                         </DataGridTextColumn.CellStyle>
                     </DataGridTextColumn>
                     <!--<DataGridTextColumn Header="Suite" Binding="{Binding ITestSuiteBase.Title}" Width="4.8*">
-                        <DataGridTextColumn.HeaderStyle>
-                            <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource {x:Type DataGridColumnHeader}}">
-                                <Setter Property="HorizontalContentAlignment" Value="Left"/>
-                            </Style>
-                        </DataGridTextColumn.HeaderStyle>
+                    <DataGridTextColumn.HeaderStyle>
+                    <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource {x:Type DataGridColumnHeader}}">
+                    <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                    </Style>
+                    </DataGridTextColumn.HeaderStyle>
                     </DataGridTextColumn>-->
                     <DataGridTextColumn Header="Priority" Binding="{Binding Priority}" Width="1*">
                         <DataGridTextColumn.HeaderStyle>
@@ -241,11 +241,11 @@
                             </Style>
                         </DataGridTextColumn.HeaderStyle>
                     </DataGridTextColumn>
-                    </DataGrid.Columns>
+                </DataGrid.Columns>
             </DataGrid>
 
             <StackPanel Orientation="Vertical" Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="3" Margin="10,10,0,0">
-                
+
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
                     <Button Name="btnPreview" Content="_Preview" Margin="20,0,10,0" Height="30" Width="90" VerticalAlignment="Center" Click="PreviewButton_Click"/>
                     <Button Name="btnEdit" Content="_Edit" Margin="15,0,10,0" Height="30" Width="90" VerticalAlignment="Center" Click="EditButton_Click"/>
@@ -262,8 +262,8 @@
                 <TextBlock Text="Selected Test Case Count:" Margin="30,30,10,0" Height="25" Width="Auto" FontWeight="Bold"/>
                 <TextBlock Name="tbSelectedTestCaseCount"  Text="{Binding SelectedTestCasesCount}" Margin="0,30,10,0" Height="25" Width="Auto" />
                 <TextBlock Text="Test Case Count:" Margin="0,30,10,0" Height="25" Width="Auto" FontWeight="Bold"/>
-                <TextBlock Name="tbTestCaseCount"  Text="{Binding TestCasesCount}" Margin="0,30,10,0" Height="25" Width="Auto" />                
+                <TextBlock Name="tbTestCaseCount"  Text="{Binding TestCasesCount}" Margin="0,30,10,0" Height="25" Width="Auto" />
             </StackPanel>
         </Grid>
-    </Grid>    
+    </Grid>
 </UserControl>
