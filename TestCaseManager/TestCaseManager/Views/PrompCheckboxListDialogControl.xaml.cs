@@ -11,6 +11,7 @@ using System.Windows.Documents;
 using AAngelov.Utilities.UI.Managers;
 using TestCaseManagerCore.ViewModels;
 using AAngelov.Utilities.UI.Managers;
+using TestCaseManagerCore.BusinessLogic.Managers;
 
 namespace TestCaseManagerApp.Views
 {

@@ -23,7 +23,7 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
 		/// <summary>
 		/// All test cases in team project query expression
 		/// </summary>
-		private const string allTestCasesInTeamProjectQueryExpression = "SELECT [System.Id], [System.Title] FROM WorkItems WHERE [System.WorkItemType] = 'Test Case' AND [Team Project] = '{0}'";
+		private const string AllTestCasesInTeamProjectQueryExpression = "SELECT [System.Id], [System.Title] FROM WorkItems WHERE [System.WorkItemType] = 'Test Case' AND [Team Project] = '{0}'";
 
         /// <summary>
         /// The log
@@ -287,7 +287,7 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
             testPlan.Refresh();
             List<TestCase> testCasesList;
             testCasesList = new List<TestCase>();
-			string fullQuery = String.Format(allTestCasesInTeamProjectQueryExpression, testManagementTeamProject.TeamProjectName);
+			string fullQuery = String.Format(AllTestCasesInTeamProjectQueryExpression, testManagementTeamProject.TeamProjectName);
 			IEnumerable<ITestCase> allTestCases = testManagementTeamProject.TestCases.Query(fullQuery);
             foreach (var currentTestCase in allTestCases)
             {
@@ -455,7 +455,7 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
 		public static void AddTestCasesWithoutSuites(ITestManagementTeamProject testManagementTeamProject, ITestPlan testPlan, List<TestCase> testCasesList)
         {
 			testPlan.Refresh();
-			string fullQuery = String.Format(allTestCasesInTeamProjectQueryExpression, testManagementTeamProject.TeamProjectName);
+			string fullQuery = String.Format(AllTestCasesInTeamProjectQueryExpression, testManagementTeamProject.TeamProjectName);
 			IEnumerable<ITestCase> allTestCases = testManagementTeamProject.TestCases.Query(fullQuery);
             foreach (var currentTestCase in allTestCases)
             {

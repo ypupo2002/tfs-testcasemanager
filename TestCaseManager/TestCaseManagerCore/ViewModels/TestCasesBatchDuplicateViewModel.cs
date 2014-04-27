@@ -224,8 +224,10 @@ namespace TestCaseManagerCore.ViewModels
         {
             ExecutionContext.Preferences.TestPlan.Refresh();
             ExecutionContext.Preferences.TestPlan.RootSuite.Refresh();
-			List<TestCase> testCasesList = TestCaseManager.GetAllTestCasesFromSuiteCollection(ExecutionContext.Preferences.TestPlan, ExecutionContext.Preferences.TestPlan.RootSuite.SubSuites);
-			TestCaseManager.AddTestCasesWithoutSuites(ExecutionContext.TestManagementTeamProject, ExecutionContext.Preferences.TestPlan, testCasesList);
+            List<TestCase> testCasesList = TestCaseManager.GetAllTestCasesInTestPlan(ExecutionContext.TestManagementTeamProject, ExecutionContext.Preferences.TestPlan, false);
+
+            //List<TestCase> testCasesList = TestCaseManager.GetAllTestCasesFromSuiteCollection(ExecutionContext.Preferences.TestPlan, ExecutionContext.Preferences.TestPlan.RootSuite.SubSuites);
+            //TestCaseManager.AddTestCasesWithoutSuites(ExecutionContext.TestManagementTeamProject, ExecutionContext.Preferences.TestPlan, testCasesList);
             this.ObservableTestCases = new ObservableCollection<TestCase>();
             testCasesList.ForEach(t => this.ObservableTestCases.Add(t));
         }

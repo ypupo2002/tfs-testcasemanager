@@ -1,4 +1,5 @@
-﻿using AAngelov.Utilities.Managers;
+﻿using System.Configuration;
+using AAngelov.Utilities.Managers;
 
 namespace AAngelov.Utilities.UI.Managers
 {
@@ -60,9 +61,9 @@ namespace AAngelov.Utilities.UI.Managers
         /// <summary>
         /// Initializes a new instance of the <see cref="UIRegistryManager"/> class.
         /// </summary>
-        public UIRegistryManager()
+        public UIRegistryManager(string mainRegistrySubKey)
         {
-            this.MainRegistrySubKey = "YouTubeToGroovesharkImporter/UI";
+            this.MainRegistrySubKey = mainRegistrySubKey;
         }
 
         /// <summary>
@@ -71,18 +72,18 @@ namespace AAngelov.Utilities.UI.Managers
         /// <value>
         /// The instance.
         /// </value>
-        public static UIRegistryManager Instance 
+        public static UIRegistryManager Instance
         {
             get
             {
-                if(instance == null)
+                if (instance == null)
                 {
-                    instance = new UIRegistryManager();
+                    string mainRegistrySubKey = ConfigurationManager.AppSettings["mainUIRegistrySubKey"];
+                    instance = new UIRegistryManager(mainRegistrySubKey);
                 }
                 return instance;
             }
         }
-
         /// <summary>
         /// Writes the current theme to registry.
         /// </summary>

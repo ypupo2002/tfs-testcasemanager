@@ -38,16 +38,18 @@ namespace AAngelov.Utilities.Managers
                 RegistryKey currentRegistryKey = default(RegistryKey);
                 if (i == 0)
                 {
-                    currentRegistryKey = Registry.CurrentUser.CreateSubKey(MainRegistrySubKey);
+                    currentRegistryKey = Registry.CurrentUser.CreateSubKey(subKeyNames[i]);
                 }
-                else
+                else if (i < subKeyNames.Length - 1)
                 {
                     currentRegistryKey = registryKeys[i - 1].CreateSubKey(subKeyNames[i]);
                 }
+                else
+                {
+                    registryKeys.Last().SetValue(subKeyNames.Last(), value);
+                }
                 registryKeys.Add(currentRegistryKey);
             }
-
-            registryKeys.Last().SetValue(subKeyNames.Last(), value);
 
             this.CloseAllRegistryKeys(registryKeys);
         }       
@@ -65,12 +67,12 @@ namespace AAngelov.Utilities.Managers
             {
                 string[] subKeyNames = subKeys.Split('/');
                 List<RegistryKey> registryKeys = new List<RegistryKey>();
-                for (int i = 0; i < subKeyNames.Length; i++)
+                for (int i = 0; i < subKeyNames.Length - 1; i++)
                 {
                     RegistryKey currentRegistryKey = default(RegistryKey);
                     if (i == 0)
                     {
-                        currentRegistryKey = Registry.CurrentUser.OpenSubKey(MainRegistrySubKey);
+                        currentRegistryKey = Registry.CurrentUser.OpenSubKey(subKeyNames[i]);
                     }
                     else
                     {
@@ -90,27 +92,6 @@ namespace AAngelov.Utilities.Managers
 
             return result;
         }
-
-        /// <summary>
-        /// Reads the string.
-        /// </summary>
-        /// <param name="subKeys">The sub keys.</param>
-        /// <returns>string value of the registry subKey</returns>
-        ////protected T Read<T>(string subKeys)
-        ////{
-        ////    T result = default(T);
-        ////    Object objResult = Read(subKeys);
-        ////    if (objResult == null)
-        ////    {
-        ////        result = default(T);
-        ////    }
-        ////    else
-        ////    {
-        ////        result = (T)objResult;
-        ////    }
-
-        ////    return result;
-        ////}
 
         /// <summary>
         /// Reads the int.
@@ -180,9 +161,9 @@ namespace AAngelov.Utilities.Managers
         /// <param name="registryKeys">The registry keys.</param>
         private void CloseAllRegistryKeys(List<RegistryKey> registryKeys)
         {
-            foreach (RegistryKey currentKey in registryKeys)
+            for (int i = 0; i < registryKeys.Count - 1; i++)
             {
-                currentKey.Close();
+                registryKeys[i].Close();
             }
         }
     }

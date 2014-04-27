@@ -35,7 +35,7 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
             {
                 if (currentSuite != null)
                 {
-					//currentSuite.Refresh();
+                    currentSuite.Refresh();
                     ObservableCollection<Suite> childred = null;
                     if (currentSuite is IStaticTestSuite)
                     {
