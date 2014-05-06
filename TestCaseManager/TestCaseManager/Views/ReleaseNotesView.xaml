@@ -9,6 +9,11 @@
         <ScrollViewer>
             <StackPanel >
                 <TextBlock Text="Release Notes" FontSize="26" Height="Auto" Margin="0,0,0,15"/>
+                <mui:BBCodeBlock BBCode="[b]Version[/b]: 1.0.9.1     [b]Date[/b]: 06.05.2014" Margin="0,0,10,15"/>
+                <mui:BBCodeBlock BBCode="-fix suites refresh bug" Margin="0,0,0,15" />
+                <mui:BBCodeBlock BBCode="-fix UI bug in the Migration view" Margin="0,0,0,15" />
+                <mui:BBCodeBlock BBCode="-Internal Core Changes" Margin="0,0,0,15" />
+                
                 <mui:BBCodeBlock BBCode="[b]Version[/b]: 1.0.9.0     [b]Date[/b]: 13.04.2014" Margin="0,0,10,15"/>
                 <mui:BBCodeBlock BBCode="-add feature to migrate test cases, shared steps, suites from one TFS to another" Margin="0,0,0,15" />
                 <mui:BBCodeBlock BBCode="-add button display test cases without suites when you click the All node Test Cases Initial View" Margin="0,0,0,15" />

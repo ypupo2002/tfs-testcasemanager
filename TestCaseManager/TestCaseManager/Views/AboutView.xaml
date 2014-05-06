@@ -22,6 +22,7 @@
                 <mui:BBCodeBlock BBCode="You can submit bugs in the [url=https://testcasemanager.codeplex.com/discussions]official issue tracking system[/url]." Margin="0,0,0,15" />
                 <mui:BBCodeBlock BBCode="If you have any questions please use the [url=https://testcasemanager.codeplex.com/workitem/list/basic]official discussion chanel[/url]." Margin="0,0,0,15" />
                 <mui:BBCodeBlock BBCode="Created by: [b]Anton Angelov[/b]" Margin="0,0,0,15" />
+                <mui:BBCodeBlock BBCode="Official Site [url=http://aangelov.com]http://aangelov.com[/url]." Margin="0,0,0,15" />
                 <mui:BBCodeBlock BBCode="Send feedback to: [b]angelov.st.anton@gmail.com[/b]" Margin="0,0,0,15" />
                 <TextBlock Text="APPEARANCE" Style="{StaticResource Heading2}" />
                 <mui:BBCodeBlock BBCode="The appearance of Test Case Manager can be changed on the fly. Make sure you visit the [url=/Views/SettingsView.xaml]settings[/url] to adapt the appearance to your preference." Margin="0,0,0,15"/>
