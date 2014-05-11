@@ -52,6 +52,13 @@ namespace TestCaseManagerCore.BusinessLogic.Entities
             this.TestSuiteId = (testSuiteBaseCore == null) ? null : (int?)testSuiteBaseCore.Id;
             base.isInitialized = true;
             this.Id = testCaseCore.Id;
+            this.DateCreated = testCaseCore.DateCreated;
+            this.DateModified = testCaseCore.DateModified;
+            this.CreatedBy = testCaseCore.WorkItem.CreatedBy;
+            if (testSuiteBaseCore != null)
+            {
+                this.TestSuiteTitle = testSuiteBaseCore.Title;
+            }
             if (initializeStatus)
             {
                 string mostRecentResult = TestCaseManager.GetMostRecentTestCaseResult(testPlan, this.Id);
@@ -75,6 +82,15 @@ namespace TestCaseManagerCore.BusinessLogic.Entities
         /// The test suite unique identifier.
         /// </value>
         public int? TestSuiteId { get; set; }
+
+        /// <summary>
+        /// Gets or sets the test suite title.
+        /// </summary>
+        /// <value>
+        /// The test suite title.
+        /// </value>
+        [Alias("suite", Description = "Test Suite Name")]
+        public string TestSuiteTitle { get; set; }
 
         /// <summary>
         /// Gets or sets the last execution outcome.
@@ -134,6 +150,9 @@ namespace TestCaseManagerCore.BusinessLogic.Entities
             this.ITestCase.Title = testBase.Title;
             this.ITestCase.Area = testBase.Area;
             this.ITestCase.Priority = (int)testBase.Priority;
+            this.DateCreated = testBase.DateCreated;
+            this.DateModified = testBase.DateModified;
+            this.CreatedBy = testBase.CreatedBy;
         }
 
         /// <summary>

@@ -478,25 +478,25 @@ namespace TestCaseManagerApp.Views
         /// </summary>
         private void UpdateButtonsStatus()
         {
-            this.btnDuplicate.IsEnabled = true;
-            this.btnEdit.IsEnabled = true;
+            //this.btnDuplicate.IsEnabled = true;
+            //this.btnEdit.IsEnabled = true;
             this.btnDuplicate1.IsEnabled = true;
             this.btnEdit1.IsEnabled = true;
-            this.btnFindReferences.IsEnabled = true;
+            //this.btnFindReferences.IsEnabled = true;
             this.btnFindReferences1.IsEnabled = true;
             this.dgSharedStepsContextItemEdit.IsEnabled = true;
             this.dgSharedStepsContextItemPreview.IsEnabled = true;
             this.dgSharedStepsContextItemDuplicate.IsEnabled = true;
             if (this.dgSharedSteps.SelectedItems.Count < 1)
             {
-                this.btnDuplicate.IsEnabled = false;
-                this.btnEdit.IsEnabled = false;
+                //this.btnDuplicate.IsEnabled = false;
+                //this.btnEdit.IsEnabled = false;
                 this.btnDuplicate1.IsEnabled = false;
                 this.btnEdit1.IsEnabled = false;
                 this.dgSharedStepsContextItemEdit.IsEnabled = false;
                 this.dgSharedStepsContextItemPreview.IsEnabled = false;
                 this.dgSharedStepsContextItemDuplicate.IsEnabled = false;
-                this.btnFindReferences.IsEnabled = false;
+                //this.btnFindReferences.IsEnabled = false;
                 this.btnFindReferences1.IsEnabled = false;
             }
         }
@@ -592,6 +592,37 @@ namespace TestCaseManagerApp.Views
             {
                 this.EditTestCaseInternal();   
             }
+        }
+
+        /// <summary>
+        /// Handles the GotFocus event of the tbAdvancedSearch control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
+        private void tbAdvancedSearch_GotFocus(object sender, RoutedEventArgs e)
+        {
+            this.tbAdvancedSearch.ClearDefaultContent(ref this.SharedStepsInitialViewModel.InitialViewFiltersSharedSteps.IsAdvancedSearchTextSet);
+        }
+
+        /// <summary>
+        /// Handles the LostFocus event of the tbAdvancedSearch control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
+        private void tbAdvancedSearch_LostFocus(object sender, RoutedEventArgs e)
+        {
+            this.tbAdvancedSearch.RestoreDefaultText(this.SharedStepsInitialViewModel.InitialViewFiltersSharedSteps.DetaultAdvancedSearch, ref this.SharedStepsInitialViewModel.InitialViewFiltersSharedSteps.IsAdvancedSearchTextSet);
+
+        }
+
+        /// <summary>
+        /// Handles the Click event of the btnAdvancedSearch control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
+        private void btnAdvancedSearch_Click(object sender, RoutedEventArgs e)
+        {
+            this.SharedStepsInitialViewModel.FilterSharedSteps();
         }
     }
 }

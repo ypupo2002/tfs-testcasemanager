@@ -31,8 +31,11 @@ namespace TestCaseManagerCore.BusinessLogic.Entities
             this.TeamFoundationIdentityName = new TeamFoundationIdentityName(sharedStepCore.OwnerTeamFoundationId, sharedStepCore.OwnerName);
             this.OwnerDisplayName = sharedStepCore.OwnerName;
             this.TeamFoundationId = sharedStepCore.OwnerTeamFoundationId;
+            this.DateCreated = sharedStepCore.DateCreated;
+            this.DateModified = sharedStepCore.DateModified;
             base.isInitialized = true;
             this.Id = sharedStepCore.Id;
+            this.CreatedBy = sharedStepCore.WorkItem.CreatedBy;
         }
 
         /// <summary>

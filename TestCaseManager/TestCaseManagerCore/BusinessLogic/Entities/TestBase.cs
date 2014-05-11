@@ -37,7 +37,22 @@ namespace TestCaseManagerCore.BusinessLogic.Entities
         /// <summary>
         /// The area
         /// </summary>
-        private string area;        
+        private string area;
+
+        /// <summary>
+        /// The created by
+        /// </summary>
+        private string createdBy;
+
+        /// <summary>
+        /// The date created
+        /// </summary>
+        private DateTime dateCreated;
+
+        /// <summary>
+        /// The date modified
+        /// </summary>
+        private DateTime dateModified; 
 
         /// <summary>
         /// The priority
@@ -106,6 +121,69 @@ namespace TestCaseManagerCore.BusinessLogic.Entities
                     UndoRedoManager.Instance().Push(t => this.Title = t, this.title, "Change the test case title");
                 }
                 this.title = value;
+                this.NotifyPropertyChanged();
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the date created.
+        /// </summary>
+        /// <value>
+        /// The date created.
+        /// </value>
+        [Alias("createdOn", Description = "The creation date of item")]
+        public DateTime DateCreated
+        {
+            get
+            {
+                return this.dateCreated;
+            }
+
+            set
+            {
+                this.dateCreated = value;
+                this.NotifyPropertyChanged();
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the created by.
+        /// </summary>
+        /// <value>
+        /// The created by.
+        /// </value>
+        [Alias("createdBy", Description = "The person who created item")]
+        public string CreatedBy
+        {
+            get
+            {
+                return this.createdBy;
+            }
+
+            set
+            {
+                this.createdBy = value;
+                this.NotifyPropertyChanged();
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the date modified.
+        /// </summary>
+        /// <value>
+        /// The date modified.
+        /// </value>
+        [Alias("modifiedOn", Description = "The last modification date of item")]
+        public DateTime DateModified
+        {
+            get
+            {
+                return this.dateModified;
+            }
+
+            set
+            {
+                this.dateModified = value;
                 this.NotifyPropertyChanged();
             }
         }

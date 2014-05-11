@@ -35,11 +35,11 @@
             <StackPanel Orientation="Vertical" Grid.Row="1" >
                 <StackPanel Orientation="Vertical" Margin="10,0,0,30" Grid.Column="0" Grid.ColumnSpan="3">
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
-                        <Button Name="btnEdit1" Content="_Edit" Margin="0,0,10,0" Height="30" Width="90" VerticalAlignment="Center" Click="btnEdit_Click"/>
-                        <Button Name="btnDuplicate1" Content="_Duplcate"  Margin="30,0,10,0" Height="30" Width="90" VerticalAlignment="Center" Click="btnDuplicate_Click"/>
-                        <Button Name="btnNew1" Content="_New"  Margin="30,0,10,0" Height="30" Width="90" VerticalAlignment="Center" Click="btnNew_Click"/>
-                        <Button Name="btnFindReferences1" Content="Find References"  Margin="30,0,10,0" Height="30" Width="Auto" VerticalAlignment="Center" Click="btnFindReferences_Click"/>
-                        <Button Name="btnChangeTestCases1" Content="Change Test Cases"  Margin="30,0,10,0" Height="30" Width="Auto" VerticalAlignment="Center" Click="btnChangeTestCases_Click"/>
+                        <Button Name="btnEdit1" Content="_Edit" Margin="0,0,10,0" Height="30" Width="90" VerticalAlignment="Center" Click="btnEdit_Click" ToolTip="Edits Selected Shared Step."/>
+                        <Button Name="btnDuplicate1" Content="_Duplcate"  Margin="15,0,10,0" Height="30" Width="90" VerticalAlignment="Center" Click="btnDuplicate_Click" ToolTip="Duplicates Selected Shared Step."/>
+                        <Button Name="btnNew1" Content="_New"  Margin="15,0,10,0" Height="30" Width="90" VerticalAlignment="Center" Click="btnNew_Click" ToolTip="Creates New Shared Step."/>
+                        <Button Name="btnFindReferences1" Content="Find References"  Margin="15,0,10,0" Height="30" Width="145" VerticalAlignment="Center" Click="btnFindReferences_Click" ToolTip="Finds All Test Cases where selected shared step is used."/>
+                        <Button Name="btnChangeTestCases1" Content="Change Test Cases"  Margin="15,0,10,0" Height="30" Width="145" VerticalAlignment="Center" Click="btnChangeTestCases_Click" ToolTip="Populates selected test cases to Find | Replace Test Cases View."/>
                     </StackPanel>
                 </StackPanel>
                 <Grid Grid.Column="0">
@@ -172,7 +172,17 @@
                 </DataGrid.Columns>
             </DataGrid>
 
-            <StackPanel Orientation="Vertical" Grid.Row="3" Grid.ColumnSpan="3" Margin="10,30,0,30">
+
+
+            <TextBox Name="tbAdvancedSearch" Text="{Binding InitialViewFiltersSharedSteps.AdvancedSearchFilter, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                     Height="25" Grid.Row="3" Grid.ColumnSpan="2" Margin="10,30,0,30" SpellCheck.IsEnabled="True"
+                     GotFocus="tbAdvancedSearch_GotFocus"  LostFocus="tbAdvancedSearch_LostFocus"/>
+            <Button Name="btnAdvancedSearch" Content="Search" Height="0" Width="0"
+                    Click="btnAdvancedSearch_Click"  IsDefault="True" Visibility="Visible"/>
+
+
+
+            <!--<StackPanel Orientation="Vertical" Grid.Row="3" Grid.ColumnSpan="3" Margin="10,30,0,30">
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
                     <Button Name="btnEdit" Content="_Edit" Margin="0,0,10,0" Height="30" Width="90" VerticalAlignment="Center" Click="btnEdit_Click"/>
                     <Button Name="btnDuplicate" Content="_Duplcate"  Margin="30,0,10,0" Height="30" Width="90" VerticalAlignment="Center" Click="btnDuplicate_Click"/>
@@ -180,7 +190,7 @@
                     <Button Name="btnFindReferences" Content="Find References"  Margin="30,0,10,0" Height="30" Width="Auto" VerticalAlignment="Center" Click="btnFindReferences_Click"/>
                     <Button Name="btnChangeTestCases" Content="Change Test Cases"  Margin="30,0,10,0" Height="30" Width="Auto" VerticalAlignment="Center" Click="btnChangeTestCases_Click"/>
                 </StackPanel>
-            </StackPanel>
+            </StackPanel>-->
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Grid.Row="4">
                 <TextBlock Text="Shared Steps Count:" Margin="10,0,10,30" Height="25" Width="Auto" FontWeight="Bold"/>
                 <TextBlock Text="{Binding SharedStepsCount}" Margin="10,0,10,30" Height="25" Width="Auto" />

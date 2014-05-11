@@ -5,12 +5,16 @@
 
 namespace TestCaseManagerCore.ViewModels
 {
+    using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.Linq;
+    using System.Linq.Expressions;
     using AAngelov.Utilities.UI.Core;
+    using Fidely.Framework.Compilation.Objects;
     using TestCaseManagerCore.BusinessLogic.Entities;
     using TestCaseManagerCore.BusinessLogic.Managers;
+    using Fidely.Framework;
 
     /// <summary>
     /// Contains methods and properties related to the TestCasesInitial View
@@ -38,6 +42,11 @@ namespace TestCaseManagerCore.ViewModels
         private SharedStep selectedSharedStep;
 
         /// <summary>
+        /// The compiler
+        /// </summary>
+        private readonly SearchQueryCompiler<SharedStep> compiler;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="TestCasesInitialViewModel"/> class.
         /// </summary>
         public SharedStepsInitialViewModel()
@@ -52,6 +61,8 @@ namespace TestCaseManagerCore.ViewModels
             this.SharedStepsCount = this.ObservableSharedSteps.Count.ToString();
             this.TestCasesCount = this.ObservableTestCases.Count.ToString();
             this.IsAfterInitialize = true;
+            var setting = SearchQueryCompilerBuilder.Instance.BuildUpDefaultObjectCompilerSetting<SharedStep>();
+            compiler = SearchQueryCompilerBuilder.Instance.BuildUpCompiler<SharedStep>(setting);
         }
 
         /// <summary>
@@ -203,6 +214,17 @@ namespace TestCaseManagerCore.ViewModels
         }
 
         /// <summary>
+        /// Searches this instance.
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<SharedStep> Search()
+        {
+            Expression<Func<SharedStep, bool>> filter = compiler.Compile(this.InitialViewFiltersSharedSteps.AdvancedSearchFilter);
+            IEnumerable<SharedStep> result = this.InitialSharedStepsCollection.AsQueryable().Where(filter);
+            return result;
+        }
+
+        /// <summary>
         /// Filters the test cases.
         /// </summary>
         public void FilterSharedSteps()
@@ -216,11 +238,18 @@ namespace TestCaseManagerCore.ViewModels
             bool shouldSetAssignedToFilter = this.InitialViewFiltersSharedSteps.IsAssignedToTextSet && !string.IsNullOrEmpty(this.InitialViewFiltersSharedSteps.AssignedToFilter);
             string assignedToFilter = this.InitialViewFiltersSharedSteps.AssignedToFilter.ToLower();
 
-            var filteredList = this.InitialSharedStepsCollection.Where(t =>
-                                                                           (shouldSetIdFilter ? (t.ISharedStep.Id.ToString().Contains(idFilter)) : true) &&
-                                                                           (shouldSetTextFilter ? (t.Title.ToLower().Contains(titleFilter)) : true) &&
-                                                                           (shouldSetPriorityFilter ? t.Priority.ToString().ToLower().Contains(priorityFilter) : true) &&
-                                                                           (t.TeamFoundationIdentityName != null && shouldSetAssignedToFilter ? t.TeamFoundationIdentityName.DisplayName.ToLower().Contains(assignedToFilter) : true)).ToList();
+            bool shouldSetAdvancedFilter = this.InitialViewFiltersSharedSteps.IsAdvancedSearchTextSet && !string.IsNullOrEmpty(this.InitialViewFiltersSharedSteps.AdvancedSearchFilter);
+            IEnumerable<SharedStep> searchableCollection = this.InitialSharedStepsCollection;
+            if (shouldSetAdvancedFilter)
+            {
+                searchableCollection = this.Search();
+            }
+
+            var filteredList = searchableCollection.Where(t =>
+                (shouldSetIdFilter ? (t.ISharedStep.Id.ToString().Contains(idFilter)) : true) &&
+                (shouldSetTextFilter ? (t.Title.ToLower().Contains(titleFilter)) : true) &&
+                (shouldSetPriorityFilter ? t.Priority.ToString().ToLower().Contains(priorityFilter) : true) &&
+                (t.TeamFoundationIdentityName != null && shouldSetAssignedToFilter ? t.TeamFoundationIdentityName.DisplayName.ToLower().Contains(assignedToFilter) : true)).ToList();
             this.ObservableSharedSteps.Clear();
             filteredList.ForEach(x => this.ObservableSharedSteps.Add(x));
 

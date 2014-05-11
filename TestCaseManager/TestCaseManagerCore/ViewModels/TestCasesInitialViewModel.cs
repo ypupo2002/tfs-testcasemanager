@@ -66,6 +66,9 @@ namespace TestCaseManagerCore.ViewModels
         /// </summary>
         private string selectedTestCasesCount;
 
+        /// <summary>
+        /// The compiler
+        /// </summary>
         private readonly SearchQueryCompiler<TestCase> compiler;
 
         /// <summary>
