@@ -38,6 +38,11 @@ namespace TestCaseManagerCore.BusinessLogic.Entities
         public string DetaultAssignedTo = "Assigned To";
 
         /// <summary>
+        /// The detault advanced search
+        /// </summary>
+        public string DetaultAdvancedSearch = "Perform Advanced Search Query";
+
+        /// <summary>
         /// The is title text set
         /// </summary>
         public bool IsTitleTextSet;
@@ -61,6 +66,11 @@ namespace TestCaseManagerCore.BusinessLogic.Entities
         /// The is assigned automatic text set
         /// </summary>
         public bool IsAssignedToTextSet;
+
+        /// <summary>
+        /// The is advanced search text set
+        /// </summary>
+        public bool IsAdvancedSearchTextSet;
 
         /// <summary>
         /// The title filter
@@ -88,6 +98,11 @@ namespace TestCaseManagerCore.BusinessLogic.Entities
         private string assignedToFilter;
 
         /// <summary>
+        /// The advanced search filter
+        /// </summary>
+        private string advancedSearchFilter;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="InitialViewFilters"/> class.
         /// </summary>
         /// <param name="title">The title.</param>
@@ -108,10 +123,11 @@ namespace TestCaseManagerCore.BusinessLogic.Entities
         /// <param name="id">The unique identifier.</param>
         /// <param name="priority">The priority.</param>
         /// <param name="assignedTo">The assigned automatic.</param>
-        public InitialViewFilters(string title, string suite, string id, string priority, string assignedTo) : this(title, suite, id)
+        public InitialViewFilters(string title, string suite, string id, string priority, string assignedTo, string advancedSearch) : this(title, suite, id)
         {
-            this.PriorityFilter = this.priorityFilter;
+            this.PriorityFilter = priority;
             this.AssignedToFilter = assignedTo;
+            this.AdvancedSearchFilter = advancedSearch;
         }
 
         /// <summary>
@@ -138,6 +154,26 @@ namespace TestCaseManagerCore.BusinessLogic.Entities
             set
             {
                 this.titleFilter = value;
+                this.NotifyPropertyChanged();
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the advanced search filter.
+        /// </summary>
+        /// <value>
+        /// The advanced search filter.
+        /// </value>
+        public string AdvancedSearchFilter
+        {
+            get
+            {
+                return this.advancedSearchFilter;
+            }
+
+            set
+            {
+                this.advancedSearchFilter = value;
                 this.NotifyPropertyChanged();
             }
         }
@@ -232,11 +268,13 @@ namespace TestCaseManagerCore.BusinessLogic.Entities
             this.SuiteFilter = this.DetaultSuite;
             this.PriorityFilter = this.DetaultPriority;
             this.AssignedToFilter = this.DetaultAssignedTo;
+            this.AdvancedSearchFilter = this.DetaultAdvancedSearch;
             this.IsIdTextSet = false;
             this.IsSuiteTextSet = false;
             this.IsTitleTextSet = false;
             this.IsPriorityTextSet = false;
             this.IsAssignedToTextSet = false;
+            this.IsAdvancedSearchTextSet = false;
         }
     }
 }

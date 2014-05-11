@@ -9,6 +9,7 @@ namespace TestCaseManagerCore.BusinessLogic.Entities
     using Microsoft.TeamFoundation.TestManagement.Client;
     using TestCaseManagerCore.BusinessLogic.Enums;
     using TestCaseManagerCore.BusinessLogic.Managers;
+    using Fidely.Framework;
 
     /// <summary>
     /// Contains Test Case object information properties
@@ -64,6 +65,7 @@ namespace TestCaseManagerCore.BusinessLogic.Entities
         /// <value>
         /// The test case unique identifier.
         /// </value>
+        [Alias("id", Description = "Test Case ID (alias of TestCaseId)")]
         public int TestCaseId { get; set; }
 
         /// <summary>

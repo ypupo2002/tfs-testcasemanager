@@ -13,12 +13,18 @@ namespace TestCaseManagerCore.ViewModels
     using System.Windows;
     using AAngelov.Utilities.Enums;
     using AAngelov.Utilities.UI.Core;
+    using Fidely.Framework;
+    using Fidely.Framework.Compilation.Objects;
+    using Fidely.Framework.Integration;
     using FirstFloor.ModernUI.Windows.Controls;
     using Microsoft.TeamFoundation.TestManagement.Client;
     using TestCaseManagerCore.BusinessLogic.Entities;
     using TestCaseManagerCore.BusinessLogic.Enums;
     using TestCaseManagerCore.BusinessLogic.Managers;
     using TestCaseManagerCore.Templates;
+    using System.Linq.Expressions;
+    using System.Windows.Input;
+    using FirstFloor.ModernUI.Presentation;
 
     /// <summary>
     /// Contains methods and properties related to the TestCasesInitial View
@@ -59,6 +65,8 @@ namespace TestCaseManagerCore.ViewModels
         /// The selected test cases count
         /// </summary>
         private string selectedTestCasesCount;
+
+        private readonly SearchQueryCompiler<TestCase> compiler;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="TestCasesInitialViewModel"/> class.
@@ -116,6 +124,8 @@ namespace TestCaseManagerCore.ViewModels
          
             this.Suites = new ObservableCollection<Suite>();
             ObservableCollection<Suite> currentSubSuites = new ObservableCollection<Suite>();
+            var setting = SearchQueryCompilerBuilder.Instance.BuildUpDefaultObjectCompilerSetting<TestCase>();
+            compiler = SearchQueryCompilerBuilder.Instance.BuildUpCompiler<TestCase>(setting);
             subSuites.ForEach(s => currentSubSuites.Add(s));
             // Add a master node which will represnt all test cases in the plan. If selected all test cases will be displayed.
             Suite masterSuite = new Suite("ALL", -1, currentSubSuites);
@@ -131,26 +141,7 @@ namespace TestCaseManagerCore.ViewModels
             this.IsAfterInitialize = true;
             this.SelectedTestCasesCount = "0";
             this.CurrentExecutionStatusOption = TestCaseExecutionType.All;
-        }
-
-        /// <summary>
-        /// Adds the test cases subsuites.
-        /// </summary>
-        /// <param name="suiteTestCaseCollection">The suite test case collection.</param>
-        public void AddTestCasesSubsuites(List<TestCase> suiteTestCaseCollection)
-        {
-            int selectedSuiteId = RegistryManager.Instance.GetSelectedSuiteId();
-            if (this.ShowSubSuitesTestCases)
-            {
-                List<TestCase> testCasesList = new List<TestCase>();
-                ITestSuiteBase currentSuite = TestSuiteManager.GetTestSuiteById(ExecutionContext.TestManagementTeamProject, ExecutionContext.Preferences.TestPlan, selectedSuiteId);
-                if (currentSuite is IStaticTestSuite)
-                {
-                    testCasesList = TestCaseManager.GetAllTestCasesFromSuiteCollection(ExecutionContext.Preferences.TestPlan, (currentSuite as IStaticTestSuite).SubSuites);
-                    testCasesList.ForEach(x => suiteTestCaseCollection.Add(x));
-                }
-            }
-        }
+        }     
 
         /// <summary>
         /// Initializes a new instance of the <see cref="TestCasesInitialViewModel"/> class.
@@ -320,6 +311,39 @@ namespace TestCaseManagerCore.ViewModels
         }
 
         /// <summary>
+        /// Adds the test cases subsuites.
+        /// </summary>
+        /// <param name="suiteTestCaseCollection">The suite test case collection.</param>
+        public void AddTestCasesSubsuites(List<TestCase> suiteTestCaseCollection)
+        {
+            int selectedSuiteId = RegistryManager.Instance.GetSelectedSuiteId();
+            if (this.ShowSubSuitesTestCases)
+            {
+                List<TestCase> testCasesList = new List<TestCase>();
+                ITestSuiteBase currentSuite = TestSuiteManager.GetTestSuiteById(ExecutionContext.TestManagementTeamProject, ExecutionContext.Preferences.TestPlan, selectedSuiteId);
+                if (currentSuite is IStaticTestSuite)
+                {
+                    testCasesList = TestCaseManager.GetAllTestCasesFromSuiteCollection(ExecutionContext.Preferences.TestPlan, (currentSuite as IStaticTestSuite).SubSuites);
+                    testCasesList.ForEach(x => suiteTestCaseCollection.Add(x));
+                }
+            }
+        }
+
+        /// <summary>
+        /// Searches the specified query.
+        /// </summary>
+        /// <param name="query">The query.</param>
+        public IEnumerable<TestCase> Search()
+        {
+            Expression<Func<TestCase, bool>> filter = compiler.Compile(this.InitialViewFilters.AdvancedSearchFilter);
+            IEnumerable<TestCase> result = this.InitialTestCaseCollection.AsQueryable().Where(filter);
+            return result;
+            //this.ObservableTestCases.Clear();
+            //result.ToList().ForEach(x => this.ObservableTestCases.Add(x));
+            //this.TestCasesCount = result.ToList().Count.ToString();
+        }
+
+        /// <summary>
         /// Exports the test cases.
         /// </summary>
         /// <param name="fileName">Name of the file.</param>
@@ -360,15 +384,22 @@ namespace TestCaseManagerCore.ViewModels
             string priorityFilter = this.InitialViewFilters.PriorityFilter.ToLower();
             bool shouldSetAssignedToFilter = this.InitialViewFilters.IsAssignedToTextSet && !string.IsNullOrEmpty(this.InitialViewFilters.AssignedToFilter);
             string assignedToFilter = this.InitialViewFilters.AssignedToFilter.ToLower();
-            var filteredList = this.InitialTestCaseCollection.Where(t =>
-                                                                        (t.ITestCase != null) &&
-                                                                        (shouldSetIdFilter ? (t.ITestCase.Id.ToString().Contains(idFilter)) : true) &&
-                                                                        (shouldSetTextFilter ? (t.ITestCase.Title.ToLower().Contains(titleFilter)) : true) &&
-                                                                        (this.FilterTestCasesBySuite(shouldSetSuiteFilter, suiteFilter, t)) &&
-                                                                        (shouldSetPriorityFilter ? t.Priority.ToString().ToLower().Contains(priorityFilter) : true) &&
-                                                                        (t.TeamFoundationIdentityName != null && shouldSetAssignedToFilter ? t.TeamFoundationIdentityName.DisplayName.ToLower().Contains(assignedToFilter) : true) &&
-                                                                        (!this.HideAutomated.Equals(t.ITestCase.IsAutomated) || !this.HideAutomated) &&
-                                                                        (this.CurrentExecutionStatusOption.Equals(TestCaseExecutionType.All) || t.LastExecutionOutcome.Equals(this.CurrentExecutionStatusOption))).ToList();
+
+            bool shouldSetAdvancedFilter = this.InitialViewFilters.IsAdvancedSearchTextSet && !string.IsNullOrEmpty(this.InitialViewFilters.AdvancedSearchFilter);
+            IEnumerable<TestCase> searchableCollection =  this.InitialTestCaseCollection;
+            if (shouldSetAdvancedFilter)
+            {
+                searchableCollection = this.Search();
+            }
+            var filteredList = searchableCollection.Where(t =>
+                (t.ITestCase != null) &&
+                (shouldSetIdFilter ? (t.ITestCase.Id.ToString().Contains(idFilter)) : true) &&
+                (shouldSetTextFilter ? (t.ITestCase.Title.ToLower().Contains(titleFilter)) : true) &&
+                (this.FilterTestCasesBySuite(shouldSetSuiteFilter, suiteFilter, t)) &&
+                (shouldSetPriorityFilter ? t.Priority.ToString().ToLower().Contains(priorityFilter) : true) &&
+                (t.TeamFoundationIdentityName != null && shouldSetAssignedToFilter ? t.TeamFoundationIdentityName.DisplayName.ToLower().Contains(assignedToFilter) : true) &&
+                (!this.HideAutomated.Equals(t.ITestCase.IsAutomated) || !this.HideAutomated) &&
+                (this.CurrentExecutionStatusOption.Equals(TestCaseExecutionType.All) || t.LastExecutionOutcome.Equals(this.CurrentExecutionStatusOption))).ToList();
             this.ObservableTestCases.Clear();
             filteredList.ForEach(x => this.ObservableTestCases.Add(x));
             this.TestCasesCount = filteredList.Count.ToString();

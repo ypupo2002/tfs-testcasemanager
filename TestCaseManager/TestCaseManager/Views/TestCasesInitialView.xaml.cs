@@ -23,6 +23,7 @@ using TestCaseManagerCore.BusinessLogic.Entities;
 using TestCaseManagerCore.BusinessLogic.Enums;
 using TestCaseManagerCore.BusinessLogic.Managers;
 using TestCaseManagerCore.ViewModels;
+using FirstFloor.ModernUI.Presentation;
 
 namespace TestCaseManagerApp.Views
 {
@@ -161,6 +162,14 @@ namespace TestCaseManagerApp.Views
         /// The test cases initial view model.
         /// </value>
         public TestCasesInitialViewModel TestCasesInitialViewModel { get; set; }
+
+        /// <summary>
+        /// Gets the search command.
+        /// </summary>
+        /// <value>
+        /// The search command.
+        /// </value>
+        public ICommand SearchCommand { get; private set; }
 
         /// <summary>
         /// Called when navigation to a content fragment begins.
@@ -568,12 +577,12 @@ namespace TestCaseManagerApp.Views
             e.Handled = true;
             int selectedSuiteId = (int)this.tvSuites.SelectedValue;         
 
-            this.btnArrange.Visibility = System.Windows.Visibility.Visible;
-            this.btnArrange1.Visibility = System.Windows.Visibility.Visible;
+            this.btnArrange.IsEnabled = true;
+            //this.btnArrange1.Visibility = System.Windows.Visibility.Visible;
             if (selectedSuiteId == -1 || !TestSuiteManager.IsStaticSuite(ExecutionContext.TestManagementTeamProject, selectedSuiteId))
             {
-                this.btnArrange.Visibility = System.Windows.Visibility.Hidden;
-                this.btnArrange1.Visibility = System.Windows.Visibility.Hidden;
+                this.btnArrange.IsEnabled = false;
+                //this.btnArrange1.Visibility = System.Windows.Visibility.Hidden;
             }
             if (selectedSuiteId.Equals(-1) && this.TestCasesInitialViewModel.IsThereSubnodeSelected(this.TestCasesInitialViewModel.Suites))
             {
@@ -638,12 +647,12 @@ namespace TestCaseManagerApp.Views
             if (selectedSuiteId == -1)
             {
                 this.btnShowTestCaseWithoutSuite.Visibility = System.Windows.Visibility.Visible;
-                this.btnShowTestCaseWithoutSuite1.Visibility = System.Windows.Visibility.Visible;
+                //this.btnShowTestCaseWithoutSuite1.Visibility = System.Windows.Visibility.Visible;
             }
             else
             {
                 this.btnShowTestCaseWithoutSuite.Visibility = System.Windows.Visibility.Hidden;
-                this.btnShowTestCaseWithoutSuite1.Visibility = System.Windows.Visibility.Hidden;
+                //this.btnShowTestCaseWithoutSuite1.Visibility = System.Windows.Visibility.Hidden;
             }
         }
 
@@ -1136,17 +1145,17 @@ namespace TestCaseManagerApp.Views
         /// </summary>
         private void UpdateButtonsStatus()
         {
-            this.btnPreview.IsEnabled = true;
-            this.btnDuplicate.IsEnabled = true;
-            this.btnEdit.IsEnabled = true;
+            //this.btnPreview.IsEnabled = true;
+            //this.btnDuplicate.IsEnabled = true;
+            //this.btnEdit.IsEnabled = true;
             this.btnPreview1.IsEnabled = true;
             this.btnDuplicate1.IsEnabled = true;
-            this.btnChangeTestCases.IsEnabled = true;
+            //this.btnChangeTestCases.IsEnabled = true;
             this.btnChangeTestCases1.IsEnabled = true;
             this.btnEdit1.IsEnabled = true;
             this.btnExport.IsEnabled = true;
-            this.btnExport1.IsEnabled = true;
-            this.btnRemoveTestCase.IsEnabled = true;
+            //this.btnExport1.IsEnabled = true;
+            //this.btnRemoveTestCase.IsEnabled = true;
             this.btnRemoveTestCase1.IsEnabled = true;
             this.dgTestCaseContextItemEdit.IsEnabled = true;
             this.dgTestCaseContextItemPreview.IsEnabled = true;
@@ -1157,25 +1166,25 @@ namespace TestCaseManagerApp.Views
             this.dgTestCaseContextItemRemove.IsEnabled = true;
             if (this.dgTestCases.SelectedItems.Count < 1)
             {
-                this.btnPreview.IsEnabled = false;
-                this.btnDuplicate.IsEnabled = false;
-                this.btnEdit.IsEnabled = false;
+                //this.btnPreview.IsEnabled = false;
+                //this.btnDuplicate.IsEnabled = false;
+                //this.btnEdit.IsEnabled = false;
                 this.btnPreview1.IsEnabled = false;
                 this.btnDuplicate1.IsEnabled = false;
                 this.btnEdit1.IsEnabled = false;
-                this.btnRemoveTestCase.IsEnabled = false;
+                //this.btnRemoveTestCase.IsEnabled = false;
                 this.btnRemoveTestCase1.IsEnabled = false;             
                 this.dgTestCaseContextItemEdit.IsEnabled = false;
                 this.dgTestCaseContextItemPreview.IsEnabled = false;
                 this.dgTestCaseContextItemDuplicate.IsEnabled = false;
-                this.btnChangeTestCases.IsEnabled = false;
+                //this.btnChangeTestCases.IsEnabled = false;
                 this.btnChangeTestCases1.IsEnabled = false;
 
                 this.dgTestCaseContextItemCopy.IsEnabled = false;
                 this.dgTestCaseContextItemCut.IsEnabled = false;
                 this.dgTestCaseContextItemRemove.IsEnabled = false;
                 this.btnExport.IsEnabled = false;
-                this.btnExport1.IsEnabled = false;
+                //this.btnExport1.IsEnabled = false;
             }
         }
 
@@ -1526,6 +1535,36 @@ namespace TestCaseManagerApp.Views
                 this.HideProgressBar();
                 ModernDialog.ShowMessage("In order to prevent performance issues, you can cut the test cases without suite in new suite- \"TestCaseWithoutSuite\" and then start working with them!", "Warning", MessageBoxButton.OK);
             }, TaskScheduler.FromCurrentSynchronizationContext());			
+        }
+
+        /// <summary>
+        /// Handles the Click event of the brnSearch control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
+        private void bthAdvancedSearchSearch_Click(object sender, RoutedEventArgs e)
+        {
+            this.TestCasesInitialViewModel.FilterTestCases();
+        }
+
+        /// <summary>
+        /// Handles the GotFocus event of the tbAdvancedSearch control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
+        private void tbAdvancedSearch_GotFocus(object sender, RoutedEventArgs e)
+        {
+            this.tbAdvancedSearch.ClearDefaultContent(ref this.TestCasesInitialViewModel.InitialViewFilters.IsAdvancedSearchTextSet);
+        }
+
+        /// <summary>
+        /// Handles the LostFocus event of the tbAdvancedSearch control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
+        private void tbAdvancedSearch_LostFocus(object sender, RoutedEventArgs e)
+        {
+            this.tbAdvancedSearch.RestoreDefaultText(this.TestCasesInitialViewModel.InitialViewFilters.DetaultAdvancedSearch, ref this.TestCasesInitialViewModel.InitialViewFilters.IsAdvancedSearchTextSet);
         }
     }
 }

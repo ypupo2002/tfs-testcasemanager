@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:mui="http://firstfloorsoftware.com/ModernUI"
              xmlns:local="clr-namespace:TestCaseManagerApp.Views"
+             xmlns:fidely="clr-namespace:Fidely.Framework.Integration.WPF;assembly=Fidely.Framework.Integration.WPF"
              xmlns:entities="clr-namespace:TestCaseManagerCore.BusinessLogic.Entities;assembly=TestCaseManagerCore"    
              xmlns:convert="clr-namespace:AAngelov.Utilities.UI.Converters;assembly=AAngelov.Utilities.UI"
              mc:Ignorable="d" Loaded="TestCaseInitialView_Loaded">
@@ -56,30 +57,28 @@
 
             <StackPanel Orientation="Vertical" Grid.Row="1" Grid.Column="2">
                 <StackPanel Orientation="Vertical" Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="3" Margin="10,0,0,15">
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,0,0,10" Name="spExecutionStatuses">
-                        <RadioButton Content="All" Margin="20,0,10,0" FontWeight="Bold" FontSize="12" GroupName="Options1" IsChecked="{Binding Path=CurrentExecutionStatusOption, Mode=TwoWay, Converter={StaticResource enumBooleanConverter}, ConverterParameter=All}" Checked="RadioButton_Checked" />
-                        <RadioButton Content="Active" Margin="15,0,10,0" FontWeight="Bold" FontSize="12" GroupName="Options2" IsChecked="{Binding Path=CurrentExecutionStatusOption, Mode=TwoWay, Converter={StaticResource enumBooleanConverter}, ConverterParameter=Active}" Checked="RadioButton_Checked" />
-                        <RadioButton Content="Passed" Margin="15,0,10,0" FontWeight="Bold" FontSize="12" GroupName="Options3" IsChecked="{Binding Path=CurrentExecutionStatusOption, Mode=TwoWay, Converter={StaticResource enumBooleanConverter}, ConverterParameter=Passed}" Checked="RadioButton_Checked" />
-                        <RadioButton Content="Failed" Margin="15,0,10,0" FontWeight="Bold" FontSize="12" GroupName="Options4" IsChecked="{Binding Path=CurrentExecutionStatusOption, Mode=TwoWay, Converter={StaticResource enumBooleanConverter}, ConverterParameter=Failed}" Checked="RadioButton_Checked" />
-                        <RadioButton Content="Blocked" Margin="15,0,10,0" FontWeight="Bold" FontSize="12" GroupName="Options5" IsChecked="{Binding Path=CurrentExecutionStatusOption, Mode=TwoWay, Converter={StaticResource enumBooleanConverter}, ConverterParameter=Blocked}" Checked="RadioButton_Checked" />
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
-                        <Button Name="btnPreview1" Content="_Preview" Margin="20,0,10,0" Height="30" Width="90" VerticalAlignment="Center" Click="PreviewButton_Click"/>
-                        <Button Name="btnEdit1" Content="_Edit" Margin="15,0,10,0" Height="30" Width="90" VerticalAlignment="Center" Click="EditButton_Click"/>
-                        <Button Name="btnDuplicate1" Content="_Duplicate" Margin="15,0,10,0" Height="30" Width="90" VerticalAlignment="Center" Click="DuplicateButton_Click"/>
-                        <Button Name="btnNew1" Content="_New" Margin="15,0,10,0" Height="30" Width="90" VerticalAlignment="Center" Click="btnNew_Click"/>
-                        <Button Name="btnRemoveTestCase1" Content="_Remove" Margin="15,0,10,0" Height="30" Width="90" VerticalAlignment="Center" Click="btnRemoveTestCase_Click"/>
-                        <Button Name="btnExport" Content="_Export" Margin="15,0,10,0" Height="30" Width="90" VerticalAlignment="Center" Click="btnExport_Click"/>
-                        <Button Name="btnArrange" Content="Arrange" Margin="15,0,10,0" Height="30" Width="Auto" VerticalAlignment="Center" Click="btnArrange_Click"/>
-                        <Button Name="btnChangeTestCases1" Content="Change Test Cases"  Margin="30,0,10,0" Height="30" Width="Auto" VerticalAlignment="Center" Click="btnChangeTestCases_Click"/>
-                        <Button Name="btnShowTestCaseWithoutSuite" Content="Show Test Cases Without Suite" Margin="15,0,10,0" Height="30" Width="Auto" VerticalAlignment="Center" Click="btnShowTestCaseWithoutSuite1_Click"/>
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="20,10,0,10">
-                        <CheckBox Margin="0,0,10,0" VerticalAlignment="Center" HorizontalAlignment="Left" IsChecked="{Binding Path=ShowSubSuitesTestCases, Mode=TwoWay}" 
-                                  Name="cbShowSubsuiteTestCases" Unchecked="cbShowSubsuiteTestCases_Unchecked"  Checked="cbShowSubsuiteTestCases_Checked"/>
-                        <TextBlock Text="Show Test Cases in subsuites" Margin="10,0,10,0" Height="Auto" Width="Auto" HorizontalAlignment="Left"/>
-
-                    </StackPanel>
+                    <ScrollViewer HorizontalScrollBarVisibility="Auto">
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,0,0,10" Name="spExecutionStatuses">
+                            <RadioButton Content="All" Margin="20,0,10,0" FontWeight="Bold" FontSize="12" GroupName="Options1" IsChecked="{Binding Path=CurrentExecutionStatusOption, Mode=TwoWay, Converter={StaticResource enumBooleanConverter}, ConverterParameter=All}" Checked="RadioButton_Checked" />
+                                <RadioButton Content="Active" Margin="15,0,10,0" FontWeight="Bold" FontSize="12" GroupName="Options2" IsChecked="{Binding Path=CurrentExecutionStatusOption, Mode=TwoWay, Converter={StaticResource enumBooleanConverter}, ConverterParameter=Active}" Checked="RadioButton_Checked" />
+                                <RadioButton Content="Passed" Margin="15,0,10,0" FontWeight="Bold" FontSize="12" GroupName="Options3" IsChecked="{Binding Path=CurrentExecutionStatusOption, Mode=TwoWay, Converter={StaticResource enumBooleanConverter}, ConverterParameter=Passed}" Checked="RadioButton_Checked" />
+                                <RadioButton Content="Failed" Margin="15,0,10,0" FontWeight="Bold" FontSize="12" GroupName="Options4" IsChecked="{Binding Path=CurrentExecutionStatusOption, Mode=TwoWay, Converter={StaticResource enumBooleanConverter}, ConverterParameter=Failed}" Checked="RadioButton_Checked" />
+                                <RadioButton Content="Blocked" Margin="15,0,10,0" FontWeight="Bold" FontSize="12" GroupName="Options5" IsChecked="{Binding Path=CurrentExecutionStatusOption, Mode=TwoWay, Converter={StaticResource enumBooleanConverter}, ConverterParameter=Blocked}" Checked="RadioButton_Checked" />
+                        </StackPanel>
+                    </ScrollViewer>
+                    <ScrollViewer HorizontalScrollBarVisibility="Auto">
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                            <Button Name="btnPreview1" Content="_Preview" Margin="20,0,10,0" Height="30" Width="90" VerticalAlignment="Center" Click="PreviewButton_Click"/>
+                            <Button Name="btnEdit1" Content="_Edit" Margin="15,0,10,0" Height="30" Width="90" VerticalAlignment="Center" Click="EditButton_Click"/>
+                            <Button Name="btnDuplicate1" Content="_Duplicate" Margin="15,0,10,0" Height="30" Width="90" VerticalAlignment="Center" Click="DuplicateButton_Click"/>
+                            <Button Name="btnNew1" Content="_New" Margin="15,0,10,0" Height="30" Width="90" VerticalAlignment="Center" Click="btnNew_Click"/>
+                            <Button Name="btnRemoveTestCase1" Content="_Remove" Margin="15,0,10,0" Height="30" Width="90" VerticalAlignment="Center" Click="btnRemoveTestCase_Click"/>
+                            <Button Name="btnExport" Content="_Export" Margin="15,0,10,0" Height="30" Width="90" VerticalAlignment="Center" Click="btnExport_Click"/>
+                            <Button Name="btnArrange" Content="Arrange" Margin="15,0,10,0" Height="30" Width="90" VerticalAlignment="Center" Click="btnArrange_Click"/>
+                            <Button Name="btnChangeTestCases1" Content="Change"  Margin="15,0,10,0" Height="30" Width="90" VerticalAlignment="Center" Click="btnChangeTestCases_Click"/>
+                            <Button Name="btnShowTestCaseWithoutSuite" Content="No Suite" Margin="15,0,10,0" Height="30" Width="90" VerticalAlignment="Center" Click="btnShowTestCaseWithoutSuite1_Click"/>
+                        </StackPanel>
+                    </ScrollViewer>
                 </StackPanel>
                 <Grid>
                     <Grid.ColumnDefinitions>
@@ -106,48 +105,55 @@
                     </StackPanel>
                 </Grid>
             </StackPanel>
-
-            <TreeView  Name="tvSuites" Grid.Row="1" Grid.Column="0" Grid.RowSpan="2"  SelectedValuePath="Id" ItemsSource="{Binding Suites}" Margin="{StaticResource SplitLeft}">
-                <TreeView.ItemContainerStyle>
-                    <Style TargetType="{x:Type TreeViewItem}"  BasedOn="{StaticResource {x:Type TreeViewItem}}">
-                        <Setter Property="IsExpanded" Value="{Binding Path=IsNodeExpanded, Mode=TwoWay}" />
-                        <Setter Property="IsSelected" Value="{Binding Path=IsSelected, Mode=TwoWay}" />
-                        <EventSetter Event="TreeViewItem.PreviewMouseRightButtonDown" Handler="TreeViewItem_PreviewMouseRightButtonDown"/>
-                        <EventSetter Event="TreeViewItem.KeyDown" Handler="tvSuites_KeyDown"/>
-                        <EventSetter Event="TreeViewItem.Selected" Handler="treeViewItem_Selected"/>
-                        <Setter Property="ContextMenu">
-                            <Setter.Value>
-                                <ContextMenu>
-                                    <MenuItem Command="{x:Static local:TestCasesInitialView.AddSuiteCommand}" Header="Add" IsEnabled="{Binding Path=IsAddEnabled}"/>
-                                    <Separator />
-                                    <MenuItem Command="{x:Static local:TestCasesInitialView.CutSuiteCommand}" Header="Cut" IsEnabled="{Binding Path=IsCutEnabled}"/>
-                                    <MenuItem Command="{x:Static local:TestCasesInitialView.CopySuiteCommand}" Header="Copy" IsEnabled="{Binding Path=IsCopyEnabled}"/>
-                                    <MenuItem Command="{x:Static local:TestCasesInitialView.PasteSuiteCommand}" Header="Paste" IsEnabled="{Binding Path=IsPasteEnabled}"/>
-                                    <MenuItem Command="{x:Static local:TestCasesInitialView.RemoveSuiteCommand}" Header="Remove" IsEnabled="{Binding Path=IsRemoveEnabled}"/>
-                                    <Separator />
-                                    <MenuItem Command="{x:Static local:TestCasesInitialView.RenameSuiteCommand}" Header="Rename" IsEnabled="{Binding Path=IsRenameEnabled}"/>
-                                </ContextMenu>
-                            </Setter.Value>
-                        </Setter>
-                    </Style>
-                </TreeView.ItemContainerStyle>
-                <TreeView.InputBindings>
-                    <KeyBinding Key="C"  Modifiers="Ctrl"  Command="Copy"/>
-                    <KeyBinding Key="V"  Modifiers="Ctrl"  Command="Paste"/>
-                    <KeyBinding Key="X"  Modifiers="Ctrl"  Command="Cut"/>
-                </TreeView.InputBindings>
-                <TreeView.CommandBindings>
-                    <CommandBinding Command="Copy"  Executed="copySuite_Command"/>
-                    <CommandBinding Command="Paste"  Executed="pasteSuite_Command"/>
-                    <CommandBinding Command="Cut"  Executed="cutSuite_Command"/>
-                </TreeView.CommandBindings>
-                <TreeView.Resources>
-                    <HierarchicalDataTemplate DataType="{x:Type entities:Suite}" ItemsSource="{Binding SubSuites}" >
-                        <TextBlock Text="{Binding Path=Title}" FontSize="14"/>
-                    </HierarchicalDataTemplate>
-                </TreeView.Resources>
-            </TreeView>
-
+            <StackPanel Orientation="Vertical" Grid.Row="1" Grid.Column="0" Grid.RowSpan="2">
+                <TreeView  Name="tvSuites"   SelectedValuePath="Id" ItemsSource="{Binding Suites}" Margin="{StaticResource SplitLeft}">
+                    <TreeView.ItemContainerStyle>
+                        <Style TargetType="{x:Type TreeViewItem}"  BasedOn="{StaticResource {x:Type TreeViewItem}}">
+                            <Setter Property="IsExpanded" Value="{Binding Path=IsNodeExpanded, Mode=TwoWay}" />
+                            <Setter Property="IsSelected" Value="{Binding Path=IsSelected, Mode=TwoWay}" />
+                            <EventSetter Event="TreeViewItem.PreviewMouseRightButtonDown" Handler="TreeViewItem_PreviewMouseRightButtonDown"/>
+                            <EventSetter Event="TreeViewItem.KeyDown" Handler="tvSuites_KeyDown"/>
+                            <EventSetter Event="TreeViewItem.Selected" Handler="treeViewItem_Selected"/>
+                            <Setter Property="ContextMenu">
+                                <Setter.Value>
+                                    <ContextMenu>
+                                        <MenuItem Command="{x:Static local:TestCasesInitialView.AddSuiteCommand}" Header="Add" IsEnabled="{Binding Path=IsAddEnabled}"/>
+                                        <Separator />
+                                        <MenuItem Command="{x:Static local:TestCasesInitialView.CutSuiteCommand}" Header="Cut" IsEnabled="{Binding Path=IsCutEnabled}"/>
+                                        <MenuItem Command="{x:Static local:TestCasesInitialView.CopySuiteCommand}" Header="Copy" IsEnabled="{Binding Path=IsCopyEnabled}"/>
+                                        <MenuItem Command="{x:Static local:TestCasesInitialView.PasteSuiteCommand}" Header="Paste" IsEnabled="{Binding Path=IsPasteEnabled}"/>
+                                        <MenuItem Command="{x:Static local:TestCasesInitialView.RemoveSuiteCommand}" Header="Remove" IsEnabled="{Binding Path=IsRemoveEnabled}"/>
+                                        <Separator />
+                                        <MenuItem Command="{x:Static local:TestCasesInitialView.RenameSuiteCommand}" Header="Rename" IsEnabled="{Binding Path=IsRenameEnabled}"/>
+                                    </ContextMenu>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </TreeView.ItemContainerStyle>
+                    <TreeView.InputBindings>
+                        <KeyBinding Key="C"  Modifiers="Ctrl"  Command="Copy"/>
+                        <KeyBinding Key="V"  Modifiers="Ctrl"  Command="Paste"/>
+                        <KeyBinding Key="X"  Modifiers="Ctrl"  Command="Cut"/>
+                    </TreeView.InputBindings>
+                    <TreeView.CommandBindings>
+                        <CommandBinding Command="Copy"  Executed="copySuite_Command"/>
+                        <CommandBinding Command="Paste"  Executed="pasteSuite_Command"/>
+                        <CommandBinding Command="Cut"  Executed="cutSuite_Command"/>
+                    </TreeView.CommandBindings>
+                    <TreeView.Resources>
+                        <HierarchicalDataTemplate DataType="{x:Type entities:Suite}" ItemsSource="{Binding SubSuites}" >
+                            <TextBlock Text="{Binding Path=Title}" FontSize="14"/>
+                        </HierarchicalDataTemplate>
+                    </TreeView.Resources>
+                </TreeView>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,10,0,0" VerticalAlignment="Bottom">
+                    <CheckBox Margin="0,0,10,0" VerticalAlignment="Center" HorizontalAlignment="Left" IsChecked="{Binding Path=ShowSubSuitesTestCases, Mode=TwoWay}" 
+                                  Name="cbShowSubsuiteTestCases" Unchecked="cbShowSubsuiteTestCases_Unchecked"  Checked="cbShowSubsuiteTestCases_Checked" ToolTip="Show Test Cases in subsuites"/>
+                    <TextBlock Text="Show Childs" Margin="10,0,10,0" Height="Auto" Width="Auto" HorizontalAlignment="Left"/>
+                </StackPanel>
+            </StackPanel>
+           
+            
             <GridSplitter Width="5" ResizeDirection="Auto" HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" Grid.Row="1" Grid.RowSpan="2" Grid.Column="1"/>
 
             <ProgressBar Name="progressBarTestCases" Minimum="0" Maximum="1" Height="16" IsIndeterminate="True" Margin="0,0,0,16" Grid.Row="2" Grid.Column="2" Visibility="Hidden"/>
@@ -243,26 +249,17 @@
                     </DataGridTextColumn>
                 </DataGrid.Columns>
             </DataGrid>
-
-            <StackPanel Orientation="Vertical" Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="3" Margin="10,10,0,0">
-
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
-                    <Button Name="btnPreview" Content="_Preview" Margin="20,0,10,0" Height="30" Width="90" VerticalAlignment="Center" Click="PreviewButton_Click"/>
-                    <Button Name="btnEdit" Content="_Edit" Margin="15,0,10,0" Height="30" Width="90" VerticalAlignment="Center" Click="EditButton_Click"/>
-                    <Button Name="btnDuplicate" Content="_Duplicate" Margin="15,0,10,0" Height="30" Width="90" VerticalAlignment="Center" Click="DuplicateButton_Click"/>
-                    <Button Name="btnNew" Content="_New" Margin="15,0,10,0" Height="30" Width="90" VerticalAlignment="Center" Click="btnNew_Click"/>
-                    <Button Name="btnRemoveTestCase" Content="_Remove" Margin="15,0,10,0" Height="30" Width="90" VerticalAlignment="Center" Click="btnRemoveTestCase_Click"/>
-                    <Button Name="btnExport1" Content="_Export" Margin="15,0,10,0" Height="30" Width="90" VerticalAlignment="Center" Click="btnExport_Click"/>
-                    <Button Name="btnArrange1" Content="Arrange" Margin="15,0,10,0" Height="30" Width="Auto" VerticalAlignment="Center" Click="btnArrange_Click"/>
-                    <Button Name="btnChangeTestCases" Content="Change Test Cases"  Margin="30,0,10,0" Height="30" Width="Auto" VerticalAlignment="Center" Click="btnChangeTestCases_Click"/>
-                    <Button Name="btnShowTestCaseWithoutSuite1" Content="Show Test Cases Without Suite" Margin="15,0,10,0" Height="30" Width="Auto" VerticalAlignment="Center" Click="btnShowTestCaseWithoutSuite1_Click"/>
-                </StackPanel>
-            </StackPanel>
+            <TextBox Name="tbAdvancedSearch" Text="{Binding InitialViewFilters.AdvancedSearchFilter, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                     Height="25" Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="3" Margin="30,10,0,0" SpellCheck.IsEnabled="True"
+                     GotFocus="tbAdvancedSearch_GotFocus"  LostFocus="tbAdvancedSearch_LostFocus"/>
+            <Button Name="btnAdvancedSearch" Content="Search" Height="0" Width="0"
+                    Click="bthAdvancedSearchSearch_Click" IsDefault="True" Visibility="Visible"/>
+           
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Grid.Row="4" Grid.Column="2" Grid.ColumnSpan="3">
-                <TextBlock Text="Selected Test Case Count:" Margin="30,30,10,0" Height="25" Width="Auto" FontWeight="Bold"/>
-                <TextBlock Name="tbSelectedTestCaseCount"  Text="{Binding SelectedTestCasesCount}" Margin="0,30,10,0" Height="25" Width="Auto" />
-                <TextBlock Text="Test Case Count:" Margin="0,30,10,0" Height="25" Width="Auto" FontWeight="Bold"/>
-                <TextBlock Name="tbTestCaseCount"  Text="{Binding TestCasesCount}" Margin="0,30,10,0" Height="25" Width="Auto" />
+                <TextBlock Text="Selected Test Case Count:" Margin="30,15,10,0" Height="25" Width="Auto" FontWeight="Bold"/>
+                <TextBlock Name="tbSelectedTestCaseCount"  Text="{Binding SelectedTestCasesCount}" Margin="0,15,10,0" Height="25" Width="Auto" />
+                <TextBlock Text="Test Case Count:" Margin="0,15,10,0" Height="25" Width="Auto" FontWeight="Bold"/>
+                <TextBlock Name="tbTestCaseCount"  Text="{Binding TestCasesCount}" Margin="0,15,10,0" Height="25" Width="Auto" />
             </StackPanel>
         </Grid>
     </Grid>

@@ -10,6 +10,7 @@ namespace TestCaseManagerCore.BusinessLogic.Entities
     using AAngelov.Utilities.UI.Core;
     using Microsoft.TeamFoundation.TestManagement.Client;
     using TestCaseManagerCore.BusinessLogic.Enums;
+    using Fidely.Framework;
 
     /// <summary>
     /// Contains Base Test Entities properties
@@ -54,6 +55,7 @@ namespace TestCaseManagerCore.BusinessLogic.Entities
         /// <value>
         /// The display name of the owner.
         /// </value>
+        [Alias("assignedTo", Description = "Assigned To Person Name")]
         public string OwnerDisplayName { get; set; }
 
         /// <summary>
@@ -89,6 +91,7 @@ namespace TestCaseManagerCore.BusinessLogic.Entities
         /// <value>
         /// The title.
         /// </value>
+        [Alias("title", Description = "The title of item")]
         public string Title
         {
             get
@@ -113,6 +116,7 @@ namespace TestCaseManagerCore.BusinessLogic.Entities
         /// <value>
         /// The area.
         /// </value>
+        [Alias("area", Description = "Area of the item")]
         public string Area
         {
             get
@@ -161,6 +165,7 @@ namespace TestCaseManagerCore.BusinessLogic.Entities
         /// <value>
         /// The priority.
         /// </value>
+        [Alias("priority", Description = "Priority of the item")]
         public Priority Priority
         {
             get

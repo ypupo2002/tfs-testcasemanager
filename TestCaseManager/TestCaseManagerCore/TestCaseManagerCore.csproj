@@ -75,6 +75,7 @@
     <Reference Include="System.Deployment">
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.DirectoryServices" />
     <Reference Include="System.Printing">
       <Private>True</Private>
     </Reference>
@@ -189,6 +190,22 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\MainProjects\Fidely\src\Compilation.Entities\Compilation.Entities.csproj">
+      <Project>{73e782d7-5669-46d0-8612-9cc745702941}</Project>
+      <Name>Compilation.Entities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\MainProjects\Fidely\src\Compilation.Objects\Compilation.Objects.csproj">
+      <Project>{85e86ca6-c0b1-4ef9-885a-6232b3e5717c}</Project>
+      <Name>Compilation.Objects</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\MainProjects\Fidely\src\Core\Core.csproj">
+      <Project>{0ee48c01-a8f7-46ce-8e51-50de88e88180}</Project>
+      <Name>Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\MainProjects\Fidely\src\Integration.WPF\Integration.WPF.csproj">
+      <Project>{3d15a6ed-060e-4077-9cab-2a54a714a790}</Project>
+      <Name>Integration.WPF</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\AAngelov.Utilities\AAngelov.Utilities.UI\AAngelov.Utilities.UI.csproj">
       <Project>{c547f875-db0a-41b6-8c42-10fbc1edf711}</Project>
       <Name>AAngelov.Utilities.UI</Name>
