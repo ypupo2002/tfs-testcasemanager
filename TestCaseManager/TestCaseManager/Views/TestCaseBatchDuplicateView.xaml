@@ -25,8 +25,10 @@
                 <ColumnDefinition Width="1*" />
                 <ColumnDefinition Width="8*" />
             </Grid.ColumnDefinitions>
-            <TextBlock Text="Change | Duplicate" Margin="10,0,10,30" Height="Auto" Width="Auto" FontWeight="Bold" FontSize="26" HorizontalAlignment="Left" Grid.Row="0"/>
-
+            <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.ColumnSpan="2">
+                <TextBlock Text="Find | Replace | Duplicate" Margin="10,0,10,30"  Height="Auto" Width="Auto" FontWeight="Bold" FontSize="26" HorizontalAlignment="Left" />
+                <mui:ModernButton Name="btnInfo" HorizontalAlignment="Left" Grid.Row="0" Margin="10,0,10,45" Click="btnInfo_Click" IconData="F1 M 38,19C 48.4934,19 57,27.5066 57,38C 57,48.4934 48.4934,57 38,57C 27.5066,57 19,48.4934 19,38C 19,27.5066 27.5066,19 38,19 Z M 33.25,33.25L 33.25,36.4167L 36.4166,36.4167L 36.4166,47.5L 33.25,47.5L 33.25,50.6667L 44.3333,50.6667L 44.3333,47.5L 41.1666,47.5L 41.1666,36.4167L 41.1666,33.25L 33.25,33.25 Z M 38.7917,25.3333C 37.48,25.3333 36.4167,26.3967 36.4167,27.7083C 36.4167,29.02 37.48,30.0833 38.7917,30.0833C 40.1033,30.0833 41.1667,29.02 41.1667,27.7083C 41.1667,26.3967 40.1033,25.3333 38.7917,25.3333 Z "/>
+            </StackPanel>
             <StackPanel Orientation="Vertical" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2">
                 <Grid >
                     <Grid.Resources>
@@ -149,6 +151,10 @@
                     <ColumnDefinition Width="2*" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
                 <TextBox Name="tbTitleFilter" Margin="10,0,0,10" Height="25" Text="{Binding InitialViewFilters.TitleFilter, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
                          GotFocus="tbTitleFilter_GotFocus" LostFocus="tbTitleFilter_LostFocus" KeyUp="tbTitleFilter_KeyUp" Grid.Column="0" />
                 <TextBox Name="tbSuiteFilter" Margin="10,0,0,10" Height="25" Text="{Binding InitialViewFilters.SuiteFilter, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
@@ -157,6 +163,11 @@
                          GotFocus="tbAssignedToFilter_GotFocus"  LostFocus="tbAssignedToFilter_LostFocus"  KeyUp="tbAssignedToFilter_KeyUp"  Grid.Column="2"/>
                 <TextBox Name="tbPriorityFilter" Margin="10,0,0,10" Height="25" Text="{Binding InitialViewFilters.PriorityFilter, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                          GotFocus="tbPriorityFilter_GotFocus"  LostFocus="tbPriorityFilter_LostFocus" KeyUp="tbPriorityFilter_KeyUp" Grid.Column="3" />
+                <TextBox Name="tbAdvancedSearch" Text="{Binding InitialViewFilters.AdvancedSearchFilter, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                     Height="25" Grid.ColumnSpan="5" Grid.Column="0" Grid.Row="1" Margin="10,10,0,10" SpellCheck.IsEnabled="True"
+                     GotFocus="tbAdvancedSearch_GotFocus"  LostFocus="tbAdvancedSearch_LostFocus"/>
+                <Button Name="btnAdvancedSearch" Content="Search" Height="0" Width="0"
+                    Click="btnAdvancedSearch_Click"  IsDefault="True" Visibility="Visible"/>
             </Grid>
 
             <DataGrid AutoGenerateColumns="False" Name="dgTestCases" IsReadOnly="True" SelectionMode="Extended"
@@ -199,10 +210,13 @@
                     </DataGridTextColumn>
                 </DataGrid.Columns>
             </DataGrid>
-
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2">
-                <Button Name="btnBatchDuplicate" Margin="0,20,10,0" Height="30" Width="150" Content="Batch Duplicate" HorizontalAlignment="Left" VerticalAlignment="Center" Click="btnBatchDuplicate_Click" Grid.Row="3" Grid.Column="0"/>
-                <Button Name="btnFindAndReplace" Margin="10,20,10,0" Height="30" Width="150" Content="Find And Replace" HorizontalAlignment="Left" VerticalAlignment="Center" Click="btnFindAndReplace_Click" Grid.Row="3" Grid.Column="0"/>
+                <Button Name="btnBatchDuplicate" Margin="0,20,10,0" Height="30" Width="90" Content="Duplicate" HorizontalAlignment="Left" 
+                        VerticalAlignment="Center" Click="btnBatchDuplicate_Click" Grid.Row="3" Grid.Column="0"
+                        ToolTip="Duplicates All Selected Test Cases with Specified Changed Properties."/>
+                <Button Name="btnFindAndReplace" Margin="10,20,10,0" Height="30" Width="90" Content="Replace" HorizontalAlignment="Left"
+                        VerticalAlignment="Center" Click="btnFindAndReplace_Click" Grid.Row="3" Grid.Column="0"
+                        ToolTip="Applies Changes to All Specified Properties to All Selected Test Cases."/>
             </StackPanel>
 
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Grid.Row="6" Grid.Column="2">

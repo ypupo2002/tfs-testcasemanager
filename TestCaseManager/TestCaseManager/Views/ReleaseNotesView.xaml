@@ -9,6 +9,28 @@
         <ScrollViewer>
             <StackPanel >
                 <TextBlock Text="Release Notes" FontSize="26" Height="Auto" Margin="0,0,0,15"/>
+                <mui:BBCodeBlock BBCode="[b]Version[/b]: 1.0.9.4     [b]Date[/b]: 06.05.2014" Margin="0,0,10,15"/>
+                <mui:BBCodeBlock BBCode="-add ScrollViewer Initial View buttons" Margin="0,0,0,15" />
+                <mui:BBCodeBlock BBCode="-remove bottom line of buttons Initial Test Case View" Margin="0,0,0,15" />
+                <mui:BBCodeBlock BBCode="-move show subsuites under suites tree view" Margin="0,0,0,15" />
+                <mui:BBCodeBlock BBCode="-fix UI upper line buttons" Margin="0,0,0,15" />
+                <mui:BBCodeBlock BBCode="-rename buttons Initial Test Case View" Margin="0,0,0,15" />
+                <mui:BBCodeBlock BBCode="-add advanced Search Initial Test Case View" Margin="0,0,0,15" />
+                <mui:BBCodeBlock BBCode="-add not contains filter to Fidely" Margin="0,0,0,15" />
+                <mui:BBCodeBlock BBCode="-add advanced search shared steps view" Margin="0,0,0,15" />
+                <mui:BBCodeBlock BBCode="-add createdBy, SuiteTitle, modifiedOn, createdOn filters" Margin="0,0,0,15" />
+                <mui:BBCodeBlock BBCode="-add tooltips buttons shared steps view" Margin="0,0,0,15" />
+                <mui:BBCodeBlock BBCode="-remove bottom line buttons shared steps view" Margin="0,0,0,15" />
+                <mui:BBCodeBlock BBCode="-fix UI upper line buttons shared steps view" Margin="0,0,0,15" />
+                <mui:BBCodeBlock BBCode="-add tooltips buttons Initial Test Case View" Margin="0,0,0,15" />
+                <mui:BBCodeBlock BBCode="-add advanced search to Test Cases Find Replace View" Margin="0,0,0,15" />
+                <mui:BBCodeBlock BBCode="-add advanced search to Shared Steps Find Replace View" Margin="0,0,0,15" />
+                <mui:BBCodeBlock BBCode="-fix Find Replace Page title" Margin="0,0,0,15" />
+                <mui:BBCodeBlock BBCode="-change button names Find Replace Page" Margin="0,0,0,15" />
+                <mui:BBCodeBlock BBCode="-add tooltips Find Replace Page" Margin="0,0,0,15" />
+                <mui:BBCodeBlock BBCode="-add info buttons" Margin="0,0,0,15" />
+                <mui:BBCodeBlock BBCode="-add scroll viewer suites tree view" Margin="0,0,0,15" />
+                
                 <mui:BBCodeBlock BBCode="[b]Version[/b]: 1.0.9.1     [b]Date[/b]: 06.05.2014" Margin="0,0,10,15"/>
                 <mui:BBCodeBlock BBCode="-fix suites refresh bug" Margin="0,0,0,15" />
                 <mui:BBCodeBlock BBCode="-fix UI bug in the Migration view" Margin="0,0,0,15" />

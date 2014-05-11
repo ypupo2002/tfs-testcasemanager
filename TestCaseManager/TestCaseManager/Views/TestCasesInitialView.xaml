@@ -51,8 +51,10 @@
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="6*" MinWidth="800"/>
             </Grid.ColumnDefinitions>
-            <StackPanel Orientation="Horizontal" Grid.ColumnSpan="2">
-                <TextBlock Text="Search Test Cases" Margin="0,0,10,15" Height="Auto" Width="Auto" FontWeight="Bold" FontSize="26" HorizontalAlignment="Left" Grid.Row="0"/>
+            <StackPanel Orientation="Horizontal" Grid.ColumnSpan="3">
+                <TextBlock Text="Search Test Cases" Margin="0,0,10,15" Height="Auto" Width="Auto" FontWeight="Bold" FontSize="26" 
+                           HorizontalAlignment="Left" Grid.Row="0" />
+                <mui:ModernButton Name="btnInfo" HorizontalAlignment="Left" Grid.Row="0" Margin="10,5,10,15" Click="btnInfo_Click" IconData="F1 M 38,19C 48.4934,19 57,27.5066 57,38C 57,48.4934 48.4934,57 38,57C 27.5066,57 19,48.4934 19,38C 19,27.5066 27.5066,19 38,19 Z M 33.25,33.25L 33.25,36.4167L 36.4166,36.4167L 36.4166,47.5L 33.25,47.5L 33.25,50.6667L 44.3333,50.6667L 44.3333,47.5L 41.1666,47.5L 41.1666,36.4167L 41.1666,33.25L 33.25,33.25 Z M 38.7917,25.3333C 37.48,25.3333 36.4167,26.3967 36.4167,27.7083C 36.4167,29.02 37.48,30.0833 38.7917,30.0833C 40.1033,30.0833 41.1667,29.02 41.1667,27.7083C 41.1667,26.3967 40.1033,25.3333 38.7917,25.3333 Z "/>
             </StackPanel>
 
             <StackPanel Orientation="Vertical" Grid.Row="1" Grid.Column="2">
@@ -114,53 +116,56 @@
                     </StackPanel>
                 </Grid>
             </StackPanel>
-            <StackPanel Orientation="Vertical" Grid.Row="1" Grid.Column="0" Grid.RowSpan="2">
-                <TreeView  Name="tvSuites"   SelectedValuePath="Id" ItemsSource="{Binding Suites}" Margin="{StaticResource SplitLeft}">
-                    <TreeView.ItemContainerStyle>
-                        <Style TargetType="{x:Type TreeViewItem}"  BasedOn="{StaticResource {x:Type TreeViewItem}}">
-                            <Setter Property="IsExpanded" Value="{Binding Path=IsNodeExpanded, Mode=TwoWay}" />
-                            <Setter Property="IsSelected" Value="{Binding Path=IsSelected, Mode=TwoWay}" />
-                            <EventSetter Event="TreeViewItem.PreviewMouseRightButtonDown" Handler="TreeViewItem_PreviewMouseRightButtonDown"/>
-                            <EventSetter Event="TreeViewItem.KeyDown" Handler="tvSuites_KeyDown"/>
-                            <EventSetter Event="TreeViewItem.Selected" Handler="treeViewItem_Selected"/>
-                            <Setter Property="ContextMenu">
-                                <Setter.Value>
-                                    <ContextMenu>
-                                        <MenuItem Command="{x:Static local:TestCasesInitialView.AddSuiteCommand}" Header="Add" IsEnabled="{Binding Path=IsAddEnabled}"/>
-                                        <Separator />
-                                        <MenuItem Command="{x:Static local:TestCasesInitialView.CutSuiteCommand}" Header="Cut" IsEnabled="{Binding Path=IsCutEnabled}"/>
-                                        <MenuItem Command="{x:Static local:TestCasesInitialView.CopySuiteCommand}" Header="Copy" IsEnabled="{Binding Path=IsCopyEnabled}"/>
-                                        <MenuItem Command="{x:Static local:TestCasesInitialView.PasteSuiteCommand}" Header="Paste" IsEnabled="{Binding Path=IsPasteEnabled}"/>
-                                        <MenuItem Command="{x:Static local:TestCasesInitialView.RemoveSuiteCommand}" Header="Remove" IsEnabled="{Binding Path=IsRemoveEnabled}"/>
-                                        <Separator />
-                                        <MenuItem Command="{x:Static local:TestCasesInitialView.RenameSuiteCommand}" Header="Rename" IsEnabled="{Binding Path=IsRenameEnabled}"/>
-                                    </ContextMenu>
-                                </Setter.Value>
-                            </Setter>
-                        </Style>
-                    </TreeView.ItemContainerStyle>
-                    <TreeView.InputBindings>
-                        <KeyBinding Key="C"  Modifiers="Ctrl"  Command="Copy"/>
-                        <KeyBinding Key="V"  Modifiers="Ctrl"  Command="Paste"/>
-                        <KeyBinding Key="X"  Modifiers="Ctrl"  Command="Cut"/>
-                    </TreeView.InputBindings>
-                    <TreeView.CommandBindings>
-                        <CommandBinding Command="Copy"  Executed="copySuite_Command"/>
-                        <CommandBinding Command="Paste"  Executed="pasteSuite_Command"/>
-                        <CommandBinding Command="Cut"  Executed="cutSuite_Command"/>
-                    </TreeView.CommandBindings>
-                    <TreeView.Resources>
-                        <HierarchicalDataTemplate DataType="{x:Type entities:Suite}" ItemsSource="{Binding SubSuites}" >
-                            <TextBlock Text="{Binding Path=Title}" FontSize="14"/>
-                        </HierarchicalDataTemplate>
-                    </TreeView.Resources>
-                </TreeView>
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,10,0,0" VerticalAlignment="Bottom">
-                    <CheckBox Margin="0,0,10,0" VerticalAlignment="Center" HorizontalAlignment="Left" IsChecked="{Binding Path=ShowSubSuitesTestCases, Mode=TwoWay}" 
+            <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Row="1" Grid.Column="0" Grid.RowSpan="2">
+                <StackPanel Orientation="Vertical" >
+                    <TreeView  Name="tvSuites"   SelectedValuePath="Id" ItemsSource="{Binding Suites}" Margin="{StaticResource SplitLeft}">
+                        <TreeView.ItemContainerStyle>
+                            <Style TargetType="{x:Type TreeViewItem}"  BasedOn="{StaticResource {x:Type TreeViewItem}}">
+                                <Setter Property="IsExpanded" Value="{Binding Path=IsNodeExpanded, Mode=TwoWay}" />
+                                <Setter Property="IsSelected" Value="{Binding Path=IsSelected, Mode=TwoWay}" />
+                                <EventSetter Event="TreeViewItem.PreviewMouseRightButtonDown" Handler="TreeViewItem_PreviewMouseRightButtonDown"/>
+                                <EventSetter Event="TreeViewItem.KeyDown" Handler="tvSuites_KeyDown"/>
+                                <EventSetter Event="TreeViewItem.Selected" Handler="treeViewItem_Selected"/>
+                                <Setter Property="ContextMenu">
+                                    <Setter.Value>
+                                        <ContextMenu>
+                                            <MenuItem Command="{x:Static local:TestCasesInitialView.AddSuiteCommand}" Header="Add" IsEnabled="{Binding Path=IsAddEnabled}"/>
+                                            <Separator />
+                                            <MenuItem Command="{x:Static local:TestCasesInitialView.CutSuiteCommand}" Header="Cut" IsEnabled="{Binding Path=IsCutEnabled}"/>
+                                            <MenuItem Command="{x:Static local:TestCasesInitialView.CopySuiteCommand}" Header="Copy" IsEnabled="{Binding Path=IsCopyEnabled}"/>
+                                            <MenuItem Command="{x:Static local:TestCasesInitialView.PasteSuiteCommand}" Header="Paste" IsEnabled="{Binding Path=IsPasteEnabled}"/>
+                                            <MenuItem Command="{x:Static local:TestCasesInitialView.RemoveSuiteCommand}" Header="Remove" IsEnabled="{Binding Path=IsRemoveEnabled}"/>
+                                            <Separator />
+                                            <MenuItem Command="{x:Static local:TestCasesInitialView.RenameSuiteCommand}" Header="Rename" IsEnabled="{Binding Path=IsRenameEnabled}"/>
+                                        </ContextMenu>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </TreeView.ItemContainerStyle>
+                        <TreeView.InputBindings>
+                            <KeyBinding Key="C"  Modifiers="Ctrl"  Command="Copy"/>
+                            <KeyBinding Key="V"  Modifiers="Ctrl"  Command="Paste"/>
+                            <KeyBinding Key="X"  Modifiers="Ctrl"  Command="Cut"/>
+                        </TreeView.InputBindings>
+                        <TreeView.CommandBindings>
+                            <CommandBinding Command="Copy"  Executed="copySuite_Command"/>
+                            <CommandBinding Command="Paste"  Executed="pasteSuite_Command"/>
+                            <CommandBinding Command="Cut"  Executed="cutSuite_Command"/>
+                        </TreeView.CommandBindings>
+                        <TreeView.Resources>
+                            <HierarchicalDataTemplate DataType="{x:Type entities:Suite}" ItemsSource="{Binding SubSuites}" >
+                                <TextBlock Text="{Binding Path=Title}" FontSize="14"/>
+                            </HierarchicalDataTemplate>
+                        </TreeView.Resources>
+                    </TreeView>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,10,0,0" VerticalAlignment="Bottom">
+                        <CheckBox Margin="0,0,10,0" VerticalAlignment="Center" HorizontalAlignment="Left" IsChecked="{Binding Path=ShowSubSuitesTestCases, Mode=TwoWay}" 
                                   Name="cbShowSubsuiteTestCases" Unchecked="cbShowSubsuiteTestCases_Unchecked"  Checked="cbShowSubsuiteTestCases_Checked" ToolTip="Show Test Cases in subsuites"/>
-                    <TextBlock Text="Show Childs" Margin="10,0,10,0" Height="Auto" Width="Auto" HorizontalAlignment="Left"/>
+                        <TextBlock Text="Show Childs" Margin="10,0,10,0" Height="Auto" Width="Auto" HorizontalAlignment="Left"/>
+                    </StackPanel>
                 </StackPanel>
-            </StackPanel>
+            </ScrollViewer>
+           
            
             
             <GridSplitter Width="5" ResizeDirection="Auto" HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" Grid.Row="1" Grid.RowSpan="2" Grid.Column="1"/>

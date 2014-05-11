@@ -554,5 +554,52 @@ namespace TestCaseManagerApp.Views
                 this.EditCurrentEntityInternal();
             }
         }
+
+        /// <summary>
+        /// Handles the GotFocus event of the tbAdvancedSearch control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
+        private void tbAdvancedSearch_GotFocus(object sender, RoutedEventArgs e)
+        {
+            this.tbAdvancedSearch.ClearDefaultContent(ref this.TestCasesBatchDuplicateViewModel.InitialViewFilters.IsAdvancedSearchTextSet);
+        }
+
+        /// <summary>
+        /// Handles the LostFocus event of the tbAdvancedSearch control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
+        private void tbAdvancedSearch_LostFocus(object sender, RoutedEventArgs e)
+        {
+            this.tbAdvancedSearch.RestoreDefaultText(this.TestCasesBatchDuplicateViewModel.InitialViewFilters.DetaultAdvancedSearch, ref this.TestCasesBatchDuplicateViewModel.InitialViewFilters.IsAdvancedSearchTextSet);
+        }
+
+        /// <summary>
+        /// Handles the Click event of the btnAdvancedSearch control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
+        private void btnAdvancedSearch_Click(object sender, RoutedEventArgs e)
+        {
+            this.TestCasesBatchDuplicateViewModel.FilterEntities();
+        }
+
+        /// <summary>
+        /// Handles the Click event of the btnInfo control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
+        private void btnInfo_Click(object sender, RoutedEventArgs e)
+        {
+            if (this.loadTestCases)
+            {
+                System.Diagnostics.Process.Start("http://aangelov.com/2014/04/21/find-replace-tfs-test-cases-test-case-manager/");
+            }
+            else
+            {
+                System.Diagnostics.Process.Start("http://aangelov.com/2014/05/01/find-replace-tfs-shared-steps-test-case-manager/");
+            }
+        }
     }
 }

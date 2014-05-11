@@ -1566,5 +1566,15 @@ namespace TestCaseManagerApp.Views
         {
             this.tbAdvancedSearch.RestoreDefaultText(this.TestCasesInitialViewModel.InitialViewFilters.DetaultAdvancedSearch, ref this.TestCasesInitialViewModel.InitialViewFilters.IsAdvancedSearchTextSet);
         }
+
+        /// <summary>
+        /// Handles the Click event of the btnInfo control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
+        private void btnInfo_Click(object sender, RoutedEventArgs e)
+        {
+            System.Diagnostics.Process.Start("https://testcasemanager.codeplex.com/wikipage?title=All%20Test%20Cases%20View&version=4");
+        }
     }
 }

@@ -341,9 +341,6 @@ namespace TestCaseManagerCore.ViewModels
             Expression<Func<TestCase, bool>> filter = compiler.Compile(this.InitialViewFilters.AdvancedSearchFilter);
             IEnumerable<TestCase> result = this.InitialTestCaseCollection.AsQueryable().Where(filter);
             return result;
-            //this.ObservableTestCases.Clear();
-            //result.ToList().ForEach(x => this.ObservableTestCases.Add(x));
-            //this.TestCasesCount = result.ToList().Count.ToString();
         }
 
         /// <summary>

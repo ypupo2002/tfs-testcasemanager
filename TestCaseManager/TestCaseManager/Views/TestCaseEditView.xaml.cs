@@ -1605,5 +1605,15 @@ namespace TestCaseManagerApp.Views
                 Navigator.Instance.NavigateToTestCasesDetailedView(this, this.TestCaseEditViewModel.TestCase.ITestCase.Id, -1);
             }
         }
+
+        /// <summary>
+        /// Handles the Click event of the btnInfo control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
+        private void btnInfo_Click(object sender, RoutedEventArgs e)
+        {
+            System.Diagnostics.Process.Start("https://testcasemanager.codeplex.com/wikipage?title=Edit%20Test%20Case&version=3");
+        }
     }
 }

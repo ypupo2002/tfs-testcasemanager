@@ -268,5 +268,15 @@ namespace TestCaseManagerApp.Views
         {
             Navigator.Instance.NavigateToTestPlansEdit(this);
         }
+
+        /// <summary>
+        /// Handles the Click event of the btnInfo control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
+        private void btnInfo_Click(object sender, RoutedEventArgs e)
+        {
+            System.Diagnostics.Process.Start("https://testcasemanager.codeplex.com/wikipage?title=Change%20Project%20View&version=14");
+        }
     }
 }

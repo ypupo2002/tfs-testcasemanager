@@ -349,5 +349,15 @@ namespace TestCaseManagerApp.Views
         {
             this.TestCasesMigrationViewModel.MigrationAddTestCasesToSuitesRetryJsonPath = FileDialogManager.Intance.GetFileName(FileType.JSON);
         }
+
+        /// <summary>
+        /// Handles the Click event of the btnInfo control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
+        private void btnInfo_Click(object sender, RoutedEventArgs e)
+        {
+            System.Diagnostics.Process.Start("http://aangelov.com/2014/05/05/migrate-tfs-test-cases-tfs-team-projects-tfs-servers-test-case-manager/");
+        }
     }
 }

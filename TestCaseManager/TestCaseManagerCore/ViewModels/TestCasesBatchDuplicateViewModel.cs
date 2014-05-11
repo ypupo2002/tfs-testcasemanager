@@ -9,14 +9,17 @@ namespace TestCaseManagerCore.ViewModels
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.Linq;
+    using System.Linq.Expressions;
     using System.Text.RegularExpressions;
     using AAngelov.Utilities.Managers;
     using AAngelov.Utilities.UI.Core;
+    using Fidely.Framework.Compilation.Objects;
     using Microsoft.TeamFoundation.Framework.Client;
     using Microsoft.TeamFoundation.Framework.Common;
     using Microsoft.TeamFoundation.TestManagement.Client;
     using TestCaseManagerCore.BusinessLogic.Entities;
     using TestCaseManagerCore.BusinessLogic.Managers;
+    using Fidely.Framework;
 
     /// <summary>
     /// Contains methods and properties related to the TestCasesBatchDuplicate View
@@ -42,6 +45,16 @@ namespace TestCaseManagerCore.ViewModels
         /// The load test cases
         /// </summary>
         private bool loadTestCases;
+
+        /// <summary>
+        /// The compiler
+        /// </summary>
+        private readonly SearchQueryCompiler<TestCase> testCasesCompiler;
+
+        /// <summary>
+        /// The compiler
+        /// </summary>
+        private readonly SearchQueryCompiler<SharedStep> sharedStepsCompiler;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="TestCasesBatchDuplicateViewModel"/> class.
@@ -83,7 +96,11 @@ namespace TestCaseManagerCore.ViewModels
             {
                 this.ReplaceContext.SelectedTeamFoundationIdentityName = this.ObservableTeamFoundationIdentityNames[0];
             }
-            this.SelectedEntitiesCount = "0";   
+            this.SelectedEntitiesCount = "0";
+            var setting = SearchQueryCompilerBuilder.Instance.BuildUpDefaultObjectCompilerSetting<TestCase>();
+            testCasesCompiler = SearchQueryCompilerBuilder.Instance.BuildUpCompiler<TestCase>(setting);
+            var sharedSteposSetting = SearchQueryCompilerBuilder.Instance.BuildUpDefaultObjectCompilerSetting<SharedStep>();
+            sharedStepsCompiler = SearchQueryCompilerBuilder.Instance.BuildUpCompiler<SharedStep>(sharedSteposSetting);
         }
 
         /// <summary>
@@ -269,12 +286,19 @@ namespace TestCaseManagerCore.ViewModels
             bool shouldSetAssignedToFilter = this.InitialViewFilters.IsAssignedToTextSet && !string.IsNullOrEmpty(this.InitialViewFilters.AssignedToFilter);
             string assignedToFilter = this.InitialViewFilters.AssignedToFilter.ToLower();
 
-            var filteredList = this.InitialTestCaseCollection.Where(t =>
-                                                                        (t.ITestCase != null) &&
-                                                                        (shouldSetTextFilter ? (t.ITestCase.Title.ToLower().Contains(titleFilter)) : true) &&
-                                                                        (this.FilterTestCasesBySuite(shouldSetSuiteFilter, suiteFilter, t)) &&
-                                                                        (shouldSetPriorityFilter ? t.Priority.ToString().ToLower().Contains(priorityFilter) : true) &&
-                                                                        (shouldSetAssignedToFilter ? t.TeamFoundationIdentityName.DisplayName.ToLower().Contains(assignedToFilter) : true)).ToList();
+            bool shouldSetAdvancedFilter = this.InitialViewFilters.IsAdvancedSearchTextSet && !string.IsNullOrEmpty(this.InitialViewFilters.AdvancedSearchFilter);
+            IEnumerable<TestCase> searchableCollection = this.InitialTestCaseCollection;
+            if (shouldSetAdvancedFilter)
+            {
+                searchableCollection = this.SearchTestCases();
+            }
+
+            var filteredList = searchableCollection.Where(t =>
+                (t.ITestCase != null) &&
+                (shouldSetTextFilter ? (t.ITestCase.Title.ToLower().Contains(titleFilter)) : true) &&
+                (this.FilterTestCasesBySuite(shouldSetSuiteFilter, suiteFilter, t)) &&
+                (shouldSetPriorityFilter ? t.Priority.ToString().ToLower().Contains(priorityFilter) : true) &&
+                (shouldSetAssignedToFilter ? t.TeamFoundationIdentityName.DisplayName.ToLower().Contains(assignedToFilter) : true)).ToList();
             this.ObservableTestCases.Clear();
             filteredList.ForEach(x => this.ObservableTestCases.Add(x));
             this.EntitiesCount = filteredList.Count.ToString();
@@ -291,15 +315,43 @@ namespace TestCaseManagerCore.ViewModels
             string priorityFilter = this.InitialViewFilters.PriorityFilter.ToLower();
             bool shouldSetAssignedToFilter = this.InitialViewFilters.IsAssignedToTextSet && !string.IsNullOrEmpty(this.InitialViewFilters.AssignedToFilter);
             string assignedToFilter = this.InitialViewFilters.AssignedToFilter.ToLower();
-
-            var filteredList = this.InitialSharedStepsCollection.Where(t =>
-                                                                           (t.ISharedStep != null) &&
-                                                                           (shouldSetTextFilter ? (t.ISharedStep.Title.ToLower().Contains(titleFilter)) : true) &&
-                                                                           (shouldSetPriorityFilter ? t.Priority.ToString().ToLower().Contains(priorityFilter) : true) &&
-                                                                           (shouldSetAssignedToFilter ? t.TeamFoundationIdentityName.DisplayName.ToLower().Contains(assignedToFilter) : true)).ToList();
+            
+            bool shouldSetAdvancedFilter = this.InitialViewFilters.IsAdvancedSearchTextSet && !string.IsNullOrEmpty(this.InitialViewFilters.AdvancedSearchFilter);
+            IEnumerable<SharedStep> searchableCollection = this.InitialSharedStepsCollection;
+            if (shouldSetAdvancedFilter)
+            {
+                searchableCollection = this.SearchSharedSteps();
+            }
+            var filteredList = searchableCollection.Where(t =>
+                (t.ISharedStep != null) &&
+                (shouldSetTextFilter ? (t.ISharedStep.Title.ToLower().Contains(titleFilter)) : true) &&
+                (shouldSetPriorityFilter ? t.Priority.ToString().ToLower().Contains(priorityFilter) : true) &&
+                (shouldSetAssignedToFilter ? t.TeamFoundationIdentityName.DisplayName.ToLower().Contains(assignedToFilter) : true)).ToList();
             this.ObservableSharedSteps.Clear();
             filteredList.ForEach(x => this.ObservableSharedSteps.Add(x));
             this.EntitiesCount = filteredList.Count.ToString();
+        }
+
+        /// <summary>
+        /// Searches the specified query.
+        /// </summary>
+        /// <param name="query">The query.</param>
+        public IEnumerable<TestCase> SearchTestCases()
+        {
+            Expression<Func<TestCase, bool>> filter = testCasesCompiler.Compile(this.InitialViewFilters.AdvancedSearchFilter);
+            IEnumerable<TestCase> result = this.InitialTestCaseCollection.AsQueryable().Where(filter);
+            return result;
+        }
+
+        /// <summary>
+        /// Searches the specified query.
+        /// </summary>
+        /// <param name="query">The query.</param>
+        public IEnumerable<SharedStep> SearchSharedSteps()
+        {
+            Expression<Func<SharedStep, bool>> filter = sharedStepsCompiler.Compile(this.InitialViewFilters.AdvancedSearchFilter);
+            IEnumerable<SharedStep> result = this.InitialSharedStepsCollection.AsQueryable().Where(filter);
+            return result;
         }
 
         /// <summary>
