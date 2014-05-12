@@ -230,13 +230,13 @@ namespace TestCaseManagerApp.Views
 
             Uri u2 = new Uri("/Views/TestCaseBatchDuplicateView.xaml#loadTestCases=true&loadSpecificTestCases=false", UriKind.Relative);
             Link l2 = new Link();
-            l2.DisplayName = "Change|Duplicate Test Cases";
+            l2.DisplayName = "Replace|Duplicate Test Cases";
             l2.Source = u2;
             lg.Links.Add(l2);
 
             Uri u4 = new Uri("/Views/TestCaseBatchDuplicateView.xaml#loadTestCases=false&loadSpecificTestCases=false", UriKind.Relative);
             Link l4 = new Link();
-            l4.DisplayName = "Change|Duplicate Shared Steps";
+            l4.DisplayName = "Replace|Duplicate Shared Steps";
             l4.Source = u4;
             lg.Links.Add(l4);
 

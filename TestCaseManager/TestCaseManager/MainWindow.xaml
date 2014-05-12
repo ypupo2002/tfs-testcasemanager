@@ -8,6 +8,7 @@
         <mui:Link DisplayName="Settings" Source="/Views/SettingsView.xaml" />
         <mui:Link DisplayName="Change Project" Source="/Views/ProjectSelectionView.xaml#skipAutoLoad=true" />
         <mui:Link DisplayName="Release Notes" Source="/Views/ReleaseNotesView.xaml" />
+        <mui:Link DisplayName="Help" Source="/Views/HelpView.xaml" />
         <mui:Link DisplayName="About" Source="/Views/AboutView.xaml" />
     </mui:ModernWindow.TitleLinks>
     <mui:ModernWindow.CommandBindings>

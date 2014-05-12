@@ -175,7 +175,7 @@
 
 
             <TextBox Name="tbAdvancedSearch" Text="{Binding InitialViewFiltersSharedSteps.AdvancedSearchFilter, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
-                     Height="25" Grid.Row="3" Grid.ColumnSpan="2" Margin="10,30,0,30" SpellCheck.IsEnabled="True"
+                     Height="25" Grid.Row="3" Grid.ColumnSpan="2" Margin="10,30,0,30"
                      GotFocus="tbAdvancedSearch_GotFocus"  LostFocus="tbAdvancedSearch_LostFocus"/>
             <Button Name="btnAdvancedSearch" Content="Search" Height="0" Width="0"
                     Click="btnAdvancedSearch_Click"  IsDefault="True" Visibility="Visible"/>

@@ -40,7 +40,7 @@ namespace TestCaseManagerCore.BusinessLogic.Entities
         /// <summary>
         /// The detault advanced search
         /// </summary>
-        public string DetaultAdvancedSearch = "Perform Advanced Search Query Example- title:Navigate OR (createdBy: Anton AND createdOn >= “2013/10/10″)";
+        public string DetaultAdvancedSearch = "Perform Advanced Search Query        [ title:Navigate OR (createdBy: Anton AND createdOn >= “2013/10/10″) ]";
 
         /// <summary>
         /// The is title text set

@@ -9,7 +9,7 @@
         <ScrollViewer>
             <StackPanel >
                 <TextBlock Text="Release Notes" FontSize="26" Height="Auto" Margin="0,0,0,15"/>
-                <mui:BBCodeBlock BBCode="[b]Version[/b]: 1.0.9.4     [b]Date[/b]: 06.05.2014" Margin="0,0,10,15"/>
+                <mui:BBCodeBlock BBCode="[b]Version[/b]: 1.0.9.4     [b]Date[/b]: 12.05.2014" Margin="0,0,10,15"/>
                 <mui:BBCodeBlock BBCode="-add ScrollViewer Initial View buttons" Margin="0,0,0,15" />
                 <mui:BBCodeBlock BBCode="-remove bottom line of buttons Initial Test Case View" Margin="0,0,0,15" />
                 <mui:BBCodeBlock BBCode="-move show subsuites under suites tree view" Margin="0,0,0,15" />
@@ -30,6 +30,17 @@
                 <mui:BBCodeBlock BBCode="-add tooltips Find Replace Page" Margin="0,0,0,15" />
                 <mui:BBCodeBlock BBCode="-add info buttons" Margin="0,0,0,15" />
                 <mui:BBCodeBlock BBCode="-add scroll viewer suites tree view" Margin="0,0,0,15" />
+                <mui:BBCodeBlock BBCode="-fix Show Test Cases in subsuites label" Margin="0,0,0,15" />
+                <mui:BBCodeBlock BBCode="-move Show Test Cases Subsuites label above suites tree" Margin="0,0,0,15" />
+                <mui:BBCodeBlock BBCode="-remove spell check all advanced searches" Margin="0,0,0,15" />
+                <mui:BBCodeBlock BBCode="-fix shared steps filter column header" Margin="0,0,0,15" />
+                <mui:BBCodeBlock BBCode="-change default advanced search text suggestion" Margin="0,0,0,15" />
+                <mui:BBCodeBlock BBCode="-add tooltip Show Test Cases Subsuites" Margin="0,0,0,15" />
+                <mui:BBCodeBlock BBCode="-fix search boxes alignment Duplicate Views" Margin="0,0,0,15" />
+                <mui:BBCodeBlock BBCode="-rename tab Change | Duplicate to Replace|Duplicate" Margin="0,0,0,15" />
+                <mui:BBCodeBlock BBCode="-change positions of replace and duplicate buttons Replace Duplicate Views" Margin="0,0,0,15" />
+                <mui:BBCodeBlock BBCode="-resize replace and duplicate buttons" Margin="0,0,0,15" />
+                <mui:BBCodeBlock BBCode="-add help view" Margin="0,0,0,15" />
                 
                 <mui:BBCodeBlock BBCode="[b]Version[/b]: 1.0.9.1     [b]Date[/b]: 06.05.2014" Margin="0,0,10,15"/>
                 <mui:BBCodeBlock BBCode="-fix suites refresh bug" Margin="0,0,0,15" />
