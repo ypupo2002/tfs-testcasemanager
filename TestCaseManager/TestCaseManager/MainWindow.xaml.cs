@@ -3,11 +3,12 @@
 // </copyright>
 // <author>Anton Angelov</author>
 
+using FirstFloor.ModernUI.Windows.Controls;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Input;
-using FirstFloor.ModernUI.Windows.Controls;
 using TestCaseManagerCore;
 
 namespace TestCaseManagerApp
@@ -34,6 +35,7 @@ namespace TestCaseManagerApp
         {
             this.InitializeComponent();
             ExecutionContext.Preferences = new Preferences();
+            ExecutionContext.TestCaseRuns = new Dictionary<int, DateTime>();
             ExecutionContext.SettingsViewModel = new TestCaseManagerCore.ViewModels.SettingsViewModel();
             BrowseBackCommand.InputGestures.Add(new KeyGesture(Key.Back, ModifierKeys.None));            
         }

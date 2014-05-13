@@ -135,12 +135,59 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
         }
 
         /// <summary>
+        /// Gets the latest execution times.
+        /// </summary>
+        /// <param name="project">The project.</param>
+        /// <param name="testPlan">The test plan.</param>
+        /// <param name="testCaseId">The test case identifier.</param>
+        /// <returns>
+        /// latest execution times
+        /// </returns>
+        public static List<TestCaseRunResult> GetLatestExecutionTimes(ITestManagementTeamProject project, ITestPlan testPlan, int testCaseId)
+        {
+            List<TestCaseRunResult> executionTimes = new List<TestCaseRunResult>();
+            var testPoints = TestPointManager.GetTestPointsByTestCaseId(testPlan, testCaseId);
+            List<TestCaseResultIdentifier> alreadyAddedRuns = new List<TestCaseResultIdentifier>();
+            if (testPoints != null && testPoints.Count > 0)
+            {
+                foreach (ITestPoint currentTestPoint in testPoints)
+                {
+                    if (currentTestPoint.History != null)
+                    {
+                        foreach (var currentHistoryTestPoint in currentTestPoint.History)
+                        {
+                            if (currentHistoryTestPoint != null && currentHistoryTestPoint.MostRecentResultId != 0 && currentHistoryTestPoint.MostRecentResultId != 0)
+                            {
+                                ITestCaseResult testRun = project.TestResults.Find(currentHistoryTestPoint.MostRecentRunId, currentHistoryTestPoint.MostRecentResultId);
+                                if (testRun.Duration.Ticks > 0 && !alreadyAddedRuns.Contains(testRun.Id))
+                                {
+                                   executionTimes.Add(new TestCaseRunResult(
+                                   testRun.DateStarted,
+                                   testRun.DateCompleted,
+                                   testRun.Duration,
+                                   testRun.RunByName));
+                                   alreadyAddedRuns.Add(testRun.Id);
+                                }
+                               
+                            }
+                        }
+                    }
+                   
+                }
+            }
+
+            return executionTimes;
+        }
+
+        /// <summary>
         /// Sets the new execution outcome.
         /// </summary>
         /// <param name="currentTestCase">The current test case.</param>
+        /// <param name="testPlan">The test plan.</param>
         /// <param name="newExecutionOutcome">The new execution outcome.</param>
         /// <param name="comment">The comment.</param>
-        public static void SetNewExecutionOutcome(this TestCase currentTestCase, ITestPlan testPlan, TestCaseExecutionType newExecutionOutcome, string comment)
+        /// <param name="testCaseRuns">The test case runs.</param>
+        public static void SetNewExecutionOutcome(this TestCase currentTestCase, ITestPlan testPlan, TestCaseExecutionType newExecutionOutcome, string comment, Dictionary<int, DateTime> testCaseRuns)
         {
             if (currentTestCase.ITestCase.Owner == null)
             {
@@ -149,18 +196,26 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
             var testPoints = testPlan.QueryTestPoints(string.Format("SELECT * FROM TestPoint WHERE TestCaseId = {0} ", currentTestCase.Id));
             var testRun = testPlan.CreateTestRun(false);
 
-            testRun.DateStarted = DateTime.Now;
+            DateTime startedDate = DateTime.Now;
+            DateTime endDate = DateTime.Now;
+            if (testCaseRuns.ContainsKey(currentTestCase.Id))
+            {
+                startedDate = testCaseRuns[currentTestCase.Id];
+                testCaseRuns.Remove(currentTestCase.Id);
+            }
+            testRun.DateStarted = startedDate;
             testRun.AddTestPoint(testPoints.Last(), currentTestCase.ITestCase.Owner);
-            testRun.DateCompleted = DateTime.Now;
+            TimeSpan totalDuration = DateTime.Now - startedDate;
+            testRun.DateCompleted = endDate;
             testRun.Save();
 
             var result = testRun.QueryResults()[0];
             result.Owner = currentTestCase.ITestCase.Owner;
             result.RunBy = currentTestCase.ITestCase.Owner;
             result.State = TestResultState.Completed;
-            result.DateStarted = DateTime.Now;
-            result.Duration = new TimeSpan(0L);
-            result.DateCompleted = DateTime.Now.AddMinutes(0.0);
+            result.DateStarted = startedDate;
+            result.Duration = totalDuration;
+            result.DateCompleted = endDate;
             result.Comment = comment;
             switch (newExecutionOutcome)
             {

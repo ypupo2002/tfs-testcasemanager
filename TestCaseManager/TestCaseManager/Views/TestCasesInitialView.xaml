@@ -35,6 +35,7 @@
             <CommandBinding Command="{x:Static local:TestCasesInitialView.SetFailedTestCasesCommand}" Executed="setFailed_Command"/>
             <CommandBinding Command="{x:Static local:TestCasesInitialView.SetActiveTestCasesCommand}" Executed="setActive_Command"/>
             <CommandBinding Command="{x:Static local:TestCasesInitialView.SetPassedTestCasesCommand}" Executed="setPassed_Command"/>
+            <CommandBinding Command="{x:Static local:TestCasesInitialView.RunTestCasesCommand}" Executed="runTestCase_Command"/>
         </Grid.CommandBindings>
         <ProgressBar Name="progressBar" Minimum="0" Maximum="1" Height="16" IsIndeterminate="True" Margin="0,0,0,16" />
 
@@ -86,6 +87,8 @@
                                     Click="btnArrange_Click" ToolTip="Opens Arrangment View."/>
                             <Button Name="btnChangeTestCases1" Content="Change"  Margin="15,0,10,0" Height="30" Width="90" 
                                     VerticalAlignment="Center" Click="btnChangeTestCases_Click" ToolTip="Populates Selected Test Cases to Find | Replace Page."/>
+                            <Button Name="btnRunStatistics" Content="Statistics"  Margin="15,0,10,0" Height="30" Width="90" 
+                                    VerticalAlignment="Center" Click="btnRunStatistics_Click"  ToolTip="Generates Time Execution Statistics for the Selected Test Cases."/>
                             <Button Name="btnShowTestCaseWithoutSuite" Content="No Suite" Margin="15,0,10,0" Height="30" Width="90" 
                                     VerticalAlignment="Center" Click="btnShowTestCaseWithoutSuite1_Click" ToolTip="Displays Only Test Cases without Test Suite."/>
                         </StackPanel>
@@ -187,6 +190,7 @@
                         <MenuItem Name="dgTestCaseContextItemPaste" Command="{x:Static local:TestCasesInitialView.PasteTestCasesCommand}" Header="Paste"/>
                         <MenuItem Name="dgTestCaseContextItemRemove" Command="{x:Static local:TestCasesInitialView.RemoveTestCaseFromSuiteCommand}" Header="Remove"/>
                         <Separator />
+                        <MenuItem Name="dgTestCaseContextItemRun" Command="{x:Static local:TestCasesInitialView.RunTestCasesCommand}" Header="Run" IsEnabled="True"/>
                         <MenuItem Name="dgTestCaseContextItemActive" Command="{x:Static local:TestCasesInitialView.SetActiveTestCasesCommand}" Header="Reset test to Active"/>
                         <MenuItem Name="dgTestCaseContextItemPass" Command="{x:Static local:TestCasesInitialView.SetPassedTestCasesCommand}" Header="Pass test"/>
                         <MenuItem Name="dgTestCaseContextItemFail" Command="{x:Static local:TestCasesInitialView.SetFailedTestCasesCommand}" Header="Fail test"/>

@@ -5,9 +5,10 @@
 
 namespace TestCaseManagerCore
 {
-    using System.Collections.Generic;
     using Microsoft.TeamFoundation.Client;
     using Microsoft.TeamFoundation.TestManagement.Client;
+    using System;
+    using System.Collections.Generic;
     using TestCaseManagerCore.BusinessLogic.Entities;
     using TestCaseManagerCore.ViewModels;
 
@@ -111,5 +112,13 @@ namespace TestCaseManagerCore
         /// The selected test cases for change.
         /// </value>
         public static List<TestCase> SelectedTestCasesForChange { get; set; }
+
+        /// <summary>
+        /// Gets or sets the test case runs.
+        /// </summary>
+        /// <value>
+        /// The test case runs.
+        /// </value>
+        public static Dictionary<int, DateTime>  TestCaseRuns { get; set; }
     }
 }

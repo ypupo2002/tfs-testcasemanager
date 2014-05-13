@@ -1,0 +1,75 @@
+﻿<UserControl x:Class="TestCaseManagerApp.Views.TestCaseRunStatisticsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:mui="http://firstfloorsoftware.com/ModernUI"
+             xmlns:local="clr-namespace:TestCaseManagerApp.Views"
+             xmlns:entities="clr-namespace:TestCaseManagerCore.BusinessLogic.Entities;assembly=TestCaseManagerCore"       
+             mc:Ignorable="d" Loaded="TestCaseExecutionArrangmentView_Loaded">
+    <Grid>
+        <ProgressBar Name="progressBar" Minimum="0" Maximum="1" Height="16" IsIndeterminate="True" Margin="0,0,0,16" />
+
+        <Grid Name="mainGrid" Visibility="Hidden">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="9*"/>
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <StackPanel Orientation="Horizontal" Grid.ColumnSpan="2">
+                <TextBlock Text="Run Executions Statistics" Margin="10,0,10,30" Height="Auto" Width="Auto" FontWeight="Bold" FontSize="26" HorizontalAlignment="Left" Grid.Row="0"/>
+            </StackPanel>
+
+            <DataGrid ItemsSource="{Binding Path=ObservableTestCases}" AutoGenerateColumns="False" Name="dgTestCases" Grid.Row="1" Grid.Column="0" 
+                      IsReadOnly="True" SelectionMode="Extended"  SelectionUnit="FullRow" TabIndex="5" SelectedCellsChanged="dgTestCases_SelectedCellsChanged"
+                      Margin="{StaticResource SplitRight}">
+
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="ID"  Binding="{Binding ITestCase.Id}" Width="0.6*">
+                        <DataGridTextColumn.HeaderStyle>
+                            <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource {x:Type DataGridColumnHeader}}">
+                                <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                            </Style>
+                        </DataGridTextColumn.HeaderStyle>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn Header="Title" Binding="{Binding Title}" Width="6*">
+                        <DataGridTextColumn.HeaderStyle>
+                            <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource {x:Type DataGridColumnHeader}}">
+                                <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                            </Style>
+                        </DataGridTextColumn.HeaderStyle>
+                        <DataGridTextColumn.CellStyle>
+                            <Style TargetType="DataGridCell">
+                                <Setter Property="ToolTip" Value="{Binding LastExecutionTimesToolTip}" />
+                            </Style>
+                        </DataGridTextColumn.CellStyle>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn Header="Priority" Binding="{Binding Priority}" Width="1*">
+                        <DataGridTextColumn.HeaderStyle>
+                            <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource {x:Type DataGridColumnHeader}}">
+                                <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                            </Style>
+                        </DataGridTextColumn.HeaderStyle>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn Header="Average Execution Time" Binding="{Binding AverageExecutionTime}" Width="3*">
+                        <DataGridTextColumn.HeaderStyle>
+                            <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource {x:Type DataGridColumnHeader}}">
+                                <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                            </Style>
+                        </DataGridTextColumn.HeaderStyle>
+                    </DataGridTextColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+            <StackPanel Orientation="Horizontal"  Grid.Row="2" Grid.Column="0">
+                <TextBlock Text="Total Execution Time" Margin="10,0,10,30" Height="Auto" Width="Auto" FontWeight="Bold"/>
+                <TextBlock Text="{Binding Path=TotalExecutionTime}" Margin="10,0,10,30" Height="Auto" Width="Auto" FontWeight="Bold"/>
+                <TextBlock Text="Selected Execution Time" Margin="10,0,10,30" Height="Auto" Width="Auto" FontWeight="Bold"/>
+                <TextBlock Text="{Binding Path=SelectedTestCasesExecutionTime}" Margin="10,0,10,30" Height="Auto" Width="Auto" FontWeight="Bold"/>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</UserControl>

@@ -129,6 +129,7 @@
     <Compile Include="BusinessLogic\Entities\ClipBoardTestCase.cs" />
     <Compile Include="BusinessLogic\Entities\ClipBoardTestStep.cs" />
     <Compile Include="BusinessLogic\Entities\MigrationRetryEntry.cs" />
+    <Compile Include="BusinessLogic\Entities\TestCaseRunResult.cs" />
     <Compile Include="BusinessLogic\Entities\TestPlan.cs" />
     <Compile Include="BusinessLogic\Entities\EditViewContext.cs" />
     <Compile Include="BusinessLogic\Entities\InitialViewFilters.cs" />
@@ -163,6 +164,7 @@
     <Compile Include="ViewModels\BaseProjectSelectionViewModel.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="ViewModels\TestCaseRunStatisticsViewModel.cs" />
     <Compile Include="ViewModels\PrompCheckboxListDialogViewModel.cs" />
     <Compile Include="ViewModels\TestCasesMigrationViewModel.cs">
       <SubType>Code</SubType>

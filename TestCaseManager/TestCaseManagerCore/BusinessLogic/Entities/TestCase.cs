@@ -6,6 +6,7 @@
 namespace TestCaseManagerCore.BusinessLogic.Entities
 {
     using System;
+    using System.Collections.Generic;
     using Microsoft.TeamFoundation.TestManagement.Client;
     using TestCaseManagerCore.BusinessLogic.Enums;
     using TestCaseManagerCore.BusinessLogic.Managers;
@@ -82,6 +83,22 @@ namespace TestCaseManagerCore.BusinessLogic.Entities
         /// The test suite unique identifier.
         /// </value>
         public int? TestSuiteId { get; set; }
+
+        /// <summary>
+        /// Gets or sets the average execution time.
+        /// </summary>
+        /// <value>
+        /// The average execution time.
+        /// </value>
+        public string AverageExecutionTime { get; set; }
+
+        /// <summary>
+        /// Gets or sets the last execution times tool tip.
+        /// </summary>
+        /// <value>
+        /// The last execution times tool tip.
+        /// </value>
+        public string LastExecutionTimesToolTip { get; set; }
 
         /// <summary>
         /// Gets or sets the test suite title.

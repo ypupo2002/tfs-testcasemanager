@@ -344,6 +344,25 @@ namespace TestCaseManagerCore.ViewModels
         }
 
         /// <summary>
+        /// Runs the selected test cases.
+        /// </summary>
+        /// <param name="selectedTestCases">The selected test cases.</param>
+        public void RunSelectedTestCases(List<TestCase> selectedTestCases)
+        {
+            foreach (TestCase currentTestCase in selectedTestCases)
+            {
+                if (ExecutionContext.TestCaseRuns.ContainsKey(currentTestCase.Id))
+                {
+                    ExecutionContext.TestCaseRuns[currentTestCase.Id] = DateTime.Now;
+                }
+                else
+                {
+                    ExecutionContext.TestCaseRuns.Add(currentTestCase.Id, DateTime.Now);
+                }
+            }
+        }
+
+        /// <summary>
         /// Exports the test cases.
         /// </summary>
         /// <param name="fileName">Name of the file.</param>

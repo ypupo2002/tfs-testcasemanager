@@ -138,6 +138,11 @@ namespace TestCaseManagerApp.Views
         public static RoutedCommand SetBlockedTestCasesCommand = new RoutedCommand();
 
         /// <summary>
+        /// The run test cases command
+        /// </summary>
+        public static RoutedCommand RunTestCasesCommand = new RoutedCommand();
+
+        /// <summary>
         /// Indicates if the view model is already initialized
         /// </summary>
         private static bool isInitialized;
@@ -1160,7 +1165,7 @@ namespace TestCaseManagerApp.Views
             this.dgTestCaseContextItemEdit.IsEnabled = true;
             this.dgTestCaseContextItemPreview.IsEnabled = true;
             this.dgTestCaseContextItemDuplicate.IsEnabled = true;
-
+            this.dgTestCaseContextItemRun.IsEnabled = true;
             this.dgTestCaseContextItemCopy.IsEnabled = true;
             this.dgTestCaseContextItemCut.IsEnabled = true;
             this.dgTestCaseContextItemRemove.IsEnabled = true;
@@ -1177,6 +1182,7 @@ namespace TestCaseManagerApp.Views
                 this.dgTestCaseContextItemEdit.IsEnabled = false;
                 this.dgTestCaseContextItemPreview.IsEnabled = false;
                 this.dgTestCaseContextItemDuplicate.IsEnabled = false;
+                this.dgTestCaseContextItemRun.IsEnabled = false;
                 //this.btnChangeTestCases.IsEnabled = false;
                 this.btnChangeTestCases1.IsEnabled = false;
 
@@ -1339,6 +1345,18 @@ namespace TestCaseManagerApp.Views
         }
 
         /// <summary>
+        /// Handles the Command event of the runTestCase control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="ExecutedRoutedEventArgs"/> instance containing the event data.</param>
+        private void runTestCase_Command(object sender, ExecutedRoutedEventArgs e)
+        {
+            e.Handled = true;
+            List<TestCase> selectedTestCases = this.GetSelectedTestCasesInternal();
+            this.TestCasesInitialViewModel.RunSelectedTestCases(selectedTestCases);
+        }
+
+        /// <summary>
         /// Sets the new execution outcome internal.
         /// </summary>
         private void SetNewExecutionOutcomeInternal(TestCaseExecutionType testCaseExecutionType)
@@ -1372,7 +1390,7 @@ namespace TestCaseManagerApp.Views
                 {
                     foreach (var currentTestCase in selectedTestCases)
                     {
-                        currentTestCase.SetNewExecutionOutcome(ExecutionContext.Preferences.TestPlan, testCaseExecutionType, comment);
+                        currentTestCase.SetNewExecutionOutcome(ExecutionContext.Preferences.TestPlan, testCaseExecutionType, comment, ExecutionContext.TestCaseRuns);
                         currentTestCase.LastExecutionOutcome = testCaseExecutionType;
                     }
                 });
@@ -1575,6 +1593,22 @@ namespace TestCaseManagerApp.Views
         private void btnInfo_Click(object sender, RoutedEventArgs e)
         {
             System.Diagnostics.Process.Start("https://testcasemanager.codeplex.com/wikipage?title=All%20Test%20Cases%20View&version=4");
+        }
+
+        /// <summary>
+        /// Handles the Click event of the btnRunStatistics control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
+        private void btnRunStatistics_Click(object sender, RoutedEventArgs e)
+        {
+            ExecutionContext.SelectedTestCasesForChange = new List<TestCase>();
+            foreach (TestCase currentTestCase in this.dgTestCases.SelectedItems)
+            {
+                ExecutionContext.SelectedTestCasesForChange.Add(currentTestCase);
+            }
+            log.Info("Navigate to TestCaseRunStatisticsView.");
+            Navigator.Instance.NavigateToTestCaseRunStatisticsView(this);
         }
     }
 }

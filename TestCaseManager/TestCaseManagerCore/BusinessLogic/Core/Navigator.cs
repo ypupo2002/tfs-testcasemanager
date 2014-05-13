@@ -203,6 +203,17 @@ namespace TestCaseManagerCore
         }
 
         /// <summary>
+        /// Navigates to test case run statistics view.
+        /// </summary>
+        /// <param name="source">The source.</param>
+        public void NavigateToTestCaseRunStatisticsView(FrameworkElement source)
+        {
+            string url = "/Views/TestCaseRunStatisticsView.xaml";
+
+            this.Navigate(source, url);
+        }
+
+        /// <summary>
         /// Navigates the automatic project selection.
         /// </summary>
         /// <param name="source">The source.</param>
