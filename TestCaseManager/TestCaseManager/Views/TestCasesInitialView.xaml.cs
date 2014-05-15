@@ -1153,11 +1153,11 @@ namespace TestCaseManagerApp.Views
             //this.btnPreview.IsEnabled = true;
             //this.btnDuplicate.IsEnabled = true;
             //this.btnEdit.IsEnabled = true;
-            this.btnPreview1.IsEnabled = true;
-            this.btnDuplicate1.IsEnabled = true;
+            //this.btnPreview1.IsEnabled = true;
+            //this.btnDuplicate1.IsEnabled = true;
             //this.btnChangeTestCases.IsEnabled = true;
             this.btnChangeTestCases1.IsEnabled = true;
-            this.btnEdit1.IsEnabled = true;
+            //this.btnEdit1.IsEnabled = true;
             this.btnExport.IsEnabled = true;
             //this.btnExport1.IsEnabled = true;
             //this.btnRemoveTestCase.IsEnabled = true;
@@ -1174,9 +1174,9 @@ namespace TestCaseManagerApp.Views
                 //this.btnPreview.IsEnabled = false;
                 //this.btnDuplicate.IsEnabled = false;
                 //this.btnEdit.IsEnabled = false;
-                this.btnPreview1.IsEnabled = false;
-                this.btnDuplicate1.IsEnabled = false;
-                this.btnEdit1.IsEnabled = false;
+                //this.btnPreview1.IsEnabled = false;
+                //this.btnDuplicate1.IsEnabled = false;
+                //this.btnEdit1.IsEnabled = false;
                 //this.btnRemoveTestCase.IsEnabled = false;
                 this.btnRemoveTestCase1.IsEnabled = false;             
                 this.dgTestCaseContextItemEdit.IsEnabled = false;
@@ -1500,6 +1500,7 @@ namespace TestCaseManagerApp.Views
                 this.ShowTestCasesProgressbar();
                 int selectedSuiteId = RegistryManager.Instance.GetSelectedSuiteId();
                 this.InitializeTestCasesBySelectedSuiteIdInternal(selectedSuiteId);
+                RegistryManager.Instance.WriteShowSubsuiteTestCases(false);
             }
         }
 

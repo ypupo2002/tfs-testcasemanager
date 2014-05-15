@@ -5,26 +5,23 @@
 
 namespace TestCaseManagerCore.ViewModels
 {
+    using AAngelov.Utilities.Enums;
+    using AAngelov.Utilities.UI.Core;
+    using Fidely.Framework;
+    using Fidely.Framework.Compilation.Objects;
+    using FirstFloor.ModernUI.Windows.Controls;
+    using Microsoft.TeamFoundation.TestManagement.Client;
     using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.IO;
     using System.Linq;
+    using System.Linq.Expressions;
     using System.Windows;
-    using AAngelov.Utilities.Enums;
-    using AAngelov.Utilities.UI.Core;
-    using Fidely.Framework;
-    using Fidely.Framework.Compilation.Objects;
-    using Fidely.Framework.Integration;
-    using FirstFloor.ModernUI.Windows.Controls;
-    using Microsoft.TeamFoundation.TestManagement.Client;
     using TestCaseManagerCore.BusinessLogic.Entities;
     using TestCaseManagerCore.BusinessLogic.Enums;
     using TestCaseManagerCore.BusinessLogic.Managers;
     using TestCaseManagerCore.Templates;
-    using System.Linq.Expressions;
-    using System.Windows.Input;
-    using FirstFloor.ModernUI.Presentation;
 
     /// <summary>
     /// Contains methods and properties related to the TestCasesInitial View
@@ -359,6 +356,7 @@ namespace TestCaseManagerCore.ViewModels
                 {
                     ExecutionContext.TestCaseRuns.Add(currentTestCase.Id, DateTime.Now);
                 }
+                currentTestCase.IsRunning = "R";
             }
         }
 

@@ -31,6 +31,12 @@ namespace TestCaseManagerCore.BusinessLogic.Entities
         private ITestSuiteBase testSuiteBaseCore;
 
         /// <summary>
+        /// The is running
+        /// </summary>
+        [NonSerialized]
+        private string isRunning;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="TestCase" /> class.
         /// </summary>
         /// <param name="testCaseCore">The test case core object.</param>
@@ -64,6 +70,31 @@ namespace TestCaseManagerCore.BusinessLogic.Entities
             {
                 string mostRecentResult = TestCaseManager.GetMostRecentTestCaseResult(testPlan, this.Id);
                 this.LastExecutionOutcome = TestCaseManager.GetTestCaseExecutionType(mostRecentResult);
+            }
+            if (ExecutionContext.TestCaseRuns.ContainsKey(this.Id))
+            {
+                this.IsRunning = "R";
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether this instance is running.
+        /// </summary>
+        /// <value>
+        /// <c>true</c> if this instance is running; otherwise, <c>false</c>.
+        /// </value>
+        [Alias("isRunning", Description = "Shows the current test case running status.")]
+        public string IsRunning
+        {
+            get
+            {
+                return this.isRunning;
+            }
+
+            set
+            {
+                this.isRunning = value;
+                this.NotifyPropertyChanged();
             }
         }
 

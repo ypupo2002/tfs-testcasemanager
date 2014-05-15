@@ -5,15 +5,16 @@
 
 namespace TestCaseManagerCore.ViewModels
 {
-    using System.Collections.ObjectModel;
+    using AAngelov.Utilities.Entities;
     using AAngelov.Utilities.UI.Core;
-    using TestCaseManagerCore.BusinessLogic.Entities;
-    using System.Windows.Documents;
+    using System;
     using System.Collections.Generic;
-    using TestCaseManagerCore.BusinessLogic.Managers;
+    using System.Collections.ObjectModel;
     using System.Linq;
-using System;
     using System.Text;
+    using System.Windows.Documents;
+    using TestCaseManagerCore.BusinessLogic.Entities;
+    using TestCaseManagerCore.BusinessLogic.Managers;
 
     /// <summary>
     /// Contains methods and properties related to the TestCaseRunStatistics View
@@ -49,8 +50,8 @@ using System;
             ExecutionContext.SelectedTestCasesForChange.ForEach(t => this.ObservableTestCases.Add(t));
             this.TestCaseExecutionResultsMappings = new Dictionary<int, List<TestCaseRunResult>>();
             this.InitializeLastExecutionTimesTestCases();
-            this.TotalExecutionTime = new DateTime(executionTimesSum).ToLongTimeString();
-            this.SelectedTestCasesExecutionTime = new DateTime(0).ToLongTimeString();
+            this.TotalExecutionTime = new TimeSpan(executionTimesSum).ToString(TimeSpanFormats.HourFormat);
+            this.SelectedTestCasesExecutionTime = new TimeSpan().ToString(TimeSpanFormats.HourFormat);
         }
 
         /// <summary>
@@ -119,7 +120,7 @@ using System;
                 List<TestCaseRunResult> testCaseResultRuns = TestCaseManager.GetLatestExecutionTimes(ExecutionContext.TestManagementTeamProject, ExecutionContext.Preferences.TestPlan, currentTestCase.Id);
                 this.TestCaseExecutionResultsMappings.Add(currentTestCase.Id, testCaseResultRuns);
                 TimeSpan averageTime = CalculateAverage(testCaseResultRuns);
-                currentTestCase.AverageExecutionTime = new DateTime(averageTime.Ticks).ToLongTimeString();
+                currentTestCase.AverageExecutionTime = averageTime.ToString(TimeSpanFormats.HourFormat); 
                 executionTimesSum += averageTime.Ticks;
                 currentTestCase.LastExecutionTimesToolTip =  this.InitializeTestCaseExecutionTimesToolTip(testCaseResultRuns);
             }
@@ -136,7 +137,7 @@ using System;
             {
                 sumAvgTime += CalculateAverage(this.TestCaseExecutionResultsMappings[currentTestCase.Id]).Ticks;
             }
-            this.SelectedTestCasesExecutionTime = new DateTime(sumAvgTime).ToLongTimeString();
+            this.SelectedTestCasesExecutionTime = new TimeSpan(sumAvgTime).ToString(TimeSpanFormats.HourFormat); ;
         }
 
         /// <summary>
@@ -152,9 +153,9 @@ using System;
             {
                 sb.AppendLine(string.Format("{0}. StartDate {1} | EndDate- {2} | Duration- {3} | RunBy- {4}",
                     count++,
-                    testCaseRunResult.StartDate,
-                    testCaseRunResult.EndDate, 
-                    new DateTime(testCaseRunResult.Duration.Ticks).ToLongTimeString(),
+                    testCaseRunResult.StartDate.ToShortDateString(),
+                    testCaseRunResult.EndDate.ToShortDateString(), 
+                    testCaseRunResult.Duration.ToString(TimeSpanFormats.HourFormat),
                     testCaseRunResult.RunBy));
             }
 

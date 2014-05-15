@@ -9,6 +9,19 @@
         <ScrollViewer>
             <StackPanel >
                 <TextBlock Text="Release Notes" FontSize="26" Height="Auto" Margin="0,0,0,15"/>
+                <mui:BBCodeBlock BBCode="[b]Version[/b]: 1.0.9.5     [b]Date[/b]: 15.05.2014" Margin="0,0,10,15"/>
+                <mui:BBCodeBlock BBCode="-add statistics view" Margin="0,0,0,15" />
+                <mui:BBCodeBlock BBCode="-add calculation of run time pass, fail, reset" Margin="0,0,0,15" />
+                <mui:BBCodeBlock BBCode="-add run option" Margin="0,0,0,15" />
+                <mui:BBCodeBlock BBCode="-fix comment window- add scroll viewer" Margin="0,0,0,15" />
+                <mui:BBCodeBlock BBCode="-fix comment window bug" Margin="0,0,0,15" />
+                <mui:BBCodeBlock BBCode="-comment window richtextbox paragraph margin set" Margin="0,0,0,15" />
+                <mui:BBCodeBlock BBCode="-test case edit view richtextboxes paragraph margin set" Margin="0,0,0,15" />
+                <mui:BBCodeBlock BBCode="-fix bug showSubSuites is always set " Margin="0,0,0,15" />
+                <mui:BBCodeBlock BBCode="-fix bug duration formatting statics view" Margin="0,0,0,15" />
+                <mui:BBCodeBlock BBCode="-add running column Initial test case view" Margin="0,0,0,15" />
+                <mui:BBCodeBlock BBCode="-add Running filtration advanced search" Margin="0,0,0,15" />
+
                 <mui:BBCodeBlock BBCode="[b]Version[/b]: 1.0.9.4     [b]Date[/b]: 12.05.2014" Margin="0,0,10,15"/>
                 <mui:BBCodeBlock BBCode="-add ScrollViewer Initial View buttons" Margin="0,0,0,15" />
                 <mui:BBCodeBlock BBCode="-remove bottom line of buttons Initial Test Case View" Margin="0,0,0,15" />

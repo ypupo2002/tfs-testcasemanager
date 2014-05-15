@@ -69,19 +69,19 @@
                                 <RadioButton Content="Blocked" Margin="15,0,10,0" FontWeight="Bold" FontSize="12" GroupName="Options5" IsChecked="{Binding Path=CurrentExecutionStatusOption, Mode=TwoWay, Converter={StaticResource enumBooleanConverter}, ConverterParameter=Blocked}" Checked="RadioButton_Checked" />
                         </StackPanel>
                     </ScrollViewer>
-                    <ScrollViewer HorizontalScrollBarVisibility="Auto">
+                    <!--<ScrollViewer HorizontalScrollBarVisibility="Auto">-->
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
-                            <Button Name="btnPreview1" Content="_Preview" Margin="20,0,10,0" Height="30" Width="90" VerticalAlignment="Center"
+                            <!--<Button Name="btnPreview1" Content="_Preview" Margin="20,0,10,0" Height="30" Width="90" VerticalAlignment="Center"
                                     Click="PreviewButton_Click" ToolTip="Opens Selected Test Case in Read Mode."/>
                             <Button Name="btnEdit1" Content="_Edit" Margin="15,0,10,0" Height="30" Width="90" VerticalAlignment="Center"
                                     Click="EditButton_Click" ToolTip="Edits Selected Test Case."/>
                             <Button Name="btnDuplicate1" Content="_Duplicate" Margin="15,0,10,0" Height="30" Width="90" VerticalAlignment="Center"
-                                    Click="DuplicateButton_Click" ToolTip="Duplicates Selected Test Case."/>
-                            <Button Name="btnNew1" Content="_New" Margin="15,0,10,0" Height="30" Width="90" VerticalAlignment="Center" 
+                                    Click="DuplicateButton_Click" ToolTip="Duplicates Selected Test Case."/>-->
+                            <Button Name="btnNew1" Content="_New" Margin="20,0,10,0" Height="30" Width="90" VerticalAlignment="Center" 
                                     Click="btnNew_Click" ToolTip="Creates New Test Case."/>
                             <Button Name="btnRemoveTestCase1" Content="_Remove" Margin="15,0,10,0" Height="30" Width="90"
                                     VerticalAlignment="Center" Click="btnRemoveTestCase_Click" ToolTip="Remove Selected Test Cases from Current Test Suite."/>
-                            <Button Name="btnExport" Content="_Export" Margin="15,0,10,0" Height="30" Width="90" VerticalAlignment="Center"
+                            <Button Name="btnExport" Content="_Export" Margin="15,0,10,0" Height="30" Width="85" VerticalAlignment="Center"
                                     Click="btnExport_Click" ToolTip="Export Selected Test Cases to HTML Report."/>
                             <Button Name="btnArrange" Content="Arrange" Margin="15,0,10,0" Height="30" Width="90" VerticalAlignment="Center"
                                     Click="btnArrange_Click" ToolTip="Opens Arrangment View."/>
@@ -92,7 +92,7 @@
                             <Button Name="btnShowTestCaseWithoutSuite" Content="No Suite" Margin="15,0,10,0" Height="30" Width="90" 
                                     VerticalAlignment="Center" Click="btnShowTestCaseWithoutSuite1_Click" ToolTip="Displays Only Test Cases without Test Suite."/>
                         </StackPanel>
-                    </ScrollViewer>
+                    <!--</ScrollViewer>-->
                 </StackPanel>
                 <Grid>
                     <Grid.ColumnDefinitions>
@@ -219,6 +219,13 @@
                 </DataGrid.ItemContainerStyle>
 
                 <DataGrid.Columns>
+                    <DataGridTextColumn Header=""  Binding="{Binding IsRunning}" Width="0.3*">
+                        <DataGridTextColumn.HeaderStyle>
+                            <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource {x:Type DataGridColumnHeader}}">
+                                <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                            </Style>
+                        </DataGridTextColumn.HeaderStyle>
+                    </DataGridTextColumn>
                     <DataGridTextColumn Header="ID"  Binding="{Binding ITestCase.Id}" Width="0.6*">
                         <DataGridTextColumn.HeaderStyle>
                             <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource {x:Type DataGridColumnHeader}}">

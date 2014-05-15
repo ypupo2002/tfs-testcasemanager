@@ -52,6 +52,7 @@
     <Compile Include="Contracts\IClipBoard.cs" />
     <Compile Include="Contracts\IUndoRedoRecord.cs" />
     <Compile Include="Entities\Test.cs" />
+    <Compile Include="Entities\TimeSpanFormats.cs" />
     <Compile Include="Managers\AssembliesLoader.cs" />
     <Compile Include="Managers\AssemblyLoader.cs" />
     <Compile Include="Managers\ClipBoardManager.cs" />

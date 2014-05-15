@@ -195,7 +195,7 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
             }
             var testPoints = testPlan.QueryTestPoints(string.Format("SELECT * FROM TestPoint WHERE TestCaseId = {0} ", currentTestCase.Id));
             var testRun = testPlan.CreateTestRun(false);
-
+            currentTestCase.IsRunning = string.Empty;
             DateTime startedDate = DateTime.Now;
             DateTime endDate = DateTime.Now;
             if (testCaseRuns.ContainsKey(currentTestCase.Id))
@@ -204,14 +204,14 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
                 testCaseRuns.Remove(currentTestCase.Id);
             }
             testRun.DateStarted = startedDate;
-            testRun.AddTestPoint(testPoints.Last(), currentTestCase.ITestCase.Owner);
+            testRun.AddTestPoint(testPoints.Last(), ExecutionContext.TestManagementTeamProject.TestManagementService.AuthorizedIdentity);
             TimeSpan totalDuration = DateTime.Now - startedDate;
             testRun.DateCompleted = endDate;
             testRun.Save();
 
             var result = testRun.QueryResults()[0];
             result.Owner = currentTestCase.ITestCase.Owner;
-            result.RunBy = currentTestCase.ITestCase.Owner;
+            result.RunBy = ExecutionContext.TestManagementTeamProject.TestManagementService.AuthorizedIdentity;
             result.State = TestResultState.Completed;
             result.DateStarted = startedDate;
             result.Duration = totalDuration;
