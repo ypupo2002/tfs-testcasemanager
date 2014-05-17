@@ -16,13 +16,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AAngelov.Utilities", "..\AA
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AAngelov.Utilities.UI", "..\AAngelov.Utilities\AAngelov.Utilities.UI\AAngelov.Utilities.UI.csproj", "{C547F875-DB0A-41B6-8C42-10FBC1EDF711}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Integration.WPF", "..\..\MainProjects\Fidely\src\Integration.WPF\Integration.WPF.csproj", "{3D15A6ED-060E-4077-9CAB-2A54A714A790}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Integration.WPF", "..\Fidely\src\Integration.WPF\Integration.WPF.csproj", "{3D15A6ED-060E-4077-9CAB-2A54A714A790}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Compilation.Entities", "..\..\MainProjects\Fidely\src\Compilation.Entities\Compilation.Entities.csproj", "{73E782D7-5669-46D0-8612-9CC745702941}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Compilation.Entities", "..\Fidely\src\Compilation.Entities\Compilation.Entities.csproj", "{73E782D7-5669-46D0-8612-9CC745702941}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Compilation.Objects", "..\..\MainProjects\Fidely\src\Compilation.Objects\Compilation.Objects.csproj", "{85E86CA6-C0B1-4EF9-885A-6232B3E5717C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Compilation.Objects", "..\Fidely\src\Compilation.Objects\Compilation.Objects.csproj", "{85E86CA6-C0B1-4EF9-885A-6232B3E5717C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core", "..\..\MainProjects\Fidely\src\Core\Core.csproj", "{0EE48C01-A8F7-46CE-8E51-50DE88E88180}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core", "..\Fidely\src\Core\Core.csproj", "{0EE48C01-A8F7-46CE-8E51-50DE88E88180}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Fidely", "Fidely", "{FA19F40E-4CC3-478B-85A9-7397BC208216}"
 EndProject

@@ -387,19 +387,19 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\MainProjects\Fidely\src\Compilation.Entities\Compilation.Entities.csproj">
+    <ProjectReference Include="..\..\Fidely\src\Compilation.Entities\Compilation.Entities.csproj">
       <Project>{73e782d7-5669-46d0-8612-9cc745702941}</Project>
       <Name>Compilation.Entities</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\MainProjects\Fidely\src\Compilation.Objects\Compilation.Objects.csproj">
+    <ProjectReference Include="..\..\Fidely\src\Compilation.Objects\Compilation.Objects.csproj">
       <Project>{85e86ca6-c0b1-4ef9-885a-6232b3e5717c}</Project>
       <Name>Compilation.Objects</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\MainProjects\Fidely\src\Core\Core.csproj">
+    <ProjectReference Include="..\..\Fidely\src\Core\Core.csproj">
       <Project>{0ee48c01-a8f7-46ce-8e51-50de88e88180}</Project>
       <Name>Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\MainProjects\Fidely\src\Integration.WPF\Integration.WPF.csproj">
+    <ProjectReference Include="..\..\Fidely\src\Integration.WPF\Integration.WPF.csproj">
       <Project>{3d15a6ed-060e-4077-9cab-2a54a714a790}</Project>
       <Name>Integration.WPF</Name>
     </ProjectReference>
