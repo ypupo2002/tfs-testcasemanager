@@ -121,7 +121,7 @@ namespace TestCaseManagerCore.BusinessLogic.Entities
         /// <value>
         /// The average execution time.
         /// </value>
-        public string AverageExecutionTime { get; set; }
+        public string LastExecutionTime { get; set; }
 
         /// <summary>
         /// Gets or sets the last execution times tool tip.

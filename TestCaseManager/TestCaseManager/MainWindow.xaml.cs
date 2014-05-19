@@ -10,6 +10,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Input;
 using TestCaseManagerCore;
+using TestCaseManagerCore.BusinessLogic.Entities;
 
 namespace TestCaseManagerApp
 {
@@ -35,7 +36,7 @@ namespace TestCaseManagerApp
         {
             this.InitializeComponent();
             ExecutionContext.Preferences = new Preferences();
-            ExecutionContext.TestCaseRuns = new Dictionary<int, DateTime>();
+            ExecutionContext.TestCaseRuns = new Dictionary<int, TestCaseRun>();
             ExecutionContext.SettingsViewModel = new TestCaseManagerCore.ViewModels.SettingsViewModel();
             BrowseBackCommand.InputGestures.Add(new KeyGesture(Key.Back, ModifierKeys.None));            
         }

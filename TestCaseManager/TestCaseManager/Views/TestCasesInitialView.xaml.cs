@@ -1036,6 +1036,31 @@ namespace TestCaseManagerApp.Views
                 this.dgTestCaseContextItemPaste.IsEnabled = false;
                 suite.IsPasteEnabled = false;
             }
+
+            if (dgTestCases.SelectedItems.Count == 1)
+            {
+                TestCase currentTestCase = (TestCase)dgTestCases.SelectedItem;
+                if (ExecutionContext.TestCaseRuns.ContainsKey(currentTestCase.Id))
+                {
+                    TestCaseRun currenteTestCaseRun = ExecutionContext.TestCaseRuns[currentTestCase.Id];
+                    if (currenteTestCaseRun.IsPaused)
+                    {
+                        this.TestCasesInitialViewModel.ExecutionButtonTitle = "Continue";
+                    }
+                    else
+                    {
+                        this.TestCasesInitialViewModel.ExecutionButtonTitle = "Pause";
+                    }
+                }
+                else
+                {
+                    this.TestCasesInitialViewModel.ExecutionButtonTitle = "Run";
+                }
+            }
+            else
+            {
+                this.TestCasesInitialViewModel.ExecutionButtonTitle = "Run";
+            }
         }
 
         /// <summary>

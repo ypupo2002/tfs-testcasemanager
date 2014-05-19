@@ -129,6 +129,7 @@
     <Compile Include="BusinessLogic\Entities\ClipBoardTestCase.cs" />
     <Compile Include="BusinessLogic\Entities\ClipBoardTestStep.cs" />
     <Compile Include="BusinessLogic\Entities\MigrationRetryEntry.cs" />
+    <Compile Include="BusinessLogic\Entities\TestCaseRun.cs" />
     <Compile Include="BusinessLogic\Entities\TestCaseRunResult.cs" />
     <Compile Include="BusinessLogic\Entities\TestPlan.cs" />
     <Compile Include="BusinessLogic\Entities\EditViewContext.cs" />

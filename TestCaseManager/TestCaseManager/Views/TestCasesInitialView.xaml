@@ -190,7 +190,7 @@
                         <MenuItem Name="dgTestCaseContextItemPaste" Command="{x:Static local:TestCasesInitialView.PasteTestCasesCommand}" Header="Paste"/>
                         <MenuItem Name="dgTestCaseContextItemRemove" Command="{x:Static local:TestCasesInitialView.RemoveTestCaseFromSuiteCommand}" Header="Remove"/>
                         <Separator />
-                        <MenuItem Name="dgTestCaseContextItemRun" Command="{x:Static local:TestCasesInitialView.RunTestCasesCommand}" Header="Run" IsEnabled="True"/>
+                        <MenuItem Name="dgTestCaseContextItemRun" Command="{x:Static local:TestCasesInitialView.RunTestCasesCommand}" Header="{Binding Path=ExecutionButtonTitle}" IsEnabled="True"/>
                         <MenuItem Name="dgTestCaseContextItemActive" Command="{x:Static local:TestCasesInitialView.SetActiveTestCasesCommand}" Header="Reset test to Active"/>
                         <MenuItem Name="dgTestCaseContextItemPass" Command="{x:Static local:TestCasesInitialView.SetPassedTestCasesCommand}" Header="Pass test"/>
                         <MenuItem Name="dgTestCaseContextItemFail" Command="{x:Static local:TestCasesInitialView.SetFailedTestCasesCommand}" Header="Fail test"/>

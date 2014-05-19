@@ -12,8 +12,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{185422
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestCaseManagerCore", "TestCaseManagerCore\TestCaseManagerCore.csproj", "{D5457A68-337D-4D6B-8AD0-B335B9B996DB}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{0194D5FB-F981-4F11-96C6-D8A71F34CF07}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ReferenceAssemblies", "ReferenceAssemblies", "{2D959D74-A087-49EF-BD9B-55D547CD8033}"
 	ProjectSection(SolutionItems) = preProject
 		ReferenceAssemblies\De.TorstenMandelkow.MetroChart.dll = ReferenceAssemblies\De.TorstenMandelkow.MetroChart.dll

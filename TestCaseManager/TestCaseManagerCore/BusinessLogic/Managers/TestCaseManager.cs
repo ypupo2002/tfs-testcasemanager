@@ -156,7 +156,10 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
                     {
                         foreach (var currentHistoryTestPoint in currentTestPoint.History)
                         {
-                            if (currentHistoryTestPoint != null && currentHistoryTestPoint.MostRecentResultId != 0 && currentHistoryTestPoint.MostRecentResultId != 0)
+                            if (currentHistoryTestPoint != null &&
+                                currentHistoryTestPoint.MostRecentResultId != 0 &&
+                                currentHistoryTestPoint.MostRecentResultId != 0 &&
+                                currentHistoryTestPoint.MostRecentResultOutcome.Equals(TestOutcome.Passed))
                             {
                                 ITestCaseResult testRun = project.TestResults.Find(currentHistoryTestPoint.MostRecentRunId, currentHistoryTestPoint.MostRecentResultId);
                                 if (testRun.Duration.Ticks > 0 && !alreadyAddedRuns.Contains(testRun.Id))
@@ -187,7 +190,7 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
         /// <param name="newExecutionOutcome">The new execution outcome.</param>
         /// <param name="comment">The comment.</param>
         /// <param name="testCaseRuns">The test case runs.</param>
-        public static void SetNewExecutionOutcome(this TestCase currentTestCase, ITestPlan testPlan, TestCaseExecutionType newExecutionOutcome, string comment, Dictionary<int, DateTime> testCaseRuns)
+        public static void SetNewExecutionOutcome(this TestCase currentTestCase, ITestPlan testPlan, TestCaseExecutionType newExecutionOutcome, string comment, Dictionary<int, TestCaseRun> testCaseRuns)
         {
             if (currentTestCase.ITestCase.Owner == null)
             {
@@ -197,20 +200,25 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
             var testRun = testPlan.CreateTestRun(false);
             currentTestCase.IsRunning = string.Empty;
             DateTime startedDate = DateTime.Now;
+            DateTime lastStartedDate = DateTime.Now;
+
             DateTime endDate = DateTime.Now;
+            TimeSpan durationBeforePauses = new TimeSpan();
             if (testCaseRuns.ContainsKey(currentTestCase.Id))
             {
-                startedDate = testCaseRuns[currentTestCase.Id];
+                lastStartedDate = testCaseRuns[currentTestCase.Id].LastStartedTime;
+                startedDate = testCaseRuns[currentTestCase.Id].StartTime;
+                durationBeforePauses = testCaseRuns[currentTestCase.Id].Duration;
                 testCaseRuns.Remove(currentTestCase.Id);
             }
             testRun.DateStarted = startedDate;
             testRun.AddTestPoint(testPoints.Last(), ExecutionContext.TestManagementTeamProject.TestManagementService.AuthorizedIdentity);
-            TimeSpan totalDuration = DateTime.Now - startedDate;
+            TimeSpan totalDuration = new TimeSpan((DateTime.Now - lastStartedDate).Ticks + durationBeforePauses.Ticks);
             testRun.DateCompleted = endDate;
             testRun.Save();
 
             var result = testRun.QueryResults()[0];
-            result.Owner = currentTestCase.ITestCase.Owner;
+            result.Owner = ExecutionContext.TestManagementTeamProject.TestManagementService.AuthorizedIdentity;
             result.RunBy = ExecutionContext.TestManagementTeamProject.TestManagementService.AuthorizedIdentity;
             result.State = TestResultState.Completed;
             result.DateStarted = startedDate;
@@ -221,6 +229,7 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
             {
                 case TestCaseExecutionType.Active:
                     result.Outcome = TestOutcome.None;
+                    result.Duration = new TimeSpan();
                     break;
                 case TestCaseExecutionType.Passed:
                     result.Outcome = TestOutcome.Passed;

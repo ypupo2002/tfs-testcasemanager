@@ -64,6 +64,11 @@ namespace TestCaseManagerCore.ViewModels
         private string selectedTestCasesCount;
 
         /// <summary>
+        /// The execution button title
+        /// </summary>
+        private string executionButtonTitle;
+
+        /// <summary>
         /// The compiler
         /// </summary>
         private readonly SearchQueryCompiler<TestCase> compiler;
@@ -296,6 +301,26 @@ namespace TestCaseManagerCore.ViewModels
         }
 
         /// <summary>
+        /// Gets or sets the execution button title.
+        /// </summary>
+        /// <value>
+        /// The execution button title.
+        /// </value>
+        public string ExecutionButtonTitle
+        {
+            get
+            {
+                return this.executionButtonTitle;
+            }
+
+            set
+            {
+                this.executionButtonTitle = value;
+                this.NotifyPropertyChanged();
+            }
+        }
+
+        /// <summary>
         /// Resets the initial filters. If its comming from another page the filter is saved but on next suite selected it will be reset.
         /// </summary>
         public void ResetInitialFilters()
@@ -350,13 +375,25 @@ namespace TestCaseManagerCore.ViewModels
             {
                 if (ExecutionContext.TestCaseRuns.ContainsKey(currentTestCase.Id))
                 {
-                    ExecutionContext.TestCaseRuns[currentTestCase.Id] = DateTime.Now;
+                    TimeSpan durationTillNow = ExecutionContext.TestCaseRuns[currentTestCase.Id].Duration;
+                    ExecutionContext.TestCaseRuns[currentTestCase.Id].IsPaused = ExecutionContext.TestCaseRuns[currentTestCase.Id].IsPaused ? false : true;
+                    if (ExecutionContext.TestCaseRuns[currentTestCase.Id].IsPaused)
+                    {
+                        DateTime staredTime = ExecutionContext.TestCaseRuns[currentTestCase.Id].LastStartedTime;
+                        TimeSpan durationBeforePauses = new TimeSpan((DateTime.Now - staredTime).Ticks + durationTillNow.Ticks);
+                        ExecutionContext.TestCaseRuns[currentTestCase.Id].Duration = durationBeforePauses;
+                    }
+                    else
+                    {
+                        ExecutionContext.TestCaseRuns[currentTestCase.Id].LastStartedTime = DateTime.Now;
+                    }
+                    currentTestCase.IsRunning = ExecutionContext.TestCaseRuns[currentTestCase.Id].IsPaused ? "P" : "R";
                 }
                 else
                 {
-                    ExecutionContext.TestCaseRuns.Add(currentTestCase.Id, DateTime.Now);
+                    ExecutionContext.TestCaseRuns.Add(currentTestCase.Id, new TestCaseRun(DateTime.Now));
+                    currentTestCase.IsRunning = "R";
                 }
-                currentTestCase.IsRunning = "R";
             }
         }
 

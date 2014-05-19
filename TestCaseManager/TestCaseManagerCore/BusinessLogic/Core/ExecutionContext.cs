@@ -119,6 +119,6 @@ namespace TestCaseManagerCore
         /// <value>
         /// The test case runs.
         /// </value>
-        public static Dictionary<int, DateTime>  TestCaseRuns { get; set; }
+        public static Dictionary<int, TestCaseRun> TestCaseRuns { get; set; }
     }
 }

@@ -21,7 +21,7 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
             <StackPanel Orientation="Horizontal" Grid.ColumnSpan="2">
-                <TextBlock Text="Run Executions Statistics" Margin="10,0,10,30" Height="Auto" Width="Auto" FontWeight="Bold" FontSize="26" HorizontalAlignment="Left" Grid.Row="0"/>
+                <TextBlock Text="Execution Time Statistics" Margin="10,0,10,30" Height="Auto" Width="Auto" FontWeight="Bold" FontSize="26" HorizontalAlignment="Left" Grid.Row="0"/>
             </StackPanel>
 
             <DataGrid ItemsSource="{Binding Path=ObservableTestCases}" AutoGenerateColumns="False" Name="dgTestCases" Grid.Row="1" Grid.Column="0" 
@@ -55,7 +55,7 @@
                             </Style>
                         </DataGridTextColumn.HeaderStyle>
                     </DataGridTextColumn>
-                    <DataGridTextColumn Header="Average Execution Time" Binding="{Binding AverageExecutionTime}" Width="3*">
+                    <DataGridTextColumn Header="Last Execution Time" Binding="{Binding LastExecutionTime}" Width="3*">
                         <DataGridTextColumn.HeaderStyle>
                             <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource {x:Type DataGridColumnHeader}}">
                                 <Setter Property="HorizontalContentAlignment" Value="Left"/>

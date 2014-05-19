@@ -148,7 +148,7 @@ namespace TestCaseManagerApp.Views
         private void dgTestCases_SelectedCellsChanged(object sender, SelectedCellsChangedEventArgs e)
         {
             List<TestCase> selectedTestCases = this.GetSelectedTestCasesInternal();
-            this.TestCaseRunStatisticsViewModel.CalculateAverageExecutionTimeSelectedTestCase(selectedTestCases);
+            this.TestCaseRunStatisticsViewModel.CalculateTotalExecutionTimeSelectedTestCase(selectedTestCases);
         }
 
         /// <summary>

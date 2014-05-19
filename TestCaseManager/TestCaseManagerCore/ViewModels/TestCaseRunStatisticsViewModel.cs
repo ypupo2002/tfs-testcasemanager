@@ -118,26 +118,29 @@ namespace TestCaseManagerCore.ViewModels
             foreach (TestCase currentTestCase in this.ObservableTestCases)
             {
                 List<TestCaseRunResult> testCaseResultRuns = TestCaseManager.GetLatestExecutionTimes(ExecutionContext.TestManagementTeamProject, ExecutionContext.Preferences.TestPlan, currentTestCase.Id);
+                testCaseResultRuns.Sort();
                 this.TestCaseExecutionResultsMappings.Add(currentTestCase.Id, testCaseResultRuns);
-                TimeSpan averageTime = CalculateAverage(testCaseResultRuns);
-                currentTestCase.AverageExecutionTime = averageTime.ToString(TimeSpanFormats.HourFormat); 
-                executionTimesSum += averageTime.Ticks;
-                currentTestCase.LastExecutionTimesToolTip =  this.InitializeTestCaseExecutionTimesToolTip(testCaseResultRuns);
+                TimeSpan currentTestCaseExecutionTime = testCaseResultRuns.Count > 0 ? testCaseResultRuns.Last().Duration : new TimeSpan();
+                currentTestCase.LastExecutionTime = currentTestCaseExecutionTime.ToString(TimeSpanFormats.HourFormat); 
+                executionTimesSum += currentTestCaseExecutionTime.Ticks;
+                currentTestCase.LastExecutionTimesToolTip = this.InitializeTestCaseExecutionTimesToolTip(testCaseResultRuns);
             }
         }
 
         /// <summary>
-        /// Calculates the average execution time selected test case.
+        /// Calculates the total execution time selected test case.
         /// </summary>
         /// <param name="selectedTestCases">The selected test cases.</param>
-        public void CalculateAverageExecutionTimeSelectedTestCase(ICollection<TestCase> selectedTestCases)
+        public void CalculateTotalExecutionTimeSelectedTestCase(ICollection<TestCase> selectedTestCases)
         {
-            long sumAvgTime = default(long);
+            long sumTotalTime = default(long);
             foreach (TestCase currentTestCase in selectedTestCases)
             {
-                sumAvgTime += CalculateAverage(this.TestCaseExecutionResultsMappings[currentTestCase.Id]).Ticks;
+                sumTotalTime += this.TestCaseExecutionResultsMappings[currentTestCase.Id].Count > 0 ?
+                    this.TestCaseExecutionResultsMappings[currentTestCase.Id].Last().Duration.Ticks :
+                    new TimeSpan().Ticks;
             }
-            this.SelectedTestCasesExecutionTime = new TimeSpan(sumAvgTime).ToString(TimeSpanFormats.HourFormat); ;
+            this.SelectedTestCasesExecutionTime = new TimeSpan(sumTotalTime).ToString(TimeSpanFormats.HourFormat);
         }
 
         /// <summary>
@@ -149,12 +152,14 @@ namespace TestCaseManagerCore.ViewModels
         {
             StringBuilder sb = new StringBuilder();
             int count = 1;
-            foreach (TestCaseRunResult testCaseRunResult in testCaseRunResults)
+            testCaseRunResults.Reverse();
+            var lastTenRunResults = testCaseRunResults.Take(10);
+            foreach (TestCaseRunResult testCaseRunResult in lastTenRunResults)
             {
                 sb.AppendLine(string.Format("{0}. StartDate {1} | EndDate- {2} | Duration- {3} | RunBy- {4}",
                     count++,
                     testCaseRunResult.StartDate.ToShortDateString(),
-                    testCaseRunResult.EndDate.ToShortDateString(), 
+                    testCaseRunResult.EndDate.ToShortDateString(),
                     testCaseRunResult.Duration.ToString(TimeSpanFormats.HourFormat),
                     testCaseRunResult.RunBy));
             }
@@ -167,21 +172,21 @@ namespace TestCaseManagerCore.ViewModels
         /// </summary>
         /// <param name="testCaseRunResults">The test case run results.</param>
         /// <returns>average execution time</returns>
-        private TimeSpan CalculateAverage(List<TestCaseRunResult> testCaseRunResults)
-        {
-            TimeSpan result = default(TimeSpan);
-            long ticks = default(long);
-            foreach (TestCaseRunResult currentR in testCaseRunResults)
-            {
-                ticks += currentR.Duration.Ticks;
-            }
-            if (testCaseRunResults.Count > 0)
-            {
-                result = new TimeSpan(ticks / testCaseRunResults.Count);
-            }
+        ////private TimeSpan CalculateAverage(List<TestCaseRunResult> testCaseRunResults)
+        ////{
+        ////    TimeSpan result = default(TimeSpan);
+        ////    long ticks = default(long);
+        ////    foreach (TestCaseRunResult currentR in testCaseRunResults)
+        ////    {
+        ////        ticks += currentR.Duration.Ticks;
+        ////    }
+        ////    if (testCaseRunResults.Count > 0)
+        ////    {
+        ////        result = new TimeSpan(ticks / testCaseRunResults.Count);
+        ////    }
 
-            return result;
-        }
+        ////    return result;
+        ////}
      
     }
 }

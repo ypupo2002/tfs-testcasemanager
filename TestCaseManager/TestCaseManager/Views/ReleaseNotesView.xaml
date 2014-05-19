@@ -9,6 +9,13 @@
         <ScrollViewer>
             <StackPanel >
                 <TextBlock Text="Release Notes" FontSize="26" Height="Auto" Margin="0,0,0,15"/>
+                <mui:BBCodeBlock BBCode="[b]Version[/b]: 1.0.9.6     [b]Date[/b]: 19.05.2014" Margin="0,0,10,15"/>
+                <mui:BBCodeBlock BBCode="-Add Pause Run Execution" Margin="0,0,0,15" />
+                <mui:BBCodeBlock BBCode="-Add Continue Paused Execution" Margin="0,0,0,15" />
+                <mui:BBCodeBlock BBCode="-Change Statistics View show last execution time- only Pass results" Margin="0,0,0,15" />
+                <mui:BBCodeBlock BBCode="-Change Reset To Active to Stop Run Execution" Margin="0,0,0,15" />
+                <mui:BBCodeBlock BBCode="-Change Tooltip Statistics view to be sorted by start date and reversed" Margin="0,0,0,15" />
+                
                 <mui:BBCodeBlock BBCode="[b]Version[/b]: 1.0.9.5     [b]Date[/b]: 15.05.2014" Margin="0,0,10,15"/>
                 <mui:BBCodeBlock BBCode="-add statistics view" Margin="0,0,0,15" />
                 <mui:BBCodeBlock BBCode="-add calculation of run time pass, fail, reset" Margin="0,0,0,15" />
