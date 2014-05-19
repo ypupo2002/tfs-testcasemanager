@@ -22,6 +22,7 @@
                 <mui:BBCodeBlock BBCode="10. [url=http://aangelov.com/2014/04/22/export-manual-test-cases-ms-test-manager-html-test-case-manager/]Export Test Cases to HTML[/url]" Margin="0,0,0,15" />
                 <mui:BBCodeBlock BBCode="11. [url=http://aangelov.com/2014/05/05/migrate-tfs-test-cases-tfs-team-projects-tfs-servers-test-case-manager/]Migrate Test Cases[/url]" Margin="0,0,0,15" />
                 <mui:BBCodeBlock BBCode="12. [url=http://aangelov.com/2014/05/12/perform-advanced-search-queries-tfs-items-test-case-manager/]Advanced Search Queries[/url]" Margin="0,0,0,15" />
+                <mui:BBCodeBlock BBCode="12. [url=http://aangelov.com/2014/05/19/estimate-better-qa-effort-test-case-manager-run-time-execution-statistics/]Statistics View[/url]" Margin="0,0,0,15" />
             </StackPanel>
         </ScrollViewer>
     </Grid>

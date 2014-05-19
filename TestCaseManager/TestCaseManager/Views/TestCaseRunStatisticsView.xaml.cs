@@ -3,17 +3,13 @@
 // </copyright>
 // <author>Anton Angelov</author>
 
-using System;
+using AAngelov.Utilities.UI.Managers;
+using FirstFloor.ModernUI.Windows;
+using FirstFloor.ModernUI.Windows.Navigation;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Input;
-using AAngelov.Utilities.UI.Managers;
-using FirstFloor.ModernUI.Windows;
-using FirstFloor.ModernUI.Windows.Controls;
-using FirstFloor.ModernUI.Windows.Navigation;
-using TestCaseManagerCore;
 using TestCaseManagerCore.BusinessLogic.Entities;
 using TestCaseManagerCore.ViewModels;
 
@@ -163,6 +159,16 @@ namespace TestCaseManagerApp.Views
                 testCases.Add(currentTestCase);
             }
             return testCases;
+        }
+
+        /// <summary>
+        /// Handles the Click event of the btnInfo control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
+        private void btnInfo_Click(object sender, RoutedEventArgs e)
+        {
+            System.Diagnostics.Process.Start("http://aangelov.com/2014/05/19/estimate-better-qa-effort-test-case-manager-run-time-execution-statistics/");
         }
     }
 }
