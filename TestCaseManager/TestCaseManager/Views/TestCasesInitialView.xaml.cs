@@ -1636,5 +1636,15 @@ namespace TestCaseManagerApp.Views
             log.Info("Navigate to TestCaseRunStatisticsView.");
             Navigator.Instance.NavigateToTestCaseRunStatisticsView(this);
         }
+
+        private void btnShowSubsuites_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnCollapseAll_Click(object sender, RoutedEventArgs e)
+        {
+            this.TestCasesInitialViewModel.CollapseSuites(this.TestCasesInitialViewModel.Suites);
+        }
     }
 }

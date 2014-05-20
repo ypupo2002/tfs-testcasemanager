@@ -642,6 +642,25 @@ namespace TestCaseManagerCore.ViewModels
         }
 
         /// <summary>
+        /// Collapses the suites.
+        /// </summary>
+        /// <param name="suites">The suites.</param>
+        public void CollapseSuites(ICollection<Suite> suites)
+        {
+            foreach (Suite currentSuite in suites)
+            {
+                if (!currentSuite.Id.Equals(-1))
+                {
+                    currentSuite.IsNodeExpanded = false ;
+                }
+                if (currentSuite.SubSuites != null && currentSuite.SubSuites.Count > 0)
+                {
+                    this.CollapseSuites(currentSuite.SubSuites);
+                }
+            }
+        }
+
+        /// <summary>
         /// Pastes the suite to parent suite.
         /// </summary>
         /// <param name="parentSuite">The parent suite.</param>
