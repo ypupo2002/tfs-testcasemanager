@@ -107,6 +107,23 @@ namespace AAngelov.Utilities.Managers
         }
 
         /// <summary>
+        /// Reads the double.
+        /// </summary>
+        /// <param name="subKeys">The sub keys.</param>
+        /// <returns>the double value</returns>
+        protected double? ReadDouble(string subKeys)
+        {
+            object obj = this.Read(subKeys);
+            double? result = null;
+            if(obj != null)
+            {
+                result = double.Parse(obj.ToString());
+            }           
+
+            return result;
+        }
+
+        /// <summary>
         /// Reads the bool.
         /// </summary>
         /// <param name="subKeys">The sub keys.</param>

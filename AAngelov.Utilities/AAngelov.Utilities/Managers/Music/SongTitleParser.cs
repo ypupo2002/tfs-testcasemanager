@@ -28,6 +28,10 @@ namespace AAngelov.Utilities.Managers.Music
             {
                 currentSong = new KeyValuePair<string, string>(m.Groups["Artist"].ToString(), m.Groups["Name"].ToString());
             }
+            else
+            {
+                currentSong = new KeyValuePair<string, string>(text, string.Empty);
+            }
 
             return currentSong;
         }
