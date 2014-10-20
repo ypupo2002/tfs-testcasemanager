@@ -369,11 +369,25 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
         /// Saves the specified test case.
         /// </summary>
         /// <param name="sourceTestCase">The test case.</param>
+        /// <param name="testManagementTeamProject">The test management team project.</param>
+        /// <param name="testPlan">The test plan.</param>
         /// <param name="createNew">should be saved as new test case.</param>
-        /// <param name="newSuiteTitle">The new suite title.</param>
+        /// <param name="suiteId">The suite identifier.</param>
         /// <param name="testSteps">The test steps.</param>
-        /// <returns>the saved test case</returns>
-        public static TestCase Save(this TestCase sourceTestCase, ITestManagementTeamProject testManagementTeamProject, ITestPlan testPlan, bool createNew, int? suiteId, ICollection<TestStep> testSteps, bool shouldAssignArea = true)
+        /// <param name="shouldAssignArea">if set to <c>true</c> [should assign area].</param>
+        /// <param name="isMigration">if set to <c>true</c> [is migration].</param>
+        /// <returns>
+        /// the saved test case
+        /// </returns>
+        public static TestCase Save(
+            this TestCase sourceTestCase, 
+            ITestManagementTeamProject testManagementTeamProject, 
+            ITestPlan testPlan,
+            bool createNew, 
+            int? suiteId, 
+            ICollection<TestStep> testSteps, 
+            bool shouldAssignArea = true, 
+            bool isMigration = false)
         {
             TestCase currentTestCase = sourceTestCase;
             if (createNew)
@@ -385,11 +399,12 @@ namespace TestCaseManagerCore.BusinessLogic.Managers
             {
                 currentTestCase.ITestCase.Area = sourceTestCase.Area;
             }
+            currentTestCase.ITestCase.Description = sourceTestCase.ITestCase.Description;
             currentTestCase.ITestCase.Title = sourceTestCase.Title;
             currentTestCase.ITestCase.Priority = (int)sourceTestCase.Priority;
             currentTestCase.ITestCase.Actions.Clear();
             currentTestCase.ITestCase.Owner = testManagementTeamProject.TfsIdentityStore.FindByTeamFoundationId(sourceTestCase.TeamFoundationId);
-            if (sourceTestCase.ITestCase.Implementation != null)
+            if (sourceTestCase.ITestCase.Implementation != null && isMigration)
             {
                 currentTestCase.ITestCase.Implementation = sourceTestCase.ITestCase.Implementation;
             }

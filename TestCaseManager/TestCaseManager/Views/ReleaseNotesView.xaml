@@ -9,6 +9,12 @@
         <ScrollViewer>
             <StackPanel >
                 <TextBlock Text="Release Notes" FontSize="26" Height="Auto" Margin="0,0,0,15"/>
+                <mui:BBCodeBlock BBCode="[b]Version[/b]: 1.0.9.7     [b]Date[/b]: 20.10.2014" Margin="0,0,10,15"/>
+                <mui:BBCodeBlock BBCode="-Fix bug - duplicate not to copy test association" Margin="0,0,0,15" />
+                <mui:BBCodeBlock BBCode="-Test Case duplication now duplicates description" Margin="0,0,0,15" />
+                <mui:BBCodeBlock BBCode="-All migration buttons are now enabled" Margin="0,0,0,15" />
+                <mui:BBCodeBlock BBCode="-Add different versions of visual studios support builds" Margin="0,0,0,15" />
+                
                 <mui:BBCodeBlock BBCode="[b]Version[/b]: 1.0.9.6     [b]Date[/b]: 19.05.2014" Margin="0,0,10,15"/>
                 <mui:BBCodeBlock BBCode="-Add Pause Run Execution" Margin="0,0,0,15" />
                 <mui:BBCodeBlock BBCode="-Add Continue Paused Execution" Margin="0,0,0,15" />

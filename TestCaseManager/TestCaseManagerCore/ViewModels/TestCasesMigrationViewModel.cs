@@ -894,7 +894,7 @@ namespace TestCaseManagerCore.ViewModels
                     }
                     if (shouldCreateTestCase)
                     {
-                        TestCase newTestCase = currentSourceTestCase.Save(this.destinationTeamProject, this.destinationPreferences.TestPlan, true, null, currentSourceTestCaseTestSteps, false);
+                        TestCase newTestCase = currentSourceTestCase.Save(this.destinationTeamProject, this.destinationPreferences.TestPlan, true, null, currentSourceTestCaseTestSteps, false, isMigration: true);
                         this.testCasesMapping.Add(currentSourceTestCase.ITestCase.Id, newTestCase.ITestCase.Id);
                         this.testCasesMigrationLogManager.Log(currentSourceTestCase.ITestCase.Id, newTestCase.ITestCase.Id, true);
                         infoMessage = String.Format("Test Case Migrated SUCCESSFULLY: Source Id= {0}, Destination Id= {1}", currentSourceTestCase.ITestCase.Id, newTestCase.ITestCase.Id);

@@ -98,16 +98,16 @@
                         <Button Name="btnBrowseSuitesJsonPath" Content="Browse" Margin="25" Width="150" Height="30" Click="btnBrowseSuitesJsonPath_Click" />
                     </StackPanel>
                     <!--Migration Test Cases Controls-->
-                    <Button Content="Migrate Test Cases" Name="btnMigrateTestCases" Margin="25" Width="180" Height="30" Click="btnMigrateTestCases_Click" Grid.Row="3"  Grid.Column="0" IsEnabled="{Binding IsSharedStepsMigrationFinished}"/>
-                    <Button Content="Stop" Name="btnStopTestCasesMigration" Margin="25" Width="Auto" Height="30" Click="btnStopTestCasesMigration_Click" Grid.Row="3"  Grid.Column="1" IsEnabled="{Binding IsSharedStepsMigrationFinished}"/>
+                    <Button Content="Migrate Test Cases" Name="btnMigrateTestCases" Margin="25" Width="180" Height="30" Click="btnMigrateTestCases_Click" Grid.Row="3"  Grid.Column="0" IsEnabled="True"/>
+                    <Button Content="Stop" Name="btnStopTestCasesMigration" Margin="25" Width="Auto" Height="30" Click="btnStopTestCasesMigration_Click" Grid.Row="3"  Grid.Column="1" IsEnabled="True"/>
                     <StackPanel Orientation="Horizontal" Grid.Row="3"  Grid.Column="2">
                         <Label Content="Retry Json Path" FontWeight="Bold" FontSize="12" Margin="25" Height="30"/>
                         <TextBox Margin="25"  Name="tbTestCasesJsonPath" Height="30" Width="500" Text="{Binding MigrationTestCasesRetryJsonPath}"/>
                         <Button Name="btnBrowseTestCasesJsonPath" Content="Browse" Margin="25" Width="150" Height="30" Click="btnBrowseTestCasesJsonPath_Click" />
                     </StackPanel>
                     <!--Migration Add Test Cases To Suites Controls-->
-                    <Button Content="Add Test Cases to Suites" Name="btnAddTestCasesToSuites" Margin="25" Width="180" Height="30" Click="btnAddTestCasesToSuites_Click"  Grid.Row="4"  Grid.Column="0" IsEnabled="{Binding IsSuitesMigrationFinished}"/>
-                    <Button Content="Stop" Name="btnStopTestCasesToSuitesAddition" Margin="25" Width="Auto" Height="30" Click="btnStopTestCasesToSuitesAddition_Click"  Grid.Row="4"  Grid.Column="1" IsEnabled="{Binding IsSuitesMigrationFinished}"/>
+                    <Button Content="Add Test Cases to Suites" Name="btnAddTestCasesToSuites" Margin="25" Width="180" Height="30" Click="btnAddTestCasesToSuites_Click"  Grid.Row="4"  Grid.Column="0" IsEnabled="True"/>
+                    <Button Content="Stop" Name="btnStopTestCasesToSuitesAddition" Margin="25" Width="Auto" Height="30" Click="btnStopTestCasesToSuitesAddition_Click"  Grid.Row="4"  Grid.Column="1" IsEnabled="True"/>
                     <StackPanel Orientation="Horizontal" Grid.Row="4"  Grid.Column="2">
                         <Label Content="Retry Json Path" FontWeight="Bold" FontSize="12" Margin="25" />
                         <TextBox Margin="25"  Name="tbTestCasesToSuitesAdditionJsonPath" Height="30" Width="500" Text="{Binding MigrationAddTestCasesToSuitesRetryJsonPath}"/>

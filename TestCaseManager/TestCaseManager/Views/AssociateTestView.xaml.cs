@@ -233,5 +233,15 @@ namespace TestCaseManagerApp.Views
         {
             this.AssociateTestInternal();
         }
+
+        /// <summary>
+        /// Handles the Click event of the btnRemove control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
+        private void btnRemove_Click(object sender, RoutedEventArgs e)
+        {
+            this.AssociateTestViewModel.RemoveAssociation();
+        }
     }
 }

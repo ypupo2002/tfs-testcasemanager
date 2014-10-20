@@ -42,7 +42,7 @@ namespace TestCaseManagerCore.ViewModels
             this.InitializeInitialTestsCollection();
             this.TestTypes = new List<string>()
             {
-                "Small Integration Test", "Unit Test", "Large Integration Test", "UI Test"
+                "UI Test", "Small Integration Test", "Unit Test", "Large Integration Test"
             };
             this.TestTypes.Sort();
         }
@@ -143,6 +143,17 @@ namespace TestCaseManagerCore.ViewModels
         public void AssociateTestCaseToTest(Test test, string testType)
         {
             this.TestCase.ITestCase.SetAssociatedAutomation(ExecutionContext.TestManagementTeamProject, test, testType);
+            this.TestCase.ITestCase.Save();
+        }
+
+        /// <summary>
+        /// Removes the association.
+        /// </summary>
+        public void RemoveAssociation()
+        {
+            this.TestCase.ITestCase.Implementation = null;
+            this.TestCase.ITestCase.Flush();
+            this.TestCase.ITestCase.Refresh();
             this.TestCase.ITestCase.Save();
         }
 

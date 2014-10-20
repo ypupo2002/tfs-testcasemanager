@@ -44,14 +44,15 @@
 
             <StackPanel Orientation="Vertical" Grid.Row="3" Margin="0,30,0,30">
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
-                    <Button Name="btnAssociate" Margin="0,0,10,0" Height="30" Width="90" VerticalAlignment="Center" Click="btnAssociate_Click">
+                    <Button Name="btnAssociate" Margin="0,0,10,0" Height="30" Width="90" VerticalAlignment="Center" Click="btnAssociate_Click" IsDefault="True">
                         <Button.Content>
                             <TextBlock>
                                 <Underline>A</Underline>ssociate
                             </TextBlock>
                         </Button.Content>
                     </Button>
-
+                    <Button Name="btnRemove" Content="Remove" Height="30" Width="90"
+                    Click="btnRemove_Click"  IsDefault="False" Visibility="Hidden"/>
                 </StackPanel>
             </StackPanel>
         </Grid>
